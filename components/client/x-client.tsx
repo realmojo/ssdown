@@ -10,10 +10,12 @@ import {
   Repeat,
   Eye,
   Calendar,
+  AlertCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { XIcon } from "@/components/ui/icons";
 
 interface XClientProps {
@@ -51,59 +53,71 @@ export function XClient({ dict }: XClientProps) {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<TwitterResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleDownload = async () => {
-    if (!url) return;
+    if (!url.trim()) {
+      setError(dict?.common?.error_url || "Please enter a valid URL");
+      return;
+    }
+
     setLoading(true);
     setData(null);
+    setError(null);
 
-    // Mock API Call
-    setTimeout(() => {
-      const mockData: TwitterResponse = {
-        id: "1996749284876615682",
-        user: {
-          name: "Kathleen Winchell ❤️🤍💙🇺🇸🇺🇸",
-          screenName: "KathleenWinche3",
-          avatar:
-            "https://pbs.twimg.com/profile_images/1736600776930172929/f57UzfqX_normal.jpg",
-        },
-        content:
-          "I’m happy with the verdict! Are you ? https://t.co/x93jQIIFVD",
-        thumbnail:
-          "https://pbs.twimg.com/amplify_video_thumb/1996749218937978880/img/-2MzuY9OU5_IK7IB.jpg",
-        videoItems: [
-          {
-            url: "https://video.twimg.com/amplify_video/1996749218937978880/vid/avc1/320x568/We8tUgKzjdSrMi1S.mp4?tag=21",
-            content_type: "video/mp4",
-            bitrate: 632000,
-            quality: "360p",
-          },
-          {
-            url: "https://video.twimg.com/amplify_video/1996749218937978880/vid/avc1/480x852/hWeYYdJf1gjP9VF8.mp4?tag=21",
-            content_type: "video/mp4",
-            bitrate: 950000,
-            quality: "480p",
-          },
-          {
-            url: "https://video.twimg.com/amplify_video/1996749218937978880/vid/avc1/576x1024/55pCJ7mG6Zr3Hj3W.mp4?tag=21",
-            content_type: "video/mp4",
-            bitrate: 2176000,
-            quality: "480p",
-          },
-        ],
-        stats: {
-          favoriteCount: 82877,
-          shareCount: 7415,
-          replyCount: 9500,
-          quoteCount: 1125,
-          viewCount: 2340726,
-        },
-        createdAt: "Fri Dec 05 01:11:41 +0000 2025",
-      };
+    try {
+      const response = await fetch(`/api/x?url=${encodeURIComponent(url)}`);
+      const result = await response.json();
 
-      setData(mockData);
+      if (!response.ok || result.error) {
+        throw new Error(
+          result.message || result.error || "Failed to fetch video information"
+        );
+      }
+
+      // Check if videoItems exists and has items
+      if (!result.videoItems || result.videoItems.length === 0) {
+        throw new Error(
+          "No video found in this tweet. Make sure it contains a video."
+        );
+      }
+
+      setData(result);
+    } catch (err: any) {
+      console.error("Error fetching video:", err);
+      setError(
+        err?.message ||
+          "Failed to fetch video information. Please check the URL and try again."
+      );
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
+  };
+
+  const handleVideoDownload = async (videoUrl: string, quality: string) => {
+    try {
+      const response = await fetch(
+        `/api/x/download?videoUrl=${encodeURIComponent(videoUrl)}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to download video");
+      }
+
+      // Create blob and download
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.download = `x_video_${quality}.mp4`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(downloadUrl);
+    } catch (err: any) {
+      console.error("Error downloading video:", err);
+      alert(err?.message || "Failed to download video. Please try again.");
+    }
   };
 
   const formatNumber = (num: number) => {
@@ -141,10 +155,16 @@ export function XClient({ dict }: XClientProps) {
                     }
                     className="h-14 text-lg bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-800 focus:ring-blue-500 text-black dark:text-white"
                     value={url}
-                    onChange={(e) => setUrl(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") handleDownload();
+                    onChange={(e) => {
+                      setUrl(e.target.value);
+                      setError(null);
                     }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !loading) {
+                        handleDownload();
+                      }
+                    }}
+                    disabled={loading}
                   />
                 </div>
                 <Button
@@ -154,13 +174,25 @@ export function XClient({ dict }: XClientProps) {
                   disabled={loading}
                 >
                   {loading ? (
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      {dict?.common?.processing || "Processing..."}
+                    </>
                   ) : (
-                    <Download className="mr-2 h-5 w-5" />
+                    <>
+                      <Download className="mr-2 h-5 w-5" />
+                      {dict?.common?.download || "Download"}
+                    </>
                   )}
-                  {dict?.common?.download || "Download"}
                 </Button>
               </div>
+              {error && (
+                <Alert variant="destructive" className="mt-4">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertTitle>Error</AlertTitle>
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              )}
             </CardContent>
           </Card>
 
@@ -254,32 +286,32 @@ export function XClient({ dict }: XClientProps) {
                       </p>
                       <div className="grid gap-3">
                         {data.videoItems.map((video, index) => (
-                          <a
+                          <Button
                             key={index}
-                            href={video.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full"
+                            variant="outline"
+                            className="w-full h-12 justify-between px-6 bg-gray-50 hover:bg-blue-50 dark:bg-gray-800 dark:hover:bg-gray-700 border-gray-200 dark:border-gray-700 group transition-all"
+                            onClick={() =>
+                              handleVideoDownload(video.url, video.quality)
+                            }
                           >
-                            <Button
-                              variant="outline"
-                              className="w-full h-12 justify-between px-6 bg-gray-50 hover:bg-blue-50 dark:bg-gray-800 dark:hover:bg-gray-700 border-gray-200 dark:border-gray-700 group transition-all"
-                            >
-                              <div className="flex items-center gap-3">
-                                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                                <span className="font-semibold">
-                                  {video.quality}
-                                </span>
-                                <span className="text-xs text-muted-foreground hidden sm:inline-block">
-                                  ({(video.bitrate / 1000).toFixed(0)}kbps)
-                                </span>
-                              </div>
-                              <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform">
-                                <span className="font-medium">Download</span>
-                                <Download className="w-4 h-4" />
-                              </div>
-                            </Button>
-                          </a>
+                            <div className="flex items-center gap-3">
+                              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                              <span className="font-semibold">
+                                {video.quality}
+                              </span>
+                              <span className="text-xs text-muted-foreground hidden sm:inline-block">
+                                (
+                                {typeof video.bitrate === "number"
+                                  ? (video.bitrate / 1000).toFixed(0)
+                                  : "0"}
+                                kbps)
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform">
+                              <span className="font-medium">Download</span>
+                              <Download className="w-4 h-4" />
+                            </div>
+                          </Button>
                         ))}
                       </div>
                     </div>
