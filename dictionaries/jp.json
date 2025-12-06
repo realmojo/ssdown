@@ -1,0 +1,44 @@
+{
+  "common": {
+    "download": "ダウンロード",
+    "processing": "処理中...",
+    "error_url": "有効なURLを入力してください",
+    "paste_url": "ここにURLを貼り付け...",
+    "back_home": "ホームに戻る",
+    "copy_link": "リンクをコピー",
+    "save_video": "動画を保存",
+    "fast_downloads": "高速ダウンロード",
+    "high_quality": "高画質",
+    "easy_sharing": "簡単シェア"
+  },
+  "home": {
+    "title": "究極の動画ダウンローダー",
+    "subtitle": "お気に入りのプラットフォームから高品質の動画を簡単にダウンロード。高速、無料、安全。",
+    "twitter_btn": "X (Twitter)",
+    "tiktok_btn": "TikTok"
+  },
+  "x": {
+    "title": "X (Twitter) 動画ダウンローダー",
+    "subtitle": "X (Twitter) の動画やGIFをMP4形式で保存。高品質、無料、無制限。",
+    "placeholder": "ここにX (Twitter)のリンクを貼り付け...",
+    "desc_copy": "ダウンロードしたいツイートを見つけてリンクをコピーします。",
+    "desc_paste": "上の入力ボックスにリンクを貼り付けてダウンロードボタンを押します。",
+    "desc_save": "お好みの画質を選択してデバイスに保存します。"
+  },
+  "tiktok": {
+    "title": "TikTok 動画ダウンローダー",
+    "subtitle": "透かしなしでTikTok動画をダウンロード。MP4動画とMP3音声を即座に保存。",
+    "placeholder": "ここにTikTokのリンクを貼り付け...",
+    "no_watermark": "透かしなし",
+    "mp4_mp3": "MP4 & MP3",
+    "desc_watermark": "邪魔なTikTokの透かしオーバーレイなしでクリアな動画を取得。",
+    "desc_audio": "動画をダウンロードするか、音声トラックのみをMP3として保存するかを選択します。"
+  },
+  "nav": {
+    "home": "ホーム",
+    "twitter": "X (Twitter)",
+    "tiktok": "TikTok",
+    "privacy": "プライバシーポリシー",
+    "terms": "利用規約"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "common": {
+    "download": "Télécharger",
+    "processing": "Traitement...",
+    "error_url": "Veuillez entrer une URL valide",
+    "paste_url": "Collez l'URL ici...",
+    "back_home": "Retour à l'accueil",
+    "copy_link": "Copier le lien",
+    "save_video": "Enregistrer la vidéo",
+    "fast_downloads": "Téléchargements rapides",
+    "high_quality": "Haute qualité",
+    "easy_sharing": "Partage facile"
+  },
+  "home": {
+    "title": "Le Téléchargeur Vidéo Ultime",
+    "subtitle": "Téléchargez des vidéos de haute qualité depuis vos plateformes préférées sans effort. Rapide, gratuit et sécurisé.",
+    "twitter_btn": "X (Twitter)",
+    "tiktok_btn": "TikTok"
+  },
+  "x": {
+    "title": "Téléchargeur Vidéo X (Twitter)",
+    "subtitle": "Enregistrez des vidéos et GIF X (Twitter) au format MP4. Haute qualité, gratuit et illimité.",
+    "placeholder": "Collez le lien X (Twitter) ici...",
+    "desc_copy": "Trouvez le tweet que vous souhaitez télécharger et copiez son lien.",
+    "desc_paste": "Collez le lien dans la zone de saisie ci-dessus et appuyez sur télécharger.",
+    "desc_save": "Choisissez votre qualité préférée et enregistrez la vidéo sur votre appareil."
+  },
+  "tiktok": {
+    "title": "Téléchargeur Vidéo TikTok",
+    "subtitle": "Téléchargez des vidéos TikTok sans filigrane. Enregistrez instantanément des vidéos MP4 et de l'audio MP3.",
+    "placeholder": "Collez le lien TikTok ici...",
+    "no_watermark": "Pas de filigrane",
+    "mp4_mp3": "MP4 & MP3",
+    "desc_watermark": "Obtenez des vidéos claires sans le filigrane TikTok gênant.",
+    "desc_audio": "Choisissez de télécharger la vidéo ou simplement la piste audio en MP3."
+  },
+  "nav": {
+    "home": "Accueil",
+    "twitter": "X (Twitter)",
+    "tiktok": "TikTok",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation"
+  }
+}

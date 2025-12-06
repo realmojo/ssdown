@@ -1,0 +1,44 @@
+{
+  "common": {
+    "download": "Baixar",
+    "processing": "Processando...",
+    "error_url": "Por favor, insira um URL válido",
+    "paste_url": "Cole o URL aqui...",
+    "back_home": "Voltar ao Início",
+    "copy_link": "Copiar Link",
+    "save_video": "Salvar Vídeo",
+    "fast_downloads": "Downloads Rápidos",
+    "high_quality": "Alta Qualidade",
+    "easy_sharing": "Compartilhamento Fácil"
+  },
+  "home": {
+    "title": "O Baixador de Vídeo Definitivo",
+    "subtitle": "Baixe vídeos de alta qualidade de suas plataformas favoritas sem esforço. Rápido, gratuito e seguro.",
+    "twitter_btn": "X (Twitter)",
+    "tiktok_btn": "TikTok"
+  },
+  "x": {
+    "title": "Baixador de Vídeo X (Twitter)",
+    "subtitle": "Salve vídeos e GIFs do X (Twitter) em formato MP4. Alta qualidade, gratuito e ilimitado.",
+    "placeholder": "Cole o link do X (Twitter) aqui...",
+    "desc_copy": "Encontre o tweet que você deseja baixar e copie seu link.",
+    "desc_paste": "Cole o link na caixa de entrada acima e clique em baixar.",
+    "desc_save": "Escolha sua qualidade preferida e salve o vídeo no seu dispositivo."
+  },
+  "tiktok": {
+    "title": "Baixador de Vídeo TikTok",
+    "subtitle": "Baixe vídeos do TikTok sem marca d'água. Salve vídeos MP4 e áudio MP3 instantaneamente.",
+    "placeholder": "Cole o link do TikTok aqui...",
+    "no_watermark": "Sem Marca D'água",
+    "mp4_mp3": "MP4 e MP3",
+    "desc_watermark": "Obtenha vídeos limpos sem a sobreposição irritante da marca d'água do TikTok.",
+    "desc_audio": "Escolha baixar o vídeo ou apenas a faixa de áudio como MP3."
+  },
+  "nav": {
+    "home": "Início",
+    "twitter": "X (Twitter)",
+    "tiktok": "TikTok",
+    "privacy": "Política de Privacidade",
+    "terms": "Termos de Serviço"
+  }
+}

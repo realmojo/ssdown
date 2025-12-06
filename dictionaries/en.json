@@ -1,0 +1,44 @@
+{
+  "common": {
+    "download": "Download",
+    "processing": "Processing...",
+    "error_url": "Please enter a valid URL",
+    "paste_url": "Paste URL here...",
+    "back_home": "Back to Home",
+    "copy_link": "Copy Link",
+    "save_video": "Save Video",
+    "fast_downloads": "Fast Downloads",
+    "high_quality": "High Quality",
+    "easy_sharing": "Easy Sharing"
+  },
+  "home": {
+    "title": "The Ultimate Video Downloader",
+    "subtitle": "Download high-quality videos from your favorite platforms effortlessly. Fast, free, and secure.",
+    "twitter_btn": "X (Twitter)",
+    "tiktok_btn": "TikTok"
+  },
+  "x": {
+    "title": "X (Twitter) Video Downloader",
+    "subtitle": "Save X (Twitter) videos and GIFs in MP4 format. High quality, free, and unlimited.",
+    "placeholder": "Paste X (Twitter) link here...",
+    "desc_copy": "Find the tweet you want to download and copy its link.",
+    "desc_paste": "Paste the link into the input box above and hit download.",
+    "desc_save": "Choose your preferred quality and save the video to your device."
+  },
+  "tiktok": {
+    "title": "TikTok Video Downloader",
+    "subtitle": "Download TikTok videos without watermark. Save MP4 videos and MP3 audio instantly.",
+    "placeholder": "Paste TikTok link here...",
+    "no_watermark": "No Watermark",
+    "mp4_mp3": "MP4 & MP3",
+    "desc_watermark": "Get clear videos without the annoying TikTok watermark overlay.",
+    "desc_audio": "Choose to download the video or just the audio track as MP3."
+  },
+  "nav": {
+    "home": "Home",
+    "twitter": "X (Twitter)",
+    "tiktok": "TikTok",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  }
+}

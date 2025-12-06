@@ -1,0 +1,44 @@
+{
+  "common": {
+    "download": "다운로드",
+    "processing": "처리 중...",
+    "error_url": "유효한 URL을 입력해주세요",
+    "paste_url": "여기에 URL 붙여넣기...",
+    "back_home": "홈으로 돌아가기",
+    "copy_link": "링크 복사",
+    "save_video": "영상 저장",
+    "fast_downloads": "빠른 다운로드",
+    "high_quality": "고화질",
+    "easy_sharing": "간편한 공유"
+  },
+  "home": {
+    "title": "최고의 비디오 다운로더",
+    "subtitle": "좋아하는 플랫폼에서 고화질 영상을 손쉽게 다운로드하세요. 빠르고, 무료이며, 안전합니다.",
+    "twitter_btn": "X (Twitter)",
+    "tiktok_btn": "TikTok"
+  },
+  "x": {
+    "title": "X (Twitter) 영상 다운로더",
+    "subtitle": "X (Twitter) 영상과 GIF를 MP4 형식으로 저장하세요. 고화질, 무료, 무제한.",
+    "placeholder": "여기에 X (Twitter) 링크 붙여넣기...",
+    "desc_copy": "다운로드하고 싶은 트윗을 찾아 링크를 복사하세요.",
+    "desc_paste": "위의 입력창에 링크를 붙여넣고 다운로드를 누르세요.",
+    "desc_save": "원하는 화질을 선택하여 기기에 저장하세요."
+  },
+  "tiktok": {
+    "title": "TikTok 영상 다운로더",
+    "subtitle": "워터마크 없는 TikTok 영상을 다운로드하세요. MP4 영상과 MP3 오디오를 즉시 저장.",
+    "placeholder": "여기에 TikTok 링크 붙여넣기...",
+    "no_watermark": "워터마크 없음",
+    "mp4_mp3": "MP4 & MP3",
+    "desc_watermark": "거슬리는 TikTok 워터마크 없이 깨끗한 영상을 받으세요.",
+    "desc_audio": "영상을 다운로드하거나 오디오 트랙만 MP3로 저장할 수 있습니다."
+  },
+  "nav": {
+    "home": "홈",
+    "twitter": "X (Twitter)",
+    "tiktok": "TikTok",
+    "privacy": "개인정보 처리방침",
+    "terms": "이용약관"
+  }
+}
