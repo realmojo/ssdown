@@ -54,6 +54,7 @@ export function TikTokClient({ dict }: TikTokClientProps) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<TikTokResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [downloadingVideo, setDownloadingVideo] = useState<string | null>(null);
 
   const handleDownload = async () => {
     if (!url.trim()) {
@@ -97,6 +98,7 @@ export function TikTokClient({ dict }: TikTokClientProps) {
   };
 
   const handleVideoDownload = async (videoUrl: string, quality: string) => {
+    setDownloadingVideo(videoUrl);
     try {
       // Decode the URL first to handle the encoded format
       const decodedUrl = decodeURIComponent(videoUrl);
@@ -121,6 +123,8 @@ export function TikTokClient({ dict }: TikTokClientProps) {
     } catch (err: any) {
       console.error("Error downloading video:", err);
       alert(err?.message || "Failed to download video. Please try again.");
+    } finally {
+      setDownloadingVideo(null);
     }
   };
 
@@ -287,37 +291,50 @@ export function TikTokClient({ dict }: TikTokClientProps) {
                         Download Options
                       </p>
                       <div className="grid gap-3">
-                        {data.videoItems.map((video, index) => (
-                          <Button
-                            key={index}
-                            variant="outline"
-                            className="w-full h-12 justify-between px-6 bg-gray-50 hover:bg-pink-50 dark:bg-gray-800 dark:hover:bg-gray-700 border-gray-200 dark:border-gray-700 group transition-all"
-                            onClick={() =>
-                              handleVideoDownload(
-                                video.url,
-                                typeof video.bitrate === "string"
-                                  ? video.bitrate
-                                  : `${video.bitrate}p`
-                              )
-                            }
-                          >
-                            <div className="flex items-center gap-3">
-                              <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
-                              <span className="font-semibold">
-                                {typeof video.bitrate === "string"
-                                  ? video.bitrate
-                                  : `${video.bitrate}p`}
-                              </span>
-                              <span className="text-xs text-muted-foreground hidden sm:inline-block uppercase">
-                                {video.content_type}
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-2 text-pink-600 dark:text-pink-400 group-hover:translate-x-1 transition-transform">
-                              <span className="font-medium">Download</span>
-                              <Download className="w-4 h-4" />
-                            </div>
-                          </Button>
-                        ))}
+                        {data.videoItems.map((video, index) => {
+                          const isDownloading = downloadingVideo === video.url;
+                          const quality =
+                            typeof video.bitrate === "string"
+                              ? video.bitrate
+                              : `${video.bitrate}p`;
+                          return (
+                            <Button
+                              key={index}
+                              variant="outline"
+                              className="w-full h-12 justify-between px-6 bg-gray-50 hover:bg-pink-50 dark:bg-gray-800 dark:hover:bg-gray-700 border-gray-200 dark:border-gray-700 group transition-all"
+                              onClick={() =>
+                                handleVideoDownload(video.url, quality)
+                              }
+                              disabled={isDownloading}
+                            >
+                              <div className="flex items-center gap-3">
+                                <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
+                                <span className="font-semibold">{quality}</span>
+                                <span className="text-xs text-muted-foreground hidden sm:inline-block uppercase">
+                                  {video.content_type}
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-2 text-pink-600 dark:text-pink-400 group-hover:translate-x-1 transition-transform">
+                                {isDownloading ? (
+                                  <>
+                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                    <span className="font-medium">
+                                      {dict?.common?.downloading ||
+                                        "Downloading..."}
+                                    </span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <span className="font-medium">
+                                      Download
+                                    </span>
+                                    <Download className="w-4 h-4" />
+                                  </>
+                                )}
+                              </div>
+                            </Button>
+                          );
+                        })}
                       </div>
                     </div>
                   </div>

@@ -54,6 +54,7 @@ export function XClient({ dict }: XClientProps) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<TwitterResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [downloadingVideo, setDownloadingVideo] = useState<string | null>(null);
 
   const handleDownload = async () => {
     if (!url.trim()) {
@@ -95,6 +96,7 @@ export function XClient({ dict }: XClientProps) {
   };
 
   const handleVideoDownload = async (videoUrl: string, quality: string) => {
+    setDownloadingVideo(videoUrl);
     try {
       const response = await fetch(
         `/api/x/download?videoUrl=${encodeURIComponent(videoUrl)}`
@@ -117,6 +119,8 @@ export function XClient({ dict }: XClientProps) {
     } catch (err: any) {
       console.error("Error downloading video:", err);
       alert(err?.message || "Failed to download video. Please try again.");
+    } finally {
+      setDownloadingVideo(null);
     }
   };
 
@@ -285,34 +289,52 @@ export function XClient({ dict }: XClientProps) {
                         Download Options
                       </p>
                       <div className="grid gap-3">
-                        {data.videoItems.map((video, index) => (
-                          <Button
-                            key={index}
-                            variant="outline"
-                            className="w-full h-12 justify-between px-6 bg-gray-50 hover:bg-blue-50 dark:bg-gray-800 dark:hover:bg-gray-700 border-gray-200 dark:border-gray-700 group transition-all"
-                            onClick={() =>
-                              handleVideoDownload(video.url, video.quality)
-                            }
-                          >
-                            <div className="flex items-center gap-3">
-                              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                              <span className="font-semibold">
-                                {video.quality}
-                              </span>
-                              <span className="text-xs text-muted-foreground hidden sm:inline-block">
-                                (
-                                {typeof video.bitrate === "number"
-                                  ? (video.bitrate / 1000).toFixed(0)
-                                  : "0"}
-                                kbps)
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform">
-                              <span className="font-medium">Download</span>
-                              <Download className="w-4 h-4" />
-                            </div>
-                          </Button>
-                        ))}
+                        {data.videoItems.map((video, index) => {
+                          const isDownloading = downloadingVideo === video.url;
+                          return (
+                            <Button
+                              key={index}
+                              variant="outline"
+                              className="w-full h-12 justify-between px-6 bg-gray-50 hover:bg-blue-50 dark:bg-gray-800 dark:hover:bg-gray-700 border-gray-200 dark:border-gray-700 group transition-all"
+                              onClick={() =>
+                                handleVideoDownload(video.url, video.quality)
+                              }
+                              disabled={isDownloading}
+                            >
+                              <div className="flex items-center gap-3">
+                                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                                <span className="font-semibold">
+                                  {video.quality}
+                                </span>
+                                <span className="text-xs text-muted-foreground hidden sm:inline-block">
+                                  (
+                                  {typeof video.bitrate === "number"
+                                    ? (video.bitrate / 1000).toFixed(0)
+                                    : "0"}
+                                  kbps)
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform">
+                                {isDownloading ? (
+                                  <>
+                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                    <span className="font-medium">
+                                      {dict?.common?.downloading ||
+                                        "Downloading..."}
+                                    </span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <span className="font-medium">
+                                      Download
+                                    </span>
+                                    <Download className="w-4 h-4" />
+                                  </>
+                                )}
+                              </div>
+                            </Button>
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
