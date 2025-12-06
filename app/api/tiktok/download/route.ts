@@ -16,7 +16,8 @@ export async function GET(request: NextRequest) {
     let videoUrlParams: URL;
     try {
       videoUrlParams = new URL(decodedVideoUrl);
-    } catch (error) {
+    } catch (error: any) {
+      console.error("Error in GET /api/tiktok/download:", error);
       return NextResponse.json(
         { error: "Invalid videoUrl format" },
         { status: 400 }

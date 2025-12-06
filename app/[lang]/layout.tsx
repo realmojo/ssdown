@@ -32,6 +32,7 @@ export async function generateStaticParams() {
 }
 
 import { ThemeProvider } from "@/components/theme-provider";
+import Script from "next/script";
 
 // ... imports
 
@@ -45,8 +46,14 @@ export default async function RootLayout(props: {
   return (
     <html lang={params.lang} suppressHydrationWarning>
       <head>
-        <script type="text/javascript" src="//wcs.pstatic.net/wcslog.js" />
-        <script
+        <Script
+          id="naver-analytics-script"
+          type="text/javascript"
+          src="//wcs.pstatic.net/wcslog.js"
+          strategy="lazyOnload"
+        />
+        <Script
+          id="naver-analytics"
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: `
@@ -57,16 +64,22 @@ export default async function RootLayout(props: {
               }
             `,
           }}
+          strategy="lazyOnload"
         />
-        <script src="https://www.googletagmanager.com/gtag/js?id=G-742J9X4BM5" />
-        <script
+        <Script
+          id="google-analytics-tagmanager"
+          src="https://www.googletagmanager.com/gtag/js?id=G-4009JNVXBL"
+          strategy="lazyOnload"
+        />
+        <Script
           id="google-analytics"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-742J9X4BM5', {
+            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
               page_path: window.location.pathname,
             });
           `,
