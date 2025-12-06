@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const sitemapEntries: MetadataRoute.Sitemap = []
 
   routes.forEach((route) => {
-    // English (default)
+    // English (default) - Served at root URLs
     sitemapEntries.push({
       url: `${baseUrl}${route}`,
       lastModified: new Date(),
@@ -16,14 +16,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: route === '' ? 1 : 0.8,
     })
 
-    // Other languages
+    // Other languages - Served at /locale URLs
     i18n.locales.forEach((locale) => {
-      if (locale === 'en') return // English is handled as default root
+      if (locale === 'en') return // Skip English as it's handled at root
       sitemapEntries.push({
         url: `${baseUrl}/${locale}${route}`,
         lastModified: new Date(),
         changeFrequency: 'daily',
-        priority: route === '' ? 0.9 : 0.7, // Slightly lower priority for translated pages
+        priority: route === '' ? 0.9 : 0.7,
       })
     })
   })
