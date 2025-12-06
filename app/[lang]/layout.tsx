@@ -226,7 +226,7 @@ export default async function RootLayout(props: {
 
         {/* Google Analytics */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-4009JNVXBL"
+          src="https://www.googletagmanager.com/gtag/js?id=G-742J9X4BM5"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -234,7 +234,7 @@ export default async function RootLayout(props: {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-4009JNVXBL', {
+            gtag('config', 'G-742J9X4BM5', {
               page_path: window.location.pathname,
             });
           `}
