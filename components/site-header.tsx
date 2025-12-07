@@ -1,8 +1,18 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter, usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { LanguageSelector } from "@/components/language-selector"
 import { ModeToggle } from "@/components/mode-toggle"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 interface SiteHeaderProps {
   dict: any
@@ -10,10 +20,24 @@ interface SiteHeaderProps {
 }
 
 export function SiteHeader({ dict, lang }: SiteHeaderProps) {
+  const router = useRouter()
+  const pathname = usePathname()
+
   const getPath = (path: string) => {
     if (lang === 'en') return path
     return `/${lang}${path === '/' ? '' : path}`
   }
+
+  const handleNavChange = (value: string) => {
+    const path = value === 'home' ? '/' : `/${value}`
+    router.push(getPath(path))
+  }
+
+  // Determine current active page for Select value
+  let currentPage = 'home'
+  if (pathname?.endsWith('/x')) currentPage = 'x'
+  else if (pathname?.endsWith('/tiktok')) currentPage = 'tiktok'
+  else if (pathname?.endsWith('/instagram')) currentPage = 'instagram'
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
@@ -28,9 +52,11 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
             priority
             unoptimized
           />
-          <span className="bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">SSDown</span>
+          <span className="hidden md:inline bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">SSDown</span>
         </Link>
-        <nav className="flex items-center gap-4 text-sm font-medium">
+        
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-4 text-sm font-medium">
           <Link href={getPath("/")}>
             <Button variant="ghost" className="text-muted-foreground hover:text-primary">
               {dict?.home || "Home"}
@@ -46,7 +72,28 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
               {dict?.tiktok || "TikTok"}
             </Button>
           </Link>
+          <Link href={getPath("/instagram")}>
+            <Button variant="ghost" className="text-muted-foreground hover:text-primary">
+              {dict?.instagram?.nav || "Instagram"}
+            </Button>
+          </Link>
         </nav>
+
+        {/* Mobile Navigation */}
+        <div className="md:hidden flex-1 mr-4">
+            <Select value={currentPage} onValueChange={handleNavChange}>
+                <SelectTrigger className="w-full bg-transparent border-0 focus:ring-0 px-2 font-medium">
+                    <SelectValue placeholder="Menu" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="home">{dict?.home || "Home"}</SelectItem>
+                    <SelectItem value="x">{dict?.twitter || "X (Twitter)"}</SelectItem>
+                    <SelectItem value="tiktok">{dict?.tiktok || "TikTok"}</SelectItem>
+                    <SelectItem value="instagram">{dict?.instagram?.nav || "Instagram"}</SelectItem>
+                </SelectContent>
+            </Select>
+        </div>
+
         <div className="ml-auto flex items-center gap-2">
           <LanguageSelector currentLang={lang} />
           <ModeToggle />

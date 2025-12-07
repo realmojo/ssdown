@@ -7,8 +7,8 @@ import {
   Loader2,
   Heart,
   MessageCircle,
-  Repeat,
-  Eye,
+  Camera,
+  Layers,
   Calendar,
   AlertCircle,
 } from "lucide-react";
@@ -16,9 +16,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { XIcon } from "@/components/ui/icons";
 
-interface XClientProps {
+interface InstagramClientProps {
   dict: any;
 }
 
@@ -29,7 +28,7 @@ interface VideoItem {
   quality: string;
 }
 
-interface TwitterResponse {
+interface InstagramResponse {
   id: string;
   user: {
     name: string;
@@ -49,10 +48,10 @@ interface TwitterResponse {
   createdAt: string;
 }
 
-export function XClient({ dict }: XClientProps) {
+export function InstagramClient({ dict }: InstagramClientProps) {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<TwitterResponse | null>(null);
+  const [data, setData] = useState<InstagramResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [downloadingVideo, setDownloadingVideo] = useState<string | null>(null);
 
@@ -67,7 +66,9 @@ export function XClient({ dict }: XClientProps) {
     setError(null);
 
     try {
-      const response = await fetch(`/api/x?url=${encodeURIComponent(url)}`);
+      const response = await fetch(
+        `/api/instagram?url=${encodeURIComponent(url)}`
+      );
       const result = await response.json();
 
       if (!response.ok || result.error) {
@@ -79,7 +80,7 @@ export function XClient({ dict }: XClientProps) {
       // Check if videoItems exists and has items
       if (!result.videoItems || result.videoItems.length === 0) {
         throw new Error(
-          "No video found in this tweet. Make sure it contains a video."
+          "No video found in this Instagram reel. Make sure it contains a video."
         );
       }
 
@@ -99,7 +100,7 @@ export function XClient({ dict }: XClientProps) {
     setDownloadingVideo(videoUrl);
     try {
       const response = await fetch(
-        `/api/x/download?videoUrl=${encodeURIComponent(videoUrl)}`
+        `/api/instagram/download?videoUrl=${encodeURIComponent(videoUrl)}`
       );
 
       if (!response.ok) {
@@ -111,7 +112,7 @@ export function XClient({ dict }: XClientProps) {
       const downloadUrl = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = downloadUrl;
-      link.download = `x_video_${quality}.mp4`;
+      link.download = `instagram_video_${quality}.mp4`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -132,32 +133,33 @@ export function XClient({ dict }: XClientProps) {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-purple-50 to-white dark:from-gray-900 dark:to-gray-950">
       <div className="w-full px-4 md:px-6 py-12 lg:py-24">
         <div className="flex flex-col items-center text-center space-y-8 max-w-3xl mx-auto">
-          <div className="p-4 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-500 mb-4 animate-bounce-slow">
-            <XIcon className="h-12 w-12" />
+          <div className="p-4 rounded-full bg-gradient-to-tr from-yellow-400 via-orange-500 to-purple-600 text-white mb-4 animate-in fade-in zoom-in duration-500">
+            <Camera className="h-12 w-12" />
           </div>
 
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-700">
-            {dict?.x?.title || "X (Twitter) Video Downloader"}
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500">
+            {dict?.instagram?.title || "Instagram Video Downloader"}
           </h1>
 
           <p className="text-xl text-muted-foreground max-w-[600px]">
-            {dict?.x?.subtitle ||
-              "Save X (Twitter) videos and GIFs in MP4 format. High quality, free, and unlimited."}
+            {dict?.instagram?.subtitle ||
+              "Download Instagram Reels, Videos, and Photos instantly. High quality, no watermark."}
           </p>
 
-          <Card className="w-full shadow-xl border-blue-100 dark:border-blue-900/50 overflow-hidden">
-            <div className="h-2 bg-gradient-to-r from-blue-400 to-blue-600" />
+          <Card className="w-full shadow-xl border-purple-100 dark:border-purple-900/50 overflow-hidden">
+            <div className="h-2 bg-gradient-to-r from-yellow-400 via-orange-500 to-purple-600" />
             <CardContent className="p-6 sm:p-8">
               <div className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1">
                   <Input
                     placeholder={
-                      dict?.x?.placeholder || "Paste X (Twitter) link here..."
+                      dict?.instagram?.placeholder ||
+                      "Paste Instagram URL here..."
                     }
-                    className="h-14 text-lg bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-800 focus:ring-blue-500 text-black dark:text-white"
+                    className="h-14 text-lg bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-800 focus:ring-purple-500 text-black dark:text-white"
                     value={url}
                     onChange={(e) => {
                       setUrl(e.target.value);
@@ -173,7 +175,7 @@ export function XClient({ dict }: XClientProps) {
                 </div>
                 <Button
                   size="lg"
-                  className="h-14 text-lg bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/20 px-8 whitespace-nowrap"
+                  className="h-14 text-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg px-8 whitespace-nowrap transition-all"
                   onClick={handleDownload}
                   disabled={loading}
                 >
@@ -191,7 +193,7 @@ export function XClient({ dict }: XClientProps) {
                 </Button>
               </div>
               {error && (
-                <Alert variant="destructive" className="mt-4">
+                <Alert variant="destructive" className="mt-4 text-left">
                   <AlertCircle className="h-4 w-4" />
                   <AlertTitle>Error</AlertTitle>
                   <AlertDescription>{error}</AlertDescription>
@@ -201,19 +203,23 @@ export function XClient({ dict }: XClientProps) {
           </Card>
 
           {data && (
-            <Card className="w-full shadow-2xl border-blue-100 dark:border-blue-900/50 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <Card className="w-full shadow-2xl border-purple-100 dark:border-purple-900/50 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
               <div className="bg-white dark:bg-gray-900">
                 <div className="p-6 flex flex-col md:flex-row gap-6 items-start">
                   {/* Thumbnail */}
-                  <div className="w-full md:w-1/3 relative aspect-[9/16] md:aspect-auto md:h-64 rounded-xl overflow-hidden shadow-lg group">
+                  <div className="w-full md:w-1/3 relative aspect-[4/5] md:aspect-auto md:h-80 rounded-xl overflow-hidden shadow-lg group bg-black/5">
                     <Image
-                      src={data.thumbnail}
+                      src={`/api/instagram/image?url=${encodeURIComponent(
+                        data.thumbnail
+                      )}`}
                       alt="Video Thumbnail"
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      unoptimized // Since we are using external URL
+                      unoptimized
                     />
-                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+                    <div className="absolute top-2 right-2 p-1.5 bg-black/60 rounded-full text-white backdrop-blur-md">
+                      <Layers className="w-4 h-4" />
+                    </div>
                   </div>
 
                   {/* Content & Stats */}
@@ -221,17 +227,21 @@ export function XClient({ dict }: XClientProps) {
                     {/* User Info Header */}
                     <div className="flex items-center justify-between flex-wrap gap-2">
                       <div className="flex items-center gap-3">
-                        <div className="relative w-10 h-10 rounded-full overflow-hidden border border-gray-200 dark:border-gray-700 shrink-0">
-                          <Image
-                            src={data.user.avatar}
-                            alt={data.user.name}
-                            fill
-                            className="object-cover"
-                            unoptimized
-                          />
+                        <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-purple-100 dark:border-purple-900 shrink-0 p-0.5">
+                          <div className="relative w-full h-full rounded-full overflow-hidden">
+                            <Image
+                              src={`/api/instagram/image?url=${encodeURIComponent(
+                                data.user.avatar
+                              )}`}
+                              alt={data.user.name}
+                              fill
+                              className="object-cover"
+                              unoptimized
+                            />
+                          </div>
                         </div>
                         <div className="min-w-0">
-                          <p className="font-bold text-sm text-gray-900 dark:text-gray-100 truncate">
+                          <p className="font-bold text-base text-gray-900 dark:text-gray-100 truncate">
                             {data.user.name}
                           </p>
                           <p className="text-xs text-muted-foreground truncate">
@@ -248,20 +258,14 @@ export function XClient({ dict }: XClientProps) {
                     </div>
 
                     <div className="space-y-4">
-                      <p className="text-lg md:text-xl font-medium leading-relaxed dark:text-gray-100">
-                        {data.content.replace(/https:\/\/t\.co\/\w+/g, "")}
+                      <p className="text-sm md:text-base leading-relaxed dark:text-gray-100 line-clamp-3">
+                        {data.content}
                       </p>
 
                       {/* Stats Grid */}
                       <div className="grid grid-cols-3 sm:grid-cols-5 gap-4 py-4 border-y border-gray-100 dark:border-gray-800">
-                        <div className="flex flex-col items-center gap-1 text-muted-foreground">
-                          <Eye className="w-4 h-4" />
-                          <span className="text-xs font-medium">
-                            {formatNumber(data.stats.viewCount)}
-                          </span>
-                        </div>
                         <div className="flex flex-col items-center gap-1 text-pink-500">
-                          <Heart className="w-4 h-4" />
+                          <Heart className="w-4 h-4 fill-current" />
                           <span className="text-xs font-medium">
                             {formatNumber(data.stats.favoriteCount)}
                           </span>
@@ -273,11 +277,15 @@ export function XClient({ dict }: XClientProps) {
                           </span>
                         </div>
                         <div className="flex flex-col items-center gap-1 text-green-500">
-                          <Repeat className="w-4 h-4" />
+                          <Layers className="w-4 h-4" />
                           <span className="text-xs font-medium">
-                            {formatNumber(
-                              data.stats.shareCount + data.stats.quoteCount
-                            )}
+                            {formatNumber(data.stats.shareCount)}
+                          </span>
+                        </div>
+                        <div className="flex flex-col items-center gap-1 text-purple-500">
+                          <Calendar className="w-4 h-4" />
+                          <span className="text-xs font-medium">
+                            {formatNumber(data.stats.viewCount)}
                           </span>
                         </div>
                       </div>
@@ -295,26 +303,28 @@ export function XClient({ dict }: XClientProps) {
                             <Button
                               key={index}
                               variant="outline"
-                              className="w-full h-12 justify-between px-6 bg-gray-50 hover:bg-blue-50 dark:bg-gray-800 dark:hover:bg-gray-700 border-gray-200 dark:border-gray-700 group transition-all"
+                              className="w-full h-12 justify-between px-6 bg-gray-50 hover:bg-purple-50 dark:bg-gray-800 dark:hover:bg-gray-700 border-gray-200 dark:border-gray-700 group transition-all"
                               onClick={() =>
                                 handleVideoDownload(video.url, video.quality)
                               }
                               disabled={isDownloading}
                             >
                               <div className="flex items-center gap-3">
-                                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                                <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
                                 <span className="font-semibold">
                                   {video.quality}
                                 </span>
-                                <span className="text-xs text-muted-foreground hidden sm:inline-block">
-                                  (
-                                  {typeof video.bitrate === "number"
-                                    ? (video.bitrate / 1000).toFixed(0)
-                                    : "0"}
-                                  kbps)
-                                </span>
+                                {video.bitrate && (
+                                  <span className="text-xs text-muted-foreground hidden sm:inline-block">
+                                    (
+                                    {typeof video.bitrate === "number"
+                                      ? (video.bitrate / 1000).toFixed(0)
+                                      : "0"}
+                                    kbps)
+                                  </span>
+                                )}
                               </div>
-                              <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform">
+                              <div className="flex items-center gap-2 text-purple-600 dark:text-purple-400 group-hover:translate-x-1 transition-transform">
                                 {isDownloading ? (
                                   <>
                                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -344,30 +354,23 @@ export function XClient({ dict }: XClientProps) {
           )}
 
           {!data && (
-            <div className="grid gap-6 sm:grid-cols-3 w-full pt-12 text-left">
+            <div className="grid gap-6 sm:grid-cols-2 w-full pt-12 text-left">
               <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
                 <h3 className="font-semibold text-lg mb-2">
-                  {dict?.common?.copy_link || "Copy Link"}
+                  {dict?.instagram?.feature_1_title || "Reels & Videos"}
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  {dict?.x?.desc_copy ||
-                    "Find the tweet you want to download and copy its link."}
-                </p>
-              </div>
-              <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
-                <h3 className="font-semibold text-lg mb-2">Paste URL</h3>
-                <p className="text-muted-foreground text-sm">
-                  {dict?.x?.desc_paste ||
-                    "Paste the link into the input box above and hit download."}
+                  {dict?.instagram?.feature_1_desc ||
+                    "Download Instagram Reels and videos in high definition with sound."}
                 </p>
               </div>
               <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
                 <h3 className="font-semibold text-lg mb-2">
-                  {dict?.common?.save_video || "Save Video"}
+                  {dict?.instagram?.feature_2_title || "Photos & Stories"}
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  {dict?.x?.desc_save ||
-                    "Choose your preferred quality and save the video to your device."}
+                  {dict?.instagram?.feature_2_desc ||
+                    "Save photos and stories from any public Instagram account easily."}
                 </p>
               </div>
             </div>

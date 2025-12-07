@@ -4,7 +4,7 @@ import { i18n } from '@/lib/i18n-config'
 const baseUrl = 'https://ssdown.app'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ['', '/x', '/tiktok', '/privacy']
+  const routes = ['', '/x', '/tiktok', '/instagram', '/privacy']
   const sitemapEntries: MetadataRoute.Sitemap = []
 
   routes.forEach((route) => {
