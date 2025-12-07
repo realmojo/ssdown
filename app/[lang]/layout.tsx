@@ -171,6 +171,7 @@ export default async function RootLayout(props: {
             `,
           }}
         />
+        <meta name="google-adsense-account" content="ca-pub-9130836798889522" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
