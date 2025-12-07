@@ -131,9 +131,11 @@ export function VideoDownloaderClient({
 }: VideoDownloaderClientProps) {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<VideoResponse | null>(null);
+  const [data, setData] = useState<VideoResponse | VideoResponse[] | null>(
+    null
+  );
   const [error, setError] = useState<string | null>(null);
-  const [downloadingVideo, setDownloadingVideo] = useState<number | null>(null);
+  const [downloadingVideo, setDownloadingVideo] = useState<string | null>(null);
 
   const handleDownload = async () => {
     if (!url.trim()) {
@@ -157,11 +159,23 @@ export function VideoDownloaderClient({
         );
       }
 
-      if (!result.videoItems || result.videoItems.length === 0) {
-        throw new Error(noVideoError);
+      // 배열인지 객체인지 확인하고 처리
+      if (Array.isArray(result)) {
+        // 배열인 경우: 각 항목이 유효한지 확인
+        const validItems = result.filter(
+          (item) => item && item.videoItems && item.videoItems.length > 0
+        );
+        if (validItems.length === 0) {
+          throw new Error(noVideoError);
+        }
+        setData(validItems);
+      } else {
+        // 객체인 경우
+        if (!result.videoItems || result.videoItems.length === 0) {
+          throw new Error(noVideoError);
+        }
+        setData(result);
       }
-
-      setData(result);
     } catch (err: any) {
       console.error("Error fetching video:", err);
       setError(
@@ -176,9 +190,9 @@ export function VideoDownloaderClient({
   const handleVideoDownload = async (
     videoUrl: string,
     quality: string,
-    index: number
+    downloadKey: string
   ) => {
-    setDownloadingVideo(index);
+    setDownloadingVideo(downloadKey);
     try {
       const finalUrl = transformVideoUrl
         ? transformVideoUrl(videoUrl)
@@ -312,151 +326,176 @@ export function VideoDownloaderClient({
             </CardContent>
           </Card>
 
-          {data && (
-            <Card
-              className={`w-full shadow-2xl ${theme.cardBorder} overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-700`}
-            >
-              <div className="bg-white dark:bg-gray-900">
-                <div className="p-6 flex flex-col md:flex-row gap-6 items-start">
-                  {/* Thumbnail */}
-                  <div
-                    className={`w-full md:w-1/3 relative ${thumbnailAspect} md:aspect-auto ${thumbnailHeight} rounded-xl overflow-hidden shadow-lg group bg-black/5`}
-                  >
-                    <Image
-                      src={getThumbnailUrl(data.thumbnail)}
-                      alt="Video Thumbnail"
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      unoptimized
-                    />
-                  </div>
+          {data &&
+            (() => {
+              // 배열인지 객체인지 확인
+              const dataArray = Array.isArray(data) ? data : [data];
 
-                  {/* Content & Stats */}
-                  <div className="flex-1 w-full text-left space-y-6">
-                    {/* User Info Header */}
-                    <div className="flex items-center justify-between flex-wrap gap-2">
-                      <div className="flex items-center gap-3">
-                        <div className="relative w-10 h-10 rounded-full overflow-hidden border border-gray-200 dark:border-gray-700 shrink-0">
-                          <Image
-                            src={getAvatarUrl(data.user.avatar)}
-                            alt={data.user.name}
-                            fill
-                            className="object-cover"
-                            unoptimized
-                          />
-                        </div>
-                        <div className="min-w-0">
-                          <p className="font-bold text-sm text-gray-900 dark:text-gray-100 truncate">
-                            {data.user.name}
-                          </p>
-                          <p className="text-xs text-muted-foreground truncate">
-                            @{data.user.screenName}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1 text-xs text-muted-foreground bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md whitespace-nowrap">
-                        <Calendar className="w-3 h-3" />
-                        <span>
-                          {new Date(data.createdAt).toLocaleDateString()}
-                        </span>
-                      </div>
-                    </div>
+              return (
+                <div className="w-full space-y-6">
+                  {dataArray.map((item, itemIndex) => (
+                    <Card
+                      key={itemIndex}
+                      className={`w-full shadow-2xl ${theme.cardBorder} overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-700`}
+                    >
+                      <div className="bg-white dark:bg-gray-900">
+                        <div className="p-6 flex flex-col md:flex-row gap-6 items-start">
+                          {/* Thumbnail */}
+                          <div
+                            className={`w-full md:w-1/3 relative ${thumbnailAspect} md:aspect-auto ${thumbnailHeight} rounded-xl overflow-hidden shadow-lg group bg-black/5`}
+                          >
+                            <Image
+                              src={getThumbnailUrl(item.thumbnail)}
+                              alt="Video Thumbnail"
+                              fill
+                              className="object-cover transition-transform duration-500 group-hover:scale-105"
+                              unoptimized
+                            />
+                          </div>
 
-                    <div className="space-y-4">
-                      <p className="text-lg md:text-xl font-medium leading-relaxed dark:text-gray-100">
-                        {formatContent
-                          ? formatContent(data.content)
-                          : data.content}
-                      </p>
-
-                      {/* Stats Grid */}
-                      {statsConfig && statsConfig.length > 0 && (
-                        <div className="grid grid-cols-3 sm:grid-cols-5 gap-4 py-4 border-y border-gray-100 dark:border-gray-800">
-                          {statsConfig.map((stat, index) => {
-                            const StatIcon = stat.icon;
-                            const value = stat.getValue
-                              ? stat.getValue(data.stats)
-                              : data.stats[stat.key] || 0;
-                            return (
-                              <div
-                                key={index}
-                                className={`flex flex-col items-center gap-1 ${stat.color}`}
-                              >
-                                <StatIcon className="w-4 h-4" />
-                                <span className="text-xs font-medium">
-                                  {formatNumber(Number(value))}
+                          {/* Content & Stats */}
+                          <div className="flex-1 w-full text-left space-y-6">
+                            {/* User Info Header */}
+                            <div className="flex items-center justify-between flex-wrap gap-2">
+                              <div className="flex items-center gap-3">
+                                <div className="relative w-10 h-10 rounded-full overflow-hidden border border-gray-200 dark:border-gray-700 shrink-0">
+                                  <Image
+                                    src={getAvatarUrl(item.user.avatar)}
+                                    alt={item.user.name}
+                                    fill
+                                    className="object-cover"
+                                    unoptimized
+                                  />
+                                </div>
+                                <div className="min-w-0">
+                                  <p className="font-bold text-sm text-gray-900 dark:text-gray-100 truncate">
+                                    {item.user.name}
+                                  </p>
+                                  <p className="text-xs text-muted-foreground truncate">
+                                    @{item.user.screenName}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-1 text-xs text-muted-foreground bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md whitespace-nowrap">
+                                <Calendar className="w-3 h-3" />
+                                <span>
+                                  {new Date(
+                                    item.createdAt
+                                  ).toLocaleDateString()}
                                 </span>
                               </div>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
+                            </div>
 
-                    {/* Download Buttons */}
-                    <div className="space-y-3">
-                      <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                        Download Options
-                      </p>
-                      <div className="grid gap-3">
-                        {data.videoItems.map((video, index) => {
-                          const isDownloading = downloadingVideo === index;
-                          const quality = getQuality(video);
-                          return (
-                            <Button
-                              key={index}
-                              variant="outline"
-                              className={`w-full h-12 justify-between px-6 bg-gray-50 ${theme.downloadButtonHover} dark:bg-gray-800 dark:hover:bg-gray-700 border-gray-200 dark:border-gray-700 group transition-all`}
-                              onClick={() =>
-                                handleVideoDownload(video.url, quality, index)
-                              }
-                              disabled={isDownloading}
-                            >
-                              <div className="flex items-center gap-3">
-                                <span
-                                  className={`w-2 h-2 rounded-full ${theme.indicatorColor} animate-pulse`}
-                                />
-                                <span className="font-semibold">{quality}</span>
-                                {video.bitrate && (
-                                  <span className="text-xs text-muted-foreground hidden sm:inline-block">
-                                    (
-                                    {typeof video.bitrate === "number"
-                                      ? (video.bitrate / 1000).toFixed(0)
-                                      : "0"}
-                                    kbps)
-                                  </span>
+                            <div className="space-y-4">
+                              <p className="text-lg md:text-xl font-medium leading-relaxed dark:text-gray-100 line-clamp-3">
+                                {formatContent
+                                  ? formatContent(item.content)
+                                  : item.content}
+                              </p>
+
+                              {/* Stats Grid */}
+                              {statsConfig && statsConfig.length > 0 && (
+                                <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 py-4 border-y border-gray-100 dark:border-gray-800">
+                                  {statsConfig.map((stat, statIndex) => {
+                                    const StatIcon = stat.icon;
+                                    const value = stat.getValue
+                                      ? stat.getValue(item.stats)
+                                      : item.stats[stat.key] || 0;
+                                    return (
+                                      <div
+                                        key={statIndex}
+                                        className={`flex flex-col items-center gap-1 ${stat.color}`}
+                                      >
+                                        <StatIcon className="w-4 h-4" />
+                                        <span className="text-xs font-medium">
+                                          {formatNumber(Number(value))}
+                                        </span>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              )}
+                            </div>
+
+                            {/* Download Buttons */}
+                            <div className="space-y-3">
+                              <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                                Download Options
+                              </p>
+                              <div className="grid gap-3">
+                                {item.videoItems.map(
+                                  (video: VideoItem, videoIndex: number) => {
+                                    const downloadKey = `${itemIndex}-${videoIndex}`;
+                                    const isDownloading =
+                                      downloadingVideo === downloadKey;
+                                    const quality = getQuality(video);
+                                    return (
+                                      <Button
+                                        key={videoIndex}
+                                        variant="outline"
+                                        className={`w-full h-12 justify-between px-6 bg-gray-50 ${theme.downloadButtonHover} dark:bg-gray-800 dark:hover:bg-gray-700 border-gray-200 dark:border-gray-700 group transition-all`}
+                                        onClick={() =>
+                                          handleVideoDownload(
+                                            video.url,
+                                            quality,
+                                            downloadKey
+                                          )
+                                        }
+                                        disabled={isDownloading}
+                                      >
+                                        <div className="flex items-center gap-3">
+                                          <span
+                                            className={`w-2 h-2 rounded-full ${theme.indicatorColor} animate-pulse`}
+                                          />
+                                          <span className="font-semibold">
+                                            {quality}
+                                          </span>
+                                          {video.bitrate && (
+                                            <span className="text-xs text-muted-foreground hidden sm:inline-block">
+                                              (
+                                              {typeof video.bitrate === "number"
+                                                ? (
+                                                    video.bitrate / 1000
+                                                  ).toFixed(0)
+                                                : "0"}
+                                              kbps)
+                                            </span>
+                                          )}
+                                        </div>
+                                        <div
+                                          className={`flex items-center gap-2 ${theme.downloadButtonText} group-hover:translate-x-1 transition-transform`}
+                                        >
+                                          {isDownloading ? (
+                                            <>
+                                              <Loader2 className="w-4 h-4 animate-spin" />
+                                              <span className="font-medium">
+                                                {dict?.common?.downloading ||
+                                                  "Downloading..."}
+                                              </span>
+                                            </>
+                                          ) : (
+                                            <>
+                                              <span className="font-medium">
+                                                Download
+                                              </span>
+                                              <Download className="w-4 h-4" />
+                                            </>
+                                          )}
+                                        </div>
+                                      </Button>
+                                    );
+                                  }
                                 )}
                               </div>
-                              <div
-                                className={`flex items-center gap-2 ${theme.downloadButtonText} group-hover:translate-x-1 transition-transform`}
-                              >
-                                {isDownloading ? (
-                                  <>
-                                    <Loader2 className="w-4 h-4 animate-spin" />
-                                    <span className="font-medium">
-                                      {dict?.common?.downloading ||
-                                        "Downloading..."}
-                                    </span>
-                                  </>
-                                ) : (
-                                  <>
-                                    <span className="font-medium">
-                                      Download
-                                    </span>
-                                    <Download className="w-4 h-4" />
-                                  </>
-                                )}
-                              </div>
-                            </Button>
-                          );
-                        })}
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    </Card>
+                  ))}
                 </div>
-              </div>
-            </Card>
-          )}
+              );
+            })()}
 
           {!data && emptyState}
         </div>

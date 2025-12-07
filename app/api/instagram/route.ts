@@ -100,12 +100,15 @@ const getInstagramDetailInfo = async (reelId: string) => {
 
 /**
  * 객체 내에 video_versions 필드가 있는지 재귀적으로 확인하는 함수
+ * carousel_media 안에 여러 개의 video_versions가 있는 경우도 처리합니다.
  * @param obj 확인할 객체
- * @returns video_versions 필드가 있는 객체 또는 null
+ * @returns video_versions 필드가 있는 객체 배열
  */
-const findObjectWithVideoVersions = (obj: any): any | null => {
+const findObjectsWithVideoVersions = (obj: any): any[] => {
+  const results: any[] = [];
+
   if (!obj || typeof obj !== "object") {
-    return null;
+    return results;
   }
 
   // 현재 객체에 video_versions 필드가 있는지 확인
@@ -113,44 +116,88 @@ const findObjectWithVideoVersions = (obj: any): any | null => {
     obj.hasOwnProperty("video_versions") &&
     Array.isArray(obj.video_versions)
   ) {
-    return obj;
+    results.push(obj);
+  }
+
+  // carousel_media가 있는 경우 모든 항목을 수집하고 상위 객체의 정보를 병합
+  if (
+    obj.hasOwnProperty("carousel_media") &&
+    Array.isArray(obj.carousel_media)
+  ) {
+    for (const mediaItem of obj.carousel_media) {
+      if (
+        mediaItem &&
+        mediaItem.hasOwnProperty("video_versions") &&
+        Array.isArray(mediaItem.video_versions)
+      ) {
+        // 상위 객체의 정보를 병합
+        const mergedItem = {
+          ...mediaItem,
+          // 상위 객체의 user 정보가 있으면 사용
+          user: obj.user || mediaItem.user,
+          // 상위 객체의 통계 정보가 있으면 사용
+          like_count:
+            obj.like_count !== undefined
+              ? obj.like_count
+              : mediaItem.like_count,
+          shares_count:
+            obj.shares_count !== undefined
+              ? obj.shares_count
+              : mediaItem.shares_count,
+          comment_count:
+            obj.comment_count !== undefined
+              ? obj.comment_count
+              : mediaItem.comment_count,
+          quotes_count:
+            obj.quotes_count !== undefined
+              ? obj.quotes_count
+              : mediaItem.quotes_count,
+          view_count:
+            obj.view_count !== undefined
+              ? obj.view_count
+              : mediaItem.view_count,
+          // 상위 객체의 caption이 있으면 사용
+          caption: obj.caption || mediaItem.caption,
+          // 상위 객체의 image_versions2가 없으면 mediaItem의 것을 사용
+          // image_versions2: obj.image_versions2 || mediaItem.image_versions2,
+        };
+        results.push(mergedItem);
+      }
+    }
   }
 
   // 배열인 경우 각 요소를 재귀적으로 탐색
   if (Array.isArray(obj)) {
     for (const item of obj) {
-      const result = findObjectWithVideoVersions(item);
-      if (result) {
-        return result;
-      }
+      const nestedResults = findObjectsWithVideoVersions(item);
+      results.push(...nestedResults);
     }
   } else {
     // 객체인 경우 각 속성을 재귀적으로 탐색
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
-        const result = findObjectWithVideoVersions(obj[key]);
-        if (result) {
-          return result;
-        }
+        const nestedResults = findObjectsWithVideoVersions(obj[key]);
+        results.push(...nestedResults);
       }
     }
   }
 
-  return null;
+  return results;
 };
 
 /**
  * HTML에서 data-sjs 속성이 있는 스크립트 태그의 JSON 데이터를 추출하는 함수
  * video_versions 필드가 있는 객체만 추출합니다.
+ * carousel_media 안에 여러 개의 video_versions가 있는 경우도 처리합니다.
  * @param html HTML 문자열
- * @returns video_versions 필드가 있는 파싱된 JSON 객체 배열
+ * @returns video_versions 필드가 있는 파싱된 JSON 객체 (carousel_media가 있으면 첫 번째 항목 또는 메인 객체)
  */
 const extractScriptJson = (html: string): any => {
   try {
     // data-sjs 속성이 있는 script 태그 찾기
     const scriptRegex =
       /<script[^>]*type="application\/json"[^>]*data-sjs[^>]*>([\s\S]*?)<\/script>/g;
-    const results: any[] = [];
+    const allVideoObjects: any[] = [];
     let match;
 
     while ((match = scriptRegex.exec(html)) !== null) {
@@ -159,21 +206,18 @@ const extractScriptJson = (html: string): any => {
       try {
         const parsed = JSON.parse(jsonContent);
 
-        // video_versions 필드가 있는 객체 찾기
-        const objectWithVideoVersions = findObjectWithVideoVersions(parsed);
-
-        if (objectWithVideoVersions) {
-          results.push(objectWithVideoVersions);
-        }
+        // video_versions 필드가 있는 모든 객체 찾기 (carousel_media 포함)
+        const videoObjects = findObjectsWithVideoVersions(parsed);
+        allVideoObjects.push(...videoObjects);
       } catch (e) {
         console.error("Error parsing JSON:", e);
       }
     }
 
-    return results[0];
+    return allVideoObjects;
   } catch (error) {
     console.error("Error extracting script JSON:", error);
-    return [];
+    return null;
   }
 };
 
@@ -202,6 +246,12 @@ export async function GET(request: NextRequest) {
     // HTML에서 video_versions 필드가 있는 스크립트 태그의 JSON 추출
     const data = extractScriptJson(html);
 
+    // pk 값이 중복되는 경우 제거
+    const uniqueData = data.filter(
+      (item: any, index: number, self: any[]) =>
+        index === self.findIndex((t) => t.pk === item.pk)
+    );
+
     if (!data) {
       return NextResponse.json(
         { error: "no data", message: "Could not extract instagram data" },
@@ -213,51 +263,37 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(data, { status: 200 });
     }
 
-    const user = data?.user;
-    const userName = user?.username || "";
-    const userScreenName = user?.full_name || "";
-    const userAvatar =
-      user?.hd_profile_pic_url_info?.url || user?.profile_pic_url || "";
-    const content = data?.caption?.text ?? "";
-    const thumbnail = data?.image_versions2?.candidates?.[0]?.url ?? "";
-    const videoItems = data?.video_versions.map((item: any, index: number) => {
+    const results = uniqueData.map((item: any) => {
       return {
-        url: item.url,
-        content_type: item.content_type,
-        bitrate: item.bitrate,
-        quality: index === 0 ? "720p" : index === 1 ? "480p" : "360p",
+        user: {
+          name: item?.user?.full_name || "",
+          screenName: item?.user?.username || "",
+          avatar: item?.user?.profile_pic_url || "",
+        },
+        content: item?.caption?.text || "",
+        thumbnail: item?.image_versions2?.candidates[0]?.url || "",
+        videoItems: item?.video_versions?.map((video: any, index: number) => {
+          return {
+            url: video?.url || "",
+            content_type: video?.content_type || "",
+            bitrate: video?.bitrate || "",
+            quality: index === 0 ? "720p" : index === 1 ? "480p" : "360p",
+          };
+        }),
+        stats: {
+          favoriteCount: item?.like_count || 0,
+          shareCount: item?.shares_count || 0,
+          replyCount: item?.comment_count || 0,
+          quoteCount: item?.quotes_count || 0,
+          viewCount: item?.view_count || 0,
+        },
+        createdAt: item?.caption?.created_at
+          ? new Date(item?.caption?.created_at * 1000).toISOString()
+          : new Date().toISOString(),
       };
     });
-    const favoriteCount = data?.like_count || 0;
-    const shareCount = data?.shares_count || 0;
-    const replyCount = data?.comment_count || 0;
-    const quoteCount = data?.quotes_count || 0;
-    const viewCount = data?.view_count || 0;
-    const createdAt = data?.caption?.created_at
-      ? new Date(data.caption.created_at * 1000).toISOString()
-      : new Date().toISOString();
 
-    const result = {
-      id: reelId,
-      user: {
-        name: userName,
-        screenName: userScreenName,
-        avatar: userAvatar,
-      },
-      content,
-      thumbnail,
-      videoItems,
-      stats: {
-        favoriteCount,
-        shareCount,
-        replyCount,
-        quoteCount,
-        viewCount,
-      },
-      createdAt,
-    };
-
-    return NextResponse.json(result, { status: 200 });
+    return NextResponse.json(results, { status: 200 });
   } catch (e: any) {
     console.error("Error in GET /api/x:", e);
     return NextResponse.json(
