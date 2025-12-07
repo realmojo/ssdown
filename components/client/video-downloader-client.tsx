@@ -408,7 +408,9 @@ export function VideoDownloaderClient({
                                       >
                                         <StatIcon className="w-4 h-4" />
                                         <span className="text-xs font-medium">
-                                          {formatNumber(Number(value))}
+                                          {typeof value === "number"
+                                            ? formatNumber(value)
+                                            : value}
                                         </span>
                                       </div>
                                     );
@@ -466,17 +468,6 @@ export function VideoDownloaderClient({
                                           <span className="font-semibold">
                                             {quality}
                                           </span>
-                                          {video.bitrate && (
-                                            <span className="text-xs text-muted-foreground hidden sm:inline-block">
-                                              (
-                                              {typeof video.bitrate === "number"
-                                                ? (
-                                                    video.bitrate / 1000
-                                                  ).toFixed(0)
-                                                : "0"}
-                                              kbps)
-                                            </span>
-                                          )}
                                         </div>
                                         <div
                                           className={`flex items-center gap-2 ${theme.downloadButtonText} group-hover:translate-x-1 transition-transform`}

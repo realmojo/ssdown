@@ -78,11 +78,24 @@
     "feature_2_title": "Photos & Stories",
     "feature_2_desc": "Enregistrez facilement des photos et stories de n'importe quel compte Instagram public."
   },
+  "facebook": {
+    "title": "Téléchargeur Vidéo Facebook",
+    "subtitle": "Téléchargez facilement des vidéos Facebook. Haute qualité, gratuit et sécurisé.",
+    "placeholder": "Collez l'URL de la vidéo Facebook ici...",
+    "feature_1_title": "Vidéos HD",
+    "feature_1_desc": "Téléchargez des vidéos Facebook publiques en qualité 1080p, 2K et 4K.",
+    "feature_2_title": "Regarder Hors Ligne",
+    "feature_2_desc": "Enregistrez des vidéos sur votre appareil pour les regarder à tout moment, n'importe où sans Internet.",
+    "seo_title": "Téléchargeur Vidéo Facebook - Enregistrer Vidéos FB (HD/4K)",
+    "seo_description": "Meilleur téléchargeur de vidéos Facebook, enregistrez des vidéos FB en MP4. Supporte qualité HD, Full HD et 4K. Gratuit, rapide, sans connexion.",
+    "seo_keywords": "téléchargeur facebook, télécharger vidéo facebook, enregistrer vidéo fb, facebook mp4, fb saver"
+  },
   "nav": {
     "home": "Accueil",
     "twitter": "X (Twitter)",
     "tiktok": "TikTok",
     "instagram": "Instagram",
+    "facebook": "Facebook",
     "privacy": "Politique de confidentialité",
     "terms": "Conditions d'utilisation"
   }

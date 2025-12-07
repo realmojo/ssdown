@@ -78,11 +78,24 @@
     "feature_2_title": "写真 & ストーリー",
     "feature_2_desc": "公開Instagramアカウントの写真とストーリーを簡単に保存。"
   },
+  "facebook": {
+    "title": "Facebook 動画ダウンローダー",
+    "subtitle": "Facebookの動画を簡単にダウンロード。高品質、無料、安全。",
+    "placeholder": "ここにFacebook動画のURLを貼り付け...",
+    "feature_1_title": "HD高画質動画",
+    "feature_1_desc": "公開されているFacebook動画を1080p、2K、4K画質でダウンロード。",
+    "feature_2_title": "オフライン再生",
+    "feature_2_desc": "デバイスに保存して、インターネットなしでいつでもどこでも動画を視聴。",
+    "seo_title": "Facebook動画保存 - フェイスブック動画ダウンロード (HD/4K)",
+    "seo_description": "最高のFacebook動画ダウンローダー。フェイスブックの動画をMP4形式で高画質（HD、4K）保存。無料、高速、ログイン不要。",
+    "seo_keywords": "facebook動画保存, フェイスブック動画ダウンロード, fb保存, フェイスブック mp4, facebook video saver"
+  },
   "nav": {
     "home": "ホーム",
     "twitter": "X (Twitter)",
     "tiktok": "TikTok",
     "instagram": "Instagram",
+    "facebook": "Facebook",
     "privacy": "プライバシーポリシー",
     "terms": "利用規約"
   }

@@ -78,11 +78,24 @@
     "feature_2_title": "Photos & Stories",
     "feature_2_desc": "Save photos and stories from any public Instagram account easily."
   },
+  "facebook": {
+    "title": "Facebook Video Downloader",
+    "subtitle": "Download Facebook videos easily. High quality, free, and secure.",
+    "placeholder": "Paste Facebook video URL here...",
+    "feature_1_title": "HD Videos",
+    "feature_1_desc": "Download public Facebook videos in 1080p, 2K, and 4K quality.",
+    "feature_2_title": "Watch Offline",
+    "feature_2_desc": "Save videos to your device to watch them anytime, anywhere without internet.",
+    "seo_title": "Facebook Video Downloader - Download FB Videos Online (HD/4K)",
+    "seo_description": "Best Facebook Video Downloader to save FB videos in MP4 format. Support HD, Full HD, and 4K quality. Free, fast, and no login required.",
+    "seo_keywords": "facebook downloader, facebook video download, save fb video, facebook mp4, fb video saver"
+  },
   "nav": {
     "home": "Home",
     "twitter": "X (Twitter)",
     "tiktok": "TikTok",
     "instagram": "Instagram",
+    "facebook": "Facebook",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service"
   }

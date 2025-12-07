@@ -78,11 +78,24 @@
     "feature_2_title": "사진 & 스토리",
     "feature_2_desc": "공개 Instagram 계정의 사진과 스토리를 쉽게 저장하세요."
   },
+  "facebook": {
+    "title": "Facebook 영상 다운로더",
+    "subtitle": "Facebook 동영상을 쉽게 다운로드하세요. 고화질, 무료, 안전.",
+    "placeholder": "여기에 Facebook 동영상 URL 붙여넣기...",
+    "feature_1_title": "HD 고화질 영상",
+    "feature_1_desc": "공개된 Facebook 동영상을 1080p, 2K, 4K 화질로 다운로드하세요.",
+    "feature_2_title": "오프라인 감상",
+    "feature_2_desc": "기기에 저장하여 인터넷 없이 언제 어디서나 영상을 감상하세요.",
+    "seo_title": "페이스북 다운로더 - 페북 동영상 저장 및 다운로드 (HD/4K)",
+    "seo_description": "최고의 페이스북 동영상 다운로더. 페북 영상을 MP4로 고화질(HD, 4K) 저장하세요. 무료, 빠름, 로그인 불필요.",
+    "seo_keywords": "페이스북 다운로더, 페북 영상 저장, 페이스북 동영상 다운로드, 페북 mp4 변환, facebook video download"
+  },
   "nav": {
     "home": "홈",
     "twitter": "X (Twitter)",
     "tiktok": "TikTok",
     "instagram": "Instagram",
+    "facebook": "Facebook",
     "privacy": "개인정보 처리방침",
     "terms": "이용약관"
   }
