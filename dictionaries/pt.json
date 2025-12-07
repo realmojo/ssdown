@@ -34,10 +34,20 @@
     "desc_watermark": "Obtenha vídeos limpos sem a sobreposição irritante da marca d'água do TikTok.",
     "desc_audio": "Escolha baixar o vídeo ou apenas a faixa de áudio como MP3."
   },
+  "instagram": {
+    "title": "Baixador de Vídeo Instagram",
+    "subtitle": "Baixe Reels, Vídeos e Fotos do Instagram instantaneamente. Alta qualidade, sem marca d'água.",
+    "placeholder": "Cole o URL do Instagram aqui...",
+    "feature_1_title": "Reels & Vídeos",
+    "feature_1_desc": "Baixe Reels e vídeos do Instagram em alta definição com áudio.",
+    "feature_2_title": "Fotos & Stories",
+    "feature_2_desc": "Salve fotos e stories de qualquer conta pública do Instagram facilmente."
+  },
   "nav": {
     "home": "Início",
     "twitter": "X (Twitter)",
     "tiktok": "TikTok",
+    "instagram": "Instagram",
     "privacy": "Política de Privacidade",
     "terms": "Termos de Serviço"
   }

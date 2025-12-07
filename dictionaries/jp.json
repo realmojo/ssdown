@@ -34,10 +34,20 @@
     "desc_watermark": "邪魔なTikTokの透かしオーバーレイなしでクリアな動画を取得。",
     "desc_audio": "動画をダウンロードするか、音声トラックのみをMP3として保存するかを選択します。"
   },
+  "instagram": {
+    "title": "Instagram 動画ダウンローダー",
+    "subtitle": "Instagramのリール、動画、写真を即座にダウンロード。高品質、透かしなし。",
+    "placeholder": "ここにInstagramのURLを貼り付け...",
+    "feature_1_title": "リール & 動画",
+    "feature_1_desc": "音声付きの高解像度Instagramリールと動画をダウンロード。",
+    "feature_2_title": "写真 & ストーリー",
+    "feature_2_desc": "公開Instagramアカウントの写真とストーリーを簡単に保存。"
+  },
   "nav": {
     "home": "ホーム",
     "twitter": "X (Twitter)",
     "tiktok": "TikTok",
+    "instagram": "Instagram",
     "privacy": "プライバシーポリシー",
     "terms": "利用規約"
   }

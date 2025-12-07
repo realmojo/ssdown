@@ -34,10 +34,20 @@
     "desc_watermark": "거슬리는 TikTok 워터마크 없이 깨끗한 영상을 받으세요.",
     "desc_audio": "영상을 다운로드하거나 오디오 트랙만 MP3로 저장할 수 있습니다."
   },
+  "instagram": {
+    "title": "Instagram 영상 다운로더",
+    "subtitle": "Instagram 릴, 영상, 사진을 즉시 다운로드하세요. 고화질, 워터마크 없음.",
+    "placeholder": "여기에 Instagram URL 붙여넣기...",
+    "feature_1_title": "릴 & 영상",
+    "feature_1_desc": "사운드가 포함된 고화질 Instagram 릴과 영상을 다운로드하세요.",
+    "feature_2_title": "사진 & 스토리",
+    "feature_2_desc": "공개 Instagram 계정의 사진과 스토리를 쉽게 저장하세요."
+  },
   "nav": {
     "home": "홈",
     "twitter": "X (Twitter)",
     "tiktok": "TikTok",
+    "instagram": "Instagram",
     "privacy": "개인정보 처리방침",
     "terms": "이용약관"
   }

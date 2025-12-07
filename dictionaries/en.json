@@ -34,10 +34,20 @@
     "desc_watermark": "Get clear videos without the annoying TikTok watermark overlay.",
     "desc_audio": "Choose to download the video or just the audio track as MP3."
   },
+  "instagram": {
+    "title": "Instagram Video Downloader",
+    "subtitle": "Download Instagram Reels, Videos, and Photos instantly. High quality, no watermark.",
+    "placeholder": "Paste Instagram URL here...",
+    "feature_1_title": "Reels & Videos",
+    "feature_1_desc": "Download Instagram Reels and videos in high definition with sound.",
+    "feature_2_title": "Photos & Stories",
+    "feature_2_desc": "Save photos and stories from any public Instagram account easily."
+  },
   "nav": {
     "home": "Home",
     "twitter": "X (Twitter)",
     "tiktok": "TikTok",
+    "instagram": "Instagram",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service"
   }

@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
 import { i18n } from "@/lib/i18n-config";
 
 export async function generateStaticParams() {
@@ -16,51 +15,80 @@ export default function PrivacyPage() {
           <CardHeader>
             <CardTitle>1. Information We Collect</CardTitle>
           </CardHeader>
-          <CardContent className="text-muted-foreground">
+          <CardContent className="text-muted-foreground space-y-4">
             <p>
-              We do not collect any personal information. We only process the
-              URLs you submit to provide the download service. These URLs are
-              processed temporarily and are not stored permanently on our
-              servers.
+              <strong>Personal Information:</strong> We do not collect any personally identifiable information (PII) such as your name, email address, or phone number.
+            </p>
+            <p>
+              <strong>Usage Data:</strong> We may collect non-personal information about how you access and use the Service. This usage data may include information such as your computer's Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that you visit, the time and date of your visit, the time spent on those pages, unique device identifiers and other diagnostic data.
+            </p>
+            <p>
+              <strong>Submitted Content:</strong> We process the URLs you submit to provide the video download service. These URLs and the associated video content are processed temporarily for the purpose of generating download links and are not permanently stored on our servers.
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>2. Cookies</CardTitle>
+            <CardTitle>2. Cookies and Analytics</CardTitle>
           </CardHeader>
-          <CardContent className="text-muted-foreground">
+          <CardContent className="text-muted-foreground space-y-4">
             <p>
-              We use essential cookies to ensure the website functions properly.
-              We may use third-party analytics tools to understand how our
-              website is used website usage, but this data is anonymized.
+              We use cookies and similar tracking technologies to track the activity on our Service and hold certain information.
+            </p>
+            <p>
+              <strong>Google Analytics & Naver Analytics:</strong> We use these third-party web analytics services to measure and analyze the usage of our website. These tools collect information such as how often users visit this site, what pages they visit when they do so, and what other sites they used prior to coming to this site. We use the information we get from these tools only to improve this site.
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>3. Third-Party Links</CardTitle>
+            <CardTitle>3. Use of Data</CardTitle>
           </CardHeader>
           <CardContent className="text-muted-foreground">
             <p>
-              Our website may contain links to external sites (like X (Twitter)
-              or TikTok). We are not responsible for the privacy practices or
-              content of these external sites.
+              SSDown uses the collected data for various purposes:
+            </p>
+            <ul className="list-disc list-inside mt-2 ml-2 space-y-1">
+              <li>To provide and maintain the Service</li>
+              <li>To provide customer care and support</li>
+              <li>To provide analysis or valuable information so that we can improve the Service</li>
+              <li>To monitor the usage of the Service</li>
+              <li>To detect, prevent and address technical issues</li>
+            </ul>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>4. Third-Party Links and Services</CardTitle>
+          </CardHeader>
+          <CardContent className="text-muted-foreground">
+            <p>
+              Our Service may contain links to other sites that are not operated by us (e.g., X/Twitter, TikTok, Instagram). If you click on a third party link, you will be directed to that third party's site. We strongly advise you to review the Privacy Policy of every site you visit. We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>4. Terms of Service</CardTitle>
+            <CardTitle>5. Data Security</CardTitle>
           </CardHeader>
           <CardContent className="text-muted-foreground">
             <p>
-              By using our service, you agree not to download copyrighted
-              material without permission. This tool is intended for personal
-              use only.
+              The security of your data is important to us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your data, we cannot guarantee its absolute security.
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>6. Changes to This Privacy Policy</CardTitle>
+          </CardHeader>
+          <CardContent className="text-muted-foreground">
+            <p>
+              We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes.
             </p>
           </CardContent>
         </Card>

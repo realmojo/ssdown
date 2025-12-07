@@ -1,0 +1,466 @@
+"use client";
+
+import { useState, ReactNode } from "react";
+import Image from "next/image";
+import {
+  Download,
+  Loader2,
+  Calendar,
+  AlertCircle,
+  LucideIcon,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
+export interface VideoItem {
+  url: string;
+  content_type: string;
+  bitrate?: number | string;
+  quality: string;
+}
+
+export interface VideoResponse {
+  id: string;
+  user: {
+    name: string;
+    screenName: string;
+    avatar: string;
+  };
+  content: string;
+  thumbnail: string;
+  videoItems: VideoItem[];
+  stats: {
+    favoriteCount?: number;
+    shareCount?: number;
+    replyCount?: number;
+    quoteCount?: number;
+    viewCount?: number;
+    [key: string]: number | undefined;
+  };
+  createdAt: string;
+}
+
+export interface ThemeConfig {
+  // Background gradients
+  bgFrom: string;
+  bgTo: string;
+
+  // Icon background
+  iconBg: string;
+  iconColor: string;
+
+  // Title gradient
+  titleFrom: string;
+  titleVia?: string;
+  titleTo: string;
+
+  // Card border
+  cardBorder: string;
+
+  // Top bar gradient
+  topBarGradient: string;
+
+  // Button styles
+  buttonGradient?: string;
+  buttonSolid?: string;
+  buttonHover?: string;
+
+  // Input focus
+  inputFocus: string;
+
+  // Download button hover
+  downloadButtonHover: string;
+  downloadButtonText: string;
+
+  // Indicator dot
+  indicatorColor: string;
+}
+
+export interface StatsConfig {
+  icon: LucideIcon;
+  color: string;
+  key: string;
+  label?: string;
+  getValue?: (stats: VideoResponse["stats"]) => number;
+}
+
+export interface VideoDownloaderClientProps {
+  dict: any;
+  theme: ThemeConfig;
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  subtitle: string;
+  placeholder: string;
+  apiEndpoint: string;
+  downloadEndpoint: string;
+  noVideoError: string;
+  formatQuality?: (bitrate: string | number) => string;
+  formatContent?: (content: string) => string;
+  statsConfig?: StatsConfig[];
+  thumbnailAspect?: string;
+  thumbnailHeight?: string;
+  thumbnailImageProxy?: (url: string) => string;
+  avatarImageProxy?: (url: string) => string;
+  emptyState?: ReactNode;
+  downloadFileName?: (quality: string) => string;
+  transformVideoUrl?: (url: string) => string;
+}
+
+export function VideoDownloaderClient({
+  dict,
+  theme,
+  icon: Icon,
+  title,
+  subtitle,
+  placeholder,
+  apiEndpoint,
+  downloadEndpoint,
+  noVideoError,
+  formatQuality,
+  formatContent,
+  statsConfig,
+  thumbnailAspect = "aspect-[9/16]",
+  thumbnailHeight = "md:h-64",
+  thumbnailImageProxy,
+  avatarImageProxy,
+  emptyState,
+  downloadFileName,
+  transformVideoUrl,
+}: VideoDownloaderClientProps) {
+  const [url, setUrl] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<VideoResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [downloadingVideo, setDownloadingVideo] = useState<number | null>(null);
+
+  const handleDownload = async () => {
+    if (!url.trim()) {
+      setError(dict?.common?.error_url || "Please enter a valid URL");
+      return;
+    }
+
+    setLoading(true);
+    setData(null);
+    setError(null);
+
+    try {
+      const response = await fetch(
+        `${apiEndpoint}?url=${encodeURIComponent(url)}`
+      );
+      const result = await response.json();
+
+      if (!response.ok || result.error) {
+        throw new Error(
+          result.message || result.error || "Failed to fetch video information"
+        );
+      }
+
+      if (!result.videoItems || result.videoItems.length === 0) {
+        throw new Error(noVideoError);
+      }
+
+      setData(result);
+    } catch (err: any) {
+      console.error("Error fetching video:", err);
+      setError(
+        err?.message ||
+          "Failed to fetch video information. Please check the URL and try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVideoDownload = async (
+    videoUrl: string,
+    quality: string,
+    index: number
+  ) => {
+    setDownloadingVideo(index);
+    try {
+      const finalUrl = transformVideoUrl
+        ? transformVideoUrl(videoUrl)
+        : videoUrl;
+      const response = await fetch(
+        `${downloadEndpoint}?videoUrl=${encodeURIComponent(finalUrl)}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to download video");
+      }
+
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.download = downloadFileName
+        ? downloadFileName(quality)
+        : `video_${quality}.mp4`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(downloadUrl);
+    } catch (err: any) {
+      console.error("Error downloading video:", err);
+      alert(err?.message || "Failed to download video. Please try again.");
+    } finally {
+      setDownloadingVideo(null);
+    }
+  };
+
+  const formatNumber = (num: number) => {
+    return new Intl.NumberFormat("en-US", {
+      notation: "compact",
+      maximumFractionDigits: 1,
+    }).format(num);
+  };
+
+  const getThumbnailUrl = (url: string) => {
+    return thumbnailImageProxy ? thumbnailImageProxy(url) : url;
+  };
+
+  const getAvatarUrl = (url: string) => {
+    return avatarImageProxy ? avatarImageProxy(url) : url;
+  };
+
+  const getQuality = (video: VideoItem) => {
+    if (formatQuality && video.bitrate) {
+      return formatQuality(video.bitrate);
+    }
+    return video.quality;
+  };
+
+  return (
+    <div
+      className={`min-h-[calc(100vh-4rem)] bg-gradient-to-b ${theme.bgFrom} ${theme.bgTo}`}
+    >
+      <div className="w-full px-4 md:px-6 py-12 lg:py-24">
+        <div className="flex flex-col items-center text-center space-y-8 max-w-3xl mx-auto">
+          <div
+            className={`p-4 rounded-full ${theme.iconBg} ${theme.iconColor} mb-4 animate-in fade-in zoom-in duration-500`}
+          >
+            <Icon className="h-12 w-12" />
+          </div>
+
+          <h1
+            className={`text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-r ${
+              theme.titleFrom
+            } ${theme.titleVia || ""} ${theme.titleTo}`}
+          >
+            {title}
+          </h1>
+
+          <p className="text-xl text-muted-foreground max-w-[600px]">
+            {subtitle}
+          </p>
+
+          <Card
+            className={`w-full shadow-xl ${theme.cardBorder} overflow-hidden`}
+          >
+            <div className={`h-2 ${theme.topBarGradient}`} />
+            <CardContent className="p-6 sm:p-8">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="relative flex-1">
+                  <Input
+                    placeholder={placeholder}
+                    className={`h-14 text-lg bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-800 ${theme.inputFocus} text-black dark:text-white`}
+                    value={url}
+                    onChange={(e) => {
+                      setUrl(e.target.value);
+                      setError(null);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !loading) {
+                        handleDownload();
+                      }
+                    }}
+                    disabled={loading}
+                  />
+                </div>
+                <Button
+                  size="lg"
+                  className={`h-14 text-lg ${
+                    theme.buttonGradient || theme.buttonSolid
+                  } ${
+                    theme.buttonHover || ""
+                  } text-white shadow-lg px-8 whitespace-nowrap transition-all`}
+                  onClick={handleDownload}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      {dict?.common?.processing || "Processing..."}
+                    </>
+                  ) : (
+                    <>
+                      <Download className="mr-2 h-5 w-5" />
+                      {dict?.common?.download || "Download"}
+                    </>
+                  )}
+                </Button>
+              </div>
+              {error && (
+                <Alert variant="destructive" className="mt-4 text-left">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertTitle>Error</AlertTitle>
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              )}
+            </CardContent>
+          </Card>
+
+          {data && (
+            <Card
+              className={`w-full shadow-2xl ${theme.cardBorder} overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-700`}
+            >
+              <div className="bg-white dark:bg-gray-900">
+                <div className="p-6 flex flex-col md:flex-row gap-6 items-start">
+                  {/* Thumbnail */}
+                  <div
+                    className={`w-full md:w-1/3 relative ${thumbnailAspect} md:aspect-auto ${thumbnailHeight} rounded-xl overflow-hidden shadow-lg group bg-black/5`}
+                  >
+                    <Image
+                      src={getThumbnailUrl(data.thumbnail)}
+                      alt="Video Thumbnail"
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      unoptimized
+                    />
+                  </div>
+
+                  {/* Content & Stats */}
+                  <div className="flex-1 w-full text-left space-y-6">
+                    {/* User Info Header */}
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <div className="flex items-center gap-3">
+                        <div className="relative w-10 h-10 rounded-full overflow-hidden border border-gray-200 dark:border-gray-700 shrink-0">
+                          <Image
+                            src={getAvatarUrl(data.user.avatar)}
+                            alt={data.user.name}
+                            fill
+                            className="object-cover"
+                            unoptimized
+                          />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="font-bold text-sm text-gray-900 dark:text-gray-100 truncate">
+                            {data.user.name}
+                          </p>
+                          <p className="text-xs text-muted-foreground truncate">
+                            @{data.user.screenName}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md whitespace-nowrap">
+                        <Calendar className="w-3 h-3" />
+                        <span>
+                          {new Date(data.createdAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <p className="text-lg md:text-xl font-medium leading-relaxed dark:text-gray-100">
+                        {formatContent
+                          ? formatContent(data.content)
+                          : data.content}
+                      </p>
+
+                      {/* Stats Grid */}
+                      {statsConfig && statsConfig.length > 0 && (
+                        <div className="grid grid-cols-3 sm:grid-cols-5 gap-4 py-4 border-y border-gray-100 dark:border-gray-800">
+                          {statsConfig.map((stat, index) => {
+                            const StatIcon = stat.icon;
+                            const value = stat.getValue
+                              ? stat.getValue(data.stats)
+                              : data.stats[stat.key] || 0;
+                            return (
+                              <div
+                                key={index}
+                                className={`flex flex-col items-center gap-1 ${stat.color}`}
+                              >
+                                <StatIcon className="w-4 h-4" />
+                                <span className="text-xs font-medium">
+                                  {formatNumber(Number(value))}
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Download Buttons */}
+                    <div className="space-y-3">
+                      <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                        Download Options
+                      </p>
+                      <div className="grid gap-3">
+                        {data.videoItems.map((video, index) => {
+                          const isDownloading = downloadingVideo === index;
+                          const quality = getQuality(video);
+                          return (
+                            <Button
+                              key={index}
+                              variant="outline"
+                              className={`w-full h-12 justify-between px-6 bg-gray-50 ${theme.downloadButtonHover} dark:bg-gray-800 dark:hover:bg-gray-700 border-gray-200 dark:border-gray-700 group transition-all`}
+                              onClick={() =>
+                                handleVideoDownload(video.url, quality, index)
+                              }
+                              disabled={isDownloading}
+                            >
+                              <div className="flex items-center gap-3">
+                                <span
+                                  className={`w-2 h-2 rounded-full ${theme.indicatorColor} animate-pulse`}
+                                />
+                                <span className="font-semibold">{quality}</span>
+                                {video.bitrate && (
+                                  <span className="text-xs text-muted-foreground hidden sm:inline-block">
+                                    (
+                                    {typeof video.bitrate === "number"
+                                      ? (video.bitrate / 1000).toFixed(0)
+                                      : "0"}
+                                    kbps)
+                                  </span>
+                                )}
+                              </div>
+                              <div
+                                className={`flex items-center gap-2 ${theme.downloadButtonText} group-hover:translate-x-1 transition-transform`}
+                              >
+                                {isDownloading ? (
+                                  <>
+                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                    <span className="font-medium">
+                                      {dict?.common?.downloading ||
+                                        "Downloading..."}
+                                    </span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <span className="font-medium">
+                                      Download
+                                    </span>
+                                    <Download className="w-4 h-4" />
+                                  </>
+                                )}
+                              </div>
+                            </Button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          )}
+
+          {!data && emptyState}
+        </div>
+      </div>
+    </div>
+  );
+}

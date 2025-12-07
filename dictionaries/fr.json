@@ -34,10 +34,20 @@
     "desc_watermark": "Obtenez des vidéos claires sans le filigrane TikTok gênant.",
     "desc_audio": "Choisissez de télécharger la vidéo ou simplement la piste audio en MP3."
   },
+  "instagram": {
+    "title": "Téléchargeur Vidéo Instagram",
+    "subtitle": "Téléchargez instantanément des Reels, vidéos et photos Instagram. Haute qualité, sans filigrane.",
+    "placeholder": "Collez l'URL Instagram ici...",
+    "feature_1_title": "Reels & Vidéos",
+    "feature_1_desc": "Téléchargez des Reels et vidéos Instagram en haute définition avec le son.",
+    "feature_2_title": "Photos & Stories",
+    "feature_2_desc": "Enregistrez facilement des photos et stories de n'importe quel compte Instagram public."
+  },
   "nav": {
     "home": "Accueil",
     "twitter": "X (Twitter)",
     "tiktok": "TikTok",
+    "instagram": "Instagram",
     "privacy": "Politique de confidentialité",
     "terms": "Conditions d'utilisation"
   }

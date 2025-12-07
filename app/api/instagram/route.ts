@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getQualityForBitrate } from "@/lib/utils";
-import fs from "fs";
 
 /**
  * Instagram URL에서 reel ID를 추출하는 함수
@@ -203,40 +201,41 @@ export async function GET(request: NextRequest) {
     const html = await getInstagramDetailInfo(reelId);
 
     // HTML에서 video_versions 필드가 있는 스크립트 태그의 JSON 추출
-    const instagramData = extractScriptJson(html);
+    const data = extractScriptJson(html);
 
-    if (!instagramData) {
+    if (!data) {
       return NextResponse.json(
         { error: "no data", message: "Could not extract instagram data" },
         { status: 200 }
       );
     }
 
-    const user = instagramData?.user;
+    if (all) {
+      return NextResponse.json(data, { status: 200 });
+    }
+
+    const user = data?.user;
     const userName = user?.username || "";
     const userScreenName = user?.full_name || "";
     const userAvatar =
       user?.hd_profile_pic_url_info?.url || user?.profile_pic_url || "";
-    const content = instagramData?.caption?.text ?? "";
-    const thumbnail =
-      instagramData?.image_versions2?.candidates?.[0]?.url ?? "";
-    const videoItems = instagramData?.video_versions.map(
-      (item: any, index: number) => {
-        return {
-          url: item.url,
-          content_type: item.content_type,
-          bitrate: item.bitrate,
-          quality: index === 0 ? "720p" : index === 1 ? "480p" : "360p",
-        };
-      }
-    );
-    const favoriteCount = instagramData?.like_count || 0;
-    const shareCount = instagramData?.shares_count || 0;
-    const replyCount = instagramData?.comment_count || 0;
-    const quoteCount = instagramData?.quotes_count || 0;
-    const viewCount = instagramData?.view_count || 0;
-    const createdAt = instagramData?.caption?.created_at
-      ? new Date(instagramData.caption.created_at * 1000).toISOString()
+    const content = data?.caption?.text ?? "";
+    const thumbnail = data?.image_versions2?.candidates?.[0]?.url ?? "";
+    const videoItems = data?.video_versions.map((item: any, index: number) => {
+      return {
+        url: item.url,
+        content_type: item.content_type,
+        bitrate: item.bitrate,
+        quality: index === 0 ? "720p" : index === 1 ? "480p" : "360p",
+      };
+    });
+    const favoriteCount = data?.like_count || 0;
+    const shareCount = data?.shares_count || 0;
+    const replyCount = data?.comment_count || 0;
+    const quoteCount = data?.quotes_count || 0;
+    const viewCount = data?.view_count || 0;
+    const createdAt = data?.caption?.created_at
+      ? new Date(data.caption.created_at * 1000).toISOString()
       : new Date().toISOString();
 
     const result = {
