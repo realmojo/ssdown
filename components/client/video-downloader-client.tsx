@@ -187,42 +187,42 @@ export function VideoDownloaderClient({
     }
   };
 
-  const handleVideoDownload = async (
-    videoUrl: string,
-    quality: string,
-    downloadKey: string
-  ) => {
-    setDownloadingVideo(downloadKey);
-    try {
-      const finalUrl = transformVideoUrl
-        ? transformVideoUrl(videoUrl)
-        : videoUrl;
-      const response = await fetch(
-        `${downloadEndpoint}?videoUrl=${encodeURIComponent(finalUrl)}`
-      );
+  // const handleVideoDownload = async (
+  //   videoUrl: string,
+  //   quality: string,
+  //   downloadKey: string
+  // ) => {
+  //   setDownloadingVideo(downloadKey);
+  //   try {
+  //     const finalUrl = transformVideoUrl
+  //       ? transformVideoUrl(videoUrl)
+  //       : videoUrl;
+  //     const response = await fetch(
+  //       `${downloadEndpoint}?videoUrl=${encodeURIComponent(finalUrl)}`
+  //     );
 
-      if (!response.ok) {
-        throw new Error("Failed to download video");
-      }
+  //     if (!response.ok) {
+  //       throw new Error("Failed to download video");
+  //     }
 
-      const blob = await response.blob();
-      const downloadUrl = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = downloadUrl;
-      link.download = downloadFileName
-        ? downloadFileName(quality)
-        : `video_${quality}.mp4`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(downloadUrl);
-    } catch (err: any) {
-      console.error("Error downloading video:", err);
-      alert(err?.message || "Failed to download video. Please try again.");
-    } finally {
-      setDownloadingVideo(null);
-    }
-  };
+  //     const blob = await response.blob();
+  //     const downloadUrl = window.URL.createObjectURL(blob);
+  //     const link = document.createElement("a");
+  //     link.href = downloadUrl;
+  //     link.download = downloadFileName
+  //       ? downloadFileName(quality)
+  //       : `video_${quality}.mp4`;
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     document.body.removeChild(link);
+  //     window.URL.revokeObjectURL(downloadUrl);
+  //   } catch (err: any) {
+  //     console.error("Error downloading video:", err);
+  //     alert(err?.message || "Failed to download video. Please try again.");
+  //   } finally {
+  //     setDownloadingVideo(null);
+  //   }
+  // };
 
   const formatNumber = (num: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -429,19 +429,35 @@ export function VideoDownloaderClient({
                                     const isDownloading =
                                       downloadingVideo === downloadKey;
                                     const quality = getQuality(video);
+                                    const finalUrl = transformVideoUrl
+                                      ? transformVideoUrl(video.url)
+                                      : video.url;
+                                    const downloadHref = `${downloadEndpoint}?videoUrl=${encodeURIComponent(
+                                      finalUrl
+                                    )}`;
+                                    const fileName = downloadFileName
+                                      ? downloadFileName(quality)
+                                      : `ssdown-${item?.user?.screenName}-${item?.id}-${quality}.mp4`;
+
                                     return (
-                                      <Button
+                                      <a
                                         key={videoIndex}
-                                        variant="outline"
-                                        className={`w-full h-12 justify-between px-6 bg-gray-50 ${theme.downloadButtonHover} dark:bg-gray-800 dark:hover:bg-gray-700 border-gray-200 dark:border-gray-700 group transition-all`}
-                                        onClick={() =>
-                                          handleVideoDownload(
-                                            video.url,
-                                            quality,
-                                            downloadKey
-                                          )
-                                        }
-                                        disabled={isDownloading}
+                                        href={downloadHref}
+                                        title={fileName}
+                                        download={fileName}
+                                        className={`w-full h-12 flex justify-between items-center px-6 bg-gray-50 ${
+                                          theme.downloadButtonHover
+                                        } dark:bg-gray-800 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-md group transition-all ${
+                                          isDownloading
+                                            ? "opacity-50 cursor-not-allowed pointer-events-none"
+                                            : "cursor-pointer"
+                                        }`}
+                                        onClick={() => {
+                                          setDownloadingVideo(downloadKey);
+                                          setTimeout(() => {
+                                            setDownloadingVideo(null);
+                                          }, 1000);
+                                        }}
                                       >
                                         <div className="flex items-center gap-3">
                                           <span
@@ -482,7 +498,7 @@ export function VideoDownloaderClient({
                                             </>
                                           )}
                                         </div>
-                                      </Button>
+                                      </a>
                                     );
                                   }
                                 )}

@@ -4,6 +4,7 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const videoUrl = searchParams.get("videoUrl");
+    const filename = searchParams.get("filename") ?? new Date().toISOString();
 
     if (!videoUrl) {
       return NextResponse.json({ error: "videoUrl required" }, { status: 400 });
@@ -94,7 +95,7 @@ export async function GET(request: NextRequest) {
       headers: {
         "Content-Type": contentType,
         "Content-Length": buffer.length.toString(),
-        "Content-Disposition": `attachment; filename="tiktok_video.mp4"`,
+        "Content-Disposition": `attachment; filename="ssdown-${filename}.mp4"`,
         "Cache-Control": "public, max-age=3600",
       },
     });
