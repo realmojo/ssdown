@@ -145,7 +145,7 @@ export default async function RootLayout(props: {
     <html lang={lang} suppressHydrationWarning>
       <head>
         {/* Naver Analytics */}
-        <script src="//wcs.pstatic.net/wcslog.js" />
+        <script src="//wcs.pstatic.net/wcslog.js" defer />
         <script
           id="naver-analytics"
           dangerouslySetInnerHTML={{

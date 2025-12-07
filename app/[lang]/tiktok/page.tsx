@@ -72,14 +72,23 @@ export default async function TikTokPage(props: {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [1, 2, 3, 4, 5].map((i) => ({
-      "@type": "Question",
-      name: dict?.qna_tiktok?.[`faq_${i}_q`] || "",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: dict?.qna_tiktok?.[`faq_${i}_a`] || "",
-      },
-    })),
+    mainEntity: [1, 2, 3, 4, 5]
+      .map((i) => {
+        const qna = dict?.qna_tiktok;
+        if (!qna) return null;
+        const question = (qna as any)[`faq_${i}_q`];
+        const answer = (qna as any)[`faq_${i}_a`];
+        if (!question || !answer) return null;
+        return {
+          "@type": "Question",
+          name: question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: answer,
+          },
+        };
+      })
+      .filter((item) => item !== null),
   };
 
   return (

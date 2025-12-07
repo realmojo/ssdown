@@ -21,11 +21,15 @@ export async function generateMetadata({
 
   return {
     title: dict.x?.seo_title || "X (Twitter) Video Downloader",
-    description: dict.x?.seo_description || "Download X (Twitter) videos in high quality.",
-    keywords: dict.x?.seo_keywords ? dict.x.seo_keywords.split(", ") : ["twitter downloader", "x video download"],
+    description:
+      dict.x?.seo_description || "Download X (Twitter) videos in high quality.",
+    keywords: dict.x?.seo_keywords
+      ? dict.x.seo_keywords.split(", ")
+      : ["twitter downloader", "x video download"],
     openGraph: {
       title: dict.x?.seo_title || "X (Twitter) Video Downloader",
-      description: dict.x?.seo_description || "Download X (Twitter) videos securely.",
+      description:
+        dict.x?.seo_description || "Download X (Twitter) videos securely.",
       url: canonical,
       siteName: "SSDown",
       images: [
@@ -69,14 +73,23 @@ export default async function TwitterPage(props: {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [1, 2, 3, 4, 5].map((i) => ({
-      "@type": "Question",
-      name: dict?.qna?.[`faq_${i}_q`] || "",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: dict?.qna?.[`faq_${i}_a`] || "",
-      },
-    })),
+    mainEntity: [1, 2, 3, 4, 5]
+      .map((i) => {
+        const qna = dict?.qna;
+        if (!qna) return null;
+        const question = (qna as any)[`faq_${i}_q`];
+        const answer = (qna as any)[`faq_${i}_a`];
+        if (!question || !answer) return null;
+        return {
+          "@type": "Question",
+          name: question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: answer,
+          },
+        };
+      })
+      .filter((item) => item !== null),
   };
 
   return (
