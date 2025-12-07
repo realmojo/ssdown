@@ -108,6 +108,61 @@ const getXDetailInfo = async (xId: string) => {
   }
 };
 
+// const getXId = (url: string) => {
+//   // URL에서 tweet ID 추출
+//   // url: https://x.com/KathleenWinche3/status/1996749284876615682
+//   // url: https://x.com/KathleenWinche3/status/1996749284876615682?s=20
+//   // url: https://x.com/jonggang8282/status/1996749284876615682/video/1
+//   const s = url.split("?");
+//   const f = s[0].split("/");
+//   const xId = f[f.length - 1]; // 마지막 부분이 ID (예: 1996749284876615682)
+//   return xId;
+// };
+
+/**
+ * X/Twitter URL에서 tweet ID를 추출하는 함수
+ * @param url X/Twitter tweet URL
+ * @returns tweet ID 또는 null
+ *
+ * 지원하는 URL 형식:
+ * - https://x.com/username/status/1996749284876615682
+ * - https://x.com/username/status/1996749284876615682?s=20
+ * - https://x.com/username/status/1996749284876615682/video/1
+ * - https://twitter.com/username/status/1996749284876615682
+ * - https://www.x.com/username/status/1996749284876615682
+ * - https://www.twitter.com/username/status/1996749284876615682
+ * - https://mobile.twitter.com/username/status/1996749284876615682
+ */
+const getXId = (url: string): string | null => {
+  try {
+    // 정규식으로 /status/ 다음의 숫자 ID 추출
+    // 예: /status/1996749284876615682 또는 /status/1996749284876615682/video/1
+    const statusMatch = url.match(/\/status\/(\d+)/);
+    if (statusMatch && statusMatch[1]) {
+      return statusMatch[1];
+    }
+
+    // 정규식이 실패한 경우 대체 방법: URL 파싱
+    const urlObj = new URL(url);
+    const pathParts = urlObj.pathname.split("/").filter(Boolean);
+
+    // pathname이 /username/status/ID 또는 /username/status/ID/video/1 형식인 경우
+    const statusIndex = pathParts.indexOf("status");
+    if (statusIndex !== -1 && statusIndex + 1 < pathParts.length) {
+      const tweetId = pathParts[statusIndex + 1];
+      // 숫자로만 구성된 ID인지 확인
+      if (/^\d+$/.test(tweetId)) {
+        return tweetId;
+      }
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Error extracting tweet ID:", error);
+    return null;
+  }
+};
+
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
@@ -118,12 +173,17 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "url required" }, { status: 400 });
     }
 
-    // URL에서 tweet ID 추출
-    // url: https://x.com/KathleenWinche3/status/1996749284876615682
-    // url: https://x.com/KathleenWinche3/status/1996749284876615682?s=20
-    const s = url.split("?");
-    const f = s[0].split("/");
-    const xId = f[f.length - 1]; // 마지막 부분이 ID (예: 1996749284876615682)
+    const xId = getXId(url);
+
+    if (!xId) {
+      return NextResponse.json(
+        {
+          error: "Invalid URL",
+          message: "Could not extract tweet ID from URL",
+        },
+        { status: 400 }
+      );
+    }
 
     console.log("xId: ", xId);
 

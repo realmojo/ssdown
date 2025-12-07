@@ -1,6 +1,7 @@
 {
   "common": {
     "download": "Download",
+    "downloading": "Downloading...",
     "processing": "Processing...",
     "error_url": "Please enter a valid URL",
     "paste_url": "Paste URL here...",
@@ -9,13 +10,35 @@
     "save_video": "Save Video",
     "fast_downloads": "Fast Downloads",
     "high_quality": "High Quality",
-    "easy_sharing": "Easy Sharing"
+    "easy_sharing": "Easy Sharing",
+    "secure_private": "Secure & Private",
+    "mobile_friendly": "Mobile Friendly",
+    "unlimited_downloads": "Unlimited Downloads"
   },
   "home": {
-    "title": "The Ultimate Video Downloader",
-    "subtitle": "Download high-quality videos from your favorite platforms effortlessly. Fast, free, and secure.",
-    "twitter_btn": "X (Twitter)",
-    "tiktok_btn": "TikTok"
+    "hero_badge": "🚀 The #1 Social Media Downloader",
+    "title": "Download Videos Instantly & Freely",
+    "subtitle": "Save high-quality videos from X, TikTok, and Instagram without watermarks. The fastest and most secure way to keep your favorite content.",
+    "card_x_desc": "Download videos & GIFs",
+    "card_tiktok_desc": "No watermark videos",
+    "card_insta_desc": "Reels, Stories & Photos",
+    "get_started": "Get Started",
+    "stat_free": "Free to Use",
+    "stat_downloads": "Downloads",
+    "stat_wait": "Wait Time",
+    "stat_quality": "Supported Quality",
+    "why_title": "Why Choose SSDown?",
+    "why_desc": "We provide the best tools to help you save and enjoy content offline.",
+    "feature_fast_desc": "Our optimized servers ensure you get your videos in seconds, not minutes. No queues, no waiting.",
+    "feature_quality_desc": "We don't compress your videos. Get the exact same quality as the source, up to 4K resolution.",
+    "feature_secure_desc": "We respect your privacy. No logs are kept, and no personal information is required to use our service.",
+    "feature_mobile_desc": "Works perfectly on iPhone, Android, tablets, and desktop. No app installation needed.",
+    "feature_unlimited_desc": "No daily limits or restrictions. Download as many videos as you want, completely free forever.",
+    "feature_sharing_desc": "Download and share directly to WhatsApp, Telegram, or any other platform with a single click.",
+    "cta_title": "Ready to Start Downloading?",
+    "cta_desc": "Join millions of users who trust SSDown for their video downloading needs.",
+    "cta_btn_x": "Try for X (Twitter)",
+    "cta_btn_tiktok": "Try for TikTok"
   },
   "x": {
     "title": "X (Twitter) Video Downloader",

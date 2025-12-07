@@ -1,6 +1,7 @@
 {
   "common": {
     "download": "Télécharger",
+    "downloading": "Téléchargement...",
     "processing": "Traitement...",
     "error_url": "Veuillez entrer une URL valide",
     "paste_url": "Collez l'URL ici...",
@@ -9,27 +10,49 @@
     "save_video": "Enregistrer la vidéo",
     "fast_downloads": "Téléchargements rapides",
     "high_quality": "Haute qualité",
-    "easy_sharing": "Partage facile"
+    "easy_sharing": "Partage facile",
+    "secure_private": "Sécurisé & Privé",
+    "mobile_friendly": "Compatible mobile",
+    "unlimited_downloads": "Téléchargements illimités"
   },
   "home": {
-    "title": "Le Téléchargeur Vidéo Ultime",
-    "subtitle": "Téléchargez des vidéos de haute qualité depuis vos plateformes préférées sans effort. Rapide, gratuit et sécurisé.",
-    "twitter_btn": "X (Twitter)",
-    "tiktok_btn": "TikTok"
+    "hero_badge": "🚀 Le téléchargeur #1 de médias sociaux",
+    "title": "Téléchargez des vidéos instantanément & librement",
+    "subtitle": "Enregistrez des vidéos de haute qualité de X, TikTok et Instagram sans filigrane. Le moyen le plus rapide et le plus sûr de conserver votre contenu préféré.",
+    "card_x_desc": "Télécharger vidéos & GIFs",
+    "card_tiktok_desc": "Vidéos sans filigrane",
+    "card_insta_desc": "Reels, Stories & Photos",
+    "get_started": "Commencer",
+    "stat_free": "Gratuit",
+    "stat_downloads": "Téléchargements",
+    "stat_wait": "Temps d'attente",
+    "stat_quality": "Qualité supportée",
+    "why_title": "Pourquoi choisir SSDown ?",
+    "why_desc": "Nous fournissons les meilleurs outils pour vous aider à enregistrer et profiter du contenu hors ligne.",
+    "feature_fast_desc": "Nos serveurs optimisés garantissent que vous obtenez vos vidéos en quelques secondes, pas minutes. Pas de file d'attente.",
+    "feature_quality_desc": "Nous ne compressons pas vos vidéos. Obtenez exactement la même qualité que la source, jusqu'à la résolution 4K.",
+    "feature_secure_desc": "Nous respectons votre vie privée. Aucun journal n'est conservé et aucune information personnelle n'est requise.",
+    "feature_mobile_desc": "Fonctionne parfaitement sur iPhone, Android, tablettes et ordinateur de bureau. Aucune installation d'application requise.",
+    "feature_unlimited_desc": "Aucune limite quotidienne ni restriction. Téléchargez autant de vidéos que vous le souhaitez, totalement gratuitement pour toujours.",
+    "feature_sharing_desc": "Téléchargez et partagez directement sur WhatsApp, Telegram ou toute autre plateforme en un seul clic.",
+    "cta_title": "Prêt à commencer le téléchargement ?",
+    "cta_desc": "Rejoignez des millions d'utilisateurs qui font confiance à SSDown pour leurs besoins de téléchargement vidéo.",
+    "cta_btn_x": "Essayer pour X (Twitter)",
+    "cta_btn_tiktok": "Essayer pour TikTok"
   },
   "x": {
     "title": "Téléchargeur Vidéo X (Twitter)",
-    "subtitle": "Enregistrez des vidéos et GIF X (Twitter) au format MP4. Haute qualité, gratuit et illimité.",
+    "subtitle": "Enregistrez des vidéos et GIFs X (Twitter) au format MP4. Haute qualité, gratuit et illimité.",
     "placeholder": "Collez le lien X (Twitter) ici...",
     "desc_copy": "Trouvez le tweet que vous souhaitez télécharger et copiez son lien.",
-    "desc_paste": "Collez le lien dans la zone de saisie ci-dessus et appuyez sur télécharger.",
+    "desc_paste": "Collez le lien dans la zone de saisie ci-dessus et cliquez sur télécharger.",
     "desc_save": "Choisissez votre qualité préférée et enregistrez la vidéo sur votre appareil."
   },
   "tiktok": {
     "title": "Téléchargeur Vidéo TikTok",
     "subtitle": "Téléchargez des vidéos TikTok sans filigrane. Enregistrez instantanément des vidéos MP4 et de l'audio MP3.",
     "placeholder": "Collez le lien TikTok ici...",
-    "no_watermark": "Pas de filigrane",
+    "no_watermark": "Sans filigrane",
     "mp4_mp3": "MP4 & MP3",
     "desc_watermark": "Obtenez des vidéos claires sans le filigrane TikTok gênant.",
     "desc_audio": "Choisissez de télécharger la vidéo ou simplement la piste audio en MP3."

@@ -1,6 +1,7 @@
 {
   "common": {
     "download": "다운로드",
+    "downloading": "다운로드 중...",
     "processing": "처리 중...",
     "error_url": "유효한 URL을 입력해주세요",
     "paste_url": "여기에 URL 붙여넣기...",
@@ -9,19 +10,41 @@
     "save_video": "영상 저장",
     "fast_downloads": "빠른 다운로드",
     "high_quality": "고화질",
-    "easy_sharing": "간편한 공유"
+    "easy_sharing": "쉬운 공유",
+    "secure_private": "보안 및 개인정보 보호",
+    "mobile_friendly": "모바일 친화적",
+    "unlimited_downloads": "무제한 다운로드"
   },
   "home": {
-    "title": "최고의 비디오 다운로더",
-    "subtitle": "좋아하는 플랫폼에서 고화질 영상을 손쉽게 다운로드하세요. 빠르고, 무료이며, 안전합니다.",
-    "twitter_btn": "X (Twitter)",
-    "tiktok_btn": "TikTok"
+    "hero_badge": "🚀 No.1 소셜 미디어 다운로더",
+    "title": "동영상 다운로드, 빠르고 자유롭게",
+    "subtitle": "X, TikTok, Instagram의 고화질 영상을 워터마크 없이 저장하세요. 가장 빠르고 안전한 방법입니다.",
+    "card_x_desc": "동영상 및 GIF 다운로드",
+    "card_tiktok_desc": "워터마크 없는 동영상",
+    "card_insta_desc": "릴스, 스토리 & 사진",
+    "get_started": "시작하기",
+    "stat_free": "무료 사용",
+    "stat_downloads": "다운로드 수",
+    "stat_wait": "대기 시간",
+    "stat_quality": "지원 화질",
+    "why_title": "왜 SSDown인가요?",
+    "why_desc": "콘텐츠를 오프라인에서 즐길 수 있는 최고의 도구를 제공합니다.",
+    "feature_fast_desc": "최적화된 서버로 몇 분이 아닌 몇 초 만에 영상을 다운로드합니다. 대기 시간 없음.",
+    "feature_quality_desc": "영상 압축 없이 원본 화질 그대로, 최대 4K 해상도까지 지원합니다.",
+    "feature_secure_desc": "개인정보를 소중히 다룹니다. 로그를 저장하지 않으며 서비스 이용에 개인정보가 필요하지 않습니다.",
+    "feature_mobile_desc": "아이폰, 안드로이드, 태블릿, 데스크탑 어디서나 완벽하게 작동합니다. 앱 설치 불필요.",
+    "feature_unlimited_desc": "일일 제한이나 제약이 없습니다. 원하는 만큼 영상을 평생 무료로 다운로드하세요.",
+    "feature_sharing_desc": "클릭 한 번으로 WhatsApp, Telegram 등 다양한 플랫폼에 영상을 공유하세요.",
+    "cta_title": "다운로드를 시작할 준비가 되셨나요?",
+    "cta_desc": "수백만 명의 사용자가 선택한 SSDown과 함께하세요.",
+    "cta_btn_x": "X (Twitter) 바로가기",
+    "cta_btn_tiktok": "TikTok 바로가기"
   },
   "x": {
     "title": "X (Twitter) 영상 다운로더",
-    "subtitle": "X (Twitter) 영상과 GIF를 MP4 형식으로 저장하세요. 고화질, 무료, 무제한.",
+    "subtitle": "X (Twitter) 영상과 GIF를 MP4로 저장하세요. 고화질, 무료, 무제한.",
     "placeholder": "여기에 X (Twitter) 링크 붙여넣기...",
-    "desc_copy": "다운로드하고 싶은 트윗을 찾아 링크를 복사하세요.",
+    "desc_copy": "다운로드하려는 트윗을 찾아 링크를 복사하세요.",
     "desc_paste": "위의 입력창에 링크를 붙여넣고 다운로드를 누르세요.",
     "desc_save": "원하는 화질을 선택하여 기기에 저장하세요."
   },

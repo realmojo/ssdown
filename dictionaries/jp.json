@@ -1,6 +1,7 @@
 {
   "common": {
     "download": "ダウンロード",
+    "downloading": "ダウンロード中...",
     "processing": "処理中...",
     "error_url": "有効なURLを入力してください",
     "paste_url": "ここにURLを貼り付け...",
@@ -8,26 +9,48 @@
     "copy_link": "リンクをコピー",
     "save_video": "動画を保存",
     "fast_downloads": "高速ダウンロード",
-    "high_quality": "高画質",
-    "easy_sharing": "簡単シェア"
+    "high_quality": "高品質",
+    "easy_sharing": "簡単共有",
+    "secure_private": "安全でプライベート",
+    "mobile_friendly": "モバイル対応",
+    "unlimited_downloads": "無制限ダウンロード"
   },
   "home": {
-    "title": "究極の動画ダウンローダー",
-    "subtitle": "お気に入りのプラットフォームから高品質の動画を簡単にダウンロード。高速、無料、安全。",
-    "twitter_btn": "X (Twitter)",
-    "tiktok_btn": "TikTok"
+    "hero_badge": "🚀 No.1 ソーシャルメディアダウンローダー",
+    "title": "動画を瞬時に、自由にダウンロード",
+    "subtitle": "X、TikTok、Instagramの高品質動画を透かしなしで保存。お気に入りのコンテンツを保存する最も速く安全な方法。",
+    "card_x_desc": "動画とGIFをダウンロード",
+    "card_tiktok_desc": "透かしなし動画",
+    "card_insta_desc": "リール、ストーリー、写真",
+    "get_started": "始める",
+    "stat_free": "完全無料",
+    "stat_downloads": "ダウンロード数",
+    "stat_wait": "待ち時間",
+    "stat_quality": "対応画質",
+    "why_title": "なぜSSDownを選ぶのか？",
+    "why_desc": "コンテンツをオフラインで楽しむための最高のツールを提供します。",
+    "feature_fast_desc": "最適化されたサーバーにより、動画を数分ではなく数秒で取得。待ち時間なし。",
+    "feature_quality_desc": "動画を圧縮しません。ソースとまったく同じ品質、最大4K解像度で取得。",
+    "feature_secure_desc": "プライバシーを尊重します。ログは保存されず、サービスの使用に個人情報は必要ありません。",
+    "feature_mobile_desc": "iPhone、Android、タブレット、デスクトップで完璧に動作。アプリのインストールは不要。",
+    "feature_unlimited_desc": "1日の制限や制約はありません。好きなだけ動画を完全に無料で永久にダウンロード。",
+    "feature_sharing_desc": "ワンクリックでWhatsApp、Telegram、その他のプラットフォームに直接ダウンロードして共有。",
+    "cta_title": "ダウンロードを始める準備はできましたか？",
+    "cta_desc": "動画ダウンロードのニーズでSSDownを信頼する何百万人ものユーザーに参加しましょう。",
+    "cta_btn_x": "X (Twitter) で試す",
+    "cta_btn_tiktok": "TikTok で試す"
   },
   "x": {
     "title": "X (Twitter) 動画ダウンローダー",
-    "subtitle": "X (Twitter) の動画やGIFをMP4形式で保存。高品質、無料、無制限。",
-    "placeholder": "ここにX (Twitter)のリンクを貼り付け...",
-    "desc_copy": "ダウンロードしたいツイートを見つけてリンクをコピーします。",
-    "desc_paste": "上の入力ボックスにリンクを貼り付けてダウンロードボタンを押します。",
-    "desc_save": "お好みの画質を選択してデバイスに保存します。"
+    "subtitle": "X (Twitter) の動画とGIFをMP4形式で保存。高品質、無料、無制限。",
+    "placeholder": "ここにX (Twitter) のリンクを貼り付け...",
+    "desc_copy": "ダウンロードしたいツイートを見つけてリンクをコピー。",
+    "desc_paste": "上の入力ボックスにリンクを貼り付けてダウンロード。",
+    "desc_save": "お好みの画質を選んでデバイスに動画を保存。"
   },
   "tiktok": {
     "title": "TikTok 動画ダウンローダー",
-    "subtitle": "透かしなしでTikTok動画をダウンロード。MP4動画とMP3音声を即座に保存。",
+    "subtitle": "透かしなしでTikTok動画をダウンロード。MP4動画とMP3音声を瞬時に保存。",
     "placeholder": "ここにTikTokのリンクを貼り付け...",
     "no_watermark": "透かしなし",
     "mp4_mp3": "MP4 & MP3",
