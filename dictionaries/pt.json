@@ -90,6 +90,37 @@
     "seo_description": "Melhor baixador de vídeos do Facebook para salvar vídeos FB em MP4. Suporte a qualidade HD, Full HD e 4K. Grátis, rápido e sem login.",
     "seo_keywords": "baixador facebook, baixar vídeo facebook, salvar vídeo fb, facebook mp4, fb vídeo download"
   },
+  "about": {
+    "title": "Sobre o SSDown",
+    "subtitle": "Seu baixador de vídeo de mídia social definitivo",
+    "description": "O SSDown é uma ferramenta online abrangente projetada para ajudar você a baixar vídeos de várias plataformas de mídia social como X (Twitter), TikTok, Instagram e Facebook. Nossa missão é fornecer um serviço rápido, seguro e totalmente gratuito para todos.",
+    "mission_title": "Nossa Missão",
+    "mission_desc": "Acreditamos que o conteúdo deve ser acessível offline. Seja um TikTok engraçado, um Reel inspirador do Instagram ou um vídeo informativo do Twitter, você deve poder salvá-lo e assisti-lo quando quiser, sem restrições ou marcas d'água.",
+    "features_title": "Por que usar o SSDown?",
+    "feature_1": "Sem Marcas d'água: Downloads limpos sem logotipos irritantes.",
+    "feature_2": "Alta Qualidade: Suporte para resoluções HD, Full HD e 4K.",
+    "feature_3": "Velocidade Rápida: Servidores otimizados para processamento ultra-rápido.",
+    "feature_4": "Privacidade: Não armazenamos seu histórico de downloads.",
+    "contact_title": "Contate-nos",
+    "contact_desc": "Tem perguntas, sugestões ou problemas? Adoraríamos ouvir de você."
+  },
+  "contact": {
+    "title": "Contate-nos",
+    "subtitle": "Adoraríamos ouvir de você",
+    "form_title": "Envie-nos uma mensagem",
+    "name": "Nome",
+    "email": "E-mail",
+    "subject": "Assunto",
+    "message": "Mensagem",
+    "send": "Enviar Mensagem",
+    "sending": "Enviando...",
+    "success_title": "Mensagem Enviada!",
+    "success_desc": "Entraremos em contato o mais breve possível.",
+    "email_us": "Envie-nos um e-mail diretamente",
+    "email_desc": "Prefere e-mail? Envie para support@ssdown.app",
+    "seo_title": "Contato SSDown - Suporte e Ajuda",
+    "seo_description": "Contate a equipe de suporte do SSDown para quaisquer dúvidas, feedback ou problemas relacionados ao nosso serviço de download de vídeos."
+  },
   "nav": {
     "home": "Início",
     "twitter": "X (Twitter)",
@@ -97,6 +128,8 @@
     "instagram": "Instagram",
     "facebook": "Facebook",
     "privacy": "Política de Privacidade",
-    "terms": "Termos de Serviço"
+    "terms": "Termos de Serviço",
+    "about": "Sobre Nós",
+    "contact": "Contato"
   }
 }

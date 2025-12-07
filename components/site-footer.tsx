@@ -29,6 +29,18 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
           >
             {dict.terms || "Terms of Service"}
           </Link>
+          <Link
+            href={getPath("/about")}
+            className="hover:text-primary transition-colors"
+          >
+            {dict.about?.nav || dict.nav?.about || "About Us"}
+          </Link>
+          <Link
+            href={getPath("/contact")}
+            className="hover:text-primary transition-colors"
+          >
+            {dict.contact?.nav || dict.nav?.contact || "Contact"}
+          </Link>
           {/* 모바일만 footer에 표시 */}
           <div className="md:hidden">
             <ModeToggle />

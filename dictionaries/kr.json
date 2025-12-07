@@ -90,6 +90,37 @@
     "seo_description": "최고의 페이스북 동영상 다운로더. 페북 영상을 MP4로 고화질(HD, 4K) 저장하세요. 무료, 빠름, 로그인 불필요.",
     "seo_keywords": "페이스북 다운로더, 페북 영상 저장, 페이스북 동영상 다운로드, 페북 mp4 변환, facebook video download"
   },
+  "about": {
+    "title": "SSDown 소개",
+    "subtitle": "최고의 소셜 미디어 동영상 다운로더",
+    "description": "SSDown은 X(트위터), 틱톡, 인스타그램, 페이스북 등 다양한 소셜 미디어 플랫폼에서 동영상을 다운로드할 수 있도록 도와주는 종합 온라인 도구입니다. 우리의 미션은 모두에게 빠르고 안전하며 완전히 무료인 서비스를 제공하는 것입니다.",
+    "mission_title": "우리의 미션",
+    "mission_desc": "저희는 콘텐츠를 오프라인에서도 즐길 수 있어야 한다고 믿습니다. 재미있는 틱톡 영상이든, 영감을 주는 인스타그램 릴스든, 유익한 트위터 영상이든, 제한이나 워터마크 없이 원할 때 언제든지 저장하고 시청할 수 있어야 합니다.",
+    "features_title": "왜 SSDown인가요?",
+    "feature_1": "워터마크 없음: 성가신 로고 없이 깨끗하게 다운로드하세요.",
+    "feature_2": "고화질 지원: HD, Full HD, 4K 해상도를 지원합니다.",
+    "feature_3": "빠른 속도: 번개처럼 빠른 처리를 위해 최적화된 서버.",
+    "feature_4": "개인정보 보호: 다운로드 기록을 저장하지 않습니다.",
+    "contact_title": "문의하기",
+    "contact_desc": "질문이나 제안, 혹은 문제가 있으신가요? 언제든지 연락주세요."
+  },
+  "contact": {
+    "title": "문의하기",
+    "subtitle": "여러분의 의견을 듣고 싶습니다",
+    "form_title": "메시지 보내기",
+    "name": "이름",
+    "email": "이메일",
+    "subject": "제목",
+    "message": "내용",
+    "send": "메시지 전송",
+    "sending": "전송 중...",
+    "success_title": "전송 완료!",
+    "success_desc": "최대한 빠른 시일 내에 답변 드리겠습니다.",
+    "email_us": "이메일로 직접 문의하기",
+    "email_desc": "이메일이 편하신가요? support@ssdown.app으로 보내주세요.",
+    "seo_title": "SSDown 문의하기 - 지원 및 도움말",
+    "seo_description": "SSDown 비디오 다운로더 서비스에 대한 질문, 피드백 또는 문제가 있으시면 지원 팀에 문의하세요."
+  },
   "nav": {
     "home": "홈",
     "twitter": "X (Twitter)",
@@ -97,6 +128,8 @@
     "instagram": "Instagram",
     "facebook": "Facebook",
     "privacy": "개인정보 처리방침",
-    "terms": "이용약관"
+    "terms": "이용약관",
+    "about": "회사 소개",
+    "contact": "문의하기"
   }
 }

@@ -90,6 +90,37 @@
     "seo_description": "最高のFacebook動画ダウンローダー。フェイスブックの動画をMP4形式で高画質（HD、4K）保存。無料、高速、ログイン不要。",
     "seo_keywords": "facebook動画保存, フェイスブック動画ダウンロード, fb保存, フェイスブック mp4, facebook video saver"
   },
+  "about": {
+    "title": "SSDownについて",
+    "subtitle": "究極のソーシャルメディア動画ダウンローダー",
+    "description": "SSDownは、X（Twitter）、TikTok、Instagram、Facebookなど、さまざまなソーシャルメディアプラットフォームから動画をダウンロードするのに役立つ包括的なオンラインツールです。私たちの使命は、すべての人に高速で安全、かつ完全に無料のサービスを提供することです。",
+    "mission_title": "私たちの使命",
+    "mission_desc": "コンテンツはオフラインでもアクセス可能であるべきだと信じています。面白いTikTok動画、インスピレーションを与えるInstagramリール、有益なTwitter動画など、制限や透かしなしで、いつでも好きなときに保存して視聴できるようにすべきです。",
+    "features_title": "SSDownを選ぶ理由",
+    "feature_1": "透かしなし：邪魔なロゴなしできれいにダウンロード。",
+    "feature_2": "高品質：HD、フルHD、4K解像度をサポート。",
+    "feature_3": "高速スピード：超高速処理のために最適化されたサーバー。",
+    "feature_4": "プライバシー重視：ダウンロード履歴は保存しません。",
+    "contact_title": "お問い合わせ",
+    "contact_desc": "ご質問、ご提案、または問題がございますか？お気軽にお問い合わせください。"
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "subtitle": "ご連絡をお待ちしております",
+    "form_title": "メッセージを送る",
+    "name": "お名前",
+    "email": "メールアドレス",
+    "subject": "件名",
+    "message": "メッセージ",
+    "send": "送信する",
+    "sending": "送信中...",
+    "success_title": "送信完了！",
+    "success_desc": "できるだけ早く返信いたします。",
+    "email_us": "メールで直接問い合わせる",
+    "email_desc": "メールの方がよろしいですか？support@ssdown.appまでお送りください。",
+    "seo_title": "SSDown お問い合わせ - サポート＆ヘルプ",
+    "seo_description": "動画ダウンローダーサービスに関するご質問、フィードバック、問題については、SSDownサポートチームにお問い合わせください。"
+  },
   "nav": {
     "home": "ホーム",
     "twitter": "X (Twitter)",
@@ -97,6 +128,8 @@
     "instagram": "Instagram",
     "facebook": "Facebook",
     "privacy": "プライバシーポリシー",
-    "terms": "利用規約"
+    "terms": "利用規約",
+    "about": "私たちについて",
+    "contact": "お問い合わせ"
   }
 }

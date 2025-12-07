@@ -90,6 +90,37 @@
     "seo_description": "Best Facebook Video Downloader to save FB videos in MP4 format. Support HD, Full HD, and 4K quality. Free, fast, and no login required.",
     "seo_keywords": "facebook downloader, facebook video download, save fb video, facebook mp4, fb video saver"
   },
+  "about": {
+    "title": "About SSDown",
+    "subtitle": "Your Ultimate Social Media Video Downloader",
+    "description": "SSDown is a comprehensive online tool designed to help you download videos from various social media platforms like X (Twitter), TikTok, Instagram, and Facebook. Our mission is to provide a fast, secure, and completely free service for everyone.",
+    "mission_title": "Our Mission",
+    "mission_desc": "We believe that content should be accessible offline. Whether it's a funny TikTok, an inspiring Instagram Reel, or an informative Twitter video, you should be able to save it and watch it whenever you want, without any restrictions or watermarks.",
+    "features_title": "Why Use SSDown?",
+    "feature_1": "No Watermarks: Clean downloads without annoying logos.",
+    "feature_2": "High Quality: Support for HD, Full HD, and 4K resolutions.",
+    "feature_3": "Fast Speeds: Optimized servers for lightning-fast processing.",
+    "feature_4": "Privacy Focused: We don't store your download history.",
+    "contact_title": "Contact Us",
+    "contact_desc": "Have questions, suggestions, or issues? We'd love to hear from you."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We'd love to hear from you",
+    "form_title": "Send us a message",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "success_title": "Message Sent!",
+    "success_desc": "We'll get back to you as soon as possible.",
+    "email_us": "Email Us Directly",
+    "email_desc": "Prefer email? Send it to support@ssdown.app",
+    "seo_title": "Contact SSDown - Get Support & Help",
+    "seo_description": "Contact SSDown support team for any questions, feedback or issues regarding our video downloader service."
+  },
   "nav": {
     "home": "Home",
     "twitter": "X (Twitter)",
@@ -97,6 +128,8 @@
     "instagram": "Instagram",
     "facebook": "Facebook",
     "privacy": "Privacy Policy",
-    "terms": "Terms of Service"
+    "terms": "Terms of Service",
+    "about": "About Us",
+    "contact": "Contact"
   }
 }

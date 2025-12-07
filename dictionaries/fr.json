@@ -90,6 +90,37 @@
     "seo_description": "Meilleur téléchargeur de vidéos Facebook, enregistrez des vidéos FB en MP4. Supporte qualité HD, Full HD et 4K. Gratuit, rapide, sans connexion.",
     "seo_keywords": "téléchargeur facebook, télécharger vidéo facebook, enregistrer vidéo fb, facebook mp4, fb saver"
   },
+  "about": {
+    "title": "À propos de SSDown",
+    "subtitle": "Votre téléchargeur vidéo ultime pour les réseaux sociaux",
+    "description": "SSDown est un outil en ligne complet conçu pour vous aider à télécharger des vidéos depuis diverses plateformes de médias sociaux comme X (Twitter), TikTok, Instagram et Facebook. Notre mission est de fournir un service rapide, sécurisé et totalement gratuit pour tous.",
+    "mission_title": "Notre Mission",
+    "mission_desc": "Nous croyons que le contenu doit être accessible hors ligne. Qu'il s'agisse d'un TikTok amusant, d'un Reel Instagram inspirant ou d'une vidéo Twitter informative, vous devriez pouvoir l'enregistrer et le regarder quand vous le souhaitez, sans aucune restriction ni filigrane.",
+    "features_title": "Pourquoi choisir SSDown ?",
+    "feature_1": "Pas de filigrane : Téléchargements propres sans logos gênants.",
+    "feature_2": "Haute Qualité : Prise en charge des résolutions HD, Full HD et 4K.",
+    "feature_3": "Vitesse Rapide : Serveurs optimisés pour un traitement ultra-rapide.",
+    "feature_4": "Confidentialité : Nous ne stockons pas votre historique de téléchargement.",
+    "contact_title": "Contactez-nous",
+    "contact_desc": "Vous avez des questions, des suggestions ou des problèmes ? Contactez-nous."
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Nous aimerions avoir de vos nouvelles",
+    "form_title": "Envoyez-nous un message",
+    "name": "Nom",
+    "email": "E-mail",
+    "subject": "Sujet",
+    "message": "Message",
+    "send": "Envoyer le message",
+    "sending": "Envoi en cours...",
+    "success_title": "Message envoyé !",
+    "success_desc": "Nous vous répondrons dès que possible.",
+    "email_us": "Envoyez-nous un e-mail directement",
+    "email_desc": "Vous préférez l'e-mail ? Envoyez-le à support@ssdown.app",
+    "seo_title": "Contact SSDown - Support et Aide",
+    "seo_description": "Contactez l'équipe de support SSDown pour toute question, commentaire ou problème concernant notre service de téléchargement de vidéos."
+  },
   "nav": {
     "home": "Accueil",
     "twitter": "X (Twitter)",
@@ -97,6 +128,8 @@
     "instagram": "Instagram",
     "facebook": "Facebook",
     "privacy": "Politique de confidentialité",
-    "terms": "Conditions d'utilisation"
+    "terms": "Conditions d'utilisation",
+    "about": "À propos",
+    "contact": "Contact"
   }
 }

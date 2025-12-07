@@ -12,6 +12,8 @@ export async function GET() {
     "/facebook",
     "/privacy",
     "/terms",
+    "/about",
+    "/contact",
   ];
   const urls: string[] = [];
 
