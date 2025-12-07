@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { i18n, type Locale } from "@/lib/i18n-config";
+import { getDictionary } from "@/lib/get-dictionary";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,9 +17,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-import { i18n, type Locale } from "@/lib/i18n-config";
-import { getDictionary } from "@/lib/get-dictionary";
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -127,13 +128,10 @@ export async function generateMetadata({
       "apple-mobile-web-app-status-bar-style": "default",
       "apple-mobile-web-app-title": "SSDown",
       "format-detection": "telephone=no",
+      "google-adsense-account": "ca-pub-9130836798889522",
     },
   };
 }
-
-import { ThemeProvider } from "@/components/theme-provider";
-
-// ... (keep existing code)
 
 export default async function RootLayout(props: {
   children: React.ReactNode;
@@ -146,30 +144,36 @@ export default async function RootLayout(props: {
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>
-        {/* Move metadata from body to head on both server and client */}
+        {/* Naver Analytics */}
+        <script src="//wcs.pstatic.net/wcslog.js" />
         <script
-          id="move-metadata-to-head"
+          id="naver-analytics"
           dangerouslySetInnerHTML={{
             __html: `
-              (function() {
-                if (typeof document === 'undefined') return;
-                // Move all meta, title, link tags from body to head
-                const body = document.body;
-                const head = document.head;
-                if (!body || !head) return;
-                
-                const selectors = 'meta, title, link[rel="icon"], link[rel="canonical"], link[rel="alternate"]';
-                const elements = body.querySelectorAll(selectors);
-                elements.forEach(function(el) {
-                  if (el.parentNode === body) {
-                    head.appendChild(el);
-                  }
-                });
-              })();
-            `,
+            if(!wcs_add) var wcs_add = {};
+            wcs_add["wa"] = "159353d1b5eedb0";
+            if(window.wcs) {
+              wcs_do();
+            }
+          `,
           }}
         />
-        <meta name="google-adsense-account" content="ca-pub-9130836798889522" />
+
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-742J9X4BM5"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-742J9X4BM5', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -186,63 +190,6 @@ export default async function RootLayout(props: {
             <SiteFooter dict={dict.nav} lang={lang} />
           </div>
         </ThemeProvider>
-
-        {/* Ensure metadata is moved to head after hydration */}
-        <script
-          id="move-metadata-after-hydration"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                if (typeof document === 'undefined') return;
-                const body = document.body;
-                const head = document.head;
-                if (!body || !head) return;
-                
-                const selectors = 'meta, title, link[rel="icon"], link[rel="canonical"], link[rel="alternate"]';
-                const elements = body.querySelectorAll(selectors);
-                elements.forEach(function(el) {
-                  if (el.parentNode === body) {
-                    head.appendChild(el);
-                  }
-                });
-              })();
-            `,
-          }}
-        />
-
-        {/* Naver Analytics */}
-        <script src="//wcs.pstatic.net/wcslog.js" defer />
-        <script
-          id="naver-analytics"
-          dangerouslySetInnerHTML={{
-            __html: `
-              if(!wcs_add) var wcs_add = {};
-              wcs_add["wa"] = "159353d1b5eedb0";
-              if(window.wcs) {
-                wcs_do();
-              }
-            `,
-          }}
-        />
-
-        {/* Google Analytics */}
-        <script
-          src="https://www.googletagmanager.com/gtag/js?id=G-742J9X4BM5"
-          async
-        />
-        <script
-          id="google-analytics"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-742J9X4BM5', {
-                page_path: window.location.pathname,
-              });
-            `,
-          }}
-        />
       </body>
     </html>
   );

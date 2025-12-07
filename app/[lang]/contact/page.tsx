@@ -20,7 +20,9 @@ export async function generateMetadata({
 
   return {
     title: dict.contact?.seo_title || "Contact SSDown - Support & Help",
-    description: dict.contact?.seo_description || "Contact SSDown support team for any questions, feedback or issues regarding our video downloader service.",
+    description:
+      dict.contact?.seo_description ||
+      "Contact SSDown support team for any questions, feedback or issues regarding our video downloader service.",
     openGraph: {
       title: dict.contact?.seo_title || "Contact SSDown",
       description: dict.contact?.seo_description,

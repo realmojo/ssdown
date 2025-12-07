@@ -21,15 +21,16 @@ export async function generateMetadata({
 
   return {
     title: dict.home?.seo_title || "SSDown - Ultimate Video Downloader",
-    description: dict.home?.seo_description || "Download videos from X, TikTok and more.",
-    keywords: dict.home?.seo_keywords ? dict.home.seo_keywords.split(", ") : [
-      "video downloader",
-      "twitter video download",
-      "tiktok downloader",
-    ],
+    description:
+      dict.home?.seo_description || "Download videos from X, TikTok and more.",
+    keywords: dict.home?.seo_keywords
+      ? dict.home.seo_keywords.split(", ")
+      : ["video downloader", "twitter video download", "tiktok downloader"],
     openGraph: {
       title: dict.home?.seo_title || "SSDown - Video Downloader",
-      description: dict.home?.seo_description || "Download videos from X, TikTok and more.",
+      description:
+        dict.home?.seo_description ||
+        "Download videos from X, TikTok and more.",
       url: canonical,
       siteName: "SSDown",
       images: [

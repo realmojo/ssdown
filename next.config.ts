@@ -4,8 +4,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react"],
   },
-  // Ensure metadata is properly rendered in head
-  reactStrictMode: true,
+  htmlLimitedBots: /.*/, // This regex matches all user agents
   images: {
     remotePatterns: [
       {
