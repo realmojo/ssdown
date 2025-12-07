@@ -274,7 +274,6 @@ export function HomeClient({ dict, lang }: HomeClientProps) {
       {/* CTA Section */}
       <section className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-indigo-600 dark:bg-indigo-900 -z-10" />
-        <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-10" />
         <div className="container px-4 md:px-6 text-center text-white space-y-8">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
             {dict?.home?.cta_title || "Ready to Start Downloading?"}

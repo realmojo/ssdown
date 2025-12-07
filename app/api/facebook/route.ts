@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
 
 /**
  * Facebook URL에서 share ID를 추출하는 함수
@@ -100,7 +99,6 @@ const extractReelId = async (url: string): Promise<string | null> => {
 const getFacebookDetailInfo = async (reelId: string) => {
   const url = `https://www.facebook.com/reel/${reelId}/`;
 
-  console.log("url: ", url);
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -148,8 +146,6 @@ const getFacebookDetailInfo = async (reelId: string) => {
 
   // 텍스트로 변환 (Node.js fetch는 gzip/deflate를 자동으로 해제함)
   const html = await response.text();
-
-  fs.writeFileSync("facebook.html", html);
 
   // HTML이 제대로 파싱되는지 확인 (바이너리가 아닌 텍스트인지)
   if (html.length === 0) {
@@ -352,7 +348,6 @@ const extractScriptJson = (
 
       try {
         const parsed = JSON.parse(jsonContent);
-        fs.writeFileSync("facebook.json", JSON.stringify(parsed, null, 2));
 
         // downloadable_uri_hd 또는 downloadable_uri_sd 필드가 있는 모든 객체 찾기
         const videoObjects = findObjectsWithDownloadableUris(parsed);
@@ -372,8 +367,6 @@ const extractScriptJson = (
         const firstFrameThumbnailObjects =
           findObjectsWithFirstFrameThumbnail(parsed);
         allFirstFrameThumbnailObjects.push(...firstFrameThumbnailObjects);
-
-        console.log("firstFrameThumbnailObjects: ", firstFrameThumbnailObjects);
       } catch (e) {
         console.error("Error parsing JSON:", e);
       }

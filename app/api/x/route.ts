@@ -185,13 +185,9 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    console.log("xId: ", xId);
+    const xData = await getXDetailInfo(xId);
 
-    const tweetData = await getXDetailInfo(xId);
-
-    console.log("tweetData: ", tweetData);
-
-    if (!tweetData) {
+    if (!xData) {
       return NextResponse.json(
         { error: "no data", message: "Tweet not found" },
         { status: 200 }
@@ -199,25 +195,25 @@ export async function GET(request: NextRequest) {
     }
 
     if (all) {
-      return NextResponse.json(tweetData, { status: 200 });
+      return NextResponse.json(xData, { status: 200 });
     }
 
     // 사용자 정보 추출
-    const user = tweetData.core?.user_results?.result;
+    const user = xData.core?.user_results?.result;
     const userName = user?.core?.name || "";
     const userScreenName = user?.core?.screen_name || "";
     const userAvatar =
       user?.legacy?.profile_image_url_https || user?.avatar?.image_url || "";
 
     // 트윗 정보 추출
-    const legacy = tweetData.legacy || {};
+    const legacy = xData.legacy || {};
     const content = legacy.full_text || "";
     const createdAt = legacy.created_at || "";
     const favoriteCount = legacy.favorite_count || 0;
     const retweetCount = legacy.retweet_count || 0;
     const replyCount = legacy.reply_count || 0;
     const quoteCount = legacy.quote_count || 0;
-    const viewCount = tweetData?.views?.count || 0;
+    const viewCount = xData?.views?.count || 0;
 
     // 미디어 정보 추출
     let thumbnail = "";
@@ -257,7 +253,7 @@ export async function GET(request: NextRequest) {
 
     // 추출한 데이터 반환
     const result = {
-      id: tweetData.rest_id || xId,
+      id: xData.rest_id || xId,
       user: {
         name: userName,
         screenName: userScreenName,
