@@ -7,6 +7,12 @@ import {
   StatsConfig,
 } from "./video-downloader-client";
 import { XIcon } from "@/components/ui/icons";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface XClientProps {
   dict: any;
@@ -52,6 +58,33 @@ export function XClient({ dict }: XClientProps) {
       getValue: (stats) => (stats.shareCount || 0) + (stats.quoteCount || 0),
     },
   ];
+
+  const faqSection = (
+    <div className="w-full max-w-3xl mx-auto mt-20 px-4">
+      <div className="text-center mb-10">
+        <h2 className="text-3xl font-bold tracking-tight mb-4">
+          {dict?.qna?.title || "Frequently Asked Questions"}
+        </h2>
+        <p className="text-muted-foreground">
+          {dict?.qna?.desc ||
+            "Find answers to common questions about downloading videos from X (Twitter)."}
+        </p>
+      </div>
+
+      <Accordion type="single" collapsible className="w-full">
+        {[1, 2, 3, 4, 5].map((i) => (
+          <AccordionItem key={i} value={`item-${i}`}>
+            <AccordionTrigger className="text-left">
+              {dict?.qna?.[`faq_${i}_q`] || "Question"}
+            </AccordionTrigger>
+            <AccordionContent className="whitespace-pre-line text-muted-foreground">
+              {dict?.qna?.[`faq_${i}_a`] || "Answer"}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </div>
+  );
 
   const emptyState = (
     <div className="grid gap-6 sm:grid-cols-3 w-full pt-12 text-left">
@@ -101,6 +134,7 @@ export function XClient({ dict }: XClientProps) {
       statsConfig={statsConfig}
       emptyState={emptyState}
       downloadFileName={(quality) => `x_video_${quality}.mp4`}
+      faqSection={faqSection}
     />
   );
 }

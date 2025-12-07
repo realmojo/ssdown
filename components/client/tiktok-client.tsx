@@ -7,6 +7,13 @@ import {
   StatsConfig,
 } from "./video-downloader-client";
 import { TikTokIcon } from "@/components/ui/icons";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
 interface TikTokClientProps {
   dict: any;
 }
@@ -52,6 +59,33 @@ export function TikTokClient({ dict }: TikTokClientProps) {
     },
   ];
 
+  const faqSection = (
+    <div className="w-full max-w-3xl mx-auto mt-20 px-4">
+      <div className="text-center mb-10">
+        <h2 className="text-3xl font-bold tracking-tight mb-4">
+          {dict?.qna_tiktok?.title || "TikTok FAQ"}
+        </h2>
+        <p className="text-muted-foreground">
+          {dict?.qna_tiktok?.desc ||
+            "Common questions about downloading TikTok videos without watermark."}
+        </p>
+      </div>
+
+      <Accordion type="single" collapsible className="w-full">
+        {[1, 2, 3, 4, 5].map((i) => (
+          <AccordionItem key={i} value={`item-${i}`}>
+            <AccordionTrigger className="text-left">
+              {dict?.qna_tiktok?.[`faq_${i}_q`] || "Question"}
+            </AccordionTrigger>
+            <AccordionContent className="whitespace-pre-line text-muted-foreground">
+              {dict?.qna_tiktok?.[`faq_${i}_a`] || "Answer"}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </div>
+  );
+
   const emptyState = (
     <div className="grid gap-6 sm:grid-cols-2 w-full pt-12 text-left">
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
@@ -95,6 +129,7 @@ export function TikTokClient({ dict }: TikTokClientProps) {
       statsConfig={statsConfig}
       emptyState={emptyState}
       downloadFileName={(quality) => `tiktok_video_${quality}.mp4`}
+      faqSection={faqSection}
     />
   );
 }

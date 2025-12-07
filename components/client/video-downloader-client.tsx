@@ -103,9 +103,10 @@ export interface VideoDownloaderClientProps {
   thumbnailHeight?: string;
   thumbnailImageProxy?: (url: string) => string;
   avatarImageProxy?: (url: string) => string;
-  emptyState?: ReactNode;
-  downloadFileName?: (quality: string) => string;
+  emptyState: React.ReactNode;
+  downloadFileName: (quality: string) => string;
   transformVideoUrl?: (url: string) => string;
+  faqSection?: React.ReactNode;
 }
 
 export function VideoDownloaderClient({
@@ -121,13 +122,14 @@ export function VideoDownloaderClient({
   formatQuality,
   formatContent,
   statsConfig,
-  thumbnailAspect = "aspect-[9/16]",
-  thumbnailHeight = "md:h-64",
+  thumbnailAspect = "aspect-square",
+  thumbnailHeight = "h-64",
   thumbnailImageProxy,
   avatarImageProxy,
   emptyState,
   downloadFileName,
   transformVideoUrl,
+  faqSection,
 }: VideoDownloaderClientProps) {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
@@ -395,7 +397,7 @@ export function VideoDownloaderClient({
 
                               {/* Stats Grid */}
                               {statsConfig && statsConfig.length > 0 && (
-                                <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 py-4 border-y border-gray-100 dark:border-gray-800">
+                                <div className="grid grid-cols-4 gap-4 py-4 border-y border-gray-100 dark:border-gray-800">
                                   {statsConfig.map((stat, statIndex) => {
                                     const StatIcon = stat.icon;
                                     const value = stat.getValue
@@ -507,6 +509,8 @@ export function VideoDownloaderClient({
           {!data && emptyState}
         </div>
       </div>
+
+      {faqSection}
     </div>
   );
 }
