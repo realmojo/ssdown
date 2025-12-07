@@ -66,5 +66,26 @@ export default async function FacebookPage(props: {
   const params = await props.params;
   const dict = await getDictionary(params.lang);
 
-  return <FacebookClient dict={dict} />;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [1, 2, 3, 4, 5].map((i) => ({
+      "@type": "Question",
+      name: dict?.qna_facebook?.[`faq_${i}_q`] || "",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: dict?.qna_facebook?.[`faq_${i}_a`] || "",
+      },
+    })),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <FacebookClient dict={dict} />
+    </>
+  );
 }
