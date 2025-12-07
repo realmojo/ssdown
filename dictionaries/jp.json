@@ -16,6 +16,9 @@
     "unlimited_downloads": "無制限ダウンロード"
   },
   "home": {
+    "seo_title": "SSDown - X、TikTok、Instagram動画保存・ダウンロード (4K対応)",
+    "seo_description": "最高の無料オンライン動画ダウンローダー。X（Twitter）、TikTok（透かしなし）、Instagram（リール、ストーリー）の動画を高画質MP4/MP3でダウンロード。高速かつ安全。",
+    "seo_keywords": "動画保存, ツイッター動画保存, インスタ動画保存, tiktok保存, 動画ダウンロード, mp4保存",
     "hero_badge": "🚀 No.1 ソーシャルメディアダウンローダー",
     "title": "動画を瞬時に、自由にダウンロード",
     "subtitle": "X、TikTok、Instagramの高品質動画を透かしなしで保存。お気に入りのコンテンツを保存する最も速く安全な方法。",
@@ -46,18 +49,27 @@
     "placeholder": "ここにX (Twitter) のリンクを貼り付け...",
     "desc_copy": "ダウンロードしたいツイートを見つけてリンクをコピー。",
     "desc_paste": "上の入力ボックスにリンクを貼り付けてダウンロード。",
-    "desc_save": "お好みの画質を選んでデバイスに動画を保存。"
+    "desc_save": "お好みの画質を選んでデバイスに動画を保存。",
+    "seo_title": "X (Twitter) 動画保存 - ツイッター動画＆GIFダウンロード",
+    "seo_description": "最速のX（Twitter）動画ダウンローダー。Twitterの動画やGIFをHD、フルHD、4K画質でスマホやPCに保存。ログイン不要。",
+    "seo_keywords": "x動画保存, twitter動画保存, twitter gif保存, ツイッター動画ダウンロード, ツイッターmp4変換"
   },
   "tiktok": {
+    "seo_title": "TikTokダウンロード - 透かしなしTikTok動画保存",
+    "seo_description": "透かしなしでTikTok動画を保存する最高のツール。TikTokのMP4動画とMP3音声を高画質でダウンロード。無料・無制限。",
+    "seo_keywords": "tiktok保存, tiktok透かしなし, tiktok mp3変換, tiktok動画ダウンロード, ティックトック保存",
     "title": "TikTok 動画ダウンローダー",
     "subtitle": "透かしなしでTikTok動画をダウンロード。MP4動画とMP3音声を瞬時に保存。",
     "placeholder": "ここにTikTokのリンクを貼り付け...",
     "no_watermark": "透かしなし",
     "mp4_mp3": "MP4 & MP3",
     "desc_watermark": "邪魔なTikTokの透かしオーバーレイなしでクリアな動画を取得。",
-    "desc_audio": "動画をダウンロードするか、音声トラックのみをMP3として保存するかを選択します。"
+    "desc_audio": "動画をダウンロードするか、音声トラックのみをMP3として保存するかを選択します."
   },
   "instagram": {
+    "seo_title": "Instagramダウンロード - リール、ストーリー、写真、動画保存",
+    "seo_description": "無料のInstagram動画ダウンローダー。Instagramのリール、ストーリー、写真、IGTV動画を高画質（1080p、4K）で保存。匿名で安全。",
+    "seo_keywords": "インスタ保存, インスタ動画保存, リール保存, ストーリー保存, インスタ写真ダウンロード",
     "title": "Instagram 動画ダウンローダー",
     "subtitle": "Instagramのリール、動画、写真を即座にダウンロード。高品質、透かしなし。",
     "placeholder": "ここにInstagramのURLを貼り付け...",

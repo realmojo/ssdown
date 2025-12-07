@@ -20,19 +20,14 @@ export async function generateMetadata({
   const canonical = `${baseUrl}/${lang === "en" ? "" : lang + "/"}tiktok`;
 
   return {
-    title: dict.tiktok?.title || "TikTok Video Downloader",
+    title: dict.tiktok?.seo_title || "TikTok Video Downloader",
     description:
-      dict.tiktok?.subtitle || "Download TikTok videos without watermark.",
-    keywords: [
-      "tiktok video download",
-      "tiktok downloader",
-      "tiktok no watermark",
-      "video downloader",
-    ],
+      dict.tiktok?.seo_description || "Download TikTok videos without watermark.",
+    keywords: dict.tiktok?.seo_keywords ? dict.tiktok.seo_keywords.split(", ") : ["tiktok downloader", "tiktok no watermark"],
     openGraph: {
-      title: dict.tiktok?.title || "TikTok Video Downloader",
+      title: dict.tiktok?.seo_title || "TikTok Video Downloader",
       description:
-        dict.tiktok?.subtitle || "Download TikTok videos without watermark.",
+        dict.tiktok?.seo_description || "Download TikTok videos without watermark.",
       url: canonical,
       siteName: "SSDown",
       images: [

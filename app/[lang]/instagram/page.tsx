@@ -19,22 +19,12 @@ export async function generateMetadata({
   const canonical = `${baseUrl}/${lang === "en" ? "" : lang + "/"}instagram`;
 
   return {
-    title: dict.instagram?.title || "Instagram Video Downloader - SSDown",
-    description:
-      dict.instagram?.subtitle ||
-      "Download Instagram Reels, Videos, Photos and Stories anonymously.",
-    keywords: [
-      "instagram downloader",
-      "instagram video download",
-      "reels downloader",
-      "instagram story saver",
-      "ssdown",
-    ],
+    title: dict.instagram?.seo_title || "Instagram Video Downloader",
+    description: dict.instagram?.seo_description || "Download Instagram Reels, Stories, and Videos.",
+    keywords: dict.instagram?.seo_keywords ? dict.instagram.seo_keywords.split(", ") : ["instagram downloader", "reels downloader"],
     openGraph: {
-      title: dict.instagram?.title || "Instagram Video Downloader - SSDown",
-      description:
-        dict.instagram?.subtitle ||
-        "Download Instagram Reels, Videos, Photos and Stories anonymously.",
+      title: dict.instagram?.seo_title || "Instagram Video Downloader",
+      description: dict.instagram?.seo_description || "Download Instagram content instantly.",
       url: canonical,
       siteName: "SSDown",
       images: [

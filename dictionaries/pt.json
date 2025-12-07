@@ -16,6 +16,9 @@
     "unlimited_downloads": "Downloads Ilimitados"
   },
   "home": {
+    "seo_title": "SSDown - Baixador de Vídeo 4K para X, TikTok, Instagram",
+    "seo_description": "O melhor baixador de vídeo online grátis. Baixe vídeos do X (Twitter), TikTok (sem marca d'água) e Instagram (Reels, Stories) em alta qualidade MP4/MP3. Rápido e seguro.",
+    "seo_keywords": "baixador de vídeo, baixar vídeo twitter, tiktok sem marca d'água, baixar reels instagram, salvar vídeo online",
     "hero_badge": "🚀 O Baixador de Mídia Social #1",
     "title": "Baixe Vídeos Instantaneamente & Livremente",
     "subtitle": "Salve vídeos de alta qualidade do X, TikTok e Instagram sem marca d'água. A maneira mais rápida e segura de manter seu conteúdo favorito.",
@@ -46,9 +49,15 @@
     "placeholder": "Cole o link do X (Twitter) aqui...",
     "desc_copy": "Encontre o tweet que você deseja baixar e copie o link.",
     "desc_paste": "Cole o link na caixa de entrada acima e clique em baixar.",
-    "desc_save": "Escolha sua qualidade preferida e salve o vídeo no seu dispositivo."
+    "desc_save": "Escolha sua qualidade preferida e salve o vídeo no seu dispositivo.",
+    "seo_title": "Baixador de Vídeo X (Twitter) - Baixar Vídeos e GIFs",
+    "seo_description": "Baixador de vídeos do X (Twitter) mais rápido. Salve vídeos e GIFs do Twitter em qualidade HD, Full HD e 4K no celular ou PC. Sem login.",
+    "seo_keywords": "baixar vídeo x, salvar vídeo twitter, twitter gif mp4, download twitter, baixar mídia twitter"
   },
   "tiktok": {
+    "seo_title": "Baixador TikTok - Baixar Vídeos TikTok Sem Marca D'água",
+    "seo_description": "Melhor baixador TikTok para salvar vídeos sem marca d'água. Baixe vídeos MP4 do TikTok e áudio MP3 em qualidade HD. Grátis e ilimitado.",
+    "seo_keywords": "baixador tiktok, tiktok sem marca d'água, tiktok mp3, salvar video tiktok, remover marca d'água tiktok",
     "title": "Baixador de Vídeo TikTok",
     "subtitle": "Baixe vídeos do TikTok sem marca d'água. Salve vídeos MP4 e áudio MP3 instantaneamente.",
     "placeholder": "Cole o link do TikTok aqui...",
@@ -58,6 +67,9 @@
     "desc_audio": "Escolha baixar o vídeo ou apenas a faixa de áudio como MP3."
   },
   "instagram": {
+    "seo_title": "Baixador Instagram - Reels, Stories, Fotos e Vídeos",
+    "seo_description": "Baixador de vídeo Instagram grátis. Salve Reels, Stories, Fotos e vídeos IGTV do Instagram em alta qualidade. Anônimo e seguro.",
+    "seo_keywords": "baixador instagram, baixar reels, salvar story instagram, baixar foto instagram, ig video download",
     "title": "Baixador de Vídeo Instagram",
     "subtitle": "Baixe Reels, Vídeos e Fotos do Instagram instantaneamente. Alta qualidade, sem marca d'água.",
     "placeholder": "Cole o URL do Instagram aqui...",

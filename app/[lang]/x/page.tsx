@@ -20,17 +20,12 @@ export async function generateMetadata({
   const canonical = `${baseUrl}/${lang === "en" ? "" : lang + "/"}x`;
 
   return {
-    title: dict.x?.title || "X (Twitter) Video Downloader",
-    description: dict.x?.subtitle || "Download X videos and GIFs online.",
-    keywords: [
-      "twitter video download",
-      "x video downloader",
-      "twitter download",
-      "video downloader",
-    ],
+    title: dict.x?.seo_title || "X (Twitter) Video Downloader",
+    description: dict.x?.seo_description || "Download X (Twitter) videos in high quality.",
+    keywords: dict.x?.seo_keywords ? dict.x.seo_keywords.split(", ") : ["twitter downloader", "x video download"],
     openGraph: {
-      title: dict.x?.title || "X (Twitter) Video Downloader",
-      description: dict.x?.subtitle || "Download X videos and GIFs online.",
+      title: dict.x?.seo_title || "X (Twitter) Video Downloader",
+      description: dict.x?.seo_description || "Download X (Twitter) videos securely.",
       url: canonical,
       siteName: "SSDown",
       images: [

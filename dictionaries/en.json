@@ -16,6 +16,9 @@
     "unlimited_downloads": "Unlimited Downloads"
   },
   "home": {
+    "seo_title": "SSDown - Ultimate 4K Video Downloader for X, TikTok, Instagram",
+    "seo_description": "The best free online video downloader. Download videos from X (Twitter), TikTok (no watermark), and Instagram (Reels, Stories) in high quality MP4/MP3. Fast, secure, and works on all devices.",
+    "seo_keywords": "video downloader, twitter video download, tiktok no watermark, instagram reels download, free video saver, 4k video downloader",
     "hero_badge": "🚀 The #1 Social Media Downloader",
     "title": "Download Videos Instantly & Freely",
     "subtitle": "Save high-quality videos from X, TikTok, and Instagram without watermarks. The fastest and most secure way to keep your favorite content.",
@@ -46,9 +49,15 @@
     "placeholder": "Paste X (Twitter) link here...",
     "desc_copy": "Find the tweet you want to download and copy its link.",
     "desc_paste": "Paste the link into the input box above and hit download.",
-    "desc_save": "Choose your preferred quality and save the video to your device."
+    "desc_save": "Choose your preferred quality and save the video to your device.",
+    "seo_title": "X (Twitter) Video Downloader - Download Videos & GIFs Free",
+    "seo_description": "Fastest X (Twitter) Video Downloader. Save Twitter videos and GIFs in HD, Full HD, and 4K quality to your mobile or PC. No login required, unlimited downloads.",
+    "seo_keywords": "x video downloader, twitter video download, save twitter gif, twitter mp4 download, x media saver"
   },
   "tiktok": {
+    "seo_title": "TikTok Downloader - Download TikTok Videos Without Watermark",
+    "seo_description": "Best TikTok Downloader to save videos without watermark. Download TikTok MP4 videos and MP3 audio in HD quality. Free, unlimited, and fast.",
+    "seo_keywords": "tiktok downloader, tiktok no watermark, download tiktok mp3, tiktok video saver, remove tiktok watermark",
     "title": "TikTok Video Downloader",
     "subtitle": "Download TikTok videos without watermark. Save MP4 videos and MP3 audio instantly.",
     "placeholder": "Paste TikTok link here...",
@@ -58,6 +67,9 @@
     "desc_audio": "Choose to download the video or just the audio track as MP3."
   },
   "instagram": {
+    "seo_title": "Instagram Downloader - Download Reels, Stories, Photos & Videos",
+    "seo_description": "Free Instagram Video Downloader. Save Instagram Reels, Stories, Photos, and IGTV videos in high quality (1080p, 4K). Anonymous, secure, and no app needed.",
+    "seo_keywords": "instagram downloader, instagram reels download, save instagram stories, instagram photo download, ig video saver",
     "title": "Instagram Video Downloader",
     "subtitle": "Download Instagram Reels, Videos, and Photos instantly. High quality, no watermark.",
     "placeholder": "Paste Instagram URL here...",

@@ -20,19 +20,16 @@ export async function generateMetadata({
   const canonical = lang === "en" ? baseUrl : `${baseUrl}/${lang}`;
 
   return {
-    title: dict.home?.title || "Video Downloader",
-    description:
-      dict.home?.subtitle || "Download videos from X, TikTok and more.",
-    keywords: [
+    title: dict.home?.seo_title || "SSDown - Ultimate Video Downloader",
+    description: dict.home?.seo_description || "Download videos from X, TikTok and more.",
+    keywords: dict.home?.seo_keywords ? dict.home.seo_keywords.split(", ") : [
       "video downloader",
       "twitter video download",
       "tiktok downloader",
-      "free video download",
     ],
     openGraph: {
-      title: dict.home?.title || "SSDown - Video Downloader",
-      description:
-        dict.home?.subtitle || "Download videos from X, TikTok and more.",
+      title: dict.home?.seo_title || "SSDown - Video Downloader",
+      description: dict.home?.seo_description || "Download videos from X, TikTok and more.",
       url: canonical,
       siteName: "SSDown",
       images: [
