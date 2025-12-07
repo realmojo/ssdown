@@ -131,7 +131,6 @@ export async function generateMetadata({
   };
 }
 
-import Script from "next/script";
 import { ThemeProvider } from "@/components/theme-provider";
 
 // ... (keep existing code)
@@ -148,9 +147,8 @@ export default async function RootLayout(props: {
     <html lang={lang} suppressHydrationWarning>
       <head>
         {/* Move metadata from body to head on both server and client */}
-        <Script
+        <script
           id="move-metadata-to-head"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -190,9 +188,8 @@ export default async function RootLayout(props: {
         </ThemeProvider>
 
         {/* Ensure metadata is moved to head after hydration */}
-        <Script
+        <script
           id="move-metadata-after-hydration"
-          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -214,32 +211,38 @@ export default async function RootLayout(props: {
         />
 
         {/* Naver Analytics */}
-        <Script src="//wcs.pstatic.net/wcslog.js" strategy="lazyOnload" />
-        <Script id="naver-analytics" strategy="lazyOnload">
-          {`
-            if(!wcs_add) var wcs_add = {};
-            wcs_add["wa"] = "159353d1b5eedb0";
-            if(window.wcs) {
-              wcs_do();
-            }
-          `}
-        </Script>
+        <script src="//wcs.pstatic.net/wcslog.js" defer />
+        <script
+          id="naver-analytics"
+          dangerouslySetInnerHTML={{
+            __html: `
+              if(!wcs_add) var wcs_add = {};
+              wcs_add["wa"] = "159353d1b5eedb0";
+              if(window.wcs) {
+                wcs_do();
+              }
+            `,
+          }}
+        />
 
         {/* Google Analytics */}
-        <Script
+        <script
           src="https://www.googletagmanager.com/gtag/js?id=G-742J9X4BM5"
-          strategy="afterInteractive"
+          async
         />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-742J9X4BM5', {
-              page_path: window.location.pathname,
-            });
-          `}
-        </Script>
+        <script
+          id="google-analytics"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-742J9X4BM5', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
       </body>
     </html>
   );
