@@ -29,7 +29,7 @@ export async function generateMetadata({
       siteName: "SSDown",
       images: [
         {
-          url: "https://ssdown.app/logo.png",
+          url: "https://ssdown.app/ssdown-instagram-logo.png",
           width: 1200,
           height: 630,
           alt: "SSDown - Instagram Downloader",
@@ -52,7 +52,7 @@ export async function generateMetadata({
       title: dict.instagram?.title || "Instagram Video Downloader",
       description:
         dict.instagram?.subtitle || "Download Instagram content instantly.",
-      images: ["https://ssdown.app/logo.png"],
+      images: ["https://ssdown.app/ssdown-instagram-logo.png"],
     },
     alternates: {
       canonical: canonical,

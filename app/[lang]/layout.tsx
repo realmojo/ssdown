@@ -124,7 +124,7 @@ export async function generateMetadata({
     },
     other: {
       "application-name": "SSDown",
-      "apple-mobile-web-app-capable": "yes",
+      "mobile-web-app-capable": "yes",
       "apple-mobile-web-app-status-bar-style": "default",
       "apple-mobile-web-app-title": "SSDown",
       "format-detection": "telephone=no",

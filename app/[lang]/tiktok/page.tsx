@@ -32,7 +32,7 @@ export async function generateMetadata({
       siteName: "SSDown",
       images: [
         {
-          url: "https://ssdown.app/logo.png",
+          url: "https://ssdown.app/ssdown-tiktok-logo.png",
           width: 1200,
           height: 630,
           alt: "SSDown - TikTok Video Downloader",
@@ -55,7 +55,7 @@ export async function generateMetadata({
       title: dict.tiktok?.title || "TikTok Video Downloader",
       description:
         dict.tiktok?.subtitle || "Download TikTok videos without watermark.",
-      images: ["https://ssdown.app/logo.png"],
+      images: ["https://ssdown.app/ssdown-tiktok-logo.png"],
     },
     alternates: {
       canonical: canonical,
