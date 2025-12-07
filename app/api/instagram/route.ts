@@ -9,11 +9,13 @@ import { NextRequest, NextResponse } from "next/server";
  * - https://www.instagram.com/reel/DRzxg9KgC8A/?utm_source=ig_web_copy_link
  * - https://www.instagram.com/reel/DRzxg9KgC8A/
  * - https://www.instagram.com/reel/DRzxg9KgC8A
+ * - https://www.instagram.com/p/DRzxg9KgC8A/
  */
 const extractReelId = (url: string): string | null => {
   try {
     // 정규식으로 /reel/ 다음의 ID 추출
-    const reelMatch = url.match(/\/reel\/([^/?]+)/);
+    const reelMatch =
+      url.match(/\/reel\/([^/?]+)/) || url.match(/\/p\/([^/?]+)/);
     if (reelMatch && reelMatch[1]) {
       return reelMatch[1];
     }
@@ -23,7 +25,7 @@ const extractReelId = (url: string): string | null => {
     const pathParts = urlObj.pathname.split("/").filter(Boolean);
 
     // pathname이 /reel/ID 형식인 경우
-    const reelIndex = pathParts.indexOf("reel");
+    const reelIndex = pathParts.indexOf("reel") || pathParts.indexOf("p");
     if (reelIndex !== -1 && reelIndex + 1 < pathParts.length) {
       return pathParts[reelIndex + 1];
     }
@@ -186,9 +188,6 @@ export async function GET(request: NextRequest) {
     }
 
     // URL에서 reel ID 추출
-    // url: https://www.instagram.com/reel/DRzxg9KgC8A/?utm_source=ig_web_copy_link
-    // url: https://www.instagram.com/reel/DRzxg9KgC8A/
-    // url: https://www.instagram.com/reel/DRzxg9KgC8A
     const reelId = extractReelId(url);
 
     if (!reelId) {
