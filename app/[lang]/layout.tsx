@@ -6,7 +6,6 @@ import { SiteFooter } from "@/components/site-footer";
 import { i18n, type Locale } from "@/lib/i18n-config";
 import { getDictionary } from "@/lib/get-dictionary";
 import { ThemeProvider } from "@/components/theme-provider";
-import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -146,14 +145,9 @@ export default async function RootLayout(props: {
       <head>
         {/* Naver Analytics */}
 
-        <Script
-          id="naver-analytics"
-          src="//wcs.naver.net/wcslog.js"
-          strategy="lazyOnload"
-        />
-        <Script
+        <script id="naver-analytics" src="//wcs.naver.net/wcslog.js" />
+        <script
           id="naver-analytics-init"
-          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html:
               'if(!wcs_add) var wcs_add = {}; wcs_add["wa"] = "159353d1b5eedb0"; if(window.wcs) {wcs_do();}',
