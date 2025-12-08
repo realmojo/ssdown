@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { i18n } from "@/lib/i18n-config";
+import { getAllPosts } from "@/lib/posts";
 
 const baseUrl = "https://ssdown.app";
 
@@ -14,6 +15,7 @@ export async function GET() {
     "/terms",
     "/about",
     "/contact",
+    "/blog",
   ];
   const urls: string[] = [];
 
@@ -46,6 +48,44 @@ export async function GET() {
     </url>`);
     });
   });
+
+  // 블로그 포스트 목록 추가
+  try {
+    const posts = await getAllPosts();
+
+    posts.forEach((post) => {
+      // 영어 버전 (root URL)
+      const blogUrl = `${baseUrl}/blog/${post.id}`;
+      const lastModified = post.updatedAt
+        ? new Date(post.updatedAt).toISOString().split("T")[0]
+        : new Date().toISOString().split("T")[0];
+
+      urls.push(`
+    <url>
+      <loc>${blogUrl}</loc>
+      <lastmod>${lastModified}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.6</priority>
+    </url>`);
+
+      // 다른 언어 버전
+      i18n.locales.forEach((locale) => {
+        if (locale === "en") return; // Skip English as it's handled at root
+        const langBlogUrl = `${baseUrl}/${locale}/blog/${post.id}`;
+
+        urls.push(`
+    <url>
+      <loc>${langBlogUrl}</loc>
+      <lastmod>${lastModified}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
+    </url>`);
+      });
+    });
+  } catch (error) {
+    console.error("Error fetching blog posts for sitemap:", error);
+    // 에러가 발생해도 기본 라우트는 포함되도록 계속 진행
+  }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">${urls.join(

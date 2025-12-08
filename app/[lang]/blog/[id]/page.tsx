@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { i18n, type Locale } from "@/lib/i18n-config";
-import { getDictionary } from "@/lib/get-dictionary";
 import { getAllPosts, getLocalizedContent } from "@/lib/posts";
 import { notFound } from "next/navigation";
 import { PostContent } from "@/components/PostContent";
