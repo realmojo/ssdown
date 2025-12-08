@@ -1,6 +1,7 @@
 import { i18n, type Locale } from "@/lib/i18n-config";
 import { getDictionary } from "@/lib/get-dictionary";
 import { TikTokClient } from "@/components/client/tiktok-client";
+import { getPostsByCategory } from "@/lib/posts";
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -22,12 +23,16 @@ export async function generateMetadata({
   return {
     title: dict.tiktok?.seo_title || "TikTok Video Downloader",
     description:
-      dict.tiktok?.seo_description || "Download TikTok videos without watermark.",
-    keywords: dict.tiktok?.seo_keywords ? dict.tiktok.seo_keywords.split(", ") : ["tiktok downloader", "tiktok no watermark"],
+      dict.tiktok?.seo_description ||
+      "Download TikTok videos without watermark.",
+    keywords: dict.tiktok?.seo_keywords
+      ? dict.tiktok.seo_keywords.split(", ")
+      : ["tiktok downloader", "tiktok no watermark"],
     openGraph: {
       title: dict.tiktok?.seo_title || "TikTok Video Downloader",
       description:
-        dict.tiktok?.seo_description || "Download TikTok videos without watermark.",
+        dict.tiktok?.seo_description ||
+        "Download TikTok videos without watermark.",
       url: canonical,
       siteName: "SSDown",
       images: [
@@ -68,6 +73,7 @@ export default async function TikTokPage(props: {
 }) {
   const params = await props.params;
   const dict = await getDictionary(params.lang);
+  const relatedPosts = await getPostsByCategory("tiktok");
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -97,7 +103,11 @@ export default async function TikTokPage(props: {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <TikTokClient dict={dict} />
+      <TikTokClient
+        dict={dict}
+        lang={params.lang}
+        relatedPosts={relatedPosts}
+      />
     </>
   );
 }

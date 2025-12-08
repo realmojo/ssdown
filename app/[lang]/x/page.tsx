@@ -1,6 +1,7 @@
 import { i18n, type Locale } from "@/lib/i18n-config";
 import { getDictionary } from "@/lib/get-dictionary";
 import { XClient } from "@/components/client/x-client";
+import { getPostsByCategory } from "@/lib/posts";
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -69,6 +70,7 @@ export default async function TwitterPage(props: {
 }) {
   const params = await props.params;
   const dict = await getDictionary(params.lang);
+  const relatedPosts = await getPostsByCategory("x");
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -98,7 +100,7 @@ export default async function TwitterPage(props: {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <XClient dict={dict} />
+      <XClient dict={dict} lang={params.lang} relatedPosts={relatedPosts} />
     </>
   );
 }

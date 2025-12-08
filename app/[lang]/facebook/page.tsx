@@ -2,6 +2,7 @@ import { i18n, type Locale } from "@/lib/i18n-config";
 import { getDictionary } from "@/lib/get-dictionary";
 import { FacebookClient } from "@/components/client/facebook-client";
 import { Metadata } from "next";
+import { getPostsByCategory } from "@/lib/posts";
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -20,11 +21,17 @@ export async function generateMetadata({
 
   return {
     title: dict.facebook?.seo_title || "Facebook Video Downloader",
-    description: dict.facebook?.seo_description || "Download Facebook videos in HD/4K quality.",
-    keywords: dict.facebook?.seo_keywords ? dict.facebook.seo_keywords.split(", ") : ["facebook downloader", "facebook video saver", "fb download"],
+    description:
+      dict.facebook?.seo_description ||
+      "Download Facebook videos in HD/4K quality.",
+    keywords: dict.facebook?.seo_keywords
+      ? dict.facebook.seo_keywords.split(", ")
+      : ["facebook downloader", "facebook video saver", "fb download"],
     openGraph: {
       title: dict.facebook?.seo_title || "Facebook Video Downloader",
-      description: dict.facebook?.seo_description || "Download Facebook videos in high quality.",
+      description:
+        dict.facebook?.seo_description ||
+        "Download Facebook videos in high quality.",
       url: canonical,
       siteName: "SSDown",
       images: [
@@ -65,6 +72,7 @@ export default async function FacebookPage(props: {
 }) {
   const params = await props.params;
   const dict = await getDictionary(params.lang);
+  const relatedPosts = await getPostsByCategory("facebook");
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -94,7 +102,11 @@ export default async function FacebookPage(props: {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <FacebookClient dict={dict} />
+      <FacebookClient
+        dict={dict}
+        lang={params.lang}
+        relatedPosts={relatedPosts}
+      />
     </>
   );
 }

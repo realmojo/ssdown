@@ -2,6 +2,7 @@ import { i18n, type Locale } from "@/lib/i18n-config";
 import { getDictionary } from "@/lib/get-dictionary";
 import { InstagramClient } from "@/components/client/instagram-client";
 import { Metadata } from "next";
+import { getPostsByCategory } from "@/lib/posts";
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -20,11 +21,17 @@ export async function generateMetadata({
 
   return {
     title: dict.instagram?.seo_title || "Instagram Video Downloader",
-    description: dict.instagram?.seo_description || "Download Instagram Reels, Stories, and Videos.",
-    keywords: dict.instagram?.seo_keywords ? dict.instagram.seo_keywords.split(", ") : ["instagram downloader", "reels downloader"],
+    description:
+      dict.instagram?.seo_description ||
+      "Download Instagram Reels, Stories, and Videos.",
+    keywords: dict.instagram?.seo_keywords
+      ? dict.instagram.seo_keywords.split(", ")
+      : ["instagram downloader", "reels downloader"],
     openGraph: {
       title: dict.instagram?.seo_title || "Instagram Video Downloader",
-      description: dict.instagram?.seo_description || "Download Instagram content instantly.",
+      description:
+        dict.instagram?.seo_description ||
+        "Download Instagram content instantly.",
       url: canonical,
       siteName: "SSDown",
       images: [
@@ -65,6 +72,7 @@ export default async function InstagramPage(props: {
 }) {
   const params = await props.params;
   const dict = await getDictionary(params.lang);
+  const relatedPosts = await getPostsByCategory("instagram");
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -94,7 +102,11 @@ export default async function InstagramPage(props: {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <InstagramClient dict={dict} />
+      <InstagramClient
+        dict={dict}
+        lang={params.lang}
+        relatedPosts={relatedPosts}
+      />
     </>
   );
 }

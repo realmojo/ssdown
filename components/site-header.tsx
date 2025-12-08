@@ -95,6 +95,14 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
               {dict?.facebook?.nav || "Facebook"}
             </Button>
           </Link>
+          <Link href={getPath("/blog")}>
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:text-primary"
+            >
+              Blog
+            </Button>
+          </Link>
         </nav>
 
         {/* Mobile Navigation */}
@@ -115,6 +123,7 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
               <SelectItem value="facebook">
                 {dict?.facebook || "Facebook"}
               </SelectItem>
+              <SelectItem value="blog">Blog</SelectItem>
             </SelectContent>
           </Select>
         </div>
