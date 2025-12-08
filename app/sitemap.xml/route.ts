@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { i18n } from "@/lib/i18n-config";
-import { getAllPosts } from "@/lib/posts";
+import { getAllSitemapPosts } from "@/lib/posts";
 
 const baseUrl = "https://ssdown.app";
 
@@ -51,8 +51,9 @@ export async function GET() {
 
   // 블로그 포스트 목록 추가
   try {
-    const posts = await getAllPosts();
+    const posts = await getAllSitemapPosts();
 
+    console.log(posts);
     posts.forEach((post) => {
       // 영어 버전 (root URL)
       const blogUrl = `${baseUrl}/blog/${post.id}`;

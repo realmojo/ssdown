@@ -74,6 +74,26 @@ export async function getAllPosts(): Promise<Post[]> {
   }
 }
 
+export async function getAllSitemapPosts(): Promise<Post[]> {
+  try {
+    const { data, error } = await supabase
+      .from("ssdown_blogs")
+      .select("id, title, published_at, updated_at")
+      .eq("status", "published")
+      .order("published_at", { ascending: false });
+
+    if (error) {
+      console.error("Error fetching posts:", error);
+      return [];
+    }
+
+    return (data || []).map(transformPost);
+  } catch (error) {
+    console.error("Error in getAllSitemapPosts:", error);
+    return [];
+  }
+}
+
 export async function getPostById(id: string): Promise<Post | undefined> {
   try {
     const { data, error } = await supabase
