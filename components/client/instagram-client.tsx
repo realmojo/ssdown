@@ -308,18 +308,18 @@ export function InstagramClient({
   const emptyState = (
     <div className="grid gap-6 sm:grid-cols-2 w-full pt-12 text-left">
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
-        <h3 className="font-semibold text-lg mb-2">
+        <p className="font-semibold text-lg mb-2">
           {dict?.instagram?.feature_1_title || "Reels & Videos"}
-        </h3>
+        </p>
         <p className="text-muted-foreground text-sm">
           {dict?.instagram?.feature_1_desc ||
             "Download Instagram Reels and videos in high definition with sound."}
         </p>
       </div>
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
-        <h3 className="font-semibold text-lg mb-2">
+        <p className="font-semibold text-lg mb-2">
           {dict?.instagram?.feature_2_title || "Photos & Stories"}
-        </h3>
+        </p>
         <p className="text-muted-foreground text-sm">
           {dict?.instagram?.feature_2_desc ||
             "Save photos and stories from any public Instagram account easily."}

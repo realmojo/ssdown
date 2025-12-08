@@ -300,25 +300,25 @@ export function XClient({ dict, lang, relatedPosts = [] }: XClientProps) {
   const emptyState = (
     <div className="grid gap-6 sm:grid-cols-3 w-full pt-12 text-left">
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
-        <h3 className="font-semibold text-lg mb-2">
+        <p className="font-semibold text-lg mb-2">
           {dict?.common?.copy_link || "Copy Link"}
-        </h3>
+        </p>
         <p className="text-muted-foreground text-sm">
           {dict?.x?.desc_copy ||
             "Find the tweet you want to download and copy its link."}
         </p>
       </div>
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
-        <h3 className="font-semibold text-lg mb-2">Paste URL</h3>
+        <p className="font-semibold text-lg mb-2">Paste URL</p>
         <p className="text-muted-foreground text-sm">
           {dict?.x?.desc_paste ||
             "Paste the link into the input box above and hit download."}
         </p>
       </div>
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
-        <h3 className="font-semibold text-lg mb-2">
+        <p className="font-semibold text-lg mb-2">
           {dict?.common?.save_video || "Save Video"}
-        </h3>
+        </p>
         <p className="text-muted-foreground text-sm">
           {dict?.x?.desc_save ||
             "Choose your preferred quality and save the video to your device."}

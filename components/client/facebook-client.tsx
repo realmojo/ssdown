@@ -306,18 +306,18 @@ export function FacebookClient({
   const emptyState = (
     <div className="grid gap-6 sm:grid-cols-2 w-full pt-12 text-left">
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
-        <h3 className="font-semibold text-lg mb-2">
+        <p className="font-semibold text-lg mb-2">
           {dict?.facebook?.feature_1_title || "HD Videos"}
-        </h3>
+        </p>
         <p className="text-muted-foreground text-sm">
           {dict?.facebook?.feature_1_desc ||
             "Download public Facebook videos in 1080p, 2K, and 4K quality."}
         </p>
       </div>
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
-        <h3 className="font-semibold text-lg mb-2">
+        <p className="font-semibold text-lg mb-2">
           {dict?.facebook?.feature_2_title || "Watch Offline"}
-        </h3>
+        </p>
         <p className="text-muted-foreground text-sm">
           {dict?.facebook?.feature_2_desc ||
             "Save videos to your device to watch them anytime, anywhere without internet."}

@@ -306,18 +306,18 @@ export function TikTokClient({
   const emptyState = (
     <div className="grid gap-6 sm:grid-cols-2 w-full pt-12 text-left">
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
-        <h3 className="font-semibold text-lg mb-2">
+        <p className="font-semibold text-lg mb-2">
           {dict?.tiktok?.no_watermark || "No Watermark"}
-        </h3>
+        </p>
         <p className="text-muted-foreground text-sm">
           {dict?.tiktok?.desc_watermark ||
             "Get clear videos without the annoying TikTok watermark overlay."}
         </p>
       </div>
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
-        <h3 className="font-semibold text-lg mb-2">
+        <p className="font-semibold text-lg mb-2">
           {dict?.tiktok?.mp4_mp3 || "MP4 & MP3"}
-        </h3>
+        </p>
         <p className="text-muted-foreground text-sm">
           {dict?.tiktok?.desc_audio ||
             "Choose to download the video or just the audio track as MP3."}
