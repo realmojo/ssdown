@@ -144,7 +144,7 @@ export default async function RootLayout(props: {
     <html lang={lang} suppressHydrationWarning>
       <head>
         {/* Naver Analytics */}
-        <script src="//wcs.pstatic.net/wcslog.js" defer />
+        <script src="//wcs.pstatic.net/wcslog.js" async />
         <script
           id="naver-analytics"
           dangerouslySetInnerHTML={{
@@ -159,7 +159,10 @@ export default async function RootLayout(props: {
         />
 
         {/* Google Analytics */}
-        <script src="https://www.googletagmanager.com/gtag/js?id=G-742J9X4BM5" />
+        <script
+          src="https://www.googletagmanager.com/gtag/js?id=G-742J9X4BM5"
+          async
+        />
         <script
           id="google-analytics"
           dangerouslySetInnerHTML={{
