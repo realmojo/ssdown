@@ -541,6 +541,7 @@ export async function GET(request: NextRequest) {
           : new Date().toISOString();
 
       return {
+        type: "facebook",
         id: item?.pk || item?.id || reelId,
         user: {
           name: userName,

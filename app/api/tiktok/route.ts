@@ -131,6 +131,7 @@ export async function GET(request: NextRequest) {
 
       // X 형식과 동일하게 반환
       const result = {
+        type: "tiktok",
         id: itemStruct.id || tiktokId,
         user: {
           name: userName,

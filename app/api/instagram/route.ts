@@ -265,6 +265,8 @@ export async function GET(request: NextRequest) {
 
     const results = uniqueData.map((item: any) => {
       return {
+        type: "instagram",
+        id: reelId,
         user: {
           name: item?.user?.full_name || "",
           screenName: item?.user?.username || "",

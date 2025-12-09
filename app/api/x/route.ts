@@ -253,6 +253,7 @@ export async function GET(request: NextRequest) {
 
     // 추출한 데이터 반환
     const result = {
+      type: "x",
       id: xData.rest_id || xId,
       user: {
         name: userName,
