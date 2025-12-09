@@ -34,7 +34,7 @@ export function HomeClient({ dict, lang }: HomeClientProps) {
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
       {/* Hero Section */}
       <section className="relative overflow-hidden py-24 lg:py-32">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-white to-purple-50/50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 -z-10" />
+        <div className="absolute inset-0 bg-linear-to-br from-indigo-50/50 via-white to-purple-50/50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 -z-10" />
         <div className="container px-4 md:px-6 flex flex-col items-center text-center space-y-10">
           <div className="space-y-6 max-w-4xl">
             <div className="inline-block rounded-full bg-indigo-100 dark:bg-indigo-900/30 px-4 py-1.5 text-sm font-semibold text-indigo-600 dark:text-indigo-400 mb-4 animate-fade-in-up">
@@ -54,7 +54,7 @@ export function HomeClient({ dict, lang }: HomeClientProps) {
             {/* X (Twitter) Card */}
             <Link href={getPath("/x")} className="group">
               <Card className="h-full border-2 border-transparent hover:border-black/5 dark:hover:border-white/10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-white dark:bg-gray-900/50 backdrop-blur-sm overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent dark:from-blue-900/10 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-linear-to-br from-blue-50 to-transparent dark:from-blue-900/10 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <CardContent className="p-8 flex flex-col items-center gap-4 relative z-10">
                   <div className="p-4 rounded-2xl bg-black dark:bg-white text-white dark:text-black group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <XIcon className="h-8 w-8" />
@@ -76,9 +76,9 @@ export function HomeClient({ dict, lang }: HomeClientProps) {
             {/* TikTok Card */}
             <Link href={getPath("/tiktok")} className="group">
               <Card className="h-full border-2 border-transparent hover:border-black/5 dark:hover:border-white/10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-white dark:bg-gray-900/50 backdrop-blur-sm overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-pink-50 to-transparent dark:from-pink-900/10 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-linear-to-br from-pink-50 to-transparent dark:from-pink-900/10 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <CardContent className="p-8 flex flex-col items-center gap-4 relative z-10">
-                  <div className="p-4 rounded-2xl bg-gradient-to-br from-pink-500 to-cyan-500 text-white group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <div className="p-4 rounded-2xl bg-linear-to-br from-pink-500 to-cyan-500 text-white group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <TikTokIcon className="h-8 w-8" />
                   </div>
                   <div className="space-y-2">
@@ -98,7 +98,7 @@ export function HomeClient({ dict, lang }: HomeClientProps) {
             {/* Instagram Card */}
             <Link href={getPath("/instagram")} className="group">
               <Card className="h-full border-2 border-transparent hover:border-black/5 dark:hover:border-white/10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-white dark:bg-gray-900/50 backdrop-blur-sm overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-transparent dark:from-purple-900/10 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-linear-to-br from-purple-50 to-transparent dark:from-purple-900/10 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <CardContent className="p-8 flex flex-col items-center gap-4 relative z-10">
                   <div className="p-4 rounded-2xl bg-gradient-to-tr from-yellow-400 via-orange-500 to-purple-600 text-white group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <InstagramIcon className="h-8 w-8" />
@@ -120,7 +120,7 @@ export function HomeClient({ dict, lang }: HomeClientProps) {
             {/* Facebook Card */}
             <Link href={getPath("/facebook")} className="group">
               <Card className="h-full border-2 border-transparent hover:border-black/5 dark:hover:border-white/10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-white dark:bg-gray-900/50 backdrop-blur-sm overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent dark:from-blue-900/10 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-linear-to-br from-blue-50 to-transparent dark:from-blue-900/10 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <CardContent className="p-8 flex flex-col items-center gap-4 relative z-10">
                   <div className="p-4 rounded-2xl bg-gradient-to-tr from-blue-600 to-blue-400 text-white group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <FacebookIcon className="h-8 w-8" />
