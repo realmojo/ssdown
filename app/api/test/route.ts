@@ -17,11 +17,11 @@ export async function GET() {
     const testUrl = [
       {
         type: "x",
-        url: "https://x.com/Harman_Kardon_/status/1956945691537727695",
+        url: "https://x.com/danbeebb/status/1998003112683176125",
       },
       {
         type: "tiktok",
-        url: "https://www.tiktok.com/@l__wonwoo/video/7550638875824098567",
+        url: "https://www.tiktok.com/@qwfewdev22/video/7572540247452503326",
       },
       {
         type: "instagram",
@@ -35,19 +35,51 @@ export async function GET() {
 
     const result = await Promise.all(
       testUrl.map(async (item) => {
+        console.log("type: ", item.type);
+        console.log("url: ", item.url);
+
         const response = await fetch(
-          `http://localhost:3000/api/${item.type}?url=${item.url}`
+          `http://localhost:3000/api/${item.type}?url=${encodeURIComponent(
+            item.url
+          )}`
         );
-        return response.json();
+
+        const contentType = response.headers.get("content-type") || "";
+        if (!contentType.includes("application/json")) {
+          const bodyText = await response.text();
+          console.error(
+            `[test] Non-JSON response for ${item.type}: status=${
+              response.status
+            }, preview=${bodyText.slice(0, 200)}`
+          );
+          return { success: false, type: item.type, error: "non-json" };
+        }
+
+        const data = await response.json();
+        return { success: true, type: item.type, data };
       })
     );
 
     const results = result.map((item) => {
-      const obj = Array.isArray(item) ? item[0] : item;
+      if (!item.success) {
+        return {
+          success: false,
+          type: item.type,
+          url: null,
+          error: item.error || "unknown",
+        };
+      }
+
+      const obj = Array.isArray(item.data) ? item.data[0] : item.data;
+      const firstVideo =
+        obj?.videoItems && obj.videoItems.length > 0
+          ? obj.videoItems[0].url
+          : null;
+
       return {
-        success: obj.videoItems[0].url ? true : false,
-        type: obj.type,
-        url: obj.videoItems[0].url,
+        success: !!firstVideo,
+        type: obj?.type || item.type,
+        url: firstVideo,
       };
     });
 
