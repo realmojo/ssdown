@@ -62,7 +62,10 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-4 text-sm font-medium">
+        <nav
+          className="hidden md:flex items-center gap-4 text-sm font-medium"
+          aria-label="Main navigation"
+        >
           <Link href={getPath("/x")}>
             <Button
               variant="ghost"
@@ -106,7 +109,7 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
         </nav>
 
         {/* Mobile Navigation */}
-        <div className="md:hidden flex-1 mr-4">
+        <nav className="md:hidden flex-1 mr-4" aria-label="Mobile navigation">
           <Select value={currentPage} onValueChange={handleNavChange}>
             <SelectTrigger className="w-full bg-transparent border-0 focus:ring-0 px-2 font-medium">
               <SelectValue placeholder="Menu" />
@@ -126,7 +129,7 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
               <SelectItem value="blog">Blog</SelectItem>
             </SelectContent>
           </Select>
-        </div>
+        </nav>
 
         <div className="ml-auto flex items-center gap-2">
           <LanguageSelector currentLang={lang} />

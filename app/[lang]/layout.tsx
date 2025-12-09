@@ -184,7 +184,7 @@ export default async function RootLayout(props: {
         >
           <div className="relative flex min-h-screen flex-col">
             <SiteHeader dict={dict.nav} lang={lang} />
-            <div className="flex-1">{props.children}</div>
+            <main className="flex-1">{props.children}</main>
             <SiteFooter dict={dict.nav} lang={lang} />
           </div>
         </ThemeProvider>
