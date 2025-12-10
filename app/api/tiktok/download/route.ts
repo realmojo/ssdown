@@ -95,7 +95,7 @@ export async function GET(request: NextRequest) {
       headers: {
         "Content-Type": contentType,
         "Content-Length": buffer.length.toString(),
-        "Content-Disposition": `attachment; filename="ssdown-${filename}.mp4"`,
+        "Content-Disposition": `attachment; filename="ssdown-tiktok-${filename}.mp4"`,
         "Cache-Control": "public, max-age=3600",
       },
     });
