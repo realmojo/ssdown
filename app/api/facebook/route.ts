@@ -60,7 +60,7 @@ const getShareFacebookId = async (url: string): Promise<string | null> => {
  */
 const extractReelId = async (url: string): Promise<string | null> => {
   try {
-    if (url.includes("share/v/")) {
+    if (url.includes("share/v/") || url.includes("share/r/")) {
       url = (await getShareFacebookId(url)) ?? "";
     }
 
@@ -413,6 +413,13 @@ export async function GET(request: NextRequest) {
     }
 
     const html = await getFacebookDetailInfo(reelId);
+
+    if (!html) {
+      return NextResponse.json(
+        { error: "no data", message: "Could not fetch facebook detail info" },
+        { status: 200 }
+      );
+    }
 
     // HTML에서 downloadable_uri_hd 또는 downloadable_uri_sd 필드가 있는 스크립트 태그의 JSON 추출
     const {
