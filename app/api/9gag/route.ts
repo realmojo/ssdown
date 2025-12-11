@@ -37,37 +37,17 @@ const extractGagId = (url: string): string | null => {
 
 const get9gagDetailInfo = async (gagId: string) => {
   try {
-    const url = `https://9gag.com/gag/${gagId}`;
+    const url = `https://9gag.com/gag/${gagId}?utm_source=copy_link`;
 
-    const response = await fetch(url, {
+    const myHeaders = new Headers();
+    myHeaders.append("Cookie", "____lo=KR; ____ri=270");
+
+    const requestOptions = {
       method: "GET",
-      headers: {
-        accept:
-          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-        "accept-encoding": "gzip, deflate, br, zstd",
-        "accept-language": "ko-KR,ko;q=0.9",
-        "cache-control": "no-cache",
-        // cookie:
-        //   "____ri=1026; ____lo=KR; sign_up_referer=; consentUUID=9b3b9e8e-80c2-4fd2-a765-09a5aa636fd5; usnatUUID=c6645a8c-606c-4565-b0aa-4a2719f61e97; _pk_ses.7.f7ab=*; _fbp=fb.1.1765373791668.97248087790285115; _lr_retry_request=true; _lr_env_src_ats=false; _cc_id=6bfd6651fd761a5e6bef68762ad7fe5e; panoramaId_expiry=1765978592053; panoramaId=5bca08e1098600bb5772ea8cd693185ca02cfda75cc4d12cc304a344842900cb; panoramaIdType=panoDevice; _lr_geo_location=KR; _pubcid=d362948b-cb63-459e-9509-e723e00c8bc2; _pubcid_cst=zix7LPQsHA%3D%3D; pbjs-unifiedid=%7B%22TDID%22%3A%2274371b5e-6371-4ee3-9278-cd42307fb531%22%2C%22TDID_LOOKUP%22%3A%22FALSE%22%2C%22TDID_CREATED_AT%22%3A%222025-12-10T13%3A36%3A32%22%7D; pbjs-unifiedid_cst=zix7LPQsHA%3D%3D; _lr_sampling_rate=100; cto_bundle=W3DmvV9ob0ptMTFCRFR5VldJSllVck9ZMHFwaEFLZkpPRkdMN2lxbU9XMXNva3dlVnJKMDA0anhlczZKTnl4bld1SkpWZzlqcUEwS1BxaDdzWmZLQnlsYlAxaHZqSWRXV1clMkZNT1R3ZThTbjFUMUJraVdtSDRyZWZKMVlSMUViYWZ3VGgyZTdNemxzVFRMJTJCd2hPZUl0VnluckklMkZmV01oaiUyQmE2emZIYXNJTkU5OWV6QSUzRA; cto_bidid=cBEKO191dkViOVJpU3BlN2dQaEVsJTJGZCUyQlRLN2ttMXllTWQzem1QUGw1SGJ1SyUyRmpXVGhLNFBRSFVkWmVBQzdLSWxQZUN0Zk1yRUQlMkJZZm1YeUgxM2VFRFQ2VUlYV1cxNW9VNmszSDNxc3F2NmRCSnJvJTNE; __gads=ID=78c02e03c6b52650:T=1765373793:RT=1765374107:S=ALNI_MYk1JK59TZ_yr0Wx5q1vD_Bd3aXNw; __gpi=UID=000011c730ff2ba4:T=1765373793:RT=1765374107:S=ALNI_MboIHLewv_ODYEWLV_LsLnMfrMGnw; __eoi=ID=f26b7b5420e7d50e:T=1765373793:RT=1765374107:S=AA-AfjYaKVqTpcQQqGzSL2fEDpN1; _pk_id.7.f7ab=b06e0c58d89c741d.1765373791.1.1765374254.1765373791.; PHPSESSID=jpf60iupef7ag2qh9bg5fkat91; cacheableClear=1; ts1=278ecb1e7238e5a26e4f941c5ba468b236ab4543; _ga_YY84CFQCF5=GS2.1.s1765373790$o1$g1$t1765374264$j49$l0$h0",
-        // pragma: "no-cache",
-        // priority: "u=0, i",
-        referer: url,
-        origin: "https://9gag.com",
-        "sec-ch-ua":
-          '"Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24"',
-        // "sec-ch-ua-mobile": "?0",
-        // "sec-ch-ua-platform": '"macOS"',
-        // "sec-fetch-dest": "document",
-        // "sec-fetch-mode": "navigate",
-        // "sec-fetch-site": "same-origin",
-        // "sec-fetch-user": "?1",
-        "upgrade-insecure-requests": "1",
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
-      },
-    });
+      headers: myHeaders,
+    };
 
-    console.log(response);
+    const response = await fetch(url, requestOptions);
 
     if (!response.ok) {
       throw new Error(
@@ -87,21 +67,38 @@ const get9gagDetailInfo = async (gagId: string) => {
 };
 
 /**
- * HTML에서 data-sjs 속성이 있는 스크립트 태그의 JSON 데이터를 추출하는 함수
- * video_versions 필드가 있는 객체만 추출합니다.
- * carousel_media 안에 여러 개의 video_versions가 있는 경우도 처리합니다.
+ * HTML에서 window._config = JSON.parse(...) 부분의 JSON 데이터를 추출하는 함수
  * @param html HTML 문자열
- * @returns video_versions 필드가 있는 파싱된 JSON 객체 (carousel_media가 있으면 첫 번째 항목 또는 메인 객체)
+ * @returns 파싱된 JSON 객체
  */
 const extractScriptJson = (html: string): any => {
   try {
-    // data-sjs 속성이 있는 script 태그 찾기
-    const scriptRegex =
-      /<script[^>]*type="application\/json"[^>]*data-sjs[^>]*>([\s\S]*?)<\/script>/g;
-    const allVideoObjects: any[] = [];
-    let match;
+    // window._config = JSON.parse("...") 패턴 찾기
+    // 이스케이프된 따옴표를 포함한 문자열을 정확히 추출하기 위한 정규식
+    const regex = /window\._config\s*=\s*JSON\.parse\("((?:[^"\\]|\\.)*)"\)/;
+    const match = html.match(regex);
 
-    return allVideoObjects;
+    if (!match || !match[1]) {
+      console.error("Could not find window._config pattern");
+      return null;
+    }
+
+    // 추출한 문자열은 JavaScript 문자열 리터럴로 이스케이프되어 있으므로,
+    // 올바른 순서로 이스케이프를 해제해야 함
+    // 순서가 중요: 먼저 \\ 처리, 그 다음 다른 이스케이프
+    const jsonString = match[1]
+      .replace(/\\\\/g, "\u0001") // \\ -> 임시 마커 (나중에 \로 복원)
+      .replace(/\\"/g, '"') // \" -> "
+      .replace(/\\n/g, "\n") // \n -> 실제 줄바꿈
+      .replace(/\\r/g, "\r") // \r -> 실제 캐리지 리턴
+      .replace(/\\t/g, "\t") // \t -> 실제 탭
+      .replace(/\\u([0-9a-fA-F]{4})/g, (_, hex) =>
+        String.fromCharCode(parseInt(hex, 16))
+      ) // \uXXXX -> 유니코드 문자
+      .replace(/\u0001/g, "\\"); // 임시 마커 -> \
+
+    const parsed = JSON.parse(jsonString);
+    return parsed.data || null;
   } catch (error) {
     console.error("Error extracting script JSON:", error);
     return null;
@@ -151,39 +148,52 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(data, { status: 200 });
     }
 
-    const results = data.map((item: any) => {
-      return {
-        type: "9gag",
-        id: gagId,
-        user: {
-          name: item?.user?.full_name || "",
-          screenName: item?.user?.username || "",
-          avatar: item?.user?.profile_pic_url || "",
-        },
-        content: item?.caption?.text || "",
-        thumbnail: item?.image_versions2?.candidates[0]?.url || "",
-        videoItems: item?.video_versions?.map((video: any, index: number) => {
-          return {
-            url: video?.url || "",
-            content_type: video?.content_type || "",
-            bitrate: video?.bitrate || "",
-            quality: index === 0 ? "720p" : index === 1 ? "480p" : "360p",
-          };
-        }),
-        stats: {
-          favoriteCount: item?.like_count || 0,
-          shareCount: item?.shares_count || 0,
-          replyCount: item?.comment_count || 0,
-          quoteCount: item?.quotes_count || 0,
-          viewCount: item?.view_count || 0,
-        },
-        createdAt: item?.caption?.created_at
-          ? new Date(item?.caption?.created_at * 1000).toISOString()
-          : new Date().toISOString(),
-      };
-    });
+    const post = data?.post || {};
 
-    return NextResponse.json(results, { status: 200 });
+    const result = {
+      type: "9gag",
+      id: gagId,
+      user: {
+        name: post?.creator?.username || "",
+        screenName: post?.creator?.fullName || "",
+        avatar: post?.creator?.avatarUrl || "",
+      },
+      content: post?.title || "",
+      thumbnail:
+        post?.images?.image700?.url ||
+        post?.images?.image460?.url ||
+        post?.images?.imageFbThumbnail?.url ||
+        "",
+      videoItems: [
+        {
+          url: post?.images?.image460sv?.url || "",
+          content_type: "video/mp4",
+          bitrate: 0,
+          quality: "720p",
+        },
+        {
+          url:
+            post?.images?.image460sv?.vp8Url ||
+            post?.images?.image460sv?.h265Url ||
+            post?.images?.image460sv?.av1Url ||
+            post?.images?.image460sv?.vp9Url ||
+            "",
+          content_type: "video/mp4",
+          bitrate: 0,
+          quality: "480p",
+        },
+      ],
+      stats: {
+        favoriteCount: post?.upVoteCount || 0,
+        shareCount: post?.downVoteCount || 0,
+        replyCount: post?.commentsCount || 0,
+        quoteCount: 0,
+        viewCount: post?.viewCount || 0,
+      },
+      createdAt: new Date().toISOString(),
+    };
+
+    return NextResponse.json(result, { status: 200 });
   } catch (e: any) {
     console.error("Error in GET /api/x:", e);
     return NextResponse.json(

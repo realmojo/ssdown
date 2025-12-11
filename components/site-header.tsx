@@ -39,6 +39,7 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
   else if (pathname?.endsWith("/tiktok")) currentPage = "tiktok";
   else if (pathname?.endsWith("/instagram")) currentPage = "instagram";
   else if (pathname?.endsWith("/facebook")) currentPage = "facebook";
+  else if (pathname?.endsWith("/9gag")) currentPage = "9gag";
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
@@ -98,6 +99,14 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
               {dict?.facebook?.nav || "Facebook"}
             </Button>
           </Link>
+          <Link href={getPath("/9gag")}>
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:text-primary"
+            >
+              {dict?.["9gag"]?.nav || "9GAG"}
+            </Button>
+          </Link>
           <Link href={getPath("/blog")}>
             <Button
               variant="ghost"
@@ -125,6 +134,9 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
               </SelectItem>
               <SelectItem value="facebook">
                 {dict?.facebook || "Facebook"}
+              </SelectItem>
+              <SelectItem value="9gag">
+                {dict?.["9gag"] || "9GAG"}
               </SelectItem>
               <SelectItem value="blog">Blog</SelectItem>
             </SelectContent>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import {
   Download,
@@ -8,8 +8,6 @@ import {
   Calendar,
   AlertCircle,
   LucideIcon,
-  Clock,
-  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -181,14 +179,6 @@ export function VideoDownloaderClient({
   );
   const [error, setError] = useState<string | null>(null);
   const [downloadingVideo, setDownloadingVideo] = useState<string | null>(null);
-  const [recentUrls, setRecentUrls] = useState<string[]>([]);
-  const [showRecentUrls, setShowRecentUrls] = useState(false);
-
-  // 컴포넌트 마운트 시 최근 URL 불러오기
-  useEffect(() => {
-    setRecentUrls(getRecentUrls());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [platformType]);
 
   const handleDownload = async () => {
     if (!url.trim()) {
@@ -232,7 +222,6 @@ export function VideoDownloaderClient({
 
       // 성공 시 URL을 로컬스토리지에 저장
       saveUrlToStorage(url.trim());
-      setRecentUrls(getRecentUrls());
     } catch (err: any) {
       console.error("Error fetching video:", err);
       setError(
@@ -342,70 +331,13 @@ export function VideoDownloaderClient({
                       setUrl(e.target.value);
                       setError(null);
                     }}
-                    onFocus={() => setShowRecentUrls(true)}
-                    onBlur={() => {
-                      // 클릭 이벤트가 완료될 때까지 대기
-                      setTimeout(() => setShowRecentUrls(false), 200);
-                    }}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && !loading) {
                         handleDownload();
-                        setShowRecentUrls(false);
                       }
                     }}
                     disabled={loading}
                   />
-                  {/* 최근 URL 목록 */}
-                  {showRecentUrls && recentUrls.length > 0 && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-md shadow-lg z-10 max-h-60 overflow-y-auto">
-                      <div className="p-2 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                          <Clock className="w-3 h-3" />
-                          <span>Recent URLs</span>
-                        </div>
-                        <button
-                          onClick={() => {
-                            localStorage.removeItem(storageKey);
-                            setRecentUrls([]);
-                          }}
-                          className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                        >
-                          Clear
-                        </button>
-                      </div>
-                      <div className="py-1">
-                        {recentUrls.map((recentUrl, index) => (
-                          <button
-                            key={index}
-                            onClick={() => {
-                              setUrl(recentUrl);
-                              setError(null);
-                              setShowRecentUrls(false);
-                            }}
-                            className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex items-center justify-between group"
-                          >
-                            <span className="truncate flex-1">{recentUrl}</span>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                const updated = recentUrls.filter(
-                                  (_, i) => i !== index
-                                );
-                                localStorage.setItem(
-                                  storageKey,
-                                  JSON.stringify(updated)
-                                );
-                                setRecentUrls(updated);
-                              }}
-                              className="opacity-0 group-hover:opacity-100 transition-opacity ml-2"
-                            >
-                              <X className="w-3 h-3 text-muted-foreground hover:text-foreground" />
-                            </button>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
                 <Button
                   size="lg"
