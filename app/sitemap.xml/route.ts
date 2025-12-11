@@ -11,6 +11,7 @@ export async function GET() {
     "/tiktok",
     "/instagram",
     "/facebook",
+    "/9gag",
     "/privacy",
     "/terms",
     "/about",
