@@ -21,9 +21,11 @@ export function PostSection({
 }: PostSectionProps) {
   if (posts.length === 0) return null;
 
-  const sectionTitle = title || (category 
-    ? `${category.charAt(0).toUpperCase() + category.slice(1)} Guides`
-    : "Latest Guides");
+  const sectionTitle =
+    title ||
+    (category
+      ? `${category.charAt(0).toUpperCase() + category.slice(1)} Guides`
+      : "Latest Guides");
 
   return (
     <section className="w-full max-w-6xl mx-auto mt-20 px-4">
@@ -35,7 +37,7 @@ export function PostSection({
           {sectionTitle}
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          {lang === "en" 
+          {lang === "en"
             ? "Explore our comprehensive guides and tutorials to get the most out of video downloading."
             : lang === "kr"
             ? "동영상 다운로드를 최대한 활용하기 위한 포괄적인 가이드와 튜토리얼을 탐색해보세요."
@@ -43,7 +45,7 @@ export function PostSection({
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
         {posts.map((post) => (
           <PostCard key={post.id} post={post} lang={lang} getPath={getPath} />
         ))}
@@ -51,4 +53,3 @@ export function PostSection({
     </section>
   );
 }
-
