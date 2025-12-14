@@ -17,7 +17,8 @@ async function getPostById(id: string): Promise<Post | null> {
 
     const apiUrl = `${baseUrl}/api/blog/${id}`;
     const response = await fetch(apiUrl, {
-      cache: "no-store",
+      cache: "force-cache",
+      next: { revalidate: 3600 }, // 1시간마다 재검증
       headers: {
         "Content-Type": "application/json",
       },
