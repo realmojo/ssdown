@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
+import axios from "axios";
 
 /**
  * Instagram URL에서 reel ID를 추출하는 함수
@@ -39,49 +39,35 @@ const get9gagDetailInfo = async (gagId: string) => {
   try {
     const url = `https://9gag.com/gag/${gagId}?utm_source=copy_link`;
 
-    const myHeaders = new Headers();
-    myHeaders.append("Cookie", "____lo=KR; ____ri=270");
-    myHeaders.append(
-      "User-Agent",
-      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
-    );
-    myHeaders.append(
-      "Accept",
-      "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
-    );
-    myHeaders.append("Accept-Language", "ko-KR,ko;q=0.9");
-    myHeaders.append("Cache-Control", "no-cache");
-    myHeaders.append("Pragma", "no-cache");
-    myHeaders.append("Referer", "https://9gag.com/");
-    myHeaders.append(
-      "Sec-Ch-Ua",
-      '"Chromium";v="142", "Google Chrome";v="142", "Not_A Brand";v="99"'
-    );
-    myHeaders.append("Accept-Encoding", "gzip, deflate, br, zstd");
-    myHeaders.append("Viewport-Width", "472");
-    myHeaders.append("Accept-Encoding", "gzip, deflate, br, zstd");
-    myHeaders.append("Accept-Language", "ko-KR,ko;q=0.9");
-
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
+    const headers = {
+      Cookie: "____lo=KR; ____ri=270",
+      "User-Agent":
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+      Accept:
+        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+      "Accept-Language": "ko-KR,ko;q=0.9",
+      "Cache-Control": "no-cache",
+      Pragma: "no-cache",
+      Referer: "https://9gag.com/",
+      "Sec-Ch-Ua":
+        '"Chromium";v="142", "Google Chrome";v="142", "Not_A Brand";v="99"',
+      "Accept-Encoding": "gzip, deflate, br, zstd",
+      "Viewport-Width": "472",
     };
 
-    const response = await fetch(url, requestOptions);
+    const response = await axios.get(url, { headers });
 
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch 9gag page: ${response.status} ${response.statusText}`
-      );
-    }
-
-    const html = await response.text();
-    fs.writeFileSync("9gag.html", html);
+    const html = response.data;
 
     // HTML이 제대로 파싱되는지 확인 (바이너리가 아닌 텍스트인지)
     return html;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error fetching 9gag detail info:", error);
+    if (error.response) {
+      console.error(
+        `Failed to fetch 9gag page: ${error.response.status} ${error.response.statusText}`
+      );
+    }
     return null;
   }
 };
