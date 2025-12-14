@@ -329,6 +329,7 @@ export function XClient({ dict, lang, relatedPosts = [] }: XClientProps) {
 
   return (
     <VideoDownloaderClient
+      type="x"
       dict={dict}
       theme={theme}
       icon={XIcon}
