@@ -35,7 +35,7 @@ export async function generateMetadata({
       siteName: "SSDown",
       images: [
         {
-          url: "https://ssdown.app/ssdown-x-logo.png",
+          url: "https://ssdown.app/ssdown-x-og.png",
           width: 1200,
           height: 630,
           alt: "SSDown - X Video Downloader",
@@ -57,7 +57,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: dict.x?.title || "X (Twitter) Video Downloader",
       description: dict.x?.subtitle || "Download X videos and GIFs online.",
-      images: ["https://ssdown.app/ssdown-x-logo.png"],
+      images: ["https://ssdown.app/ssdown-x-og.png"],
     },
     alternates: {
       canonical: canonical,

@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (e: any) {
-    console.error("Error in GET /api/x/download:", e);
+    console.error("Error in GET /api/instagram/download:", e);
     return NextResponse.json(
       { error: "no data", message: e?.message || "Unknown error" },
       { status: 500 }

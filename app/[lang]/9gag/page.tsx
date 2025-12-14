@@ -36,7 +36,7 @@ export async function generateMetadata({
       siteName: "SSDown",
       images: [
         {
-          url: "https://ssdown.app/ssdown-9gag-logo.png",
+          url: "https://ssdown.app/ssdown-9gag-og.png",
           width: 1200,
           height: 630,
           alt: "SSDown - 9GAG Video Downloader",
@@ -58,7 +58,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: ninegagDict?.title || "9GAG Video Downloader",
       description: ninegagDict?.subtitle || "Download 9GAG videos online.",
-      images: ["https://ssdown.app/ssdown-9gag-logo.png"],
+      images: ["https://ssdown.app/ssdown-9gag-og.png"],
     },
     alternates: {
       canonical: canonical,

@@ -19,6 +19,7 @@ import {
   InstagramIcon,
   FacebookIcon,
   DailymotionIcon,
+  NineGagIcon,
 } from "@/components/ui/icons";
 
 interface HomeClientProps {
@@ -47,12 +48,12 @@ export function HomeClient({ dict, lang }: HomeClientProps) {
             </h1>
             <p className="mx-auto max-w-[800px] text-gray-600 md:text-xl dark:text-gray-300 leading-relaxed">
               {dict?.home?.subtitle ||
-                "Save high-quality videos from X, TikTok, and Instagram without watermarks. The fastest and most secure way to keep your favorite content."}
+                "Save high-quality videos from X, TikTok, Instagram, Facebook, 9GAG, and Dailymotion without watermarks."}
             </p>
           </div>
 
           {/* Platform Selection Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full mt-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full mt-12 max-w-6xl">
             {/* X (Twitter) Card */}
             <Link href={getPath("/x")} className="group">
               <Card className="h-full border-2 border-transparent hover:border-black/5 dark:hover:border-white/10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-white dark:bg-gray-900/50 backdrop-blur-sm overflow-hidden relative">
@@ -141,12 +142,34 @@ export function HomeClient({ dict, lang }: HomeClientProps) {
               </Card>
             </Link>
 
-            {/* Dailymotion Card */}
-            <Link href={getPath("/dailymotion")} className="group">
+            {/* 9GAG Card */}
+            <Link href={getPath("/9gag")} className="group">
               <Card className="h-full border-2 border-transparent hover:border-black/5 dark:hover:border-white/10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-white dark:bg-gray-900/50 backdrop-blur-sm overflow-hidden relative">
                 <div className="absolute inset-0 bg-linear-to-br from-gray-50 to-transparent dark:from-gray-900/10 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <CardContent className="p-8 flex flex-col items-center gap-4 relative z-10">
-                  <div className="p-4 rounded-2xl bg-gradient-to-tr from-gray-800 to-black text-white group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <div className="p-4 rounded-2xl bg-black text-white group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <NineGagIcon className="h-8 w-8" />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-bold">9GAG</h3>
+                    <p className="text-sm text-muted-foreground">
+                      {dict?.home?.card_9gag_desc || "Download fun videos"}
+                    </p>
+                  </div>
+                  <div className="mt-auto pt-4 text-black dark:text-white font-medium flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
+                    {dict?.home?.get_started || "Get Started"}{" "}
+                    <ArrowRight className="h-4 w-4" />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Dailymotion Card */}
+            <Link href={getPath("/dailymotion")} className="group">
+              <Card className="h-full border-2 border-transparent hover:border-black/5 dark:hover:border-white/10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-white dark:bg-gray-900/50 backdrop-blur-sm overflow-hidden relative">
+                <div className="absolute inset-0 bg-linear-to-br from-blue-50 to-transparent dark:from-blue-900/10 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <CardContent className="p-8 flex flex-col items-center gap-4 relative z-10">
+                  <div className="p-4 rounded-2xl bg-gradient-to-tr from-blue-800 to-blue-600 text-white group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <DailymotionIcon className="h-8 w-8" />
                   </div>
                   <div className="space-y-2">
@@ -155,7 +178,7 @@ export function HomeClient({ dict, lang }: HomeClientProps) {
                       {dict?.home?.card_dailymotion_desc || "Download HD videos"}
                     </p>
                   </div>
-                  <div className="mt-auto pt-4 text-gray-700 dark:text-gray-300 font-medium flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
+                  <div className="mt-auto pt-4 text-blue-700 dark:text-blue-300 font-medium flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
                     {dict?.home?.get_started || "Get Started"}{" "}
                     <ArrowRight className="h-4 w-4" />
                   </div>

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import axios from "axios";
 
 /**
  * Dailymotion URL에서 video ID를 추출하는 함수
@@ -78,103 +79,120 @@ const getDailymotionDetailInfo = async (videoId: string) => {
   return data;
 };
 
+/**
+ * M3U8 master playlist를 파싱하여 videoItems 배열로 변환
+ */
+const parseM3U8MasterPlaylist = (
+  m3u8Text: string,
+  baseUrl: string
+): Array<{
+  url: string;
+  content_type: string;
+  bitrate: number;
+  quality: string;
+}> => {
+  const videoItems: Array<{
+    url: string;
+    content_type: string;
+    bitrate: number;
+    quality: string;
+  }> = [];
+
+  const lines = m3u8Text.split("\n");
+  let currentStreamInfo: {
+    bandwidth: number;
+    resolution: string;
+    name: string | null;
+  } | null = null;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+
+    // EXT-X-STREAM-INF 태그 파싱
+    if (line.startsWith("#EXT-X-STREAM-INF:")) {
+      const bandwidthMatch = line.match(/BANDWIDTH=(\d+)/);
+      const resolutionMatch = line.match(/RESOLUTION=(\d+)x(\d+)/);
+      const nameMatch = line.match(/NAME="([^"]+)"/);
+
+      // NAME이 있으면 NAME을 우선 사용, 없으면 RESOLUTION의 높이 사용
+      let quality = "unknown";
+      if (nameMatch) {
+        quality = nameMatch[1] + "p";
+      } else if (resolutionMatch) {
+        quality = `${resolutionMatch[2]}p`;
+      }
+
+      currentStreamInfo = {
+        bandwidth: bandwidthMatch ? parseInt(bandwidthMatch[1], 10) : 0,
+        resolution: quality,
+        name: nameMatch ? nameMatch[1] : null,
+      };
+    }
+    // URL 라인 (EXT-X-STREAM-INF 다음에 오는 라인)
+    else if (line && !line.startsWith("#") && currentStreamInfo) {
+      // #cell=cf3 같은 해시 제거
+      const cleanUrl = line.split("#")[0].trim();
+      const streamUrl = cleanUrl.startsWith("http")
+        ? cleanUrl
+        : baseUrl + cleanUrl;
+
+      videoItems.push({
+        url: streamUrl,
+        content_type: "application/x-mpegURL", // m3u8은 HLS 플레이리스트
+        bitrate: currentStreamInfo.bandwidth,
+        quality: currentStreamInfo.resolution,
+      });
+
+      currentStreamInfo = null; // 리셋
+    }
+  }
+
+  // bitrate 기준으로 내림차순 정렬 (높은 품질이 먼저)
+  videoItems.sort((a, b) => b.bitrate - a.bitrate);
+
+  return videoItems;
+};
+
 // https://cdndirector.dailymotion.com/cdn/manifest/video/x9vnle4.m3u8?sec=AqtpiJXMtJyGkbDxPPXc5KsiajHySMZ1CQCGy-PxksYT6tWRjkSlbMHi8ITzEHDTQn54dffKnKxGEKxN_JaSMQ&dmTs=&dmV1st=
-const getDaliyMotionVideoUrl = async (videoId: string, videoUrl: string) => {
-  const videoUrlParams = new URL(videoUrl);
-  const sec = videoUrlParams.searchParams.get("sec");
-  const dmTs = videoUrlParams.searchParams.get("dmTs");
-  const dmV1st = videoUrlParams.searchParams.get("dmV1st");
-  const url = `https://cdndirector.dailymotion.com/cdn/manifest/video/${videoId}.m3u8?sec=${sec}&dmTs=${dmTs}&dmV1st=${dmV1st}`;
-  // https://cdndirector.dailymotion.com/cdn/manifest/video/x9vnle4.m3u8?sec=AqtpiJXMtJyGkbDxPPXc5KsiajHySMZ1CQCGy-PxksYT6tWRjkSlbMHi8ITzEHDTQn54dffKnKxGEKxN_JaSMQ&dmTs=&dmV1st=
-
-  // try {
-  //   const myHeaders = new Headers();
-  //   myHeaders.append(
-  //     "Cookie",
-  //     "dmvk=693e14107e305; v1st=362D321BDBF6C6A226DA57B927453DE7"
-  //   );
-
-  //   const requestOptions = {
-  //     method: "GET",
-  //     headers: myHeaders,
-  //     redirect: "follow",
-  //   };
-
-  //   const response = await fetch(
-  //     "https://cdndirector.dailymotion.com/cdn/manifest/video/x9vnle4.m3u8?sec=AqtpiJXMtJyGkbDxPPXc5KsiajHySMZ1CQCGy-PxksYT6tWRjkSlbMHi8ITzEHDTQn54dffKnKxGEKxN_JaSMQ&dmTs=&dmV1st=",
-  //     {
-  //       method: "GET",
-  //       headers: myHeaders,
-  //       redirect: "follow",
-  //     }
-  //   );
-  //   console.log("response: ", response);
-  //   if (!response.ok) {
-  //     throw new Error(
-  //       `Failed to fetch video: ${response.status} ${response.statusText}`
-  //     );
-  //   }
-  //   const data = await response.text();
-  //   console.log("data: ", data);
-  //   return data;
-  // } catch (e: any) {
-  //   console.error("Error in getDaliyMotionVideoUrl:", e.message);
-  //   return null;
-  // }
-
+const getDaliyMotionVideoUrl = async (
+  videoId: string,
+  videoUrl: string
+): Promise<
+  Array<{
+    url: string;
+    content_type: string;
+    bitrate: number;
+    quality: string;
+  }>
+> => {
   try {
+    const videoUrlParams = new URL(videoUrl);
+    const sec = videoUrlParams.searchParams.get("sec") || "";
+    const dmTs = videoUrlParams.searchParams.get("dmTs") || "";
+    const dmV1st = videoUrlParams.searchParams.get("dmV1st") || "";
     const url = `https://cdndirector.dailymotion.com/cdn/manifest/video/${videoId}.m3u8?sec=${sec}&dmTs=${dmTs}&dmV1st=${dmV1st}`;
-    console.log("Fetching M3U8 URL:", url);
 
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
-        Accept: "*/*",
-        "Accept-Language": "en-US,en;q=0.9,ko;q=0.8",
-        // Accept-Encoding 제거: Node.js fetch가 자동으로 처리하지만 br은 지원하지 않을 수 있음
-        Referer: "https://www.dailymotion.com/",
-        Origin: "https://www.dailymotion.com",
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-site",
-        "Sec-Ch-Ua":
-          '"Chromium";v="142", "Google Chrome";v="142", "Not_A Brand";v="99"',
-        "Sec-Ch-Ua-Mobile": "?0",
-        "Sec-Ch-Ua-Platform": '"macOS"',
-        Cookie: "dmvk=693e14107e305; v1st=362D321BDBF6C6A226DA57B927453DE7",
-      },
-      redirect: "follow",
-    });
+    const headers = {
+      "User-Agent": "*/*", // 이게 꼭 필요함
+      "cache-control": "no-cache", // 이게 꼭 필요함
+      expires: "0", // 이게 꼭 필요함
+    };
 
-    console.log("Response status:", response.status, response.statusText);
-    console.log(
-      "Response headers:",
-      Object.fromEntries(response.headers.entries())
-    );
+    const response = await axios.get(url, { headers });
+    const m3u8Text = response.data;
+    const baseUrl = url.substring(0, url.lastIndexOf("/") + 1);
 
-    if (!response || !response.ok) {
-      const errorText = await response
-        .text()
-        .catch(() => "Could not read error response");
-      console.error("Error response body:", errorText);
-      throw new Error(
-        `Failed to fetch video: ${response.status} ${
-          response.statusText
-        }. Body: ${errorText.substring(0, 200)}`
-      );
+    // M3U8 master playlist 파싱
+    const videoItems = parseM3U8MasterPlaylist(m3u8Text, baseUrl);
+
+    if (videoItems.length === 0) {
+      throw new Error("No video streams found in m3u8 playlist");
     }
 
-    const data = await response.text();
-    console.log("M3U8 data length:", data.length);
-    return data;
+    return videoItems;
   } catch (error: any) {
-    console.error("Error in getDaliyMotionVideoUrl:", error);
     console.error("Error details:", {
       message: error?.message,
-      stack: error?.stack,
-      cause: error?.cause,
     });
     throw error;
   }
@@ -200,6 +218,11 @@ export async function GET(request: NextRequest) {
 
     const videoData = await getDailymotionDetailInfo(videoId);
 
+    const videoItems = await getDaliyMotionVideoUrl(
+      videoId,
+      videoData.qualities.auto[0].url
+    );
+
     const result = {
       id: videoId,
       user: {
@@ -213,15 +236,7 @@ export async function GET(request: NextRequest) {
         videoData?.thumbnails?.[720] ||
         videoData?.thumbnails?.[360] ||
         "",
-      videoItems:
-        videoData?.qualities?.auto?.map((item: any) => {
-          return {
-            url: videoData.qualities.auto[0].url,
-            content_type: "video/mp4",
-            bitrate: 0,
-            quality: "1080p",
-          };
-        }) || [],
+      videoItems,
       stats: {
         favoriteCount: 0,
         shareCount: 0,
@@ -233,8 +248,6 @@ export async function GET(request: NextRequest) {
         ? new Date(videoData.created_time * 1000).toISOString()
         : new Date().toISOString(),
     };
-
-    console.log("result: ", result);
 
     return NextResponse.json(result, { status: 200 });
   } catch (e: any) {

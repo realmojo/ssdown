@@ -52,3 +52,14 @@ export const DailymotionIcon = ({ className }: { className?: string }) => (
     <path d="M2.973 17.584h6.052V2.416H2.973v15.168zm12.002-3.084V6.5h-5.95v8.002h5.95zM21.025 8.92h-5.952v5.578h5.952V8.92z" />
   </svg>
 );
+
+export const NineGagIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    className={className}
+    fill="currentColor"
+  >
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1.5-11.5c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zm0 4.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3.5 1.5v3H9.5v-1.5h3v-1.5c0-1.66-1.34-3-3-3-2.76 0-5 2.24-5 5s2.24 5 5 5c2.76 0 5-2.24 5-5v-1h-1.5z" />
+  </svg>
+);

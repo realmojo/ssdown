@@ -36,7 +36,7 @@ export async function generateMetadata({
       siteName: "SSDown",
       images: [
         {
-          url: "https://ssdown.app/ssdown-dailymotion-logo.png",
+          url: "https://ssdown.app/ssdown-dailymotion-og.png",
           width: 1200,
           height: 630,
           alt: "SSDown - Dailymotion Downloader",
@@ -59,7 +59,7 @@ export async function generateMetadata({
       title: dict.dailymotion?.title || "Dailymotion Video Downloader",
       description:
         dict.dailymotion?.subtitle || "Download Dailymotion videos instantly.",
-      images: ["https://ssdown.app/ssdown-dailymotion-logo.png"],
+      images: ["https://ssdown.app/ssdown-dailymotion-og.png"],
     },
     alternates: {
       canonical: canonical,

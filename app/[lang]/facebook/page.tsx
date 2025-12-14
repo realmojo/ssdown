@@ -36,7 +36,7 @@ export async function generateMetadata({
       siteName: "SSDown",
       images: [
         {
-          url: "https://ssdown.app/ssdown-facebook-logo.png",
+          url: "https://ssdown.app/ssdown-facebook-og.png",
           width: 1200,
           height: 630,
           alt: "SSDown - Facebook Downloader",
@@ -59,7 +59,7 @@ export async function generateMetadata({
       title: dict.facebook?.title || "Facebook Video Downloader",
       description:
         dict.facebook?.subtitle || "Download Facebook videos easily.",
-      images: ["https://ssdown.app/ssdown-facebook-logo.png"],
+      images: ["https://ssdown.app/ssdown-facebook-og.png"],
     },
     alternates: {
       canonical: canonical,

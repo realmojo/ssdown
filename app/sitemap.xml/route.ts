@@ -12,6 +12,7 @@ export async function GET() {
     "/instagram",
     "/facebook",
     "/9gag",
+    "/dailymotion",
     "/privacy",
     "/terms",
     "/about",
@@ -54,7 +55,6 @@ export async function GET() {
   try {
     const posts = await getAllSitemapPosts();
 
-    console.log(posts);
     posts.forEach((post) => {
       // 영어 버전 (root URL)
       const blogUrl = `${baseUrl}/blog/${post.id}`;

@@ -31,6 +31,14 @@ export async function GET() {
         type: "facebook",
         url: "https://www.facebook.com/share/v/17rMQCDSfL/",
       },
+      {
+        type: "9gag",
+        url: "https://9gag.com/gag/aAyL9qd",
+      },
+      {
+        type: "dailymotion",
+        url: "https://www.dailymotion.com/video/x9vnuku",
+      },
     ];
 
     const result = await Promise.all(
