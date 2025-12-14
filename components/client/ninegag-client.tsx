@@ -345,6 +345,7 @@ export function NineGagClient({
 
   return (
     <VideoDownloaderClient
+      type="9gag"
       dict={dict}
       theme={theme}
       icon={NineGagIcon}

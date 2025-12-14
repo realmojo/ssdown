@@ -328,6 +328,7 @@ export function FacebookClient({
 
   return (
     <VideoDownloaderClient
+      type="facebook"
       dict={dict}
       theme={theme}
       icon={FacebookIcon}

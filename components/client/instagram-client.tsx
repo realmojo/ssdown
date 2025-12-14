@@ -330,6 +330,7 @@ export function InstagramClient({
 
   return (
     <VideoDownloaderClient
+      type="instagram"
       dict={dict}
       theme={theme}
       icon={InstagramIcon}

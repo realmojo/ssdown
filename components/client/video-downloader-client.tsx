@@ -87,6 +87,7 @@ export interface StatsConfig {
 }
 
 export interface VideoDownloaderClientProps {
+  type: string;
   dict: any;
   theme: ThemeConfig;
   icon: React.ComponentType<{ className?: string }>;
@@ -110,6 +111,7 @@ export interface VideoDownloaderClientProps {
 }
 
 export function VideoDownloaderClient({
+  type,
   dict,
   theme,
   icon: Icon,
@@ -137,6 +139,8 @@ export function VideoDownloaderClient({
     if (apiEndpoint.includes("/tiktok")) return "tiktok";
     if (apiEndpoint.includes("/instagram")) return "instagram";
     if (apiEndpoint.includes("/facebook")) return "facebook";
+    if (apiEndpoint.includes("/9gag")) return "9gag";
+    if (apiEndpoint.includes("/dailymotion")) return "dailymotion";
     return "unknown";
   };
 

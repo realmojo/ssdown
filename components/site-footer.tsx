@@ -62,6 +62,11 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
                   {dict?.nav?.facebook || "Facebook Downloader"}
                 </Link>
               </li>
+              <li>
+                <Link href={getPath("/dailymotion")} className="hover:text-primary transition-colors">
+                  {dict?.nav?.dailymotion || "Dailymotion Downloader"}
+                </Link>
+              </li>
             </ul>
           </div>
 

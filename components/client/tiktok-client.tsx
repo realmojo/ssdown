@@ -328,6 +328,7 @@ export function TikTokClient({
 
   return (
     <VideoDownloaderClient
+      type="tiktok"
       dict={dict}
       theme={theme}
       icon={TikTokIcon}
