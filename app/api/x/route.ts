@@ -270,6 +270,7 @@ export async function GET(request: NextRequest) {
         quoteCount,
         viewCount: Number(viewCount),
       },
+      error: xData.tombstone?.text?.text || "",
       createdAt,
     };
 
