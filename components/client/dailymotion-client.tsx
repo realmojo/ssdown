@@ -342,51 +342,6 @@ export function DailymotionClient({
           </p>
         </div>
       </div>
-
-      {/* Manual Fragment Stitcher */}
-      <div className="w-full pt-12 text-left space-y-6 border-t border-gray-100 dark:border-gray-800 mt-8">
-        <div className="text-center space-y-2">
-          <h3 className="text-2xl font-bold">
-            {dict?.dailymotion?.manual_tool_title ||
-              "Manual Fragment Downloader"}
-          </h3>
-          <p className="text-muted-foreground">
-            {dict?.dailymotion?.manual_tool_desc ||
-              "Download videos from M3U8 manifest or fragmented URLs (init.mp4)"}
-          </p>
-        </div>
-
-        <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm space-y-4 max-w-2xl mx-auto">
-          <div className="space-y-2">
-            <Label htmlFor="init-url">URL (.m3u8 or init.mp4)</Label>
-            <Input
-              id="init-url"
-              placeholder="https://.../manifest.m3u8"
-              value={fragmentUrl}
-              onChange={(e) => setFragmentUrl(e.target.value)}
-            />
-          </div>
-          {!fragmentUrl.includes(".m3u8") && (
-            <div className="space-y-2">
-              <Label htmlFor="max-segments">Max Segments</Label>
-              <Input
-                id="max-segments"
-                type="number"
-                placeholder="35"
-                value={maxSegments}
-                onChange={(e) => setMaxSegments(e.target.value)}
-              />
-            </div>
-          )}
-          <Button
-            onClick={handleStitch}
-            disabled={stitching || !fragmentUrl}
-            className="w-full"
-          >
-            123123 {stitching ? "Processing..." : "Download Stitched Video"}
-          </Button>
-        </div>
-      </div>
     </>
   );
 
