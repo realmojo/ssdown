@@ -351,6 +351,7 @@ export function DailymotionClient({
       emptyState={emptyState}
       downloadFileName={(quality) => `dailymotion_video_${quality}.mp4`}
       faqSection={faqSection}
+      slotId1="2395730401"
     />
   );
 }

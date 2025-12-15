@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { i18n, type Locale } from "@/lib/i18n-config";
 import { getDictionary } from "@/lib/get-dictionary";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AdsenseInit } from "@/components/AdsenseInit";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -180,6 +181,7 @@ export default async function RootLayout(props: {
           `,
           }}
         />
+        <AdsenseInit />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

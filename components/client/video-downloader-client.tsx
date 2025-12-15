@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import Adsense from "@/components/Adsense";
 
 export interface VideoItem {
   url: string;
@@ -108,6 +109,7 @@ export interface VideoDownloaderClientProps {
   downloadFileName: (quality: string) => string;
   transformVideoUrl?: (url: string) => string;
   faqSection?: React.ReactNode;
+  slotId1?: string;
 }
 
 export function VideoDownloaderClient({
@@ -132,6 +134,7 @@ export function VideoDownloaderClient({
   downloadFileName,
   transformVideoUrl,
   faqSection,
+  slotId1,
 }: VideoDownloaderClientProps) {
   // 플랫폼 타입 추출 (apiEndpoint에서)
   const getPlatformType = () => {
@@ -279,9 +282,11 @@ export function VideoDownloaderClient({
             {title}
           </h1>
 
-          <p className="text-xl text-muted-foreground max-w-[600px]">
+          <p className="text-xl text-muted-foreground max-w-[600px] mb-2">
             {subtitle}
           </p>
+
+          <Adsense slotId={slotId1 || ""} />
 
           <Card
             className={`w-full shadow-xl ${theme.cardBorder} overflow-hidden`}

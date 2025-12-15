@@ -347,6 +347,7 @@ export function FacebookClient({
       emptyState={emptyState}
       downloadFileName={(quality) => `facebook_video_${quality}.mp4`}
       faqSection={faqSection}
+      slotId1="3584688990"
     />
   );
 }

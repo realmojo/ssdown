@@ -363,6 +363,7 @@ export function NineGagClient({
       emptyState={emptyState}
       downloadFileName={(quality) => `9gag_video_${quality}.mp4`}
       faqSection={faqSection}
+      slotId1="4858242218"
     />
   );
 }
