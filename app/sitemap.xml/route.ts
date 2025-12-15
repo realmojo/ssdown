@@ -13,6 +13,7 @@ export async function GET() {
     "/facebook",
     "/9gag",
     "/dailymotion",
+    "/bilibili",
     "/privacy",
     "/terms",
     "/about",

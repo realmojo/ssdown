@@ -29,47 +29,80 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
               </span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-              {dict?.home?.subtitle || "The ultimate video downloader for X (Twitter), TikTok, Instagram, and Facebook. Fast, free, and secure."}
+              {dict?.home?.subtitle ||
+                "The ultimate video downloader for X (Twitter), TikTok, Instagram, and Facebook. Fast, free, and secure."}
             </p>
             <div className="flex items-center gap-4 pt-2">
-               <Link href={getPath("/x")} className="text-muted-foreground hover:text-black dark:hover:text-white transition-colors" aria-label="X (Twitter)">
-                  <XIcon className="h-5 w-5" />
-               </Link>
+              <Link
+                href={getPath("/x")}
+                className="text-muted-foreground hover:text-black dark:hover:text-white transition-colors"
+                aria-label="X (Twitter)"
+              >
+                <XIcon className="h-5 w-5" />
+              </Link>
             </div>
           </div>
 
           {/* Tools Column */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-foreground tracking-tight">Tools</h3>
+            <h3 className="font-semibold text-foreground tracking-tight">
+              Tools
+            </h3>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
               <li>
-                <Link href={getPath("/x")} className="hover:text-primary transition-colors">
+                <Link
+                  href={getPath("/x")}
+                  className="hover:text-primary transition-colors"
+                >
                   {dict?.nav?.twitter || "X (Twitter) Downloader"}
                 </Link>
               </li>
               <li>
-                <Link href={getPath("/tiktok")} className="hover:text-primary transition-colors">
+                <Link
+                  href={getPath("/tiktok")}
+                  className="hover:text-primary transition-colors"
+                >
                   {dict?.nav?.tiktok || "TikTok Downloader"}
                 </Link>
               </li>
               <li>
-                <Link href={getPath("/instagram")} className="hover:text-primary transition-colors">
+                <Link
+                  href={getPath("/instagram")}
+                  className="hover:text-primary transition-colors"
+                >
                   {dict?.nav?.instagram || "Instagram Downloader"}
                 </Link>
               </li>
               <li>
-                <Link href={getPath("/facebook")} className="hover:text-primary transition-colors">
+                <Link
+                  href={getPath("/facebook")}
+                  className="hover:text-primary transition-colors"
+                >
                   {dict?.nav?.facebook || "Facebook Downloader"}
                 </Link>
               </li>
               <li>
-                <Link href={getPath("/9gag")} className="hover:text-primary transition-colors">
+                <Link
+                  href={getPath("/9gag")}
+                  className="hover:text-primary transition-colors"
+                >
                   {dict?.nav?.ninegag || "9GAG Downloader"}
                 </Link>
               </li>
               <li>
-                <Link href={getPath("/dailymotion")} className="hover:text-primary transition-colors">
+                <Link
+                  href={getPath("/dailymotion")}
+                  className="hover:text-primary transition-colors"
+                >
                   {dict?.nav?.dailymotion || "Dailymotion Downloader"}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={getPath("/bilibili")}
+                  className="hover:text-primary transition-colors"
+                >
+                  {dict?.nav?.bilibili || "Bilibili Downloader"}
                 </Link>
               </li>
             </ul>
@@ -77,33 +110,49 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
 
           {/* Company Column */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-foreground tracking-tight">Company</h3>
+            <h3 className="font-semibold text-foreground tracking-tight">
+              Company
+            </h3>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
-               <li>
-                <Link href={getPath("/about")} className="hover:text-primary transition-colors">
+              <li>
+                <Link
+                  href={getPath("/about")}
+                  className="hover:text-primary transition-colors"
+                >
                   {dict?.about?.nav || dict?.nav?.about || "About Us"}
                 </Link>
               </li>
               <li>
-                <Link href={getPath("/contact")} className="hover:text-primary transition-colors">
+                <Link
+                  href={getPath("/contact")}
+                  className="hover:text-primary transition-colors"
+                >
                   {dict?.contact?.nav || dict?.nav?.contact || "Contact"}
                 </Link>
               </li>
             </ul>
           </div>
 
-           {/* Legal Column */}
+          {/* Legal Column */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-foreground tracking-tight">Legal</h3>
+            <h3 className="font-semibold text-foreground tracking-tight">
+              Legal
+            </h3>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
-               <li>
-                <Link href={getPath("/privacy")} className="hover:text-primary transition-colors">
+              <li>
+                <Link
+                  href={getPath("/privacy")}
+                  className="hover:text-primary transition-colors"
+                >
                   {dict?.privacy || "Privacy Policy"}
                 </Link>
               </li>
               <li>
-                <Link href={getPath("/terms")} className="hover:text-primary transition-colors">
-                   {dict?.terms || "Terms of Service"}
+                <Link
+                  href={getPath("/terms")}
+                  className="hover:text-primary transition-colors"
+                >
+                  {dict?.terms || "Terms of Service"}
                 </Link>
               </li>
             </ul>
@@ -114,10 +163,10 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
         <div className="mt-12 pt-8 border-t flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <p>© {currentYear} SSDown. All rights reserved.</p>
           <div className="flex items-center gap-6">
-             <div className="flex items-center gap-2">
-                <span className="text-xs font-medium">Theme</span>
-                <ModeToggle />
-             </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-medium">Theme</span>
+              <ModeToggle />
+            </div>
           </div>
         </div>
       </div>
