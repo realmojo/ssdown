@@ -343,7 +343,8 @@ export function InstagramClient({
         dict?.instagram?.placeholder || "Paste Instagram URL here..."
       }
       apiEndpoint="/api/instagram"
-      downloadEndpoint="/api/instagram/download"
+      // downloadEndpoint="/api/instagram/download"
+      downloadEndpoint="https://zidod7ojw7xzvjlexo4ch4ivu40yccjr.lambda-url.ap-northeast-2.on.aws"
       noVideoError="No video found in this Instagram reel. Make sure it contains a video."
       statsConfig={statsConfig}
       thumbnailAspect="aspect-[4/5]"

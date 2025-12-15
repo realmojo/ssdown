@@ -340,7 +340,8 @@ export function XClient({ dict, lang, relatedPosts = [] }: XClientProps) {
       }
       placeholder={dict?.x?.placeholder || "Paste X (Twitter) link here..."}
       apiEndpoint="/api/x"
-      downloadEndpoint="/api/x/download"
+      // downloadEndpoint="/api/x/download"
+      downloadEndpoint="https://qzfhmtj4gvncjmzgzh652slsl40qzjox.lambda-url.ap-northeast-2.on.aws"
       noVideoError="No video found in this tweet. Make sure it contains a video."
       formatContent={(content) => content.replace(/https:\/\/t\.co\/\w+/g, "")}
       statsConfig={statsConfig}
