@@ -347,6 +347,7 @@ export function XClient({ dict, lang, relatedPosts = [] }: XClientProps) {
       emptyState={emptyState}
       downloadFileName={(quality) => `x_video_${quality}.mp4`}
       faqSection={faqSection}
+      slotId1="3265765425"
     />
   );
 }
