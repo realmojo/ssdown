@@ -12,10 +12,6 @@ import {
   CheckCircle2,
   Download,
 } from "lucide-react";
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import {
   VideoDownloaderClient,
   ThemeConfig,
@@ -44,19 +40,6 @@ export function DailymotionClient({
   const getPath = (path: string) => {
     if (lang === "en") return path;
     return `/${lang}${path === "/" ? "" : path}`;
-  };
-
-  const [fragmentUrl, setFragmentUrl] = useState("");
-  const [maxSegments, setMaxSegments] = useState("35");
-  const [stitching, setStitching] = useState(false);
-
-  const handleStitch = () => {
-    if (!fragmentUrl) return;
-    setStitching(true);
-    window.location.href = `/api/dailymotion/stitch?url=${encodeURIComponent(
-      fragmentUrl
-    )}&max=${maxSegments}`;
-    setTimeout(() => setStitching(false), 3000);
   };
 
   const theme: ThemeConfig = {

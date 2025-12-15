@@ -111,7 +111,7 @@ export interface VideoDownloaderClientProps {
 }
 
 export function VideoDownloaderClient({
-  type,
+  type, // type: "x", "tiktok", "instagram", "facebook", "9gag", "dailymotion"
   dict,
   theme,
   icon: Icon,
@@ -236,43 +236,6 @@ export function VideoDownloaderClient({
       setLoading(false);
     }
   };
-
-  // const handleVideoDownload = async (
-  //   videoUrl: string,
-  //   quality: string,
-  //   downloadKey: string
-  // ) => {
-  //   setDownloadingVideo(downloadKey);
-  //   try {
-  //     const finalUrl = transformVideoUrl
-  //       ? transformVideoUrl(videoUrl)
-  //       : videoUrl;
-  //     const response = await fetch(
-  //       `${downloadEndpoint}?videoUrl=${encodeURIComponent(finalUrl)}`
-  //     );
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to download video");
-  //     }
-
-  //     const blob = await response.blob();
-  //     const downloadUrl = window.URL.createObjectURL(blob);
-  //     const link = document.createElement("a");
-  //     link.href = downloadUrl;
-  //     link.download = downloadFileName
-  //       ? downloadFileName(quality)
-  //       : `video_${quality}.mp4`;
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     document.body.removeChild(link);
-  //     window.URL.revokeObjectURL(downloadUrl);
-  //   } catch (err: any) {
-  //     console.error("Error downloading video:", err);
-  //     alert(err?.message || "Failed to download video. Please try again.");
-  //   } finally {
-  //     setDownloadingVideo(null);
-  //   }
-  // };
 
   const formatNumber = (num: number) => {
     return new Intl.NumberFormat("en-US", {
