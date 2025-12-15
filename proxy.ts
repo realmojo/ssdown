@@ -12,11 +12,6 @@ export function proxy(request: NextRequest) {
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
-    // If it's the default locale (en), we want to show it without prefix ideally?
-    // But for simplicity of matching [lang] folder, we might rewrite.
-    // The user wants ssdown.app/x -> English.
-    // So if I visit /x, it should be treated as /en/x.
-    
     // Check if it's a public file or API
     if (
       pathname.startsWith("/_next") ||
@@ -26,7 +21,23 @@ export function proxy(request: NextRequest) {
       return
     }
 
-    // Rewrite to default locale
+    // Geo-IP Check for Korea
+    const country = (request as any).geo?.country || 
+                    request.headers.get("x-vercel-ip-country") || 
+                    request.headers.get("cf-ipcountry");
+
+    // If User is in Korea, redirect to /kr prefix
+    if (country === "KR") {
+       return NextResponse.redirect(
+        new URL(
+          `/kr${pathname.startsWith("/") ? "" : "/"}${pathname}`,
+          request.url
+        )
+      )
+    }
+
+    // Default: Rewrite to default locale (en) internally
+    // so ssdown.app/x shows English version but keeps URL clean-ish or consistent
     return NextResponse.rewrite(
       new URL(
         `/${i18n.defaultLocale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
