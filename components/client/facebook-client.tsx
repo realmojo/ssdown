@@ -341,8 +341,7 @@ export function FacebookClient({
         dict?.facebook?.placeholder || "Paste Facebook video URL here..."
       }
       apiEndpoint="/api/facebook"
-      // downloadEndpoint="/api/facebook/download"
-      downloadEndpoint="https://oaax6o5palw36wmgzs4t6rnzey0vmqyc.lambda-url.ap-northeast-2.on.aws"
+      downloadEndpoint="/api/facebook/download"
       noVideoError="No video found. Make sure the link is a valid public Facebook video."
       statsConfig={statsConfig}
       emptyState={emptyState}

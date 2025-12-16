@@ -49,9 +49,6 @@ export async function GET(request: NextRequest) {
     // 쿠키 문자열 조합
     const TIKTOK_COOKIE = `tt_chain_token=${tt_chain_token};`;
 
-    console.log("TIKTOK_COOKIE: ", TIKTOK_COOKIE);
-    console.log("TIKTOK_VIDEO_URL: ", TIKTOK_VIDEO_URL);
-
     const response = await fetch(TIKTOK_VIDEO_URL, {
       method: "GET",
       headers: {

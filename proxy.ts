@@ -1,14 +1,20 @@
-import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
-import { i18n } from "./lib/i18n-config"
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { i18n } from "./lib/i18n-config";
+import { proxy as proxyFunction } from "./lambda/index";
 
-export function proxy(request: NextRequest) {
-  const pathname = request.nextUrl.pathname
-  
+export async function proxy(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-  )
+  );
+
+  const lambdaResponse = await proxyFunction(request);
+  if (lambdaResponse) {
+    return lambdaResponse;
+  }
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
@@ -18,36 +24,34 @@ export function proxy(request: NextRequest) {
       pathname.startsWith("/api") ||
       pathname.includes(".") // files like favicon.ico, robots.txt
     ) {
-      return
+      return;
     }
 
     // Geo-IP Check for Korea
-    const country = (request as any).geo?.country || 
-                    request.headers.get("x-vercel-ip-country") || 
-                    request.headers.get("cf-ipcountry");
+    const country =
+      (request as any).geo?.country ||
+      request.headers.get("x-vercel-ip-country") ||
+      request.headers.get("cf-ipcountry");
 
     // If User is in Korea, redirect to /kr prefix
     if (country === "KR") {
-       return NextResponse.redirect(
+      return NextResponse.redirect(
         new URL(
           `/kr${pathname.startsWith("/") ? "" : "/"}${pathname}`,
           request.url
         )
-      )
+      );
     }
 
     // Default: Rewrite to default locale (en) internally
     // so ssdown.app/x shows English version but keeps URL clean-ish or consistent
     return NextResponse.rewrite(
       new URL(
-        `/${i18n.defaultLocale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
+        `/${i18n.defaultLocale}${
+          pathname.startsWith("/") ? "" : "/"
+        }${pathname}`,
         request.url
       )
-    )
+    );
   }
-}
-
-export const config = {
-  // Matcher ignoring `/_next/` and `/api/`
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 }

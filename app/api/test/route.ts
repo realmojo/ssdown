@@ -64,13 +64,14 @@ export async function GET() {
         }
 
         const data = await response.json();
-        return { success: true, type: item.type, data };
+        return { success: true, type: item.type, data, originalUrl: item.url };
       })
     );
 
     const results = result.map((item) => {
       if (!item.success) {
         return {
+          originalUrl: item.originalUrl,
           success: false,
           type: item.type,
           url: null,
@@ -85,6 +86,7 @@ export async function GET() {
           : null;
 
       return {
+        originalUrl: item.originalUrl,
         success: !!firstVideo,
         type: obj?.type || item.type,
         url: firstVideo,
