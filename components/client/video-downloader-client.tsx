@@ -476,7 +476,7 @@ export function VideoDownloaderClient({
                                           setDownloadingVideo(downloadKey);
                                           setTimeout(() => {
                                             setDownloadingVideo(null);
-                                          }, 1000);
+                                          }, 5000);
                                         }}
                                       >
                                         <div className="flex items-center gap-3">
