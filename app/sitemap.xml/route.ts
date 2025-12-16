@@ -68,7 +68,7 @@ export async function GET() {
       <loc>${blogUrl}</loc>
       <lastmod>${lastModified}</lastmod>
       <changefreq>weekly</changefreq>
-      <priority>0.6</priority>
+      <priority>0.8</priority>
     </url>`);
 
       // 다른 언어 버전
@@ -81,7 +81,7 @@ export async function GET() {
       <loc>${langBlogUrl}</loc>
       <lastmod>${lastModified}</lastmod>
       <changefreq>weekly</changefreq>
-      <priority>0.5</priority>
+      <priority>0.8</priority>
     </url>`);
       });
     });
