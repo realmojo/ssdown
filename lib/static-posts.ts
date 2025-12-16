@@ -1,6 +1,7 @@
 import { Post } from "./posts";
 
 export const STATIC_POSTS: Post[] = [
+  // --- Existing Posts (1-10) ---
   {
     id: "how-to-download-twitter-videos",
     title: {
@@ -530,5 +531,483 @@ Now the video is yours to keep in your actual phone gallery.
     readTime: 3,
     status: "published",
     createdAt: "2024-04-10T15:00:00Z",
+  },
+
+  // --- New Posts (11-20) ---
+  {
+    id: "instagram-story-anonymous",
+    title: {
+      en: "How to Watch and Download Instagram Stories Anonymously",
+      kr: "인스타그램 스토리 익명으로 몰래 보기 및 저장하는 법",
+    },
+    excerpt: {
+      en: "View stories without leaving a trace. The ultimate guide to anonymous Instagram story viewing.",
+      kr: "기록 남기지 않고 스토리 보는 방법. 인스타그램 스토리 익명 뷰어 완벽 가이드.",
+    },
+    content: {
+      en: `
+## The Problem with Stories
+When you view someone's Instagram Story, your username appears in their "Seen by" list. Sometimes, you just want to lurk or archive a story without letting them know.
+
+## The Solution: SSDown
+SSDown acts as a middleman. Our servers fetch the story data, so only our server's request is registered (which is anonymous), not your personal account.
+
+### Steps:
+1. Enter the username or profile URL in SSDown Instagram tool.
+2. Select "Stories" tab (if available) or paste the specific story link.
+3. Download the video/photo.
+4. Watch it offline on your device.
+
+**Note:** This only works for Public profiles. We cannot access private stories.
+      `,
+      kr: `
+## 스토리의 딜레마
+인스타그램 스토리를 보면 내 아이디가 상대방의 조회 목록에 남습니다. 가끔은 몰래 보고 싶거나, 상대방 모르게 저장하고 싶을 때가 있죠.
+
+## 해결책: SSDown
+SSDown은 중계자 역할을 합니다. 여러분의 계정이 아닌 저희 서버가 데이터를 요청하므로, 상대방은 누가 봤는지 절대 알 수 없습니다.
+
+### 방법:
+1. SSDown 인스타그램 도구에 유저네임이나 프로필 링크를 입력하세요.
+2. 스토리 탭을 선택하거나 특정 스토리 링크를 붙여넣으세요.
+3. 영상이나 사진을 다운로드하세요.
+4. 내 폰에서 오프라인으로 편하게 감상하세요.
+
+**주의:** 공개 계정의 스토리만 가능합니다. 비공개 계정은 접근할 수 없습니다.
+      `,
+    },
+    category: "instagram",
+    tags: ["instagram", "stories", "anonymous", "tips"],
+    author: "SSDown Privacy",
+    publishedAt: "2024-04-12T09:30:00Z",
+    updatedAt: "2024-04-12T09:30:00Z",
+    image: "/ssdown-instagram-og.png",
+    readTime: 4,
+    status: "published",
+    createdAt: "2024-04-12T09:30:00Z",
+  },
+  {
+    id: "tiktok-mp3-extractor",
+    title: {
+      en: "Extract Audio from TikTok: MP3 Download Guide",
+      kr: "틱톡 음원 추출: 동영상에서 MP3 오디오만 다운로드하기",
+    },
+    excerpt: {
+      en: "Love that trending song? Extract high-quality MP3 from any TikTok video instantly.",
+      kr: "틱톡에서 들은 그 노래가 궁금하다면? 동영상에서 고음질 MP3 파일만 추출하는 방법을 알려드립니다.",
+    },
+    content: {
+      en: `
+## TikTok is a Music Discovery Engine
+Many global hits start on TikTok. Often, remixes or covers found there aren't available on Spotify or Apple Music.
+
+## Extracting Audio with SSDown
+You don't need complex audio editing software to get the sound.
+
+1. **Copy the TikTok Link**.
+2. **Paste into SSDown**.
+3. Look for the **"Download Audio (MP3)"** button instead of "Download Video".
+4. Save the file.
+
+Now you can set it as your ringtone or add it to your workout playlist.
+      `,
+      kr: `
+## 음악 발견의 중심, 틱톡
+많은 글로벌 히트곡이 틱톡에서 시작됩니다. 특히 틱톡에만 있는 리믹스나 커버곡은 음원 사이트에서도 찾을 수 없을 때가 많죠.
+
+## SSDown으로 오디오 추출하기
+복잡한 편집 프로그램 없이도 소리만 가져올 수 있습니다.
+
+1. **틱톡 링크 복사**.
+2. **SSDown에 붙여넣기**.
+3. 비디오 다운로드 대신 **"오디오 다운로드 (MP3)"** 버튼 클릭.
+4. 파일 저장.
+
+이제 벨소리로 지정하거나 나만의 플레이리스트에 추가해보세요.
+      `,
+    },
+    category: "tiktok",
+    tags: ["tiktok", "mp3", "audio", "music"],
+    author: "SSDown Music",
+    publishedAt: "2024-04-15T14:20:00Z",
+    updatedAt: "2024-04-15T14:20:00Z",
+    image: "/ssdown-tiktok-og.png",
+    readTime: 3,
+    status: "published",
+    createdAt: "2024-04-15T14:20:00Z",
+  },
+  {
+    id: "9gag-video-saver",
+    title: {
+      en: "Saving 9GAG Memes and Videos to Your Phone",
+      kr: "9GAG 밈과 동영상 휴대폰에 저장하는 꿀팁",
+    },
+    excerpt: {
+      en: "Keep the laughs going. How to download funny 9GAG videos to share in your group chats.",
+      kr: "끊이지 않는 웃음. 재미있는 9GAG 영상을 다운로드해서 단톡방에 공유하는 법.",
+    },
+    content: {
+      en: `
+## The Meme Headquarters
+9GAG is legendary for its funny content. But sending a link to a friend often results in them not clicking it. Sending the actual video file gets much better engagement.
+
+## How to Download from 9GAG
+1. Find the post on 9GAG.
+2. Click the "Share" button > "Copy Link".
+3. Use **SSDown 9GAG Downloader**.
+4. We convert the post into a shareable MP4 file.
+
+## Why MP4?
+9GAG often uses custom players or GIF formats. We standardize everything to MP4 so it plays perfectly on WhatsApp, Telegram, KakaoTalk, and iMessage.
+      `,
+      kr: `
+## 밈(Meme)의 본부
+9GAG는 재미있는 짤방의 전설적인 곳입니다. 하지만 친구에게 링크만 보내면 잘 안 눌러보죠? 영상 파일을 직접 보내면 반응이 훨씬 좋습니다.
+
+## 9GAG 다운로드 방법
+1. 9GAG 게시물을 찾습니다.
+2. "Share" 버튼 > "Copy Link" 클릭.
+3. **SSDown 9GAG 다운로더** 사용.
+4. 공유하기 쉬운 MP4 파일로 변환되어 저장됩니다.
+
+## 왜 MP4인가요?
+9GAG는 독자적인 플레이어나 GIF 형식을 씁니다. SSDown은 이를 MP4로 통일해 카톡, 텔레그램, 아이메시지 어디서든 잘 재생되게 해줍니다.
+      `,
+    },
+    category: "9gag",
+    tags: ["9gag", "memes", "fun"],
+    author: "SSDown Team",
+    publishedAt: "2024-04-18T11:00:00Z",
+    updatedAt: "2024-04-18T11:00:00Z",
+    image: "/ssdown-9gag-og.png",
+    readTime: 2,
+    status: "published",
+    createdAt: "2024-04-18T11:00:00Z",
+  },
+  {
+    id: "why-no-extensions-needed",
+    title: {
+      en: "Why Web-Based Downloaders are Better than Browser Extensions",
+      kr: "브라우저 확장 프로그램보다 웹 다운로더가 더 좋은 이유",
+    },
+    excerpt: {
+      en: "Security, privacy, and performance. Why you should avoid installing unknown extensions.",
+      kr: "보안, 개인정보, 그리고 성능. 출처 불명의 확장 프로그램을 설치하면 안 되는 이유.",
+    },
+    content: {
+      en: `
+## The Risk of Extensions
+Browser extensions require permissions to "Read and change all your data on the websites you visit". Malicious extensions can steal passwords or track your browsing history.
+
+## The Web-Based Advantage (SSDown)
+- **Zero Installation**: No risky software on your computer.
+- **Universal**: Works on Mobile (iOS/Android) where extensions don't.
+- **Always Updated**: We update our servers instantly when platforms change. Extensions require manual updates.
+- **Privacy**: We can't see your browsing history outside of the URL you paste.
+
+Stay safe. Keep your browser clean.
+      `,
+      kr: `
+## 확장 프로그램의 위험성
+브라우저 확장 프로그램은 "방문하는 모든 웹사이트의 데이터 조회 및 변경" 권한을 요구하곤 합니다. 악성 프로그램은 비밀번호를 훔치거나 인터넷 기록을 추적할 수 있습니다.
+
+## 웹 기반(SSDown)의 장점
+- **설치 불필요**: 컴퓨터에 위험한 소프트웨어를 깔 필요가 없습니다.
+- **범용성**: 확장 프로그램이 안 되는 모바일(아이폰/갤럭시)에서도 잘 됩니다.
+- **즉각 업데이트**: 플랫폼이 바뀌면 저희 서버만 고치면 됩니다. 여러분은 아무것도 안 해도 돼요.
+- **개인정보**: 저희는 여러분이 붙여넣은 링크 외에는 아무런 인터넷 기록도 볼 수 없습니다.
+
+안전하게, 브라우저를 가볍게 유지하세요.
+      `,
+    },
+    category: "tech",
+    tags: ["security", "tech", "extensions"],
+    author: "SSDown Security",
+    publishedAt: "2024-04-20T16:00:00Z",
+    updatedAt: "2024-04-20T16:00:00Z",
+    image: "/logo.png",
+    readTime: 4,
+    status: "published",
+    createdAt: "2024-04-20T16:00:00Z",
+  },
+  {
+    id: "data-saving-offline-watch",
+    title: {
+      en: "Save Data by Downloading Videos for Offline Viewing",
+      kr: "데이터 요금 폭탄 피하기: 와이파이에서 다운받고 오프라인으로 즐기세요",
+    },
+    excerpt: {
+      en: "Commuting? Traveling? Learn how to build an offline playlist to save GBs of mobile data.",
+      kr: "출퇴근길, 여행길 필수 팁. 오프라인 플레이리스트로 모바일 데이터 수 기가바이트 아끼는 법.",
+    },
+    content: {
+      en: `
+## Streaming Kills Data Plans
+Streaming a 1080p video on YouTube or TikTok can consume up to 3GB per hour. If you re-watch the same music video 10 times, you paid for it 10 times in data.
+
+## The Offline Strategy
+1. Connect to **home Wi-Fi**.
+2. Visit **SSDown**.
+3. Bulk download your favorite content for the day (News, Music, Entertainment).
+4. Watch freely on the bus or subway without using a single MB of 5G/LTE data.
+
+## Bonus: Battery Life
+Playing a local file uses significantly less battery than streaming over a cellular network.
+      `,
+      kr: `
+## 스트리밍은 데이터 하마
+유튜브나 틱톡에서 1080p 영상을 스트리밍하면 시간당 3GB까지 소모됩니다. 같은 뮤직비디오를 10번 보면, 데이터도 10배로 나가는 셈이죠.
+
+## 오프라인 전략
+1. **집 와이파이**에 연결하세요.
+2. **SSDown**에 접속하세요.
+3. 오늘 볼 영상(뉴스, 예능, 음악)을 미리 다운로드하세요.
+4. 버스나 지하철에서 데이터 걱정 없이 맘껏 즐기세요.
+
+## 보너스: 배터리 절약
+셀룰러 네트워크로 스트리밍하는 것보다 저장된 파일을 재생하는 것이 배터리 소모도 훨씬 적습니다.
+      `,
+    },
+    category: "tips",
+    tags: ["tips", "data-saving", "offline"],
+    author: "SSDown Team",
+    publishedAt: "2024-04-22T08:45:00Z",
+    updatedAt: "2024-04-22T08:45:00Z",
+    image: "/logo.png",
+    readTime: 3,
+    status: "published",
+    createdAt: "2024-04-22T08:45:00Z",
+  },
+  {
+    id: "social-media-manager-tips",
+    title: {
+      en: "A Social Media Manager's Secret Weapon: Benchmarking",
+      kr: "소셜 미디어 담당자의 비밀 무기: 경쟁사 벤치마킹을 위한 다운로드",
+    },
+    excerpt: {
+      en: "Analyze your competitors properly. How to archive trending content for your next strategy meeting.",
+      kr: "경쟁사를 제대로 분석하세요. 다음 전략 회의를 위해 트렌딩 콘텐츠를 아카이빙하는 방법.",
+    },
+    content: {
+      en: `
+## Don't Rely on Saved Looks
+Posts get deleted. Trends fade. Instagram "Saved" collections are messy.
+
+## Build a Reference Library
+Smart marketers download viral hits from competitors using SSDown to analyze them frame-by-frame.
+- **Hook Analysis**: What happened in the first 3 seconds?
+- **Audio Use**: Which sound did they use?
+- **Hashtags**: (Copy the caption too).
+
+Create a folder on your Google Drive named "Inspiration" and fill it with clean, watermark-free videos downloaded via SSDown. This is your asset for future brainstorming.
+      `,
+      kr: `
+## '저장됨' 기능만 믿지 마세요
+게시물은 삭제되고, 트렌드는 사라집니다. 인스타그램의 저장 목록은 뒤죽박죽이라 찾기도 힘들죠.
+
+## 레퍼런스 라이브러리 만들기
+똑똑한 마케터는 SSDown을 이용해 경쟁사의 바이럴 영상을 다운로드하고 프레임 단위로 분석합니다.
+- **훅(Hook) 분석**: 첫 3초에 무슨 일이 일어났나?
+- **오디오**: 어떤 음원을 썼나?
+- **편집 호흡**: 컷 편집은 얼마나 빠른가?
+
+구글 드라이브에 "영감(Inspiration)" 폴더를 만들고 SSDown으로 받은 워터마크 없는 깨끗한 영상들을 채워 넣으세요. 최고의 기획 자산이 될 것입니다.
+      `,
+    },
+    category: "marketing",
+    tags: ["marketing", "business", "benchmarking"],
+    author: "SSDown Business",
+    publishedAt: "2024-04-25T13:00:00Z",
+    updatedAt: "2024-04-25T13:00:00Z",
+    image: "/logo.png",
+    readTime: 5,
+    status: "published",
+    createdAt: "2024-04-25T13:00:00Z",
+  },
+  {
+    id: "video-resolution-explained",
+    title: {
+      en: "720p vs 1080p vs 4K: Which Quality Should You Choose?",
+      kr: "720p, 1080p, 4K 화질 비교: 나에게 맞는 해상도는?",
+    },
+    excerpt: {
+      en: "Is bigger always better? We explain resolutions and help you balance quality vs storage.",
+      kr: "무조건 큰 게 좋을까요? 해상도의 개념을 설명하고 화질과 용량 사이의 균형점을 찾아드립니다.",
+    },
+    content: {
+      en: `
+## The Resolution Spectrum
+- **SD (480p)**: Good for slow internet. Looks blurry on modern phones.
+- **HD (720p)**: The standard. Looks good on phones, decent on laptops. Fast download.
+- **Full HD (1080p)**: The sweet spot. Crisp details. Larger file size.
+- **4K (2160p)**: Ultra sharp. Massive file size. Overkill for phones, great for TVs.
+
+## What Should You Download?
+- **For Smartphone Viewing**: **1080p** is perfect. 4K drains battery and storage with little visible difference on small screens.
+- **For Reposting**: **1080p or 4K**. You want the highest source quality before social media compresses it again.
+- **For Slow Data**: **720p**.
+
+SSDown provides all these options whenever the original source allows it.
+      `,
+      kr: `
+## 해상도 스펙트럼
+- **SD (480p)**: 인터넷이 느릴 때 좋습니다. 요즘 폰에서는 흐릿해 보입니다.
+- **HD (720p)**: 표준입니다. 폰에서 보기 좋고, 노트북에서도 무난합니다. 다운로드가 빠릅니다.
+- **Full HD (1080p)**: 가장 추천합니다. 선명하고 디테일이 살아있습니다.
+- **4K (2160p)**: 초고화질입니다. 용량이 매우 큽니다. 폰에서는 과분하지만 TV 연결 시 최고입니다.
+
+## 무엇을 선택해야 할까요?
+- **폰에서 볼 때**: **1080p**면 충분합니다. 4K는 작은 화면에서 차이가 적은데 용량과 배터리만 많이 먹습니다.
+- **재업로드용**: **1080p 또는 4K**. SNS가 다시 압축할 것이므로 원본은 좋을수록 좋습니다.
+- **데이터 부족 시**: **720p**.
+
+SSDown은 원본이 지원하는 한 이 모든 옵션을 제공합니다.
+      `,
+    },
+    category: "tech",
+    tags: ["tech", "resolution", "quality"],
+    author: "SSDown Tech",
+    publishedAt: "2024-04-28T10:15:00Z",
+    updatedAt: "2024-04-28T10:15:00Z",
+    image: "/logo.png",
+    readTime: 4,
+    status: "published",
+    createdAt: "2024-04-28T10:15:00Z",
+  },
+  {
+    id: "iphone-shortcuts-vs-web",
+    title: {
+      en: "Downloading Videos on iOS: Safari vs Shortcuts",
+      kr: "아이폰에서 동영상 다운로드하기: 사파리 vs 단축어 비교",
+    },
+    excerpt: {
+      en: "iOS Shortcuts often break. Why using Safari + SSDown is the more reliable long-term solution.",
+      kr: "자주 고장나는 아이폰 단축어. 사파리와 SSDown 조합이 왜 더 장기적으로 안정적인 해결책인지 알아봅니다.",
+    },
+    content: {
+      en: `
+## The "R Shortcut" Era
+Many iPhone users rely on unsigned "Shortcuts" (like R Download) to save videos.
+**The Problem**: These scripts break every time Instagram or TikTok updates their code. You constantly have to hunt for a new version.
+
+## The Web Browser Method (Stable)
+Using Safari to visit SSDown.app is future-proof.
+1. **No Updates Needed**: We update our backend server. You don't need to download anything new.
+2. **Files App Integration**: Since iOS 13, Safari downloads go straight to the standard "Files" app (Downloads folder). From there, you can easily "Save Video" to Photos.
+
+It's one extra tap to save to Photos, but it works 100% of the time, year-round.
+      `,
+      kr: `
+## "단축어"의 시대
+많은 아이폰 유저들이 'R Download' 같은 사설 단축어를 씁니다.
+**문제점**: 인스타나 틱톡이 코드를 조금만 바꿔도 단축어는 먹통이 됩니다. 그때마다 새 버전을 찾아 헤매야 하죠.
+
+## 웹 브라우저 방식 (안정성)
+사파리로 SSDown.app에 접속하는 것은 가장 확실한 방법입니다.
+1. **업데이트 불필요**: 저희가 백엔드 서버를 고칩니다. 여러분은 아무것도 새로 깔 필요가 없습니다.
+2. **파일 앱 통합**: iOS 13부터 사파리 다운로드는 '파일' 앱으로 바로 저장됩니다. 거기서 '비디오 저장'을 누르면 사진 앱으로 이동합니다.
+
+사진 앱으로 옮기는 터치가 한 번 더 필요하지만, 1년 365일 고장 나지 않는 방법입니다.
+      `,
+    },
+    category: "tips",
+    tags: ["ios", "iphone", "shortcuts", "tips"],
+    author: "SSDown Team",
+    publishedAt: "2024-05-01T09:00:00Z",
+    updatedAt: "2024-05-01T09:00:00Z",
+    image: "/logo.png",
+    readTime: 3,
+    status: "published",
+    createdAt: "2024-05-01T09:00:00Z",
+  },
+  {
+    id: "safe-downloader-checklist",
+    title: {
+      en: "How to Spot Safe Video Downloader Sites",
+      kr: "안전한 비디오 다운로더 사이트 구별 체크리스트",
+    },
+    excerpt: {
+      en: "Not all download sites are created equal. Identify safe tools protecting your privacy.",
+      kr: "모든 다운로드 사이트가 똑같지 않습니다. 내 개인정보를 지켜주는 안전한 도구 구별법.",
+    },
+    content: {
+      en: `
+## The Wild West of Free Tools
+The internet is full of "Free Downloader" sites. Some are great (like SSDown!), others are riddled with malware.
+
+## Safety Checklist
+1. **Excessive Pop-ups**: If clicking anywhere opens 3 new gambling tabs, run away. (SSDown keeps ads minimal and safe).
+2. **Login Required**: Never give your Instagram/Twitter password to a downloader tool. Legitimate tools work without login.
+3. **".exe" Downloads**: If you want a video but it gives you an ".exe" file, delete it immediately. It's a virus.
+4. **HTTPS**: Check for the lock icon in the address bar.
+
+SSDown passes all these tests. We are HTTPS-secured, require no login, serve pure MP4 files, and respect user experience.
+      `,
+      kr: `
+## 무료 도구들의 무법지대
+인터넷엔 수많은 다운로더 사이트가 있습니다. SSDown처럼 훌륭한 곳도 있지만, 악성코드로 뒤덮인 곳도 있죠.
+
+## 안전 체크리스트
+1. **과도한 팝업**: 클릭할 때마다 도박 사이트 창이 3개씩 뜨면 당장 나오세요. (SSDown은 광고를 최소화하고 안전하게 관리합니다).
+2. **로그인 요구**: 인스타/트위터 비밀번호를 절대 입력하지 마세요. 진짜 도구는 로그인 없이 작동합니다.
+3. **".exe" 파일**: 영상을 받으려는데 실행 파일(.exe)이 받아진다면 즉시 삭제하세요. 바이러스입니다.
+4. **HTTPS**: 주소창의 자물쇠 아이콘을 확인하세요.
+
+SSDown은 이 모든 테스트를 통과합니. 보안 접속(HTTPS)을 사용하고, 로그인을 요구하지 않으며, 순수한 MP4 파일만 제공합니다.
+      `,
+    },
+    category: "security",
+    tags: ["security", "safety", "guide"],
+    author: "SSDown Security",
+    publishedAt: "2024-05-03T14:50:00Z",
+    updatedAt: "2024-05-03T14:50:00Z",
+    image: "/logo.png",
+    readTime: 4,
+    status: "published",
+    createdAt: "2024-05-03T14:50:00Z",
+  },
+  {
+    id: "ssdown-speed-update-2024",
+    title: {
+      en: "SSDown Updates: Faster Speeds and New Servers",
+      kr: "SSDown 업데이트 소식: 더 빨라진 속도와 서버 증설",
+    },
+    excerpt: {
+      en: "We've upgraded our infrastructure. Experience lightning-fast downloads for TikTok and Bilibili.",
+      kr: "인프라를 업그레이드했습니다. 틱톡과 비리비리 다운로드 속도가 비약적으로 빨라졌습니다.",
+    },
+    content: {
+      en: `
+## Constant Improvement
+At SSDown, we don't just maintain; we improve. We heard your feedback about slower downloads during peak hours.
+
+## What's New?
+- **New Server Nodes**: Added high-speed nodes in Asia (Tokyo, Singapore) and Europe (Frankfurt to reduce latency for global users.
+- **Bilibili Engine Optimization**: Significantly reduced the processing time for merging audio/video streams for Bilibili links.
+- **TikTok API Update**: Adapted to the latest TikTok changes for higher success rates.
+
+Thank you for trusting SSDown. We are committed to remaining the #1 free downloader.
+      `,
+      kr: `
+## 끊임없는 개선
+SSDown은 현상 유지에 만족하지 않습니다. 피크 타임에 속도가 느려진다는 여러분의 피드백을 반영했습니다.
+
+## 무엇이 바뀌었나요?
+- **새로운 서버 노드**: 도쿄, 싱가포르, 프랑크푸르트에 고속 노드를 증설하여 글로벌 지연 시간을 줄였습니다.
+- **비리비리 엔진 최적화**: 오디오/비디오 병합 처리 속도를 대폭 개선하여 대기 시간을 줄였습니다.
+- **틱톡 API 대응**: 최신 틱톡 변경 사항에 맞춰 성공률을 높였습니다.
+
+SSDown을 믿고 사용해 주셔서 감사합니다. 최고의 무료 다운로더로 남기 위해 계속 노력하겠습니다.
+      `,
+    },
+    category: "news",
+    tags: ["news", "update", "speed"],
+    author: "SSDown Team",
+    publishedAt: "2024-05-05T09:00:00Z",
+    updatedAt: "2024-05-05T09:00:00Z",
+    image: "/logo.png",
+    readTime: 2,
+    status: "published",
+    createdAt: "2024-05-05T09:00:00Z",
   },
 ];
