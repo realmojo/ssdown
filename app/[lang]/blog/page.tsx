@@ -5,6 +5,8 @@ import { PostCard } from "@/components/PostCard";
 import { BookOpen } from "lucide-react";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
 }
