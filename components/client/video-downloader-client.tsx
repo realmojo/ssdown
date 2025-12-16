@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Adsense from "@/components/Adsense";
+import { SeoContentSection } from "../seo-content-section";
 
 export interface VideoItem {
   url: string;
@@ -527,6 +528,17 @@ export function VideoDownloaderClient({
       </div>
 
       {faqSection}
+
+      {dict?.[getPlatformType()]?.seo_content && (
+        <SeoContentSection
+          title={dict[getPlatformType()].seo_content.title}
+          content={[
+            dict[getPlatformType()].seo_content.p1,
+            dict[getPlatformType()].seo_content.p2,
+            dict[getPlatformType()].seo_content.p3,
+          ]}
+        />
+      )}
     </div>
   );
 }

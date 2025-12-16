@@ -54,128 +54,30 @@ function transformPost(data: any): Post {
   };
 }
 
+import { STATIC_POSTS } from "./static-posts";
+
 export async function getAllPosts(): Promise<Post[]> {
-  try {
-    const { data, error } = await supabase
-      .from("ssdown_blogs")
-      .select("*")
-      .eq("status", "published")
-      .order("published_at", { ascending: false });
-
-    if (error) {
-      console.error("Error fetching posts:", error);
-      return [];
-    }
-
-    return (data || []).map(transformPost);
-  } catch (error) {
-    console.error("Error in getAllPosts:", error);
-    return [];
-  }
+  // Static data for now
+  return STATIC_POSTS;
 }
 
 export async function getAllSitemapPosts(): Promise<Post[]> {
-  try {
-    const { data, error } = await supabase
-      .from("ssdown_blogs")
-      .select("id, title, published_at, updated_at")
-      .eq("status", "published")
-      .order("published_at", { ascending: false });
-
-    if (error) {
-      console.error("Error fetching posts:", error);
-      return [];
-    }
-
-    return (data || []).map(transformPost);
-  } catch (error) {
-    console.error("Error in getAllSitemapPosts:", error);
-    return [];
-  }
+  return STATIC_POSTS;
 }
 
 export async function getPostById(id: string): Promise<Post | undefined> {
-  try {
-    const { data, error } = await supabase
-      .from("ssdown_blogs")
-      .select("*")
-      .eq("id", id)
-      .eq("status", "published")
-      .single();
-
-    if (error) {
-      console.error("Error fetching post:", error);
-      return undefined;
-    }
-
-    if (!data) return undefined;
-
-    return transformPost(data);
-  } catch (error) {
-    console.error("Error in getPostById:", error);
-    return undefined;
-  }
+  const post = STATIC_POSTS.find((p) => p.id === id);
+  return post;
 }
 
 export async function getPostsByCategory(category: string): Promise<Post[]> {
-  try {
-    const { data, error } = await supabase
-      .from("ssdown_blogs")
-      .select("*")
-      .eq("category", category)
-      .eq("status", "published")
-      .order("published_at", { ascending: false });
-
-    if (error) {
-      console.error("Error fetching posts by category:", error);
-      return [];
-    }
-
-    return (data || []).map(transformPost);
-  } catch (error) {
-    console.error("Error in getPostsByCategory:", error);
-    return [];
-  }
+  return STATIC_POSTS.filter((p) => p.category === category);
 }
 
 export async function getPostsByTag(tag: string): Promise<Post[]> {
-  try {
-    const { data, error } = await supabase
-      .from("ssdown_blogs")
-      .select("*")
-      .eq("status", "published")
-      .contains("tags", [tag])
-      .order("published_at", { ascending: false });
-
-    if (error) {
-      console.error("Error fetching posts by tag:", error);
-      return [];
-    }
-
-    return (data || []).map(transformPost);
-  } catch (error) {
-    console.error("Error in getPostsByTag:", error);
-    return [];
-  }
+  return STATIC_POSTS.filter((p) => p.tags.includes(tag));
 }
 
 export async function getLatestPosts(limit: number = 5): Promise<Post[]> {
-  try {
-    const { data, error } = await supabase
-      .from("ssdown_blogs")
-      .select("*")
-      .eq("status", "published")
-      .order("published_at", { ascending: false })
-      .limit(limit);
-
-    if (error) {
-      console.error("Error fetching latest posts:", error);
-      return [];
-    }
-
-    return (data || []).map(transformPost);
-  } catch (error) {
-    console.error("Error in getLatestPosts:", error);
-    return [];
-  }
+  return STATIC_POSTS.slice(0, limit);
 }

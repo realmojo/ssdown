@@ -54,7 +54,13 @@
     "desc_save": "Choose your preferred quality and save the video to your device.",
     "seo_title": "X (Twitter) Video Downloader - Download Videos & GIFs Free",
     "seo_description": "Fastest X (Twitter) Video Downloader. Save Twitter videos and GIFs in HD, Full HD, and 4K quality to your mobile or PC. No login required, unlimited downloads.",
-    "seo_keywords": "x video downloader, twitter video download, save twitter gif, twitter mp4 download, x media saver"
+    "seo_keywords": "x video downloader, twitter video download, save twitter gif, twitter mp4 download, x media saver",
+    "seo_content": {
+      "title": "Save Twitter (X) Videos & GIFs Easily",
+      "p1": "X, formerly known as Twitter, has evolved into a multimedia powerhouse. From breaking news clips to viral memes and high-definition fan cams, the amount of video content on X is massive. SSDown provides a robust, fast, and free way to download Twitter videos directly to your device.",
+      "p2": "Our downloader is designed to handle all types of media found on X, including standard videos and GIFs. Twitter actually converts GIFs into MP4 video loops, and our tool retrieves these source files to give you the highest quality possible. You can choose from various resolutions such as 720p, 1080p, or even higher if available.",
+      "p3": "Privacy is our priority. Since all downloads are processed directly without storing your personal data or login information, you can use SSDown anonymously and safely. Whether you are archiving important news footage or just saving a funny cat video, SSDown is the reliable choice for X video downloading."
+    }
   },
   "tiktok": {
     "seo_title": "TikTok Downloader - Download TikTok Videos Without Watermark",
@@ -66,7 +72,13 @@
     "no_watermark": "No Watermark",
     "mp4_mp3": "MP4 & MP3",
     "desc_watermark": "Get clear videos without the annoying TikTok watermark overlay.",
-    "desc_audio": "Choose to download the video or just the audio track as MP3."
+    "desc_audio": "Choose to download the video or just the audio track as MP3.",
+    "seo_content": {
+      "title": "Download Clean TikTok Videos Without Watermark",
+      "p1": "TikTok is the world's most popular short-form video platform, but sharing videos from the app comes with a major downside: the bouncing watermark. This watermark can obscure content and looks unprofessional when reposting to other platforms like Instagram Reels or YouTube Shorts. SSDown solves this problem by providing a free TikTok downloader that removes the watermark completely.",
+      "p2": "Our technology accesses the original video stream before the watermark is applied, ensuring you get the pristine, high-quality video file as the creator intended. We support HD downloads and even allow you to extract just the audio (MP3) if you're only interested in the music or sound bite.",
+      "p3": "There is no limit to how many videos you can download. Our service is compatible with all devices—iPhone, Android, PC, and Mac—and requires no software installation. Enjoy fast, free, and unlimited TikTok downloads with SSDown."
+    }
   },
   "instagram": {
     "seo_title": "Instagram Downloader - Download Reels, Stories, Photos & Videos",
@@ -78,7 +90,13 @@
     "feature_1_title": "Reels & Videos",
     "feature_1_desc": "Download Instagram Reels and videos in high definition with sound.",
     "feature_2_title": "Photos & Stories",
-    "feature_2_desc": "Save photos and stories from any public Instagram account easily."
+    "feature_2_desc": "Save photos and stories from any public Instagram account easily.",
+    "seo_content": {
+      "title": "The Ultimate Instagram Downloader",
+      "p1": "Instagram is a visual-first platform filled with stunning photos, engaging Reels, and fleeting Stories. However, it lacks a native feature to save this content for offline viewing. SSDown bridges this gap, creating a simple way to download any public Instagram content directly to your gallery.",
+      "p2": "From saving inspirational Reels to archiving memorable Stories before they disappear, SSDown handles it all. We ensure high-quality downloads, often up to 1080p for videos, and retain the original audio track which is often lost with screen recording methods.",
+      "p3": "Our tool is completely web-based, meaning you don't need to risk your account security by logging into a third-party app. Simply paste the link, hit download, and the file is yours. It's safe, fast, and completely free."
+    }
   },
   "facebook": {
     "title": "Facebook Video Downloader",
@@ -90,7 +108,13 @@
     "feature_2_desc": "Save videos to your device to watch them anytime, anywhere without internet.",
     "seo_title": "Facebook Video Downloader - Download FB Videos Online (HD/4K)",
     "seo_description": "Best Facebook Video Downloader to save FB videos in MP4 format. Support HD, Full HD, and 4K quality. Free, fast, and no login required.",
-    "seo_keywords": "facebook downloader, facebook video download, save fb video, facebook mp4, fb video saver"
+    "seo_keywords": "facebook downloader, facebook video download, save fb video, facebook mp4, fb video saver",
+    "seo_content": {
+      "title": "Save Facebook Videos in High Definition",
+      "p1": "Facebook remains a hub for sharing long-form videos, live stream replays, and community content. Whether it's a tutorial, a gaming clip, or a heartwarming family video, SSDown allows you to turn these streams into offline files that you can keep forever.",
+      "p2": "We support downloading videos in SD and HD quality. If a video was uploaded in 4K, our downloader will attempt to provide that option as well. Unlike other tools that might struggle with private group videos (which we don't support for privacy reasons), we excel at grabbing public content quickly and reliably.",
+      "p3": "Stop relying on a stable internet connection to watch your favorite Facebook clips. Download them with SSDown and build your own offline library of content that matters to you."
+    }
   },
   "9gag": {
     "title": "9GAG Video Downloader",
