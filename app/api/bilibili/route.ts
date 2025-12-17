@@ -1,4 +1,3 @@
-import fs from "fs";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
@@ -89,7 +88,8 @@ const extractScriptJson = (html: string): any => {
           const jsonString = match[1].trim();
           const parsed = JSON.parse(jsonString);
           return parsed;
-        } catch (parseError) {
+        } catch (e) {
+          console.error("Error parsing __playinfo__ JSON:", e);
           // JSON 파싱 실패 시 다음 패턴 시도
           continue;
         }
@@ -146,7 +146,8 @@ const extractItemInfo = (html: string): any => {
           const jsonString = match[1].trim();
           const parsed = JSON.parse(jsonString);
           return parsed;
-        } catch (parseError) {
+        } catch (e) {
+          console.error("Error parsing __INITIAL_STATE__ JSON:", e);
           // JSON 파싱 실패 시 다음 패턴 시도
           continue;
         }

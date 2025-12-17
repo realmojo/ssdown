@@ -1,47 +1,10 @@
 import { Metadata } from "next";
 import { i18n, type Locale } from "@/lib/i18n-config";
-import { getAllPosts, getLocalizedContent } from "@/lib/posts";
+import { getAllPosts, getLocalizedContent, getPostById } from "@/lib/posts";
 import { notFound } from "next/navigation";
 import { PostContent } from "@/components/PostContent";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
-import { Post } from "@/lib/posts";
-
-// API를 통해 포스트 가져오기
-async function getPostById(id: string): Promise<Post | null> {
-  try {
-    // 서버 사이드에서 내부 API 호출
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-      ? process.env.NEXT_PUBLIC_BASE_URL
-      : "http://localhost:3000";
-
-    const apiUrl = `${baseUrl}/api/blog/${id}`;
-    const response = await fetch(apiUrl, {
-      cache: "force-cache",
-      next: { revalidate: 3600 }, // 1시간마다 재검증
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      if (response.status === 404) {
-        return null;
-      }
-      throw new Error(`Failed to fetch post: ${response.statusText}`);
-    }
-
-    const result = await response.json();
-    if (!result.success || !result.data) {
-      return null;
-    }
-
-    return result.data as Post;
-  } catch (error) {
-    console.error("Error fetching post from API:", error);
-    return null;
-  }
-}
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
@@ -148,7 +111,7 @@ export default async function BlogPostPage(props: {
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
       <article className="container max-w-4xl mx-auto px-4 py-12">
         <Link
-          href={getPath("/")}
+          href={getPath("/blog")}
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -187,9 +150,7 @@ export default async function BlogPostPage(props: {
           </div>
         </header>
 
-        <div className="prose prose-lg dark:prose-invert max-w-none">
-          <PostContent content={content} />
-        </div>
+        <PostContent content={content} />
       </article>
     </div>
   );
