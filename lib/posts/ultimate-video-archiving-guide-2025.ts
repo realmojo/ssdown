@@ -225,10 +225,10 @@ Start your archive today. The video you watch today might be gone tomorrow.
     "formats",
   ],
   author: "SSDown Tech Team",
-  publishedAt: "2025-01-15T09:00:00Z",
-  updatedAt: "2025-01-15T09:00:00Z",
+  publishedAt: "2025-12-19T09:00:00Z",
+  updatedAt: "2025-12-19T09:00:00Z",
   image: "/logo.png",
   readTime: 15,
   status: "published",
-  createdAt: "2025-01-15T09:00:00Z",
+  createdAt: "2025-12-19T09:00:00Z",
 };

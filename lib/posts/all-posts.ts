@@ -20,12 +20,15 @@ import { post as video_formats_mp4_webm } from "./video-formats-mp4-webm";
 import { post as video_resolution_explained } from "./video-resolution-explained";
 import { post as why_no_extensions_needed } from "./why-no-extensions-needed";
 import { post as ultimate_video_archiving_guide_2025 } from "./ultimate-video-archiving-guide-2025";
+import { post as content_repurposing_strategy_2025 } from "./content-repurposing-strategy-2025";
+import { post as offline_learning_revolution_2025 } from "./offline-learning-revolution-2025";
 
 
 export const ALL_POSTS: Post[] = [
   _9gag_video_saver,
   bilibili_anime_download_guide,
   content_creator_tools_2024,
+  content_repurposing_strategy_2025,
   copyright_fair_use_guide,
   dailymotion_offline_viewing,
   data_saving_offline_watch,
@@ -34,6 +37,7 @@ export const ALL_POSTS: Post[] = [
   instagram_reels_download_tips,
   instagram_story_anonymous,
   iphone_shortcuts_vs_web,
+  offline_learning_revolution_2025,
   safe_browsing_tips,
   safe_downloader_checklist,
   social_media_manager_tips,
