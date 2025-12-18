@@ -19,13 +19,13 @@ export async function generateMetadata({
   const canonical = `${baseUrl}/${lang === "en" ? "" : lang + "/"}privacy`;
 
   return {
-    title: dict.privacy?.seo_title || "Privacy Policy - SSDown",
+    title: "Privacy Policy - SSDown",
     description:
-      dict.privacy?.seo_description ||
       "Learn about SSDown's privacy policy and how we handle your data when you use our video downloader service.",
     openGraph: {
-      title: dict.privacy?.seo_title || "Privacy Policy - SSDown",
-      description: dict.privacy?.seo_description,
+      title: "Privacy Policy - SSDown",
+      description:
+        "Learn about SSDown's privacy policy and how we handle your data when you use our video downloader service.",
       url: canonical,
       siteName: "SSDown",
       locale:
