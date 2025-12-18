@@ -1,12 +1,10 @@
-import { i18n, type Locale } from "@/lib/i18n-config";
+import { i18n } from "@/lib/i18n-config";
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
 }
 
-export default function TermsPage(props: {
-  params: Promise<{ lang: Locale }>;
-}) {
+export default async function TermsPage() {
   return (
     <div className="container py-12 md:py-24 max-w-4xl">
       <h1 className="text-3xl font-bold mb-8">Terms and Conditions of Use</h1>

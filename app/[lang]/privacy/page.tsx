@@ -46,12 +46,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function PrivacyPage(props: {
-  params: Promise<{ lang: Locale }>;
-}) {
-  // params를 await하여 사용 (Next.js 15+ 요구사항)
-  const params = await props.params;
-
+export default async function PrivacyPage() {
   return (
     <div className="container py-12 md:py-24 max-w-4xl">
       <h1 className="text-3xl font-bold mb-8">Privacy Policy</h1>
