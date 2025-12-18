@@ -244,10 +244,10 @@ A: 기술적으로는 공개된 모든 9GAG 영상을 받을 수 있지만, 윤�
   category: "9gag",
   tags: ["9gag", "memes", "fun", "downloader", "guide"],
   author: "SSDown Team",
-  publishedAt: "2024-04-18T11:00:00Z",
-  updatedAt: "2024-12-17T13:00:00Z",
+  publishedAt: "2025-04-18T11:00:00Z",
+  updatedAt: "2025-12-17T13:00:00Z",
   image: "/ssdown-9gag-og.png",
   readTime: 7,
   status: "published",
-  createdAt: "2024-04-18T11:00:00Z",
+  createdAt: "2025-04-18T11:00:00Z",
 };

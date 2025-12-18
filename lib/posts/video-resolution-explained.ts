@@ -181,10 +181,10 @@ Choose the tool that fits the job.
   category: "tech",
   tags: ["tech", "resolution", "4k", "1080p", "guide", "bitrate"],
   author: "SSDown Tech Team",
-  publishedAt: "2024-04-28T10:15:00Z",
-  updatedAt: "2024-12-17T14:40:00Z",
+  publishedAt: "2025-04-28T10:15:00Z",
+  updatedAt: "2025-12-17T14:40:00Z",
   image: "/logo.png",
   readTime: 6,
   status: "published",
-  createdAt: "2024-04-28T10:15:00Z",
+  createdAt: "2025-04-28T10:15:00Z",
 };

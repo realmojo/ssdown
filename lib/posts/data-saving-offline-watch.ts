@@ -173,10 +173,10 @@ LTE나 5G로 스트리밍을 하면 배터리가 광탈합니다. 스마트폰�
   category: "tips",
   tags: ["tips", "data-saving", "offline-viewing", "battery-life", "travel"],
   author: "SSDown Team",
-  publishedAt: "2024-04-22T08:45:00Z",
-  updatedAt: "2024-12-17T13:25:00Z",
+  publishedAt: "2025-04-22T08:45:00Z",
+  updatedAt: "2025-12-17T13:25:00Z",
   image: "/logo.png",
   readTime: 5,
   status: "published",
-  createdAt: "2024-04-22T08:45:00Z",
+  createdAt: "2025-04-22T08:45:00Z",
 };

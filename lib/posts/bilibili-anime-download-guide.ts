@@ -222,10 +222,10 @@ Whether you're an otaku saving MMDs, a student learning Chinese, or just someone
   category: "bilibili",
   tags: ["bilibili", "anime", "guide", "downloader", "acg"],
   author: "SSDown Team",
-  publishedAt: "2024-03-28T16:45:00Z",
-  updatedAt: "2024-12-17T13:05:00Z",
+  publishedAt: "2025-03-28T16:45:00Z",
+  updatedAt: "2025-12-17T13:05:00Z",
   image: "/ssdown-bilibili-og.png",
   readTime: 6,
   status: "published",
-  createdAt: "2024-03-28T16:45:00Z",
+  createdAt: "2025-03-28T16:45:00Z",
 };

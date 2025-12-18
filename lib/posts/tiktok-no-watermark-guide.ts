@@ -199,10 +199,10 @@ Experience the clarity of watermark-free downloads today.
   category: "tiktok",
   tags: ["tiktok", "watermark", "clean", "downloader", "reels", "shorts"],
   author: "SSDown Team",
-  publishedAt: "2024-03-18T10:00:00Z",
-  updatedAt: "2024-12-17T14:30:00Z",
+  publishedAt: "2025-03-18T10:00:00Z",
+  updatedAt: "2025-12-17T14:30:00Z",
   image: "/ssdown-tiktok-og.png",
   readTime: 5,
   status: "published",
-  createdAt: "2024-03-18T10:00:00Z",
+  createdAt: "2025-03-18T10:00:00Z",
 };

@@ -171,10 +171,10 @@ Stick to verified, web-based, transparent tools like **SSDown**. Safe downloadin
   category: "security",
   tags: ["security", "safety", "checklist", "guide", "downloader"],
   author: "SSDown Security Team",
-  publishedAt: "2024-05-03T14:50:00Z",
-  updatedAt: "2024-12-17T14:10:00Z",
+  publishedAt: "2025-05-03T14:50:00Z",
+  updatedAt: "2025-12-17T14:10:00Z",
   image: "/logo.png",
   readTime: 6,
   status: "published",
-  createdAt: "2024-05-03T14:50:00Z",
+  createdAt: "2025-05-03T14:50:00Z",
 };

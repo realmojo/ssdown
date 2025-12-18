@@ -209,10 +209,10 @@ SSDown이 제공하는 파일은 표준 **MP4 (H.264)** 포맷입니다. 호환�
   category: "dailymotion",
   tags: ["dailymotion", "video", "downloader", "guide", "tv shows"],
   author: "SSDown Team",
-  publishedAt: "2024-03-25T11:00:00Z",
-  updatedAt: "2024-12-17T13:20:00Z",
+  publishedAt: "2025-03-25T11:00:00Z",
+  updatedAt: "2025-12-17T13:20:00Z",
   image: "/ssdown-dailymotion-og.png",
   readTime: 5,
   status: "published",
-  createdAt: "2024-03-25T11:00:00Z",
+  createdAt: "2025-03-25T11:00:00Z",
 };

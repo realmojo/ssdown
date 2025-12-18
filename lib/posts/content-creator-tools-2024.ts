@@ -215,10 +215,10 @@ By mastering this stack, you are not just a creator; you are a media powerhouse.
   category: "general",
   tags: ["tools", "creators", "productivity", "growth", "guide"],
   author: "SSDown Team",
-  publishedAt: "2024-03-22T08:15:00Z",
-  updatedAt: "2024-12-17T13:10:00Z",
+  publishedAt: "2025-03-22T08:15:00Z",
+  updatedAt: "2025-12-17T13:10:00Z",
   image: "/logo.png",
   readTime: 6,
   status: "published",
-  createdAt: "2024-03-22T08:15:00Z",
+  createdAt: "2025-03-22T08:15:00Z",
 };

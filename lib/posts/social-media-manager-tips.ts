@@ -189,10 +189,10 @@ SSDown을 활용한 효율적인 업무 루틴입니다:
   category: "marketing",
   tags: ["marketing", "social media", "strategy", "workflow", "tips"],
   author: "SSDown Business Team",
-  publishedAt: "2024-04-25T13:00:00Z",
-  updatedAt: "2024-12-17T14:15:00Z",
+  publishedAt: "2025-04-25T13:00:00Z",
+  updatedAt: "2025-12-17T14:15:00Z",
   image: "/logo.png",
   readTime: 6,
   status: "published",
-  createdAt: "2024-04-25T13:00:00Z",
+  createdAt: "2025-04-25T13:00:00Z",
 };

@@ -203,10 +203,10 @@ X는 전 세계의 '광장'이며, 비디오는 그 광장의 언어입니다. �
   category: "x",
   tags: ["twitter", "x", "video", "downloader", "guide", "4k"],
   author: "SSDown Team",
-  publishedAt: "2024-03-15T09:00:00Z",
-  updatedAt: "2024-12-17T13:35:00Z",
+  publishedAt: "2025-03-15T09:00:00Z",
+  updatedAt: "2025-12-17T13:35:00Z",
   image: "/ssdown-x-og.png",
   readTime: 5,
   status: "published",
-  createdAt: "2024-03-15T09:00:00Z",
+  createdAt: "2025-03-15T09:00:00Z",
 };

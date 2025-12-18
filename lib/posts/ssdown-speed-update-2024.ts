@@ -174,10 +174,10 @@ SNS 플랫폼들은 스크래퍼(Scraper)를 막기 위해 매일같이 코드�
   category: "news",
   tags: ["news", "update", "engineering", "speed", "bilibili"],
   author: "SSDown Engineering Team",
-  publishedAt: "2024-05-05T09:00:00Z",
-  updatedAt: "2024-12-17T14:20:00Z",
+  publishedAt: "2025-05-05T09:00:00Z",
+  updatedAt: "2025-12-17T14:20:00Z",
   image: "/logo.png",
   readTime: 5,
   status: "published",
-  createdAt: "2024-05-05T09:00:00Z",
+  createdAt: "2025-05-05T09:00:00Z",
 };

@@ -187,10 +187,10 @@ Stop fighting with broken scripts. Switch to **SSDown** on Safari and experience
   category: "tips",
   tags: ["iphone", "ios", "shortcuts", "safari", "guide", "security"],
   author: "SSDown Tech Team",
-  publishedAt: "2024-05-01T09:00:00Z",
-  updatedAt: "2024-12-17T13:55:00Z",
+  publishedAt: "2025-05-01T09:00:00Z",
+  updatedAt: "2025-12-17T13:55:00Z",
   image: "/logo.png",
   readTime: 6,
   status: "published",
-  createdAt: "2024-05-01T09:00:00Z",
+  createdAt: "2025-05-01T09:00:00Z",
 };

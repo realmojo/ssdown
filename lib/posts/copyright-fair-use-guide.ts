@@ -198,10 +198,10 @@ SSDown은 VCR이나 복사기 같은 도구입니다. 기술 자체는 중립적
   category: "general",
   tags: ["legal", "copyright", "fair use", "guide", "safety"],
   author: "SSDown Legal Team",
-  publishedAt: "2024-04-01T09:00:00Z",
-  updatedAt: "2024-12-17T13:15:00Z",
+  publishedAt: "2025-04-01T09:00:00Z",
+  updatedAt: "2025-12-17T13:15:00Z",
   image: "/logo.png",
   readTime: 5,
   status: "published",
-  createdAt: "2024-04-01T09:00:00Z",
+  createdAt: "2025-04-01T09:00:00Z",
 };

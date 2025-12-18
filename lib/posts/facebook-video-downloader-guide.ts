@@ -209,10 +209,10 @@ SSDown은 로그인이 필요 없고 안하며 빠릅니다.
   category: "facebook",
   tags: ["facebook", "video", "downloader", "guide", "tutorial"],
   author: "SSDown Team",
-  publishedAt: "2024-04-10T15:00:00Z",
-  updatedAt: "2024-12-17T13:30:00Z",
+  publishedAt: "2025-04-10T15:00:00Z",
+  updatedAt: "2025-12-17T13:30:00Z",
   image: "/ssdown-facebook-og.png",
   readTime: 6,
   status: "published",
-  createdAt: "2024-04-10T15:00:00Z",
+  createdAt: "2025-04-10T15:00:00Z",
 };

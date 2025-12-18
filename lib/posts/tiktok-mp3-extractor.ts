@@ -185,10 +185,10 @@ Turn that viral video into your daily soundtrack today.
   category: "tiktok",
   tags: ["tiktok", "mp3", "audio", "converter", "ringtone", "guide"],
   author: "SSDown Audio Team",
-  publishedAt: "2024-04-15T14:20:00Z",
-  updatedAt: "2024-12-17T14:25:00Z",
+  publishedAt: "2025-04-15T14:20:00Z",
+  updatedAt: "2025-12-17T14:25:00Z",
   image: "/ssdown-tiktok-og.png",
   readTime: 5,
   status: "published",
-  createdAt: "2024-04-15T14:20:00Z",
+  createdAt: "2025-04-15T14:20:00Z",
 };

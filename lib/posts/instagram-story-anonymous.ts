@@ -197,10 +197,10 @@ SSDown은 하이라이트도 뚫어줍니다.
   category: "instagram",
   tags: ["instagram", "stories", "anonymous", "downloader", "privacy"],
   author: "SSDown Privacy Team",
-  publishedAt: "2024-04-12T09:30:00Z",
-  updatedAt: "2024-12-17T13:50:00Z",
+  publishedAt: "2025-04-12T09:30:00Z",
+  updatedAt: "2025-12-17T13:50:00Z",
   image: "/ssdown-instagram-og.png",
   readTime: 6,
   status: "published",
-  createdAt: "2024-04-12T09:30:00Z",
+  createdAt: "2025-04-12T09:30:00Z",
 };

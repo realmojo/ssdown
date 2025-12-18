@@ -19,6 +19,7 @@ import { post as tiktok_no_watermark_guide } from "./tiktok-no-watermark-guide";
 import { post as video_formats_mp4_webm } from "./video-formats-mp4-webm";
 import { post as video_resolution_explained } from "./video-resolution-explained";
 import { post as why_no_extensions_needed } from "./why-no-extensions-needed";
+import { post as ultimate_video_archiving_guide_2025 } from "./ultimate-video-archiving-guide-2025";
 
 
 export const ALL_POSTS: Post[] = [
@@ -39,6 +40,7 @@ export const ALL_POSTS: Post[] = [
   ssdown_speed_update_2024,
   tiktok_mp3_extractor,
   tiktok_no_watermark_guide,
+  ultimate_video_archiving_guide_2025,
   video_formats_mp4_webm,
   video_resolution_explained,
   why_no_extensions_needed,

@@ -164,10 +164,10 @@ SSDown은 PWA로 제작되었습니다. 바탕화면에 '설치'할 수 있습�
   category: "tech",
   tags: ["tech", "extensions", "security", "privacy", "pwa"],
   author: "SSDown Tech Team",
-  publishedAt: "2024-04-20T16:00:00Z",
-  updatedAt: "2024-12-17T14:45:00Z",
+  publishedAt: "2025-04-20T16:00:00Z",
+  updatedAt: "2025-12-17T14:45:00Z",
   image: "/logo.png",
   readTime: 6,
   status: "published",
-  createdAt: "2024-04-20T16:00:00Z",
+  createdAt: "2025-04-20T16:00:00Z",
 };

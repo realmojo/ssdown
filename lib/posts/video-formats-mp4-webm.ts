@@ -190,10 +190,10 @@ MP4가 아반떼라면, WebM은 '테슬라'입니다. 최신 기술이고 효율
   category: "tech",
   tags: ["tech", "formats", "mp4", "webm", "comparison", "guide"],
   author: "SSDown Tech Team",
-  publishedAt: "2024-04-05T13:20:00Z",
-  updatedAt: "2024-12-17T14:35:00Z",
+  publishedAt: "2025-04-05T13:20:00Z",
+  updatedAt: "2025-12-17T14:35:00Z",
   image: "/logo.png",
   readTime: 6,
   status: "published",
-  createdAt: "2024-04-05T13:20:00Z",
+  createdAt: "2025-04-05T13:20:00Z",
 };

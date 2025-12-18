@@ -179,10 +179,10 @@ Stay vigilant, verify before you verify, and use trusted tools to act as your sh
   category: "security",
   tags: ["security", "safety", "phishing", "malware", "guide"],
   author: "SSDown Security Team",
-  publishedAt: "2024-04-08T10:00:00Z",
-  updatedAt: "2024-12-17T14:00:00Z",
+  publishedAt: "2025-04-08T10:00:00Z",
+  updatedAt: "2025-12-17T14:00:00Z",
   image: "/logo.png",
   readTime: 5,
   status: "published",
-  createdAt: "2024-04-08T10:00:00Z",
+  createdAt: "2025-04-08T10:00:00Z",
 };
