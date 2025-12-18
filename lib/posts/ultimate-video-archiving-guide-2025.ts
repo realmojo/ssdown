@@ -113,7 +113,7 @@ Don't leave the preservation of these moments to tech giants who only care about
 Start your archive today. The video you watch today might be gone tomorrow.
 `,
     kr: `
-## 서론: 영원한 것은 없다
+## 영원한 것은 없다
 
 우리는 인터넷에 올라온 모든 것이 영원히 그곳에 있을 것이라고 착각하며 살아갑니다. 유튜브, 인스타그램, 틱톡을 인류 문화의 영구적인 도서관처럼 여기죠. 하지만 이것은 위험한 환상입니다.
 
@@ -205,7 +205,7 @@ Start your archive today. The video you watch today might be gone tomorrow.
 
 ---
 
-## 결론: 당신이 큐레이터입니다
+## 당신이 큐레이터입니다
 
 2025년의 우리는 인류가 지난 한 세기 동안 만든 것보다 더 많은 영상을 하루 만에 만들어냅니다. 대부분은 소음이지만, 그중 일부는 소중한 역사입니다. 아이가 처음 걷는 순간을 담은 인스타 스토리, 내 차를 고쳐준 유튜브 튜토리얼, 역사를 바꾼 정치인의 연설...
 
