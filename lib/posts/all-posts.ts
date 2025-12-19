@@ -22,7 +22,7 @@ import { post as why_no_extensions_needed } from "./why-no-extensions-needed";
 import { post as ultimate_video_archiving_guide_2025 } from "./ultimate-video-archiving-guide-2025";
 import { post as content_repurposing_strategy_2025 } from "./content-repurposing-strategy-2025";
 import { post as offline_learning_revolution_2025 } from "./offline-learning-revolution-2025";
-
+import { post as social_media_algorithms_video_quality } from "./social-media-algorithms-video-quality";
 
 export const ALL_POSTS: Post[] = [
   _9gag_video_saver,
@@ -48,4 +48,5 @@ export const ALL_POSTS: Post[] = [
   video_formats_mp4_webm,
   video_resolution_explained,
   why_no_extensions_needed,
+  social_media_algorithms_video_quality,
 ];

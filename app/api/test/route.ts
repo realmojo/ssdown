@@ -47,7 +47,7 @@ export async function GET() {
         console.log("url: ", item.url);
 
         const response = await fetch(
-          `http://localhost:3000/api/${item.type}?url=${encodeURIComponent(
+          `https://ssdown.app/api/${item.type}?url=${encodeURIComponent(
             item.url
           )}`
         );
