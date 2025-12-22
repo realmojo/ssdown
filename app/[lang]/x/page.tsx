@@ -2,8 +2,6 @@ import { i18n, type Locale } from "@/lib/i18n-config";
 export const runtime = "edge";
 import { getDictionary } from "@/lib/get-dictionary";
 import { XClient } from "@/components/client/x-client";
-import { getPostsByCategory } from "@/lib/posts";
-
 
 import { Metadata } from "next";
 
@@ -68,6 +66,8 @@ export default async function TwitterPage(props: {
 }) {
   const params = await props.params;
   const dict = await getDictionary(params.lang);
+  // 동적 import로 번들 크기 최적화
+  const { getPostsByCategory } = await import("@/lib/posts");
   const relatedPosts = await getPostsByCategory("x");
 
   const jsonLd = {

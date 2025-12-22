@@ -2,7 +2,6 @@ import { i18n, type Locale } from "@/lib/i18n-config";
 export const runtime = "edge";
 import { getDictionary } from "@/lib/get-dictionary";
 import { NineGagClient } from "@/components/client/ninegag-client";
-import { getPostsByCategory } from "@/lib/posts";
 
 
 import { Metadata } from "next";
@@ -69,6 +68,7 @@ export default async function NineGagPage(props: {
 }) {
   const params = await props.params;
   const dict = await getDictionary(params.lang);
+  const { getPostsByCategory } = await import("@/lib/posts");
   const relatedPosts = await getPostsByCategory("9gag");
 
   const jsonLd = {

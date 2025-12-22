@@ -3,7 +3,6 @@ export const runtime = "edge";
 import { getDictionary } from "@/lib/get-dictionary";
 import { FacebookClient } from "@/components/client/facebook-client";
 import { Metadata } from "next";
-import { getPostsByCategory } from "@/lib/posts";
 
 
 export async function generateMetadata({
@@ -70,6 +69,7 @@ export default async function FacebookPage(props: {
 }) {
   const params = await props.params;
   const dict = await getDictionary(params.lang);
+  const { getPostsByCategory } = await import("@/lib/posts");
   const relatedPosts = await getPostsByCategory("facebook");
 
   const jsonLd = {

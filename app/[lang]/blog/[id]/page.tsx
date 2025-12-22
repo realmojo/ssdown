@@ -1,12 +1,10 @@
 import { Metadata } from "next";
 export const runtime = "edge";
 import { i18n, type Locale } from "@/lib/i18n-config";
-import { getAllPosts, getLocalizedContent, getPostById } from "@/lib/posts";
 import { notFound } from "next/navigation";
 import { PostContent } from "@/components/PostContent";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
-
 
 export async function generateMetadata({
   params,
@@ -14,6 +12,8 @@ export async function generateMetadata({
   params: Promise<{ lang: Locale; id: string }>;
 }): Promise<Metadata> {
   const { lang, id } = await params;
+  // 동적 import로 번들 크기 최적화
+  const { getPostById, getLocalizedContent } = await import("@/lib/posts");
   const post = await getPostById(id);
 
   if (!post) {
@@ -70,6 +70,8 @@ export default async function BlogPostPage(props: {
 }) {
   const params = await props.params;
   const { lang, id } = params;
+  // 동적 import로 번들 크기 최적화
+  const { getPostById, getLocalizedContent } = await import("@/lib/posts");
   const post = await getPostById(id);
 
   if (!post) {

@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 export const runtime = "edge";
 import { i18n, type Locale } from "@/lib/i18n-config";
-import { getAllPosts, getPostsByCategory } from "@/lib/posts";
 import { PostCard } from "@/components/PostCard";
 import { BookOpen } from "lucide-react";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
-
 
 export async function generateMetadata({
   params,
@@ -67,8 +65,9 @@ export default async function BlogPage(props: {
   const searchParams = await props.searchParams;
   const { lang } = params;
 
-  // 카테고리 필터링
+  // 카테고리 필터링 - 동적 import로 번들 크기 최적화
   const selectedCategory = searchParams?.category;
+  const { getAllPosts, getPostsByCategory } = await import("@/lib/posts");
   const allPosts = await getAllPosts();
   const posts = selectedCategory
     ? await getPostsByCategory(selectedCategory)
