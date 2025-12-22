@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { ModeToggle } from "@/components/mode-toggle";
 import { XIcon } from "@/components/ui/icons";
 
 interface SiteFooterProps {
@@ -162,12 +161,6 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
         {/* Bottom Section */}
         <div className="mt-12 pt-8 border-t flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <p>© {currentYear} SSDown. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-medium">Theme</span>
-              <ModeToggle />
-            </div>
-          </div>
         </div>
       </div>
     </footer>

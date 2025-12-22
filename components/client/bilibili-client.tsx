@@ -24,25 +24,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PostSection } from "@/components/PostSection";
 import { BilibiliIcon } from "@/components/ui/icons";
 
 interface BilibiliClientProps {
   dict: any;
-  lang: string;
-  relatedPosts?: any[];
 }
 
-export function BilibiliClient({
-  dict,
-  lang,
-  relatedPosts = [],
-}: BilibiliClientProps) {
-  const getPath = (path: string) => {
-    if (lang === "en") return path;
-    return `/${lang}${path === "/" ? "" : path}`;
-  };
-
+export function BilibiliClient({ dict }: BilibiliClientProps) {
   const theme: ThemeConfig = {
     bgFrom: "from-pink-50",
     bgTo: "to-white dark:from-gray-900 dark:to-gray-950",
@@ -287,16 +275,6 @@ export function BilibiliClient({
           ))}
         </Accordion>
       </section>
-
-      {/* Related Posts Section */}
-      {relatedPosts.length > 0 && (
-        <PostSection
-          posts={relatedPosts}
-          lang={lang}
-          category="bilibili"
-          getPath={getPath}
-        />
-      )}
     </div>
   );
 

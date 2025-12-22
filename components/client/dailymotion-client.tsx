@@ -24,24 +24,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PostSection } from "@/components/PostSection";
 
 interface DailymotionClientProps {
   dict: any;
-  lang: string;
-  relatedPosts?: any[];
 }
 
-export function DailymotionClient({
-  dict,
-  lang,
-  relatedPosts = [],
-}: DailymotionClientProps) {
-  const getPath = (path: string) => {
-    if (lang === "en") return path;
-    return `/${lang}${path === "/" ? "" : path}`;
-  };
-
+export function DailymotionClient({ dict }: DailymotionClientProps) {
   const theme: ThemeConfig = {
     bgFrom: "from-blue-50",
     bgTo: "to-white dark:from-gray-900 dark:to-gray-950",
@@ -288,16 +276,6 @@ export function DailymotionClient({
           ))}
         </Accordion>
       </section>
-
-      {/* Related Posts Section */}
-      {relatedPosts.length > 0 && (
-        <PostSection
-          posts={relatedPosts}
-          lang={lang}
-          category="dailymotion"
-          getPath={getPath}
-        />
-      )}
     </div>
   );
 

@@ -25,23 +25,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PostSection } from "@/components/PostSection";
 
 interface TikTokClientProps {
   dict: any;
-  lang: string;
-  relatedPosts?: any[];
 }
 
-export function TikTokClient({
-  dict,
-  lang,
-  relatedPosts = [],
-}: TikTokClientProps) {
-  const getPath = (path: string) => {
-    if (lang === "en") return path;
-    return `/${lang}${path === "/" ? "" : path}`;
-  };
+export function TikTokClient({ dict }: TikTokClientProps) {
   const theme: ThemeConfig = {
     bgFrom: "from-pink-50",
     bgTo: "to-white dark:from-gray-900 dark:to-gray-950",
@@ -288,16 +277,6 @@ export function TikTokClient({
           ))}
         </Accordion>
       </section>
-
-      {/* Related Posts Section */}
-      {relatedPosts.length > 0 && (
-        <PostSection
-          posts={relatedPosts}
-          lang={lang}
-          category="tiktok"
-          getPath={getPath}
-        />
-      )}
     </div>
   );
 

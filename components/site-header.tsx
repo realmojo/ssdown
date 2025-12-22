@@ -1,10 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/language-selector";
-import { ModeToggle } from "@/components/mode-toggle";
 
 interface SiteHeaderProps {
   dict: any;
@@ -43,14 +40,12 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
           target="_self"
           className="flex items-center gap-2 font-bold text-xl mr-6 hover:opacity-80 transition-opacity"
         >
-          <Image
+          <img
             src="/logo.png"
             alt="SSDown Logo"
             width={32}
             height={32}
             className="h-8 w-8 object-contain"
-            priority
-            unoptimized
           />
           <span className="hidden md:inline bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
             SSDown
@@ -62,69 +57,53 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
           className="hidden md:flex items-center gap-4 text-sm font-medium"
           aria-label="Main navigation"
         >
-          <a href={getPath("/x")} target="_self">
-            <Button
-              variant="ghost"
-              className="text-muted-foreground hover:text-primary"
-            >
-              {dict?.twitter || "X (Twitter)"}
-            </Button>
+          <a
+            href={getPath("/x")}
+            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-md hover:bg-accent"
+          >
+            {dict?.twitter || "X (Twitter)"}
           </a>
-          <a href={getPath("/tiktok")} target="_self">
-            <Button
-              variant="ghost"
-              className="text-muted-foreground hover:text-primary"
-            >
-              {dict?.tiktok || "TikTok"}
-            </Button>
+          <a
+            href={getPath("/tiktok")}
+            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-md hover:bg-accent"
+          >
+            {dict?.tiktok || "TikTok"}
           </a>
-          <a href={getPath("/instagram")} target="_self">
-            <Button
-              variant="ghost"
-              className="text-muted-foreground hover:text-primary"
-            >
-              {dict?.instagram?.nav || "Instagram"}
-            </Button>
+          <a
+            href={getPath("/instagram")}
+            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-md hover:bg-accent"
+          >
+            {dict?.instagram?.nav || "Instagram"}
           </a>
-          <a href={getPath("/facebook")} target="_self">
-            <Button
-              variant="ghost"
-              className="text-muted-foreground hover:text-primary"
-            >
-              {dict?.facebook?.nav || "Facebook"}
-            </Button>
+          <a
+            href={getPath("/facebook")}
+            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-md hover:bg-accent"
+          >
+            {dict?.facebook?.nav || "Facebook"}
           </a>
-          <a href={getPath("/dailymotion")} target="_self">
-            <Button
-              variant="ghost"
-              className="text-muted-foreground hover:text-primary"
-            >
-              {dict?.dailymotion?.nav || "Dailymotion"}
-            </Button>
+          <a
+            href={getPath("/dailymotion")}
+            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-md hover:bg-accent"
+          >
+            {dict?.dailymotion?.nav || "Dailymotion"}
           </a>
-          <a href={getPath("/9gag")} target="_self">
-            <Button
-              variant="ghost"
-              className="text-muted-foreground hover:text-primary"
-            >
-              {dict?.["9gag"]?.nav || "9GAG"}
-            </Button>
+          <a
+            href={getPath("/9gag")}
+            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-md hover:bg-accent"
+          >
+            {dict?.["9gag"]?.nav || "9GAG"}
           </a>
-          <a href={getPath("/bilibili")} target="_self">
-            <Button
-              variant="ghost"
-              className="text-muted-foreground hover:text-primary"
-            >
-              {dict?.bilibili?.nav || "Bilibili"}
-            </Button>
+          <a
+            href={getPath("/bilibili")}
+            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-md hover:bg-accent"
+          >
+            {dict?.bilibili?.nav || "Bilibili"}
           </a>
-          <a href={getPath("/blog")} target="_self">
-            <Button
-              variant="ghost"
-              className="text-muted-foreground hover:text-primary"
-            >
-              Blog
-            </Button>
+          <a
+            href={getPath("/blog")}
+            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-md hover:bg-accent"
+          >
+            Blog
           </a>
         </nav>
 
@@ -153,10 +132,6 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
 
         <div className="ml-auto flex items-center gap-2">
           <LanguageSelector currentLang={lang} />
-          {/* PC만 상단에 표시 */}
-          <div className="hidden md:block">
-            <ModeToggle />
-          </div>
         </div>
       </div>
     </header>

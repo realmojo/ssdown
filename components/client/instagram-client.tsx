@@ -25,23 +25,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PostSection } from "@/components/PostSection";
 
 interface InstagramClientProps {
   dict: any;
-  lang: string;
-  relatedPosts?: any[];
 }
 
-export function InstagramClient({
-  dict,
-  lang,
-  relatedPosts = [],
-}: InstagramClientProps) {
-  const getPath = (path: string) => {
-    if (lang === "en") return path;
-    return `/${lang}${path === "/" ? "" : path}`;
-  };
+export function InstagramClient({ dict }: InstagramClientProps) {
   const theme: ThemeConfig = {
     bgFrom: "from-purple-50",
     bgTo: "to-white dark:from-gray-900 dark:to-gray-950",
@@ -290,16 +279,6 @@ export function InstagramClient({
           ))}
         </Accordion>
       </section>
-
-      {/* Related Posts Section */}
-      {relatedPosts.length > 0 && (
-        <PostSection
-          posts={relatedPosts}
-          lang={lang}
-          category="instagram"
-          getPath={getPath}
-        />
-      )}
     </div>
   );
 
