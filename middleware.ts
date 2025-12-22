@@ -1,0 +1,16 @@
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { proxy } from "./proxy";
+
+export const runtime = "edge";
+
+export function middleware(request: NextRequest) {
+  return proxy(request);
+}
+
+export const config = {
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    "/api/x/download",
+  ],
+};

@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { i18n } from "@/lib/i18n-config";
 import { getAllSitemapPosts } from "@/lib/posts";
 
+export const runtime = "edge";
+
 const baseUrl = "https://ssdown.app";
 
 export async function GET() {

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+export const runtime = "edge";
 
 /**
  * Facebook URL에서 share ID를 추출하는 함수

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+export const runtime = "edge";
 import { getQualityForBitrate } from "@/lib/utils";
 
 // set-cookie 헤더에서 tt_chain_token 추출

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getQualityForBitrate } from "@/lib/utils";
 
+export const runtime = "edge";
+
 // X/Twitter GraphQL API에서 트윗 상세 정보 가져오기
 const getXDetailInfo = async (xId: string) => {
   // variables 객체 구성 (xId를 동적으로 사용)

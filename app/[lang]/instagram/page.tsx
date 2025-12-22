@@ -1,4 +1,5 @@
 import { i18n, type Locale } from "@/lib/i18n-config";
+export const runtime = "edge";
 import { getDictionary } from "@/lib/get-dictionary";
 import { InstagramClient } from "@/components/client/instagram-client";
 import { Metadata } from "next";

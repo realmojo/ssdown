@@ -1,4 +1,5 @@
 // x
+export const runtime = "edge";
 // https://x.com/Harman_Kardon_/status/1956945691537727695
 
 // tiktok

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+export const runtime = "edge";
 import { i18n, type Locale } from "@/lib/i18n-config";
 import { getAllPosts, getLocalizedContent, getPostById } from "@/lib/posts";
 import { notFound } from "next/navigation";
