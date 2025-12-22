@@ -4,6 +4,8 @@ import { i18n, type Locale } from "@/lib/i18n-config";
 import { PostCard } from "@/components/PostCard";
 import { BookOpen } from "lucide-react";
 import Link from "next/link";
+import { Post } from "@/lib/blog-utils";
+import { Key, ReactNode } from "react";
 
 export const dynamic = "force-dynamic";
 
@@ -80,7 +82,7 @@ export default async function BlogPage(props: {
 
   // 카테고리 목록 추출 (모든 포스트에서)
   const categories = Array.from(
-    new Set(allPosts.map((post) => post.category))
+    new Set(allPosts.map((post: any | Post) => post.category))
   ).filter(Boolean);
 
   const categoryLabels: Record<string, { en: string; kr: string }> = {
@@ -127,7 +129,8 @@ export default async function BlogPage(props: {
               {lang === "kr" ? "전체" : "All"}
             </Link>
             {categories.map((category) => {
-              const categoryLabel = categoryLabels[category];
+              const categoryLabel =
+                categoryLabels[category as keyof typeof categoryLabels];
               const label =
                 (lang === "kr" && categoryLabel?.kr) ||
                 categoryLabel?.en ||
@@ -135,15 +138,15 @@ export default async function BlogPage(props: {
               const isActive = selectedCategory === category;
               return (
                 <Link
-                  key={category}
-                  href={`${getPath("/blog")}?category=${category}`}
+                  key={category as Key}
+                  href={`${getPath("/blog")}?category=${category as string}`}
                   className={`px-4 py-2 rounded-full border text-sm font-medium transition-colors ${
                     isActive
                       ? "bg-indigo-600 text-white border-indigo-600 hover:bg-indigo-700"
                       : "border-gray-200 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800"
                   }`}
                 >
-                  {label}
+                  {label as string}
                 </Link>
               );
             })}
@@ -153,7 +156,7 @@ export default async function BlogPage(props: {
         {/* Posts Grid */}
         {posts.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
-            {posts.map((post) => (
+            {posts.map((post: any | Post) => (
               <PostCard
                 key={post.id}
                 post={post}
