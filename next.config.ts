@@ -2,7 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   experimental: {
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: [
+      "lucide-react",
+      "@radix-ui/react-select",
+      "@radix-ui/react-dropdown-menu",
+      "@radix-ui/react-accordion",
+    ],
   },
   htmlLimitedBots: /.*/, // This regex matches all user agents
   images: {
@@ -29,6 +34,12 @@ const nextConfig: NextConfig = {
       },
     ],
     unoptimized: false,
+  },
+  // Optimize bundle sizes
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production" ? {
+      exclude: ["error", "warn"],
+    } : false,
   },
 };
 
