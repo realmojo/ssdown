@@ -3,7 +3,9 @@ import type { NextRequest } from "next/server";
 import { i18n } from "./lib/i18n-config";
 import { proxy as proxyFunction } from "./lambda/index";
 
-export async function proxy(request: NextRequest) {
+export const runtime = "edge";
+
+export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Check if there is any supported locale in the pathname
@@ -55,3 +57,10 @@ export async function proxy(request: NextRequest) {
     );
   }
 }
+
+export const config = {
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    "/api/x/download",
+  ],
+};
