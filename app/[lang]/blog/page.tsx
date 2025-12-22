@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 export const runtime = "edge";
-import { i18n, type Locale } from "@/lib/i18n-config";
+import { type Locale } from "@/lib/i18n-config";
 import { PostCard } from "@/components/PostCard";
 import { BookOpen } from "lucide-react";
 import Link from "next/link";
 import { Post } from "@/lib/blog-utils";
-import { Key, ReactNode } from "react";
+import { Key } from "react";
 
 export const dynamic = "force-dynamic";
 

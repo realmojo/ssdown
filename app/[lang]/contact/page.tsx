@@ -1,9 +1,8 @@
-import { i18n, type Locale } from "@/lib/i18n-config";
+import { type Locale } from "@/lib/i18n-config";
 export const runtime = "edge";
 import { getDictionary } from "@/lib/get-dictionary";
 import { ContactClient } from "@/components/client/contact-client";
 import { Metadata } from "next";
-
 
 export async function generateMetadata({
   params,

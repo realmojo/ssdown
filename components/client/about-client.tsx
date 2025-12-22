@@ -1,7 +1,6 @@
 "use client";
 
 import { CheckCircle2, Globe2, ShieldCheck, Zap } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 
 interface AboutClientProps {
   dict: any;
@@ -58,8 +57,8 @@ export function AboutClient({ dict }: AboutClientProps) {
               </h2>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="border-0 shadow-lg bg-gray-50 dark:bg-gray-900/50">
-                <CardContent className="p-6 flex flex-col items-center text-center gap-4">
+              <div className="border-0 shadow-lg bg-gray-50 dark:bg-gray-900/50 rounded-lg">
+                <div className="p-6 flex flex-col items-center text-center gap-4">
                   <div className="p-3 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400">
                     <ShieldCheck className="h-6 w-6" />
                   </div>
@@ -68,10 +67,10 @@ export function AboutClient({ dict }: AboutClientProps) {
                     {dict?.about?.feature_1 ||
                       "Clean downloads without annoying logos."}
                   </p>
-                </CardContent>
-              </Card>
-              <Card className="border-0 shadow-lg bg-gray-50 dark:bg-gray-900/50">
-                <CardContent className="p-6 flex flex-col items-center text-center gap-4">
+                </div>
+              </div>
+              <div className="border-0 shadow-lg bg-gray-50 dark:bg-gray-900/50 rounded-lg">
+                <div className="p-6 flex flex-col items-center text-center gap-4">
                   <div className="p-3 rounded-full bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400">
                     <CheckCircle2 className="h-6 w-6" />
                   </div>
@@ -80,10 +79,10 @@ export function AboutClient({ dict }: AboutClientProps) {
                     {dict?.about?.feature_2 ||
                       "Support for HD, Full HD, and 4K resolutions."}
                   </p>
-                </CardContent>
-              </Card>
-              <Card className="border-0 shadow-lg bg-gray-50 dark:bg-gray-900/50">
-                <CardContent className="p-6 flex flex-col items-center text-center gap-4">
+                </div>
+              </div>
+              <div className="border-0 shadow-lg bg-gray-50 dark:bg-gray-900/50 rounded-lg">
+                <div className="p-6 flex flex-col items-center text-center gap-4">
                   <div className="p-3 rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-400">
                     <Zap className="h-6 w-6" />
                   </div>
@@ -92,10 +91,10 @@ export function AboutClient({ dict }: AboutClientProps) {
                     {dict?.about?.feature_3 ||
                       "Optimized servers for lightning-fast processing."}
                   </p>
-                </CardContent>
-              </Card>
-              <Card className="border-0 shadow-lg bg-gray-50 dark:bg-gray-900/50">
-                <CardContent className="p-6 flex flex-col items-center text-center gap-4">
+                </div>
+              </div>
+              <div className="border-0 shadow-lg bg-gray-50 dark:bg-gray-900/50 rounded-lg">
+                <div className="p-6 flex flex-col items-center text-center gap-4">
                   <div className="p-3 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400">
                     <ShieldCheck className="h-6 w-6" />
                   </div>
@@ -104,8 +103,8 @@ export function AboutClient({ dict }: AboutClientProps) {
                     {dict?.about?.feature_4 ||
                       "We don't store your download history."}
                   </p>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
           </div>
 

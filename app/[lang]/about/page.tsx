@@ -1,9 +1,8 @@
-import { i18n, type Locale } from "@/lib/i18n-config";
+import { type Locale } from "@/lib/i18n-config";
 export const runtime = "edge";
 import { getDictionary } from "@/lib/get-dictionary";
 import { AboutClient } from "@/components/client/about-client";
 import { Metadata } from "next";
-
 
 export async function generateMetadata({
   params,
@@ -18,7 +17,9 @@ export async function generateMetadata({
 
   return {
     title: dict.about?.title || "About SSDown - Social Media Video Downloader",
-    description: dict.about?.description || "Learn more about SSDown, the best tool for downloading videos from X, TikTok, Instagram, and Facebook.",
+    description:
+      dict.about?.description ||
+      "Learn more about SSDown, the best tool for downloading videos from X, TikTok, Instagram, and Facebook.",
     openGraph: {
       title: dict.about?.title || "About SSDown",
       description: dict.about?.description,

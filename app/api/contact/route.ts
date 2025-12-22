@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 export const runtime = "edge";
-import { supabase } from "@/lib/supabase";
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,28 +23,44 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Insert into Supabase
-    const { data, error } = await supabase
-      .from("ssdown_contacts")
-      .insert([
-        {
-          name,
-          email,
-          subject,
-          message,
-          created_at: new Date().toISOString(),
-        },
-      ])
-      .select();
+    // Use native fetch for Supabase REST API (smaller bundle size for Edge runtime)
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-    if (error) {
-      console.error("Supabase error:", error);
+    if (!supabaseUrl || !supabaseKey) {
       return NextResponse.json(
-        { error: "Failed to save contact message", details: error.message },
+        { error: "Server configuration error" },
         { status: 500 }
       );
     }
 
+    const response = await fetch(`${supabaseUrl}/rest/v1/ssdown_contacts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": supabaseKey,
+        "Authorization": `Bearer ${supabaseKey}`,
+        "Prefer": "return=representation",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        subject,
+        message,
+        created_at: new Date().toISOString(),
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({ message: "Unknown error" }));
+      console.error("Supabase error:", errorData);
+      return NextResponse.json(
+        { error: "Failed to save contact message", details: errorData.message || "Database error" },
+        { status: 500 }
+      );
+    }
+
+    const data = await response.json();
     return NextResponse.json({ success: true, data }, { status: 200 });
   } catch (e: any) {
     console.error("Error in POST /api/contact:", e);

@@ -1,9 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export const runtime = "edge";
-import { i18n, type Locale } from "@/lib/i18n-config";
-import { getDictionary } from "@/lib/get-dictionary";
+import { type Locale } from "@/lib/i18n-config";
 import { Metadata } from "next";
-
 
 export async function generateMetadata({
   params,
@@ -11,8 +8,6 @@ export async function generateMetadata({
   params: Promise<{ lang: Locale }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const dict = await getDictionary(lang);
-
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/${lang === "en" ? "" : lang + "/"}privacy`;
 
@@ -50,11 +45,13 @@ export default async function PrivacyPage() {
       <h1 className="text-3xl font-bold mb-8">Privacy Policy</h1>
 
       <div className="space-y-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>1. Information We Collect</CardTitle>
-          </CardHeader>
-          <CardContent className="text-muted-foreground space-y-4">
+        <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+          <div className="flex flex-col space-y-1.5 p-6">
+            <h2 className="text-2xl font-semibold leading-none tracking-tight">
+              1. Information We Collect
+            </h2>
+          </div>
+          <div className="p-6 pt-0 text-muted-foreground space-y-4">
             <p>
               <strong>Personal Information:</strong> We do not collect any
               personally identifiable information (PII) such as your name, email
@@ -76,14 +73,16 @@ export default async function PrivacyPage() {
               of generating download links and are not permanently stored on our
               servers.
             </p>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>2. Cookies and Analytics</CardTitle>
-          </CardHeader>
-          <CardContent className="text-muted-foreground space-y-4">
+        <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+          <div className="flex flex-col space-y-1.5 p-6">
+            <h2 className="text-2xl font-semibold leading-none tracking-tight">
+              2. Cookies and Analytics
+            </h2>
+          </div>
+          <div className="p-6 pt-0 text-muted-foreground space-y-4">
             <p>
               We use cookies and similar tracking technologies to track the
               activity on our Service and hold certain information.
@@ -97,14 +96,16 @@ export default async function PrivacyPage() {
               We use the information we get from these tools only to improve
               this site.
             </p>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>3. Use of Data</CardTitle>
-          </CardHeader>
-          <CardContent className="text-muted-foreground">
+        <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+          <div className="flex flex-col space-y-1.5 p-6">
+            <h2 className="text-2xl font-semibold leading-none tracking-tight">
+              3. Use of Data
+            </h2>
+          </div>
+          <div className="p-6 pt-0 text-muted-foreground">
             <p>SSDown uses the collected data for various purposes:</p>
             <ul className="list-disc list-inside mt-2 ml-2 space-y-1">
               <li>To provide and maintain the Service</li>
@@ -116,14 +117,16 @@ export default async function PrivacyPage() {
               <li>To monitor the usage of the Service</li>
               <li>To detect, prevent and address technical issues</li>
             </ul>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>4. Third-Party Links and Services</CardTitle>
-          </CardHeader>
-          <CardContent className="text-muted-foreground">
+        <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+          <div className="flex flex-col space-y-1.5 p-6">
+            <h2 className="text-2xl font-semibold leading-none tracking-tight">
+              4. Third-Party Links and Services
+            </h2>
+          </div>
+          <div className="p-6 pt-0 text-muted-foreground">
             <p>
               Our Service may contain links to other sites that are not operated
               by us (e.g., X/Twitter, TikTok, Instagram). If you click on a
@@ -133,14 +136,16 @@ export default async function PrivacyPage() {
               for the content, privacy policies or practices of any third party
               sites or services.
             </p>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>5. Data Security</CardTitle>
-          </CardHeader>
-          <CardContent className="text-muted-foreground">
+        <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+          <div className="flex flex-col space-y-1.5 p-6">
+            <h2 className="text-2xl font-semibold leading-none tracking-tight">
+              5. Data Security
+            </h2>
+          </div>
+          <div className="p-6 pt-0 text-muted-foreground">
             <p>
               The security of your data is important to us, but remember that no
               method of transmission over the Internet, or method of electronic
@@ -148,22 +153,24 @@ export default async function PrivacyPage() {
               acceptable means to protect your data, we cannot guarantee its
               absolute security.
             </p>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>6. Changes to This Privacy Policy</CardTitle>
-          </CardHeader>
-          <CardContent className="text-muted-foreground">
+        <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+          <div className="flex flex-col space-y-1.5 p-6">
+            <h2 className="text-2xl font-semibold leading-none tracking-tight">
+              6. Changes to This Privacy Policy
+            </h2>
+          </div>
+          <div className="p-6 pt-0 text-muted-foreground">
             <p>
               We may update our Privacy Policy from time to time. We will notify
               you of any changes by posting the new Privacy Policy on this page.
               You are advised to review this Privacy Policy periodically for any
               changes.
             </p>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   );
