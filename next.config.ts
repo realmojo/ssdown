@@ -37,9 +37,23 @@ const nextConfig: NextConfig = {
   },
   // Optimize bundle sizes
   compiler: {
-    removeConsole: process.env.NODE_ENV === "production" ? {
-      exclude: ["error", "warn"],
-    } : false,
+    removeConsole:
+      process.env.NODE_ENV === "production"
+        ? {
+            exclude: ["error", "warn"],
+          }
+        : false,
+  },
+  // Additional optimizations for Cloudflare Pages
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      // Optimize server-side bundles
+      config.optimization = {
+        ...config.optimization,
+        minimize: true,
+      };
+    }
+    return config;
   },
 };
 
