@@ -5,7 +5,7 @@ import { proxy as proxyFunction } from "./lambda/index";
 
 export const runtime = "edge";
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Check if there is any supported locale in the pathname
