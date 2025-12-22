@@ -67,8 +67,6 @@ export default async function NineGagPage(props: {
 }) {
   const params = await props.params;
   const dict = await getDictionary(params.lang);
-  const { getPostsByCategory } = await import("@/lib/posts");
-  const relatedPosts = await getPostsByCategory("9gag");
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -98,11 +96,7 @@ export default async function NineGagPage(props: {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <NineGagClient
-        dict={dict}
-        lang={params.lang}
-        relatedPosts={relatedPosts}
-      />
+      <NineGagClient dict={dict} />
     </>
   );
 }

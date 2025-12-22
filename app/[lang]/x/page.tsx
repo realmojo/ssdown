@@ -67,9 +67,6 @@ export default async function TwitterPage(props: {
   const params = await props.params;
   const dict = await getDictionary(params.lang);
   // 동적 import로 번들 크기 최적화
-  const { getPostsByCategory } = await import("@/lib/posts");
-  const relatedPosts = await getPostsByCategory("x");
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -98,7 +95,7 @@ export default async function TwitterPage(props: {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <XClient dict={dict} lang={params.lang} relatedPosts={relatedPosts} />
+      <XClient dict={dict} />
     </>
   );
 }

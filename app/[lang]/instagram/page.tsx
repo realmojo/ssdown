@@ -68,8 +68,6 @@ export default async function InstagramPage(props: {
 }) {
   const params = await props.params;
   const dict = await getDictionary(params.lang);
-  const { getPostsByCategory } = await import("@/lib/posts");
-  const relatedPosts = await getPostsByCategory("instagram");
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -99,11 +97,7 @@ export default async function InstagramPage(props: {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <InstagramClient
-        dict={dict}
-        lang={params.lang}
-        relatedPosts={relatedPosts}
-      />
+      <InstagramClient dict={dict} />
     </>
   );
 }

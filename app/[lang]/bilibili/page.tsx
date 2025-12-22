@@ -72,8 +72,6 @@ export default async function BilibiliPage(props: {
 }) {
   const params = await props.params;
   const dict = await getDictionary(params.lang);
-  const { getPostsByCategory } = await import("@/lib/posts");
-  const relatedPosts = await getPostsByCategory("bilibili");
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -103,11 +101,7 @@ export default async function BilibiliPage(props: {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <BilibiliClient
-        dict={dict}
-        lang={params.lang}
-        relatedPosts={relatedPosts}
-      />
+      <BilibiliClient dict={dict} />
     </>
   );
 }
