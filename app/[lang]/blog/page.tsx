@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-export const runtime = "edge";
 import { i18n, type Locale } from "@/lib/i18n-config";
 import { getAllPosts, getPostsByCategory } from "@/lib/posts";
 import { PostCard } from "@/components/PostCard";
