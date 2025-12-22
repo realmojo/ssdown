@@ -1,4 +1,28 @@
 export const runtime = "edge";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const baseUrl = "https://ssdown.app";
+  const canonical = `${baseUrl}/terms`;
+
+  return {
+    title: "Terms and Conditions - SSDown",
+    description:
+      "Read SSDown's terms and conditions of use. Understand the rules and guidelines for using our video downloader service.",
+    openGraph: {
+      title: "Terms and Conditions - SSDown",
+      description:
+        "Read SSDown's terms and conditions of use. Understand the rules and guidelines for using our video downloader service.",
+      url: canonical,
+      siteName: "SSDown",
+      locale: "en_US",
+      type: "website",
+    },
+    alternates: {
+      canonical: canonical,
+    },
+  };
+}
 
 export default async function TermsPage() {
   return (

@@ -1,15 +1,9 @@
 export const runtime = "edge";
-import { type Locale } from "@/lib/i18n-config";
 import { Metadata } from "next";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>;
-}): Promise<Metadata> {
-  const { lang } = await params;
+export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/${lang === "en" ? "" : lang + "/"}privacy`;
+  const canonical = `${baseUrl}/privacy`;
 
   return {
     title: "Privacy Policy - SSDown",
@@ -21,16 +15,7 @@ export async function generateMetadata({
         "Learn about SSDown's privacy policy and how we handle your data when you use our video downloader service.",
       url: canonical,
       siteName: "SSDown",
-      locale:
-        lang === "en"
-          ? "en_US"
-          : lang === "jp"
-          ? "ja_JP"
-          : lang === "kr"
-          ? "ko_KR"
-          : lang === "pt"
-          ? "pt_BR"
-          : "fr_FR",
+      locale: "en_US",
       type: "website",
     },
     alternates: {
