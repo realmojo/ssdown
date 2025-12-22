@@ -3,15 +3,6 @@
 import * as React from "react"
 import { Globe } from "lucide-react"
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-
 import { useRouter, usePathname } from "next/navigation"
 
 export function LanguageSelector({ currentLang }: { currentLang: string }) {
@@ -62,22 +53,27 @@ export function LanguageSelector({ currentLang }: { currentLang: string }) {
   }
 
   return (
-    <Select value={currentLang} onValueChange={handleLanguageChange}>
-      <SelectTrigger className="w-[140px] bg-background/50 backdrop-blur-sm">
-        <div className="flex items-center gap-2">
-          <Globe className="h-4 w-4 text-muted-foreground" />
-          <SelectValue placeholder="Select Language" />
-        </div>
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectItem value="en">English</SelectItem>
-          <SelectItem value="jp">日本語</SelectItem>
-          <SelectItem value="kr">한국어</SelectItem>
-          <SelectItem value="pt">Português</SelectItem>
-          <SelectItem value="fr">Français</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <div className="relative">
+      <Globe className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+      <select
+        value={currentLang}
+        onChange={(e) => handleLanguageChange(e.target.value)}
+        className="w-[140px] bg-background/50 backdrop-blur-sm h-10 pl-9 pr-8 rounded-md border border-input text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 cursor-pointer appearance-none"
+      >
+        <option value="en">English</option>
+        <option value="jp">日本語</option>
+        <option value="kr">한국어</option>
+        <option value="pt">Português</option>
+        <option value="fr">Français</option>
+      </select>
+      <svg
+        className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
   )
 }

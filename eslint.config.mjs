@@ -20,6 +20,7 @@ const eslintConfig = defineConfig([
       "react/no-unescaped-entities": "off",
       "@next/next/no-sync-scripts": "off",
       "@next/next/next-script-for-ga": "off",
+      "@next/next/no-html-link-for-pages": "off",
     },
   },
 ]);

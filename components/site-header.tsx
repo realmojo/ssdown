@@ -1,18 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/language-selector";
 import { ModeToggle } from "@/components/mode-toggle";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 interface SiteHeaderProps {
   dict: any;
@@ -46,8 +38,9 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center px-4 md:px-6">
-        <Link
-          href={getPath("/")}
+        <a
+          href="/"
+          target="_self"
           className="flex items-center gap-2 font-bold text-xl mr-6 hover:opacity-80 transition-opacity"
         >
           <Image
@@ -62,109 +55,100 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
           <span className="hidden md:inline bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
             SSDown
           </span>
-        </Link>
+        </a>
 
         {/* Desktop Navigation */}
         <nav
           className="hidden md:flex items-center gap-4 text-sm font-medium"
           aria-label="Main navigation"
         >
-          <Link href={getPath("/x")}>
+          <a href={getPath("/x")} target="_self">
             <Button
               variant="ghost"
               className="text-muted-foreground hover:text-primary"
             >
               {dict?.twitter || "X (Twitter)"}
             </Button>
-          </Link>
-          <Link href={getPath("/tiktok")}>
+          </a>
+          <a href={getPath("/tiktok")} target="_self">
             <Button
               variant="ghost"
               className="text-muted-foreground hover:text-primary"
             >
               {dict?.tiktok || "TikTok"}
             </Button>
-          </Link>
-          <Link href={getPath("/instagram")}>
+          </a>
+          <a href={getPath("/instagram")} target="_self">
             <Button
               variant="ghost"
               className="text-muted-foreground hover:text-primary"
             >
               {dict?.instagram?.nav || "Instagram"}
             </Button>
-          </Link>
-          <Link href={getPath("/facebook")}>
+          </a>
+          <a href={getPath("/facebook")} target="_self">
             <Button
               variant="ghost"
               className="text-muted-foreground hover:text-primary"
             >
               {dict?.facebook?.nav || "Facebook"}
             </Button>
-          </Link>
-          <Link href={getPath("/dailymotion")}>
+          </a>
+          <a href={getPath("/dailymotion")} target="_self">
             <Button
               variant="ghost"
               className="text-muted-foreground hover:text-primary"
             >
               {dict?.dailymotion?.nav || "Dailymotion"}
             </Button>
-          </Link>
-          <Link href={getPath("/9gag")}>
+          </a>
+          <a href={getPath("/9gag")} target="_self">
             <Button
               variant="ghost"
               className="text-muted-foreground hover:text-primary"
             >
               {dict?.["9gag"]?.nav || "9GAG"}
             </Button>
-          </Link>
-          <Link href={getPath("/bilibili")}>
+          </a>
+          <a href={getPath("/bilibili")} target="_self">
             <Button
               variant="ghost"
               className="text-muted-foreground hover:text-primary"
             >
               {dict?.bilibili?.nav || "Bilibili"}
             </Button>
-          </Link>
-          <Link href={getPath("/blog")}>
+          </a>
+          <a href={getPath("/blog")} target="_self">
             <Button
               variant="ghost"
               className="text-muted-foreground hover:text-primary"
             >
               Blog
             </Button>
-          </Link>
+          </a>
         </nav>
 
         {/* Mobile Navigation */}
         <nav className="md:hidden flex-1 mr-4" aria-label="Mobile navigation">
-          <Select value={currentPage} onValueChange={handleNavChange}>
-            <SelectTrigger className="w-full bg-transparent border-0 focus:ring-0 px-2 font-medium">
-              <SelectValue placeholder="Menu" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="home">{dict?.home || "Home"}</SelectItem>
-              <SelectItem value="x">
-                {dict?.twitter || "X (Twitter)"}
-              </SelectItem>
-              <SelectItem value="tiktok">{dict?.tiktok || "TikTok"}</SelectItem>
-              <SelectItem value="instagram">
-                {dict?.instagram || "Instagram"}
-              </SelectItem>
-              <SelectItem value="facebook">
-                {dict?.facebook || "Facebook"}
-              </SelectItem>
-              <SelectItem value="dailymotion">
-                {dict?.dailymotion?.nav || "Dailymotion"}
-              </SelectItem>
-              <SelectItem value="9gag">
-                {dict?.["9gag"] || "9GAG"}
-              </SelectItem>
-              <SelectItem value="bilibili">
-                {dict?.bilibili?.nav || "Bilibili"}
-              </SelectItem>
-              <SelectItem value="blog">Blog</SelectItem>
-            </SelectContent>
-          </Select>
+          <select
+            value={currentPage}
+            onChange={(e) => handleNavChange(e.target.value)}
+            className="w-full bg-transparent border-0 focus:ring-0 px-2 font-medium text-sm rounded-md cursor-pointer focus:outline-none"
+          >
+            <option value="home">{dict?.home || "Home"}</option>
+            <option value="x">{dict?.twitter || "X (Twitter)"}</option>
+            <option value="tiktok">{dict?.tiktok || "TikTok"}</option>
+            <option value="instagram">{dict?.instagram || "Instagram"}</option>
+            <option value="facebook">{dict?.facebook || "Facebook"}</option>
+            <option value="dailymotion">
+              {dict?.dailymotion?.nav || "Dailymotion"}
+            </option>
+            <option value="9gag">{dict?.["9gag"] || "9GAG"}</option>
+            <option value="bilibili">
+              {dict?.bilibili?.nav || "Bilibili"}
+            </option>
+            <option value="blog">Blog</option>
+          </select>
         </nav>
 
         <div className="ml-auto flex items-center gap-2">
