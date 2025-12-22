@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+export const runtime = "edge";
 import { i18n, type Locale } from "@/lib/i18n-config";
 import { getAllPosts, getLocalizedContent, getPostById } from "@/lib/posts";
 import { notFound } from "next/navigation";
@@ -6,18 +7,6 @@ import { PostContent } from "@/components/PostContent";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 
-export async function generateStaticParams() {
-  const posts = await getAllPosts();
-  const params: { lang: string; id: string }[] = [];
-
-  i18n.locales.forEach((lang) => {
-    posts.forEach((post) => {
-      params.push({ lang, id: post.id });
-    });
-  });
-
-  return params;
-}
 
 export async function generateMetadata({
   params,
