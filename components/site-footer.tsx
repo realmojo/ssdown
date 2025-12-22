@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { XIcon } from "@/components/ui/icons";
 
 interface SiteFooterProps {
@@ -22,23 +21,24 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand Column */}
           <div className="col-span-2 lg:col-span-1 space-y-4">
-            <Link href={getPath("/")} className="inline-block">
+            <a target="_self" href={getPath("/")} className="inline-block">
               <span className="font-bold text-2xl tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-cyan-500 dark:from-indigo-400 dark:to-cyan-300">
                 SSDown
               </span>
-            </Link>
+            </a>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
               {dict?.home?.subtitle ||
                 "The ultimate video downloader for X (Twitter), TikTok, Instagram, and Facebook. Fast, free, and secure."}
             </p>
             <div className="flex items-center gap-4 pt-2">
-              <Link
+              <a
+                target="_self"
                 href={getPath("/x")}
                 className="text-muted-foreground hover:text-black dark:hover:text-white transition-colors"
                 aria-label="X (Twitter)"
               >
                 <XIcon className="h-5 w-5" />
-              </Link>
+              </a>
             </div>
           </div>
 
@@ -49,60 +49,67 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
             </h3>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
               <li>
-                <Link
+                <a
+                  target="_self"
                   href={getPath("/x")}
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.nav?.twitter || "X (Twitter) Downloader"}
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
+                <a
+                  target="_self"
                   href={getPath("/tiktok")}
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.nav?.tiktok || "TikTok Downloader"}
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
+                <a
+                  target="_self"
                   href={getPath("/instagram")}
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.nav?.instagram || "Instagram Downloader"}
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
+                <a
+                  target="_self"
                   href={getPath("/facebook")}
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.nav?.facebook || "Facebook Downloader"}
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
+                <a
+                  target="_self"
                   href={getPath("/9gag")}
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.nav?.ninegag || "9GAG Downloader"}
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
+                <a
+                  target="_self"
                   href={getPath("/dailymotion")}
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.nav?.dailymotion || "Dailymotion Downloader"}
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
+                <a
+                  target="_self"
                   href={getPath("/bilibili")}
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.nav?.bilibili || "Bilibili Downloader"}
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -114,20 +121,22 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
             </h3>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
               <li>
-                <Link
+                <a
+                  target="_self"
                   href={getPath("/about")}
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.about?.nav || dict?.nav?.about || "About Us"}
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
+                <a
+                  target="_self"
                   href={getPath("/contact")}
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.contact?.nav || dict?.nav?.contact || "Contact"}
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -139,20 +148,22 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
             </h3>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
               <li>
-                <Link
+                <a
+                  target="_self"
                   href={getPath("/privacy")}
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.privacy || "Privacy Policy"}
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
+                <a
+                  target="_self"
                   href={getPath("/terms")}
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.terms || "Terms of Service"}
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
