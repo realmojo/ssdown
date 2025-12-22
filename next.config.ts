@@ -44,17 +44,8 @@ const nextConfig: NextConfig = {
           }
         : false,
   },
-  // Additional optimizations for Cloudflare Pages
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      // Optimize server-side bundles
-      config.optimization = {
-        ...config.optimization,
-        minimize: true,
-      };
-    }
-    return config;
-  },
+  // Turbopack configuration for Next.js 16
+  turbopack: {},
 };
 
 export default nextConfig;
