@@ -102,15 +102,6 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
                   {dict?.nav?.dailymotion || "Dailymotion Downloader"}
                 </a>
               </li>
-              <li>
-                <a
-                  target="_self"
-                  href={getPath("/bilibili")}
-                  className="hover:text-primary transition-colors"
-                >
-                  {dict?.nav?.bilibili || "Bilibili Downloader"}
-                </a>
-              </li>
             </ul>
           </div>
 
@@ -190,13 +181,14 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
               TikTok, Instagram, Facebook, or any other platform.
             </p>
             <p>
-              <strong>3. Usage Policy:</strong> This service is provided strictly
-              for <strong>Personal, Private, and Non-Commercial Use</strong>{" "}
-              (e.g., time-shifting, personal archiving). Users are solely
-              responsible for ensuring their use of downloaded content complies
-              with the relevant platform&apos;s Terms of Service and applicable
-              copyright laws in their jurisdiction. Do not distribute or
-              re-upload copyrighted material without permission.
+              <strong>3. Usage Policy:</strong> This service is provided
+              strictly for{" "}
+              <strong>Personal, Private, and Non-Commercial Use</strong> (e.g.,
+              time-shifting, personal archiving). Users are solely responsible
+              for ensuring their use of downloaded content complies with the
+              relevant platform&apos;s Terms of Service and applicable copyright
+              laws in their jurisdiction. Do not distribute or re-upload
+              copyrighted material without permission.
             </p>
           </div>
         </div>

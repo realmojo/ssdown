@@ -24,7 +24,6 @@ export async function GET() {
     "/facebook",
     "/9gag",
     "/dailymotion",
-    "/bilibili",
     "/privacy",
     "/terms",
     "/about",
@@ -40,29 +39,32 @@ export async function GET() {
 
     // Generate the block of <xhtml:link> tags that will be identical for every version of this route
     let alternates = "";
-    
+
     // Add x-default (pointing to English/Root)
     alternates += `\n      <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}${route}"/>`;
-    
+
     // Add specific language versions
     i18n.locales.forEach((locale) => {
-      const href = locale === "en" 
-        ? `${baseUrl}${route}` 
-        : `${baseUrl}/${locale}${route}`;
+      const href =
+        locale === "en" ? `${baseUrl}${route}` : `${baseUrl}/${locale}${route}`;
       const hreflang = hreflangMap[locale] || locale;
-      
+
       alternates += `\n      <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}"/>`;
     });
 
     // Generate the <url> entry for EACH locale (including English/Root)
     i18n.locales.forEach((locale) => {
-      const loc = locale === "en" 
-        ? `${baseUrl}${route}` 
-        : `${baseUrl}/${locale}${route}`;
-      
-      const priority = locale === "en" 
-        ? (route === "" ? "1.0" : "0.8") 
-        : (route === "" ? "0.9" : "0.7");
+      const loc =
+        locale === "en" ? `${baseUrl}${route}` : `${baseUrl}/${locale}${route}`;
+
+      const priority =
+        locale === "en"
+          ? route === ""
+            ? "1.0"
+            : "0.8"
+          : route === ""
+          ? "0.9"
+          : "0.7";
 
       urls.push(`
     <url>
@@ -87,25 +89,27 @@ export async function GET() {
 
       // Generate alternates for this specific post
       let alternates = "";
-      
+
       // x-default
       alternates += `\n      <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}${route}"/>`;
-      
+
       // specific languages
       i18n.locales.forEach((locale) => {
-        const href = locale === "en" 
-          ? `${baseUrl}${route}` 
-          : `${baseUrl}/${locale}${route}`;
+        const href =
+          locale === "en"
+            ? `${baseUrl}${route}`
+            : `${baseUrl}/${locale}${route}`;
         const hreflang = hreflangMap[locale] || locale;
-        
+
         alternates += `\n      <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}"/>`;
       });
 
       // Generate <url> entry for EACH locale
       i18n.locales.forEach((locale) => {
-        const loc = locale === "en" 
-          ? `${baseUrl}${route}` 
-          : `${baseUrl}/${locale}${route}`;
+        const loc =
+          locale === "en"
+            ? `${baseUrl}${route}`
+            : `${baseUrl}/${locale}${route}`;
 
         urls.push(`
     <url>
