@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -7,16 +6,7 @@ import { i18n, type Locale } from "@/lib/i18n-config";
 import { getDictionary } from "@/lib/get-dictionary";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AdsenseInit } from "@/components/AdsenseInit";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { CookieConsent } from "@/components/cookie-consent";
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -183,9 +173,7 @@ export default async function RootLayout(props: {
         />
         <AdsenseInit />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className="antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
@@ -196,6 +184,7 @@ export default async function RootLayout(props: {
             <SiteHeader dict={dict.nav} lang={lang} />
             <main className="flex-1">{props.children}</main>
             <SiteFooter dict={dict.nav} lang={lang} />
+            <CookieConsent />
           </div>
         </ThemeProvider>
       </body>

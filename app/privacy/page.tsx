@@ -8,11 +8,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Privacy Policy - SSDown",
     description:
-      "Learn about SSDown's privacy policy and how we handle your data when you use our video downloader service.",
+      "Learn about SSDown's privacy policy, Google AdSense data usage, and how we handle your data when you use our video downloader service.",
     openGraph: {
       title: "Privacy Policy - SSDown",
       description:
-        "Learn about SSDown's privacy policy and how we handle your data when you use our video downloader service.",
+        "Learn about SSDown's privacy policy, Google AdSense data usage, and how we handle your data when you use our video downloader service.",
       url: canonical,
       siteName: "SSDown",
       locale: "en_US",
@@ -28,8 +28,13 @@ export default async function PrivacyPage() {
   return (
     <div className="container py-12 md:py-24 max-w-4xl">
       <h1 className="text-3xl font-bold mb-8">Privacy Policy</h1>
+      <p className="text-sm text-muted-foreground mb-8">
+        Last Updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </p>
 
       <div className="space-y-6">
+        
+        {/* Section 1: Information We Collect */}
         <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
           <div className="flex flex-col space-y-1.5 p-6">
             <h2 className="text-2xl font-semibold leading-none tracking-tight">
@@ -38,124 +43,142 @@ export default async function PrivacyPage() {
           </div>
           <div className="p-6 pt-0 text-muted-foreground space-y-4">
             <p>
-              <strong>Personal Information:</strong> We do not collect any
+              <strong>Personal Information:</strong> We do NOT collect any
               personally identifiable information (PII) such as your name, email
-              address, or phone number.
+              address, or phone number. You can use our service completely anonymously.
             </p>
             <p>
-              <strong>Usage Data:</strong> We may collect non-personal
-              information about how you access and use the Service. This usage
-              data may include information such as your computer's Internet
-              Protocol address (e.g. IP address), browser type, browser version,
-              the pages of our Service that you visit, the time and date of your
-              visit, the time spent on those pages, unique device identifiers
-              and other diagnostic data.
+              <strong>Usage Data (Log Files):</strong> Standard server logs are used
+              for technical debugging and traffic analysis. This includes your IP
+              address, browser type, referring pages, and timestamp. These logs are
+              strictly for administrative use and are never linked to any personal
+              profile.
             </p>
             <p>
-              <strong>Submitted Content:</strong> We process the URLs you submit
-              to provide the video download service. These URLs and the
-              associated video content are processed temporarily for the purpose
-              of generating download links and are not permanently stored on our
-              servers.
+              <strong>Submitted Content ("No Logs" Policy):</strong> We process the
+              video URLs you submit solely to generate a download link. We do
+              <strong> NOT</strong> keep a history of which videos you downloaded.
+              Once the download link is generated and you leave the page, the
+              connection between your IP and that specific video is not retained in
+              any user-facing history database.
             </p>
           </div>
         </div>
 
-        <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
-          <div className="flex flex-col space-y-1.5 p-6">
-            <h2 className="text-2xl font-semibold leading-none tracking-tight">
-              2. Cookies and Analytics
+        {/* Section 2: Cookies & Third Party Ads (AdSense) */}
+        <div className="rounded-lg border bg-card text-card-foreground shadow-sm bg-yellow-50/50 dark:bg-yellow-900/10 border-yellow-200 dark:border-yellow-800">
+           <div className="flex flex-col space-y-1.5 p-6">
+            <h2 className="text-2xl font-semibold leading-none tracking-tight text-foreground">
+              2. Google AdSense & Third-Party Cookies
             </h2>
           </div>
           <div className="p-6 pt-0 text-muted-foreground space-y-4">
             <p>
-              We use cookies and similar tracking technologies to track the
-              activity on our Service and hold certain information.
+              This site uses <strong>Google AdSense</strong> to serve ads. Google,
+              as a third-party vendor, uses cookies to serve ads on our site.
             </p>
-            <p>
-              <strong>Google Analytics & Naver Analytics:</strong> We use these
-              third-party web analytics services to measure and analyze the
-              usage of our website. These tools collect information such as how
-              often users visit this site, what pages they visit when they do
-              so, and what other sites they used prior to coming to this site.
-              We use the information we get from these tools only to improve
-              this site.
-            </p>
-          </div>
-        </div>
-
-        <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
-          <div className="flex flex-col space-y-1.5 p-6">
-            <h2 className="text-2xl font-semibold leading-none tracking-tight">
-              3. Use of Data
-            </h2>
-          </div>
-          <div className="p-6 pt-0 text-muted-foreground">
-            <p>SSDown uses the collected data for various purposes:</p>
-            <ul className="list-disc list-inside mt-2 ml-2 space-y-1">
-              <li>To provide and maintain the Service</li>
-              <li>To provide customer care and support</li>
+            <ul className="list-disc list-inside ml-2 space-y-2">
               <li>
-                To provide analysis or valuable information so that we can
-                improve the Service
+                 <strong>DoubleClick DART Cookie:</strong> Google&apos;s use of the
+                DART cookie enables it to serve ads to our users based on their
+                visit to our site and other sites on the Internet.
               </li>
-              <li>To monitor the usage of the Service</li>
-              <li>To detect, prevent and address technical issues</li>
+              <li>
+                <strong>Opt-Out:</strong> Users may opt-out of the use of the DART
+                cookie by visiting the Google Ad and Content Network privacy policy
+                at{" "}
+                <a
+                  href="https://policies.google.com/technologies/ads"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  https://policies.google.com/technologies/ads
+                </a>
+              </li>
             </ul>
-          </div>
-        </div>
-
-        <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
-          <div className="flex flex-col space-y-1.5 p-6">
-            <h2 className="text-2xl font-semibold leading-none tracking-tight">
-              4. Third-Party Links and Services
-            </h2>
-          </div>
-          <div className="p-6 pt-0 text-muted-foreground">
-            <p>
-              Our Service may contain links to other sites that are not operated
-              by us (e.g., X/Twitter, TikTok, Instagram). If you click on a
-              third party link, you will be directed to that third party's site.
-              We strongly advise you to review the Privacy Policy of every site
-              you visit. We have no control over and assume no responsibility
-              for the content, privacy policies or practices of any third party
-              sites or services.
+             <p className="text-sm mt-2">
+              We have no access to or control over these cookies that are used by
+              third-party advertisers. You should consult the respective privacy
+              policies of these third-party ad servers for more detailed
+              information on their practices.
             </p>
           </div>
         </div>
 
+         {/* Section 3: General Cookies */}
         <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
           <div className="flex flex-col space-y-1.5 p-6">
             <h2 className="text-2xl font-semibold leading-none tracking-tight">
-              5. Data Security
+              3. Our Use of Cookies
+            </h2>
+          </div>
+           <div className="p-6 pt-0 text-muted-foreground space-y-4">
+            <p>
+              We use standard cookies to improve user experience (e.g., remembering
+              your theme preference - Dark/Light mode). These cookies are entirely
+              safe and do not contain sensitive personal data.
+            </p>
+             <p>
+              <strong>Analytics:</strong> We may use tools like Google Analytics
+              to understand aggregate traffic patterns (e.g., "how many users
+              visited from France?"). This data is anonymized and IP addresses are
+              often masked before storage.
+            </p>
+          </div>
+        </div>
+
+         {/* Section 4: Data Security */}
+        <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+           <div className="flex flex-col space-y-1.5 p-6">
+            <h2 className="text-2xl font-semibold leading-none tracking-tight">
+              4. Data Security
             </h2>
           </div>
           <div className="p-6 pt-0 text-muted-foreground">
             <p>
               The security of your data is important to us, but remember that no
-              method of transmission over the Internet, or method of electronic
-              storage is 100% secure. While we strive to use commercially
-              acceptable means to protect your data, we cannot guarantee its
-              absolute security.
+              method of transmission over the Internet is 100% secure. While we
+              strive to use commercially acceptable means to protect your
+              connections (SSL/HTTPS), we cannot guarantee absolute security.
             </p>
           </div>
         </div>
 
-        <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
-          <div className="flex flex-col space-y-1.5 p-6">
+        {/* Section 5: Children's Privacy */}
+         <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+           <div className="flex flex-col space-y-1.5 p-6">
             <h2 className="text-2xl font-semibold leading-none tracking-tight">
-              6. Changes to This Privacy Policy
+              5. Children's Privacy
             </h2>
           </div>
           <div className="p-6 pt-0 text-muted-foreground">
             <p>
-              We may update our Privacy Policy from time to time. We will notify
-              you of any changes by posting the new Privacy Policy on this page.
-              You are advised to review this Privacy Policy periodically for any
-              changes.
+              Our Service does not address anyone under the age of 13. We do not
+              knowingly collect personally identifiable information from anyone
+              under the age of 13. If you are a parent or guardian and you are
+              aware that your Children has provided us with Personal Data, please
+              contact us.
             </p>
           </div>
         </div>
+
+         {/* Section 6: Changes */}
+        <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+           <div className="flex flex-col space-y-1.5 p-6">
+            <h2 className="text-2xl font-semibold leading-none tracking-tight">
+              6. Changes to This Policy
+            </h2>
+          </div>
+          <div className="p-6 pt-0 text-muted-foreground">
+            <p>
+              We may update our Privacy Policy from time to time. Changes are
+              effective immediately after they are posted on this page. We
+              encourage you to review this Privacy Policy periodically.
+            </p>
+          </div>
+        </div>
+
       </div>
     </div>
   );
