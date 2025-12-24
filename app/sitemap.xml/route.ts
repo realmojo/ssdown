@@ -6,6 +6,15 @@ export const runtime = "edge";
 
 const baseUrl = "https://ssdown.app";
 
+// Map internal URL locale codes to standard ISO 639-1 hreflang codes
+const hreflangMap: Record<string, string> = {
+  en: "en",
+  jp: "ja",
+  kr: "ko",
+  pt: "pt",
+  fr: "fr",
+};
+
 export async function GET() {
   const routes = [
     "",
@@ -22,80 +31,98 @@ export async function GET() {
     "/contact",
     "/blog",
   ];
+
   const urls: string[] = [];
 
+  // 1. Static Routes
   routes.forEach((route) => {
-    // English (default) - Served at root URLs
-    const priority = route === "" ? "1.0" : "0.8";
-    const url = `${baseUrl}${route}`;
     const lastModified = new Date().toISOString().split("T")[0];
 
-    urls.push(`
-    <url>
-      <loc>${url}</loc>
-      <lastmod>${lastModified}</lastmod>
-      <changefreq>daily</changefreq>
-      <priority>${priority}</priority>
-    </url>`);
-
-    // Other languages - Served at /locale URLs
+    // Generate the block of <xhtml:link> tags that will be identical for every version of this route
+    let alternates = "";
+    
+    // Add x-default (pointing to English/Root)
+    alternates += `\n      <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}${route}"/>`;
+    
+    // Add specific language versions
     i18n.locales.forEach((locale) => {
-      if (locale === "en") return; // Skip English as it's handled at root
-      const langPriority = route === "" ? "0.9" : "0.7";
-      const langUrl = `${baseUrl}/${locale}${route}`;
+      const href = locale === "en" 
+        ? `${baseUrl}${route}` 
+        : `${baseUrl}/${locale}${route}`;
+      const hreflang = hreflangMap[locale] || locale;
+      
+      alternates += `\n      <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}"/>`;
+    });
+
+    // Generate the <url> entry for EACH locale (including English/Root)
+    i18n.locales.forEach((locale) => {
+      const loc = locale === "en" 
+        ? `${baseUrl}${route}` 
+        : `${baseUrl}/${locale}${route}`;
+      
+      const priority = locale === "en" 
+        ? (route === "" ? "1.0" : "0.8") 
+        : (route === "" ? "0.9" : "0.7");
 
       urls.push(`
     <url>
-      <loc>${langUrl}</loc>
+      <loc>${loc}</loc>
       <lastmod>${lastModified}</lastmod>
       <changefreq>daily</changefreq>
-      <priority>${langPriority}</priority>
+      <priority>${priority}</priority>${alternates}
     </url>`);
     });
   });
 
-  // 블로그 포스트 목록 추가
+  // 2. Blog Posts
   try {
     const posts = await getAllSitemapPosts();
 
     posts.forEach((post) => {
-      // 영어 버전 (root URL)
-      const blogUrl = `${baseUrl}/blog/${post.id}`;
       const lastModified = post.updatedAt
         ? new Date(post.updatedAt).toISOString().split("T")[0]
         : new Date().toISOString().split("T")[0];
 
-      urls.push(`
-    <url>
-      <loc>${blogUrl}</loc>
-      <lastmod>${lastModified}</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>0.8</priority>
-    </url>`);
+      const route = `/blog/${post.id}`;
 
-      // 다른 언어 버전
+      // Generate alternates for this specific post
+      let alternates = "";
+      
+      // x-default
+      alternates += `\n      <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}${route}"/>`;
+      
+      // specific languages
       i18n.locales.forEach((locale) => {
-        if (locale === "en") return; // Skip English as it's handled at root
-        const langBlogUrl = `${baseUrl}/${locale}/blog/${post.id}`;
+        const href = locale === "en" 
+          ? `${baseUrl}${route}` 
+          : `${baseUrl}/${locale}${route}`;
+        const hreflang = hreflangMap[locale] || locale;
+        
+        alternates += `\n      <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}"/>`;
+      });
+
+      // Generate <url> entry for EACH locale
+      i18n.locales.forEach((locale) => {
+        const loc = locale === "en" 
+          ? `${baseUrl}${route}` 
+          : `${baseUrl}/${locale}${route}`;
 
         urls.push(`
     <url>
-      <loc>${langBlogUrl}</loc>
+      <loc>${loc}</loc>
       <lastmod>${lastModified}</lastmod>
       <changefreq>weekly</changefreq>
-      <priority>0.8</priority>
+      <priority>0.8</priority>${alternates}
     </url>`);
       });
     });
   } catch (error) {
     console.error("Error fetching blog posts for sitemap:", error);
-    // 에러가 발생해도 기본 라우트는 포함되도록 계속 진행
   }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">${urls.join(
-    ""
-  )}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${urls.join("")}
 </urlset>`;
 
   return new NextResponse(xml, {

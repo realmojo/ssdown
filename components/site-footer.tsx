@@ -169,6 +169,38 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
           </div>
         </div>
 
+        {/* Disclaimer / Legal Shield Section */}
+        <div className="mt-12 pt-8 border-t space-y-4">
+          <div className="text-xs text-muted-foreground space-y-3">
+            <h4 className="font-semibold text-foreground">
+              Disclaimer & Legal Policy
+            </h4>
+            <p>
+              <strong>1. No Files Hosted:</strong> SSDown does not host, store,
+              archive, or cache any video, audio, or image files on its servers.
+              All media is streamed or downloaded directly from the respective
+              source platforms (CDN) to the user&apos;s device. We act solely as
+              a technical intermediary (tool).
+            </p>
+            <p>
+              <strong>2. Copyright & Ownership:</strong> All rights, title, and
+              interest in and to the content (videos, music, images) belong to
+              their respective copyright owners and the platforms hosting them.
+              SSDown is not affiliated with, endorsed by, or connected to X,
+              TikTok, Instagram, Facebook, or any other platform.
+            </p>
+            <p>
+              <strong>3. Usage Policy:</strong> This service is provided strictly
+              for <strong>Personal, Private, and Non-Commercial Use</strong>{" "}
+              (e.g., time-shifting, personal archiving). Users are solely
+              responsible for ensuring their use of downloaded content complies
+              with the relevant platform&apos;s Terms of Service and applicable
+              copyright laws in their jurisdiction. Do not distribute or
+              re-upload copyrighted material without permission.
+            </p>
+          </div>
+        </div>
+
         {/* Bottom Section */}
         <div className="mt-12 pt-8 border-t flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <p>© {currentYear} SSDown. All rights reserved.</p>
