@@ -1,20 +1,21 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { i18n } from "./lib/i18n-config";
-import { proxy as proxyFunction } from "./lambda/index";
+import { lambdaProxy } from "./lambda/index";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+
+  // Lambda proxy 처리 (다운로드 API 등)
+  const lambdaResponse = await lambdaProxy(request);
+  if (lambdaResponse) {
+    return lambdaResponse;
+  }
 
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
-
-  const lambdaResponse = await proxyFunction(request);
-  if (lambdaResponse) {
-    return lambdaResponse;
-  }
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
@@ -22,7 +23,10 @@ export async function middleware(request: NextRequest) {
     if (
       pathname.startsWith("/_next") ||
       pathname.startsWith("/api") ||
-      pathname.includes(".") // files like favicon.ico, robots.txt
+      pathname.includes(".") || // files like favicon.ico, robots.txt
+      pathname === "/about" ||
+      pathname === "/privacy" ||
+      pathname === "/terms"
     ) {
       return;
     }
@@ -54,6 +58,8 @@ export async function middleware(request: NextRequest) {
       )
     );
   }
+
+  return;
 }
 
 export const config = {

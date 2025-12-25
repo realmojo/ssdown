@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export const proxy = async (request: NextRequest) => {
+export const lambdaProxy = async (request: NextRequest) => {
   const pathname = request.nextUrl.pathname;
 
   let lambdaUrl = "";
