@@ -32,20 +32,20 @@ export async function proxy(request: NextRequest) {
     }
 
     // Geo-IP Check for Korea
-    const country =
-      (request as any).geo?.country ||
-      request.headers.get("x-vercel-ip-country") ||
-      request.headers.get("cf-ipcountry");
+    // const country =
+    //   (request as any).geo?.country ||
+    //   request.headers.get("x-vercel-ip-country") ||
+    //   request.headers.get("cf-ipcountry");
 
-    // If User is in Korea, redirect to /kr prefix
-    if (country === "KR") {
-      return NextResponse.redirect(
-        new URL(
-          `/kr${pathname.startsWith("/") ? "" : "/"}${pathname}`,
-          request.url
-        )
-      );
-    }
+    // // If User is in Korea, redirect to /kr prefix
+    // if (country === "KR") {
+    //   return NextResponse.redirect(
+    //     new URL(
+    //       `/kr${pathname.startsWith("/") ? "" : "/"}${pathname}`,
+    //       request.url
+    //     )
+    //   );
+    // }
 
     // Default: Rewrite to default locale (en) internally
     // so ssdown.app/x shows English version but keeps URL clean-ish or consistent
