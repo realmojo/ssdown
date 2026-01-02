@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:cf": "npx @cloudflare/next-on-pages@1 && wrangler pages functions build .vercel/output --minify",
     "start": "next start",
     "lint": "eslint",
     "migrate:posts": "tsx scripts/migrate-posts-to-supabase.ts"
