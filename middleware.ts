@@ -56,7 +56,10 @@ export async function middleware(request: NextRequest) {
         ? `/${i18n.defaultLocale}`
         : `/${i18n.defaultLocale}${pathname}`;
 
-    return NextResponse.rewrite(new URL(rewritePath, request.url));
+    const rewriteUrl = new URL(rewritePath, request.url);
+    rewriteUrl.search = request.nextUrl.search; // Preserve query parameters
+
+    return NextResponse.rewrite(rewriteUrl);
   }
 
   return;
@@ -64,7 +67,15 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - files with extensions (e.g. .png, .jpg, etc.)
+     */
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)",
     "/api/x/download",
   ],
 };
