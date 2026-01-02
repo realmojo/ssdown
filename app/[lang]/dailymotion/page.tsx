@@ -13,7 +13,7 @@ export async function generateMetadata({
   const dict = await getDictionary(lang);
 
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/${lang === "en" ? "" : lang + "/"}dailymotion`;
+  const canonical = `${baseUrl}/${lang + "/"}dailymotion`;
 
   return {
     title: dict.dailymotion?.seo_title || "Dailymotion Video Downloader",

@@ -14,7 +14,7 @@ export async function generateMetadata({
   const dict = await getDictionary(lang);
 
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/${lang === "en" ? "" : lang + "/"}x`;
+  const canonical = `${baseUrl}/${lang + "/"}x`;
 
   return {
     title: dict.x?.seo_title || "X (Twitter) Video Downloader",

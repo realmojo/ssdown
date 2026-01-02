@@ -25,7 +25,7 @@ export async function generateMetadata({
   const title = getLocalizedContent(post.title, lang);
   const excerpt = getLocalizedContent(post.excerpt, lang);
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/${lang === "en" ? "" : lang + "/"}blog/${id}`;
+  const canonical = `${baseUrl}/${lang + "/"}blog/${id}`;
 
   return {
     title: `${title} | SSDown Blog`,

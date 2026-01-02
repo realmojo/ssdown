@@ -15,7 +15,7 @@ export async function generateMetadata({
   const ninegagDict = (dict as any)["9gag"];
 
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/${lang === "en" ? "" : lang + "/"}9gag`;
+  const canonical = `${baseUrl}/${lang + "/"}9gag`;
 
   return {
     title: ninegagDict?.seo_title || "9GAG Video Downloader",

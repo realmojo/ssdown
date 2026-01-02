@@ -17,7 +17,7 @@ export async function generateMetadata({
   const { lang } = await params;
 
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/${lang === "en" ? "" : lang + "/"}blog`;
+  const canonical = `${baseUrl}/${lang + "/"}blog`;
 
   const title =
     lang === "kr"

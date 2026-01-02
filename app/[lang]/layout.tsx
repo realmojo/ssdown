@@ -22,7 +22,7 @@ export async function generateMetadata({
   const dict = await getDictionary(locale);
 
   const baseUrl = "https://ssdown.app";
-  const currentUrl = lang === "en" ? baseUrl : `${baseUrl}/${lang}`;
+  const currentUrl = `${baseUrl}/${lang}`;
 
   return {
     metadataBase: new URL(baseUrl),

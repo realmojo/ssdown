@@ -9,45 +9,8 @@ export function LanguageSelector({ currentLang }: { currentLang: string }) {
   const pathname = usePathname();
 
   const handleLanguageChange = (value: string) => {
-    // Current path segments
-    // if pathname is /jp/x, segments are ['', 'jp', 'x']
-    // if pathname is /x, segments are ['', 'x'] (because en is hidden)
-
-    // We want to replace the language segment or prepend it.
-
-    if (!pathname) return;
-
-    let newPath = pathname;
-    const segments = pathname.split("/");
-
-    // Check if the current path starts with a known locale (excluding en because it's hidden)
-    // Actually we know currentLang.
-
-    if (currentLang !== "en") {
-      // We are at /jp/... or /kr/...
-      // We need to replace /jp with /value
-      // If value is 'en', we remove /jp
-
-      // Remove the lang prefix
-      // segments[1] is the lang
-      const rest = segments.slice(2).join("/");
-      newPath = `/${rest}`; // This is the 'en' path
-
-      if (value !== "en") {
-        newPath = `/${value}/${rest}`;
-      }
-    } else {
-      // We are at /... (en)
-      // If value is not 'en', we prepend /value
-      if (value !== "en") {
-        newPath = `/${value}${pathname}`;
-      }
-    }
-
-    // Clean up double slashes just in case
-    newPath = newPath.replace("//", "/");
-    if (newPath === "") newPath = "/";
-
+    // 언어 변경 시 메인 페이지로 이동
+    const newPath = value === "en" ? "/" : `/${value}`;
     router.push(newPath);
   };
 

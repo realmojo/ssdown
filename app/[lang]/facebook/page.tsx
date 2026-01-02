@@ -13,7 +13,7 @@ export async function generateMetadata({
   const dict = await getDictionary(lang);
 
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/${lang === "en" ? "" : lang + "/"}facebook`;
+  const canonical = `${baseUrl}/${lang + "/"}facebook`;
 
   return {
     title: dict.facebook?.seo_title || "Facebook Video Downloader",

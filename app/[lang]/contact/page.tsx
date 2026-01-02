@@ -13,7 +13,7 @@ export async function generateMetadata({
   const dict = await getDictionary(lang);
 
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/${lang === "en" ? "" : lang + "/"}contact`;
+  const canonical = `${baseUrl}/${lang + "/"}contact`;
 
   return {
     title: dict.contact?.seo_title || "Contact SSDown - Support & Help",
