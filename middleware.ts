@@ -23,9 +23,15 @@ export async function middleware(request: NextRequest) {
 
     // Redirect if there is no locale
     if (pathnameIsMissingLocale) {
+      // Root path redirects to /en
+      if (pathname === "/") {
+        return NextResponse.redirect(
+          new URL(`/${i18n.defaultLocale}`, request.url)
+        );
+      }
+
       // Check if it's a public file or API
       if (
-        pathname === "/" || // Root path is handled by app/page.tsx
         pathname.startsWith("/_next") ||
         pathname.startsWith("/api") ||
         pathname.includes(".") || // files like favicon.ico, robots.txt
