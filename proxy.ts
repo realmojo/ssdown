@@ -3,8 +3,6 @@ import type { NextRequest } from "next/server";
 import { i18n } from "./lib/i18n-config";
 import { lambdaProxy } from "./lambda/index";
 
-export const runtime = "edge";
-
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
