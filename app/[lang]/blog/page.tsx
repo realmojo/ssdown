@@ -76,7 +76,6 @@ export default async function BlogPage(props: {
     : allPosts;
 
   const getPath = (path: string) => {
-    if (lang === "en") return path;
     return `/${lang}${path === "/" ? "" : path}`;
   };
 

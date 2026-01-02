@@ -13,7 +13,6 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
   const pathname = usePathname();
 
   const getPath = (path: string) => {
-    if (lang === "en") return path;
     return `/${lang}${path === "/" ? "" : path}`;
   };
 

@@ -9,7 +9,6 @@ interface SiteFooterProps {
 
 export function SiteFooter({ dict, lang }: SiteFooterProps) {
   const getPath = (path: string) => {
-    if (lang === "en") return path;
     return `/${lang}${path}`;
   };
 

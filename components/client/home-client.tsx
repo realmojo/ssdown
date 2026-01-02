@@ -23,7 +23,6 @@ interface HomeClientProps {
 
 export function HomeClient({ dict, lang }: HomeClientProps) {
   const getPath = (path: string) => {
-    if (lang === "en") return path;
     return `/${lang}${path === "/" ? "" : path}`;
   };
 
