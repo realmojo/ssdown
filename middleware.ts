@@ -5,7 +5,7 @@ import { lambdaProxy } from "./lambda/index";
 
 export const runtime = "edge";
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Lambda proxy 처리 (다운로드 API 등)
