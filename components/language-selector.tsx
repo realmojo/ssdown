@@ -2,11 +2,10 @@
 
 import { Globe } from "lucide-react";
 
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export function LanguageSelector({ currentLang }: { currentLang: string }) {
   const router = useRouter();
-  const pathname = usePathname();
 
   const handleLanguageChange = (value: string) => {
     // 언어 변경 시 메인 페이지로 이동
