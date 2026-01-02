@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { i18n } from "./lib/i18n-config";
 import { lambdaProxy } from "./lambda/index";
 
-export const runtime = "edge";
+export const runtime = "experimental-edge"; // 이 이름으로 변경하세요
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
