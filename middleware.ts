@@ -25,6 +25,7 @@ export async function middleware(request: NextRequest) {
     if (pathnameIsMissingLocale) {
       // Check if it's a public file or API
       if (
+        pathname === "/" || // Root path is handled by app/page.tsx
         pathname.startsWith("/_next") ||
         pathname.startsWith("/api") ||
         pathname.includes(".") || // files like favicon.ico, robots.txt
