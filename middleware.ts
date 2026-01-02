@@ -51,14 +51,12 @@ export async function middleware(request: NextRequest) {
 
     // Default: Rewrite to default locale (en) internally
     // so ssdown.app/x shows English version but keeps URL clean-ish or consistent
-    return NextResponse.rewrite(
-      new URL(
-        `/${i18n.defaultLocale}${
-          pathname.startsWith("/") ? "" : "/"
-        }${pathname}`,
-        request.url
-      )
-    );
+    const rewritePath =
+      pathname === "/"
+        ? `/${i18n.defaultLocale}`
+        : `/${i18n.defaultLocale}${pathname}`;
+
+    return NextResponse.rewrite(new URL(rewritePath, request.url));
   }
 
   return;
