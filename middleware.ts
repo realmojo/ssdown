@@ -58,17 +58,13 @@ export async function middleware(request: NextRequest) {
       //   );
       // }
 
-      // Default: Rewrite to default locale (en) internally
-      // so ssdown.app/x shows English version but keeps URL clean-ish or consistent
-      const rewritePath =
-        pathname === "/"
-          ? `/${i18n.defaultLocale}`
-          : `/${i18n.defaultLocale}${pathname}`;
+      // Default: Redirect to default locale (en)
+      // /x -> /en/x
+      const redirectPath = `/${i18n.defaultLocale}${pathname}`;
+      const redirectUrl = new URL(redirectPath, request.url);
+      redirectUrl.search = request.nextUrl.search; // Preserve query parameters
 
-      const rewriteUrl = new URL(rewritePath, request.url);
-      rewriteUrl.search = request.nextUrl.search; // Preserve query parameters
-
-      return NextResponse.rewrite(rewriteUrl);
+      return NextResponse.redirect(redirectUrl);
     }
 
     return;
