@@ -63,8 +63,8 @@ export async function GET() {
             ? "1.0"
             : "0.8"
           : route === ""
-          ? "0.9"
-          : "0.7";
+            ? "0.9"
+            : "0.7";
 
       urls.push(`
     <url>
