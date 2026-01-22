@@ -6,6 +6,7 @@ import { BookOpen } from "lucide-react";
 import Link from "next/link";
 import { Post } from "@/lib/blog-utils";
 import { Key } from "react";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export const dynamic = "force-dynamic";
 
@@ -81,7 +82,7 @@ export default async function BlogPage(props: {
 
   // 카테고리 목록 추출 (모든 포스트에서)
   const categories = Array.from(
-    new Set(allPosts.map((post: any | Post) => post.category))
+    new Set(allPosts.map((post: any | Post) => post.category)),
   ).filter(Boolean);
 
   const categoryLabels: Record<string, { en: string; kr: string }> = {
@@ -100,7 +101,18 @@ export default async function BlogPage(props: {
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
-      <div className="container max-w-7xl mx-auto px-4 py-12">
+      <div className="container max-w-7xl mx-auto px-4 py-8">
+        <Breadcrumbs
+          items={[
+            { label: lang === "kr" ? "홈" : "Home", href: getPath("/") },
+            {
+              label: lang === "kr" ? "크리에이터 허브" : "Creator Hub",
+              href: getPath("/blog"),
+              isCurrent: true,
+            },
+          ]}
+        />
+
         {/* Header */}
         <header className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-100 dark:bg-indigo-900/30 mb-4">

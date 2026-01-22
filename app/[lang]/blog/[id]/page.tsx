@@ -4,6 +4,7 @@ import { type Locale } from "@/lib/i18n-config";
 import { notFound } from "next/navigation";
 import { PostContent } from "@/components/PostContent";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 
 export async function generateMetadata({
@@ -100,13 +101,20 @@ export default async function BlogPostPage(props: {
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
       <article className="container max-w-4xl mx-auto px-4 py-12">
-        <Link
-          href={getPath("/blog")}
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back to Home</span>
-        </Link>
+        <Breadcrumbs
+          items={[
+            { label: lang === "kr" ? "홈" : "Home", href: getPath("/") },
+            {
+              label: lang === "kr" ? "크리에이터 허브" : "Creator Hub",
+              href: getPath("/blog"),
+            },
+            {
+              label: title,
+              href: getPath(`/blog/${id}`),
+              isCurrent: true,
+            },
+          ]}
+        />
 
         <header className="mb-8">
           <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
