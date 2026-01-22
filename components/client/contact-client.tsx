@@ -5,7 +5,13 @@ import { Mail, Send, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -55,7 +61,7 @@ export function ContactClient({ dict }: ContactClientProps) {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
@@ -78,123 +84,55 @@ export function ContactClient({ dict }: ContactClientProps) {
       {/* Main Content */}
       <section className="py-16 bg-white dark:bg-gray-950">
         <div className="container px-4 md:px-6 max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
-            
-            {/* Contact Info (Left Side) */}
-            <div className="md:col-span-1 space-y-6">
-              <Card className="border-0 shadow-lg bg-indigo-600 text-white h-full">
-                <CardContent className="p-8 flex flex-col items-start gap-6 h-full">
-                  <div className="p-3 rounded-full bg-white/10">
-                    <Mail className="h-6 w-6" />
+          {/* Simple Email Contact (Center) */}
+          <div className="md:col-span-3">
+            <Card className="border shadow-lg max-w-2xl mx-auto text-center">
+              <CardHeader>
+                <CardTitle className="text-2xl">
+                  {dict?.contact?.form_title || "Get in Touch"}
+                </CardTitle>
+                <CardDescription className="text-lg mt-2">
+                  For support, copyright, or business inquiries, please email us
+                  directly.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="py-12 space-y-8">
+                <div className="flex justify-center">
+                  <div className="bg-indigo-100 dark:bg-indigo-900/30 p-8 rounded-full">
+                    <Mail className="h-12 w-12 text-indigo-600 dark:text-indigo-400" />
                   </div>
-                  <div className="space-y-2">
-                    <h3 className="font-bold text-lg">{dict?.contact?.email_us || "Email Us Directly"}</h3>
-                    <p className="text-indigo-100 text-sm leading-relaxed">
-                      {dict?.contact?.email_desc || "Prefer email? Send it to support@ssdown.app"}
-                    </p>
-                  </div>
-                   <div className="mt-auto pt-8">
-                      <a href="mailto:support@ssdown.app" className="text-sm font-semibold hover:underline underline-offset-4">
-                        support@ssdown.app
-                      </a>
-                   </div>
-                </CardContent>
-              </Card>
-            </div>
+                </div>
 
-            {/* Contact Form (Right Side) */}
-            <div className="md:col-span-2">
-              <Card className="border shadow-lg">
-                <CardHeader>
-                  <CardTitle>{dict?.contact?.form_title || "Send us a message"}</CardTitle>
-                  <CardDescription>
-                     We usually respond within 24 hours.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {isSuccess ? (
-                    <div className="flex flex-col items-center justify-center py-12 text-center space-y-4 animate-in fade-in zoom-in duration-300">
-                      <div className="p-4 rounded-full bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400">
-                        <CheckCircle2 className="h-8 w-8" />
-                      </div>
-                      <h3 className="text-xl font-bold">{dict?.contact?.success_title || "Message Sent!"}</h3>
-                      <p className="text-muted-foreground">{dict?.contact?.success_desc || "We'll get back to you as soon as possible."}</p>
-                      <Button variant="outline" onClick={() => setIsSuccess(false)} className="mt-4">
-                        Send another message
-                      </Button>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      {error && (
-                        <Alert variant="destructive">
-                          <AlertCircle className="h-4 w-4" />
-                          <AlertTitle>Error</AlertTitle>
-                          <AlertDescription>{error}</AlertDescription>
-                        </Alert>
-                      )}
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="name">{dict?.contact?.name || "Name"}</Label>
-                          <Input
-                            id="name"
-                            required
-                            placeholder="John Doe"
-                            value={formData.name}
-                            onChange={handleChange}
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="email">{dict?.contact?.email || "Email"}</Label>
-                          <Input
-                            id="email"
-                            type="email"
-                            required
-                            placeholder="john@example.com"
-                            value={formData.email}
-                            onChange={handleChange}
-                          />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="subject">{dict?.contact?.subject || "Subject"}</Label>
-                        <Input
-                          id="subject"
-                          required
-                          placeholder="How can we help?"
-                          value={formData.subject}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="message">{dict?.contact?.message || "Message"}</Label>
-                        <Textarea
-                          id="message"
-                          required
-                          placeholder="Type your message here..."
-                          className="min-h-[150px]"
-                          value={formData.message}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700" disabled={isSubmitting}>
-                        {isSubmitting ? (
-                          <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            {dict?.contact?.sending || "Sending..."}
-                          </>
-                        ) : (
-                          <>
-                            <Send className="mr-2 h-4 w-4" />
-                            {dict?.contact?.send || "Send Message"}
-                          </>
-                        )}
-                      </Button>
-                    </form>
-                  )}
-                </CardContent>
-              </Card>
-            </div>
+                <div className="space-y-2">
+                  <p className="text-muted-foreground">
+                    Official Support Email
+                  </p>
+                  <a
+                    href="mailto:support@ssdown.app"
+                    className="text-3xl font-bold hover:text-indigo-600 transition-colors block"
+                  >
+                    support@ssdown.app
+                  </a>
+                </div>
 
+                <div className="pt-4">
+                  <Button
+                    size="lg"
+                    className="bg-indigo-600 hover:bg-indigo-700 text-lg px-8 py-6 h-auto"
+                    asChild
+                  >
+                    <a href="mailto:support@ssdown.app">
+                      <Send className="mr-2 h-5 w-5" />
+                      Send an Email
+                    </a>
+                  </Button>
+                </div>
+
+                <p className="text-sm text-muted-foreground pt-8">
+                  We aim to respond to all inquiries within 24 business hours.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
