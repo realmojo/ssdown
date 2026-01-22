@@ -1,7 +1,18 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/language-selector";
+import { ModeToggle } from "@/components/mode-toggle";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface SiteHeaderProps {
   dict: any;
@@ -13,6 +24,7 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
   const pathname = usePathname();
 
   const getPath = (path: string) => {
+    if (lang === "en") return path;
     return `/${lang}${path === "/" ? "" : path}`;
   };
 
@@ -33,94 +45,120 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center px-4 md:px-6">
-        <a
-          href="/"
-          target="_self"
+        <Link
+          href={getPath("/")}
           className="flex items-center gap-2 font-bold text-xl mr-6 hover:opacity-80 transition-opacity"
         >
-          <img
+          <Image
             src="/logo.png"
             alt="SSDown Logo"
             width={32}
             height={32}
             className="h-8 w-8 object-contain"
+            priority
+            unoptimized
           />
           <span className="hidden md:inline bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
             SSDown
           </span>
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav
           className="hidden md:flex items-center gap-4 text-sm font-medium"
           aria-label="Main navigation"
         >
-          <a
-            href={getPath("/x")}
-            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-md hover:bg-accent"
-          >
-            {dict?.twitter || "X (Twitter)"}
-          </a>
-          <a
-            href={getPath("/tiktok")}
-            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-md hover:bg-accent"
-          >
-            {dict?.tiktok || "TikTok"}
-          </a>
-          <a
-            href={getPath("/instagram")}
-            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-md hover:bg-accent"
-          >
-            {dict?.instagram?.nav || "Instagram"}
-          </a>
-          <a
-            href={getPath("/facebook")}
-            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-md hover:bg-accent"
-          >
-            {dict?.facebook?.nav || "Facebook"}
-          </a>
-          <a
-            href={getPath("/dailymotion")}
-            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-md hover:bg-accent"
-          >
-            {dict?.dailymotion?.nav || "Dailymotion"}
-          </a>
-          <a
-            href={getPath("/9gag")}
-            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-md hover:bg-accent"
-          >
-            {dict?.["9gag"]?.nav || "9GAG"}
-          </a>
-          <a
-            href={getPath("/blog")}
-            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-md hover:bg-accent"
-          >
-            Blog
-          </a>
+          <Link href={getPath("/x")}>
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:text-primary"
+            >
+              {dict?.twitter || "X (Twitter)"}
+            </Button>
+          </Link>
+          <Link href={getPath("/tiktok")}>
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:text-primary"
+            >
+              {dict?.tiktok || "TikTok"}
+            </Button>
+          </Link>
+          <Link href={getPath("/instagram")}>
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:text-primary"
+            >
+              {dict?.instagram?.nav || "Instagram"}
+            </Button>
+          </Link>
+          <Link href={getPath("/facebook")}>
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:text-primary"
+            >
+              {dict?.facebook?.nav || "Facebook"}
+            </Button>
+          </Link>
+          <Link href={getPath("/dailymotion")}>
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:text-primary"
+            >
+              {dict?.dailymotion?.nav || "Dailymotion"}
+            </Button>
+          </Link>
+          <Link href={getPath("/9gag")}>
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:text-primary"
+            >
+              {dict?.["9gag"]?.nav || "9GAG"}
+            </Button>
+          </Link>
+          <Link href={getPath("/blog")}>
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:text-primary"
+            >
+              Blog
+            </Button>
+          </Link>
         </nav>
 
         {/* Mobile Navigation */}
         <nav className="md:hidden flex-1 mr-4" aria-label="Mobile navigation">
-          <select
-            value={currentPage}
-            onChange={(e) => handleNavChange(e.target.value)}
-            className="w-full bg-transparent border-0 focus:ring-0 px-2 font-medium text-sm rounded-md cursor-pointer focus:outline-none"
-          >
-            <option value="home">{dict?.home || "Home"}</option>
-            <option value="x">{dict?.twitter || "X (Twitter)"}</option>
-            <option value="tiktok">{dict?.tiktok || "TikTok"}</option>
-            <option value="instagram">{dict?.instagram || "Instagram"}</option>
-            <option value="facebook">{dict?.facebook || "Facebook"}</option>
-            <option value="dailymotion">
-              {dict?.dailymotion?.nav || "Dailymotion"}
-            </option>
-            <option value="9gag">{dict?.["9gag"] || "9GAG"}</option>
-            <option value="blog">Blog</option>
-          </select>
+          <Select value={currentPage} onValueChange={handleNavChange}>
+            <SelectTrigger className="w-full bg-transparent border-0 focus:ring-0 px-2 font-medium">
+              <SelectValue placeholder="Menu" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="home">{dict?.home || "Home"}</SelectItem>
+              <SelectItem value="x">
+                {dict?.twitter || "X (Twitter)"}
+              </SelectItem>
+              <SelectItem value="tiktok">{dict?.tiktok || "TikTok"}</SelectItem>
+              <SelectItem value="instagram">
+                {dict?.instagram || "Instagram"}
+              </SelectItem>
+              <SelectItem value="facebook">
+                {dict?.facebook || "Facebook"}
+              </SelectItem>
+              <SelectItem value="dailymotion">
+                {dict?.dailymotion?.nav || "Dailymotion"}
+              </SelectItem>
+              <SelectItem value="9gag">{dict?.["9gag"] || "9GAG"}</SelectItem>
+              <SelectItem value="blog">Blog</SelectItem>
+            </SelectContent>
+          </Select>
         </nav>
 
         <div className="ml-auto flex items-center gap-2">
           <LanguageSelector currentLang={lang} />
+          {/* PC만 상단에 표시 */}
+          <div className="hidden md:block">
+            <ModeToggle />
+          </div>
         </div>
       </div>
     </header>
