@@ -103,7 +103,7 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
               <li>
                 <a
                   target="_self"
-                  href={getPath("/about")}
+                  href="/about"
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.about?.nav || dict?.nav?.about || "About Us"}
@@ -112,7 +112,7 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
               <li>
                 <a
                   target="_self"
-                  href={getPath("/contact")}
+                  href="/contact"
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.contact?.nav || dict?.nav?.contact || "Contact"}
@@ -130,7 +130,7 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
               <li>
                 <a
                   target="_self"
-                  href={getPath("/privacy")}
+                  href="/privacy"
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.privacy || "Privacy Policy"}
@@ -139,7 +139,7 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
               <li>
                 <a
                   target="_self"
-                  href={getPath("/terms")}
+                  href="/terms"
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.terms || "Terms of Service"}

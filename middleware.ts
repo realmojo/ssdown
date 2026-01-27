@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
     // Check if there is any supported locale in the pathname
     const pathnameIsMissingLocale = i18n.locales.every(
       (locale) =>
-        !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+        !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
     );
 
     // Redirect if there is no locale
@@ -26,7 +26,7 @@ export async function middleware(request: NextRequest) {
       // Root path redirects to /en
       if (pathname === "/") {
         return NextResponse.redirect(
-          new URL(`/${i18n.defaultLocale}`, request.url)
+          new URL(`/${i18n.defaultLocale}`, request.url),
         );
       }
 
@@ -37,7 +37,8 @@ export async function middleware(request: NextRequest) {
         pathname.includes(".") || // files like favicon.ico, robots.txt
         pathname === "/about" ||
         pathname === "/privacy" ||
-        pathname === "/terms"
+        pathname === "/terms" ||
+        pathname === "/contact"
       ) {
         return;
       }
