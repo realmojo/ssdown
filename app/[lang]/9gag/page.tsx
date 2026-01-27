@@ -1,3 +1,4 @@
+export const runtime = "edge";
 import { type Locale } from "@/lib/i18n-config";
 
 import { getDictionary } from "@/lib/get-dictionary";

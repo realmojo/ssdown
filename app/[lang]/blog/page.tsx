@@ -1,3 +1,4 @@
+export const runtime = "edge";
 import { Metadata } from "next";
 
 import { type Locale } from "@/lib/i18n-config";
