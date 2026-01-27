@@ -11,7 +11,7 @@ export function AboutClient({ dict }: AboutClientProps) {
       <section className="relative overflow-hidden py-16 lg:py-24 text-center bg-gray-50 dark:bg-gray-900/20">
         <div className="container px-4 md:px-6">
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl md:text-6xl mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-indigo-800 to-gray-900 dark:from-white dark:via-indigo-200 dark:to-white">
-            About Us
+            About the SSDown Team
           </h1>
           <p className="mx-auto max-w-[800px] text-gray-600 md:text-xl dark:text-gray-300">
             Preserving Your Digital Moments, Responsibly.
@@ -36,6 +36,38 @@ export function AboutClient({ dict }: AboutClientProps) {
               a friend, SSDown provides the technical tools to save these
               moments for offline viewing and educational reference.
             </p>
+          </div>
+
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold tracking-tight text-foreground">
+              Technical Expertise: Research & Engineering
+            </h2>
+            <p className="text-muted-foreground leading-relaxed text-lg">
+              We are not just a downloader site; we are a team of data engineers
+              and archivists researching <strong>video stream protocols</strong>{" "}
+              (HLS, DASH) and <strong>metadata preservation</strong>. Our
+              backend infrastructure is designed to ensuring high-fidelity
+              extraction of digital assets while respecting the technical
+              boundaries of source platforms.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg">
+                <h3 className="font-bold mb-2">Advanced Protocol Handling</h3>
+                <p className="text-sm text-muted-foreground">
+                  Our core engine parses complex m3u8 playlists and decrypts
+                  chunked streams to reassemble complete MP4 files without
+                  quality loss.
+                </p>
+              </div>
+              <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg">
+                <h3 className="font-bold mb-2">Privacy Engineering</h3>
+                <p className="text-sm text-muted-foreground">
+                  We implement automated link sanitization to strip tracking
+                  parameters (fbclid, igshid) to protect user privacy during the
+                  archival process.
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Copyright Stance */}

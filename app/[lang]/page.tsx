@@ -42,12 +42,12 @@ export async function generateMetadata({
         lang === "en"
           ? "en_US"
           : lang === "jp"
-          ? "ja_JP"
-          : lang === "kr"
-          ? "ko_KR"
-          : lang === "pt"
-          ? "pt_BR"
-          : "fr_FR",
+            ? "ja_JP"
+            : lang === "kr"
+              ? "ko_KR"
+              : lang === "pt"
+                ? "pt_BR"
+                : "fr_FR",
       type: "website",
     },
     twitter: {
@@ -69,5 +69,36 @@ export default async function Home(props: {
   const params = await props.params;
   const dict = await getDictionary(params.lang);
 
-  return <HomeClient dict={dict} lang={params.lang} />;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "SSDown",
+    url: "https://ssdown.app",
+    description:
+      dict.home?.subtitle ||
+      "Download videos from X, TikTok, Instagram, and more.",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "All",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    featureList: [
+      "X (Twitter) Video Downloader",
+      "TikTok Video Downloader (No Watermark)",
+      "Instagram Reels Saver",
+      "Facebook Video Downloader",
+    ],
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <HomeClient dict={dict} lang={params.lang} />
+    </>
+  );
 }

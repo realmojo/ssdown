@@ -29,16 +29,6 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
               {dict?.home?.subtitle ||
                 "The ultimate video downloader for X (Twitter), TikTok, Instagram, and Facebook. Fast, free, and secure."}
             </p>
-            <div className="flex items-center gap-4 pt-2">
-              <a
-                target="_self"
-                href={getPath("/x")}
-                className="text-muted-foreground hover:text-black dark:hover:text-white transition-colors"
-                aria-label="X (Twitter)"
-              >
-                <XIcon className="h-5 w-5" />
-              </a>
-            </div>
           </div>
 
           {/* Tools Column */}

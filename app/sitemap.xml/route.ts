@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { i18n } from "@/lib/i18n-config";
 import { getAllSitemapPosts } from "@/lib/posts";
 
@@ -63,15 +62,15 @@ export async function GET() {
             ? "1.0"
             : "0.8"
           : route === ""
-          ? "0.9"
-          : "0.7";
+            ? "0.9"
+            : "0.7";
 
       urls.push(`
     <url>
       <loc>${loc}</loc>
       <lastmod>${lastModified}</lastmod>
       <changefreq>daily</changefreq>
-      <priority>${priority}</priority>${alternates}
+      <priority>${priority}</priority>
     </url>`);
     });
   });
@@ -87,23 +86,6 @@ export async function GET() {
 
       const route = `/blog/${post.id}`;
 
-      // Generate alternates for this specific post
-      let alternates = "";
-
-      // x-default
-      alternates += `\n      <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}${route}"/>`;
-
-      // specific languages
-      i18n.locales.forEach((locale) => {
-        const href =
-          locale === "en"
-            ? `${baseUrl}${route}`
-            : `${baseUrl}/${locale}${route}`;
-        const hreflang = hreflangMap[locale] || locale;
-
-        alternates += `\n      <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}"/>`;
-      });
-
       // Generate <url> entry for EACH locale
       i18n.locales.forEach((locale) => {
         const loc =
@@ -116,7 +98,7 @@ export async function GET() {
       <loc>${loc}</loc>
       <lastmod>${lastModified}</lastmod>
       <changefreq>weekly</changefreq>
-      <priority>0.8</priority>${alternates}
+      <priority>0.8</priority>
     </url>`);
       });
     });
@@ -125,11 +107,14 @@ export async function GET() {
   }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset 
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${urls.join("")}
 </urlset>`;
 
-  return new NextResponse(xml, {
+  return new Response(xml, {
+    status: 200,
     headers: {
       "Content-Type": "application/xml",
     },
