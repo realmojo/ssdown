@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { i18n } from "./lib/i18n-config";
 import { lambdaProxy } from "./lambda/index";
 
-export const runtime = "experimental-edge";
+
 
 export async function middleware(request: NextRequest) {
   try {
@@ -43,24 +43,6 @@ export async function middleware(request: NextRequest) {
         return;
       }
 
-      // Geo-IP Check for Korea
-      // const country =
-      //   (request as any).geo?.country ||
-      //   request.headers.get("x-vercel-ip-country") ||
-      //   request.headers.get("cf-ipcountry");
-
-      // // If User is in Korea, redirect to /kr prefix
-      // if (country === "KR") {
-      //   return NextResponse.redirect(
-      //     new URL(
-      //       `/kr${pathname.startsWith("/") ? "" : "/"}${pathname}`,
-      //       request.url
-      //     )
-      //   );
-      // }
-
-      // Default: Redirect to default locale (en)
-      // /x -> /en/x
       const redirectPath = `/${i18n.defaultLocale}${pathname}`;
       const redirectUrl = new URL(redirectPath, request.url);
       redirectUrl.search = request.nextUrl.search; // Preserve query parameters

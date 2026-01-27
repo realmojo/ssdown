@@ -1,4 +1,4 @@
-export const runtime = "edge";
+
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {

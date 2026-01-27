@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-export const runtime = "edge";
+
 import { type Locale } from "@/lib/i18n-config";
 import { notFound } from "next/navigation";
 import { PostContent } from "@/components/PostContent";

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 export const runtime = "edge";
-import axios from "axios";
 
 /**
  * Dailymotion URL에서 video ID를 추출하는 함수
@@ -71,7 +70,7 @@ const getDailymotionDetailInfo = async (videoId: string) => {
 
   if (!response.ok) {
     throw new Error(
-      `Failed to fetch Dailymotion page: ${response.status} ${response.statusText}`
+      `Failed to fetch Dailymotion page: ${response.status} ${response.statusText}`,
     );
   }
 
@@ -85,7 +84,7 @@ const getDailymotionDetailInfo = async (videoId: string) => {
  */
 const parseM3U8MasterPlaylist = (
   m3u8Text: string,
-  baseUrl: string
+  baseUrl: string,
 ): Array<{
   url: string;
   content_type: string;
@@ -157,7 +156,7 @@ const parseM3U8MasterPlaylist = (
 // https://cdndirector.dailymotion.com/cdn/manifest/video/x9vnle4.m3u8?sec=AqtpiJXMtJyGkbDxPPXc5KsiajHySMZ1CQCGy-PxksYT6tWRjkSlbMHi8ITzEHDTQn54dffKnKxGEKxN_JaSMQ&dmTs=&dmV1st=
 const getDaliyMotionVideoUrl = async (
   videoId: string,
-  videoUrl: string
+  videoUrl: string,
 ): Promise<
   Array<{
     url: string;
@@ -179,8 +178,11 @@ const getDaliyMotionVideoUrl = async (
       expires: "0", // 이게 꼭 필요함
     };
 
-    const response = await axios.get(url, { headers });
-    const m3u8Text = response.data;
+    const response = await fetch(url, { headers });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch m3u8: ${response.status}`);
+    }
+    const m3u8Text = await response.text();
     const baseUrl = url.substring(0, url.lastIndexOf("/") + 1);
 
     // M3U8 master playlist 파싱
@@ -213,7 +215,7 @@ export async function GET(request: NextRequest) {
     if (!videoId) {
       return NextResponse.json(
         { error: "Invalid Dailymotion URL" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -221,7 +223,7 @@ export async function GET(request: NextRequest) {
 
     const videoItems = await getDaliyMotionVideoUrl(
       videoId,
-      videoData.qualities.auto[0].url
+      videoData.qualities.auto[0].url,
     );
 
     const result = {
@@ -255,7 +257,7 @@ export async function GET(request: NextRequest) {
     console.error("Error in GET /api/dailymotion:", e);
     return NextResponse.json(
       { error: "no data", message: e?.message || "Unknown error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

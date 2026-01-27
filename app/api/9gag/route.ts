@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 export const runtime = "edge";
-import axios from "axios";
 
 /**
  * Instagram URL에서 reel ID를 추출하는 함수
@@ -56,19 +55,19 @@ const get9gagDetailInfo = async (gagId: string) => {
       "Viewport-Width": "472",
     };
 
-    const response = await axios.get(url, { headers });
+    const response = await fetch(url, { headers });
 
-    const html = response.data;
+    if (!response.ok) {
+      console.error(`Failed to fetch 9gag page: ${response.status}`);
+      return null;
+    }
+
+    const html = await response.text();
 
     // HTML이 제대로 파싱되는지 확인 (바이너리가 아닌 텍스트인지)
     return html;
   } catch (error: any) {
     console.error("Error fetching 9gag detail info:", error);
-    if (error.response) {
-      console.error(
-        `Failed to fetch 9gag page: ${error.response.status} ${error.response.statusText}`
-      );
-    }
     return null;
   }
 };
@@ -100,7 +99,7 @@ const extractScriptJson = (html: string): any => {
       .replace(/\\r/g, "\r") // \r -> 실제 캐리지 리턴
       .replace(/\\t/g, "\t") // \t -> 실제 탭
       .replace(/\\u([0-9a-fA-F]{4})/g, (_, hex) =>
-        String.fromCharCode(parseInt(hex, 16))
+        String.fromCharCode(parseInt(hex, 16)),
       ) // \uXXXX -> 유니코드 문자
       .replace(/\u0001/g, "\\"); // 임시 마커 -> \
 
@@ -128,7 +127,7 @@ export async function GET(request: NextRequest) {
     if (!gagId) {
       return NextResponse.json(
         { error: "Invalid URL", message: "Could not extract gag ID from URL" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -137,7 +136,7 @@ export async function GET(request: NextRequest) {
     if (!html) {
       return NextResponse.json(
         { error: "no data", message: "Could not fetch 9gag detail info" },
-        { status: 200 }
+        { status: 200 },
       );
     }
 
@@ -147,7 +146,7 @@ export async function GET(request: NextRequest) {
     if (!data) {
       return NextResponse.json(
         { error: "no data", message: "Could not extract 9gag data" },
-        { status: 200 }
+        { status: 200 },
       );
     }
 
@@ -205,7 +204,7 @@ export async function GET(request: NextRequest) {
     console.error("Error in GET /api/x:", e);
     return NextResponse.json(
       { error: "no data", message: e?.message || "Unknown error" },
-      { status: 200 }
+      { status: 200 },
     );
   }
 }

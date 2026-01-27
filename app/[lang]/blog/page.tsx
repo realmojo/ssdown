@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-export const runtime = "edge";
+
 import { type Locale } from "@/lib/i18n-config";
 import { PostCard } from "@/components/PostCard";
 import { BookOpen } from "lucide-react";

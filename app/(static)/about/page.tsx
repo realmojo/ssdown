@@ -1,4 +1,4 @@
-export const runtime = "edge";
+
 import { getDictionary } from "@/lib/get-dictionary";
 import { AboutClient } from "@/components/client/about-client";
 import { Metadata } from "next";

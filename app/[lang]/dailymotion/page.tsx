@@ -1,5 +1,5 @@
 import { type Locale } from "@/lib/i18n-config";
-export const runtime = "edge";
+
 import { getDictionary } from "@/lib/get-dictionary";
 import { DailymotionClient } from "@/components/client/dailymotion-client";
 import { Metadata } from "next";
