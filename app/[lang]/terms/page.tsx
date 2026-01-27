@@ -1,9 +1,15 @@
+import { type Locale } from "@/lib/i18n-config";
 export const runtime = "edge";
 import { Metadata } from "next";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: Locale }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/terms`;
+  const canonical = `${baseUrl}/${lang + "/"}terms`;
 
   return {
     title: "Terms and Conditions - SSDown",
