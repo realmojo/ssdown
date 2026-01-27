@@ -84,7 +84,7 @@ const getInstagramDetailInfo = async (reelId: string) => {
 
   if (!response.ok) {
     throw new Error(
-      `Failed to fetch Instagram page: ${response.status} ${response.statusText}`
+      `Failed to fetch Instagram page: ${response.status} ${response.statusText}`,
     );
   }
 
@@ -238,7 +238,7 @@ export async function GET(request: NextRequest) {
     if (!reelId) {
       return NextResponse.json(
         { error: "Invalid URL", message: "Could not extract reel ID from URL" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -250,13 +250,13 @@ export async function GET(request: NextRequest) {
     // pk 값이 중복되는 경우 제거
     const uniqueData = data.filter(
       (item: any, index: number, self: any[]) =>
-        index === self.findIndex((t) => t.pk === item.pk)
+        index === self.findIndex((t) => t.pk === item.pk),
     );
 
     if (!data) {
       return NextResponse.json(
         { error: "no data", message: "Could not extract instagram data" },
-        { status: 200 }
+        { status: 200 },
       );
     }
 
@@ -301,7 +301,7 @@ export async function GET(request: NextRequest) {
     console.error("Error in GET /api/x:", e);
     return NextResponse.json(
       { error: "no data", message: e?.message || "Unknown error" },
-      { status: 200 }
+      { status: 200 },
     );
   }
 }

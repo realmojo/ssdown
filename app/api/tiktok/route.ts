@@ -33,139 +33,76 @@ export async function GET(request: NextRequest) {
 
     const tiktokId = url.split("/")[url.split("/").length - 1];
 
-    const response = await fetch(url, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
-        Accept:
-          "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
-        Referer: "https://www.tiktok.com/",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch TikTok page: ${response.status} ${response.statusText}`
-      );
-    }
-
-    const ttChainToken = getTtChainToken(response);
-    const html = await response.text();
-
-    // __UNIVERSAL_DATA_FOR_REHYDRATION__ 스크립트 태그에서 JSON 추출
-    const scriptRegex =
-      /<script[^>]*id="__UNIVERSAL_DATA_FOR_REHYDRATION__"[^>]*>([\s\S]*?)<\/script>/;
-    const match = html.match(scriptRegex);
-
-    if (!match || !match[1]) {
-      return NextResponse.json(
-        {
-          error: "Could not find __UNIVERSAL_DATA_FOR_REHYDRATION__ script tag",
-        },
-        { status: 200 }
-      );
-    }
+    // TikWM API 사용 (무료 공용 API)
+    const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
 
     try {
-      // JSON 파싱
-      const jsonData = JSON.parse(match[1]);
-      const data = jsonData.__DEFAULT_SCOPE__["webapp.video-detail"];
+      const response = await fetch(apiUrl);
+      const data = await response.json();
 
-      if (all) {
-        return NextResponse.json(data, { status: 200 });
+      console.log("response", response);
+
+      const ttChainToken = getTtChainToken(response);
+      console.log("ttChainToken", ttChainToken);
+
+      if (data.code !== 0) {
+        console.error("TikWM API error:", data);
+        return NextResponse.json(
+          { error: "Failed to fetch video data", message: data.msg },
+          { status: 400 },
+        );
       }
 
-      // TikTok 데이터 추출
-      const itemStruct = data?.itemInfo?.itemStruct || {};
-      const author = itemStruct.author || {};
-      const video = itemStruct.video || {};
-      const stats = itemStruct.stats || {};
+      const videoData = data.data;
 
-      // 사용자 정보 추출
-      const rawUserName = author.nickname || "";
-      // 이모지 제거
-      const userName = rawUserName
-        .replace(/[\uD83C-\uDBFF\uDC00-\uDFFF]+/g, "") // 이모지 제거
-        .replace(/[^\w\s]/g, "")
-        .trim();
-      const userScreenName = author.uniqueId || "";
-      const userAvatar = author.avatarLarger || "";
-
-      // 트윗 정보 추출
-      const content = itemStruct.desc || "";
-      const createdAt = itemStruct.createTime
-        ? new Date(parseInt(itemStruct.createTime) * 1000).toISOString()
-        : "";
-      const thumbnail = video.cover || "";
-      const favoriteCount = parseInt(String(stats.diggCount)) || 0;
-      const shareCount = parseInt(String(stats.shareCount)) || 0;
-      const replyCount = parseInt(String(stats.commentCount)) || 0;
-      const quoteCount = 0; // TikTok에는 quoteCount가 없음
-      const viewCount = parseInt(String(stats.playCount)) || 0;
-
-      // 비디오 정보 추출
-      let videoItems: Array<{
-        url: string;
-        content_type: string;
-        bitrate: string;
-      }> = [];
-
-      if (video.bitrateInfo && Array.isArray(video.bitrateInfo)) {
-        videoItems = video.bitrateInfo
-          .filter(
-            (item: any) =>
-              item.PlayAddr?.UrlList && item.PlayAddr.UrlList.length > 0
-          )
-          .map((item: any) => {
-            const bitrate = item.Bitrate || 0;
-            const url = item.PlayAddr.UrlList[0] || "";
-            const content_type = video.format || "video/mp4";
-
-            return {
-              url: encodeURIComponent(`${url}&tt_chain_token=${ttChainToken}`),
-              content_type,
-              bitrate: getQualityForBitrate(bitrate),
-            };
-          });
-      }
-
-      // X 형식과 동일하게 반환
       const result = {
         type: "tiktok",
-        id: itemStruct.id || tiktokId,
+        id: videoData.id,
         user: {
-          name: userName,
-          screenName: userScreenName,
-          avatar: userAvatar,
+          name: videoData.author.nickname,
+          screenName: videoData.author.unique_id,
+          avatar: videoData.author.avatar,
         },
-        content,
-        thumbnail,
-        videoItems,
+        content: videoData.title,
+        thumbnail: videoData.cover,
+        videoItems: [
+          {
+            url: videoData.play, // No watermark
+            content_type: "video/mp4",
+            bitrate: 0,
+            quality: "HD (No Watermark)",
+          },
+          {
+            url: videoData.wmplay, // With watermark
+            content_type: "video/mp4",
+            bitrate: 0,
+            quality: "Original (Watermarked)",
+          },
+        ].filter((item) => item.url),
         stats: {
-          favoriteCount,
-          shareCount,
-          replyCount,
-          quoteCount,
-          viewCount: Number(viewCount),
+          favoriteCount: videoData.digg_count,
+          shareCount: videoData.share_count,
+          replyCount: videoData.comment_count,
+          quoteCount: 0,
+          viewCount: videoData.play_count,
         },
-        createdAt,
-        tt_chain_token: ttChainToken,
+        createdAt: new Date(videoData.create_time * 1000).toISOString(),
       };
 
       return NextResponse.json(result, { status: 200 });
-    } catch (parseError: any) {
-      console.error("JSON parse error:", parseError);
+    } catch (apiError) {
+      console.error("TikWM API fetch error:", apiError);
+      // Remove or comment out ttChainToken usage if it exists outside
       return NextResponse.json(
-        { error: "Failed to parse JSON", message: parseError?.message },
-        { status: 200 }
+        { error: "API Error", message: "Failed to connect to TikWM API" },
+        { status: 500 },
       );
     }
   } catch (e: any) {
     console.error("Error in GET /api/tiktok:", e);
     return NextResponse.json(
       { error: "no data", message: e?.message || "Unknown error" },
-      { status: 200 }
+      { status: 500 },
     );
   }
 }
