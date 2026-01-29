@@ -1,65 +1,46 @@
 export const runtime = "edge";
 
-import { getDictionary } from "@/lib/get-dictionary";
 import { HomeClient } from "@/components/client/home-client";
-
 import { Metadata } from "next";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const dict = await getDictionary();
+export const metadata: Metadata = {
+  title: "SSDown - Ultimate Video Downloader",
+  description: "Download videos from X, TikTok and more.",
+  keywords: ["video downloader", "twitter video download", "tiktok downloader"],
+  openGraph: {
+    title: "SSDown - Video Downloader",
+    description: "Download videos from X, TikTok and more.",
+    url: "https://ssdown.app",
+    siteName: "SSDown",
+    images: [
+      {
+        url: "https://ssdown.app/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "SSDown Logo",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SSDown - Video Downloader",
+    description: "Download videos from X, TikTok and more.",
+    images: ["https://ssdown.app/logo.png"],
+  },
+  alternates: {
+    canonical: "https://ssdown.app",
+  },
+};
 
-  const baseUrl = "https://ssdown.app";
-  const canonical = baseUrl;
-
-  return {
-    title: dict.home?.seo_title || "SSDown - Ultimate Video Downloader",
-    description:
-      dict.home?.seo_description || "Download videos from X, TikTok and more.",
-    keywords: dict.home?.seo_keywords
-      ? dict.home.seo_keywords.split(", ")
-      : ["video downloader", "twitter video download", "tiktok downloader"],
-    openGraph: {
-      title: dict.home?.seo_title || "SSDown - Video Downloader",
-      description:
-        dict.home?.seo_description ||
-        "Download videos from X, TikTok and more.",
-      url: canonical,
-      siteName: "SSDown",
-      images: [
-        {
-          url: "https://ssdown.app/logo.png",
-          width: 1200,
-          height: 630,
-          alt: "SSDown Logo",
-        },
-      ],
-      locale: "en_US",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: dict.home?.title || "SSDown - Video Downloader",
-      description:
-        dict.home?.subtitle || "Download videos from X, TikTok and more.",
-      images: ["https://ssdown.app/logo.png"],
-    },
-    alternates: {
-      canonical: canonical,
-    },
-  };
-}
-
-export default async function Home() {
-  const dict = await getDictionary();
-
+export default function Home() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     name: "SSDown",
     url: "https://ssdown.app",
-    description:
-      dict.home?.subtitle ||
-      "Download videos from X, TikTok, Instagram, and more.",
+    description: "Download videos from X, TikTok, Instagram, and more.",
     applicationCategory: "MultimediaApplication",
     operatingSystem: "All",
     offers: {
@@ -81,7 +62,7 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <HomeClient dict={dict} />
+      <HomeClient />
     </>
   );
 }

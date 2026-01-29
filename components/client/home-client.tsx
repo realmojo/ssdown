@@ -16,11 +16,7 @@ import {
   NineGagIcon,
 } from "@/components/ui/icons";
 
-interface HomeClientProps {
-  dict: any;
-}
-
-export function HomeClient({ dict }: HomeClientProps) {
+export function HomeClient() {
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
       {/* 1. H1 Section */}
@@ -28,18 +24,21 @@ export function HomeClient({ dict }: HomeClientProps) {
         <div className="absolute inset-0 bg-linear-to-br from-indigo-50/30 via-white to-purple-50/30 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 -z-10" />
         <div className="container px-4 md:px-6 flex flex-col items-center text-center space-y-8">
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-indigo-800 to-gray-900 dark:from-white dark:via-indigo-200 dark:to-white pb-2 leading-tight">
-            {dict.home?.h1_title || "How to Safely Use Online Video Content"}
+            How to Safely Use Online Video Content
           </h1>
 
           {/* 2. Main Introduction Paragraph */}
           <div className="max-w-3xl mx-auto space-y-6 text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
             <p className="font-medium">
-              {dict.home?.intro_p1 ||
-                "SSDown is an informational guide dedicated to helping users manage and utilize online video content efficiently within the boundaries of personal use and legal compliance."}
+              SSDown is an informational guide dedicated to helping users manage
+              and utilize online video content efficiently within the boundaries
+              of personal use and legal compliance.
             </p>
             <p>
-              {dict.home?.intro_p2 ||
-                "Online video content can be a valuable resource for learning, archiving, and offline reference in various situations. Our goal is to assist users in understanding content policies and copyright regulations, ensuring a safe and responsible digital experience."}
+              Online video content can be a valuable resource for learning,
+              archiving, and offline reference in various situations. Our goal
+              is to assist users in understanding content policies and copyright
+              regulations, ensuring a safe and responsible digital experience.
             </p>
           </div>
         </div>
@@ -49,26 +48,21 @@ export function HomeClient({ dict }: HomeClientProps) {
       <section className="py-16 bg-white dark:bg-gray-950">
         <div className="container px-4 md:px-6 max-w-4xl">
           <h2 className="text-3xl font-bold tracking-tight mb-8 text-center sm:text-left">
-            {dict.home?.topics_title || "What We Cover at SSDown"}
+            What We Cover at SSDown
           </h2>
           <div className="grid sm:grid-cols-2 gap-8">
             <div className="space-y-4">
               <p className="text-muted-foreground leading-relaxed">
-                {dict.home?.topics_desc ||
-                  "We provide comprehensive information on the following topics related to video content utilization:"}
+                We provide comprehensive information on the following topics
+                related to video content utilization
               </p>
               <ul className="space-y-3">
                 {[
-                  dict.home?.topic_1 ||
-                    "Summary of content usage policies by platform",
-                  dict.home?.topic_2 ||
-                    "Guidelines for personal archiving & offline viewing",
-                  dict.home?.topic_3 ||
-                    "Methods for organizing and managing video files",
-                  dict.home?.topic_4 ||
-                    "Guides on privacy protection and security",
-                  dict.home?.topic_5 ||
-                    "Troubleshooting common video playback issues",
+                  "Summary of content usage policies by platform",
+                  "Guidelines for personal archiving & offline viewing",
+                  "Methods for organizing and managing video files",
+                  "Guides on privacy protection and security",
+                  "Troubleshooting common video playback issues",
                 ].map((item, i) => (
                   <li
                     key={i}
@@ -91,18 +85,15 @@ export function HomeClient({ dict }: HomeClientProps) {
       <section className="py-16 bg-gray-50 dark:bg-gray-900/20 border-y">
         <div className="container px-4 md:px-6 max-w-4xl">
           <h2 className="text-3xl font-bold tracking-tight mb-8 text-center">
-            {dict.home?.target_title || "Who Is This Helpful For?"}
+            Who Is This Helpful For?
           </h2>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[
-              dict.home?.target_1 || "Users managing personal video archives",
-              dict.home?.target_2 || "Those curious about platform policies",
-              dict.home?.target_3 ||
-                "People needing offline educational content",
-              dict.home?.target_4 ||
-                "Anyone organizing digital files systematically",
-              dict.home?.target_5 ||
-                "Users seeking safe content consumption methods",
+              "Users managing personal video archives",
+              "Those curious about platform policies",
+              "People needing offline educational content",
+              "Anyone organizing digital files systematically",
+              "Users seeking safe content consumption methods",
             ].map((text, i) => (
               <Card
                 key={i}
@@ -127,16 +118,17 @@ export function HomeClient({ dict }: HomeClientProps) {
         <div className="container px-4 md:px-6 max-w-5xl">
           <div className="text-center max-w-3xl mx-auto space-y-6 mb-12">
             <h2 className="text-3xl font-bold tracking-tight">
-              {dict.home?.tools_title || "Video Content Management Tools"}
+              Video Content Management Tools
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              {dict.home?.tools_desc ||
-                "SSDown operates primarily as an information resource. We also provide auxiliary tools designed strictly for personal content management purposes."}
+              SSDown operates primarily as an information resource. We also
+              provide auxiliary tools designed strictly for personal content
+              management purposes.
             </p>
             <div className="bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900 p-4 rounded-lg text-sm text-blue-800 dark:text-blue-200 max-w-2xl mx-auto">
-              <strong>{dict.home?.notice_label || "Notice:"}</strong>{" "}
-              {dict.home?.tools_notice ||
-                "These tools are for convenience only. All copyrights belong to the original creators and platforms. Users must strictly adhere to the terms of service of each platform."}
+              <strong>Notice:</strong> These tools are for convenience only. All
+              copyrights belong to the original creators and platforms. Users
+              must strictly adhere to the terms of service of each platform.
             </div>
           </div>
 
@@ -200,7 +192,7 @@ export function HomeClient({ dict }: HomeClientProps) {
 
           <div className="mt-8 text-center">
             <p className="text-sm text-muted-foreground">
-              👉 {dict.home?.personal_use_only || "(Personal Use Only)"}
+              👉 (Personal Use Only)
             </p>
           </div>
         </div>
@@ -210,16 +202,19 @@ export function HomeClient({ dict }: HomeClientProps) {
       <section className="py-16 bg-gray-50 dark:bg-gray-900/20 border-t">
         <div className="container px-4 md:px-6 max-w-4xl space-y-6">
           <h2 className="text-2xl font-bold tracking-tight">
-            {dict.home?.legal_title || "Important Legal & Copyright Notice"}
+            Important Legal & Copyright Notice
           </h2>
           <div className="prose prose-slate dark:prose-invert max-w-none text-muted-foreground">
             <p>
-              {dict.home?.legal_p1 ||
-                "SSDown does not host, store, or archive any media files on its servers. We act solely as a conduit for information and management tools, based on publicly available URLs provided by users."}
+              SSDown does not host, store, or archive any media files on its
+              servers. We act solely as a conduit for information and management
+              tools, based on publicly available URLs provided by users.
             </p>
             <p>
-              {dict.home?.legal_p2 ||
-                "We do not encourage or endorse any illegal use of content. All users are responsible for complying with the copyright laws of their respective countries and the Terms of Service of the platforms they use."}
+              We do not encourage or endorse any illegal use of content. All
+              users are responsible for complying with the copyright laws of
+              their respective countries and the Terms of Service of the
+              platforms they use.
             </p>
           </div>
         </div>
@@ -229,11 +224,13 @@ export function HomeClient({ dict }: HomeClientProps) {
       <section className="py-16 bg-white dark:bg-gray-950 border-t">
         <div className="container px-4 md:px-6 max-w-4xl space-y-6">
           <h2 className="text-2xl font-bold tracking-tight">
-            {dict.home?.transparency_title || "Operational Transparency"}
+            Operational Transparency
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            {dict.home?.transparency_desc ||
-              "SSDown prioritizes user experience above all else. We strive to avoid excessively intrusive advertising. While some advertisements may be displayed to support the maintenance and improvement of our service, we are committed to keeping them relevant."}
+            SSDown prioritizes user experience above all else. We strive to
+            avoid excessively intrusive advertising. While some advertisements
+            may be displayed to support the maintenance and improvement of our
+            service, we are committed to keeping them relevant.
           </p>
         </div>
       </section>
