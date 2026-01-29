@@ -115,7 +115,7 @@ export interface VideoDownloaderClientProps {
 }
 
 export function VideoDownloaderClient({
-  type, // type: "x", "tiktok", "instagram", "facebook", "9gag", "dailymotion"
+  // type, // type: "x", "tiktok", "instagram", "facebook", "9gag", "dailymotion"
   dict,
   theme,
   icon: Icon,
@@ -184,7 +184,7 @@ export function VideoDownloaderClient({
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<VideoResponse | VideoResponse[] | null>(
-    null
+    null,
   );
   const [error, setError] = useState<string | null>(null);
   const [downloadingVideo, setDownloadingVideo] = useState<string | null>(null);
@@ -201,13 +201,13 @@ export function VideoDownloaderClient({
 
     try {
       const response = await fetch(
-        `${apiEndpoint}?url=${encodeURIComponent(url)}`
+        `${apiEndpoint}?url=${encodeURIComponent(url)}`,
       );
       const result = await response.json();
 
       if (!response.ok || result.error) {
         throw new Error(
-          result.message || result.error || "Failed to fetch video information"
+          result.message || result.error || "Failed to fetch video information",
         );
       }
 
@@ -215,7 +215,7 @@ export function VideoDownloaderClient({
       if (Array.isArray(result)) {
         // 배열인 경우: 각 항목이 유효한지 확인
         const validItems = result.filter(
-          (item) => item && item.videoItems && item.videoItems.length > 0
+          (item) => item && item.videoItems && item.videoItems.length > 0,
         );
         if (validItems.length === 0) {
           throw new Error(noVideoError);
@@ -235,7 +235,7 @@ export function VideoDownloaderClient({
       console.error("Error fetching video:", err);
       setError(
         err?.message ||
-          "Failed to fetch video information. Please check the URL and try again."
+          "Failed to fetch video information. Please check the URL and try again.",
       );
     } finally {
       setLoading(false);
@@ -402,7 +402,7 @@ export function VideoDownloaderClient({
                                 <Calendar className="w-3 h-3" />
                                 <span>
                                   {new Date(
-                                    item.createdAt
+                                    item.createdAt,
                                   ).toLocaleDateString()}
                                 </span>
                               </div>
@@ -457,7 +457,7 @@ export function VideoDownloaderClient({
                                       ? transformVideoUrl(video.url)
                                       : video.url;
                                     const downloadHref = `${downloadEndpoint}?videoUrl=${encodeURIComponent(
-                                      finalUrl
+                                      finalUrl,
                                     )}`;
                                     const fileName = downloadFileName
                                       ? downloadFileName(quality)
@@ -513,7 +513,7 @@ export function VideoDownloaderClient({
                                         </div>
                                       </a>
                                     );
-                                  }
+                                  },
                                 )}
                               </div>
                             </div>

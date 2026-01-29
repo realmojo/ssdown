@@ -8,10 +8,19 @@ import { ModeToggle } from "@/components/mode-toggle";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
 
 interface SiteHeaderProps {
   dict: any;
@@ -34,6 +43,11 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
   else if (pathname?.endsWith("/facebook")) currentPage = "facebook";
   else if (pathname?.endsWith("/dailymotion")) currentPage = "dailymotion";
   else if (pathname?.endsWith("/9gag")) currentPage = "9gag";
+  else if (pathname?.endsWith("/youtube/thumbnail"))
+    currentPage = "youtube/thumbnail";
+  else if (pathname?.endsWith("/youtube/preview"))
+    currentPage = "youtube/preview";
+  else if (pathname?.endsWith("/blog")) currentPage = "blog";
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
@@ -61,54 +75,75 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
           className="hidden md:flex items-center gap-4 text-sm font-medium"
           aria-label="Main navigation"
         >
-          <Link href="/x">
-            <Button
-              variant="ghost"
-              className="text-muted-foreground hover:text-primary"
-            >
-              {dict?.twitter || "X (Twitter)"}
-            </Button>
-          </Link>
-          <Link href="/tiktok">
-            <Button
-              variant="ghost"
-              className="text-muted-foreground hover:text-primary"
-            >
-              {dict?.tiktok || "TikTok"}
-            </Button>
-          </Link>
-          <Link href="/instagram">
-            <Button
-              variant="ghost"
-              className="text-muted-foreground hover:text-primary"
-            >
-              {dict?.instagram?.nav || "Instagram"}
-            </Button>
-          </Link>
-          <Link href="/facebook">
-            <Button
-              variant="ghost"
-              className="text-muted-foreground hover:text-primary"
-            >
-              {dict?.facebook?.nav || "Facebook"}
-            </Button>
-          </Link>
-          <Link href="/dailymotion">
-            <Button
-              variant="ghost"
-              className="text-muted-foreground hover:text-primary"
-            >
-              {dict?.dailymotion?.nav || "Dailymotion"}
-            </Button>
-          </Link>
-          <Link href="/9gag">
-            <Button
-              variant="ghost"
-              className="text-muted-foreground hover:text-primary"
-            >
-              {dict?.["9gag"]?.nav || "9GAG"}
-            </Button>
-          </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
+              >
+                Downloader <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem asChild>
+                <Link href="/x" className="w-full cursor-pointer">
+                  {dict?.twitter || "X (Twitter)"}
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/tiktok" className="w-full cursor-pointer">
+                  {dict?.tiktok || "TikTok"}
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/instagram" className="w-full cursor-pointer">
+                  {dict?.instagram?.nav || "Instagram"}
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/facebook" className="w-full cursor-pointer">
+                  {dict?.facebook?.nav || "Facebook"}
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/dailymotion" className="w-full cursor-pointer">
+                  {dict?.dailymotion?.nav || "Dailymotion"}
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/9gag" className="w-full cursor-pointer">
+                  {dict?.["9gag"]?.nav || "9GAG"}
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
+              >
+                Youtube <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem asChild>
+                <Link
+                  href="/youtube/thumbnail"
+                  className="w-full cursor-pointer"
+                >
+                  Thumbnail Downloader
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/youtube/preview" className="w-full cursor-pointer">
+                  Edit Preview
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <Link href="/blog">
             <Button
               variant="ghost"
@@ -127,20 +162,34 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="home">{dict?.home || "Home"}</SelectItem>
-              <SelectItem value="x">
-                {dict?.twitter || "X (Twitter)"}
-              </SelectItem>
-              <SelectItem value="tiktok">{dict?.tiktok || "TikTok"}</SelectItem>
-              <SelectItem value="instagram">
-                {dict?.instagram || "Instagram"}
-              </SelectItem>
-              <SelectItem value="facebook">
-                {dict?.facebook || "Facebook"}
-              </SelectItem>
-              <SelectItem value="dailymotion">
-                {dict?.dailymotion?.nav || "Dailymotion"}
-              </SelectItem>
-              <SelectItem value="9gag">{dict?.["9gag"] || "9GAG"}</SelectItem>
+              <SelectGroup>
+                <SelectLabel>Downloader</SelectLabel>
+                <SelectItem value="x">
+                  {dict?.twitter || "X (Twitter)"}
+                </SelectItem>
+                <SelectItem value="tiktok">
+                  {dict?.tiktok || "TikTok"}
+                </SelectItem>
+                <SelectItem value="instagram">
+                  {dict?.instagram?.nav || "Instagram"}
+                </SelectItem>
+                <SelectItem value="facebook">
+                  {dict?.facebook?.nav || "Facebook"}
+                </SelectItem>
+                <SelectItem value="dailymotion">
+                  {dict?.dailymotion?.nav || "Dailymotion"}
+                </SelectItem>
+                <SelectItem value="9gag">
+                  {dict?.["9gag"]?.nav || "9GAG"}
+                </SelectItem>
+              </SelectGroup>
+              <SelectGroup>
+                <SelectLabel>Youtube</SelectLabel>
+                <SelectItem value="youtube/thumbnail">
+                  Thumbnail Downloader
+                </SelectItem>
+                <SelectItem value="youtube/preview">Priview Editor</SelectItem>
+              </SelectGroup>
               <SelectItem value="blog">Blog</SelectItem>
             </SelectContent>
           </Select>

@@ -1,4 +1,3 @@
-import { getDictionary } from "@/lib/get-dictionary";
 import { ContactClient } from "@/components/client/contact-client";
 import { Metadata } from "next";
 
