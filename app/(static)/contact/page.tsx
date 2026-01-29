@@ -26,7 +26,5 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ContactPage() {
-  const dict = await getDictionary();
-
-  return <ContactClient dict={dict} />;
+  return <ContactClient />;
 }
