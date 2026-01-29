@@ -1,10 +1,6 @@
 "use client";
 
-interface AboutClientProps {
-  dict: any;
-}
-
-export function AboutClient({ dict }: AboutClientProps) {
+export function AboutClient() {
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
       {/* Hero Section */}

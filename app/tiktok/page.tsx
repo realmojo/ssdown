@@ -1,21 +1,15 @@
 export const runtime = "edge";
-import { type Locale } from "@/lib/i18n-config";
 
 import { getDictionary } from "@/lib/get-dictionary";
 import { TikTokClient } from "@/components/client/tiktok-client";
 
 import { Metadata } from "next";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>;
-}): Promise<Metadata> {
-  const { lang } = await params;
-  const dict = await getDictionary(lang);
+export async function generateMetadata(): Promise<Metadata> {
+  const dict = await getDictionary();
 
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/${lang + "/"}tiktok`;
+  const canonical = `${baseUrl}/tiktok`;
 
   return {
     title: dict.tiktok?.seo_title || "TikTok Video Downloader",
@@ -40,16 +34,7 @@ export async function generateMetadata({
           alt: "SSDown - TikTok Video Downloader",
         },
       ],
-      locale:
-        lang === "en"
-          ? "en_US"
-          : lang === "jp"
-          ? "ja_JP"
-          : lang === "kr"
-          ? "ko_KR"
-          : lang === "pt"
-          ? "pt_BR"
-          : "fr_FR",
+      locale: "en_US",
       type: "website",
     },
     twitter: {
@@ -65,11 +50,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function TikTokPage(props: {
-  params: Promise<{ lang: Locale }>;
-}) {
-  const params = await props.params;
-  const dict = await getDictionary(params.lang);
+export default async function TikTokPage() {
+  const dict = await getDictionary();
 
   const jsonLd = {
     "@context": "https://schema.org",

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Mail, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,68 +10,17 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
-interface ContactClientProps {
-  dict: any;
-}
-
-export function ContactClient({ dict }: ContactClientProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.error || "Failed to send message");
-      }
-
-      setIsSuccess(true);
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    } catch (err: any) {
-      console.error("Error submitting form:", err);
-      setError(err?.message || "Failed to send message. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
-  };
-
+export const ContactClient = () => {
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
       {/* Hero Section */}
       <section className="relative overflow-hidden py-16 lg:py-24 text-center bg-gray-50 dark:bg-gray-900/20">
         <div className="container px-4 md:px-6">
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-indigo-800 to-gray-900 dark:from-white dark:via-indigo-200 dark:to-white">
-            {dict?.contact?.title || "Contact Us"}
+            Contact Us
           </h1>
           <p className="mx-auto max-w-[800px] text-gray-600 md:text-xl dark:text-gray-300">
-            {dict?.contact?.subtitle || "We'd love to hear from you"}
+            We'd love to hear from you
           </p>
         </div>
       </section>
@@ -84,9 +32,7 @@ export function ContactClient({ dict }: ContactClientProps) {
           <div className="md:col-span-3">
             <Card className="border shadow-lg max-w-2xl mx-auto text-center">
               <CardHeader>
-                <CardTitle className="text-2xl">
-                  {dict?.contact?.form_title || "Get in Touch"}
-                </CardTitle>
+                <CardTitle className="text-2xl">Get in Touch</CardTitle>
                 <CardDescription className="text-lg mt-2">
                   For support, copyright, or business inquiries, please email us
                   directly.
@@ -134,4 +80,4 @@ export function ContactClient({ dict }: ContactClientProps) {
       </section>
     </div>
   );
-}
+};

@@ -1,21 +1,31 @@
 import Link from "next/link";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Post, getLocalizedContent } from "@/lib/posts";
+import { Post } from "@/lib/posts";
 
 interface PostCardProps {
   post: Post;
-  lang: string;
-  getPath: (path: string) => string;
+  lang?: string; // Optional or ignored now
+  getPath?: (path: string) => string; // Optional or ignored now
 }
 
-export function PostCard({ post, lang, getPath }: PostCardProps) {
-  const title = getLocalizedContent(post.title, lang);
-  const excerpt = getLocalizedContent(post.excerpt, lang);
-  // en과 kr만 지원, 나머지는 en으로 fallback
-  const displayLang = lang === "kr" ? "kr" : "en";
-  const locale = displayLang === "kr" ? "ko-KR" : "en-US";
-  
+export function PostCard({ post }: PostCardProps) {
+  // Always use English content (assuming post has localized content structure, or just use English fields directly if they exist)
+  // Check stricture of Post in lib/posts
+  // Assuming getLocalizedContent is no longer needed if we just want 'en' or direct access.
+  // Actually, let's keep it simple. If post.title is string, use it. If it's object (en/kr), use 'en'.
+
+  // Helper to safely get English content
+  const getContent = (content: Record<string, string> | string) => {
+    if (typeof content === "string") return content;
+    return content.en || Object.values(content)[0] || "";
+  };
+
+  const title = getContent(post.title);
+  const excerpt = getContent(post.excerpt);
+
+  const locale = "en-US";
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString(locale, {
@@ -27,7 +37,7 @@ export function PostCard({ post, lang, getPath }: PostCardProps) {
 
   return (
     <Card className="group hover:shadow-lg transition-all duration-300 border-gray-200 dark:border-gray-800">
-      <Link href={getPath(`/blog/${post.id}`)}>
+      <Link href={`/blog/${post.id}`}>
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
             <Calendar className="w-4 h-4" />
@@ -61,4 +71,3 @@ export function PostCard({ post, lang, getPath }: PostCardProps) {
     </Card>
   );
 }
-

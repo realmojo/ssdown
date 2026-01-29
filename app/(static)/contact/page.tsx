@@ -1,5 +1,3 @@
-import { type Locale } from "@/lib/i18n-config";
-
 import { getDictionary } from "@/lib/get-dictionary";
 import { ContactClient } from "@/components/client/contact-client";
 import { Metadata } from "next";
@@ -28,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ContactPage() {
-  const dict = await getDictionary("en");
+  const dict = await getDictionary();
 
   return <ContactClient dict={dict} />;
 }

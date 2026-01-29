@@ -1,17 +1,10 @@
 "use client";
 
-import { XIcon } from "@/components/ui/icons";
-
 interface SiteFooterProps {
   dict: any;
-  lang: string;
 }
 
-export function SiteFooter({ dict, lang }: SiteFooterProps) {
-  const getPath = (path: string) => {
-    return `/${lang}${path}`;
-  };
-
+export function SiteFooter({ dict }: SiteFooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -20,7 +13,7 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand Column */}
           <div className="col-span-2 lg:col-span-1 space-y-4">
-            <a target="_self" href={getPath("/")} className="inline-block">
+            <a target="_self" href="/" className="inline-block">
               <span className="font-bold text-2xl tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-cyan-500 dark:from-indigo-400 dark:to-cyan-300">
                 SSDown
               </span>
@@ -40,7 +33,7 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
               <li>
                 <a
                   target="_self"
-                  href={getPath("/x")}
+                  href="/x"
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.nav?.twitter || "X (Twitter) Downloader"}
@@ -49,7 +42,7 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
               <li>
                 <a
                   target="_self"
-                  href={getPath("/tiktok")}
+                  href="/tiktok"
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.nav?.tiktok || "TikTok Downloader"}
@@ -58,7 +51,7 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
               <li>
                 <a
                   target="_self"
-                  href={getPath("/instagram")}
+                  href="/instagram"
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.nav?.instagram || "Instagram Downloader"}
@@ -67,7 +60,7 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
               <li>
                 <a
                   target="_self"
-                  href={getPath("/facebook")}
+                  href="/facebook"
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.nav?.facebook || "Facebook Downloader"}
@@ -76,7 +69,7 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
               <li>
                 <a
                   target="_self"
-                  href={getPath("/9gag")}
+                  href="/9gag"
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.nav?.ninegag || "9GAG Downloader"}
@@ -85,7 +78,7 @@ export function SiteFooter({ dict, lang }: SiteFooterProps) {
               <li>
                 <a
                   target="_self"
-                  href={getPath("/dailymotion")}
+                  href="/dailymotion"
                   className="hover:text-primary transition-colors"
                 >
                   {dict?.nav?.dailymotion || "Dailymotion Downloader"}

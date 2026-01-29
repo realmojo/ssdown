@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { LanguageSelector } from "@/components/language-selector";
 import { ModeToggle } from "@/components/mode-toggle";
 import {
   Select,
@@ -16,21 +15,15 @@ import {
 
 interface SiteHeaderProps {
   dict: any;
-  lang: string;
 }
 
-export function SiteHeader({ dict, lang }: SiteHeaderProps) {
+export function SiteHeader({ dict }: SiteHeaderProps) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const getPath = (path: string) => {
-    if (lang === "en") return path;
-    return `/${lang}${path === "/" ? "" : path}`;
-  };
-
   const handleNavChange = (value: string) => {
     const path = value === "home" ? "/" : `/${value}`;
-    router.push(getPath(path));
+    router.push(path);
   };
 
   // Determine current active page for Select value
@@ -46,7 +39,7 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center px-4 md:px-6">
         <Link
-          href={getPath("/")}
+          href="/"
           className="flex items-center gap-2 font-bold text-xl mr-6 hover:opacity-80 transition-opacity"
         >
           <Image
@@ -68,7 +61,7 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
           className="hidden md:flex items-center gap-4 text-sm font-medium"
           aria-label="Main navigation"
         >
-          <Link href={getPath("/x")}>
+          <Link href="/x">
             <Button
               variant="ghost"
               className="text-muted-foreground hover:text-primary"
@@ -76,7 +69,7 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
               {dict?.twitter || "X (Twitter)"}
             </Button>
           </Link>
-          <Link href={getPath("/tiktok")}>
+          <Link href="/tiktok">
             <Button
               variant="ghost"
               className="text-muted-foreground hover:text-primary"
@@ -84,7 +77,7 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
               {dict?.tiktok || "TikTok"}
             </Button>
           </Link>
-          <Link href={getPath("/instagram")}>
+          <Link href="/instagram">
             <Button
               variant="ghost"
               className="text-muted-foreground hover:text-primary"
@@ -92,7 +85,7 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
               {dict?.instagram?.nav || "Instagram"}
             </Button>
           </Link>
-          <Link href={getPath("/facebook")}>
+          <Link href="/facebook">
             <Button
               variant="ghost"
               className="text-muted-foreground hover:text-primary"
@@ -100,7 +93,7 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
               {dict?.facebook?.nav || "Facebook"}
             </Button>
           </Link>
-          <Link href={getPath("/dailymotion")}>
+          <Link href="/dailymotion">
             <Button
               variant="ghost"
               className="text-muted-foreground hover:text-primary"
@@ -108,7 +101,7 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
               {dict?.dailymotion?.nav || "Dailymotion"}
             </Button>
           </Link>
-          <Link href={getPath("/9gag")}>
+          <Link href="/9gag">
             <Button
               variant="ghost"
               className="text-muted-foreground hover:text-primary"
@@ -116,7 +109,7 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
               {dict?.["9gag"]?.nav || "9GAG"}
             </Button>
           </Link>
-          <Link href={getPath("/blog")}>
+          <Link href="/blog">
             <Button
               variant="ghost"
               className="text-muted-foreground hover:text-primary"
@@ -154,7 +147,6 @@ export function SiteHeader({ dict, lang }: SiteHeaderProps) {
         </nav>
 
         <div className="ml-auto flex items-center gap-2">
-          <LanguageSelector currentLang={lang} />
           {/* PC만 상단에 표시 */}
           <div className="hidden md:block">
             <ModeToggle />

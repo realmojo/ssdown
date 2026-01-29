@@ -35,8 +35,6 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
       {/* Visual Breadcrumbs */}
       <ol className="flex items-center space-x-2 text-sm text-muted-foreground flex-wrap">
         {items.map((item, index) => {
-          const isLast = index === items.length - 1;
-
           return (
             <li key={item.href} className="flex items-center">
               {index > 0 && (

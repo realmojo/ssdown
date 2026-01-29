@@ -18,14 +18,9 @@ import {
 
 interface HomeClientProps {
   dict: any;
-  lang: string;
 }
 
-export function HomeClient({ dict, lang }: HomeClientProps) {
-  const getPath = (path: string) => {
-    return `/${lang}${path === "/" ? "" : path}`;
-  };
-
+export function HomeClient({ dict }: HomeClientProps) {
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
       {/* 1. H1 Section */}
@@ -147,7 +142,7 @@ export function HomeClient({ dict, lang }: HomeClientProps) {
 
           {/* Renamed & Refined Tool Links */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-            <Link href={getPath("/x")} className="group">
+            <Link href="/x" className="group">
               <Button
                 variant="outline"
                 className="w-full h-auto py-6 flex flex-col gap-2 hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-950 transition-all"
@@ -156,7 +151,7 @@ export function HomeClient({ dict, lang }: HomeClientProps) {
                 <span className="font-semibold">X (Twitter) Tool</span>
               </Button>
             </Link>
-            <Link href={getPath("/tiktok")} className="group">
+            <Link href="/tiktok" className="group">
               <Button
                 variant="outline"
                 className="w-full h-auto py-6 flex flex-col gap-2 hover:border-pink-500 hover:bg-pink-50 dark:hover:bg-pink-950 transition-all"
@@ -165,7 +160,7 @@ export function HomeClient({ dict, lang }: HomeClientProps) {
                 <span className="font-semibold">TikTok Tool</span>
               </Button>
             </Link>
-            <Link href={getPath("/instagram")} className="group">
+            <Link href="/instagram" className="group">
               <Button
                 variant="outline"
                 className="w-full h-auto py-6 flex flex-col gap-2 hover:border-purple-500 hover:bg-purple-50 dark:hover:bg-purple-950 transition-all"
@@ -174,7 +169,7 @@ export function HomeClient({ dict, lang }: HomeClientProps) {
                 <span className="font-semibold">Instagram Tool</span>
               </Button>
             </Link>
-            <Link href={getPath("/facebook")} className="group">
+            <Link href="/facebook" className="group">
               <Button
                 variant="outline"
                 className="w-full h-auto py-6 flex flex-col gap-2 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950 transition-all"
@@ -183,7 +178,7 @@ export function HomeClient({ dict, lang }: HomeClientProps) {
                 <span className="font-semibold">Facebook Tool</span>
               </Button>
             </Link>
-            <Link href={getPath("/dailymotion")} className="group">
+            <Link href="/dailymotion" className="group">
               <Button
                 variant="outline"
                 className="w-full h-auto py-6 flex flex-col gap-2 hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-950 transition-all"
@@ -192,7 +187,7 @@ export function HomeClient({ dict, lang }: HomeClientProps) {
                 <span className="font-semibold">Dailymotion Tool</span>
               </Button>
             </Link>
-            <Link href={getPath("/9gag")} className="group">
+            <Link href="/9gag" className="group">
               <Button
                 variant="outline"
                 className="w-full h-auto py-6 flex flex-col gap-2 hover:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"

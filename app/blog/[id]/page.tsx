@@ -4,9 +4,8 @@ import { Metadata } from "next";
 import { type Locale } from "@/lib/i18n-config";
 import { notFound } from "next/navigation";
 import { PostContent } from "@/components/PostContent";
-import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
+import { Calendar, Clock, User } from "lucide-react";
 
 export async function generateMetadata({
   params,

@@ -1,21 +1,15 @@
 export const runtime = "edge";
-import { type Locale } from "@/lib/i18n-config";
 
 import { getDictionary } from "@/lib/get-dictionary";
 import { XClient } from "@/components/client/x-client";
 
 import { Metadata } from "next";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>;
-}): Promise<Metadata> {
-  const { lang } = await params;
-  const dict = await getDictionary(lang);
+export async function generateMetadata(): Promise<Metadata> {
+  const dict = await getDictionary();
 
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/${lang + "/"}x`;
+  const canonical = `${baseUrl}/x`;
 
   return {
     title: dict.x?.seo_title || "X (Twitter) Video Downloader",
@@ -38,16 +32,7 @@ export async function generateMetadata({
           alt: "SSDown - X Video Downloader",
         },
       ],
-      locale:
-        lang === "en"
-          ? "en_US"
-          : lang === "jp"
-          ? "ja_JP"
-          : lang === "kr"
-          ? "ko_KR"
-          : lang === "pt"
-          ? "pt_BR"
-          : "fr_FR",
+      locale: "en_US",
       type: "website",
     },
     twitter: {
@@ -62,11 +47,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function TwitterPage(props: {
-  params: Promise<{ lang: Locale }>;
-}) {
-  const params = await props.params;
-  const dict = await getDictionary(params.lang);
+export default async function TwitterPage() {
+  const dict = await getDictionary();
   // 동적 import로 번들 크기 최적화
   const jsonLd = {
     "@context": "https://schema.org",

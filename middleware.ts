@@ -1,61 +1,19 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { i18n } from "./lib/i18n-config";
 import { lambdaProxy } from "./lambda/index";
-
-
 
 export async function middleware(request: NextRequest) {
   try {
-    const pathname = request.nextUrl.pathname;
-
     // Lambda proxy 처리 (다운로드 API 등)
     const lambdaResponse = await lambdaProxy(request);
     if (lambdaResponse) {
       return lambdaResponse;
     }
 
-    // Check if there is any supported locale in the pathname
-    const pathnameIsMissingLocale = i18n.locales.every(
-      (locale) =>
-        !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
-    );
-
-    // Redirect if there is no locale
-    if (pathnameIsMissingLocale) {
-      // Root path redirects to /en
-      if (pathname === "/") {
-        return NextResponse.redirect(
-          new URL(`/${i18n.defaultLocale}`, request.url),
-        );
-      }
-
-      // Check if it's a public file or API
-      if (
-        pathname.startsWith("/_next") ||
-        pathname.startsWith("/api") ||
-        pathname.includes(".") || // files like favicon.ico, robots.txt
-        pathname === "/about" ||
-        pathname === "/privacy" ||
-        pathname === "/terms" ||
-        pathname === "/contact"
-      ) {
-        return;
-      }
-
-      const redirectPath = `/${i18n.defaultLocale}${pathname}`;
-      const redirectUrl = new URL(redirectPath, request.url);
-      redirectUrl.search = request.nextUrl.search; // Preserve query parameters
-
-      return NextResponse.redirect(redirectUrl);
-    }
-
-    return;
+    return NextResponse.next();
   } catch (error) {
-    // 에러 발생 시 기본 경로로 fallback
     console.error("Middleware error:", error);
-    const fallbackUrl = new URL(`/${i18n.defaultLocale}`, request.url);
-    return NextResponse.rewrite(fallbackUrl);
+    return NextResponse.next();
   }
 }
 

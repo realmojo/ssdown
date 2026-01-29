@@ -1,28 +1,16 @@
 import type { Metadata } from "next";
-import "../globals.css";
+import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { i18n, type Locale } from "@/lib/i18n-config";
 import { getDictionary } from "@/lib/get-dictionary";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AdsenseInit } from "@/components/AdsenseInit";
 import { CookieConsent } from "@/components/cookie-consent";
 
-export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ lang: locale }));
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}): Promise<Metadata> {
-  const { lang } = await params;
-  const locale = lang as Locale;
-  const dict = await getDictionary(locale);
+export async function generateMetadata(): Promise<Metadata> {
+  const dict = await getDictionary();
 
   const baseUrl = "https://ssdown.app";
-  const currentUrl = `${baseUrl}/${lang}`;
 
   return {
     metadataBase: new URL(baseUrl),
@@ -63,17 +51,8 @@ export async function generateMetadata({
     },
     openGraph: {
       type: "website",
-      locale:
-        locale === "en"
-          ? "en_US"
-          : locale === "jp"
-          ? "ja_JP"
-          : locale === "kr"
-          ? "ko_KR"
-          : locale === "pt"
-          ? "pt_BR"
-          : "fr_FR",
-      url: currentUrl,
+      locale: "en_US",
+      url: baseUrl,
       title: dict.home?.title || "SSDown - Ultimate Video Downloader",
       description:
         dict.home?.subtitle ||
@@ -103,14 +82,7 @@ export async function generateMetadata({
       apple: "/apple-icon.png",
     },
     alternates: {
-      canonical: currentUrl,
-      languages: {
-        en: "/en",
-        ja: "/jp",
-        ko: "/kr",
-        pt: "/pt",
-        fr: "/fr",
-      },
+      canonical: baseUrl,
     },
     other: {
       "application-name": "SSDown",
@@ -123,16 +95,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function RootLayout(props: {
-  children: React.ReactNode;
-  params: Promise<{ lang: string }>;
-}) {
-  const params = await props.params;
-  const lang = params.lang as Locale;
-  const dict = await getDictionary(lang);
+export default async function RootLayout(props: { children: React.ReactNode }) {
+  const dict = await getDictionary();
 
   return (
-    <html lang={lang} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Naver Analytics */}
 
@@ -181,9 +148,9 @@ export default async function RootLayout(props: {
           disableTransitionOnChange
         >
           <div className="relative flex min-h-screen flex-col">
-            <SiteHeader dict={dict.nav} lang={lang} />
+            <SiteHeader dict={dict.nav} />
             <main className="flex-1">{props.children}</main>
-            <SiteFooter dict={dict.nav} lang={lang} />
+            <SiteFooter dict={dict.nav} />
             <CookieConsent />
           </div>
         </ThemeProvider>

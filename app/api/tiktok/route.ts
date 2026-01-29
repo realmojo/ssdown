@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 export const runtime = "edge";
-import { getQualityForBitrate } from "@/lib/utils";
 
 // set-cookie 헤더에서 tt_chain_token 추출
 const getTtChainToken = (response: Response): string | null => {
@@ -25,13 +24,12 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const url = searchParams.get("url");
-    const all = searchParams.get("all") === "true";
 
     if (!url) {
       return NextResponse.json({ error: "url required" }, { status: 400 });
     }
 
-    const tiktokId = url.split("/")[url.split("/").length - 1];
+    // const tiktokId = url.split("/")[url.split("/").length - 1];
 
     // TikWM API 사용 (무료 공용 API)
     const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
