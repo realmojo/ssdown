@@ -63,7 +63,6 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
             height={32}
             className="h-8 w-8 object-contain"
             priority
-            unoptimized
           />
           <span className="hidden md:inline bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
             SSDown
@@ -157,7 +156,10 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
         {/* Mobile Navigation */}
         <nav className="md:hidden flex-1 mr-4" aria-label="Mobile navigation">
           <Select value={currentPage} onValueChange={handleNavChange}>
-            <SelectTrigger className="w-full bg-transparent border-0 focus:ring-0 px-2 font-medium">
+            <SelectTrigger
+              className="w-full bg-transparent border-0 focus:ring-0 px-2 font-medium"
+              aria-label="Navigation menu"
+            >
               <SelectValue placeholder="Menu" />
             </SelectTrigger>
             <SelectContent>
