@@ -13,6 +13,8 @@ export async function GET() {
     "/facebook",
     "/9gag",
     "/dailymotion",
+    "/youtube/preview",
+    "/youtube/thumbnail",
     "/privacy",
     "/terms",
     "/about",
