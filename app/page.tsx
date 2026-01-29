@@ -1,7 +1,5 @@
-export const runtime = "edge";
-
-import { HomeClient } from "@/components/client/home-client";
 import { Metadata } from "next";
+import { HomeClient } from "@/components/client/home-client";
 
 export const metadata: Metadata = {
   title: "SSDown - Ultimate Video Downloader",
