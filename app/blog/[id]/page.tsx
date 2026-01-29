@@ -1,7 +1,6 @@
 export const runtime = "edge";
 import { Metadata } from "next";
 
-import { type Locale } from "@/lib/i18n-config";
 import { notFound } from "next/navigation";
 import { PostContent } from "@/components/PostContent";
 import { Breadcrumbs } from "@/components/breadcrumbs";
@@ -10,7 +9,7 @@ import { Calendar, Clock, User } from "lucide-react";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ lang: Locale; id: string }>;
+  params: Promise<{ lang: string; id: string }>;
 }): Promise<Metadata> {
   const { lang, id } = await params;
   // 동적 import로 번들 크기 최적화
@@ -67,7 +66,7 @@ export async function generateMetadata({
 }
 
 export default async function BlogPostPage(props: {
-  params: Promise<{ lang: Locale; id: string }>;
+  params: Promise<{ lang: string; id: string }>;
 }) {
   const params = await props.params;
   const { lang, id } = params;
