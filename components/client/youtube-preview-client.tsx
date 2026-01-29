@@ -58,7 +58,6 @@ export function YoutubePreviewClient({
   );
   const [error, setError] = useState<string | null>(null);
   const [showMore, setShowMore] = useState(true);
-  const [bgColor, setBgColor] = useState("#0f0f0f");
   const router = useRouter();
 
   // Form states
@@ -166,15 +165,9 @@ export function YoutubePreviewClient({
       ) : (
         <>
           {renderInputForm()}
-          <div
-            className="w-full max-w-[1280px] h-[85vh] rounded-xl overflow-hidden shadow-2xl border border-border bg-background flex flex-col transition-colors duration-300"
-            style={bgColor !== "#0f0f0f" ? { backgroundColor: bgColor } : {}}
-          >
+          <div className="w-full max-w-[1280px] h-[85vh] rounded-xl overflow-hidden shadow-2xl border border-border bg-background flex flex-col transition-colors duration-300">
             {/* Top Bar */}
-            <div
-              className="sticky top-0 z-50 flex items-center justify-between px-6 py-3 border-b border-border bg-background transition-colors duration-300"
-              style={bgColor !== "#0f0f0f" ? { backgroundColor: bgColor } : {}}
-            >
+            <div className="sticky top-0 z-50 flex items-center justify-between px-6 py-3 border-b border-border bg-background transition-colors duration-300">
               <div className="flex items-center gap-4">
                 <h1 className="text-xl font-semibold text-foreground">
                   Video details
