@@ -1,10 +1,9 @@
-
 import { getDictionary } from "@/lib/get-dictionary";
 import { AboutClient } from "@/components/client/about-client";
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const dict = await getDictionary("en");
+  const dict = await getDictionary();
 
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/about`;
@@ -29,7 +28,5 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const dict = await getDictionary("en");
-
-  return <AboutClient dict={dict} />;
+  return <AboutClient />;
 }
