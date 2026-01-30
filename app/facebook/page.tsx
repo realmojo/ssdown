@@ -11,15 +11,15 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/facebook`;
 
   return {
-    title: dict.facebook?.seo_title || "Facebook Video Downloader",
+    title: dict.facebook?.seo_title || "Facebook Saver",
     description:
       dict.facebook?.seo_description ||
       "Download Facebook videos in HD/4K quality.",
     keywords: dict.facebook?.seo_keywords
       ? dict.facebook.seo_keywords.split(", ")
-      : ["facebook downloader", "facebook video saver", "fb download"],
+      : ["facebook saver", "facebook video saver", "fb download"],
     openGraph: {
-      title: dict.facebook?.seo_title || "Facebook Video Downloader",
+      title: dict.facebook?.seo_title || "Facebook Saver",
       description:
         dict.facebook?.seo_description ||
         "Download Facebook videos in high quality.",
@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: dict.facebook?.title || "Facebook Video Downloader",
+      title: dict.facebook?.title || "Facebook Saver",
       description:
         dict.facebook?.subtitle || "Download Facebook videos easily.",
       images: ["https://ssdown.app/ssdown-facebook-og.png"],

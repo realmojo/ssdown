@@ -12,14 +12,14 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/x`;
 
   return {
-    title: dict.x?.seo_title || "X (Twitter) Video Downloader",
+    title: dict.x?.seo_title || "X (Twitter) Saver",
     description:
       dict.x?.seo_description || "Download X (Twitter) videos in high quality.",
     keywords: dict.x?.seo_keywords
       ? dict.x.seo_keywords.split(", ")
-      : ["twitter downloader", "x video download"],
+      : ["twitter saver", "x video download"],
     openGraph: {
-      title: dict.x?.seo_title || "X (Twitter) Video Downloader",
+      title: dict.x?.seo_title || "X (Twitter) Saver",
       description:
         dict.x?.seo_description || "Download X (Twitter) videos securely.",
       url: canonical,
@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "https://ssdown.app/ssdown-x-og.png",
           width: 1200,
           height: 630,
-          alt: "SSDown - X Video Downloader",
+          alt: "SSDown - X Saver",
         },
       ],
       locale: "en_US",
@@ -37,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: dict.x?.title || "X (Twitter) Video Downloader",
+      title: dict.x?.title || "X (Twitter) Saver",
       description: dict.x?.subtitle || "Download X videos and GIFs online.",
       images: ["https://ssdown.app/ssdown-x-og.png"],
     },

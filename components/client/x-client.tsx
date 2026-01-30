@@ -16,7 +16,7 @@ import {
   VideoDownloaderClient,
   ThemeConfig,
   StatsConfig,
-} from "./video-downloader-client";
+} from "./video-saver-client";
 import { XIcon } from "@/components/ui/icons";
 import {
   Accordion,
@@ -319,7 +319,7 @@ export function XClient({ dict }: XClientProps) {
       dict={dict}
       theme={theme}
       icon={XIcon}
-      title={dict?.x?.title || "X (Twitter) Video Downloader"}
+      title={dict?.x?.title || "X (Twitter) Saver"}
       subtitle={
         dict?.x?.subtitle ||
         "Save X (Twitter) videos and GIFs in MP4 format. High quality, free, and unlimited."

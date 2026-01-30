@@ -15,7 +15,7 @@ import {
   VideoDownloaderClient,
   ThemeConfig,
   StatsConfig,
-} from "./video-downloader-client";
+} from "./video-saver-client";
 import {
   Accordion,
   AccordionContent,
@@ -327,7 +327,7 @@ export function NineGagClient({ dict }: NineGagClientProps) {
       dict={dict}
       theme={theme}
       icon={NineGagIcon}
-      title={dict?.["9gag"]?.title || "9GAG Video Downloader"}
+      title={dict?.["9gag"]?.title || "9GAG Saver"}
       subtitle={
         dict?.["9gag"]?.subtitle ||
         "Save 9GAG videos and GIFs in MP4 format. High quality, free, and unlimited."

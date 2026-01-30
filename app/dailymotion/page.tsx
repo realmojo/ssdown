@@ -11,15 +11,15 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/dailymotion`;
 
   return {
-    title: dict.dailymotion?.seo_title || "Dailymotion Video Downloader",
+    title: dict.dailymotion?.seo_title || "Dailymotion Saver",
     description:
       dict.dailymotion?.seo_description ||
       "Download Dailymotion videos in high quality.",
     keywords: dict.dailymotion?.seo_keywords
       ? dict.dailymotion.seo_keywords.split(", ")
-      : ["dailymotion downloader", "dailymotion video download"],
+      : ["dailymotion saver", "dailymotion video download"],
     openGraph: {
-      title: dict.dailymotion?.seo_title || "Dailymotion Video Downloader",
+      title: dict.dailymotion?.seo_title || "Dailymotion Saver",
       description:
         dict.dailymotion?.seo_description ||
         "Download Dailymotion videos instantly.",
@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: dict.dailymotion?.title || "Dailymotion Video Downloader",
+      title: dict.dailymotion?.title || "Dailymotion Saver",
       description:
         dict.dailymotion?.subtitle || "Download Dailymotion videos instantly.",
       images: ["https://ssdown.app/ssdown-dailymotion-og.png"],

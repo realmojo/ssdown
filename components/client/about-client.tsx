@@ -39,8 +39,8 @@ export function AboutClient() {
               Technical Expertise: Research & Engineering
             </h2>
             <p className="text-muted-foreground leading-relaxed text-lg">
-              We are not just a downloader site; we are a team of data engineers
-              and archivists researching <strong>video stream protocols</strong>{" "}
+              We are not just a saver site; we are a team of data engineers and
+              archivists researching <strong>video stream protocols</strong>{" "}
               (HLS, DASH) and <strong>metadata preservation</strong>. Our
               backend infrastructure is designed to ensuring high-fidelity
               extraction of digital assets while respecting the technical

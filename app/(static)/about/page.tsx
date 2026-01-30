@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/about`;
 
   return {
-    title: dict.about?.title || "About SSDown - Social Media Video Downloader",
+    title: dict.about?.title || "About SSDown - Social Media Saver",
     description:
       dict.about?.description ||
       "Learn more about SSDown, the best tool for downloading videos from X, TikTok, Instagram, and Facebook.",

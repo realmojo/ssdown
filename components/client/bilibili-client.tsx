@@ -16,7 +16,7 @@ import {
   VideoDownloaderClient,
   ThemeConfig,
   StatsConfig,
-} from "./video-downloader-client";
+} from "./video-saver-client";
 import {
   Accordion,
   AccordionContent,
@@ -209,7 +209,7 @@ export function BilibiliClient({ dict }: BilibiliClientProps) {
           </h2>
           <p className="text-muted-foreground">
             {dict?.bilibili?.features_desc ||
-              "Key features of our Bilibili video downloader."}
+              "Key features of our Bilibili video saver."}
           </p>
         </div>
 
@@ -311,7 +311,7 @@ export function BilibiliClient({ dict }: BilibiliClientProps) {
       dict={dict}
       theme={theme}
       icon={BilibiliIcon}
-      title={dict?.bilibili?.title || "Bilibili Video Downloader"}
+      title={dict?.bilibili?.title || "Bilibili Saver"}
       subtitle={
         dict?.bilibili?.subtitle ||
         "Download Bilibili videos instantly. No watermark, high quality."
