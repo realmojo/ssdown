@@ -121,7 +121,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                 variant="ghost"
                 className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
               >
-                Youtube <ChevronDown className="h-4 w-4" />
+                Analysis <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
