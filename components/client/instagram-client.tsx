@@ -12,6 +12,7 @@ import {
   Download,
   Image,
 } from "lucide-react";
+import { InstagramTechInsights } from "./instagram-tech-insights";
 import {
   VideoDownloaderClient,
   ThemeConfig,
@@ -253,6 +254,8 @@ export function InstagramClient({ dict }: InstagramClientProps) {
           ))}
         </div>
       </section>
+
+      <InstagramTechInsights />
 
       {/* FAQ Section */}
       <section>

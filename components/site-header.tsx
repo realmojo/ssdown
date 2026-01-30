@@ -43,10 +43,8 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
   else if (pathname?.endsWith("/facebook")) currentPage = "facebook";
   else if (pathname?.endsWith("/dailymotion")) currentPage = "dailymotion";
   else if (pathname?.endsWith("/9gag")) currentPage = "9gag";
-  else if (pathname?.endsWith("/youtube/thumbnail"))
-    currentPage = "youtube/thumbnail";
-  else if (pathname?.endsWith("/youtube/preview"))
-    currentPage = "youtube/preview";
+  else if (pathname?.endsWith("/yt/thumbnail")) currentPage = "yt/thumbnail";
+  else if (pathname?.endsWith("/yt/preview")) currentPage = "yt/preview";
   else if (pathname?.endsWith("/blog")) currentPage = "blog";
 
   return (
@@ -80,7 +78,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                 variant="ghost"
                 className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
               >
-                Downloader <ChevronDown className="h-4 w-4" />
+                Platform Tools <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
@@ -128,15 +126,12 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
               <DropdownMenuItem asChild>
-                <Link
-                  href="/youtube/thumbnail"
-                  className="w-full cursor-pointer"
-                >
-                  Thumbnail Downloader
+                <Link href="/yt/thumbnail" className="w-full cursor-pointer">
+                  Thumbnail Analysis
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/youtube/preview" className="w-full cursor-pointer">
+                <Link href="/yt/preview" className="w-full cursor-pointer">
                   Edit Preview
                 </Link>
               </DropdownMenuItem>
@@ -165,7 +160,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
             <SelectContent>
               <SelectItem value="home">{dict?.home || "Home"}</SelectItem>
               <SelectGroup>
-                <SelectLabel>Downloader</SelectLabel>
+                <SelectLabel>Platform Tools</SelectLabel>
                 <SelectItem value="x">
                   {dict?.twitter || "X (Twitter)"}
                 </SelectItem>
@@ -187,10 +182,8 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </SelectGroup>
               <SelectGroup>
                 <SelectLabel>Youtube</SelectLabel>
-                <SelectItem value="youtube/thumbnail">
-                  Thumbnail Downloader
-                </SelectItem>
-                <SelectItem value="youtube/preview">Priview Editor</SelectItem>
+                <SelectItem value="yt/thumbnail">Thumbnail Analysis</SelectItem>
+                <SelectItem value="yt/preview">Priview Editor</SelectItem>
               </SelectGroup>
               <SelectItem value="blog">Blog</SelectItem>
             </SelectContent>

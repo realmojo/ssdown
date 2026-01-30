@@ -12,6 +12,7 @@ import {
   Download,
   VideoIcon,
 } from "lucide-react";
+import { FacebookTechInsights } from "./facebook-tech-insights";
 import {
   VideoDownloaderClient,
   ThemeConfig,
@@ -251,6 +252,8 @@ export function FacebookClient({ dict }: FacebookClientProps) {
           ))}
         </div>
       </section>
+
+      <FacebookTechInsights />
 
       {/* FAQ Section */}
       <section>

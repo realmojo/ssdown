@@ -54,9 +54,9 @@ export default async function BlogPage(props: {
 }) {
   const searchParams = await props.searchParams;
 
-  // 카테고리 필터링 - 동적 import로 번들 크기 최적화
+  // 카테고리 필터링 - Supabase에서 데이터 가져오기 (실패 시 static posts fallback)
   const selectedCategory = searchParams?.category;
-  const { getAllPosts, getPostsByCategory } = await import("@/lib/posts");
+  const { getAllPosts, getPostsByCategory } = await import("@/lib/blog-utils");
   const allPosts = await getAllPosts();
   const posts = selectedCategory
     ? await getPostsByCategory(selectedCategory)

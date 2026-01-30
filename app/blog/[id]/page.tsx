@@ -12,8 +12,8 @@ export async function generateMetadata({
   params: Promise<{ lang: string; id: string }>;
 }): Promise<Metadata> {
   const { lang, id } = await params;
-  // 동적 import로 번들 크기 최적화
-  const { getPostById, getLocalizedContent } = await import("@/lib/posts");
+  // Supabase에서 데이터 가져오기 (실패 시 static posts fallback)
+  const { getPostById, getLocalizedContent } = await import("@/lib/blog-utils");
   const post = await getPostById(id);
 
   if (!post) {
@@ -70,8 +70,8 @@ export default async function BlogPostPage(props: {
 }) {
   const params = await props.params;
   const { lang, id } = params;
-  // 동적 import로 번들 크기 최적화
-  const { getPostById, getLocalizedContent } = await import("@/lib/posts");
+  // Supabase에서 데이터 가져오기 (실패 시 static posts fallback)
+  const { getPostById, getLocalizedContent } = await import("@/lib/blog-utils");
   const post = await getPostById(id);
 
   if (!post) {

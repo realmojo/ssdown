@@ -47,8 +47,8 @@ Professional archivists and photographers live by the **3-2-1 Backup Strategy**.
 2.  **2 Different Media Types**: Don't just store everything on one USB stick. Use your computer's SSD + an external HDD, or a NAS (Network Attached Storage).
 3.  **1 Offsite Copy**: What if your house floods? Cloud storage (Google Drive, Dropbox) or a drive at a friend's house ensures total safety.
 
-For downloadable web video, a simplified version is: **"Download it immediately, organize it weekly."**
-Use tools like SSDown to capture the high-quality MP4 as soon as you see the video. Don't rely on "Bookmarks" or "Favorites". A bookmark is just a pointer to a location; if the building at that location is demolished, the bookmark is useless.
+For downloadable web video, a simplified version is: **"Archive legally permitted content immediately, organize it weekly."**
+When archiving content you have permission to save, capture the high-quality version as soon as possible. Don't rely on "Bookmarks" or "Favorites". A bookmark is just a pointer to a location; if the building at that location is demolished, the bookmark is useless.
 
 ---
 
@@ -82,8 +82,8 @@ Imagine trying to show your children a "funny meme from 2025" ten years from now
 
 To be an effective digital archivist, you need the right toolkit.
 
-1.  **The Capture Tool (SSDown)**:
-    This is your entry point. You need a reliable, clean downloader that handles modern encryption (like HLS/DASH) and provides the highest quality without re-compression. SSDown specializes in stripping tracking parameters and fetching the raw video stream from platforms like X (Twitter), TikTok, and Instagram.
+1.  **Understanding Archiving Tools**:
+    For educational purposes, it's helpful to understand how modern archiving tools work. These tools must handle modern streaming protocols (like HLS/DASH) to access content. However, users must ensure they have legal permission before archiving any content. Always respect platform Terms of Service and copyright laws.
 
 2.  **The Organizer (Local Software)**:
     Software like **Eagle.cool** or open-source alternatives like **DigiKam** are excellent for tagging and organizing video assets visually. They allow you to add "Tags" (e.g., #funny, #tutorial, #recipe) that make searching instantaneous.
@@ -108,7 +108,7 @@ Digital archiving is a responsibility. It requires:
 2.  **Ethical discipline** (respecting copyright and using content privately).
 3.  **Curatorial effort** (organizing and tagging).
 
-Don't let your favorite digital moments become dead links. Start your archive today. Use tools like SSDown to capture the present, so you can revisit it in the future. Because on the internet, "forever" is much shorter than you think.
+Don't let your favorite digital moments become dead links. If you choose to build a personal archive, ensure you understand the legal and ethical boundaries. Only archive content you have permission to save, and keep it for personal use only. Because on the internet, "forever" is much shorter than you think.
 `,
     kr: `
 ## 디지털 영속성의 환상 (Permanence Fallacy)
@@ -146,8 +146,8 @@ Don't let your favorite digital moments become dead links. Start your archive to
 2.  **2가지 다른 매체**: 모든 것을 하나의 USB에 담지 마십시오. 컴퓨터의 SSD와 외장 하드(HDD), 혹은 NAS를 혼용하십시오.
 3.  **1개의 오프사이트(외부) 저장소**: 집에 화재가 나거나 홍수가 나면 어떻게 할까요? 클라우드(Google Drive, Dropbox)나 친구 집에 둔 하드 드라이브가 최후의 보루가 됩니다.
 
-웹 비디오 다운로드에 적용하자면: **"보는 즉시 다운로드하고, 매주 정리하라."**
-SSDown과 같은 도구를 사용해 영상을 보는 그 순간 고화질로 캡처하십시오. "북마크"나 "좋아요"를 믿지 마십시오. 북마크는 그저 주소(위치)를 가리키는 손가락일 뿐입니다. 그 주소의 건물이 철거되면 손가락은 허공을 가리킬 뿐입니다.
+웹 비디오에 적용하자면: **"법적으로 허용된 콘텐츠는 즉시 보존하고, 매주 정리하라."**
+허가받은 콘텐츠를 아카이빙할 때는 고화질 버전을 즉시 저장하십시오. "북마크"나 "좋아요"를 믿지 마십시오. 북마크는 그저 주소(위치)를 가리키는 손가락일 뿐입니다. 그 주소의 건물이 철거되면 손가락은 허공을 가리킬 뿐입니다.
 
 ---
 
@@ -181,8 +181,8 @@ SSDown과 같은 도구를 사용해 영상을 보는 그 순간 고화질로 �
 
 유능한 디지털 아키비스트가 되기 위한 도구 상자입니다.
 
-1.  **캡처 도구 (SSDown)**:
-    가장 중요한 입구입니다. 최신 암호화 기술(HLS/DASH)을 처리하고, 재압축 없이 원본 화질을 가져올 수 있는 깨끗한 다운로더가 필요합니다. SSDown은 X(트위터), 틱톡, 인스타그램 등에서 트래킹 파라미터를 제거하고 순수한 비디오 스트림을 추출하는 데 특화되어 있습니다.
+1.  **아카이빙 도구의 이해**:
+    교육 목적으로, 현대 아카이빙 도구가 어떻게 작동하는지 이해하는 것이 중요합니다. 이러한 도구들은 최신 스트리밍 프로토콜(HLS/DASH)을 처리해야 합니다. 그러나 사용자는 콘텐츠를 아카이빙하기 전에 반드시 법적 허가를 확보해야 합니다. 플랫폼 이용 약관과 저작권법을 항상 존중하십시오.
 
 2.  **정리 도구 (로컬 소프트웨어)**:
     **Eagle.cool**이나 오픈소스인 **DigiKam** 같은 소프트웨어는 비디오 자산을 시각적으로 관리하는 데 탁월합니다. 태그(#웃김, #레시피, #보관용)를 달아두면 1초 만에 원하는 영상을 찾을 수 있습니다.
@@ -207,7 +207,7 @@ SSDown과 같은 도구를 사용해 영상을 보는 그 순간 고화질로 �
 2.  **윤리적 규율** (저작권을 존중하고 사적으로만 이용하는 태도).
 3.  **큐레이션 노력** (정리하고 태그를 다는 정성).
 
-당신이 가장 좋아하는 디지털 순간들이 '죽은 링크(Dead Link)'가 되게 두지 마십시오. 오늘부터 아카이브를 시작하십시오. SSDown과 같은 도구로 현재를 포착하여 미래에 다시 열어보십시오. 인터넷에서의 "영원"은 생각보다 훨씬 짧기 때문입니다.
+당신이 가장 좋아하는 디지털 순간들이 '죽은 링크(Dead Link)'가 되게 두지 마십시오. 개인 아카이브를 구축하기로 결정했다면, 법적, 윤리적 경계를 이해하고 있는지 확인하십시오. 허가받은 콘텐츠만 보관하고, 개인적 용도로만 사용하십시오. 인터넷에서의 "영원"은 생각보다 훨씬 짧기 때문입니다.
 `,
   },
   category: "culture",

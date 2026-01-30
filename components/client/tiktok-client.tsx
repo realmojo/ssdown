@@ -12,6 +12,7 @@ import {
   Download,
   Music,
 } from "lucide-react";
+import { TikTokTechInsights } from "./tiktok-tech-insights";
 import {
   VideoDownloaderClient,
   ThemeConfig,
@@ -251,6 +252,8 @@ export function TikTokClient({ dict }: TikTokClientProps) {
           ))}
         </div>
       </section>
+
+      <TikTokTechInsights />
 
       {/* FAQ Section */}
       <section>

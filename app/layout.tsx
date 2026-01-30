@@ -15,21 +15,26 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(baseUrl),
     title: {
-      default: dict.home?.title || "SSDown - Video Downloader",
+      default:
+        dict.home?.title || "SSDown - Video Technology & Digital Archiving Hub",
       template: "%s | SSDown",
     },
     description:
       dict.home?.subtitle ||
-      "Download videos from X (Twitter), TikTok, and more instantly.",
+      "Learn about video codecs, streaming protocols, and responsible digital content management. Educational resources for understanding modern video technology.",
     keywords: [
-      "video downloader",
-      "twitter video download",
-      "tiktok downloader",
+      "video technology",
+      "codec education",
+      "digital archiving",
+      "video format guide",
+      "HLS streaming",
+      "HEVC vs H264",
+      "content preservation",
+      "video analysis tools",
+      "media technology hub",
       "ssdown",
-      "free video download",
-      "social media downloader",
     ],
-    authors: [{ name: "SSDown" }],
+    authors: [{ name: "SSDown Tech Team" }],
     creator: "SSDown",
     publisher: "SSDown",
     robots: {
@@ -53,25 +58,28 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       locale: "en_US",
       url: baseUrl,
-      title: dict.home?.title || "SSDown - Ultimate Video Downloader",
+      title:
+        dict.home?.title ||
+        "SSDown - Video Technology & Archiving Education Hub",
       description:
         dict.home?.subtitle ||
-        "Download videos from your favorite platforms easily and quickly.",
+        "Comprehensive guides on video codecs, streaming technology, and ethical digital content management. Learn how modern video platforms work.",
       siteName: "SSDown",
       images: [
         {
           url: "https://ssdown.app/logo.png",
           width: 1200,
           height: 630,
-          alt: "SSDown Logo",
+          alt: "SSDown - Video Technology Hub",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: dict.home?.title || "SSDown - Video Downloader",
+      title: dict.home?.title || "SSDown - Video Technology Hub",
       description:
-        dict.home?.subtitle || "Download videos from X, TikTok, and more.",
+        dict.home?.subtitle ||
+        "Educational platform for video technology, codecs, and digital archiving best practices.",
       images: ["https://ssdown.app/logo.png"],
       creator: "@ssdown",
       site: "@ssdown",

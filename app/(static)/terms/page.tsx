@@ -460,6 +460,115 @@ export default async function TermsPage() {
           </ul>
         </section>
 
+        <section className="border-l-4 border-red-500 pl-6 bg-red-50 dark:bg-red-900/10 p-6 rounded-r-lg">
+          <h2 className="text-xl font-semibold text-red-700 dark:text-red-400 mb-4">
+            ⚠️ Prohibited Uses
+          </h2>
+          <p className="font-semibold text-red-800 dark:text-red-300 mb-3">
+            Users are STRICTLY PROHIBITED from engaging in the following activities:
+          </p>
+          <ul className="list-disc list-inside ml-4 space-y-2 text-red-900 dark:text-red-200">
+            <li>
+              <strong>Downloading copyrighted content without explicit permission</strong> from the content owner or rights holder
+            </li>
+            <li>
+              <strong>Violating any platform's Terms of Service</strong>, including but not limited to X (Twitter), TikTok, Instagram, Facebook, YouTube, or any other social media platform
+            </li>
+            <li>
+              <strong>Redistributing downloaded content</strong> through any means, including re-uploading, sharing in group chats, posting on forums, or any form of mass distribution
+            </li>
+            <li>
+              <strong>Using downloaded content for commercial purposes</strong>, including monetization, advertising, or any profit-generating activity
+            </li>
+            <li>
+              <strong>Removing watermarks or attribution</strong> from creator content, or otherwise obscuring the original creator's identity
+            </li>
+            <li>
+              <strong>Using automated tools or bots</strong> to systematically download large volumes of content
+            </li>
+            <li>
+              <strong>Circumventing any technical protection measures</strong> implemented by content platforms
+            </li>
+          </ul>
+          <p className="mt-4 font-semibold text-red-800 dark:text-red-300">
+            Violation of these prohibitions may result in immediate termination of access, legal action, and cooperation with law enforcement.
+          </p>
+        </section>
+
+        <section className="border-l-4 border-amber-500 pl-6 bg-amber-50 dark:bg-amber-900/10 p-6 rounded-r-lg">
+          <h2 className="text-xl font-semibold text-amber-700 dark:text-amber-400 mb-4">
+            User Responsibility and Legal Acknowledgment
+          </h2>
+          <p className="mb-3">
+            By using SSDown, you explicitly acknowledge and agree to the following:
+          </p>
+          <ul className="list-disc list-inside ml-4 space-y-2">
+            <li>
+              <strong>Sole Responsibility</strong>: You are solely and exclusively responsible for ensuring that your use of this Service complies with all applicable laws, regulations, and third-party rights in your jurisdiction.
+            </li>
+            <li>
+              <strong>No Liability for Misuse</strong>: SSDown is not liable for any misuse of the information, tools, or services provided. We provide technical information for educational purposes only.
+            </li>
+            <li>
+              <strong>Severe Legal Penalties</strong>: Violation of copyright laws may result in severe legal penalties, including but not limited to:
+              <ul className="list-circle list-inside ml-6 mt-2 space-y-1">
+                <li>Civil damages ranging from $750 to $150,000 per infringed work (US law)</li>
+                <li>Criminal prosecution with penalties up to 5 years imprisonment and $250,000 in fines</li>
+                <li>Permanent account termination on platforms</li>
+                <li>Legal fees and court costs</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Permission Requirement</strong>: You will obtain all necessary permissions from content creators and rights holders before downloading, archiving, or using any content accessed through this Service.
+            </li>
+            <li>
+              <strong>Platform Terms Compliance</strong>: You acknowledge that even if local law permits certain copying, you must still comply with the Terms of Service of the originating platform (e.g., TikTok, Instagram, X).
+            </li>
+            <li>
+              <strong>Educational Purpose</strong>: This Service is provided for educational and informational purposes to help users understand video technology, digital archiving ethics, and copyright compliance.
+            </li>
+          </ul>
+        </section>
+
+        <section className="border-l-4 border-blue-500 pl-6 bg-blue-50 dark:bg-blue-900/10 p-6 rounded-r-lg">
+          <h2 className="text-xl font-semibold text-blue-700 dark:text-blue-400 mb-4">
+            Copyright Compliance and Rights Holder Support
+          </h2>
+          <p className="mb-3">
+            SSDown actively supports copyright holders and takes intellectual property rights seriously:
+          </p>
+          <ul className="list-disc list-inside ml-4 space-y-2">
+            <li>
+              <strong>Rapid DMCA Response</strong>: We respond to valid DMCA takedown requests within 24 hours of receipt. Copyright holders may submit notices using the process outlined in the "How to file a takedown notice" section.
+            </li>
+            <li>
+              <strong>Usage Logging</strong>: We maintain logs of Service usage for legal compliance purposes and to assist in identifying potential abuse patterns.
+            </li>
+            <li>
+              <strong>Law Enforcement Cooperation</strong>: We cooperate fully with law enforcement agencies and rights holders in investigating potential copyright infringement or other illegal activities.
+            </li>
+            <li>
+              <strong>Access Termination</strong>: We reserve the right to immediately and permanently terminate access for users who:
+              <ul className="list-circle list-inside ml-6 mt-2 space-y-1">
+                <li>Repeatedly violate copyright laws</li>
+                <li>Receive multiple DMCA notices</li>
+                <li>Engage in commercial piracy or mass distribution</li>
+                <li>Circumvent technical protection measures</li>
+                <li>Violate platform Terms of Service systematically</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Proactive Monitoring</strong>: While we do not pre-screen all user activity, we reserve the right to monitor usage patterns and investigate suspicious behavior.
+            </li>
+            <li>
+              <strong>Rights Holder Contact</strong>: Copyright holders or their authorized agents may contact us at the email address provided in this document to report infringement or request information.
+            </li>
+          </ul>
+          <p className="mt-4 font-semibold text-blue-800 dark:text-blue-300">
+            SSDown is a technology education platform. We do not encourage, endorse, or facilitate copyright infringement. Users who misuse this Service do so at their own legal and financial risk.
+          </p>
+        </section>
+
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
             Purchase via app store

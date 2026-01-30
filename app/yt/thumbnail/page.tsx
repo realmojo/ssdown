@@ -5,17 +5,17 @@ import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/youtube/thumbnail`;
+  const canonical = `${baseUrl}/yt/thumbnail`;
 
   return {
-    title: "Youtube Thumbnail Downloader | SSDown",
+    title: "Youtube Thumbnail Analysis | SSDown",
     description:
       "Download Youtube thumbnails in high quality HD, 4K. Free and fast.",
     alternates: {
       canonical: canonical,
     },
     openGraph: {
-      title: "Youtube Thumbnail Downloader | SSDown",
+      title: "Youtube Thumbnail Analysis | SSDown",
       description:
         "Download Youtube thumbnails in high quality HD, 4K. Free and fast.",
       url: canonical,

@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   Download,
 } from "lucide-react";
+import { XTechInsights } from "./x-tech-insights";
 import {
   VideoDownloaderClient,
   ThemeConfig,
@@ -249,6 +250,8 @@ export function XClient({ dict }: XClientProps) {
           ))}
         </div>
       </section>
+
+      <XTechInsights />
 
       {/* FAQ Section */}
       <section>

@@ -188,8 +188,14 @@ export function VideoDownloaderClient({
   );
   const [error, setError] = useState<string | null>(null);
   const [downloadingVideo, setDownloadingVideo] = useState<string | null>(null);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const handleDownload = async () => {
+    if (!termsAccepted) {
+      setError("Please read and accept the terms before proceeding.");
+      return;
+    }
+
     if (!url.trim()) {
       setError(dict?.common?.error_url || "Please enter a valid URL");
       return;
@@ -297,46 +303,74 @@ export function VideoDownloaderClient({
           >
             <div className={`h-2 ${theme.topBarGradient}`} />
             <CardContent className="p-6 sm:p-8">
-              <div className="flex flex-col sm:flex-row gap-3">
-                <div className="relative flex-1">
-                  <Input
-                    placeholder={placeholder}
-                    className={`h-14 text-lg bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-800 ${theme.inputFocus} text-black dark:text-white`}
-                    value={url}
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="relative flex-1">
+                    <Input
+                      placeholder={placeholder}
+                      className={`h-14 text-lg bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-800 ${theme.inputFocus} text-black dark:text-white`}
+                      value={url}
+                      onChange={(e) => {
+                        setUrl(e.target.value);
+                        setError(null);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" && !loading && termsAccepted) {
+                          handleDownload();
+                        }
+                      }}
+                      disabled={loading}
+                    />
+                  </div>
+                  <Button
+                    size="lg"
+                    className={`h-14 text-lg ${
+                      theme.buttonGradient || theme.buttonSolid
+                    } ${
+                      theme.buttonHover || ""
+                    } text-white shadow-lg px-8 whitespace-nowrap transition-all ${!termsAccepted ? "opacity-50 cursor-not-allowed" : ""}`}
+                    onClick={handleDownload}
+                    disabled={loading || !termsAccepted}
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        {dict?.common?.processing || "Processing..."}
+                      </>
+                    ) : (
+                      <>
+                        <Download className="mr-2 h-5 w-5" />
+                        {dict?.common?.download || "Download"}
+                      </>
+                    )}
+                  </Button>
+                </div>
+
+                {/* Terms Checkbox */}
+                <div className="flex items-start gap-3 p-4 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800 rounded-lg">
+                  <input
+                    type="checkbox"
+                    id="terms-checkbox"
+                    checked={termsAccepted}
                     onChange={(e) => {
-                      setUrl(e.target.value);
+                      setTermsAccepted(e.target.checked);
                       setError(null);
                     }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && !loading) {
-                        handleDownload();
-                      }
-                    }}
-                    disabled={loading}
+                    className="mt-1 h-4 w-4 rounded border-amber-400 text-amber-600 focus:ring-amber-500 cursor-pointer"
                   />
+                  <label
+                    htmlFor="terms-checkbox"
+                    className="text-sm text-amber-900 dark:text-amber-200 cursor-pointer select-none"
+                  >
+                    <strong>
+                      I understand this tool is for educational purposes only.
+                    </strong>{" "}
+                    I confirm that I have permission from the content owner,
+                    will comply with all copyright laws and platform Terms of
+                    Service, and will use downloaded content for personal,
+                    non-commercial purposes only.
+                  </label>
                 </div>
-                <Button
-                  size="lg"
-                  className={`h-14 text-lg ${
-                    theme.buttonGradient || theme.buttonSolid
-                  } ${
-                    theme.buttonHover || ""
-                  } text-white shadow-lg px-8 whitespace-nowrap transition-all`}
-                  onClick={handleDownload}
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <>
-                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      {dict?.common?.processing || "Processing..."}
-                    </>
-                  ) : (
-                    <>
-                      <Download className="mr-2 h-5 w-5" />
-                      {dict?.common?.download || "Download"}
-                    </>
-                  )}
-                </Button>
               </div>
               {error && (
                 <Alert variant="destructive" className="mt-4 text-left">

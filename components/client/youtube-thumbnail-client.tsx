@@ -67,7 +67,7 @@ export function YoutubeThumbnailClient({
 
     try {
       const response = await fetch(
-        `/api/youtube/thumbnail?url=${encodeURIComponent(url)}`,
+        `/api/yt/thumbnail?url=${encodeURIComponent(url)}`,
       );
       const data: ApiResponse = await response.json();
 
@@ -79,10 +79,10 @@ export function YoutubeThumbnailClient({
 
       setResult(data.data);
       // Update URL without reloading if possible, or just push.
-      // User requested /youtube/thumbnail/[id].
+      // User requested /yt/thumbnail/[id].
       // We should navigate there.
       if (data.id) {
-        router.push(`/youtube/thumbnail/${data.id}`);
+        router.push(`/yt/thumbnail/${data.id}`);
       }
     } catch (err: any) {
       setError(
@@ -120,10 +120,10 @@ export function YoutubeThumbnailClient({
       {!result ? (
         <div className="flex flex-col items-center justify-center w-full max-w-2xl min-h-[40vh]">
           <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-            Youtube Thumbnail Downloader
+            Youtube Thumbnail Analysis
           </h1>
           <p className="text-muted-foreground text-center max-w-lg mb-8">
-            Download high-quality thumbnails from any YouTube video.
+            Analyze high-quality thumbnails from any YouTube video.
           </p>
           {renderInputForm()}
         </div>

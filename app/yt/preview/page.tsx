@@ -5,7 +5,7 @@ import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/youtube/preview`;
+  const canonical = `${baseUrl}/yt/preview`;
 
   return {
     title: "Youtube Preview Editor | SSDown",

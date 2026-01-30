@@ -1,6 +1,6 @@
 export const runtime = "edge";
 
-import { YoutubePreviewClient } from "@/components/client/youtube-preview-client";
+import { YoutubeThumbnailClient } from "@/components/client/youtube-thumbnail-client";
 import { fetchVideoDetails } from "@/lib/youtube";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const data = await fetchVideoDetails(id);
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/youtube/preview/${id}`;
+  const canonical = `${baseUrl}/yt/thumbnail/${id}`;
 
   if (!data) {
     return {
@@ -30,14 +30,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     thumbnails.length > 0 ? thumbnails[thumbnails.length - 1].url : "";
 
   return {
-    title: `${data.title} Preview Editor | SSDown`,
-    description: `Preview and edit video metadata for ${data.title}. Check how it looks on YouTube.`,
+    title: `${data.title} Thumbnail Analysis | SSDown`,
+    description: `Analysis high-quality thumbnails for ${data.title}. Available in HD, 4K, and 8K.`,
     alternates: {
       canonical: canonical,
     },
     openGraph: {
-      title: `${data.title} Preview Editor`,
-      description: `Preview and edit video metadata for ${data.title}.`,
+      title: `${data.title} Thumbnail Analysis`,
+      description: `Analysis high-quality thumbnails for ${data.title}.`,
       url: canonical,
       siteName: "SSDown",
       images: [
@@ -53,10 +53,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function YoutubePreviewIdPage({ params }: Props) {
+export default async function YoutubeThumbnailIdPage({ params }: Props) {
   await getDictionary();
   const { id } = await params;
   const data = await fetchVideoDetails(id);
 
-  return <YoutubePreviewClient key={id} initialId={id} initialData={data} />;
+  return <YoutubeThumbnailClient key={id} initialId={id} initialData={data} />;
 }

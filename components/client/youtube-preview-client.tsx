@@ -82,7 +82,7 @@ export function YoutubePreviewClient({
 
     try {
       const response = await fetch(
-        `/api/youtube/thumbnail?url=${encodeURIComponent(url)}`,
+        `/api/yt/thumbnail?url=${encodeURIComponent(url)}`,
       );
       const data: ApiResponse = await response.json();
 
@@ -108,7 +108,7 @@ export function YoutubePreviewClient({
       }
 
       if (data.id) {
-        router.push(`/youtube/preview/${data.id}`);
+        router.push(`/yt/preview/${data.id}`);
       }
     } catch (err: any) {
       console.error(err);
