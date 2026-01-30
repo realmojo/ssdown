@@ -65,13 +65,14 @@ export async function generateMetadata({
   };
 }
 
+import { getPostById, getLocalizedContent } from "@/lib/blog-utils";
+
 export default async function BlogPostPage(props: {
   params: Promise<{ lang: string; id: string }>;
 }) {
   const params = await props.params;
   const { lang, id } = params;
-  // Supabase에서 데이터 가져오기 (실패 시 static posts fallback)
-  const { getPostById, getLocalizedContent } = await import("@/lib/blog-utils");
+
   const post = await getPostById(id);
 
   if (!post) {

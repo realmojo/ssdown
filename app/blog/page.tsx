@@ -49,14 +49,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+import { getAllPosts, getPostsByCategory } from "@/lib/blog-utils";
+
 export default async function BlogPage(props: {
   searchParams: Promise<{ category?: string }>;
 }) {
   const searchParams = await props.searchParams;
 
-  // 카테고리 필터링 - Supabase에서 데이터 가져오기 (실패 시 static posts fallback)
   const selectedCategory = searchParams?.category;
-  const { getAllPosts, getPostsByCategory } = await import("@/lib/blog-utils");
   const allPosts = await getAllPosts();
   const posts = selectedCategory
     ? await getPostsByCategory(selectedCategory)
