@@ -277,6 +277,53 @@ export function TikTokClient({ dict }: TikTokClientProps) {
           ))}
         </Accordion>
       </section>
+
+      {/* TikTok Platform Deep Dive */}
+      <section className="bg-white dark:bg-gray-950 rounded-2xl border p-8 md:p-12">
+        <h2 className="text-3xl font-bold tracking-tight mb-6">
+          Understanding TikTok Video Downloads
+        </h2>
+        <div className="prose prose-slate dark:prose-invert max-w-none space-y-6 text-muted-foreground">
+          <p>
+            TikTok has become the world's most popular short-form video platform, with over
+            a billion active users creating and sharing content daily. Understanding how TikTok
+            handles video content can help you make the most of your downloading experience.
+          </p>
+          <h3 className="text-xl font-semibold text-foreground">How TikTok Watermarks Work</h3>
+          <p>
+            TikTok adds a dynamic watermark overlay to videos when viewed or downloaded through
+            the official app. This watermark typically shows the creator's username and the TikTok
+            logo. The watermark is not embedded in the original video file — it's added as an
+            overlay layer during playback and export. SSDown accesses the original video stream
+            before the watermark is applied, allowing you to download the clean version.
+          </p>
+          <h3 className="text-xl font-semibold text-foreground">TikTok Video Quality and Formats</h3>
+          <p>
+            TikTok videos are typically uploaded in vertical format (9:16 aspect ratio) with
+            resolutions up to 1080x1920 pixels. The platform uses H.264 video codec with AAC
+            audio, wrapped in an MP4 container. When downloading, SSDown preserves the original
+            resolution and quality without any re-encoding or compression, ensuring you get
+            the exact same quality as the creator uploaded.
+          </p>
+          <h3 className="text-xl font-semibold text-foreground">Audio Extraction from TikTok</h3>
+          <p>
+            One unique feature of TikTok is its vast library of trending sounds and music.
+            SSDown allows you to extract just the audio track from any TikTok video as an MP3
+            file. This is useful for content creators who want to identify songs, musicians who
+            want to study trending audio patterns, or anyone who simply enjoys a particular
+            sound clip. Note that extracted audio is subject to the same copyright considerations
+            as the full video.
+          </p>
+          <h3 className="text-xl font-semibold text-foreground">Responsible TikTok Content Use</h3>
+          <p>
+            TikTok creators invest significant time and creativity into their content. When
+            downloading TikTok videos, always consider the creator's intent. If you plan to
+            share or reference the content, credit the original creator by mentioning their
+            username. Never re-upload content claiming it as your own, and avoid using downloaded
+            content for commercial purposes without explicit permission from the creator.
+          </p>
+        </div>
+      </section>
     </div>
   );
 

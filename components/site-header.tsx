@@ -43,10 +43,12 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
   else if (pathname?.endsWith("/facebook")) currentPage = "facebook";
   else if (pathname?.endsWith("/dailymotion")) currentPage = "dailymotion";
   else if (pathname?.endsWith("/9gag")) currentPage = "9gag";
-  else if (pathname?.endsWith("/youtube/thumbnail"))
-    currentPage = "youtube/thumbnail";
-  else if (pathname?.endsWith("/youtube/preview"))
-    currentPage = "youtube/preview";
+  else if (pathname?.startsWith("/tools/youtube-thumbnail")) currentPage = "tools/youtube-thumbnail";
+  else if (pathname?.startsWith("/tools/youtube-preview")) currentPage = "tools/youtube-preview";
+  else if (pathname?.startsWith("/tools/video-to-mp3")) currentPage = "tools/video-to-mp3";
+  else if (pathname?.startsWith("/tools/thumbnail-generator")) currentPage = "tools/thumbnail-generator";
+  else if (pathname?.startsWith("/tools/hashtag-generator")) currentPage = "tools/hashtag-generator";
+  else if (pathname?.startsWith("/tools/watermark-remover")) currentPage = "tools/watermark-remover";
   else if (pathname?.endsWith("/blog")) currentPage = "blog";
 
   return (
@@ -123,21 +125,38 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                 variant="ghost"
                 className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
               >
-                Youtube <ChevronDown className="h-4 w-4" />
+                Tools <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
               <DropdownMenuItem asChild>
-                <Link
-                  href="/youtube/thumbnail"
-                  className="w-full cursor-pointer"
-                >
-                  Thumbnail Downloader
+                <Link href="/tools/youtube-thumbnail" className="w-full cursor-pointer">
+                  YT Thumbnail Downloader
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/youtube/preview" className="w-full cursor-pointer">
-                  Edit Preview
+                <Link href="/tools/youtube-preview" className="w-full cursor-pointer">
+                  YT Preview Editor
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/tools/video-to-mp3" className="w-full cursor-pointer">
+                  Video to MP3
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/tools/thumbnail-generator" className="w-full cursor-pointer">
+                  Thumbnail Generator
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/tools/hashtag-generator" className="w-full cursor-pointer">
+                  Hashtag Generator
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/tools/watermark-remover" className="w-full cursor-pointer">
+                  Watermark Remover
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -186,11 +205,13 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                 </SelectItem>
               </SelectGroup>
               <SelectGroup>
-                <SelectLabel>Youtube</SelectLabel>
-                <SelectItem value="youtube/thumbnail">
-                  Thumbnail Downloader
-                </SelectItem>
-                <SelectItem value="youtube/preview">Priview Editor</SelectItem>
+                <SelectLabel>Tools</SelectLabel>
+                <SelectItem value="tools/youtube-thumbnail">YT Thumbnail Downloader</SelectItem>
+                <SelectItem value="tools/youtube-preview">YT Preview Editor</SelectItem>
+                <SelectItem value="tools/video-to-mp3">Video to MP3</SelectItem>
+                <SelectItem value="tools/thumbnail-generator">Thumbnail Generator</SelectItem>
+                <SelectItem value="tools/hashtag-generator">Hashtag Generator</SelectItem>
+                <SelectItem value="tools/watermark-remover">Watermark Remover</SelectItem>
               </SelectGroup>
               <SelectItem value="blog">Blog</SelectItem>
             </SelectContent>

@@ -14,9 +14,9 @@ export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/blog`;
 
-  const title = "Blog - SSDown Guides & Tutorials";
+  const title = "Video Download Guides & Tutorials";
   const description =
-    "Explore comprehensive guides and tutorials about video downloading.";
+    "Expert guides on downloading videos from TikTok, Instagram, X, Facebook. Learn video formats, security tips, and creator strategies.";
 
   return {
     title: `${title} | SSDown`,
@@ -68,16 +68,19 @@ export default async function BlogPage(props: {
   ).filter(Boolean);
 
   const categoryLabels: Record<string, string> = {
-    x: "X (Twitter)",
-    tiktok: "TikTok",
+    guide: "Guide",
+    tech: "Tech",
+    security: "Security",
+    strategy: "Strategy",
+    tips: "Tips",
+    trends: "Trends",
     instagram: "Instagram",
-    facebook: "Facebook",
     general: "General",
   };
 
-  const pageTitle = "Blog";
+  const pageTitle = "Creator Hub";
   const pageDescription =
-    "Explore comprehensive guides and tutorials about video downloading.";
+    "Expert guides on downloading videos from TikTok, Instagram, X, Facebook. Learn video formats, security tips, and creator strategies.";
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">

@@ -279,6 +279,52 @@ export function InstagramClient({ dict }: InstagramClientProps) {
           ))}
         </Accordion>
       </section>
+
+      {/* Instagram Platform Deep Dive */}
+      <section className="bg-white dark:bg-gray-950 rounded-2xl border p-8 md:p-12">
+        <h2 className="text-3xl font-bold tracking-tight mb-6">
+          A Complete Guide to Instagram Content Types
+        </h2>
+        <div className="prose prose-slate dark:prose-invert max-w-none space-y-6 text-muted-foreground">
+          <p>
+            Instagram offers a rich variety of content formats, each with unique characteristics
+            and download considerations. Understanding these formats helps you save exactly what
+            you need in the best possible quality.
+          </p>
+          <h3 className="text-xl font-semibold text-foreground">Instagram Reels</h3>
+          <p>
+            Reels are Instagram's short-form vertical video format, competing directly with
+            TikTok. They can be up to 90 seconds long and are displayed in 9:16 aspect ratio
+            (1080x1920 pixels). Reels often include music, effects, and text overlays. When you
+            download a Reel through SSDown, you get the full video with all overlays and audio
+            included, in the original HD quality that was uploaded by the creator.
+          </p>
+          <h3 className="text-xl font-semibold text-foreground">Instagram Stories</h3>
+          <p>
+            Stories are temporary content that disappears after 24 hours unless saved as
+            Highlights. They can be photos (displayed for 5 seconds) or videos (up to 60
+            seconds per segment). Stories can include interactive elements like polls, questions,
+            and links. SSDown can download Stories from public accounts — the key is to get
+            the direct URL before the Story expires. Story downloads preserve the full visual
+            quality of the original upload.
+          </p>
+          <h3 className="text-xl font-semibold text-foreground">Carousel Posts and Photos</h3>
+          <p>
+            Instagram carousel posts can contain up to 20 photos or videos in a single post.
+            When you paste a carousel post URL into SSDown, you'll be able to download all
+            items in the carousel. Individual photos are downloaded in their original resolution,
+            which can be up to 1080x1350 pixels for portrait or 1080x1080 for square format.
+          </p>
+          <h3 className="text-xl font-semibold text-foreground">Privacy and Public Accounts</h3>
+          <p>
+            Instagram has strict privacy controls, and SSDown respects these boundaries. Only
+            content from public accounts can be downloaded. If an account is set to private,
+            the content is only visible to approved followers and cannot be accessed by external
+            tools. This is by design — we believe in respecting creators' privacy settings
+            and never attempt to bypass Instagram's access controls.
+          </p>
+        </div>
+      </section>
     </div>
   );
 

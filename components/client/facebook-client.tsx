@@ -277,6 +277,53 @@ export function FacebookClient({ dict }: FacebookClientProps) {
           ))}
         </Accordion>
       </section>
+
+      {/* Facebook Platform Deep Dive */}
+      <section className="bg-white dark:bg-gray-950 rounded-2xl border p-8 md:p-12">
+        <h2 className="text-3xl font-bold tracking-tight mb-6">
+          Understanding Facebook Video Content
+        </h2>
+        <div className="prose prose-slate dark:prose-invert max-w-none space-y-6 text-muted-foreground">
+          <p>
+            Facebook is one of the largest video platforms in the world, with billions of video
+            views daily. From personal memories to professional content, understanding Facebook's
+            video ecosystem helps you manage your downloads effectively.
+          </p>
+          <h3 className="text-xl font-semibold text-foreground">Facebook Video Quality Options</h3>
+          <p>
+            Facebook supports video uploads up to 4K (3840x2160) resolution, though the platform
+            often compresses videos during upload. When downloading, SSDown presents all available
+            quality options. Typically, you'll find SD (360p-480p) and HD (720p-1080p) versions.
+            For videos originally uploaded in 4K, a higher quality option may also be available.
+            We recommend always selecting the highest available quality for the best offline
+            viewing experience.
+          </p>
+          <h3 className="text-xl font-semibold text-foreground">Facebook Live Videos</h3>
+          <p>
+            Facebook Live allows users to broadcast real-time video to their audience. Once a
+            live broadcast ends, Facebook saves it as a regular video post. SSDown can download
+            these saved live videos just like any other Facebook video. However, you cannot
+            download an ongoing live stream — you must wait until the broadcast is complete
+            and saved by the broadcaster.
+          </p>
+          <h3 className="text-xl font-semibold text-foreground">Privacy Settings and Access</h3>
+          <p>
+            Facebook has granular privacy settings for video posts: Public, Friends, Friends of
+            Friends, and Only Me. SSDown can only access videos that are set to "Public"
+            visibility. Videos shared within private groups, friends-only posts, or restricted
+            audiences cannot be downloaded through external tools. This is an important
+            distinction — always check the privacy icon on the post before attempting to download.
+          </p>
+          <h3 className="text-xl font-semibold text-foreground">Facebook Watch and Reels</h3>
+          <p>
+            Facebook Watch is the platform's dedicated video section, featuring both short and
+            long-form content from creators and publishers. Facebook Reels, similar to TikTok
+            and Instagram Reels, are short vertical videos up to 90 seconds. Both Watch videos
+            and Reels can be downloaded through SSDown as long as they are publicly accessible.
+            The download process is the same — simply copy the video URL and paste it into SSDown.
+          </p>
+        </div>
+      </section>
     </div>
   );
 

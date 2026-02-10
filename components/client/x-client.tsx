@@ -275,6 +275,45 @@ export function XClient({ dict }: XClientProps) {
           ))}
         </Accordion>
       </section>
+
+      {/* X/Twitter Platform Deep Dive */}
+      <section className="bg-white dark:bg-gray-950 rounded-2xl border p-8 md:p-12">
+        <h2 className="text-3xl font-bold tracking-tight mb-6">
+          Understanding X (Twitter) Video Content
+        </h2>
+        <div className="prose prose-slate dark:prose-invert max-w-none space-y-6 text-muted-foreground">
+          <p>
+            X (formerly Twitter) has evolved significantly as a video-sharing platform.
+            Originally limited to short clips, X now supports videos up to 2 hours and 20
+            minutes for premium users, making it a versatile platform for everything from
+            breaking news clips to long-form content and live broadcasts.
+          </p>
+          <h3 className="text-xl font-semibold text-foreground">Video Formats on X</h3>
+          <p>
+            X supports multiple video formats including MP4 (H.264) and MOV. When you upload
+            a video, X automatically transcodes it into multiple quality levels — typically
+            ranging from 360p to 1080p or higher. SSDown detects all available quality levels
+            and lets you choose the one that best suits your needs, whether you want a smaller
+            file for mobile viewing or the highest quality for archiving.
+          </p>
+          <h3 className="text-xl font-semibold text-foreground">GIFs and Animated Content</h3>
+          <p>
+            What appears as "GIFs" on X are actually short looping MP4 videos. X converts
+            uploaded GIF files to MP4 format for efficiency. When you download a GIF from X
+            using SSDown, you'll receive an MP4 file that plays seamlessly on any device.
+            This is actually better than the original GIF format, as MP4 files are smaller
+            and higher quality.
+          </p>
+          <h3 className="text-xl font-semibold text-foreground">Content Policies to Know</h3>
+          <p>
+            X's Terms of Service grant users a limited license to view content on the platform.
+            Downloading for personal reference, offline viewing, or educational purposes is
+            generally acceptable. However, re-uploading someone else's content without credit,
+            using it commercially, or distributing it without permission may violate both X's
+            policies and copyright law. Always respect the original creator's rights.
+          </p>
+        </div>
+      </section>
     </div>
   );
 

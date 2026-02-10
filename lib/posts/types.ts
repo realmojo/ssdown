@@ -1,8 +1,8 @@
 export interface Post {
   id: string;
-  title: Record<string, string>;
-  excerpt: Record<string, string>;
-  content: Record<string, string>;
+  title: string;
+  excerpt: string;
+  content: string;
   category: string;
   tags: string[];
   author: string;

@@ -9,11 +9,10 @@ import { Calendar, Clock, User } from "lucide-react";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ lang: string; id: string }>;
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  const { lang, id } = await params;
-  // 동적 import로 번들 크기 최적화
-  const { getPostById, getLocalizedContent } = await import("@/lib/posts");
+  const { id } = await params;
+  const { getPostById } = await import("@/lib/posts");
   const post = await getPostById(id);
 
   if (!post) {
@@ -22,17 +21,15 @@ export async function generateMetadata({
     };
   }
 
-  const title = getLocalizedContent(post.title, lang);
-  const excerpt = getLocalizedContent(post.excerpt, lang);
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/${lang + "/"}blog/${id}`;
+  const canonical = `${baseUrl}/blog/${id}`;
 
   return {
-    title: `${title} | SSDown Blog`,
-    description: excerpt,
+    title: `${post.title} | SSDown Blog`,
+    description: post.excerpt,
     openGraph: {
-      title,
-      description: excerpt,
+      title: post.title,
+      description: post.excerpt,
       url: canonical,
       siteName: "SSDown",
       images: [
@@ -42,10 +39,10 @@ export async function generateMetadata({
             : `${baseUrl}${post.image}`,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: post.title,
         },
       ],
-      locale: lang === "kr" ? "ko_KR" : "en_US",
+      locale: "en_US",
       type: "article",
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt,
@@ -53,8 +50,8 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title,
-      description: excerpt,
+      title: post.title,
+      description: post.excerpt,
       images: [
         post.image.startsWith("http") ? post.image : `${baseUrl}${post.image}`,
       ],
@@ -66,50 +63,72 @@ export async function generateMetadata({
 }
 
 export default async function BlogPostPage(props: {
-  params: Promise<{ lang: string; id: string }>;
+  params: Promise<{ id: string }>;
 }) {
   const params = await props.params;
-  const { lang, id } = params;
-  // 동적 import로 번들 크기 최적화
-  const { getPostById, getLocalizedContent } = await import("@/lib/posts");
+  const { id } = params;
+  const { getPostById } = await import("@/lib/posts");
   const post = await getPostById(id);
 
   if (!post) {
     notFound();
   }
 
-  const title = getLocalizedContent(post.title, lang);
-  const content = getLocalizedContent(post.content, lang);
-  // en과 kr만 지원, 나머지는 en으로 fallback
-  const displayLang = lang === "kr" ? "kr" : "en";
-  const locale = displayLang === "kr" ? "ko-KR" : "en-US";
-
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString(locale, {
+    return date.toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",
       day: "numeric",
     });
   };
 
-  const getPath = (path: string) => {
-    return `/${lang}${path === "/" ? "" : path}`;
+  const baseUrl = "https://ssdown.app";
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    image: post.image.startsWith("http")
+      ? post.image
+      : `${baseUrl}${post.image}`,
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt,
+    author: {
+      "@type": "Organization",
+      name: post.author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "SSDown",
+      logo: {
+        "@type": "ImageObject",
+        url: `${baseUrl}/logo.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${baseUrl}/blog/${id}`,
+    },
   };
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <article className="container max-w-4xl mx-auto px-4 py-12">
         <Breadcrumbs
           items={[
-            { label: lang === "kr" ? "홈" : "Home", href: getPath("/") },
+            { label: "Home", href: "/" },
             {
-              label: lang === "kr" ? "크리에이터 허브" : "Creator Hub",
-              href: getPath("/blog"),
+              label: "Creator Hub",
+              href: "/blog",
             },
             {
-              label: title,
-              href: getPath(`/blog/${id}`),
+              label: post.title,
+              href: `/blog/${id}`,
               isCurrent: true,
             },
           ]}
@@ -132,7 +151,7 @@ export default async function BlogPostPage(props: {
           </div>
 
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
-            {title}
+            {post.title}
           </h1>
 
           <div className="flex flex-wrap gap-2">
@@ -147,7 +166,7 @@ export default async function BlogPostPage(props: {
           </div>
         </header>
 
-        <PostContent content={content} />
+        <PostContent content={post.content} />
       </article>
     </div>
   );

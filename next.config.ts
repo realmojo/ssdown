@@ -46,6 +46,17 @@ const nextConfig: NextConfig = {
   },
   // Turbopack configuration for Next.js 16
   turbopack: {},
+  async headers() {
+    return [
+      {
+        source: "/tools/video-to-mp3",
+        headers: [
+          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+          { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
