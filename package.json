@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "source ~/.bashrc && next dev",
     "build": "next build",
-    "build:cloudflare": "npx @opennextjs/cloudflare build && cp .open-next/worker.js .open-next/assets/_worker.js",
+    "build:cloudflare": "npx @opennextjs/cloudflare build && node scripts/prepare-pages.mjs",
     "preview": "npx @opennextjs/cloudflare preview",
     "deploy": "npx @opennextjs/cloudflare deploy",
     "start": "next start",
