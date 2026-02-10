@@ -163,7 +163,6 @@ export function HomeClient() {
         </div>
       </section>
 
-<<<<<<< HEAD
       {/* 5. How It Works (H2) - New Section */}
       <section className="py-16 bg-white dark:bg-gray-950">
         <div className="container px-4 md:px-6 max-w-4xl">
@@ -321,9 +320,7 @@ export function HomeClient() {
           </div>
 
           <div className="mt-8 text-center">
-            <p className="text-sm text-muted-foreground">
-              (Personal Use Only)
-            </p>
+            <p className="text-sm text-muted-foreground">(Personal Use Only)</p>
           </div>
         </div>
       </section>
