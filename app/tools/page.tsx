@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { Metadata } from "next";
 import Link from "next/link";
 import { getDictionary } from "@/lib/get-dictionary";
@@ -156,7 +154,7 @@ export default async function ToolsPage() {
                 </div>
                 <h2 className="text-2xl font-bold mb-3">{tool.title}</h2>
                 <p className="text-muted-foreground mb-6">
-                  {dict?.tools?.[tool.descKey] || tool.fallbackDesc}
+                  {(dict?.tools as any)?.[tool.descKey] || tool.fallbackDesc}
                 </p>
                 <span
                   className={`inline-flex items-center gap-2 text-sm font-semibold bg-gradient-to-r ${tool.gradient} bg-clip-text text-transparent group-hover:gap-3 transition-all`}

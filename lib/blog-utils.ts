@@ -3,6 +3,11 @@ import { supabase } from "./supabase";
 
 export type { Post };
 
+function resolveField(field: string | Record<string, string>): string {
+  if (typeof field === "string") return field;
+  return field.en || Object.values(field)[0] || "";
+}
+
 // Supabase에서 Post 데이터를 가져와서 Post 타입으로 변환
 function transformSupabasePost(data: any): Post {
   return {
@@ -51,7 +56,14 @@ export async function getAllSitemapPosts(): Promise<Post[]> {
 export async function getPostById(id: string): Promise<Post | undefined> {
   // First try to find in static posts (faster/cheaper)
   const staticPost = staticPosts.find((p) => p.id === id);
-  if (staticPost) return staticPost;
+  if (staticPost) {
+    return {
+      ...staticPost,
+      title: resolveField(staticPost.title),
+      excerpt: resolveField(staticPost.excerpt),
+      content: resolveField(staticPost.content),
+    };
+  }
 
   try {
     const { data, error } = await supabase

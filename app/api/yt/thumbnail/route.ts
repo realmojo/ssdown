@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export const runtime = "edge";
-
 const getYoutubeId = (url: string): string | null => {
   try {
     const parsed = new URL(url);

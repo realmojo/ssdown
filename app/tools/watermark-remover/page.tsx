@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { WatermarkRemoverClient } from "@/components/client/watermark-remover-client";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";

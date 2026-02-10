@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { getDictionary } from "@/lib/get-dictionary";
 import { InstagramClient } from "@/components/client/instagram-client";
 import { Metadata } from "next";

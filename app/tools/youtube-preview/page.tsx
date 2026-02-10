@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { YoutubePreviewClient } from "@/components/client/youtube-preview-client";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";

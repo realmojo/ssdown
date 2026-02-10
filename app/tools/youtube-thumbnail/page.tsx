@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { YoutubeThumbnailClient } from "@/components/client/youtube-thumbnail-client";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";

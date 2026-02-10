@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { YoutubePreviewClient } from "@/components/client/youtube-preview-client";
 import { fetchVideoDetails } from "@/lib/youtube";
 import { Metadata } from "next";

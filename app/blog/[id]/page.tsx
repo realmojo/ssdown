@@ -1,4 +1,3 @@
-export const runtime = "edge";
 import { Metadata } from "next";
 
 import { notFound } from "next/navigation";
@@ -24,12 +23,15 @@ export async function generateMetadata({
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/blog/${id}`;
 
+  const title = String(post.title);
+  const excerpt = String(post.excerpt);
+
   return {
-    title: `${post.title} | SSDown Blog`,
-    description: post.excerpt,
+    title: `${title} | SSDown Blog`,
+    description: excerpt,
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title,
+      description: excerpt,
       url: canonical,
       siteName: "SSDown",
       images: [
@@ -39,7 +41,7 @@ export async function generateMetadata({
             : `${baseUrl}${post.image}`,
           width: 1200,
           height: 630,
-          alt: post.title,
+          alt: title,
         },
       ],
       locale: "en_US",
@@ -50,8 +52,8 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: post.title,
-      description: post.excerpt,
+      title,
+      description: excerpt,
       images: [
         post.image.startsWith("http") ? post.image : `${baseUrl}${post.image}`,
       ],
@@ -70,11 +72,18 @@ export default async function BlogPostPage(props: {
   const params = await props.params;
   const { id } = params;
 
-  const post = await getPostById(id);
+  const rawPost = await getPostById(id);
 
-  if (!post) {
+  if (!rawPost) {
     notFound();
   }
+
+  const post = {
+    ...rawPost,
+    title: String(rawPost.title),
+    excerpt: String(rawPost.excerpt),
+    content: String(rawPost.content),
+  };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);

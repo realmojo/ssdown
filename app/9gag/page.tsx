@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { getDictionary } from "@/lib/get-dictionary";
 import { NineGagClient } from "@/components/client/ninegag-client";
 

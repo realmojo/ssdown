@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { getDictionary } from "@/lib/get-dictionary";
 import { XClient } from "@/components/client/x-client";
 

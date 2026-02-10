@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-export const runtime = "edge";
 
 /**
  * Instagram URL에서 reel ID를 추출하는 함수

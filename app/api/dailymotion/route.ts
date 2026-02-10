@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-export const runtime = "edge";
 
 /**
  * Dailymotion URL에서 video ID를 추출하는 함수

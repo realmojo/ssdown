@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-export const runtime = "edge";
 
 const DEFAULT_HEADERS = {
   "User-Agent":

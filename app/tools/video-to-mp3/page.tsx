@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { VideoToMp3Client } from "@/components/client/video-to-mp3-client";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";

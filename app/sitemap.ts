@@ -1,12 +1,10 @@
 import { MetadataRoute } from "next";
 
-export const runtime = "edge";
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://ssdown.app";
 
-  const { getAllPosts } = await import("@/lib/posts");
-  const posts = await getAllPosts();
+  const { getAllSitemapPosts } = await import("@/lib/blog-utils");
+  const posts = await getAllSitemapPosts();
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },

@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { HashtagGeneratorClient } from "@/components/client/hashtag-generator-client";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";

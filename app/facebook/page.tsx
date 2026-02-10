@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { getDictionary } from "@/lib/get-dictionary";
 import { FacebookClient } from "@/components/client/facebook-client";
 import { Metadata } from "next";

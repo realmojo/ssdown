@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { ThumbnailGeneratorClient } from "@/components/client/thumbnail-generator-client";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";

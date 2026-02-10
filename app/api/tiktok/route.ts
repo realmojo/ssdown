@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-export const runtime = "edge";
 
 // set-cookie 헤더에서 tt_chain_token 추출
 const getTtChainToken = (response: Response): string | null => {
