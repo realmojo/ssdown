@@ -82,7 +82,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                 variant="ghost"
                 className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
               >
-                Downloader <ChevronDown className="h-4 w-4" />
+                Platform Tools <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
@@ -184,7 +184,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
             <SelectContent>
               <SelectItem value="home">{dict?.home || "Home"}</SelectItem>
               <SelectGroup>
-                <SelectLabel>Downloader</SelectLabel>
+                <SelectLabel>Platform Tools</SelectLabel>
                 <SelectItem value="x">
                   {dict?.twitter || "X (Twitter)"}
                 </SelectItem>

@@ -11,15 +11,15 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/instagram`;
 
   return {
-    title: dict.instagram?.seo_title || "Instagram Video Downloader",
+    title: dict.instagram?.seo_title || "Instagram Saver",
     description:
       dict.instagram?.seo_description ||
       "Download Instagram Reels, Stories, and Videos.",
     keywords: dict.instagram?.seo_keywords
       ? dict.instagram.seo_keywords.split(", ")
-      : ["instagram downloader", "reels downloader"],
+      : ["instagram saver", "reels saver"],
     openGraph: {
-      title: dict.instagram?.seo_title || "Instagram Video Downloader",
+      title: dict.instagram?.seo_title || "Instagram Saver",
       description:
         dict.instagram?.seo_description ||
         "Download Instagram content instantly.",
@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: dict.instagram?.title || "Instagram Video Downloader",
+      title: dict.instagram?.title || "Instagram Saver",
       description:
         dict.instagram?.subtitle || "Download Instagram content instantly.",
       images: ["https://ssdown.app/ssdown-instagram-og.png"],

@@ -13,14 +13,14 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/9gag`;
 
   return {
-    title: ninegagDict?.seo_title || "9GAG Video Downloader",
+    title: ninegagDict?.seo_title || "9GAG Saver",
     description:
       ninegagDict?.seo_description || "Download 9GAG videos in high quality.",
     keywords: ninegagDict?.seo_keywords
       ? ninegagDict.seo_keywords.split(", ")
-      : ["9gag downloader", "9gag video download"],
+      : ["9gag saver", "9gag video download"],
     openGraph: {
-      title: ninegagDict?.seo_title || "9GAG Video Downloader",
+      title: ninegagDict?.seo_title || "9GAG Saver",
       description:
         ninegagDict?.seo_description || "Download 9GAG videos securely.",
       url: canonical,
@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "https://ssdown.app/ssdown-9gag-og.png",
           width: 1200,
           height: 630,
-          alt: "SSDown - 9GAG Video Downloader",
+          alt: "SSDown - 9GAG Saver",
         },
       ],
       locale: "en_US",
@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: ninegagDict?.title || "9GAG Video Downloader",
+      title: ninegagDict?.title || "9GAG Saver",
       description: ninegagDict?.subtitle || "Download 9GAG videos online.",
       images: ["https://ssdown.app/ssdown-9gag-og.png"],
     },

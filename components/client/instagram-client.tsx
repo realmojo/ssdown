@@ -12,11 +12,12 @@ import {
   Download,
   Image,
 } from "lucide-react";
+import { InstagramTechInsights } from "./instagram-tech-insights";
 import {
   VideoDownloaderClient,
   ThemeConfig,
   StatsConfig,
-} from "./video-downloader-client";
+} from "./video-saver-client";
 import { InstagramIcon } from "@/components/ui/icons";
 import {
   Accordion,
@@ -254,6 +255,8 @@ export function InstagramClient({ dict }: InstagramClientProps) {
         </div>
       </section>
 
+      <InstagramTechInsights />
+
       {/* FAQ Section */}
       <section>
         <div className="text-center mb-10">
@@ -359,7 +362,7 @@ export function InstagramClient({ dict }: InstagramClientProps) {
       dict={dict}
       theme={theme}
       icon={InstagramIcon}
-      title={dict?.instagram?.title || "Instagram Video Downloader"}
+      title={dict?.instagram?.title || "Instagram Saver"}
       subtitle={
         dict?.instagram?.subtitle ||
         "Download Instagram Reels, Videos, and Photos instantly. High quality, no watermark."

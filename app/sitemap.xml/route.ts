@@ -1,4 +1,4 @@
-import { getAllSitemapPosts } from "@/lib/posts";
+import { getAllSitemapPosts, Post } from "@/lib/blog-utils";
 
 export const runtime = "edge";
 
@@ -47,7 +47,7 @@ export async function GET() {
   try {
     const posts = await getAllSitemapPosts();
 
-    posts.forEach((post) => {
+    posts.forEach((post: Post) => {
       const lastModified = post.updatedAt
         ? new Date(post.updatedAt).toISOString().split("T")[0]
         : new Date().toISOString().split("T")[0];

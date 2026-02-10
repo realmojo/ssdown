@@ -30,22 +30,26 @@ export function HomeClient() {
       <section className="relative overflow-hidden py-16 lg:py-24">
         <div className="absolute inset-0 bg-linear-to-br from-indigo-50/30 via-white to-purple-50/30 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 -z-10" />
         <div className="container px-4 md:px-6 flex flex-col items-center text-center space-y-8">
+          <span className="inline-block py-1 px-3 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300 text-sm font-semibold mb-2">
+            Video Technology & Archivists Hub
+          </span>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-indigo-800 to-gray-900 dark:from-white dark:via-indigo-200 dark:to-white pb-2 leading-tight">
-            How to Safely Use Online Video Content
+            Understanding Video Technology <br className="hidden md:block" />
+            and Digital Content Management
           </h1>
 
           {/* 2. Main Introduction Paragraph */}
           <div className="max-w-3xl mx-auto space-y-6 text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
             <p className="font-medium">
-              SSDown is an informational guide dedicated to helping users manage
-              and utilize online video content efficiently within the boundaries
-              of personal use and legal compliance.
+              SSDown is an educational platform dedicated to teaching users
+              about video technology, codec standards, digital archiving ethics,
+              and responsible content management practices.
             </p>
             <p>
-              Online video content can be a valuable resource for learning,
-              archiving, and offline reference in various situations. Our goal
-              is to assist users in understanding content policies and copyright
-              regulations, ensuring a safe and responsible digital experience.
+              We provide comprehensive information about how online video
+              platforms work, helping users understand the technical aspects of
+              HLS streaming, container formats (MP4/WebM), and the legal
+              implications of digital media consumption.
             </p>
             <p>
               Whether you are a student looking to save educational material for
@@ -62,7 +66,7 @@ export function HomeClient() {
       <section className="py-16 bg-white dark:bg-gray-950">
         <div className="container px-4 md:px-6 max-w-4xl">
           <h2 className="text-3xl font-bold tracking-tight mb-8 text-center sm:text-left">
-            What We Cover at SSDown
+            Educational Resources
           </h2>
           <div className="grid sm:grid-cols-2 gap-8">
             <div className="space-y-4">
@@ -159,6 +163,7 @@ export function HomeClient() {
         </div>
       </section>
 
+<<<<<<< HEAD
       {/* 5. How It Works (H2) - New Section */}
       <section className="py-16 bg-white dark:bg-gray-950">
         <div className="container px-4 md:px-6 max-w-4xl">
@@ -212,7 +217,7 @@ export function HomeClient() {
         <div className="container px-4 md:px-6 max-w-5xl">
           <div className="text-center max-w-3xl mx-auto space-y-6 mb-12">
             <h2 className="text-3xl font-bold tracking-tight">
-              Video Content Management Tools
+              ⚠️ Educational Reference Tools (Use at Your Own Risk)
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
               SSDown operates primarily as an information resource. We also
@@ -220,10 +225,40 @@ export function HomeClient() {
               management purposes. Each tool is tailored to the specific
               platform's content format and policies.
             </p>
-            <div className="bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900 p-4 rounded-lg text-sm text-blue-800 dark:text-blue-200 max-w-2xl mx-auto">
-              <strong>Notice:</strong> These tools are for convenience only. All
-              copyrights belong to the original creators and platforms. Users
-              must strictly adhere to the terms of service of each platform.
+            <div className="bg-red-50 dark:bg-red-900/10 border-2 border-red-200 dark:border-red-900 p-6 rounded-lg text-sm text-left max-w-2xl mx-auto space-y-3">
+              <strong className="text-red-800 dark:text-red-200 block mb-3 text-base">
+                ⚠️ IMPORTANT DISCLAIMER:
+              </strong>
+              <p className="text-red-900/90 dark:text-red-200/90 font-medium">
+                These tools are provided solely for educational purposes to
+                demonstrate how video URLs work. Users MUST:
+              </p>
+              <ul className="list-disc pl-5 space-y-2 text-red-900/80 dark:text-red-200/80">
+                <li>
+                  <strong>Obtain explicit permission</strong> from content
+                  creators before downloading
+                </li>
+                <li>
+                  <strong>Comply with all platform Terms of Service</strong> (X,
+                  TikTok, Instagram, Facebook, etc.)
+                </li>
+                <li>
+                  <strong>
+                    Respect all copyright and intellectual property rights
+                  </strong>
+                </li>
+                <li>
+                  <strong>Use only for legally permitted purposes</strong> in
+                  their jurisdiction
+                </li>
+              </ul>
+              <p className="text-red-900/90 dark:text-red-200/90 font-semibold mt-3 pt-3 border-t border-red-200 dark:border-red-800">
+                SSDown does NOT encourage or endorse any violation of platform
+                policies or copyright laws.
+                <span className="block mt-1">
+                  Misuse of these tools may result in legal consequences.
+                </span>
+              </p>
             </div>
           </div>
 

@@ -16,7 +16,7 @@ import {
   VideoDownloaderClient,
   ThemeConfig,
   StatsConfig,
-} from "./video-downloader-client";
+} from "./video-saver-client";
 import {
   Accordion,
   AccordionContent,
@@ -312,7 +312,7 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
       dict={dict}
       theme={theme}
       icon={Play}
-      title={dict?.dailymotion?.title || "Dailymotion Video Downloader"}
+      title={dict?.dailymotion?.title || "Dailymotion Saver"}
       subtitle={
         dict?.dailymotion?.subtitle ||
         "Download Dailymotion videos instantly. High quality, no watermark."

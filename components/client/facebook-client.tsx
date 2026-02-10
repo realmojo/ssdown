@@ -12,11 +12,12 @@ import {
   Download,
   VideoIcon,
 } from "lucide-react";
+import { FacebookTechInsights } from "./facebook-tech-insights";
 import {
   VideoDownloaderClient,
   ThemeConfig,
   StatsConfig,
-} from "./video-downloader-client";
+} from "./video-saver-client";
 import { FacebookIcon } from "@/components/ui/icons";
 import {
   Accordion,
@@ -252,6 +253,8 @@ export function FacebookClient({ dict }: FacebookClientProps) {
         </div>
       </section>
 
+      <FacebookTechInsights />
+
       {/* FAQ Section */}
       <section>
         <div className="text-center mb-10">
@@ -358,7 +361,7 @@ export function FacebookClient({ dict }: FacebookClientProps) {
       dict={dict}
       theme={theme}
       icon={FacebookIcon}
-      title={dict?.facebook?.title || "Facebook Video Downloader"}
+      title={dict?.facebook?.title || "Facebook Saver"}
       subtitle={
         dict?.facebook?.subtitle ||
         "Download Facebook videos easily. High quality, free, and secure."

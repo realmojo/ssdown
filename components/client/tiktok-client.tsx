@@ -12,11 +12,12 @@ import {
   Download,
   Music,
 } from "lucide-react";
+import { TikTokTechInsights } from "./tiktok-tech-insights";
 import {
   VideoDownloaderClient,
   ThemeConfig,
   StatsConfig,
-} from "./video-downloader-client";
+} from "./video-saver-client";
 import { TikTokIcon } from "@/components/ui/icons";
 import {
   Accordion,
@@ -252,6 +253,8 @@ export function TikTokClient({ dict }: TikTokClientProps) {
         </div>
       </section>
 
+      <TikTokTechInsights />
+
       {/* FAQ Section */}
       <section>
         <div className="text-center mb-10">
@@ -358,7 +361,7 @@ export function TikTokClient({ dict }: TikTokClientProps) {
       dict={dict}
       theme={theme}
       icon={TikTokIcon}
-      title={dict?.tiktok?.title || "TikTok Video Downloader"}
+      title={dict?.tiktok?.title || "TikTok Saver"}
       subtitle={
         dict?.tiktok?.subtitle ||
         "Download TikTok videos without watermark. Save MP4 videos and MP3 audio instantly."

@@ -20,7 +20,7 @@ export function SiteFooter({ dict }: SiteFooterProps) {
             </a>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
               {dict?.home?.subtitle ||
-                "The ultimate video downloader for X (Twitter), TikTok, Instagram, and Facebook. Fast, free, and secure."}
+                "The ultimate video saver for X (Twitter), TikTok, Instagram, and Facebook. Fast, free, and secure."}
             </p>
           </div>
 

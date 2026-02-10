@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Download, Loader2 } from "lucide-react";
-import { VideoItem } from "../client/video-downloader-client";
+import { VideoItem } from "../client/video-saver-client";
 
 interface XDownloaderClientProps {
   items: VideoItem[];
@@ -52,13 +52,13 @@ const XDownloaderClient = ({
   const handleDownload = async (
     url: string,
     fileName: string,
-    downloadKey: string
+    downloadKey: string,
   ) => {
     setDownloadingVideo(downloadKey);
     try {
       // 서버 프록시를 통해 비디오를 가져오기 (CORS 문제 해결)
       const proxyUrl = `${downloadEndpoint}?videoUrl=${encodeURIComponent(
-        url
+        url,
       )}&filename=${encodeURIComponent(fileName)}`;
 
       const response = await fetch(proxyUrl);

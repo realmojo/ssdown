@@ -101,7 +101,7 @@ export function YoutubePreviewClient({
 
     try {
       const response = await fetch(
-        `/api/youtube/thumbnail?url=${encodeURIComponent(url)}`,
+        `/api/yt/thumbnail?url=${encodeURIComponent(url)}`,
       );
       const data: ApiResponse = await response.json();
 

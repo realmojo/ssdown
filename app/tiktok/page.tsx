@@ -12,15 +12,15 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/tiktok`;
 
   return {
-    title: dict.tiktok?.seo_title || "TikTok Video Downloader",
+    title: dict.tiktok?.seo_title || "TikTok Saver",
     description:
       dict.tiktok?.seo_description ||
       "Download TikTok videos without watermark.",
     keywords: dict.tiktok?.seo_keywords
       ? dict.tiktok.seo_keywords.split(", ")
-      : ["tiktok downloader", "tiktok no watermark"],
+      : ["tiktok saver", "tiktok no watermark"],
     openGraph: {
-      title: dict.tiktok?.seo_title || "TikTok Video Downloader",
+      title: dict.tiktok?.seo_title || "TikTok Saver",
       description:
         dict.tiktok?.seo_description ||
         "Download TikTok videos without watermark.",
@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "https://ssdown.app/ssdown-tiktok-og.png",
           width: 1200,
           height: 630,
-          alt: "SSDown - TikTok Video Downloader",
+          alt: "SSDown - TikTok Saver",
         },
       ],
       locale: "en_US",
@@ -39,7 +39,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: dict.tiktok?.title || "TikTok Video Downloader",
+      title: dict.tiktok?.title || "TikTok Saver",
       description:
         dict.tiktok?.subtitle || "Download TikTok videos without watermark.",
       images: ["https://ssdown.app/ssdown-tiktok-og.png"],

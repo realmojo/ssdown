@@ -12,7 +12,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const { getPostById } = await import("@/lib/posts");
+  const { getPostById } = await import("@/lib/blog-utils");
   const post = await getPostById(id);
 
   if (!post) {
@@ -62,12 +62,14 @@ export async function generateMetadata({
   };
 }
 
+import { getPostById } from "@/lib/blog-utils";
+
 export default async function BlogPostPage(props: {
   params: Promise<{ id: string }>;
 }) {
   const params = await props.params;
   const { id } = params;
-  const { getPostById } = await import("@/lib/posts");
+
   const post = await getPostById(id);
 
   if (!post) {
