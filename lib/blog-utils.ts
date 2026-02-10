@@ -29,7 +29,20 @@ function transformSupabasePost(data: any): Post {
 
 import { staticPosts } from "./posts";
 
+function isSupabaseConfigured(): boolean {
+  return !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+}
+
 export async function getAllPosts(): Promise<Post[] | any> {
+  if (!isSupabaseConfigured()) {
+    return staticPosts.map((p) => ({
+      ...p,
+      title: resolveField(p.title),
+      excerpt: resolveField(p.excerpt),
+      content: resolveField(p.content),
+    }));
+  }
+
   try {
     const { data, error } = await supabase
       .from("ssdown_blogs")
