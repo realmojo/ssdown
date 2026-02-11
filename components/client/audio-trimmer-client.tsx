@@ -16,7 +16,7 @@ import {
   Info,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Slider } from "@/components/ui/slider";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -35,10 +35,17 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
   const [error, setError] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [ffmpegLoaded, setFfmpegLoaded] = useState(false);
+  const [waveformData, setWaveformData] = useState<number[]>([]);
+  const [draggingHandle, setDraggingHandle] = useState<
+    "start" | "end" | "seek" | null
+  >(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const ffmpegRef = useRef<FFmpeg | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const waveformContainerRef = useRef<HTMLDivElement>(null);
+  const animationRef = useRef<number>(0);
 
   // Load FFmpeg
   const loadFFmpeg = async () => {
@@ -95,14 +102,48 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
     setError(null);
     setProgress(0);
     setIsPlaying(false);
+    setWaveformData([]);
+  };
 
-    // Create audio URL to get duration
-    const url = URL.createObjectURL(selectedFile);
-    if (audioRef.current) {
+  // Set audio source and decode waveform when file changes
+  useEffect(() => {
+    if (file && audioRef.current) {
+      const url = URL.createObjectURL(file);
       audioRef.current.src = url;
       audioRef.current.load();
+
+      // Decode audio for waveform
+      const reader = new FileReader();
+      reader.onload = async () => {
+        try {
+          const audioContext = new AudioContext();
+          const arrayBuffer = reader.result as ArrayBuffer;
+          const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+          const channelData = audioBuffer.getChannelData(0);
+          const samples = 300;
+          const blockSize = Math.floor(channelData.length / samples);
+          const peaks: number[] = [];
+          for (let i = 0; i < samples; i++) {
+            let sum = 0;
+            for (let j = 0; j < blockSize; j++) {
+              sum += Math.abs(channelData[i * blockSize + j]);
+            }
+            peaks.push(sum / blockSize);
+          }
+          // Normalize
+          const max = Math.max(...peaks);
+          const normalized = max > 0 ? peaks.map((p) => p / max) : peaks;
+          setWaveformData(normalized);
+          audioContext.close();
+        } catch (err) {
+          console.error("Failed to decode audio for waveform", err);
+        }
+      };
+      reader.readAsArrayBuffer(file);
+
+      return () => URL.revokeObjectURL(url);
     }
-  };
+  }, [file]);
 
   // Audio loaded metadata handler
   const onLoadedMetadata = () => {
@@ -172,6 +213,191 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
     const ms = Math.floor((seconds % 1) * 10);
     return `${mins}:${secs.toString().padStart(2, "0")}.${ms}`;
   };
+
+  // Draw waveform on canvas
+  const drawWaveform = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || waveformData.length === 0 || duration <= 0) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+
+    const width = rect.width;
+    const height = rect.height;
+    const centerY = height / 2;
+    const barWidth = width / waveformData.length;
+    const maxBarHeight = height * 0.85;
+
+    // Clear
+    ctx.clearRect(0, 0, width, height);
+
+    // Draw bars
+    for (let i = 0; i < waveformData.length; i++) {
+      const x = i * barWidth;
+      const barH = Math.max(2, waveformData[i] * maxBarHeight);
+      const timeAtBar = (i / waveformData.length) * duration;
+      const inRange = timeAtBar >= range[0] && timeAtBar <= range[1];
+
+      if (inRange) {
+        ctx.fillStyle = "#3b82f6";
+      } else {
+        ctx.fillStyle = "#d1d5db";
+      }
+
+      const gap = 1;
+      const w = Math.max(1, barWidth - gap);
+      ctx.fillRect(x, centerY - barH / 2, w, barH);
+    }
+
+    // Draw range overlay borders
+    const startX = (range[0] / duration) * width;
+    const endX = (range[1] / duration) * width;
+
+    // Left dimmed area
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, startX, height);
+    // Right dimmed area
+    ctx.fillRect(endX, 0, width - endX, height);
+
+    // Start handle
+    ctx.fillStyle = "#2563eb";
+    ctx.fillRect(startX - 2, 0, 4, height);
+    // End handle
+    ctx.fillRect(endX - 2, 0, 4, height);
+
+    // Handle circles
+    const handleRadius = 7;
+    [startX, endX].forEach((hx) => {
+      ctx.beginPath();
+      ctx.arc(hx, centerY, handleRadius, 0, Math.PI * 2);
+      ctx.fillStyle = "#2563eb";
+      ctx.fill();
+      ctx.strokeStyle = "#fff";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    });
+
+    // Playback position
+    if (currentTime > 0) {
+      const playX = (currentTime / duration) * width;
+      ctx.strokeStyle = "#ef4444";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(playX, 0);
+      ctx.lineTo(playX, height);
+      ctx.stroke();
+
+      // Red dot at top
+      ctx.beginPath();
+      ctx.arc(playX, 5, 4, 0, Math.PI * 2);
+      ctx.fillStyle = "#ef4444";
+      ctx.fill();
+    }
+  }, [waveformData, range, duration, currentTime]);
+
+  // Redraw waveform when data changes
+  useEffect(() => {
+    drawWaveform();
+  }, [drawWaveform]);
+
+  // Redraw on resize
+  useEffect(() => {
+    const handleResize = () => drawWaveform();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [drawWaveform]);
+
+  // Animate playback position
+  useEffect(() => {
+    if (isPlaying) {
+      const animate = () => {
+        drawWaveform();
+        animationRef.current = requestAnimationFrame(animate);
+      };
+      animationRef.current = requestAnimationFrame(animate);
+      return () => cancelAnimationFrame(animationRef.current);
+    }
+  }, [isPlaying, drawWaveform]);
+
+  // Waveform mouse interaction
+  const getTimeFromMouseEvent = useCallback(
+    (e: React.MouseEvent | MouseEvent) => {
+      const container = waveformContainerRef.current;
+      if (!container || duration <= 0) return 0;
+      const rect = container.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      return Math.round((x / rect.width) * duration * 100) / 100;
+    },
+    [duration],
+  );
+
+  const handleWaveformMouseDown = (e: React.MouseEvent) => {
+    if (duration <= 0) return;
+    const time = getTimeFromMouseEvent(e);
+    const startDist = Math.abs(time - range[0]);
+    const endDist = Math.abs(time - range[1]);
+    const threshold = duration * 0.02; // 2% of duration
+
+    if (startDist < threshold && startDist <= endDist) {
+      setDraggingHandle("start");
+    } else if (endDist < threshold) {
+      setDraggingHandle("end");
+    } else {
+      // Click to seek
+      setDraggingHandle("seek");
+      if (audioRef.current) {
+        const clampedTime = Math.max(range[0], Math.min(time, range[1]));
+        audioRef.current.currentTime = clampedTime;
+        setCurrentTime(clampedTime);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (!draggingHandle) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const time = getTimeFromMouseEvent(e);
+      if (draggingHandle === "start") {
+        setRange([Math.max(0, Math.min(time, range[1] - 0.1)), range[1]]);
+        if (audioRef.current) {
+          audioRef.current.currentTime = Math.max(
+            0,
+            Math.min(time, range[1] - 0.1),
+          );
+          setCurrentTime(Math.max(0, Math.min(time, range[1] - 0.1)));
+        }
+      } else if (draggingHandle === "end") {
+        setRange([
+          range[0],
+          Math.min(duration, Math.max(time, range[0] + 0.1)),
+        ]);
+      } else if (draggingHandle === "seek") {
+        const clampedTime = Math.max(range[0], Math.min(time, range[1]));
+        if (audioRef.current) {
+          audioRef.current.currentTime = clampedTime;
+          setCurrentTime(clampedTime);
+        }
+      }
+    };
+
+    const handleMouseUp = () => {
+      setDraggingHandle(null);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [draggingHandle, range, duration]);
 
   // Trim Logic
   const handleTrim = async () => {
@@ -248,6 +474,15 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
             "Cut and trim MP3 audio files directly in your browser. Fast, free, and private."}
         </p>
 
+        {/* Hidden Audio Player - always mounted for ref access */}
+        <audio
+          ref={audioRef}
+          onLoadedMetadata={onLoadedMetadata}
+          onTimeUpdate={onTimeUpdate}
+          onEnded={() => setIsPlaying(false)}
+          className="hidden"
+        />
+
         {/* Upload Section */}
         {!file && (
           <div
@@ -304,97 +539,113 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
                 </Button>
               </div>
             </CardHeader>
-            <CardContent className="pt-8 space-y-8">
-              {/* Hidden Audio Player */}
-              <audio
-                ref={audioRef}
-                onLoadedMetadata={onLoadedMetadata}
-                onTimeUpdate={onTimeUpdate}
-                onEnded={() => setIsPlaying(false)}
-                className="hidden"
-              />
-
-              {/* Controls & Waveform Placeholder */}
-              <div className="space-y-6">
-                <div className="flex items-center justify-center gap-4">
-                  <Button
-                    size="icon"
-                    variant="outline"
-                    className="h-12 w-12 rounded-full"
-                    onClick={togglePlay}
-                  >
-                    {isPlaying ? (
-                      <Pause className="w-6 h-6" />
-                    ) : (
-                      <Play className="w-6 h-6 ml-1" />
-                    )}
-                  </Button>
-                  <div className="text-2xl font-mono tabular-nums">
-                    {formatTime(currentTime)}
-                  </div>
+            <CardContent className="pt-8 space-y-6">
+              {/* Playback Controls */}
+              <div className="flex items-center justify-center gap-4">
+                <Button
+                  size="icon"
+                  variant="outline"
+                  className="h-12 w-12 rounded-full"
+                  onClick={togglePlay}
+                >
+                  {isPlaying ? (
+                    <Pause className="w-6 h-6" />
+                  ) : (
+                    <Play className="w-6 h-6 ml-1" />
+                  )}
+                </Button>
+                <div className="text-2xl font-mono tabular-nums">
+                  {formatTime(currentTime)}
                 </div>
+              </div>
 
-                {/* Range Slider */}
-                <div className="pt-6 pb-2 px-2">
-                  <Slider
-                    defaultValue={[0, duration]}
-                    value={range}
-                    max={duration}
-                    step={0.1}
-                    minStepsBetweenThumbs={1}
-                    onValueChange={(val: number[]) => {
-                      setRange([val[0], val[1]]);
-                      // Update current time to start of range if likely dragging start handle
-                      if (Math.abs(val[0] - range[0]) > 0) {
-                        if (audioRef.current)
-                          audioRef.current.currentTime = val[0];
-                        setCurrentTime(val[0]);
-                      }
+              {/* Waveform Visualization */}
+              <div className="space-y-2">
+                <div
+                  ref={waveformContainerRef}
+                  className="relative w-full h-32 bg-gray-50 dark:bg-gray-900 rounded-xl overflow-hidden cursor-crosshair select-none border border-gray-200 dark:border-gray-700"
+                  onMouseDown={handleWaveformMouseDown}
+                >
+                  {waveformData.length > 0 ? (
+                    <canvas
+                      ref={canvasRef}
+                      className="w-full h-full"
+                      style={{ display: "block" }}
+                    />
+                  ) : (
+                    <div className="flex items-center justify-center h-full">
+                      <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
+                      <span className="ml-2 text-sm text-muted-foreground">
+                        Loading waveform...
+                      </span>
+                    </div>
+                  )}
+                </div>
+                <div className="flex justify-between text-xs text-muted-foreground px-1">
+                  <span>{formatTime(0)}</span>
+                  <span>{formatTime(duration / 4)}</span>
+                  <span>{formatTime(duration / 2)}</span>
+                  <span>{formatTime((duration * 3) / 4)}</span>
+                  <span>{formatTime(duration)}</span>
+                </div>
+              </div>
+
+              {/* Selection Range Info */}
+              <div className="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-100 dark:border-blue-900/50">
+                <div className="flex-1 text-center">
+                  <p className="text-xs text-muted-foreground mb-1">Start</p>
+                  <p className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
+                    {formatTime(range[0])}
+                  </p>
+                </div>
+                <div className="w-px h-8 bg-blue-200 dark:bg-blue-800" />
+                <div className="flex-1 text-center">
+                  <p className="text-xs text-muted-foreground mb-1">Duration</p>
+                  <p className="text-sm font-mono font-semibold">
+                    {formatTime(range[1] - range[0])}
+                  </p>
+                </div>
+                <div className="w-px h-8 bg-blue-200 dark:bg-blue-800" />
+                <div className="flex-1 text-center">
+                  <p className="text-xs text-muted-foreground mb-1">End</p>
+                  <p className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
+                    {formatTime(range[1])}
+                  </p>
+                </div>
+              </div>
+
+              {/* Exact Inputs */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Start Time (sec)</Label>
+                  <Input
+                    type="number"
+                    step="0.1"
+                    min="0"
+                    max={range[1]}
+                    value={Math.round(range[0] * 100) / 100}
+                    onChange={(e) => {
+                      const val = Math.max(0, parseFloat(e.target.value) || 0);
+                      setRange([Math.min(val, range[1] - 0.1), range[1]]);
                     }}
-                    className="cursor-pointer"
                   />
-                  <div className="flex justify-between mt-2 text-sm text-muted-foreground">
-                    <span>{formatTime(range[0])}</span>
-                    <span>{formatTime(range[1])}</span>
-                  </div>
                 </div>
-
-                {/* Exact Inputs */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label>Start Time (sec)</Label>
-                    <Input
-                      type="number"
-                      step="0.1"
-                      min="0"
-                      max={range[1]}
-                      value={range[0]}
-                      onChange={(e) => {
-                        const val = Math.max(
-                          0,
-                          parseFloat(e.target.value) || 0,
-                        );
-                        setRange([Math.min(val, range[1] - 0.1), range[1]]);
-                      }}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>End Time (sec)</Label>
-                    <Input
-                      type="number"
-                      step="0.1"
-                      min={range[0]}
-                      max={duration}
-                      value={range[1]}
-                      onChange={(e) => {
-                        const val = Math.min(
-                          duration,
-                          parseFloat(e.target.value) || duration,
-                        );
-                        setRange([range[0], Math.max(val, range[0] + 0.1)]);
-                      }}
-                    />
-                  </div>
+                <div className="space-y-2">
+                  <Label>End Time (sec)</Label>
+                  <Input
+                    type="number"
+                    step="0.1"
+                    min={range[0]}
+                    max={duration}
+                    value={Math.round(range[1] * 100) / 100}
+                    onChange={(e) => {
+                      const val = Math.min(
+                        duration,
+                        parseFloat(e.target.value) || duration,
+                      );
+                      setRange([range[0], Math.max(val, range[0] + 0.1)]);
+                    }}
+                  />
                 </div>
               </div>
 

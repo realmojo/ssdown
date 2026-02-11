@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -25,6 +27,7 @@ interface SiteHeaderProps {
 }
 
 export function SiteHeader({ dict }: SiteHeaderProps) {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center px-4 md:px-6">
@@ -276,7 +279,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
 
           {/* Mobile Navigation Sidebar */}
           <div className="md:hidden">
-            <Sheet>
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden">
                   <Menu className="h-6 w-6" />
@@ -299,6 +302,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/x"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           {dict?.twitter || "X (Twitter)"}
                         </Link>
@@ -306,6 +310,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/tiktok"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           {dict?.tiktok || "TikTok"}
                         </Link>
@@ -313,6 +318,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/instagram"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           {dict?.instagram?.nav || "Instagram"}
                         </Link>
@@ -320,6 +326,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/facebook"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           {dict?.facebook?.nav || "Facebook"}
                         </Link>
@@ -327,6 +334,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/dailymotion"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           {dict?.dailymotion?.nav || "Dailymotion"}
                         </Link>
@@ -334,6 +342,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/9gag"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           {dict?.["9gag"]?.nav || "9GAG"}
                         </Link>
@@ -350,6 +359,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/tools/youtube-thumbnail"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           YT Thumbnail Downloader
                         </Link>
@@ -357,6 +367,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/tools/youtube-preview"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           YT Preview Editor
                         </Link>
@@ -364,6 +375,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/tools/video-to-mp3"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           Video to MP3
                         </Link>
@@ -371,6 +383,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/tools/video-to-gif"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           Video to GIF
                         </Link>
@@ -378,6 +391,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/tools/video-frame-extractor"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           Video Frame Extractor
                         </Link>
@@ -385,6 +399,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/tools/audio-trimmer"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           Audio Trimmer
                         </Link>
@@ -392,6 +407,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/tools/image-converter"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           Image Converter
                         </Link>
@@ -399,6 +415,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/tools/social-image-resizer"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           Social Image Resizer
                         </Link>
@@ -406,6 +423,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/tools/instagram-line-break"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           Instagram Line Break
                         </Link>
@@ -413,6 +431,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/tools/qr-code-generator"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           QR Code Generator
                         </Link>
@@ -420,6 +439,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/tools/aspect-ratio-calculator"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           Aspect Ratio Calculator
                         </Link>
@@ -427,6 +447,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/tools/thumbnail-generator"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           Thumbnail Generator
                         </Link>
@@ -434,6 +455,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/tools/hashtag-generator"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           Hashtag Generator
                         </Link>
@@ -441,6 +463,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/tools/watermark-remover"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           Watermark Remover
                         </Link>
@@ -457,6 +480,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           prefetch={false}
                           href="/blog"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
                         >
                           Blog
                         </Link>
