@@ -80,6 +80,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/tools/video-to-gif`,
+      lastModified: "2026-02-11",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/tools/thumbnail-generator`,
       lastModified: "2026-01-01",
       changeFrequency: "monthly",

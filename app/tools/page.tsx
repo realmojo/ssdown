@@ -1,7 +1,15 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { getDictionary } from "@/lib/get-dictionary";
-import { Music, ImageIcon, Hash, ArrowRight, Download, Eye, Eraser } from "lucide-react";
+import {
+  Music,
+  ImageIcon,
+  Hash,
+  ArrowRight,
+  Download,
+  Eye,
+  Eraser,
+} from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -69,6 +77,17 @@ const tools = [
     iconColor: "text-pink-500",
   },
   {
+    title: "Video to GIF Converter",
+    descKey: "video_to_gif_desc",
+    fallbackDesc:
+      "Convert short video clips to animated GIFs directly in your browser. Fast and free.",
+    href: "/tools/video-to-gif",
+    icon: ImageIcon,
+    gradient: "from-pink-500 to-rose-500",
+    bgLight: "bg-pink-100 dark:bg-pink-900/30",
+    iconColor: "text-rose-500",
+  },
+  {
     title: "Thumbnail Generator",
     descKey: "thumbnail_desc",
     fallbackDesc:
@@ -110,8 +129,18 @@ export default async function ToolsPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
-      { "@type": "ListItem", position: 2, name: "Tools", item: "https://ssdown.app/tools" },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://ssdown.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tools",
+        item: "https://ssdown.app/tools",
+      },
     ],
   };
 

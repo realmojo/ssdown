@@ -1,0 +1,89 @@
+import { Metadata } from "next";
+import { getDictionary } from "@/lib/get-dictionary";
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import { VideoToGifClient } from "@/components/client/video-to-gif-client";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const baseUrl = "https://ssdown.app";
+  const canonical = `${baseUrl}/tools/video-to-gif`;
+
+  const title = "Free Video to GIF Converter | SSDown";
+  const description =
+    "Convert video files to animated GIFs directly in your browser. Fast, free, and private video to GIF converter with no file upload limits.";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      siteName: "SSDown",
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+    alternates: {
+      canonical,
+    },
+  };
+}
+
+export default async function VideoToGifPage() {
+  const dict = await getDictionary();
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://ssdown.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tools",
+        item: "https://ssdown.app/tools",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Video to GIF",
+        item: "https://ssdown.app/tools/video-to-gif",
+      },
+    ],
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <div className="flex flex-col min-h-[calc(100vh-4rem)]">
+        <div className="container max-w-7xl mx-auto px-4 py-8">
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Tools", href: "/tools" },
+              {
+                label: "Video to GIF",
+                href: "/tools/video-to-gif",
+                isCurrent: true,
+              },
+            ]}
+          />
+
+          <VideoToGifClient dict={dict} />
+        </div>
+      </div>
+    </>
+  );
+}
