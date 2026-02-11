@@ -10,6 +10,10 @@ import {
   Eye,
   Eraser,
   Film,
+  Crop,
+  AlignLeft,
+  QrCode,
+  Calculator,
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
@@ -131,6 +135,61 @@ const tools = [
     gradient: "from-emerald-500 to-teal-500",
     bgLight: "bg-emerald-100 dark:bg-emerald-900/30",
     iconColor: "text-emerald-500",
+  },
+  {
+    title: "Image Converter",
+    descKey: "image_converter_desc",
+    fallbackDesc:
+      "Convert images between WebP, PNG, and JPG formats. Batch processing supported.",
+    href: "/tools/image-converter",
+    icon: ImageIcon,
+    gradient: "from-blue-500 to-cyan-500",
+    bgLight: "bg-blue-100 dark:bg-blue-900/30",
+    iconColor: "text-blue-500",
+  },
+  {
+    title: "Social Image Resizer",
+    descKey: "social_image_resizer_desc",
+    fallbackDesc:
+      "Resize and crop images for Instagram, YouTube, and TikTok. Perfect dimensions, instantly.",
+    href: "/tools/social-image-resizer",
+    icon: Crop,
+    gradient: "from-pink-500 to-orange-500",
+    bgLight: "bg-pink-100 dark:bg-pink-900/30",
+    iconColor: "text-pink-500",
+  },
+  {
+    title: "Instagram Line Break",
+    descKey: "instagram_line_break_desc",
+    fallbackDesc:
+      "Create clean Instagram captions with perfect line breaks. No more dots.",
+    href: "/tools/instagram-line-break",
+    icon: AlignLeft,
+    gradient: "from-purple-500 to-pink-500",
+    bgLight: "bg-purple-100 dark:bg-purple-900/30",
+    iconColor: "text-purple-500",
+  },
+  {
+    title: "QR Code Generator",
+    descKey: "qr_code_generator_desc",
+    fallbackDesc:
+      "Create custom QR codes for any link in seconds. Free, instant download.",
+    href: "/tools/qr-code-generator",
+    icon: QrCode,
+    gradient: "from-blue-600 to-cyan-600",
+    bgLight: "bg-blue-100 dark:bg-blue-900/30",
+    iconColor: "text-blue-600",
+  },
+  {
+    title: "Aspect Ratio Calculator",
+    descKey: "aspect_ratio_calculator_desc",
+    fallbackDesc:
+      "Calculate aspect ratios and resolutions for video editing. Perfect for content creators.",
+    href: "/tools/aspect-ratio-calculator",
+    icon: Calculator,
+    gradient: "from-violet-500 to-purple-500",
+    bgLight: "bg-violet-100 dark:bg-violet-900/30",
+    iconColor: "text-violet-500",
   },
 ];
 

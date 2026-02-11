@@ -104,6 +104,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/tools/image-converter`,
+      lastModified: "2026-02-11",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/tools/social-image-resizer`,
+      lastModified: "2026-02-11",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/tools/instagram-line-break`,
+      lastModified: "2026-02-11",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/tools/qr-code-generator`,
+      lastModified: "2026-02-11",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/tools/aspect-ratio-calculator`,
+      lastModified: "2026-02-11",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/tools/hashtag-generator`,
       lastModified: "2026-01-01",
       changeFrequency: "monthly",

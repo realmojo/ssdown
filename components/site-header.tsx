@@ -152,6 +152,46 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  href="/tools/image-converter"
+                  className="w-full cursor-pointer"
+                >
+                  Image Converter
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link
+                  href="/tools/social-image-resizer"
+                  className="w-full cursor-pointer"
+                >
+                  Social Image Resizer
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link
+                  href="/tools/instagram-line-break"
+                  className="w-full cursor-pointer"
+                >
+                  Instagram Line Break
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link
+                  href="/tools/qr-code-generator"
+                  className="w-full cursor-pointer"
+                >
+                  QR Code Generator
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link
+                  href="/tools/aspect-ratio-calculator"
+                  className="w-full cursor-pointer"
+                >
+                  Aspect Ratio Calculator
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link
                   href="/tools/thumbnail-generator"
                   className="w-full cursor-pointer"
                 >
@@ -294,6 +334,36 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           Audio Trimmer
+                        </Link>
+                        <Link
+                          href="/tools/image-converter"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                        >
+                          Image Converter
+                        </Link>
+                        <Link
+                          href="/tools/social-image-resizer"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                        >
+                          Social Image Resizer
+                        </Link>
+                        <Link
+                          href="/tools/instagram-line-break"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                        >
+                          Instagram Line Break
+                        </Link>
+                        <Link
+                          href="/tools/qr-code-generator"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                        >
+                          QR Code Generator
+                        </Link>
+                        <Link
+                          href="/tools/aspect-ratio-calculator"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                        >
+                          Aspect Ratio Calculator
                         </Link>
                         <Link
                           href="/tools/thumbnail-generator"
