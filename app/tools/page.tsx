@@ -9,6 +9,7 @@ import {
   Download,
   Eye,
   Eraser,
+  Film,
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
@@ -86,6 +87,17 @@ const tools = [
     gradient: "from-pink-500 to-rose-500",
     bgLight: "bg-pink-100 dark:bg-pink-900/30",
     iconColor: "text-rose-500",
+  },
+  {
+    title: "Video Frame Extractor",
+    descKey: "video_frame_extractor_desc",
+    fallbackDesc:
+      "Convert video to image sequence. Extract high-quality frames instantly.",
+    href: "/tools/video-frame-extractor",
+    icon: Film,
+    gradient: "from-indigo-500 to-purple-500",
+    bgLight: "bg-indigo-100 dark:bg-indigo-900/30",
+    iconColor: "text-indigo-500",
   },
   {
     title: "Thumbnail Generator",

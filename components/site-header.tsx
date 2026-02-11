@@ -136,6 +136,14 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  href="/tools/video-frame-extractor"
+                  className="w-full cursor-pointer"
+                >
+                  Video Frame Extractor
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link
                   href="/tools/thumbnail-generator"
                   className="w-full cursor-pointer"
                 >
@@ -266,6 +274,12 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           Video to GIF
+                        </Link>
+                        <Link
+                          href="/tools/video-frame-extractor"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                        >
+                          Video Frame Extractor
                         </Link>
                         <Link
                           href="/tools/thumbnail-generator"

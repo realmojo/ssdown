@@ -252,7 +252,7 @@ export function VideoToGifClient({ dict }: { dict?: any }) {
                     setFile(testFile);
                     setOutputUrl(null);
                     setError(null);
-                  } catch (err) {
+                  } catch {
                     setError("Failed to load test video");
                   } finally {
                     setLoading(false);

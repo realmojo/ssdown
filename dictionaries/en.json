@@ -731,6 +731,34 @@
     "faq_5_q": "Does it work on mobile?",
     "faq_5_a": "Yes, but heavy video processing can be slow on older phones. Desktop is recommended for larger files."
   },
+  "video_frame_extractor": {
+    "title": "Video Frame Extractor",
+    "subtitle": "Convert video to image sequence. Extract high-quality frames instantly.",
+    "drop_zone": "Drag & drop your video here",
+    "supported": "Supported: MP4, MOV, WebM, AVI, MKV",
+    "guide_title": "How to Extract Frames",
+    "guide_desc": "Get perfect still images from your video in 3 steps.",
+    "tips_title": "Extraction Tips",
+    "tips_desc": "Get the best results for your frame captures.",
+    "tip1_title": "Format Selection",
+    "tip1_desc": "Use JPEG for smaller file sizes if extracting many frames. Use PNG for maximum quality.",
+    "tip2_title": "Interval Strategy",
+    "tip2_desc": "For action scenes, use a smaller interval (0.1s - 0.5s). For presentations, 1s-5s is usually sufficient.",
+    "tip3_title": "Memory Usage",
+    "tip3_desc": "Extracting frames from long 4K videos uses a lot of memory. Try processing shorter clips.",
+    "tip4_title": "Batch Download",
+    "tip4_desc": "Save time by downloading all extracted frames at once as a ZIP archive."
+  },
+  "qna_video_frame_extractor": {
+    "title": "Common Questions",
+    "desc": "Learn more about video frame extraction.",
+    "faq_1_q": "Is my video uploaded?",
+    "faq_1_a": "No. All processing happens 100% on your device using your browser.",
+    "faq_2_q": "Can I extract every single frame?",
+    "faq_2_a": "Yes, set the interval to a very low number (e.g., 0.04s for 25fps video). Be careful as this generates many images!",
+    "faq_3_q": "How do I save the images?",
+    "faq_3_a": "You can download individual frames or get them all in a single ZIP file."
+  },
   "nav": {
     "home": "Home",
     "twitter": "X (Twitter)",
@@ -746,6 +774,7 @@
     "tools": "Tools",
     "video_to_mp3": "Video to MP3",
     "video_to_gif": "Video to GIF",
+    "video_frame_extractor": "Video Frame Extractor",
     "thumbnail_generator": "Thumbnail Generator",
     "hashtag_generator": "Hashtag Generator",
     "watermark_remover": "Watermark Remover"
