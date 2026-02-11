@@ -110,6 +110,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/tools/background-remover`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/tools/social-image-resizer`,
       lastModified: "2026-02-11",
       changeFrequency: "monthly",

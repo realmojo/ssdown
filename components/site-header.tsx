@@ -197,6 +197,15 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               <DropdownMenuItem asChild>
                 <Link
                   prefetch={false}
+                  href="/tools/background-remover"
+                  className="w-full cursor-pointer"
+                >
+                  Background Remover
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link
+                  prefetch={false}
                   href="/tools/social-image-resizer"
                   className="w-full cursor-pointer"
                 >
@@ -410,6 +419,14 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           onClick={() => setIsOpen(false)}
                         >
                           Image Converter
+                        </Link>
+                        <Link
+                          prefetch={false}
+                          href="/tools/background-remover"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Background Remover
                         </Link>
                         <Link
                           prefetch={false}
