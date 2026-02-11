@@ -18,6 +18,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { ChevronDown, Menu } from "lucide-react";
+import { PaypalDonateButton } from "@/components/paypal-donate-button";
 
 interface SiteHeaderProps {
   dict: any;
@@ -228,6 +229,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
         </nav>
 
         <div className="ml-auto flex items-center gap-2">
+          <PaypalDonateButton className="hidden md:flex mr-2" />
           {/* PC Theme Toggle */}
           <div className="hidden md:block">
             <ModeToggle />
@@ -401,8 +403,13 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                       </div>
                     </div>
 
+                    {/* Mobile Donate Button */}
+                    <div className="mt-auto pt-4 border-t pb-2">
+                      <PaypalDonateButton className="w-full justify-center" />
+                    </div>
+
                     {/* Settings - Theme Switcher */}
-                    <div className="flex items-center justify-between py-4 border-t mt-4">
+                    <div className="flex items-center justify-between py-4 border-t">
                       <span className="text-sm font-medium">Theme Setting</span>
                       <ModeToggle />
                     </div>
