@@ -29,6 +29,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center px-4 md:px-6">
         <Link
+          prefetch={false}
           href="/"
           className="flex items-center gap-2 font-bold text-xl mr-6 hover:opacity-80 transition-opacity"
         >
@@ -61,32 +62,56 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
               <DropdownMenuItem asChild>
-                <Link href="/x" className="w-full cursor-pointer">
+                <Link
+                  prefetch={false}
+                  href="/x"
+                  className="w-full cursor-pointer"
+                >
                   {dict?.twitter || "X (Twitter)"}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/tiktok" className="w-full cursor-pointer">
+                <Link
+                  prefetch={false}
+                  href="/tiktok"
+                  className="w-full cursor-pointer"
+                >
                   {dict?.tiktok || "TikTok"}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/instagram" className="w-full cursor-pointer">
+                <Link
+                  prefetch={false}
+                  href="/instagram"
+                  className="w-full cursor-pointer"
+                >
                   {dict?.instagram?.nav || "Instagram"}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/facebook" className="w-full cursor-pointer">
+                <Link
+                  prefetch={false}
+                  href="/facebook"
+                  className="w-full cursor-pointer"
+                >
                   {dict?.facebook?.nav || "Facebook"}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/dailymotion" className="w-full cursor-pointer">
+                <Link
+                  prefetch={false}
+                  href="/dailymotion"
+                  className="w-full cursor-pointer"
+                >
                   {dict?.dailymotion?.nav || "Dailymotion"}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/9gag" className="w-full cursor-pointer">
+                <Link
+                  prefetch={false}
+                  href="/9gag"
+                  className="w-full cursor-pointer"
+                >
                   {dict?.["9gag"]?.nav || "9GAG"}
                 </Link>
               </DropdownMenuItem>
@@ -105,6 +130,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
             <DropdownMenuContent align="start">
               <DropdownMenuItem asChild>
                 <Link
+                  prefetch={false}
                   href="/tools/youtube-thumbnail"
                   className="w-full cursor-pointer"
                 >
@@ -113,6 +139,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  prefetch={false}
                   href="/tools/youtube-preview"
                   className="w-full cursor-pointer"
                 >
@@ -121,6 +148,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  prefetch={false}
                   href="/tools/video-to-mp3"
                   className="w-full cursor-pointer"
                 >
@@ -129,6 +157,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  prefetch={false}
                   href="/tools/video-to-gif"
                   className="w-full cursor-pointer"
                 >
@@ -137,6 +166,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  prefetch={false}
                   href="/tools/video-frame-extractor"
                   className="w-full cursor-pointer"
                 >
@@ -145,6 +175,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  prefetch={false}
                   href="/tools/audio-trimmer"
                   className="w-full cursor-pointer"
                 >
@@ -153,6 +184,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  prefetch={false}
                   href="/tools/image-converter"
                   className="w-full cursor-pointer"
                 >
@@ -161,6 +193,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  prefetch={false}
                   href="/tools/social-image-resizer"
                   className="w-full cursor-pointer"
                 >
@@ -169,6 +202,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  prefetch={false}
                   href="/tools/instagram-line-break"
                   className="w-full cursor-pointer"
                 >
@@ -177,6 +211,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  prefetch={false}
                   href="/tools/qr-code-generator"
                   className="w-full cursor-pointer"
                 >
@@ -185,6 +220,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  prefetch={false}
                   href="/tools/aspect-ratio-calculator"
                   className="w-full cursor-pointer"
                 >
@@ -193,6 +229,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  prefetch={false}
                   href="/tools/thumbnail-generator"
                   className="w-full cursor-pointer"
                 >
@@ -201,6 +238,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  prefetch={false}
                   href="/tools/hashtag-generator"
                   className="w-full cursor-pointer"
                 >
@@ -209,6 +247,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  prefetch={false}
                   href="/tools/watermark-remover"
                   className="w-full cursor-pointer"
                 >
@@ -218,7 +257,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Link href="/blog">
+          <Link prefetch={false} href="/blog">
             <Button
               variant="ghost"
               className="text-muted-foreground hover:text-primary"
@@ -257,36 +296,42 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                       </h4>
                       <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
                         <Link
+                          prefetch={false}
                           href="/x"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           {dict?.twitter || "X (Twitter)"}
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/tiktok"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           {dict?.tiktok || "TikTok"}
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/instagram"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           {dict?.instagram?.nav || "Instagram"}
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/facebook"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           {dict?.facebook?.nav || "Facebook"}
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/dailymotion"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           {dict?.dailymotion?.nav || "Dailymotion"}
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/9gag"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
@@ -302,84 +347,98 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                       </h4>
                       <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
                         <Link
+                          prefetch={false}
                           href="/tools/youtube-thumbnail"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           YT Thumbnail Downloader
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/tools/youtube-preview"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           YT Preview Editor
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/tools/video-to-mp3"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           Video to MP3
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/tools/video-to-gif"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           Video to GIF
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/tools/video-frame-extractor"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           Video Frame Extractor
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/tools/audio-trimmer"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           Audio Trimmer
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/tools/image-converter"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           Image Converter
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/tools/social-image-resizer"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           Social Image Resizer
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/tools/instagram-line-break"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           Instagram Line Break
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/tools/qr-code-generator"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           QR Code Generator
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/tools/aspect-ratio-calculator"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           Aspect Ratio Calculator
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/tools/thumbnail-generator"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           Thumbnail Generator
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/tools/hashtag-generator"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           Hashtag Generator
                         </Link>
                         <Link
+                          prefetch={false}
                           href="/tools/watermark-remover"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
@@ -395,6 +454,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                       </h4>
                       <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
                         <Link
+                          prefetch={false}
                           href="/blog"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
