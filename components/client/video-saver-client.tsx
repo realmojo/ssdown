@@ -123,7 +123,7 @@ export function VideoDownloaderClient({
   subtitle,
   placeholder,
   apiEndpoint,
-  downloadEndpoint,
+  // downloadEndpoint, // No longer needed - using direct video URL instead of API proxy
   noVideoError,
   formatQuality,
   formatContent,
@@ -133,7 +133,7 @@ export function VideoDownloaderClient({
   thumbnailImageProxy,
   avatarImageProxy,
   emptyState,
-  downloadFileName,
+  // downloadFileName, // No longer needed - browser handles filename from direct URL
   transformVideoUrl,
   faqSection,
   slotId1,
@@ -490,19 +490,13 @@ export function VideoDownloaderClient({
                                     const finalUrl = transformVideoUrl
                                       ? transformVideoUrl(video.url)
                                       : video.url;
-                                    const downloadHref = `${downloadEndpoint}?videoUrl=${encodeURIComponent(
-                                      finalUrl,
-                                    )}`;
-                                    const fileName = downloadFileName
-                                      ? downloadFileName(quality)
-                                      : `ssdown-${item?.user?.screenName}-${item?.id}-${quality}.mp4`;
 
                                     return (
                                       <a
                                         key={videoIndex}
-                                        href={downloadHref}
-                                        title={fileName}
-                                        download={fileName}
+                                        href={finalUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className={`w-full h-12 flex justify-between items-center px-6 bg-gray-50 ${
                                           theme.downloadButtonHover
                                         } dark:bg-gray-800 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-md group transition-all ${
@@ -514,7 +508,7 @@ export function VideoDownloaderClient({
                                           setDownloadingVideo(downloadKey);
                                           setTimeout(() => {
                                             setDownloadingVideo(null);
-                                          }, 5000);
+                                          }, 2000);
                                         }}
                                       >
                                         <div className="flex items-center gap-3">
@@ -532,8 +526,7 @@ export function VideoDownloaderClient({
                                             <>
                                               <Loader2 className="w-4 h-4 animate-spin" />
                                               <span className="font-medium">
-                                                {dict?.common?.downloading ||
-                                                  "Downloading..."}
+                                                Opening...
                                               </span>
                                             </>
                                           ) : (

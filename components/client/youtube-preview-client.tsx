@@ -36,7 +36,6 @@ import {
   Type,
   FileText,
   Tags,
-  Settings,
 } from "lucide-react";
 import {
   Accordion,

@@ -9,6 +9,7 @@ import { pipeline } from "stream/promises";
  * when creating the Function URL.
  */
 export const handler = awslambda.streamifyResponse(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async (event, responseStream, _context) => {
     const query = event.queryStringParameters || {};
     const videoUrl = query.videoUrl;

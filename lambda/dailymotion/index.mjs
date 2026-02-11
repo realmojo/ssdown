@@ -95,6 +95,7 @@ async function getSegmentsFromM3U8(m3u8Url) {
 /**
  * Dailymotion Lambda Handler
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const handler = awslambda.streamifyResponse(async (event, responseStream, _context) => {
   const query = event.queryStringParameters || {};
   const videoUrl = query.videoUrl;

@@ -13,8 +13,6 @@ import {
   ImageDown,
   Image,
   Maximize,
-  MousePointerClick,
-  Monitor,
 } from "lucide-react";
 import {
   Card,

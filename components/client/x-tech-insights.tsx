@@ -1,4 +1,4 @@
-import { Server, Shield, FileVideo, Cpu } from "lucide-react";
+import { Shield } from "lucide-react";
 
 export function XTechInsights() {
   const insights = [

@@ -8,6 +8,7 @@ import { pipeline } from 'stream/promises';
  * IMPORTANT: This function MUST be configured with "Invoke Mode: RESPONSE_STREAM"
  * when creating the Function URL.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const handler = awslambda.streamifyResponse(async (event, responseStream, _context) => {
   const query = event.queryStringParameters || {};
   const videoUrl = query.videoUrl;
