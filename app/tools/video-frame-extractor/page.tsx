@@ -76,17 +76,6 @@ export default async function VideoFrameExtractorPage() {
             "You can download individual frames or get them all in a single ZIP file.",
         },
       },
-      {
-        "@type": "Question",
-        name:
-          dict?.qna_video_frame_extractor?.faq_5_q || "Does it work on mobile?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_video_frame_extractor?.faq_5_a ||
-            "Yes, but heavy video processing can be slow on older phones. Desktop is recommended for larger files.",
-        },
-      },
     ],
   };
 
