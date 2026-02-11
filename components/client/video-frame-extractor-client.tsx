@@ -55,6 +55,7 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const isCancelledRef = useRef(false);
 
   // File handling
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,23 +106,55 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
     setFrames([]);
     setProgress(0);
     setError(null);
+    isCancelledRef.current = false;
 
     const videoUrl = URL.createObjectURL(file);
     const video = document.createElement("video");
     video.src = videoUrl;
     video.muted = true;
+    video.playsInline = true;
+    video.preload = "auto";
     videoRef.current = video;
 
     const intervalSec = parseFloat(interval);
     const extracted: ExtractedFrame[] = [];
 
-    // Wait for video to load
-    await new Promise<void>((resolve) => {
-      video.onloadeddata = () => resolve();
-    });
-
     try {
+      // Explicitly trigger loading (required for off-DOM video elements)
+      video.load();
+
+      // Wait for video to load with timeout and error handling
+      await new Promise<void>((resolve, reject) => {
+        const timeout = setTimeout(() => {
+          reject(new Error("Video load timeout. Please try a different file."));
+        }, 15000);
+
+        if (video.readyState >= 2) {
+          clearTimeout(timeout);
+          resolve();
+          return;
+        }
+
+        video.onloadeddata = () => {
+          clearTimeout(timeout);
+          resolve();
+        };
+
+        video.onerror = () => {
+          clearTimeout(timeout);
+          reject(
+            new Error(
+              "Video loading failed. The format may not be supported by your browser.",
+            ),
+          );
+        };
+      });
+
       const duration = video.duration;
+      if (!isFinite(duration) || duration <= 0) {
+        throw new Error("Invalid video duration");
+      }
+
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
 
@@ -133,12 +166,31 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
       const totalFrames = Math.floor(duration / intervalSec);
 
       while (currentTime <= duration) {
-        if (!fileInputRef.current) break; // Check simplistic cancel condition
+        if (isCancelledRef.current) break;
 
-        // Seek video
+        // Seek video with robust waiting
         video.currentTime = currentTime;
+
         await new Promise<void>((resolve) => {
-          video.onseeked = () => resolve();
+          let resolved = false;
+
+          const onSeeked = () => {
+            if (resolved) return;
+            resolved = true;
+            video.removeEventListener("seeked", onSeeked);
+            resolve();
+          };
+
+          video.addEventListener("seeked", onSeeked);
+
+          // Fallback timeout in case seeked event doesn't fire
+          setTimeout(() => {
+            if (!resolved) {
+              resolved = true;
+              video.removeEventListener("seeked", onSeeked);
+              resolve();
+            }
+          }, 1000);
         });
 
         // Draw frame
@@ -157,7 +209,7 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
               url,
               blob,
             });
-            // Update UI progressively every 5 frames or so to reduce renders
+            // Update UI progressively every 5 frames
             if (extracted.length % 5 === 0) setFrames([...extracted]);
           }
         }
@@ -174,8 +226,10 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
       // Final update
       setFrames([...extracted]);
     } catch (err) {
-      console.error(err);
-      setError("Failed to process video frames.");
+      console.error("Frame extraction error:", err);
+      setError(
+        err instanceof Error ? err.message : "Failed to process video frames.",
+      );
     } finally {
       URL.revokeObjectURL(videoUrl);
       setIsProcessing(false);
@@ -217,6 +271,7 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
   };
 
   const handleReset = () => {
+    isCancelledRef.current = true;
     frames.forEach((f) => URL.revokeObjectURL(f.url));
     setFrames([]);
     setFile(null);
