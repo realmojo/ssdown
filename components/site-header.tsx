@@ -144,6 +144,14 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  href="/tools/audio-trimmer"
+                  className="w-full cursor-pointer"
+                >
+                  Audio Trimmer
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link
                   href="/tools/thumbnail-generator"
                   className="w-full cursor-pointer"
                 >
@@ -280,6 +288,12 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                         >
                           Video Frame Extractor
+                        </Link>
+                        <Link
+                          href="/tools/audio-trimmer"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                        >
+                          Audio Trimmer
                         </Link>
                         <Link
                           href="/tools/thumbnail-generator"
