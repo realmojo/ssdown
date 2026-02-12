@@ -90,3 +90,12 @@ When adding new tools to `/tools/*`, follow this sequence:
 - Format support: PNG, JPEG, WebP
 - Note: PNG compression is lossless (quality param has minimal effect)
 - Before/after file size comparison with savings percentage
+
+### PDF Tools Suite (2026-02-12)
+- 7 total PDF tools: merge, rotate, create, images-to-pdf, pdf-to-jpg, pdf-to-png, pdf-editor
+- All use red-600 color scheme, consistent UI pattern
+- `pdf-lib` for creation/editing, `pdfjs-dist` for rendering pages to canvas
+- WebP images require canvas conversion before pdf-lib embedding (only PNG/JPG native)
+- pdfjs-dist worker loaded via CDN: `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.min.mjs`
+- PDF editor uses tab UI (Pages | Add Text | Add Image) with coordinate-based positioning
+- File size limit: 50MB for PDF files, 20MB for images (images-to-pdf), 10MB (editor images)

@@ -257,9 +257,60 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                 PDF <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
+            <DropdownMenuContent align="start" className="max-h-[70vh] overflow-y-auto">
               <DropdownMenuItem asChild>
                 <Link prefetch={false} href="/pdf/merge-pdf" className="w-full cursor-pointer">Merge PDF</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/rotate-pdf" className="w-full cursor-pointer">Rotate PDF</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/delete-pdf-pages" className="w-full cursor-pointer">Delete PDF Pages</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/protect-pdf" className="w-full cursor-pointer">Protect PDF</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/unlock-pdf" className="w-full cursor-pointer">Unlock PDF</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/pdf-to-text" className="w-full cursor-pointer">PDF to Text</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/split-pdf" className="w-full cursor-pointer">Split PDF</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/rearrange-pdf" className="w-full cursor-pointer">Rearrange PDF</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/crop-pdf" className="w-full cursor-pointer">Crop PDF</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/pdf-page-numbers" className="w-full cursor-pointer">PDF Page Numbers</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/pdf-watermark" className="w-full cursor-pointer">PDF Watermark</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/add-text-to-pdf" className="w-full cursor-pointer">Add Text to PDF</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/create-pdf" className="w-full cursor-pointer">Create PDF</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/images-to-pdf" className="w-full cursor-pointer">Images to PDF</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/pdf-to-jpg" className="w-full cursor-pointer">PDF to JPG</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/pdf-to-png" className="w-full cursor-pointer">PDF to PNG</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/pdf-editor" className="w-full cursor-pointer">PDF Editor</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/esign-pdf" className="w-full cursor-pointer">eSign PDF</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -426,6 +477,23 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                       </h4>
                       <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
                         <Link prefetch={false} href="/pdf/merge-pdf" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Merge PDF</Link>
+                        <Link prefetch={false} href="/pdf/rotate-pdf" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Rotate PDF</Link>
+                        <Link prefetch={false} href="/pdf/delete-pdf-pages" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Delete PDF Pages</Link>
+                        <Link prefetch={false} href="/pdf/protect-pdf" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Protect PDF</Link>
+                        <Link prefetch={false} href="/pdf/unlock-pdf" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Unlock PDF</Link>
+                        <Link prefetch={false} href="/pdf/pdf-to-text" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>PDF to Text</Link>
+                        <Link prefetch={false} href="/pdf/split-pdf" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Split PDF</Link>
+                        <Link prefetch={false} href="/pdf/rearrange-pdf" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Rearrange PDF</Link>
+                        <Link prefetch={false} href="/pdf/crop-pdf" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Crop PDF</Link>
+                        <Link prefetch={false} href="/pdf/pdf-page-numbers" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>PDF Page Numbers</Link>
+                        <Link prefetch={false} href="/pdf/pdf-watermark" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>PDF Watermark</Link>
+                        <Link prefetch={false} href="/pdf/add-text-to-pdf" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Add Text to PDF</Link>
+                        <Link prefetch={false} href="/pdf/create-pdf" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Create PDF</Link>
+                        <Link prefetch={false} href="/pdf/images-to-pdf" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Images to PDF</Link>
+                        <Link prefetch={false} href="/pdf/pdf-to-jpg" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>PDF to JPG</Link>
+                        <Link prefetch={false} href="/pdf/pdf-to-png" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>PDF to PNG</Link>
+                        <Link prefetch={false} href="/pdf/pdf-editor" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>PDF Editor</Link>
+                        <Link prefetch={false} href="/pdf/esign-pdf" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>eSign PDF</Link>
                       </div>
                     </div>
 

@@ -89,13 +89,13 @@ const categories = [
   {
     title: "PDF Tools",
     description:
-      "Merge, combine, and manage PDF files. All processing happens in your browser — no upload required.",
+      "Merge, split, rotate, convert, protect, and manage PDF files. All processing happens in your browser — no upload required.",
     href: "/tools/pdf",
     icon: FileText,
     gradient: "from-red-500 to-rose-500",
     bgLight: "bg-red-100 dark:bg-red-900/30",
     iconColor: "text-red-500",
-    count: 1,
+    count: 18,
   },
 ];
 

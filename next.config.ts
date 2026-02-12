@@ -92,6 +92,23 @@ const nextConfig: NextConfig = {
       { source: "/tools/aspect-ratio-calculator", destination: "/utility/aspect-ratio-calculator", permanent: true },
       // PDF tools
       { source: "/tools/merge-pdf", destination: "/pdf/merge-pdf", permanent: true },
+      { source: "/tools/rotate-pdf", destination: "/pdf/rotate-pdf", permanent: true },
+      { source: "/tools/delete-pdf-pages", destination: "/pdf/delete-pdf-pages", permanent: true },
+      { source: "/tools/protect-pdf", destination: "/pdf/protect-pdf", permanent: true },
+      { source: "/tools/unlock-pdf", destination: "/pdf/unlock-pdf", permanent: true },
+      { source: "/tools/pdf-to-text", destination: "/pdf/pdf-to-text", permanent: true },
+      { source: "/tools/split-pdf", destination: "/pdf/split-pdf", permanent: true },
+      { source: "/tools/rearrange-pdf", destination: "/pdf/rearrange-pdf", permanent: true },
+      { source: "/tools/crop-pdf", destination: "/pdf/crop-pdf", permanent: true },
+      { source: "/tools/pdf-page-numbers", destination: "/pdf/pdf-page-numbers", permanent: true },
+      { source: "/tools/pdf-watermark", destination: "/pdf/pdf-watermark", permanent: true },
+      { source: "/tools/add-text-to-pdf", destination: "/pdf/add-text-to-pdf", permanent: true },
+      { source: "/tools/create-pdf", destination: "/pdf/create-pdf", permanent: true },
+      { source: "/tools/images-to-pdf", destination: "/pdf/images-to-pdf", permanent: true },
+      { source: "/tools/pdf-to-jpg", destination: "/pdf/pdf-to-jpg", permanent: true },
+      { source: "/tools/pdf-to-png", destination: "/pdf/pdf-to-png", permanent: true },
+      { source: "/tools/pdf-editor", destination: "/pdf/pdf-editor", permanent: true },
+      { source: "/tools/esign-pdf", destination: "/pdf/esign-pdf", permanent: true },
     ];
   },
   async headers() {
