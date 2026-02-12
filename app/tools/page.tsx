@@ -16,6 +16,7 @@ import {
   Calculator,
   Minimize2,
   Palette,
+  FileImage,
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
@@ -170,6 +171,17 @@ const tools = [
     gradient: "from-pink-500 to-purple-500",
     bgLight: "bg-pink-100 dark:bg-pink-900/30",
     iconColor: "text-pink-500",
+  },
+  {
+    title: "Favicon Generator",
+    descKey: "favicon_generator_desc",
+    fallbackDesc:
+      "Convert any image to favicon (ICO) with multiple sizes. 100% client-side processing.",
+    href: "/tools/favicon-generator",
+    icon: FileImage,
+    gradient: "from-indigo-500 to-blue-500",
+    bgLight: "bg-indigo-100 dark:bg-indigo-900/30",
+    iconColor: "text-indigo-500",
   },
   {
     title: "Social Image Resizer",
