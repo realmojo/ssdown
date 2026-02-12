@@ -141,6 +141,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/image/flip-image`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
     // Video & Audio tools
     {
       url: `${baseUrl}/video-audio/video-to-mp3`,

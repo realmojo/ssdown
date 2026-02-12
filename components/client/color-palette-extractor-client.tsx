@@ -392,6 +392,19 @@ export function ColorPaletteExtractorClient({ dict }: { dict?: any }) {
             <p className="text-xs text-muted-foreground mt-2">
               Max file size: 10MB
             </p>
+            <button
+              type="button"
+              onClick={async (e) => {
+                e.stopPropagation();
+                const res = await fetch("/test-image.jpg");
+                const blob = await res.blob();
+                const file = new File([blob], "test-image.jpg", { type: "image/jpeg" });
+                processFile(file);
+              }}
+              className="mt-4 text-sm text-pink-600 dark:text-pink-400 hover:underline"
+            >
+              Or try with a sample image
+            </button>
           </div>
         ) : (
           <div className="w-full space-y-8 animate-in fade-in slide-in-from-bottom-4">

@@ -335,6 +335,21 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
                     <p className="text-sm text-muted-foreground">
                       Click or drag & drop an image
                     </p>
+                    <button
+                      type="button"
+                      onClick={async (e) => {
+                        e.stopPropagation();
+                        const img = new Image();
+                        img.onload = () => {
+                          setBackgroundImage(img);
+                          setBackgroundUrl("/test-image.jpg");
+                        };
+                        img.src = "/test-image.jpg";
+                      }}
+                      className="mt-2 text-sm text-primary hover:underline"
+                    >
+                      Or try with a sample image
+                    </button>
                   </>
                 )}
               </div>

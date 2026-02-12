@@ -155,6 +155,9 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               <DropdownMenuItem asChild>
                 <Link prefetch={false} href="/image/crop-image" className="w-full cursor-pointer">Crop Image</Link>
               </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/image/flip-image" className="w-full cursor-pointer">Flip Image</Link>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -322,6 +325,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                         <Link prefetch={false} href="/image/color-palette-extractor" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Color Palette Extractor</Link>
                         <Link prefetch={false} href="/image/thumbnail-generator" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Thumbnail Generator</Link>
                         <Link prefetch={false} href="/image/crop-image" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Crop Image</Link>
+                        <Link prefetch={false} href="/image/flip-image" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Flip Image</Link>
                       </div>
                     </div>
 

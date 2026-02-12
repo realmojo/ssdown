@@ -252,6 +252,19 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
             <p className="text-sm text-muted-foreground">
               Supported: PNG, JPG, WebP (Max 20MB)
             </p>
+            <button
+              type="button"
+              onClick={async (e) => {
+                e.stopPropagation();
+                const res = await fetch("/test-image.jpg");
+                const blob = await res.blob();
+                const file = new File([blob], "test-image.jpg", { type: "image/jpeg" });
+                processFile(file);
+              }}
+              className="mt-4 text-sm text-purple-600 dark:text-purple-400 hover:underline"
+            >
+              Or try with a sample image
+            </button>
           </div>
         )}
 

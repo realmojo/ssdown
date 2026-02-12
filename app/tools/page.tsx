@@ -50,7 +50,7 @@ const categories = [
     gradient: "from-pink-500 to-rose-500",
     bgLight: "bg-pink-100 dark:bg-pink-900/30",
     iconColor: "text-pink-500",
-    count: 9,
+    count: 10,
   },
   {
     title: "Video & Audio",

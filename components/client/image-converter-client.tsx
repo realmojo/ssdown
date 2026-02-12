@@ -422,6 +422,19 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
               {dict?.image_converter?.supported ||
                 "Supported: PNG, JPG, JPEG, WEBP, SVG, GIF, HEIC"}
             </p>
+            <button
+              type="button"
+              onClick={async (e) => {
+                e.stopPropagation();
+                const res = await fetch("/test-image.jpg");
+                const blob = await res.blob();
+                const file = new File([blob], "test-image.jpg", { type: "image/jpeg" });
+                processFiles([file]);
+              }}
+              className="mt-4 text-sm text-purple-600 dark:text-purple-400 hover:underline"
+            >
+              Or try with a sample image
+            </button>
           </div>
         ) : (
           <div className="w-full space-y-8 animate-in fade-in slide-in-from-bottom-4">

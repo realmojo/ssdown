@@ -57,5 +57,12 @@
 4. **FFmpeg dependencies** - May need reinstall if node_modules is cleared
 5. **useEffect dependencies** - When useEffect hooks call functions defined with useCallback, ensure those callbacks are in the dependency array
 
+## Recent Quality Checks
+
+### Flip Image Tool (2026-02-12)
+- **Files**: `/components/client/flip-image-client.tsx`, `/app/image/flip-image/page.tsx`
+- **Status**: ✅ PASS (no lint or build errors)
+- **Notes**: New image manipulation tool using canvas API. All imports properly used, no TypeScript errors. Route successfully registered at `/image/flip-image`.
+
 ## Last Updated
 2026-02-12

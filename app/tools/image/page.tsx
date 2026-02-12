@@ -8,6 +8,7 @@ import {
   FileImage,
   Palette,
   ArrowRight,
+  FlipHorizontal,
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
@@ -116,6 +117,15 @@ const tools = [
     gradient: "from-orange-500 to-amber-500",
     bgLight: "bg-orange-100 dark:bg-orange-900/30",
     iconColor: "text-orange-500",
+  },
+  {
+    title: "Flip Image",
+    description: "Flip or mirror your image horizontally or vertically.",
+    href: "/image/flip-image",
+    icon: FlipHorizontal,
+    gradient: "from-sky-500 to-teal-500",
+    bgLight: "bg-sky-100 dark:bg-sky-900/30",
+    iconColor: "text-sky-500",
   },
 ];
 

@@ -58,6 +58,7 @@ const nextConfig: NextConfig = {
       { source: "/tools/thumbnail-generator", destination: "/image/thumbnail-generator", permanent: true },
       { source: "/tools/background-remover", destination: "/image/background-remover", permanent: true },
       { source: "/tools/crop-image", destination: "/image/crop-image", permanent: true },
+      { source: "/tools/flip-image", destination: "/image/flip-image", permanent: true },
       // Video & Audio tools
       { source: "/tools/video-to-mp3", destination: "/video-audio/video-to-mp3", permanent: true },
       { source: "/tools/video-to-gif", destination: "/video-audio/video-to-gif", permanent: true },
