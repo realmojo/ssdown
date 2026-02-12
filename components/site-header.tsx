@@ -158,6 +158,36 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               <DropdownMenuItem asChild>
                 <Link prefetch={false} href="/image/flip-image" className="w-full cursor-pointer">Flip Image</Link>
               </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/image/pixelate-image" className="w-full cursor-pointer">Pixelate Image</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/image/black-and-white" className="w-full cursor-pointer">Black & White</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/image/add-text-to-image" className="w-full cursor-pointer">Add Text to Image</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/image/add-border-to-image" className="w-full cursor-pointer">Add Border to Image</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/image/combine-images" className="w-full cursor-pointer">Combine Images</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/image/collage-maker" className="w-full cursor-pointer">Collage Maker</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/image/round-image-maker" className="w-full cursor-pointer">Round Image Maker</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/image/image-metadata-viewer" className="w-full cursor-pointer">Image Metadata Viewer</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/image/blur-image" className="w-full cursor-pointer">Blur Image</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/image/icon-to-png" className="w-full cursor-pointer">Icon to PNG</Link>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -326,6 +356,16 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                         <Link prefetch={false} href="/image/thumbnail-generator" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Thumbnail Generator</Link>
                         <Link prefetch={false} href="/image/crop-image" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Crop Image</Link>
                         <Link prefetch={false} href="/image/flip-image" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Flip Image</Link>
+                        <Link prefetch={false} href="/image/pixelate-image" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Pixelate Image</Link>
+                        <Link prefetch={false} href="/image/black-and-white" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Black & White</Link>
+                        <Link prefetch={false} href="/image/add-text-to-image" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Add Text to Image</Link>
+                        <Link prefetch={false} href="/image/add-border-to-image" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Add Border to Image</Link>
+                        <Link prefetch={false} href="/image/combine-images" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Combine Images</Link>
+                        <Link prefetch={false} href="/image/collage-maker" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Collage Maker</Link>
+                        <Link prefetch={false} href="/image/round-image-maker" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Round Image Maker</Link>
+                        <Link prefetch={false} href="/image/image-metadata-viewer" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Image Metadata Viewer</Link>
+                        <Link prefetch={false} href="/image/blur-image" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Blur Image</Link>
+                        <Link prefetch={false} href="/image/icon-to-png" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Icon to PNG</Link>
                       </div>
                     </div>
 

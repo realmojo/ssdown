@@ -147,6 +147,66 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/image/pixelate-image`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/image/black-and-white`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/image/add-text-to-image`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/image/add-border-to-image`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/image/combine-images`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/image/collage-maker`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/image/round-image-maker`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/image/image-metadata-viewer`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/image/blur-image`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/image/icon-to-png`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
     // Video & Audio tools
     {
       url: `${baseUrl}/video-audio/video-to-mp3`,

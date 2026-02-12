@@ -59,10 +59,38 @@
 
 ## Recent Quality Checks
 
+### Image Metadata Viewer Tool (2026-02-12)
+- **Files**: `/components/client/image-metadata-viewer-client.tsx`, `/app/image/image-metadata-viewer/page.tsx`
+- **Status**: ✅ PASS (no lint or build errors)
+- **Notes**: New EXIF metadata viewer tool using `exifr` library. Displays camera info (Make, Model, Software), shooting settings (ISO, aperture, shutter speed, focal length, flash, white balance, exposure mode), date/time, GPS coordinates with Google Maps link, and all raw metadata. Includes drag-and-drop, sample image loading, copy-to-clipboard, and responsive two-column layout. Route successfully registered at `/image/image-metadata-viewer`. All imports properly used, no TypeScript errors. Includes FAQ schema, breadcrumbs, and comprehensive how-to section. Strict mode passed. Build time: 9.9s compile + 1.5s static generation.
+
+### Pixelate Image Tool (2026-02-12)
+- **Files**: `/components/client/pixelate-image-client.tsx`, `/app/image/pixelate-image/page.tsx`
+- **Status**: ✅ PASS (no lint or build errors)
+- **Notes**: New image pixelation tool using canvas API with adjustable pixel size (5-50px). All imports properly used, no TypeScript errors. Route successfully registered at `/image/pixelate-image`. Includes FAQ schema, breadcrumbs, and comprehensive how-to section.
+
 ### Flip Image Tool (2026-02-12)
 - **Files**: `/components/client/flip-image-client.tsx`, `/app/image/flip-image/page.tsx`
 - **Status**: ✅ PASS (no lint or build errors)
 - **Notes**: New image manipulation tool using canvas API. All imports properly used, no TypeScript errors. Route successfully registered at `/image/flip-image`.
+
+### Collage Maker Tool (2026-02-12)
+- **Files**: `/components/client/collage-maker-client.tsx`, `/app/image/collage-maker/page.tsx`
+- **Status**: ✅ PASS (one unused ref fixed)
+- **Issues found**: Unused `previewCanvasRef` variable declaration
+- **Fix applied**: Removed unused ref - only `canvasRef` and `fileInputRef` are needed
+- **Notes**: Complex tool with 2-12 slot grid layouts, drag-and-drop, canvas-based collage generation. Route successfully registered at `/image/collage-maker`. Build compiles successfully with all TypeScript strict checks.
+
+### Round Image Maker Tool (2026-02-12)
+- **Files**: `/components/client/round-image-client.tsx`, `/app/image/round-image-maker/page.tsx`
+- **Status**: ✅ PASS (no lint or build errors)
+- **Notes**: New image tool for creating circular/rounded images with canvas API. Adjustable border radius (0-50% for rounded corners, 50% for perfect circle), optional background color for transparency, inline canvas logic in useEffect with NO useCallback (React Compiler handles optimization). All imports properly used, no TypeScript errors. Route successfully registered at `/image/round-image-maker`. Modified files include category pages and sitemap.
+
+### Icon to PNG Tool (2026-02-12)
+- **Files**: `/components/client/icon-to-png-client.tsx`, `/app/image/icon-to-png/page.tsx`
+- **Status**: ✅ PASS (no lint or build errors)
+- **Issues found**: None
+- **Notes**: New icon conversion tool (~580 lines) with support for ICO, ICNS, and SVG formats. Converts to PNG with adjustable size (16-1024px) using canvas API. Handles multi-icon ICO files (shows all sizes), ICNS parsing with multiple image types, and SVG rendering. Includes inline canvas logic in useEffect (NO useCallback per React Compiler pattern). All imports properly used, no TypeScript strict mode errors. Route successfully registered at `/image/icon-to-png`. Modified files: tool category page (count 19→20), sitemap, header navigation, and added redirect in next.config.ts. Build time: 5.3s compile + 517.8ms static generation (69 pages total).
 
 ## Last Updated
 2026-02-12
