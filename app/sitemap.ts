@@ -110,6 +110,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/tools/image-compressor`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/tools/color-palette-extractor`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/tools/background-remover`,
       lastModified: "2026-02-12",
       changeFrequency: "monthly",

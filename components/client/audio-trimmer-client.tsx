@@ -397,7 +397,7 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [draggingHandle, range, duration]);
+  }, [draggingHandle, range, duration, getTimeFromMouseEvent]);
 
   // Trim Logic
   const handleTrim = async () => {

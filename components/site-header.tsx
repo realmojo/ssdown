@@ -134,46 +134,10 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               <DropdownMenuItem asChild>
                 <Link
                   prefetch={false}
-                  href="/tools/youtube-thumbnail"
+                  href="/tools/aspect-ratio-calculator"
                   className="w-full cursor-pointer"
                 >
-                  YT Thumbnail Downloader
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/youtube-preview"
-                  className="w-full cursor-pointer"
-                >
-                  YT Preview Editor
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/video-to-mp3"
-                  className="w-full cursor-pointer"
-                >
-                  Video to MP3
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/video-to-gif"
-                  className="w-full cursor-pointer"
-                >
-                  Video to GIF
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/video-frame-extractor"
-                  className="w-full cursor-pointer"
-                >
-                  Video Frame Extractor
+                  Aspect Ratio Calculator
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
@@ -188,15 +152,6 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               <DropdownMenuItem asChild>
                 <Link
                   prefetch={false}
-                  href="/tools/image-converter"
-                  className="w-full cursor-pointer"
-                >
-                  Image Converter
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
                   href="/tools/background-remover"
                   className="w-full cursor-pointer"
                 >
@@ -206,10 +161,19 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               <DropdownMenuItem asChild>
                 <Link
                   prefetch={false}
-                  href="/tools/social-image-resizer"
+                  href="/tools/hashtag-generator"
                   className="w-full cursor-pointer"
                 >
-                  Social Image Resizer
+                  Hashtag Generator
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link
+                  prefetch={false}
+                  href="/tools/image-converter"
+                  className="w-full cursor-pointer"
+                >
+                  Image Converter
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
@@ -233,10 +197,10 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               <DropdownMenuItem asChild>
                 <Link
                   prefetch={false}
-                  href="/tools/aspect-ratio-calculator"
+                  href="/tools/social-image-resizer"
                   className="w-full cursor-pointer"
                 >
-                  Aspect Ratio Calculator
+                  Social Image Resizer
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
@@ -251,10 +215,28 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
               <DropdownMenuItem asChild>
                 <Link
                   prefetch={false}
-                  href="/tools/hashtag-generator"
+                  href="/tools/video-frame-extractor"
                   className="w-full cursor-pointer"
                 >
-                  Hashtag Generator
+                  Video Frame Extractor
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link
+                  prefetch={false}
+                  href="/tools/video-to-gif"
+                  className="w-full cursor-pointer"
+                >
+                  Video to GIF
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link
+                  prefetch={false}
+                  href="/tools/video-to-mp3"
+                  className="w-full cursor-pointer"
+                >
+                  Video to MP3
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
@@ -264,6 +246,24 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                   className="w-full cursor-pointer"
                 >
                   Watermark Remover
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link
+                  prefetch={false}
+                  href="/tools/youtube-preview"
+                  className="w-full cursor-pointer"
+                >
+                  YT Preview Editor
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link
+                  prefetch={false}
+                  href="/tools/youtube-thumbnail"
+                  className="w-full cursor-pointer"
+                >
+                  YT Thumbnail Downloader
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -366,43 +366,11 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                       <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
                         <Link
                           prefetch={false}
-                          href="/tools/youtube-thumbnail"
+                          href="/tools/aspect-ratio-calculator"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                           onClick={() => setIsOpen(false)}
                         >
-                          YT Thumbnail Downloader
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/youtube-preview"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          YT Preview Editor
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/video-to-mp3"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Video to MP3
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/video-to-gif"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Video to GIF
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/video-frame-extractor"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Video Frame Extractor
+                          Aspect Ratio Calculator
                         </Link>
                         <Link
                           prefetch={false}
@@ -414,14 +382,6 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                         </Link>
                         <Link
                           prefetch={false}
-                          href="/tools/image-converter"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Image Converter
-                        </Link>
-                        <Link
-                          prefetch={false}
                           href="/tools/background-remover"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                           onClick={() => setIsOpen(false)}
@@ -430,11 +390,19 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                         </Link>
                         <Link
                           prefetch={false}
-                          href="/tools/social-image-resizer"
+                          href="/tools/hashtag-generator"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                           onClick={() => setIsOpen(false)}
                         >
-                          Social Image Resizer
+                          Hashtag Generator
+                        </Link>
+                        <Link
+                          prefetch={false}
+                          href="/tools/image-converter"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Image Converter
                         </Link>
                         <Link
                           prefetch={false}
@@ -454,11 +422,11 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                         </Link>
                         <Link
                           prefetch={false}
-                          href="/tools/aspect-ratio-calculator"
+                          href="/tools/social-image-resizer"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                           onClick={() => setIsOpen(false)}
                         >
-                          Aspect Ratio Calculator
+                          Social Image Resizer
                         </Link>
                         <Link
                           prefetch={false}
@@ -470,11 +438,27 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                         </Link>
                         <Link
                           prefetch={false}
-                          href="/tools/hashtag-generator"
+                          href="/tools/video-frame-extractor"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                           onClick={() => setIsOpen(false)}
                         >
-                          Hashtag Generator
+                          Video Frame Extractor
+                        </Link>
+                        <Link
+                          prefetch={false}
+                          href="/tools/video-to-gif"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Video to GIF
+                        </Link>
+                        <Link
+                          prefetch={false}
+                          href="/tools/video-to-mp3"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Video to MP3
                         </Link>
                         <Link
                           prefetch={false}
@@ -483,6 +467,22 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           onClick={() => setIsOpen(false)}
                         >
                           Watermark Remover
+                        </Link>
+                        <Link
+                          prefetch={false}
+                          href="/tools/youtube-preview"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          YT Preview Editor
+                        </Link>
+                        <Link
+                          prefetch={false}
+                          href="/tools/youtube-thumbnail"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          YT Thumbnail Downloader
                         </Link>
                       </div>
                     </div>

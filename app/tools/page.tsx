@@ -14,6 +14,8 @@ import {
   AlignLeft,
   QrCode,
   Calculator,
+  Minimize2,
+  Palette,
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
@@ -146,6 +148,28 @@ const tools = [
     gradient: "from-blue-500 to-cyan-500",
     bgLight: "bg-blue-100 dark:bg-blue-900/30",
     iconColor: "text-blue-500",
+  },
+  {
+    title: "Image Compressor",
+    descKey: "image_compressor_desc",
+    fallbackDesc:
+      "Compress images to reduce file size without losing quality. Batch processing supported.",
+    href: "/tools/image-compressor",
+    icon: Minimize2,
+    gradient: "from-green-500 to-emerald-500",
+    bgLight: "bg-green-100 dark:bg-green-900/30",
+    iconColor: "text-green-500",
+  },
+  {
+    title: "Color Palette Extractor",
+    descKey: "color_palette_extractor_desc",
+    fallbackDesc:
+      "Extract dominant colors from images with HEX, RGB, and HSL codes. AI-powered palette generation.",
+    href: "/tools/color-palette-extractor",
+    icon: Palette,
+    gradient: "from-pink-500 to-purple-500",
+    bgLight: "bg-pink-100 dark:bg-pink-900/30",
+    iconColor: "text-pink-500",
   },
   {
     title: "Social Image Resizer",

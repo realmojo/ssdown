@@ -49,6 +49,7 @@
 2. **Lambda handler signature** - Context parameter warnings will appear for any new Lambda handlers
 3. **Seed script imports** - Verify all imported post files exist before running build
 4. **FFmpeg dependencies** - May need reinstall if node_modules is cleared
+5. **useEffect dependencies** - When useEffect hooks call functions defined with useCallback, ensure those callbacks are in the dependency array
 
 ## Last Updated
-2026-02-11
+2026-02-12
