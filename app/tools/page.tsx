@@ -97,6 +97,17 @@ const categories = [
     iconColor: "text-red-500",
     count: 18,
   },
+  {
+    title: "File & Data Tools",
+    description:
+      "Convert, split, and manage JSON, XML, CSV, and Excel files. 100% browser-based.",
+    href: "/tools/file",
+    icon: FileText,
+    gradient: "from-blue-600 to-indigo-600",
+    bgLight: "bg-blue-100 dark:bg-blue-900/30",
+    iconColor: "text-blue-600",
+    count: 12,
+  },
 ];
 
 export default async function ToolsPage() {
