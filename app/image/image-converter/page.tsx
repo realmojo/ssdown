@@ -7,9 +7,9 @@ export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/image-converter`;
 
-  const title = "Image Converter - WebP, PNG, JPG Online Free | SSDown";
+  const title = "Image Converter - WebP, PNG, JPG, AVIF, GIF, SVG, HEIC Online Free | SSDown";
   const description =
-    "Free online image converter. Convert WebP, PNG, and JPG images instantly. Bulk conversion, high quality, and 100% private.";
+    "Free online image converter. Convert WebP, PNG, JPG, AVIF, and GIF images instantly. Support for SVG, HEIC/HEIF. Bulk conversion, high quality, and 100% private.";
 
   return {
     title,
@@ -68,6 +68,46 @@ export default async function ImageConverterPage() {
           text:
             dict?.qna_image_converter?.faq_3_a ||
             "WebP is a modern image format that provides superior compression for images on the web.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is AVIF and which browsers support it?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "AVIF (AV1 Image File Format) is a next-generation image format based on the AV1 video codec. It offers up to 50% better compression than JPEG and 20% better than WebP. AVIF is supported in Chrome 85+, Firefox 93+, and Safari 16+.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How do I convert SVG to PNG?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Simply upload your SVG file and select PNG as the output format. The converter renders the SVG at its native resolution onto a canvas and exports it as a high-quality PNG, preserving all vector details as rasterized pixels.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Can I convert GIF to JPG?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, our converter extracts the first frame from your GIF animation and converts it into a static JPG image. This is useful when you need a still image preview of an animated GIF for thumbnails or social media posts.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How do I convert JPG or PNG to GIF?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Upload your JPG or PNG image and select GIF as the output format. The converter creates a single-frame GIF from your static image. This is helpful when a platform or application specifically requires GIF format.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Can I convert HEIC photos from iPhone?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, our converter fully supports HEIC and HEIF formats used by iPhones and iPads. Upload your HEIC photos and convert them to JPG, PNG, or WebP for universal compatibility. All conversion happens in your browser, so your photos stay private.",
         },
       },
     ],

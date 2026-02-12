@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Upload,
@@ -14,6 +14,7 @@ import {
   CheckCircle2,
   Layers,
   Zap,
+  AlertCircle,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -31,7 +32,7 @@ import {
 } from "@/components/ui/accordion";
 import JSZip from "jszip";
 
-type ValidFormat = "png" | "jpeg" | "webp";
+type ValidFormat = "png" | "jpeg" | "webp" | "avif" | "gif";
 
 interface ImageFile {
   id: string;
@@ -48,7 +49,22 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
   const [targetFormat, setTargetFormat] = useState<ValidFormat>("webp");
   const [isProcessing, setIsProcessing] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [supportsAvif, setSupportsAvif] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Check AVIF support on mount
+  useEffect(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1;
+    canvas.height = 1;
+    canvas.toBlob(
+      (blob) => {
+        setSupportsAvif(blob !== null);
+      },
+      "image/avif",
+      0.5
+    );
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -57,8 +73,23 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
   };
 
   const processFiles = (files: File[]) => {
+    const validTypes = [
+      "image/png",
+      "image/jpeg",
+      "image/webp",
+      "image/svg+xml",
+      "image/gif",
+      "image/heic",
+      "image/heif",
+    ];
     const newImages = files
-      .filter((file) => file.type.startsWith("image/"))
+      .filter(
+        (file) =>
+          file.type.startsWith("image/") ||
+          validTypes.includes(file.type) ||
+          file.name.toLowerCase().endsWith(".heic") ||
+          file.name.toLowerCase().endsWith(".heif")
+      )
       .map((file) => ({
         id: Math.random().toString(36).substring(7),
         file,
@@ -78,10 +109,38 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
     });
   };
 
-  const convertImage = async (
-    img: ImageFile,
-    format: ValidFormat,
-  ): Promise<ImageFile> => {
+  // Helper: Convert SVG to PNG
+  const convertSvgToPng = async (imageSrc: string): Promise<Blob | null> => {
+    return new Promise((resolve) => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      const image = new Image();
+
+      image.onload = () => {
+        canvas.width = image.width || 800;
+        canvas.height = image.height || 600;
+        if (ctx) {
+          ctx.fillStyle = "#FFFFFF";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(image, 0, 0);
+        }
+
+        canvas.toBlob(
+          (blob) => {
+            resolve(blob);
+          },
+          "image/png",
+          1.0
+        );
+      };
+
+      image.onerror = () => resolve(null);
+      image.src = imageSrc;
+    });
+  };
+
+  // Helper: Convert GIF to JPEG (extracts first frame)
+  const convertGifToJpeg = async (imageSrc: string): Promise<Blob | null> => {
     return new Promise((resolve) => {
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
@@ -91,41 +150,169 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
         canvas.width = image.width;
         canvas.height = image.height;
         if (ctx) {
-          // Fill white background for JPEG/Validation transparency
-          if (format === "jpeg") {
-            ctx.fillStyle = "#FFFFFF";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-          }
+          ctx.fillStyle = "#FFFFFF";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
           ctx.drawImage(image, 0, 0);
         }
 
         canvas.toBlob(
           (blob) => {
-            if (blob) {
-              const url = URL.createObjectURL(blob);
-              const nameWithoutExt = img.file.name.substring(
-                0,
-                img.file.name.lastIndexOf("."),
-              );
-              resolve({
-                ...img,
-                status: "done",
-                convertedBlob: blob,
-                convertedUrl: url,
-                convertedName: `${nameWithoutExt}.${format}`,
-              });
-            } else {
-              resolve({ ...img, status: "error" });
-            }
+            resolve(blob);
           },
-          `image/${format}`,
-          0.9,
+          "image/jpeg",
+          0.9
         );
       };
 
-      image.onerror = () => resolve({ ...img, status: "error" });
-      image.src = img.preview;
+      image.onerror = () => resolve(null);
+      image.src = imageSrc;
     });
+  };
+
+  // Helper: Convert to GIF using gifshot
+  const convertToGif = async (imageSrc: string): Promise<Blob | null> => {
+    try {
+      const gifshot = (await import("gifshot")).default;
+
+      return new Promise((resolve) => {
+        // Load image to get dimensions
+        const img = new Image();
+        img.onload = () => {
+          gifshot.createGIF(
+            {
+              images: [imageSrc],
+              interval: 1,
+              gifWidth: img.width,
+              gifHeight: img.height,
+              numWorkers: 2,
+            },
+            (obj: any) => {
+              if (!obj.error && obj.image) {
+                // Convert data URL to Blob
+                fetch(obj.image)
+                  .then((res) => res.blob())
+                  .then((blob) => resolve(blob))
+                  .catch(() => resolve(null));
+              } else {
+                resolve(null);
+              }
+            }
+          );
+        };
+        img.onerror = () => resolve(null);
+        img.src = imageSrc;
+      });
+    } catch (error) {
+      console.error("Error converting to GIF:", error);
+      return null;
+    }
+  };
+
+  // Helper: Convert HEIC to standard format
+  const convertHeicToStandard = async (
+    file: File,
+    format: ValidFormat
+  ): Promise<Blob | null> => {
+    try {
+      const heic2any = (await import("heic2any")).default;
+
+      const convertedBlob = (await heic2any({
+        blob: file,
+        toType: `image/${format === "jpeg" ? "jpeg" : "png"}`,
+        quality: 0.9,
+      })) as Blob;
+
+      return convertedBlob;
+    } catch (error) {
+      console.error("Error converting HEIC:", error);
+      return null;
+    }
+  };
+
+  const convertImage = async (
+    img: ImageFile,
+    format: ValidFormat,
+  ): Promise<ImageFile> => {
+    try {
+      const fileType = img.file.type;
+      const fileName = img.file.name.toLowerCase();
+      const nameWithoutExt = img.file.name.substring(
+        0,
+        img.file.name.lastIndexOf("."),
+      );
+
+      let resultBlob: Blob | null = null;
+
+      // Handle HEIC/HEIF input
+      if (
+        fileType === "image/heic" ||
+        fileType === "image/heif" ||
+        fileName.endsWith(".heic") ||
+        fileName.endsWith(".heif")
+      ) {
+        resultBlob = await convertHeicToStandard(img.file, format);
+      }
+      // Handle SVG to PNG
+      else if (fileType === "image/svg+xml" && format === "png") {
+        resultBlob = await convertSvgToPng(img.preview);
+      }
+      // Handle GIF to JPEG (first frame extraction)
+      else if (fileType === "image/gif" && format === "jpeg") {
+        resultBlob = await convertGifToJpeg(img.preview);
+      }
+      // Handle any format to GIF
+      else if (format === "gif") {
+        resultBlob = await convertToGif(img.preview);
+      }
+      // Standard canvas-based conversion (PNG, JPEG, WEBP, AVIF)
+      else {
+        resultBlob = await new Promise<Blob | null>((resolve) => {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+          const image = new Image();
+
+          image.onload = () => {
+            canvas.width = image.width;
+            canvas.height = image.height;
+            if (ctx) {
+              // Fill white background for JPEG (no transparency)
+              if (format === "jpeg") {
+                ctx.fillStyle = "#FFFFFF";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+              }
+              ctx.drawImage(image, 0, 0);
+            }
+
+            canvas.toBlob(
+              (blob) => {
+                resolve(blob);
+              },
+              `image/${format}`,
+              0.9,
+            );
+          };
+
+          image.onerror = () => resolve(null);
+          image.src = img.preview;
+        });
+      }
+
+      if (resultBlob) {
+        const url = URL.createObjectURL(resultBlob);
+        return {
+          ...img,
+          status: "done",
+          convertedBlob: resultBlob,
+          convertedUrl: url,
+          convertedName: `${nameWithoutExt}.${format}`,
+        };
+      } else {
+        return { ...img, status: "error" };
+      }
+    } catch (error) {
+      console.error("Conversion error:", error);
+      return { ...img, status: "error" };
+    }
   };
 
   const handleConvertAll = async () => {
@@ -202,7 +389,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.image_converter?.subtitle ||
-            "Convert images to WebP, PNG, and JPG. Fast, free, and secure."}
+            "Convert images to WebP, PNG, JPG, AVIF, and GIF. Support for SVG, HEIC. Fast, free, and secure."}
         </p>
 
         {/* Start Screen / Drop Zone */}
@@ -221,7 +408,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
             <input
               ref={fileInputRef}
               type="file"
-              accept="image/png, image/jpeg, image/webp"
+              accept="image/png, image/jpeg, image/webp, image/svg+xml, image/gif, image/heic, image/heif, .heic, .heif"
               multiple
               onChange={handleFileChange}
               className="hidden"
@@ -233,7 +420,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
             </p>
             <p className="text-sm text-muted-foreground">
               {dict?.image_converter?.supported ||
-                "Supported: PNG, JPG, JPEG, WEBP"}
+                "Supported: PNG, JPG, JPEG, WEBP, SVG, GIF, HEIC"}
             </p>
           </div>
         ) : (
@@ -253,7 +440,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
                   <input
                     ref={fileInputRef}
                     type="file"
-                    accept="image/png, image/jpeg, image/webp"
+                    accept="image/png, image/jpeg, image/webp, image/svg+xml, image/gif, image/heic, image/heif, .heic, .heif"
                     multiple
                     onChange={handleFileChange}
                     className="hidden"
@@ -279,6 +466,8 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
                       <SelectItem value="webp">WebP</SelectItem>
                       <SelectItem value="png">PNG</SelectItem>
                       <SelectItem value="jpeg">JPG</SelectItem>
+                      <SelectItem value="avif">AVIF</SelectItem>
+                      <SelectItem value="gif">GIF</SelectItem>
                     </SelectContent>
                   </Select>
 
@@ -302,6 +491,25 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
                 </div>
               </CardContent>
             </Card>
+
+            {/* AVIF Warning */}
+            {targetFormat === "avif" && !supportsAvif && (
+              <Card className="border-yellow-200 bg-yellow-50 dark:border-yellow-900/50 dark:bg-yellow-900/20">
+                <CardContent className="flex items-start gap-3 p-4">
+                  <AlertCircle className="w-5 h-5 text-yellow-600 dark:text-yellow-500 flex-shrink-0 mt-0.5" />
+                  <div className="text-sm">
+                    <p className="font-medium text-yellow-900 dark:text-yellow-100 mb-1">
+                      AVIF not supported
+                    </p>
+                    <p className="text-yellow-700 dark:text-yellow-200">
+                      Your browser doesn't support AVIF format. Please use a
+                      modern browser like Chrome 85+, Firefox 93+, or Safari
+                      16+, or choose a different format.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Image List */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -401,7 +609,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
                 title: dict?.image_converter?.step1_title || "Upload Images",
                 desc:
                   dict?.image_converter?.step1_desc ||
-                  "Upload the PNG, JPG, or WebP images you want to convert.",
+                  "Upload PNG, JPG, WebP, SVG, GIF, or HEIC images you want to convert.",
                 icon: Upload,
               },
               {
@@ -409,7 +617,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
                 title: dict?.image_converter?.step2_title || "Select Format",
                 desc:
                   dict?.image_converter?.step2_desc ||
-                  "Choose your desired output format (WebP, PNG, or JPG).",
+                  "Choose your desired output format (WebP, PNG, JPG, AVIF, or GIF).",
                 icon: Layers,
               },
               {
@@ -489,6 +697,26 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
                   "You can convert multiple images at once to save time.",
                 icon: Zap,
               },
+              {
+                title: "AVIF Compression",
+                desc: "AVIF offers up to 50% smaller files than JPEG at similar quality. Ideal for bandwidth-sensitive sites, but check browser support first.",
+                icon: Zap,
+              },
+              {
+                title: "SVG to Raster",
+                desc: "Convert vector SVG files to PNG to use them in contexts that don't support SVG, like email or certain social platforms.",
+                icon: FileImage,
+              },
+              {
+                title: "iPhone HEIC Photos",
+                desc: "iPhones save photos in HEIC format by default. Convert them to JPG or PNG for universal sharing and compatibility.",
+                icon: ImageIcon,
+              },
+              {
+                title: "GIF for Compatibility",
+                desc: "Convert static images to GIF when a platform specifically requires it, or extract the first frame from a GIF animation as a JPG.",
+                icon: Layers,
+              },
             ].map((tip, idx) => (
               <div
                 key={idx}
@@ -520,16 +748,43 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
 
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
-              {[1, 2, 3].map((num) => (
-                <AccordionItem key={num} value={`item-${num}`}>
-                  <AccordionTrigger>
-                    {dict?.qna_image_converter?.[`faq_${num}_q`] ||
-                      `Question ${num}`}
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    {dict?.qna_image_converter?.[`faq_${num}_a`] ||
-                      `Answer to question ${num}`}
-                  </AccordionContent>
+              {[
+                {
+                  q: dict?.qna_image_converter?.faq_1_q || "Is it free?",
+                  a: dict?.qna_image_converter?.faq_1_a || "Yes, our image converter is 100% free to use with no limits on conversions.",
+                },
+                {
+                  q: dict?.qna_image_converter?.faq_2_q || "Is it secure?",
+                  a: dict?.qna_image_converter?.faq_2_a || "Absolutely. All conversions happen in your browser. Your images are never uploaded to any server.",
+                },
+                {
+                  q: dict?.qna_image_converter?.faq_3_q || "What is WebP?",
+                  a: dict?.qna_image_converter?.faq_3_a || "WebP is a modern image format developed by Google that provides superior lossless and lossy compression for images on the web, resulting in smaller file sizes with comparable quality.",
+                },
+                {
+                  q: "What is AVIF and which browsers support it?",
+                  a: "AVIF (AV1 Image File Format) is a next-generation image format based on the AV1 video codec. It offers up to 50% better compression than JPEG and 20% better than WebP at similar quality. Supported in Chrome 85+, Firefox 93+, and Safari 16+. If your browser doesn't support AVIF, a warning will be shown.",
+                },
+                {
+                  q: "How does SVG to PNG conversion work?",
+                  a: "When you convert SVG to PNG, the converter renders the vector SVG image at its native resolution onto a canvas element, then exports it as a high-quality PNG file. This preserves all visual details while converting from a scalable vector format to a raster bitmap.",
+                },
+                {
+                  q: "Can I convert GIF to JPG?",
+                  a: "Yes. The converter extracts the first frame from your GIF animation and saves it as a static JPG image. This is useful when you need a still preview of an animated GIF for thumbnails, social media, or email.",
+                },
+                {
+                  q: "How do I create a GIF from JPG or PNG?",
+                  a: "Upload your JPG or PNG image and select GIF as the output format. The converter creates a single-frame GIF from your static image using the gifshot library. This is helpful when you need GIF format for specific platforms or applications.",
+                },
+                {
+                  q: "How do I convert HEIC photos from my iPhone?",
+                  a: "iPhones and iPads save photos in HEIC (High Efficiency Image Coding) format by default. Simply upload your .heic or .heif files and choose JPG, PNG, or WebP as the output. The conversion uses the heic2any library and runs entirely in your browser, keeping your photos private.",
+                },
+              ].map((faq, idx) => (
+                <AccordionItem key={idx} value={`item-${idx}`}>
+                  <AccordionTrigger>{faq.q}</AccordionTrigger>
+                  <AccordionContent>{faq.a}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>

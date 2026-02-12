@@ -50,7 +50,26 @@ When adding new tools to `/tools/*`, follow this sequence:
 - `components/breadcrumbs` for navigation
 - Utility: `lib/utils.ts` exports `cn()` for className merging
 
+### SSR & Browser APIs
+- Always wrap `document` or `window` access in `useEffect` to avoid SSR errors
+- Use dynamic imports for large libraries (heic2any, gifshot) to reduce bundle size
+- Create `.d.ts` files in `/types` for untyped npm packages
+
 ## Recent Implementations
+
+### Image Converter Extended (2026-02-12)
+- Location: `/image/image-converter`
+- Added 5 new format conversions:
+  1. **AVIF support**: Canvas toBlob with browser detection & warning UI
+  2. **SVG → PNG**: Canvas drawImage after SVG loaded as Image
+  3. **GIF → JPG**: First frame extraction with white background
+  4. **→ GIF**: gifshot library (dynamic import)
+  5. **HEIC → JPG/PNG**: heic2any library (dynamic import)
+- Type declaration: `/types/gifshot.d.ts` for untyped library
+- Format support: PNG, JPG, WebP, AVIF, GIF (+ input: SVG, HEIC)
+- AVIF browser detection with yellow warning card if unsupported
+- Helper functions for each conversion type with error handling
+- All existing functionality preserved (batch, ZIP download)
 
 ### Color Palette Extractor (2026-02-12)
 - Location: `/tools/color-palette-extractor`
