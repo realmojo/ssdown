@@ -7,7 +7,6 @@ import {
   FileType,
   Split,
   FileText,
-  Database,
   ArrowRight,
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";

@@ -109,6 +109,19 @@ const nextConfig: NextConfig = {
       { source: "/tools/pdf-to-png", destination: "/pdf/pdf-to-png", permanent: true },
       { source: "/tools/pdf-editor", destination: "/pdf/pdf-editor", permanent: true },
       { source: "/tools/esign-pdf", destination: "/pdf/esign-pdf", permanent: true },
+      // File & Data tools
+      { source: "/tools/json-to-xml", destination: "/file/json-to-xml", permanent: true },
+      { source: "/tools/xml-to-json", destination: "/file/xml-to-json", permanent: true },
+      { source: "/tools/csv-to-json", destination: "/file/csv-to-json", permanent: true },
+      { source: "/tools/csv-to-xml", destination: "/file/csv-to-xml", permanent: true },
+      { source: "/tools/xml-to-csv", destination: "/file/xml-to-csv", permanent: true },
+      { source: "/tools/csv-to-excel", destination: "/file/csv-to-excel", permanent: true },
+      { source: "/tools/excel-to-csv", destination: "/file/excel-to-csv", permanent: true },
+      { source: "/tools/xml-to-excel", destination: "/file/xml-to-excel", permanent: true },
+      { source: "/tools/excel-to-xml", destination: "/file/excel-to-xml", permanent: true },
+      { source: "/tools/split-csv", destination: "/file/split-csv", permanent: true },
+      { source: "/tools/split-excel", destination: "/file/split-excel", permanent: true },
+      { source: "/tools/excel-to-pdf", destination: "/file/excel-to-pdf", permanent: true },
     ];
   },
   async headers() {

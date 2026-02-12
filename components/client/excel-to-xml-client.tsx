@@ -11,7 +11,6 @@ import {
   Trash2,
   CheckCircle2,
   Lightbulb,
-  Upload,
 } from "lucide-react";
 import {
   Select,
@@ -51,7 +50,8 @@ export function ExcelToXmlClient() {
           processSheet(wb, firstSheet);
         }
         setError(null);
-      } catch (err) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (_err) {
         setError(
           "Error reading Excel file. Please ensure it is a valid .xlsx or .xls file.",
         );

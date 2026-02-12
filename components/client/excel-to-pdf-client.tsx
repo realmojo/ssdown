@@ -6,7 +6,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import {
   FileSpreadsheet,
   FileType,
-  Download,
   Trash2,
   CheckCircle2,
   Lightbulb,
@@ -97,7 +96,7 @@ export function ExcelToPdfClient() {
       const colCount = data[0].length;
       const colWidth = (pageWidth - margin * 2) / colCount;
 
-      data.forEach((row, rowIndex) => {
+      data.forEach((row) => {
         // Check page break
         if (y + lineHeight > pageHeight - margin) {
           doc.addPage();
@@ -121,7 +120,8 @@ export function ExcelToPdfClient() {
 
       doc.save(`${file?.name.replace(/.xlsx|.xls/, "")}_${selectedSheet}.pdf`);
       toast.success("PDF Downloaded!");
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_err) {
       toast.error("Error generating PDF.");
     } finally {
       setIsProcessing(false);
@@ -136,8 +136,21 @@ export function ExcelToPdfClient() {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  // ... (inside return)
+  return (
+    <div className="container mx-auto px-4 py-8 flex flex-col items-center min-h-[50vh]">
+      <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-red-100 to-rose-100 dark:from-red-900/30 dark:to-rose-900/30 mb-6">
+          <FileType className="w-8 h-8 text-red-600 dark:text-red-400" />
+        </div>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+          Excel to PDF Converter
+        </h1>
+        <p className="text-muted-foreground text-center max-w-2xl mb-8">
+          Convert Excel spreadsheets to PDF documents. Upload your file and download the PDF.
+        </p>
 
+        <Card className="w-full border-gray-200 dark:border-gray-800">
+          <CardContent className="p-6">
           {!file ? (
             <div
               onClick={() => fileInputRef.current?.click()}
@@ -206,7 +219,8 @@ export function ExcelToPdfClient() {
               </Button>
             </div>
           )}
-        </div>
+          </CardContent>
+        </Card>
       </div>
 
       <div className="w-full max-w-4xl mx-auto mt-12 px-4 space-y-16">

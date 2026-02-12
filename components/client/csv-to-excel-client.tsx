@@ -35,7 +35,8 @@ export function CsvToExcelClient() {
       const wb = XLSX.read(csvInput, { type: "string", raw: true });
       XLSX.writeFile(wb, "converted_data.xlsx");
       toast.success("Excel file downloaded");
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_err) {
       setError("Error creating Excel file. Please check your CSV format.");
     }
   };

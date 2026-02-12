@@ -114,7 +114,8 @@ export function CsvToJsonClient() {
       );
 
       setJsonOutput(JSON.stringify(filteredResult, null, 2));
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_err) {
       setError("Error parsing CSV. Please check formatting.");
       setJsonOutput("");
     }

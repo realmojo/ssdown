@@ -118,7 +118,8 @@ export function XmlToJsonClient() {
       finalJson = { [rootName]: result };
 
       setJsonOutput(JSON.stringify(finalJson, null, 2));
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_err) {
       setError("Invalid XML format. Please check your input.");
       setJsonOutput("");
     }

@@ -59,7 +59,8 @@ export function SplitExcelClient() {
       URL.revokeObjectURL(url);
 
       toast.success("Workbook split by sheets! Downloading ZIP...");
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_err) {
       toast.error("Error splitting Excel file.");
     } finally {
       setIsProcessing(false);

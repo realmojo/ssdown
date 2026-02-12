@@ -104,7 +104,8 @@ export function XmlToCsvClient() {
       });
 
       setCsvOutput(csv);
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_err) {
       setError("Error parsing XML. Ensure structure is list-based.");
       setCsvOutput("");
     }

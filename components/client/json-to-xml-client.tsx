@@ -26,20 +26,8 @@ export function JsonToXmlClient() {
   const [xmlOutput, setXmlOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  const formatXml = (xml: string) => {
-    let formatted = "";
-    let pad = 0;
-    xml.split(/>\s*</).forEach(function (node) {
-      if (node.match(/^\/\w/)) pad = -1;
-      formatted +=
-        new Array(Math.max(0, pad * 2) + 1).join(" ") + "<" + node + ">\r\n";
-      if (node.match(/^<?\w[^>]*[^\/]$/)) pad = 1;
-      else pad = 0;
-    });
-    return formatted.substring(1, formatted.length - 3);
-  };
-
-  // Simple JSON to XML converter
+  // Simple JSON to XML converter (alternative method, not currently used)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const json2xml = (o: any, tab: string): string => {
     const toXml = function (v: any, name: string, ind: string): string {
       let xml = "";
@@ -119,7 +107,8 @@ export function JsonToXmlClient() {
 
       // Basic prettify
       setXmlOutput(xml);
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_err) {
       setError("Invalid JSON format. Please check your input.");
       setXmlOutput("");
     }

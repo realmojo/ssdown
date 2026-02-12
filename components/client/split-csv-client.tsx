@@ -8,19 +8,10 @@ import { Label } from "@/components/ui/label";
 import {
   FileSpreadsheet,
   Split,
-  Download,
   Trash2,
   CheckCircle2,
   Lightbulb,
-  Upload,
 } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Slider } from "@/components/ui/slider";
 import JSZip from "jszip";
 import { toast } from "sonner";
 
@@ -142,7 +133,8 @@ export function SplitCsvClient() {
       URL.revokeObjectURL(url);
 
       toast.success("Split successful! Downloading ZIP...");
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_err) {
       toast.error("Error splitting CSV.");
     } finally {
       setIsProcessing(false);

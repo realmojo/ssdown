@@ -76,7 +76,8 @@ export function XmlToExcelClient() {
       XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
       XLSX.writeFile(wb, "converted_xml.xlsx");
       toast.success("Excel file downloaded");
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_err) {
       setError(
         "Error parsing XML. Please ensure it has a list-like structure.",
       );
