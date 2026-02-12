@@ -15,7 +15,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Adsense from "@/components/Adsense";
 import { SeoContentSection } from "../seo-content-section";
-import { AndroidAppLink } from "../android-app-link";
 
 export interface VideoItem {
   url: string;

@@ -57,16 +57,22 @@ const nextConfig: NextConfig = {
       { source: "/tools/color-palette-extractor", destination: "/image/color-palette-extractor", permanent: true },
       { source: "/tools/thumbnail-generator", destination: "/image/thumbnail-generator", permanent: true },
       { source: "/tools/background-remover", destination: "/image/background-remover", permanent: true },
+      { source: "/tools/crop-image", destination: "/image/crop-image", permanent: true },
       // Video & Audio tools
       { source: "/tools/video-to-mp3", destination: "/video-audio/video-to-mp3", permanent: true },
       { source: "/tools/video-to-gif", destination: "/video-audio/video-to-gif", permanent: true },
       { source: "/tools/video-frame-extractor", destination: "/video-audio/video-frame-extractor", permanent: true },
       { source: "/tools/audio-trimmer", destination: "/video-audio/audio-trimmer", permanent: true },
-      // YouTube tools
-      { source: "/tools/youtube-thumbnail", destination: "/youtube/youtube-thumbnail", permanent: true },
-      { source: "/tools/youtube-thumbnail/:id", destination: "/youtube/youtube-thumbnail/:id", permanent: true },
-      { source: "/tools/youtube-preview", destination: "/youtube/youtube-preview", permanent: true },
-      { source: "/tools/youtube-preview/:id", destination: "/youtube/youtube-preview/:id", permanent: true },
+      // YouTube tools (moved to utility)
+      { source: "/tools/youtube-thumbnail", destination: "/utility/youtube-thumbnail", permanent: true },
+      { source: "/tools/youtube-thumbnail/:id", destination: "/utility/youtube-thumbnail/:id", permanent: true },
+      { source: "/tools/youtube-preview", destination: "/utility/youtube-preview", permanent: true },
+      { source: "/tools/youtube-preview/:id", destination: "/utility/youtube-preview/:id", permanent: true },
+      { source: "/youtube/youtube-thumbnail", destination: "/utility/youtube-thumbnail", permanent: true },
+      { source: "/youtube/youtube-thumbnail/:id", destination: "/utility/youtube-thumbnail/:id", permanent: true },
+      { source: "/youtube/youtube-preview", destination: "/utility/youtube-preview", permanent: true },
+      { source: "/youtube/youtube-preview/:id", destination: "/utility/youtube-preview/:id", permanent: true },
+      { source: "/tools/youtube", destination: "/tools/utility", permanent: true },
       // Social & Text tools
       { source: "/tools/hashtag-generator", destination: "/social-text/hashtag-generator", permanent: true },
       { source: "/tools/instagram-line-break", destination: "/social-text/instagram-line-break", permanent: true },

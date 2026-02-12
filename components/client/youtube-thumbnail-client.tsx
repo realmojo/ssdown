@@ -99,7 +99,7 @@ export function YoutubeThumbnailClient({
       setResult(data.data);
       // Navigate to the SEO-friendly URL with the video ID.
       if (data.id) {
-        router.push(`/youtube/youtube-thumbnail/${data.id}`);
+        router.push(`/utility/youtube-thumbnail/${data.id}`);
       }
     } catch (err: any) {
       setError(

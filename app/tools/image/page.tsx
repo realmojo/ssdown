@@ -108,6 +108,15 @@ const tools = [
     bgLight: "bg-teal-100 dark:bg-teal-900/30",
     iconColor: "text-teal-500",
   },
+  {
+    title: "Crop Image",
+    description: "Crop your image to any size with preset aspect ratios.",
+    href: "/image/crop-image",
+    icon: Crop,
+    gradient: "from-orange-500 to-amber-500",
+    bgLight: "bg-orange-100 dark:bg-orange-900/30",
+    iconColor: "text-orange-500",
+  },
 ];
 
 export default function ImageToolsPage() {

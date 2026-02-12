@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const data = await fetchVideoDetails(id);
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/youtube/youtube-thumbnail/${id}`;
+  const canonical = `${baseUrl}/utility/youtube-thumbnail/${id}`;
 
   if (!data) {
     return {

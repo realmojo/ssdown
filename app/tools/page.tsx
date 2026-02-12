@@ -4,7 +4,6 @@ import { getDictionary } from "@/lib/get-dictionary";
 import {
   ImageIcon,
   Film,
-  PlaySquare,
   MessageSquare,
   Wrench,
   ArrowRight,
@@ -51,7 +50,7 @@ const categories = [
     gradient: "from-pink-500 to-rose-500",
     bgLight: "bg-pink-100 dark:bg-pink-900/30",
     iconColor: "text-pink-500",
-    count: 8,
+    count: 9,
   },
   {
     title: "Video & Audio",
@@ -63,17 +62,6 @@ const categories = [
     bgLight: "bg-indigo-100 dark:bg-indigo-900/30",
     iconColor: "text-indigo-500",
     count: 4,
-  },
-  {
-    title: "YouTube",
-    description:
-      "Download YouTube thumbnails in HD/4K and preview your video metadata before publishing.",
-    href: "/tools/youtube",
-    icon: PlaySquare,
-    gradient: "from-red-500 to-orange-500",
-    bgLight: "bg-red-100 dark:bg-red-900/30",
-    iconColor: "text-red-500",
-    count: 2,
   },
   {
     title: "Social & Text",
@@ -89,13 +77,13 @@ const categories = [
   {
     title: "Utility",
     description:
-      "Generate QR codes and calculate aspect ratios for video editing. Essential tools for creators.",
+      "YouTube tools, QR codes, aspect ratio calculator, and more essential tools for creators.",
     href: "/tools/utility",
     icon: Wrench,
     gradient: "from-violet-500 to-purple-500",
     bgLight: "bg-violet-100 dark:bg-violet-900/30",
     iconColor: "text-violet-500",
-    count: 2,
+    count: 4,
   },
 ];
 

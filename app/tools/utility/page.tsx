@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { QrCode, Calculator, ArrowRight } from "lucide-react";
+import { QrCode, Calculator, Download, Eye, ArrowRight } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const title = "Free Utility Tools | SSDown";
   const description =
-    "Free utility tools for creators. Generate QR codes and calculate aspect ratios for video editing.";
+    "Free utility tools for creators. YouTube thumbnail downloader, preview editor, QR codes, and aspect ratio calculator.";
 
   return {
     title,
@@ -28,6 +28,24 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const tools = [
+  {
+    title: "YT Thumbnail Downloader",
+    description: "Download YouTube thumbnails in high quality HD, 4K.",
+    href: "/utility/youtube-thumbnail",
+    icon: Download,
+    gradient: "from-red-500 to-orange-500",
+    bgLight: "bg-red-100 dark:bg-red-900/30",
+    iconColor: "text-red-500",
+  },
+  {
+    title: "YT Preview Editor",
+    description: "Edit and preview your YouTube video metadata and thumbnails.",
+    href: "/utility/youtube-preview",
+    icon: Eye,
+    gradient: "from-orange-500 to-yellow-500",
+    bgLight: "bg-orange-100 dark:bg-orange-900/30",
+    iconColor: "text-orange-500",
+  },
   {
     title: "QR Code Generator",
     description: "Create custom QR codes for any link in seconds.",

@@ -5,7 +5,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/youtube/youtube-preview`;
+  const canonical = `${baseUrl}/utility/youtube-preview`;
 
   const title = "Youtube Preview Editor | SSDown";
   const description =
@@ -42,8 +42,8 @@ export default async function YoutubePreviewPage() {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
       { "@type": "ListItem", position: 2, name: "Tools", item: "https://ssdown.app/tools" },
-      { "@type": "ListItem", position: 3, name: "YouTube", item: "https://ssdown.app/tools/youtube" },
-      { "@type": "ListItem", position: 4, name: "YouTube Preview Editor", item: "https://ssdown.app/youtube/youtube-preview" },
+      { "@type": "ListItem", position: 3, name: "Utility", item: "https://ssdown.app/tools/utility" },
+      { "@type": "ListItem", position: 4, name: "YouTube Preview Editor", item: "https://ssdown.app/utility/youtube-preview" },
     ],
   };
 
@@ -58,8 +58,8 @@ export default async function YoutubePreviewPage() {
           items={[
             { label: "Home", href: "/" },
             { label: "Tools", href: "/tools" },
-            { label: "YouTube", href: "/tools/youtube" },
-            { label: "YouTube Preview", href: "/youtube/youtube-preview", isCurrent: true },
+            { label: "Utility", href: "/tools/utility" },
+            { label: "YouTube Preview", href: "/utility/youtube-preview", isCurrent: true },
           ]}
         />
       </div>

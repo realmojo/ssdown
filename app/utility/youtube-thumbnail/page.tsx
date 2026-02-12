@@ -5,7 +5,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/youtube/youtube-thumbnail`;
+  const canonical = `${baseUrl}/utility/youtube-thumbnail`;
 
   const title = "Youtube Thumbnail Downloader | SSDown";
   const description =
@@ -42,8 +42,8 @@ export default async function YoutubeThumbnailPage() {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
       { "@type": "ListItem", position: 2, name: "Tools", item: "https://ssdown.app/tools" },
-      { "@type": "ListItem", position: 3, name: "YouTube", item: "https://ssdown.app/tools/youtube" },
-      { "@type": "ListItem", position: 4, name: "YouTube Thumbnail Downloader", item: "https://ssdown.app/youtube/youtube-thumbnail" },
+      { "@type": "ListItem", position: 3, name: "Utility", item: "https://ssdown.app/tools/utility" },
+      { "@type": "ListItem", position: 4, name: "YouTube Thumbnail Downloader", item: "https://ssdown.app/utility/youtube-thumbnail" },
     ],
   };
 
@@ -58,8 +58,8 @@ export default async function YoutubeThumbnailPage() {
           items={[
             { label: "Home", href: "/" },
             { label: "Tools", href: "/tools" },
-            { label: "YouTube", href: "/tools/youtube" },
-            { label: "YouTube Thumbnail", href: "/youtube/youtube-thumbnail", isCurrent: true },
+            { label: "Utility", href: "/tools/utility" },
+            { label: "YouTube Thumbnail", href: "/utility/youtube-thumbnail", isCurrent: true },
           ]}
         />
       </div>

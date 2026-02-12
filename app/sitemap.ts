@@ -75,12 +75,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/tools/youtube`,
-      lastModified: "2026-02-12",
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
       url: `${baseUrl}/tools/social-text`,
       lastModified: "2026-02-12",
       changeFrequency: "monthly",
@@ -141,6 +135,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/image/crop-image`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
     // Video & Audio tools
     {
       url: `${baseUrl}/video-audio/video-to-mp3`,
@@ -166,19 +166,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
-    // YouTube tools
-    {
-      url: `${baseUrl}/youtube/youtube-thumbnail`,
-      lastModified: "2026-01-01",
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/youtube/youtube-preview`,
-      lastModified: "2026-01-01",
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
     // Social & Text tools
     {
       url: `${baseUrl}/social-text/hashtag-generator`,
@@ -193,6 +180,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     // Utility tools
+    {
+      url: `${baseUrl}/utility/youtube-thumbnail`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/utility/youtube-preview`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
     {
       url: `${baseUrl}/utility/qr-code-generator`,
       lastModified: "2026-02-11",
