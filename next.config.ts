@@ -90,6 +90,8 @@ const nextConfig: NextConfig = {
       // Utility tools
       { source: "/tools/qr-code-generator", destination: "/utility/qr-code-generator", permanent: true },
       { source: "/tools/aspect-ratio-calculator", destination: "/utility/aspect-ratio-calculator", permanent: true },
+      // PDF tools
+      { source: "/tools/merge-pdf", destination: "/pdf/merge-pdf", permanent: true },
     ];
   },
   async headers() {

@@ -86,6 +86,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/tools/pdf`,
+      lastModified: "2026-02-12",
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
     // Image tools
     {
       url: `${baseUrl}/image/image-compressor`,
@@ -267,6 +273,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${baseUrl}/utility/aspect-ratio-calculator`,
       lastModified: "2026-02-11",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    // PDF tools
+    {
+      url: `${baseUrl}/pdf/merge-pdf`,
+      lastModified: "2026-02-12",
       changeFrequency: "monthly",
       priority: 0.8,
     },

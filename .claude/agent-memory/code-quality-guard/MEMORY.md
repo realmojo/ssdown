@@ -35,6 +35,13 @@
 - **Common files**: `restored-posts-part2.ts`, `digital-archiving-ethics-2025.ts`
 - **Fix**: Remove imports and references to missing files from seed scripts
 
+### pdf-lib Type Compatibility
+- **Pattern**: `PDFDocument.save()` returns `Uint8Array<ArrayBufferLike>`, but `Blob` constructor requires `BlobPart` (strict `ArrayBuffer`)
+- **Error**: `Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'BlobPart'`
+- **Fix**: Wrap the result in a new Uint8Array: `new Blob([new Uint8Array(mergedBytes)], { type: "application/pdf" })`
+- **Files affected**: Any component using `pdf-lib` to generate downloadable PDFs
+- **Example**: Fixed in `/components/client/merge-pdf-client.tsx` (2026-02-12)
+
 ## Project-Specific Conventions
 
 ### File Locations
@@ -91,6 +98,13 @@
 - **Status**: ✅ PASS (no lint or build errors)
 - **Issues found**: None
 - **Notes**: New icon conversion tool (~580 lines) with support for ICO, ICNS, and SVG formats. Converts to PNG with adjustable size (16-1024px) using canvas API. Handles multi-icon ICO files (shows all sizes), ICNS parsing with multiple image types, and SVG rendering. Includes inline canvas logic in useEffect (NO useCallback per React Compiler pattern). All imports properly used, no TypeScript strict mode errors. Route successfully registered at `/image/icon-to-png`. Modified files: tool category page (count 19→20), sitemap, header navigation, and added redirect in next.config.ts. Build time: 5.3s compile + 517.8ms static generation (69 pages total).
+
+### Merge PDF Tool (2026-02-12)
+- **Files**: `/components/client/merge-pdf-client.tsx`, `/app/pdf/merge-pdf/page.tsx`, `/app/tools/pdf/page.tsx` (new category)
+- **Status**: ✅ PASS (one TypeScript type error fixed)
+- **Issues found**: TypeScript error - `pdf-lib`'s `PDFDocument.save()` returns `Uint8Array<ArrayBufferLike>` incompatible with `Blob` constructor
+- **Fix applied**: Changed `new Blob([mergedBytes], ...)` to `new Blob([new Uint8Array(mergedBytes)], ...)` on line 153
+- **Notes**: New PDF merging tool (~340 lines) using `pdf-lib`. Features drag-and-drop reordering, file preview (first page thumbnails rendered via canvas), progress tracking, merged file download with size display. New "PDF" category created with FileText icon in tools page and site header (desktop dropdown + mobile section). Route successfully registered at `/pdf/merge-pdf`. Modified files: tools page (added PDF card), site header (PDF dropdown/mobile), sitemap (+2 URLs: /pdf/merge-pdf, /tools/pdf), next.config.ts (redirect). Build time: 4.4s compile + 473.5ms static generation (71 pages total, up from 69).
 
 ## Last Updated
 2026-02-12

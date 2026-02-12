@@ -251,6 +251,19 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary">
+                PDF <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/pdf/merge-pdf" className="w-full cursor-pointer">Merge PDF</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <Link prefetch={false} href="/blog">
             <Button
               variant="ghost"
@@ -403,6 +416,16 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                         <Link prefetch={false} href="/utility/youtube-preview" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>YT Preview Editor</Link>
                         <Link prefetch={false} href="/utility/qr-code-generator" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>QR Code Generator</Link>
                         <Link prefetch={false} href="/utility/aspect-ratio-calculator" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Aspect Ratio Calculator</Link>
+                      </div>
+                    </div>
+
+                    {/* PDF Tools */}
+                    <div className="flex flex-col gap-4">
+                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                        PDF Tools
+                      </h4>
+                      <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
+                        <Link prefetch={false} href="/pdf/merge-pdf" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Merge PDF</Link>
                       </div>
                     </div>
 
