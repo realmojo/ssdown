@@ -126,7 +126,7 @@ export function YoutubePreviewClient({
       }
 
       if (data.id) {
-        router.push(`/tools/youtube-preview/${data.id}`);
+        router.push(`/youtube/youtube-preview/${data.id}`);
       }
     } catch (err: any) {
       console.error(err);

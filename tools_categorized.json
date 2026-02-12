@@ -1,0 +1,140 @@
+{
+  "description": "SSDown 기존 도구 + TinyWow 브라우저 전용 도구 통합 카테고리 분류",
+  "summary": {
+    "existing": 16,
+    "new_candidates": 73,
+    "total": 89
+  },
+
+  "image": {
+    "label": "Image",
+    "description": "이미지 편집/가공/변환 도구",
+    "existing": [
+      { "title": "Image Compressor", "href": "/tools/image-compressor", "description": "Compress images to reduce file size without losing quality", "tech": "Canvas API toBlob(quality)" },
+      { "title": "Image Converter", "href": "/tools/image-converter", "description": "Convert images between WebP, PNG, and JPG formats", "tech": "Canvas API toBlob" },
+      { "title": "Social Image Resizer", "href": "/tools/social-image-resizer", "description": "Resize and crop images for Instagram, YouTube, and TikTok", "tech": "Canvas API" },
+      { "title": "Watermark Remover", "href": "/tools/watermark-remover", "description": "Remove watermarks from images instantly in your browser", "tech": "@imgly/background-removal (WASM)" },
+      { "title": "Favicon Generator", "href": "/tools/favicon-generator", "description": "Convert any image to favicon (ICO) with multiple sizes", "tech": "Canvas API + ICO binary" },
+      { "title": "Color Palette Extractor", "href": "/tools/color-palette-extractor", "description": "Extract dominant colors from images with HEX, RGB, and HSL codes", "tech": "Canvas API + k-means" },
+      { "title": "Thumbnail Generator", "href": "/tools/thumbnail-generator", "description": "Create custom thumbnails for YouTube, Instagram, and Twitter", "tech": "Canvas API" }
+    ],
+    "new": [
+      { "title": "Resize Image", "description": "Resize image dimensions freely", "tech": "Canvas API drawImage" },
+      { "title": "Crop Image", "description": "Crop your image to any size", "tech": "Canvas API" },
+      { "title": "Flip Image", "description": "Flip or mirror image horizontally/vertically", "tech": "Canvas API scale/translate" },
+      { "title": "Pixelate Image", "description": "Apply pixelation effect to image", "tech": "Canvas API (downscale + upscale)" },
+      { "title": "Black & White", "description": "Convert photo to black & white", "tech": "Canvas API getImageData + grayscale" },
+      { "title": "Add Text to Image", "description": "Add custom text overlay to image", "tech": "Canvas API fillText" },
+      { "title": "Add Border to Image", "description": "Add a border or frame to image", "tech": "Canvas API" },
+      { "title": "Combine Images", "description": "Combine multiple images into one", "tech": "Canvas API drawImage" },
+      { "title": "Collage Maker", "description": "Create photo collages online", "tech": "Canvas API" },
+      { "title": "Image Splitter", "description": "Cut image into grid pieces", "tech": "Canvas API" },
+      { "title": "Profile Photo Maker", "description": "Create round profile photo from image", "tech": "Canvas API clip()" },
+      { "title": "Blur Background", "description": "Apply blur effect to image background", "tech": "Canvas API filter blur" },
+      { "title": "Remove Background", "description": "Remove background from image with AI", "tech": "@imgly/background-removal (WASM)" },
+      { "title": "View Metadata", "description": "View EXIF metadata for your image", "tech": "exif-js" },
+      { "title": "Chart Maker", "description": "Create and download charts as image", "tech": "Chart.js + Canvas" },
+      { "title": "JPG to AVIF", "description": "Convert JPG to AVIF format", "tech": "Canvas API toBlob('image/avif')" },
+      { "title": "PNG to AVIF", "description": "Convert PNG to AVIF format", "tech": "Canvas API toBlob('image/avif')" },
+      { "title": "WEBP to AVIF", "description": "Convert WEBP to AVIF format", "tech": "Canvas API toBlob('image/avif')" },
+      { "title": "SVG to PNG", "description": "Convert SVG to PNG image", "tech": "Canvas API drawImage(svgImg)" },
+      { "title": "GIF to JPG", "description": "Convert GIF first frame to JPG", "tech": "Canvas API" },
+      { "title": "JPG to GIF", "description": "Convert JPG to animated GIF", "tech": "Canvas API + GIF encoder" },
+      { "title": "PNG to GIF", "description": "Convert PNG to GIF", "tech": "Canvas API + GIF encoder" },
+      { "title": "HEIC to JPG", "description": "Convert iPhone HEIC image to JPG", "tech": "heic2any + Canvas" },
+      { "title": "HEIC to PNG", "description": "Convert iPhone HEIC image to PNG", "tech": "heic2any + Canvas" }
+    ]
+  },
+
+  "video_audio": {
+    "label": "Video & Audio",
+    "description": "비디오/오디오 처리 도구",
+    "existing": [
+      { "title": "Video to MP3 Converter", "href": "/tools/video-to-mp3", "description": "Convert video files to MP3 audio in browser", "tech": "Web Audio API" },
+      { "title": "Video to GIF Converter", "href": "/tools/video-to-gif", "description": "Convert short video clips to animated GIFs", "tech": "Canvas API + gif.js" },
+      { "title": "Video Frame Extractor", "href": "/tools/video-frame-extractor", "description": "Extract high-quality frames from video", "tech": "Canvas API + video element" }
+    ],
+    "new": [
+      { "title": "Extract Audio from Video", "description": "Extract audio track from any video", "tech": "Web Audio API" },
+      { "title": "Mute Video", "description": "Remove audio from video file", "tech": "MediaStream API" },
+      { "title": "GIF to MP4", "description": "Convert animated GIF to MP4 video", "tech": "Canvas API + MediaRecorder" },
+      { "title": "Trim Video", "description": "Cut video to specific start and end time", "tech": "MediaSource API + Canvas" }
+    ]
+  },
+
+  "youtube": {
+    "label": "YouTube",
+    "description": "유튜브 관련 도구",
+    "existing": [
+      { "title": "YT Thumbnail Downloader", "href": "/tools/youtube-thumbnail", "description": "Download YouTube thumbnails in high quality HD, 4K", "tech": "YouTube API / URL pattern" },
+      { "title": "YT Preview Editor", "href": "/tools/youtube-preview", "description": "Edit and preview YouTube video metadata and thumbnails", "tech": "Canvas API + DOM" }
+    ],
+    "new": []
+  },
+
+  "pdf": {
+    "label": "PDF Tools",
+    "description": "PDF 생성/편집/변환 도구",
+    "existing": [],
+    "new": [
+      { "title": "Merge PDF", "description": "Merge multiple PDF files into one", "tech": "pdf-lib" },
+      { "title": "Split PDF", "description": "Split PDF into separate files", "tech": "pdf-lib" },
+      { "title": "Rotate PDF", "description": "Rotate PDF pages", "tech": "pdf-lib" },
+      { "title": "Rearrange PDF", "description": "Reorder pages of PDF file", "tech": "pdf-lib" },
+      { "title": "PDF Page Deleter", "description": "Delete pages from PDF", "tech": "pdf-lib" },
+      { "title": "Crop PDF", "description": "Crop PDF pages", "tech": "pdf-lib" },
+      { "title": "Protect PDF", "description": "Add password to PDF", "tech": "pdf-lib" },
+      { "title": "Unlock PDF", "description": "Remove password from PDF", "tech": "pdf-lib" },
+      { "title": "Add Page Numbers", "description": "Add page numbers to PDF", "tech": "pdf-lib" },
+      { "title": "Add Watermark to PDF", "description": "Stamp image over PDF", "tech": "pdf-lib" },
+      { "title": "Add Text to PDF", "description": "Add text annotation to PDF", "tech": "pdf-lib" },
+      { "title": "eSign PDF", "description": "Sign PDF with signature", "tech": "pdf-lib + Canvas" },
+      { "title": "Create PDF", "description": "Create new PDF document", "tech": "jsPDF / pdf-lib" },
+      { "title": "Images to PDF", "description": "Convert images to PDF document", "tech": "jsPDF" },
+      { "title": "PDF to Images", "description": "Convert PDF pages to JPG/PNG images", "tech": "pdf.js + Canvas" },
+      { "title": "PDF to Text", "description": "Extract text from PDF document", "tech": "pdf.js getTextContent()" }
+    ]
+  },
+
+  "file_data": {
+    "label": "File & Data Conversion",
+    "description": "파일/데이터 포맷 변환 도구",
+    "existing": [],
+    "new": [
+      { "title": "JSON to XML", "description": "Convert JSON to XML format", "tech": "JavaScript" },
+      { "title": "XML to JSON", "description": "Convert XML to JSON format", "tech": "JavaScript DOMParser" },
+      { "title": "CSV to JSON", "description": "Convert CSV to JSON format", "tech": "JavaScript" },
+      { "title": "CSV to XML", "description": "Convert CSV to XML format", "tech": "JavaScript" },
+      { "title": "XML to CSV", "description": "Convert XML to CSV format", "tech": "JavaScript DOMParser" },
+      { "title": "CSV to Excel", "description": "Convert CSV to Excel spreadsheet", "tech": "SheetJS (xlsx)" },
+      { "title": "Excel to CSV", "description": "Convert Excel to CSV", "tech": "SheetJS (xlsx)" },
+      { "title": "XML to Excel", "description": "Convert XML to Excel", "tech": "SheetJS (xlsx)" },
+      { "title": "Excel to XML", "description": "Convert Excel to XML", "tech": "SheetJS (xlsx)" },
+      { "title": "Split CSV", "description": "Split CSV into multiple files", "tech": "JavaScript" },
+      { "title": "Split Excel", "description": "Split Excel into multiple files", "tech": "SheetJS (xlsx)" },
+      { "title": "Excel to PDF", "description": "Convert Excel to PDF", "tech": "SheetJS + jsPDF" }
+    ]
+  },
+
+  "social_text": {
+    "label": "Social & Text",
+    "description": "소셜 미디어/텍스트 관련 도구",
+    "existing": [
+      { "title": "Hashtag Generator", "href": "/tools/hashtag-generator", "description": "Find trending hashtags for TikTok, Instagram, and YouTube", "tech": "JavaScript + API" },
+      { "title": "Instagram Line Break", "href": "/tools/instagram-line-break", "description": "Create clean Instagram captions with perfect line breaks", "tech": "JavaScript (zero-width space)" }
+    ],
+    "new": [
+      { "title": "Word Counter", "description": "Count words, characters, and sentences", "tech": "JavaScript" }
+    ]
+  },
+
+  "utility": {
+    "label": "Utility",
+    "description": "계산기/생성기 등 유틸리티 도구",
+    "existing": [
+      { "title": "QR Code Generator", "href": "/tools/qr-code-generator", "description": "Create custom QR codes for any link in seconds", "tech": "qrcode 라이브러리 + Canvas" },
+      { "title": "Aspect Ratio Calculator", "href": "/tools/aspect-ratio-calculator", "description": "Calculate aspect ratios and resolutions for video editing", "tech": "JavaScript" }
+    ],
+    "new": []
+  }
+}

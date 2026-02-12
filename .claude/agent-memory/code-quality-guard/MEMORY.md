@@ -7,6 +7,12 @@
 - **Files affected**: Client components in `/components/client/`
 - **Fix**: Remove unused imports from the import statement
 
+### Unused Dictionary Import
+- **Pattern**: Category pages importing `getDictionary()` but not using the `dict` variable
+- **Files affected**: Category pages in `/app/tools/{category}/page.tsx`
+- **Fix**: Remove both the `getDictionary` import and `const dict = await getDictionary()` line, also change component from `async function` to regular `function`
+- **Example**: Fixed in image, video-audio, youtube, social-text, utility category pages (2026-02-12 route restructure)
+
 ### Lambda Function Parameters
 - **Pattern**: AWS Lambda handlers with unused `_context` parameter (required by signature)
 - **Files**: `/lambda/*/index.mjs` files

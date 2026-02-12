@@ -1,0 +1,167 @@
+{
+  "description": "TinyWow 도구 중 서버 없이 브라우저(Canvas API, File API, JS 라이브러리)만으로 구현 가능한 도구 목록",
+  "total_count": 89,
+
+  "image_tools": {
+    "count": 35,
+    "items": [
+      { "title": "Compress Image Size", "description": "Compress your image", "tech": "Canvas API toBlob(quality)" },
+      { "title": "Resize Image Dimensions", "description": "Resize your image", "tech": "Canvas API drawImage" },
+      { "title": "Crop Image", "description": "Crop your image", "tech": "Canvas API" },
+      { "title": "Flip Image", "description": "Flip Image", "tech": "Canvas API scale/translate" },
+      { "title": "Pixelate Image", "description": "Pixelate your photo", "tech": "Canvas API (downscale + upscale)" },
+      { "title": "Black & White", "description": "Make your photo black & white", "tech": "Canvas API getImageData + grayscale" },
+      { "title": "Add Text to an Image", "description": "Easily Add Text To an Image Online", "tech": "Canvas API fillText" },
+      { "title": "Add Border to Image", "description": "Add a border to your image", "tech": "Canvas API" },
+      { "title": "Add images", "description": "Add images to Image", "tech": "Canvas API drawImage" },
+      { "title": "Combine Images", "description": "Combine Images Online", "tech": "Canvas API" },
+      { "title": "Collage Maker", "description": "Create Photo Collages Online", "tech": "Canvas API" },
+      { "title": "Image Splitter", "description": "Cut image in to pieces", "tech": "Canvas API" },
+      { "title": "Profile Photo Maker", "description": "Create round profile photo from image", "tech": "Canvas API clip()" },
+      { "title": "Make Round Image", "description": "Make round image", "tech": "Canvas API arc + clip" },
+      { "title": "PNG to JPG", "description": "Convert a PNG Image to JPG Online", "tech": "Canvas API toBlob('image/jpeg')" },
+      { "title": "JPG to PNG", "description": "Convert a JPG Image to PNG Online", "tech": "Canvas API toBlob('image/png')" },
+      { "title": "PNG to WEBP", "description": "Convert a PNG Image to WEBP Online", "tech": "Canvas API toBlob('image/webp')" },
+      { "title": "JPG to WEBP", "description": "Convert a JPG Image to WEBP Online", "tech": "Canvas API toBlob('image/webp')" },
+      { "title": "WEBP to PNG", "description": "Convert a WEBP Image to PNG Online", "tech": "Canvas API toBlob('image/png')" },
+      { "title": "WEBP to JPG", "description": "Convert a WEBP Image to JPG Online", "tech": "Canvas API toBlob('image/jpeg')" },
+      { "title": "JPG to AVIF", "description": "Convert a JPG Image to AVIF Online", "tech": "Canvas API toBlob('image/avif') - 최신 브라우저" },
+      { "title": "PNG to AVIF", "description": "Convert a PNG Image to AVIF Online", "tech": "Canvas API toBlob('image/avif') - 최신 브라우저" },
+      { "title": "WEBP to AVIF", "description": "Convert a WEBP Image to AVIF Online", "tech": "Canvas API toBlob('image/avif') - 최신 브라우저" },
+      { "title": "SVG to PNG", "description": "Convert a SVG image to PNG free", "tech": "Canvas API drawImage(svgImg)" },
+      { "title": "GIF to JPG", "description": "Convert a GIF Image to JPG Online", "tech": "Canvas API (첫 프레임)" },
+      { "title": "JPG to GIF", "description": "Convert a JPG Image to GIF Online", "tech": "Canvas API + GIF encoder (gifshot)" },
+      { "title": "PNG to GIF", "description": "Convert a PNG Image to GIF Online", "tech": "Canvas API + GIF encoder" },
+      { "title": "HEIC to JPG", "description": "Convert an iPhone HEIC image to JPG", "tech": "heic2any 라이브러리 + Canvas" },
+      { "title": "HEIC to PNG", "description": "Convert an iPhone HEIC image to PNG", "tech": "heic2any 라이브러리 + Canvas" },
+      { "title": "View Metadata", "description": "View metadata for your image", "tech": "exif-js 라이브러리" },
+      { "title": "Chart Maker", "description": "Download a chart as image", "tech": "Chart.js + Canvas" },
+      { "title": "Blur Background Tools", "description": "Image background blur", "tech": "Canvas API filter blur (단순 전체 블러)" },
+      { "title": "Make background transparent", "description": "Make background transparent", "tech": "@imgly/background-removal (WASM)" },
+      { "title": "Remove Background from Image", "description": "Easily Remove the Background from an image", "tech": "@imgly/background-removal (WASM)" },
+      { "title": "Font Awesome to Png", "description": "Convert Font Awesome to Png", "tech": "Canvas API + Font rendering" }
+    ]
+  },
+
+  "pdf_tools": {
+    "count": 23,
+    "items": [
+      { "title": "Merge PDF", "description": "Merge 2 or more PDF files into a single PDF file", "tech": "pdf-lib" },
+      { "title": "Split PDF", "description": "Split into one or multiple PDF files", "tech": "pdf-lib" },
+      { "title": "Rotate PDF", "description": "Rotate one or more pages in a PDF file", "tech": "pdf-lib" },
+      { "title": "Rearrange PDF", "description": "Rearrange pages of PDF file", "tech": "pdf-lib" },
+      { "title": "PDF Page Deleter", "description": "Delete 1 or more pages from a PDF", "tech": "pdf-lib" },
+      { "title": "Crop PDF", "description": "Free PDF cropper", "tech": "pdf-lib" },
+      { "title": "Protect PDF", "description": "Add a password to a PDF file", "tech": "pdf-lib" },
+      { "title": "Unlock PDF", "description": "Remove the password from a PDF file", "tech": "pdf-lib (with password)" },
+      { "title": "Add Numbers to PDF", "description": "Add page numbers to a PDF file", "tech": "pdf-lib" },
+      { "title": "Add Watermark", "description": "Stamp an image over your PDF", "tech": "pdf-lib" },
+      { "title": "Add Text", "description": "Add Text to PDF", "tech": "pdf-lib" },
+      { "title": "Annotate PDF", "description": "Free PDF Editor", "tech": "pdf-lib" },
+      { "title": "eSign PDF", "description": "E-sign a PDF with a font or with your signature", "tech": "pdf-lib + Canvas (서명)" },
+      { "title": "Create PDF", "description": "Free PDF Creator", "tech": "jsPDF / pdf-lib" },
+      { "title": "JPG to PDF", "description": "Upload images and receive as a PDF", "tech": "jsPDF" },
+      { "title": "PNG to PDF", "description": "Upload images and receive as a PDF", "tech": "jsPDF" },
+      { "title": "IMAGES to PDF", "description": "Add images to PDF online", "tech": "jsPDF" },
+      { "title": "WEBP to PDF", "description": "Upload images and receive as a PDF", "tech": "jsPDF + Canvas" },
+      { "title": "GIF to PDF", "description": "Upload images and receive as a PDF", "tech": "jsPDF + Canvas" },
+      { "title": "PDF to JPG", "description": "Convert PDF to JPG and download each page as an image", "tech": "pdf.js + Canvas" },
+      { "title": "PDF to PNG", "description": "Convert PDF to PNG and download each page as an image", "tech": "pdf.js + Canvas" },
+      { "title": "PDF to Text", "description": "Convert a PDF to Text", "tech": "pdf.js getTextContent()" },
+      { "title": "Extract text from PDF", "description": "Extract text from PDF document", "tech": "pdf.js getTextContent()" }
+    ]
+  },
+
+  "video_audio_tools": {
+    "count": 7,
+    "items": [
+      { "title": "MP4 to MP3", "description": "Convert MP4 to MP3 audio", "tech": "Web Audio API + MediaRecorder" },
+      { "title": "Extract Audio from Video", "description": "Extract audio from your video", "tech": "Web Audio API" },
+      { "title": "Mute Video", "description": "Upload a video and download the video with no sound", "tech": "MediaStream API (오디오 트랙 제거)" },
+      { "title": "Video to Gif", "description": "Upload an MP4 and convert to animated GIF", "tech": "Canvas API + GIF encoder (gif.js)" },
+      { "title": "MP4 to GIF", "description": "Convert MP4 to GIF", "tech": "Canvas API + gif.js" },
+      { "title": "GIF to MP4", "description": "Convert animated GIF to MP4 Online", "tech": "Canvas API + MediaRecorder" },
+      { "title": "Trim Video", "description": "Select a start and stop of a video and download the trimmed video", "tech": "MediaSource API + Canvas" }
+    ]
+  },
+
+  "file_data_tools": {
+    "count": 12,
+    "items": [
+      { "title": "JSON to XML", "description": "Convert JSON to XML", "tech": "JavaScript" },
+      { "title": "XML to JSON", "description": "Convert XML to JSON", "tech": "JavaScript DOMParser" },
+      { "title": "CSV to JSON", "description": "Convert CSV to JSON", "tech": "JavaScript" },
+      { "title": "CSV to XML", "description": "Convert CSV to XML", "tech": "JavaScript" },
+      { "title": "XML to CSV", "description": "Convert XML to CSV", "tech": "JavaScript DOMParser" },
+      { "title": "CSV to Excel", "description": "Convert CSV to Excel", "tech": "SheetJS (xlsx)" },
+      { "title": "Excel to CSV", "description": "Convert Excel to CSV", "tech": "SheetJS (xlsx)" },
+      { "title": "XML to Excel", "description": "Convert XML to Excel", "tech": "SheetJS (xlsx)" },
+      { "title": "Excel to XML", "description": "Convert Excel to XML", "tech": "SheetJS (xlsx)" },
+      { "title": "Split CSV", "description": "Split into one or multiple CSV files", "tech": "JavaScript" },
+      { "title": "Split Excel", "description": "Split into one or multiple Excel files", "tech": "SheetJS (xlsx)" },
+      { "title": "Excel to PDF", "description": "Convert Excel to PDF", "tech": "SheetJS + jsPDF" }
+    ]
+  },
+
+  "text_tools": {
+    "count": 1,
+    "items": [
+      { "title": "Word Counter", "description": "Count words in your text", "tech": "JavaScript" }
+    ]
+  },
+
+  "excluded": {
+    "description": "서버/AI가 필수인 도구 (브라우저만으로 구현 불가)",
+    "reasons": {
+      "AI_ML_required": [
+        "AI Image Generator",
+        "Upscale Image",
+        "Remove watermark",
+        "Remove Objects Photo",
+        "Remove Person from Photo",
+        "Unblur IMG",
+        "Cleanup picture",
+        "Colorize Photo",
+        "Image To Text (OCR)",
+        "Translate Image",
+        "Change Background of Photo",
+        "TIFF To Text (OCR)",
+        "AI 글쓰기 도구 전체 (49개)"
+      ],
+      "server_side_conversion": [
+        "PDF to Word",
+        "Word to PDF",
+        "PDF to Excel",
+        "PDF to Powerpoint",
+        "Powerpoint to PDF",
+        "EPUB to/from PDF",
+        "MOBI to/from PDF",
+        "AZW3 to/from PDF",
+        "MS Outlook to PDF",
+        "URL to PDF",
+        "PDF Translator",
+        "PDF Watermark Remover",
+        "PDF to CSV (복잡한 테이블 파싱)"
+      ],
+      "special_format_parser": [
+        "EPS to JPG/PNG/SVG/PDF",
+        "PNG to EPS",
+        "PSD to JPG/PNG/SVG/AI",
+        "TIFF to JPG/PNG/SVG/PDF",
+        "PNG to TIFF",
+        "VSD/VSDX 관련 전체",
+        "GIF to APNG"
+      ],
+      "heavy_video_processing": [
+        "Compress Video",
+        "Resize Video",
+        "Add subtitles",
+        "Video to Text / Audio to Text (STT)",
+        "YouTube/Instagram/TikTok/Twitter/Facebook Download",
+        "YouTube Transcript Generator",
+        "대부분의 비디오 포맷 변환 (MOV↔MP4, MKV↔MP4 등)",
+        "Summarize/Transcribe Podcast"
+      ]
+    }
+  }
+}

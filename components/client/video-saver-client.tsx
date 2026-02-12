@@ -294,8 +294,6 @@ export function VideoDownloaderClient({
             {subtitle}
           </p>
 
-          <AndroidAppLink className="mb-6 w-full sm:w-auto" />
-
           <Adsense slotId={slotId1 || ""} />
 
           <Card

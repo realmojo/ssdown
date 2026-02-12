@@ -123,148 +123,104 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
-              >
-                Tools <ChevronDown className="h-4 w-4" />
+              <Button variant="ghost" className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary">
+                Image <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
               <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/aspect-ratio-calculator"
-                  className="w-full cursor-pointer"
-                >
-                  Aspect Ratio Calculator
-                </Link>
+                <Link prefetch={false} href="/image/image-compressor" className="w-full cursor-pointer">Image Compressor</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/audio-trimmer"
-                  className="w-full cursor-pointer"
-                >
-                  Audio Trimmer
-                </Link>
+                <Link prefetch={false} href="/image/image-converter" className="w-full cursor-pointer">Image Converter</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/background-remover"
-                  className="w-full cursor-pointer"
-                >
-                  Background Remover
-                </Link>
+                <Link prefetch={false} href="/image/social-image-resizer" className="w-full cursor-pointer">Social Image Resizer</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/hashtag-generator"
-                  className="w-full cursor-pointer"
-                >
-                  Hashtag Generator
-                </Link>
+                <Link prefetch={false} href="/image/background-remover" className="w-full cursor-pointer">Background Remover</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/image-converter"
-                  className="w-full cursor-pointer"
-                >
-                  Image Converter
-                </Link>
+                <Link prefetch={false} href="/image/watermark-remover" className="w-full cursor-pointer">Watermark Remover</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/instagram-line-break"
-                  className="w-full cursor-pointer"
-                >
-                  Instagram Line Break
-                </Link>
+                <Link prefetch={false} href="/image/favicon-generator" className="w-full cursor-pointer">Favicon Generator</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/qr-code-generator"
-                  className="w-full cursor-pointer"
-                >
-                  QR Code Generator
-                </Link>
+                <Link prefetch={false} href="/image/color-palette-extractor" className="w-full cursor-pointer">Color Palette Extractor</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/social-image-resizer"
-                  className="w-full cursor-pointer"
-                >
-                  Social Image Resizer
-                </Link>
+                <Link prefetch={false} href="/image/thumbnail-generator" className="w-full cursor-pointer">Thumbnail Generator</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary">
+                Video & Audio <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/video-audio/video-to-mp3" className="w-full cursor-pointer">Video to MP3</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/thumbnail-generator"
-                  className="w-full cursor-pointer"
-                >
-                  Thumbnail Generator
-                </Link>
+                <Link prefetch={false} href="/video-audio/video-to-gif" className="w-full cursor-pointer">Video to GIF</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/video-frame-extractor"
-                  className="w-full cursor-pointer"
-                >
-                  Video Frame Extractor
-                </Link>
+                <Link prefetch={false} href="/video-audio/video-frame-extractor" className="w-full cursor-pointer">Video Frame Extractor</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/video-to-gif"
-                  className="w-full cursor-pointer"
-                >
-                  Video to GIF
-                </Link>
+                <Link prefetch={false} href="/video-audio/audio-trimmer" className="w-full cursor-pointer">Audio Trimmer</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary">
+                YouTube <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/youtube/youtube-thumbnail" className="w-full cursor-pointer">YT Thumbnail Downloader</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/video-to-mp3"
-                  className="w-full cursor-pointer"
-                >
-                  Video to MP3
-                </Link>
+                <Link prefetch={false} href="/youtube/youtube-preview" className="w-full cursor-pointer">YT Preview Editor</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary">
+                Social & Text <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/social-text/hashtag-generator" className="w-full cursor-pointer">Hashtag Generator</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/watermark-remover"
-                  className="w-full cursor-pointer"
-                >
-                  Watermark Remover
-                </Link>
+                <Link prefetch={false} href="/social-text/instagram-line-break" className="w-full cursor-pointer">Instagram Line Break</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary">
+                Utility <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem asChild>
+                <Link prefetch={false} href="/utility/qr-code-generator" className="w-full cursor-pointer">QR Code Generator</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/youtube-preview"
-                  className="w-full cursor-pointer"
-                >
-                  YT Preview Editor
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link
-                  prefetch={false}
-                  href="/tools/youtube-thumbnail"
-                  className="w-full cursor-pointer"
-                >
-                  YT Thumbnail Downloader
-                </Link>
+                <Link prefetch={false} href="/utility/aspect-ratio-calculator" className="w-full cursor-pointer">Aspect Ratio Calculator</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -358,132 +314,66 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                       </div>
                     </div>
 
-                    {/* Tools Section */}
+                    {/* Image Tools */}
                     <div className="flex flex-col gap-4">
                       <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                        Creator Tools
+                        Image Tools
                       </h4>
                       <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
-                        <Link
-                          prefetch={false}
-                          href="/tools/aspect-ratio-calculator"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Aspect Ratio Calculator
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/audio-trimmer"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Audio Trimmer
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/background-remover"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Background Remover
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/hashtag-generator"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Hashtag Generator
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/image-converter"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Image Converter
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/instagram-line-break"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Instagram Line Break
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/qr-code-generator"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          QR Code Generator
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/social-image-resizer"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Social Image Resizer
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/thumbnail-generator"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Thumbnail Generator
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/video-frame-extractor"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Video Frame Extractor
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/video-to-gif"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Video to GIF
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/video-to-mp3"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Video to MP3
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/watermark-remover"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Watermark Remover
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/youtube-preview"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          YT Preview Editor
-                        </Link>
-                        <Link
-                          prefetch={false}
-                          href="/tools/youtube-thumbnail"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          YT Thumbnail Downloader
-                        </Link>
+                        <Link prefetch={false} href="/image/image-compressor" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Image Compressor</Link>
+                        <Link prefetch={false} href="/image/image-converter" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Image Converter</Link>
+                        <Link prefetch={false} href="/image/social-image-resizer" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Social Image Resizer</Link>
+                        <Link prefetch={false} href="/image/background-remover" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Background Remover</Link>
+                        <Link prefetch={false} href="/image/watermark-remover" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Watermark Remover</Link>
+                        <Link prefetch={false} href="/image/favicon-generator" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Favicon Generator</Link>
+                        <Link prefetch={false} href="/image/color-palette-extractor" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Color Palette Extractor</Link>
+                        <Link prefetch={false} href="/image/thumbnail-generator" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Thumbnail Generator</Link>
+                      </div>
+                    </div>
+
+                    {/* Video & Audio */}
+                    <div className="flex flex-col gap-4">
+                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                        Video & Audio
+                      </h4>
+                      <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
+                        <Link prefetch={false} href="/video-audio/video-to-mp3" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Video to MP3</Link>
+                        <Link prefetch={false} href="/video-audio/video-to-gif" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Video to GIF</Link>
+                        <Link prefetch={false} href="/video-audio/video-frame-extractor" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Video Frame Extractor</Link>
+                        <Link prefetch={false} href="/video-audio/audio-trimmer" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Audio Trimmer</Link>
+                      </div>
+                    </div>
+
+                    {/* YouTube */}
+                    <div className="flex flex-col gap-4">
+                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                        YouTube
+                      </h4>
+                      <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
+                        <Link prefetch={false} href="/youtube/youtube-thumbnail" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>YT Thumbnail Downloader</Link>
+                        <Link prefetch={false} href="/youtube/youtube-preview" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>YT Preview Editor</Link>
+                      </div>
+                    </div>
+
+                    {/* Social & Text */}
+                    <div className="flex flex-col gap-4">
+                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                        Social & Text
+                      </h4>
+                      <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
+                        <Link prefetch={false} href="/social-text/hashtag-generator" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Hashtag Generator</Link>
+                        <Link prefetch={false} href="/social-text/instagram-line-break" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Instagram Line Break</Link>
+                      </div>
+                    </div>
+
+                    {/* Utility */}
+                    <div className="flex flex-col gap-4">
+                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                        Utility
+                      </h4>
+                      <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
+                        <Link prefetch={false} href="/utility/qr-code-generator" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>QR Code Generator</Link>
+                        <Link prefetch={false} href="/utility/aspect-ratio-calculator" className="text-base font-medium hover:text-primary transition-colors py-1" onClick={() => setIsOpen(false)}>Aspect Ratio Calculator</Link>
                       </div>
                     </div>
 
