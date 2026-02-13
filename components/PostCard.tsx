@@ -21,7 +21,7 @@ export function PostCard({ post }: PostCardProps) {
 
   return (
     <Card className="group hover:shadow-lg transition-all duration-300 border-gray-200 dark:border-gray-800">
-      <Link href={`/blog/${post.id}`}>
+      <a href={`/blog/${post.id}`}>
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
             <Calendar className="w-4 h-4" />
@@ -35,7 +35,9 @@ export function PostCard({ post }: PostCardProps) {
           </h3>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground line-clamp-3 mb-4">{String(post.excerpt)}</p>
+          <p className="text-muted-foreground line-clamp-3 mb-4">
+            {String(post.excerpt)}
+          </p>
           <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium group-hover:gap-3 transition-all">
             <span>Read more</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -51,7 +53,7 @@ export function PostCard({ post }: PostCardProps) {
             ))}
           </div>
         </CardContent>
-      </Link>
+      </a>
     </Card>
   );
 }

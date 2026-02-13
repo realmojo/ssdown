@@ -201,7 +201,7 @@ export default function FileToolsPage() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {tools.map((tool) => (
-              <Link
+              <a
                 key={tool.href}
                 href={tool.href}
                 className="group block rounded-2xl border border-gray-200 dark:border-gray-800 p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
@@ -218,7 +218,7 @@ export default function FileToolsPage() {
                 >
                   Try it now <ArrowRight className="w-4 h-4 text-current" />
                 </span>
-              </Link>
+              </a>
             ))}
           </div>
         </div>

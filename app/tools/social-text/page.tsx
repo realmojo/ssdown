@@ -53,9 +53,24 @@ export default function SocialTextToolsPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
-      { "@type": "ListItem", position: 2, name: "Tools", item: "https://ssdown.app/tools" },
-      { "@type": "ListItem", position: 3, name: "Social & Text", item: "https://ssdown.app/tools/social-text" },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://ssdown.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tools",
+        item: "https://ssdown.app/tools",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Social & Text",
+        item: "https://ssdown.app/tools/social-text",
+      },
     ],
   };
 
@@ -71,7 +86,11 @@ export default function SocialTextToolsPage() {
             items={[
               { label: "Home", href: "/" },
               { label: "Tools", href: "/tools" },
-              { label: "Social & Text", href: "/tools/social-text", isCurrent: true },
+              {
+                label: "Social & Text",
+                href: "/tools/social-text",
+                isCurrent: true,
+              },
             ]}
           />
 
@@ -80,26 +99,31 @@ export default function SocialTextToolsPage() {
               Social & Text Tools
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Free social media tools for content creators. Generate hashtags and format captions.
+              Free social media tools for content creators. Generate hashtags
+              and format captions.
             </p>
           </header>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {tools.map((tool) => (
-              <Link
+              <a
                 key={tool.href}
                 href={tool.href}
                 className="group block rounded-2xl border border-gray-200 dark:border-gray-800 p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
               >
-                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full ${tool.bgLight} mb-6`}>
+                <div
+                  className={`inline-flex items-center justify-center w-16 h-16 rounded-full ${tool.bgLight} mb-6`}
+                >
                   <tool.icon className={`w-8 h-8 ${tool.iconColor}`} />
                 </div>
                 <h2 className="text-2xl font-bold mb-3">{tool.title}</h2>
                 <p className="text-muted-foreground mb-6">{tool.description}</p>
-                <span className={`inline-flex items-center gap-2 text-sm font-semibold bg-gradient-to-r ${tool.gradient} bg-clip-text text-transparent group-hover:gap-3 transition-all`}>
+                <span
+                  className={`inline-flex items-center gap-2 text-sm font-semibold bg-gradient-to-r ${tool.gradient} bg-clip-text text-transparent group-hover:gap-3 transition-all`}
+                >
                   Try it now <ArrowRight className="w-4 h-4 text-current" />
                 </span>
-              </Link>
+              </a>
             ))}
           </div>
         </div>

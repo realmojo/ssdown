@@ -103,7 +103,8 @@ const tools = [
   },
   {
     title: "Thumbnail Generator",
-    description: "Create custom thumbnails for YouTube, Instagram, and Twitter.",
+    description:
+      "Create custom thumbnails for YouTube, Instagram, and Twitter.",
     href: "/image/thumbnail-generator",
     icon: ImageIcon,
     gradient: "from-purple-500 to-indigo-500",
@@ -148,7 +149,8 @@ const tools = [
   },
   {
     title: "Black & White",
-    description: "Convert your photo to black & white with luminance-preserving grayscale.",
+    description:
+      "Convert your photo to black & white with luminance-preserving grayscale.",
     href: "/image/black-and-white",
     icon: Contrast,
     gradient: "from-gray-500 to-slate-500",
@@ -157,7 +159,8 @@ const tools = [
   },
   {
     title: "Add Text to Image",
-    description: "Add custom text overlays with full control over font, color, and position.",
+    description:
+      "Add custom text overlays with full control over font, color, and position.",
     href: "/image/add-text-to-image",
     icon: Type,
     gradient: "from-amber-500 to-yellow-500",
@@ -166,7 +169,8 @@ const tools = [
   },
   {
     title: "Add Border to Image",
-    description: "Add a border or frame to your image with customizable style, width, and color.",
+    description:
+      "Add a border or frame to your image with customizable style, width, and color.",
     href: "/image/add-border-to-image",
     icon: Frame,
     gradient: "from-rose-500 to-pink-500",
@@ -184,7 +188,8 @@ const tools = [
   },
   {
     title: "Collage Maker",
-    description: "Create photo collages with 8 customizable templates and layouts.",
+    description:
+      "Create photo collages with 8 customizable templates and layouts.",
     href: "/image/collage-maker",
     icon: LayoutGrid,
     gradient: "from-fuchsia-500 to-pink-500",
@@ -193,7 +198,8 @@ const tools = [
   },
   {
     title: "Round Image Maker",
-    description: "Crop any image into a perfect circle with custom size and background.",
+    description:
+      "Crop any image into a perfect circle with custom size and background.",
     href: "/image/round-image-maker",
     icon: Circle,
     gradient: "from-teal-500 to-cyan-500",
@@ -202,7 +208,8 @@ const tools = [
   },
   {
     title: "Image Metadata Viewer",
-    description: "View EXIF metadata including camera settings, GPS location, and date taken.",
+    description:
+      "View EXIF metadata including camera settings, GPS location, and date taken.",
     href: "/image/image-metadata-viewer",
     icon: FileSearch,
     gradient: "from-sky-500 to-indigo-500",
@@ -211,7 +218,8 @@ const tools = [
   },
   {
     title: "Blur Image",
-    description: "Apply gaussian blur to your images with adjustable intensity control.",
+    description:
+      "Apply gaussian blur to your images with adjustable intensity control.",
     href: "/image/blur-image",
     icon: Droplets,
     gradient: "from-purple-500 to-violet-500",
@@ -220,7 +228,8 @@ const tools = [
   },
   {
     title: "Icon to PNG",
-    description: "Convert Font Awesome icons to PNG with custom size and colors.",
+    description:
+      "Convert Font Awesome icons to PNG with custom size and colors.",
     href: "/image/icon-to-png",
     icon: Shapes,
     gradient: "from-orange-500 to-amber-500",
@@ -234,9 +243,24 @@ export default function ImageToolsPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
-      { "@type": "ListItem", position: 2, name: "Tools", item: "https://ssdown.app/tools" },
-      { "@type": "ListItem", position: 3, name: "Image Tools", item: "https://ssdown.app/tools/image" },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://ssdown.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tools",
+        item: "https://ssdown.app/tools",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Image Tools",
+        item: "https://ssdown.app/tools/image",
+      },
     ],
   };
 
@@ -261,26 +285,31 @@ export default function ImageToolsPage() {
               Image Tools
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Free online image tools. Compress, convert, resize, and edit images directly in your browser. No upload required.
+              Free online image tools. Compress, convert, resize, and edit
+              images directly in your browser. No upload required.
             </p>
           </header>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {tools.map((tool) => (
-              <Link
+              <a
                 key={tool.href}
                 href={tool.href}
                 className="group block rounded-2xl border border-gray-200 dark:border-gray-800 p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
               >
-                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full ${tool.bgLight} mb-6`}>
+                <div
+                  className={`inline-flex items-center justify-center w-16 h-16 rounded-full ${tool.bgLight} mb-6`}
+                >
                   <tool.icon className={`w-8 h-8 ${tool.iconColor}`} />
                 </div>
                 <h2 className="text-2xl font-bold mb-3">{tool.title}</h2>
                 <p className="text-muted-foreground mb-6">{tool.description}</p>
-                <span className={`inline-flex items-center gap-2 text-sm font-semibold bg-gradient-to-r ${tool.gradient} bg-clip-text text-transparent group-hover:gap-3 transition-all`}>
+                <span
+                  className={`inline-flex items-center gap-2 text-sm font-semibold bg-gradient-to-r ${tool.gradient} bg-clip-text text-transparent group-hover:gap-3 transition-all`}
+                >
                   Try it now <ArrowRight className="w-4 h-4 text-current" />
                 </span>
-              </Link>
+              </a>
             ))}
           </div>
         </div>

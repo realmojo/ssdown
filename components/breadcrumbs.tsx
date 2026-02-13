@@ -47,13 +47,13 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
                 {item.label}
               </span>
             ) : (
-              <Link
+              <a
                 href={item.href}
                 className="hover:text-primary hover:underline transition-colors flex items-center gap-1"
               >
                 {index === 0 && <Home className="w-3.5 h-3.5" />}
                 {item.label}
-              </Link>
+              </a>
             )}
           </li>
         ))}

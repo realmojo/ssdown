@@ -159,7 +159,7 @@ export default async function ToolsPage() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {categories.map((cat) => (
-              <Link
+              <a
                 key={cat.href}
                 href={cat.href}
                 className="group block rounded-2xl border border-gray-200 dark:border-gray-800 p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
@@ -181,7 +181,7 @@ export default async function ToolsPage() {
                     Browse <ArrowRight className="w-4 h-4 text-current" />
                   </span>
                 </div>
-              </Link>
+              </a>
             ))}
           </div>
         </div>

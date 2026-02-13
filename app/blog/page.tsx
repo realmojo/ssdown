@@ -111,7 +111,7 @@ export default async function BlogPage(props: {
         {/* Category Filter */}
         {categories.length > 0 && (
           <div className="mb-8 flex flex-wrap gap-3 justify-center">
-            <Link
+            <a
               href="/blog"
               className={`px-4 py-2 rounded-full border text-sm font-medium transition-colors ${
                 !selectedCategory
@@ -120,14 +120,14 @@ export default async function BlogPage(props: {
               }`}
             >
               All
-            </Link>
+            </a>
             {categories.map((category) => {
               const label =
                 categoryLabels[category as keyof typeof categoryLabels] ||
                 category;
               const isActive = selectedCategory === category;
               return (
-                <Link
+                <a
                   key={category as Key}
                   href={`/blog?category=${category as string}`}
                   className={`px-4 py-2 rounded-full border text-sm font-medium transition-colors ${
@@ -137,7 +137,7 @@ export default async function BlogPage(props: {
                   }`}
                 >
                   {label as string}
-                </Link>
+                </a>
               );
             })}
           </div>

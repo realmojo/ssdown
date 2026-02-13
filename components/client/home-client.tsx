@@ -263,7 +263,7 @@ export function HomeClient() {
 
           {/* Tool Links */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-            <Link href="/x" className="group">
+            <a href="/x" className="group">
               <Button
                 variant="outline"
                 className="w-full h-auto py-6 flex flex-col gap-2 hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-950 transition-all"
@@ -271,8 +271,8 @@ export function HomeClient() {
                 <XIcon className="h-6 w-6" />
                 <span className="font-semibold">X (Twitter) Tool</span>
               </Button>
-            </Link>
-            <Link href="/tiktok" className="group">
+            </a>
+            <a href="/tiktok" className="group">
               <Button
                 variant="outline"
                 className="w-full h-auto py-6 flex flex-col gap-2 hover:border-pink-500 hover:bg-pink-50 dark:hover:bg-pink-950 transition-all"
@@ -280,8 +280,8 @@ export function HomeClient() {
                 <TikTokIcon className="h-6 w-6" />
                 <span className="font-semibold">TikTok Tool</span>
               </Button>
-            </Link>
-            <Link href="/instagram" className="group">
+            </a>
+            <a href="/instagram" className="group">
               <Button
                 variant="outline"
                 className="w-full h-auto py-6 flex flex-col gap-2 hover:border-purple-500 hover:bg-purple-50 dark:hover:bg-purple-950 transition-all"
@@ -289,8 +289,8 @@ export function HomeClient() {
                 <InstagramIcon className="h-6 w-6" />
                 <span className="font-semibold">Instagram Tool</span>
               </Button>
-            </Link>
-            <Link href="/facebook" className="group">
+            </a>
+            <a href="/facebook" className="group">
               <Button
                 variant="outline"
                 className="w-full h-auto py-6 flex flex-col gap-2 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950 transition-all"
@@ -298,8 +298,8 @@ export function HomeClient() {
                 <FacebookIcon className="h-6 w-6" />
                 <span className="font-semibold">Facebook Tool</span>
               </Button>
-            </Link>
-            <Link href="/dailymotion" className="group">
+            </a>
+            <a href="/dailymotion" className="group">
               <Button
                 variant="outline"
                 className="w-full h-auto py-6 flex flex-col gap-2 hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-950 transition-all"
@@ -307,8 +307,8 @@ export function HomeClient() {
                 <DailymotionIcon className="h-6 w-6" />
                 <span className="font-semibold">Dailymotion Tool</span>
               </Button>
-            </Link>
-            <Link href="/9gag" className="group">
+            </a>
+            <a href="/9gag" className="group">
               <Button
                 variant="outline"
                 className="w-full h-auto py-6 flex flex-col gap-2 hover:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
@@ -316,7 +316,7 @@ export function HomeClient() {
                 <NineGagIcon className="h-6 w-6" />
                 <span className="font-semibold">9GAG Tool</span>
               </Button>
-            </Link>
+            </a>
           </div>
 
           <div className="mt-8 text-center">
@@ -380,12 +380,12 @@ export function HomeClient() {
             ))}
           </div>
           <div className="text-center mt-10">
-            <Link href="/blog">
+            <a href="/blog">
               <Button variant="outline" size="lg" className="gap-2">
                 Visit Our Blog
                 <ArrowRight className="h-4 w-4" />
               </Button>
-            </Link>
+            </a>
           </div>
         </div>
       </section>
