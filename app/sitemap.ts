@@ -294,6 +294,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/utility/word-counter`,
+      lastModified: "2026-02-13",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
     // PDF tools
     {
       url: `${baseUrl}/pdf/merge-pdf`,

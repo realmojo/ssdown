@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { QrCode, Calculator, Download, Eye, ArrowRight } from "lucide-react";
+import { QrCode, Calculator, Download, Eye, ArrowRight, Type } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -63,6 +63,15 @@ const tools = [
     gradient: "from-violet-500 to-purple-500",
     bgLight: "bg-violet-100 dark:bg-violet-900/30",
     iconColor: "text-violet-500",
+  },
+  {
+    title: "Word Counter",
+    description: "Count words, characters, sentences, and paragraphs in real-time.",
+    href: "/utility/word-counter",
+    icon: Type,
+    gradient: "from-emerald-500 to-green-500",
+    bgLight: "bg-emerald-100 dark:bg-emerald-900/30",
+    iconColor: "text-emerald-600",
   },
 ];
 

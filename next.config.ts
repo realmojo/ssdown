@@ -93,6 +93,7 @@ const nextConfig: NextConfig = {
       // Utility tools
       { source: "/tools/qr-code-generator", destination: "/utility/qr-code-generator", permanent: true },
       { source: "/tools/aspect-ratio-calculator", destination: "/utility/aspect-ratio-calculator", permanent: true },
+      { source: "/tools/word-counter", destination: "/utility/word-counter", permanent: true },
       // PDF tools
       { source: "/tools/merge-pdf", destination: "/pdf/merge-pdf", permanent: true },
       { source: "/tools/rotate-pdf", destination: "/pdf/rotate-pdf", permanent: true },

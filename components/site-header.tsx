@@ -397,6 +397,14 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                   Aspect Ratio Calculator
                 </a>
               </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a
+                  href="/utility/word-counter"
+                  className="w-full cursor-pointer"
+                >
+                  Word Counter
+                </a>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -934,6 +942,13 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           onClick={() => setIsOpen(false)}
                         >
                           Aspect Ratio Calculator
+                        </a>
+                        <a
+                          href="/utility/word-counter"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Word Counter
                         </a>
                       </div>
                     </div>
