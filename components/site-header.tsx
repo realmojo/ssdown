@@ -54,14 +54,14 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
           aria-label="Main navigation"
         >
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            {/* <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
                 className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
               >
                 Platform Tools <ChevronDown className="h-4 w-4" />
               </Button>
-            </DropdownMenuTrigger>
+            </DropdownMenuTrigger> */}
             <DropdownMenuContent align="start">
               <DropdownMenuItem asChild>
                 <a href="/x" className="w-full cursor-pointer">
@@ -621,7 +621,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                 <div className="h-[calc(100vh-80px)] overflow-y-auto px-6 py-4">
                   <div className="flex flex-col gap-8 pb-10">
                     {/* Platform Tools Section */}
-                    <div className="flex flex-col gap-4">
+                    {/* <div className="flex flex-col gap-4">
                       <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
                         Platform Tools
                       </h4>
@@ -669,7 +669,7 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           {dict?.["9gag"]?.nav || "9GAG"}
                         </a>
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* Image Tools */}
                     <div className="flex flex-col gap-4">
