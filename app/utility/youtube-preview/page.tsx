@@ -40,10 +40,30 @@ export default async function YoutubePreviewPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
-      { "@type": "ListItem", position: 2, name: "Tools", item: "https://ssdown.app/tools" },
-      { "@type": "ListItem", position: 3, name: "Utility", item: "https://ssdown.app/tools/utility" },
-      { "@type": "ListItem", position: 4, name: "YouTube Preview Editor", item: "https://ssdown.app/utility/youtube-preview" },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://ssdown.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tools",
+        item: "https://ssdown.app/tools",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Utility",
+        item: "https://ssdown.app/tools/utility",
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: "YouTube Preview Editor",
+        item: "https://ssdown.app/utility/youtube-preview",
+      },
     ],
   };
 
@@ -53,13 +73,17 @@ export default async function YoutubePreviewPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container max-w-7xl mx-auto px-4 pt-8">
+      <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
             { label: "Home", href: "/" },
             { label: "Tools", href: "/tools" },
             { label: "Utility", href: "/tools/utility" },
-            { label: "YouTube Preview", href: "/utility/youtube-preview", isCurrent: true },
+            {
+              label: "YouTube Preview",
+              href: "/utility/youtube-preview",
+              isCurrent: true,
+            },
           ]}
         />
       </div>

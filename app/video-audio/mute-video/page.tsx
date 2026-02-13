@@ -1,18 +1,21 @@
+import { MuteVideoClient } from "@/components/client/mute-video-client";
 import { Metadata } from "next";
-import { PdfEditorClient } from "@/components/client/pdf-editor-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/pdf/pdf-editor`;
-  const title = "PDF Editor Online Free | Edit PDF Files | SSDown";
+  const canonical = `${baseUrl}/video-audio/mute-video`;
+
+  const title = "Mute Video - Remove Audio from Video Online | SSDown";
   const description =
-    "Edit PDF files online for free. Add text, images, rotate, delete, and rearrange pages. 100% private — processed in your browser, no upload to server.";
+    "Remove audio from any video file instantly in your browser. Free, private, and no upload required. Supports MP4, WebM, MKV, AVI formats.";
 
   return {
     title,
     description,
-    alternates: { canonical },
+    alternates: {
+      canonical,
+    },
     openGraph: {
       title,
       description,
@@ -21,53 +24,57 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: "en_US",
       type: "website",
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
   };
 }
 
-export default function PdfEditorPage() {
+export default async function MuteVideoPage() {
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: [
       {
         "@type": "Question",
-        name: "Is this PDF editor free?",
+        name: "Is my video uploaded to a server?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes, this PDF editor is 100% free with no hidden fees or watermarks.",
+          text: "No. All processing happens entirely in your browser using WebAssembly technology. Your video file never leaves your device, making it 100% private and secure.",
         },
       },
       {
         "@type": "Question",
-        name: "What can I edit in a PDF?",
+        name: "What video formats are supported?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "You can add text, add images, rotate pages, delete pages, and rearrange page order.",
+          text: "We support the most common video formats: MP4, WebM, MKV, and AVI. The output file maintains the same format and video quality as the original.",
         },
       },
       {
         "@type": "Question",
-        name: "Is my PDF secure?",
+        name: "Does muting affect video quality?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "All processing happens in your browser using pdf-lib. Your files never leave your device.",
+          text: "No. The video stream is copied directly without re-encoding, so the video quality remains identical to the original. Only the audio track is removed.",
         },
       },
       {
         "@type": "Question",
-        name: "Can I add images to a PDF?",
+        name: "Is there a file size limit?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes, you can upload JPG or PNG images and place them on any page at a position you specify.",
+          text: "There's no hard limit, but we recommend files under 500MB for the best experience. Larger files may cause your browser to slow down or run out of memory, especially on mobile devices.",
         },
       },
       {
         "@type": "Question",
-        name: "What is the file size limit?",
+        name: "How long does the process take?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Each PDF file can be up to 50MB.",
+          text: "Since we copy the video stream without re-encoding, the process is very fast — typically just a few seconds regardless of video length. The main time is spent reading and writing the file.",
         },
       },
     ],
@@ -92,14 +99,14 @@ export default function PdfEditorPage() {
       {
         "@type": "ListItem",
         position: 3,
-        name: "PDF Tools",
-        item: "https://ssdown.app/tools/pdf",
+        name: "Video & Audio",
+        item: "https://ssdown.app/tools/video-audio",
       },
       {
         "@type": "ListItem",
         position: 4,
-        name: "PDF Editor",
-        item: "https://ssdown.app/pdf/pdf-editor",
+        name: "Mute Video",
+        item: "https://ssdown.app/video-audio/mute-video",
       },
     ],
   };
@@ -119,12 +126,16 @@ export default function PdfEditorPage() {
           items={[
             { label: "Home", href: "/" },
             { label: "Tools", href: "/tools" },
-            { label: "PDF Tools", href: "/tools/pdf" },
-            { label: "PDF Editor", href: "/pdf/pdf-editor", isCurrent: true },
+            { label: "Video & Audio", href: "/tools/video-audio" },
+            {
+              label: "Mute Video",
+              href: "/video-audio/mute-video",
+              isCurrent: true,
+            },
           ]}
         />
       </div>
-      <PdfEditorClient />
+      <MuteVideoClient />
     </>
   );
 }

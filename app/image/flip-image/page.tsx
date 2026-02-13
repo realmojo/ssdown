@@ -6,7 +6,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/flip-image`;
 
-  const title = "Flip Image Online Free - Mirror Horizontally & Vertically | SSDown";
+  const title =
+    "Flip Image Online Free - Mirror Horizontally & Vertically | SSDown";
   const description =
     "Free online image flipper. Mirror or flip images horizontally and vertically instantly. 100% private — processed in your browser.";
 
@@ -121,7 +122,7 @@ export default function FlipImagePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container mx-auto px-4 py-6">
+      <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
             { label: "Home", href: "/" },

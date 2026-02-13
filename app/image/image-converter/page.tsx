@@ -7,7 +7,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/image-converter`;
 
-  const title = "Image Converter - WebP, PNG, JPG, AVIF, GIF, SVG, HEIC Online Free | SSDown";
+  const title =
+    "Image Converter - WebP, PNG, JPG, AVIF, GIF, SVG, HEIC Online Free | SSDown";
   const description =
     "Free online image converter. Convert WebP, PNG, JPG, AVIF, and GIF images instantly. Support for SVG, HEIC/HEIF. Bulk conversion, high quality, and 100% private.";
 
@@ -154,7 +155,7 @@ export default async function ImageConverterPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container mx-auto px-4 py-6">
+      <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
             { label: "Home", href: "/" },

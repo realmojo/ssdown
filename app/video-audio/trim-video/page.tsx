@@ -1,14 +1,14 @@
+import { TrimVideoClient } from "@/components/client/trim-video-client";
 import { Metadata } from "next";
-import { CropPdfClient } from "@/components/client/crop-pdf-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/pdf/crop-pdf`;
+  const canonical = `${baseUrl}/video-audio/trim-video`;
 
-  const title = "Crop PDF Online Free | Trim PDF Margins | SSDown";
+  const title = "Trim Video Online - Cut Video Clips Free | SSDown";
   const description =
-    "Crop PDF pages by adjusting margins instantly. Free online PDF cropper with custom margin controls. 100% private — processed in your browser, no upload to server.";
+    "Trim and cut video files by selecting start and end points. Free browser-based video trimmer with preview. Supports MP4, WebM, MKV formats.";
 
   return {
     title,
@@ -32,49 +32,49 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function CropPdfPage() {
+export default async function TrimVideoPage() {
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: [
       {
         "@type": "Question",
-        name: "Is it free to crop PDFs?",
+        name: "Is my video uploaded to a server?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes, this PDF crop tool is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of pages you can crop.",
+          text: "No. All processing happens entirely in your browser using WebAssembly technology. Your video file never leaves your device, making it 100% private and secure.",
         },
       },
       {
         "@type": "Question",
-        name: "Is it secure? Where are my files stored?",
+        name: "What video formats are supported?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Your files are completely secure because all processing happens entirely in your browser using pdf-lib. Your PDFs never leave your device and are never uploaded to any server.",
+          text: "We support the most common video formats: MP4, WebM, and MKV. The output file maintains the same format and quality as the original since we use stream copying.",
         },
       },
       {
         "@type": "Question",
-        name: "What units are used for margins?",
+        name: "Does trimming affect video quality?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "You can specify margins in either points (pt) or percentage (%). Points are absolute units where 72 points equals 1 inch. Percentage is relative to the page dimensions.",
+          text: "No. We use stream copying (-c copy) which copies the video and audio streams directly without re-encoding. This means zero quality loss and very fast processing.",
         },
       },
       {
         "@type": "Question",
-        name: "Can I crop individual pages differently?",
+        name: "Is there a file size limit?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Currently the crop margins are applied uniformly to all pages. Use the 'Apply to all pages' option to crop every page with the same margin values.",
+          text: "There is no hard limit, but we recommend files under 500MB for the best experience. Larger files may cause your browser to slow down or run out of memory, especially on mobile devices.",
         },
       },
       {
         "@type": "Question",
-        name: "Will cropping affect text or images on my pages?",
+        name: "Why might the trim be slightly inaccurate?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Cropping adjusts the visible area of each page. Content outside the cropped area will be hidden but not permanently deleted from the PDF data. Some PDF viewers may still show the hidden content.",
+          text: "Since we use stream copying for instant processing and zero quality loss, the actual cut points may snap to the nearest keyframe. For most videos, this is within 1-2 seconds of the selected point. Re-encoding would give exact cuts but takes much longer.",
         },
       },
     ],
@@ -99,14 +99,14 @@ export default function CropPdfPage() {
       {
         "@type": "ListItem",
         position: 3,
-        name: "PDF Tools",
-        item: "https://ssdown.app/tools/pdf",
+        name: "Video & Audio",
+        item: "https://ssdown.app/tools/video-audio",
       },
       {
         "@type": "ListItem",
         position: 4,
-        name: "Crop PDF",
-        item: "https://ssdown.app/pdf/crop-pdf",
+        name: "Trim Video",
+        item: "https://ssdown.app/video-audio/trim-video",
       },
     ],
   };
@@ -126,16 +126,16 @@ export default function CropPdfPage() {
           items={[
             { label: "Home", href: "/" },
             { label: "Tools", href: "/tools" },
-            { label: "PDF Tools", href: "/tools/pdf" },
+            { label: "Video & Audio", href: "/tools/video-audio" },
             {
-              label: "Crop PDF",
-              href: "/pdf/crop-pdf",
+              label: "Trim Video",
+              href: "/video-audio/trim-video",
               isCurrent: true,
             },
           ]}
         />
       </div>
-      <CropPdfClient />
+      <TrimVideoClient />
     </>
   );
 }

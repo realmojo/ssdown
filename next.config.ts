@@ -74,6 +74,9 @@ const nextConfig: NextConfig = {
       { source: "/tools/video-to-gif", destination: "/video-audio/video-to-gif", permanent: true },
       { source: "/tools/video-frame-extractor", destination: "/video-audio/video-frame-extractor", permanent: true },
       { source: "/tools/audio-trimmer", destination: "/video-audio/audio-trimmer", permanent: true },
+      { source: "/tools/mute-video", destination: "/video-audio/mute-video", permanent: true },
+      { source: "/tools/gif-to-mp4", destination: "/video-audio/gif-to-mp4", permanent: true },
+      { source: "/tools/trim-video", destination: "/video-audio/trim-video", permanent: true },
       // YouTube tools (moved to utility)
       { source: "/tools/youtube-thumbnail", destination: "/utility/youtube-thumbnail", permanent: true },
       { source: "/tools/youtube-thumbnail/:id", destination: "/utility/youtube-thumbnail/:id", permanent: true },

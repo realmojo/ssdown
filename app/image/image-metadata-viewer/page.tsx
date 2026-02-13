@@ -37,10 +37,30 @@ export default function ImageMetadataViewerPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
-      { "@type": "ListItem", position: 2, name: "Tools", item: "https://ssdown.app/tools" },
-      { "@type": "ListItem", position: 3, name: "Image Tools", item: "https://ssdown.app/tools/image" },
-      { "@type": "ListItem", position: 4, name: "Image Metadata Viewer", item: "https://ssdown.app/image/image-metadata-viewer" },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://ssdown.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tools",
+        item: "https://ssdown.app/tools",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Image Tools",
+        item: "https://ssdown.app/tools/image",
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: "Image Metadata Viewer",
+        item: "https://ssdown.app/image/image-metadata-viewer",
+      },
     ],
   };
 
@@ -108,7 +128,11 @@ export default function ImageMetadataViewerPage() {
               { label: "Home", href: "/" },
               { label: "Tools", href: "/tools" },
               { label: "Image Tools", href: "/tools/image" },
-              { label: "Image Metadata Viewer", href: "/image/image-metadata-viewer", isCurrent: true },
+              {
+                label: "Image Metadata Viewer",
+                href: "/image/image-metadata-viewer",
+                isCurrent: true,
+              },
             ]}
           />
           <ImageMetadataViewerClient />

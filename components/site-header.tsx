@@ -299,6 +299,30 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                   Audio Trimmer
                 </a>
               </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a
+                  href="/video-audio/mute-video"
+                  className="w-full cursor-pointer"
+                >
+                  Mute Video
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a
+                  href="/video-audio/gif-to-mp4"
+                  className="w-full cursor-pointer"
+                >
+                  GIF to MP4
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a
+                  href="/video-audio/trim-video"
+                  className="w-full cursor-pointer"
+                >
+                  Trim Video
+                </a>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -829,6 +853,27 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           onClick={() => setIsOpen(false)}
                         >
                           Audio Trimmer
+                        </a>
+                        <a
+                          href="/video-audio/mute-video"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Mute Video
+                        </a>
+                        <a
+                          href="/video-audio/gif-to-mp4"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          GIF to MP4
+                        </a>
+                        <a
+                          href="/video-audio/trim-video"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Trim Video
                         </a>
                       </div>
                     </div>

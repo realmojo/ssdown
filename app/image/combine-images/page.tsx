@@ -6,7 +6,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/combine-images`;
 
-  const title = "Combine Images Online Free - Merge Photos Side by Side | SSDown";
+  const title =
+    "Combine Images Online Free - Merge Photos Side by Side | SSDown";
   const description =
     "Combine multiple images side by side or stacked vertically. Adjust gap, background color, and layout. Free image merger — 100% private, processed in your browser.";
 
@@ -121,7 +122,7 @@ export default function CombineImagesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container mx-auto px-4 py-6">
+      <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
             { label: "Home", href: "/" },

@@ -42,18 +42,25 @@ export default async function ThumbnailGeneratorPage() {
     mainEntity: [
       {
         "@type": "Question",
-        name: dict?.qna_thumbnail_generator?.faq_1_q || "What sizes can I create?",
+        name:
+          dict?.qna_thumbnail_generator?.faq_1_q || "What sizes can I create?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: dict?.qna_thumbnail_generator?.faq_1_a || "We offer preset templates for YouTube (1280x720), Instagram Post (1080x1080), and Twitter Header (1500x500). These are the optimal sizes recommended by each platform.",
+          text:
+            dict?.qna_thumbnail_generator?.faq_1_a ||
+            "We offer preset templates for YouTube (1280x720), Instagram Post (1080x1080), and Twitter Header (1500x500). These are the optimal sizes recommended by each platform.",
         },
       },
       {
         "@type": "Question",
-        name: dict?.qna_thumbnail_generator?.faq_2_q || "Can I upload my own background image?",
+        name:
+          dict?.qna_thumbnail_generator?.faq_2_q ||
+          "Can I upload my own background image?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: dict?.qna_thumbnail_generator?.faq_2_a || "Yes! You can upload any image as a background. It will be automatically scaled to fit the selected template size. For best results, use images that match or exceed the template dimensions.",
+          text:
+            dict?.qna_thumbnail_generator?.faq_2_a ||
+            "Yes! You can upload any image as a background. It will be automatically scaled to fit the selected template size. For best results, use images that match or exceed the template dimensions.",
         },
       },
       {
@@ -61,23 +68,32 @@ export default async function ThumbnailGeneratorPage() {
         name: dict?.qna_thumbnail_generator?.faq_3_q || "Is this tool free?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: dict?.qna_thumbnail_generator?.faq_3_a || "Yes, the thumbnail generator is completely free with no watermarks, no sign-up required, and unlimited exports.",
+          text:
+            dict?.qna_thumbnail_generator?.faq_3_a ||
+            "Yes, the thumbnail generator is completely free with no watermarks, no sign-up required, and unlimited exports.",
         },
       },
       {
         "@type": "Question",
-        name: dict?.qna_thumbnail_generator?.faq_4_q || "What fonts are available?",
+        name:
+          dict?.qna_thumbnail_generator?.faq_4_q || "What fonts are available?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: dict?.qna_thumbnail_generator?.faq_4_a || "We provide web-safe fonts including Arial, Verdana, Georgia, Times New Roman, Courier New, and Impact. These fonts are available across all devices and browsers.",
+          text:
+            dict?.qna_thumbnail_generator?.faq_4_a ||
+            "We provide web-safe fonts including Arial, Verdana, Georgia, Times New Roman, Courier New, and Impact. These fonts are available across all devices and browsers.",
         },
       },
       {
         "@type": "Question",
-        name: dict?.qna_thumbnail_generator?.faq_5_q || "Does my image get uploaded to a server?",
+        name:
+          dict?.qna_thumbnail_generator?.faq_5_q ||
+          "Does my image get uploaded to a server?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: dict?.qna_thumbnail_generator?.faq_5_a || "No. All processing happens in your browser using the Canvas API. Your images never leave your device.",
+          text:
+            dict?.qna_thumbnail_generator?.faq_5_a ||
+            "No. All processing happens in your browser using the Canvas API. Your images never leave your device.",
         },
       },
     ],
@@ -87,10 +103,30 @@ export default async function ThumbnailGeneratorPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
-      { "@type": "ListItem", position: 2, name: "Tools", item: "https://ssdown.app/tools" },
-      { "@type": "ListItem", position: 3, name: "Image Tools", item: "https://ssdown.app/tools/image" },
-      { "@type": "ListItem", position: 4, name: "Thumbnail Generator", item: "https://ssdown.app/image/thumbnail-generator" },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://ssdown.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tools",
+        item: "https://ssdown.app/tools",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Image Tools",
+        item: "https://ssdown.app/tools/image",
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: "Thumbnail Generator",
+        item: "https://ssdown.app/image/thumbnail-generator",
+      },
     ],
   };
 
@@ -104,13 +140,17 @@ export default async function ThumbnailGeneratorPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container max-w-7xl mx-auto px-4 pt-8">
+      <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
             { label: "Home", href: "/" },
             { label: "Tools", href: "/tools" },
             { label: "Image Tools", href: "/tools/image" },
-            { label: "Thumbnail Generator", href: "/image/thumbnail-generator", isCurrent: true },
+            {
+              label: "Thumbnail Generator",
+              href: "/image/thumbnail-generator",
+              isCurrent: true,
+            },
           ]}
         />
       </div>

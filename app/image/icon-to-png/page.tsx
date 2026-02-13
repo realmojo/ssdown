@@ -125,7 +125,11 @@ export default async function IconToPngPage() {
               { label: "Home", href: "/" },
               { label: "Tools", href: "/tools" },
               { label: "Image Tools", href: "/tools/image" },
-              { label: "Icon to PNG", href: "/image/icon-to-png", isCurrent: true },
+              {
+                label: "Icon to PNG",
+                href: "/image/icon-to-png",
+                isCurrent: true,
+              },
             ]}
           />
           <IconToPngClient dict={dict} />

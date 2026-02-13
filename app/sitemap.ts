@@ -238,6 +238,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/video-audio/mute-video`,
+      lastModified: "2026-02-13",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/video-audio/gif-to-mp4`,
+      lastModified: "2026-02-13",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/video-audio/trim-video`,
+      lastModified: "2026-02-13",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
     // Social & Text tools
     {
       url: `${baseUrl}/social-text/hashtag-generator`,

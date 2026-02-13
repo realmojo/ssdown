@@ -62,7 +62,7 @@ const categories = [
     gradient: "from-indigo-500 to-purple-500",
     bgLight: "bg-indigo-100 dark:bg-indigo-900/30",
     iconColor: "text-indigo-500",
-    count: 4,
+    count: 7,
   },
   {
     title: "Social & Text",

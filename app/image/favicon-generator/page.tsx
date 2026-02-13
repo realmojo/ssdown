@@ -7,7 +7,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/favicon-generator`;
 
-  const title = "Favicon Generator - Create ICO from Images Online Free | SSDown";
+  const title =
+    "Favicon Generator - Create ICO from Images Online Free | SSDown";
   const description =
     "Free online favicon generator. Convert any image to ICO format with multiple sizes (16x16 to 256x256). 100% private, client-side processing.";
 
@@ -144,7 +145,7 @@ export default async function FaviconGeneratorPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container mx-auto px-4 py-6">
+      <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
             { label: "Home", href: "/" },

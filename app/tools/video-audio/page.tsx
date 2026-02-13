@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Music, ImageIcon, Film, Scissors, ArrowRight } from "lucide-react";
+import { Music, ImageIcon, Film, Scissors, ArrowRight, VolumeX, FileVideo } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -63,6 +63,33 @@ const tools = [
     gradient: "from-orange-500 to-amber-500",
     bgLight: "bg-orange-100 dark:bg-orange-900/30",
     iconColor: "text-orange-500",
+  },
+  {
+    title: "Mute Video",
+    description: "Remove audio from any video file instantly. No re-encoding.",
+    href: "/video-audio/mute-video",
+    icon: VolumeX,
+    gradient: "from-violet-500 to-purple-500",
+    bgLight: "bg-violet-100 dark:bg-violet-900/30",
+    iconColor: "text-violet-500",
+  },
+  {
+    title: "GIF to MP4 Converter",
+    description: "Convert animated GIFs to compact MP4 video files.",
+    href: "/video-audio/gif-to-mp4",
+    icon: FileVideo,
+    gradient: "from-emerald-500 to-green-500",
+    bgLight: "bg-emerald-100 dark:bg-emerald-900/30",
+    iconColor: "text-emerald-500",
+  },
+  {
+    title: "Trim Video",
+    description: "Cut video clips by selecting start and end points.",
+    href: "/video-audio/trim-video",
+    icon: Scissors,
+    gradient: "from-amber-500 to-yellow-500",
+    bgLight: "bg-amber-100 dark:bg-amber-900/30",
+    iconColor: "text-amber-500",
   },
 ];
 
