@@ -47,7 +47,7 @@ SSDown이 Google AdSense 승인을 위한 모든 주요 개선 작업을 완료�
   - copyright-fair-use-guide
   - digital-archiving-ethics-2025
   - safe-browsing-tips
-  - safe-downloader-checklist
+  - safe-saver-checklist
 - ✅ **기술 교육 블로그**: 25개
   - codec-war-h264-hevc-av1
   - video-metadata-guide-2025
@@ -113,10 +113,10 @@ SSDown이 Google AdSense 승인을 위한 모든 주요 개선 작업을 완료�
 
 - ✅ **21개 포스트** 자동 수정 완료
 - ✅ 문제가 되는 표현들 제거:
-  - "downloader" → "archiving tool"
+  - "saver" → "archiving tool"
   - "clean MP4" → "video files"
   - "no watermark" → "original quality"
-  - "SSDown is not just a downloader" → "SSDown is an educational platform"
+  - "SSDown is not just a saver" → "SSDown is an educational platform"
   - "preservation tool" → "educational resource"
 
 ### 현재 상태
@@ -212,7 +212,7 @@ SSDown이 Google AdSense 승인을 위한 모든 주요 개선 작업을 완료�
 
 ### 주의 요소
 
-⚠️ "Video Downloader" 도구 특성상 민감  
+⚠️ "Saver" 도구 특성상 민감  
 ⚠️ 6개 블로그 포스트 추가 정리 필요
 
 ### 종합 예측

@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__supabase__list_projects",
+      "mcp__supabase__execute_sql",
+      "mcp__supabase__list_organizations",
+      "WebFetch(domain:tinywow.com)",
+      "Bash(xargs:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(npm run lint:*)",
+      "Bash(curl:*)",
+      "Bash(lsof:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": ["supabase"],
+  "model": "sonnet"
+}
