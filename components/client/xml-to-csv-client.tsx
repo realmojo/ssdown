@@ -156,8 +156,7 @@ export function XmlToCsvClient({ dict }: { dict?: any }) {
           {dict?.xml_to_csv?.title || "XML to CSV Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.xml_to_csv?.subtitle || "Convert XML list data to CSV spreadsheet. Paste your XML code, or Drag
-          & Drop a file."}
+          {dict?.xml_to_csv?.subtitle || "Convert XML list data to CSV spreadsheet. Paste your XML code, or Drag & Drop a file."}
         </p>
 
         <div className="w-full grid md:grid-cols-2 gap-4">

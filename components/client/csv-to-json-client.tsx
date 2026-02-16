@@ -166,8 +166,7 @@ export function CsvToJsonClient({ dict }: { dict?: any }) {
           {dict?.csv_to_json?.title || "CSV to JSON Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.csv_to_json?.subtitle || "Convert comma-separated values (CSV) to JSON array. Paste your CSV
-          code, or Drag & Drop a file."}
+          {dict?.csv_to_json?.subtitle || "Convert comma-separated values (CSV) to JSON array. Paste your CSV code, or Drag & Drop a file."}
         </p>
 
         <div className="w-full grid md:grid-cols-2 gap-4">

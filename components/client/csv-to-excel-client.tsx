@@ -79,8 +79,7 @@ export function CsvToExcelClient({ dict }: { dict?: any }) {
           {dict?.csv_to_excel?.title || "CSV to Excel Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.csv_to_excel?.subtitle || "Convert comma-separated values to Excel (.xlsx) format. Paste your
-          data, or Drag & Drop a file."}
+          {dict?.csv_to_excel?.subtitle || "Convert comma-separated values to Excel (.xlsx) format. Paste your data, or Drag & Drop a file."}
         </p>
 
         <div className="w-full max-w-2xl">

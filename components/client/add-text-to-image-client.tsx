@@ -612,7 +612,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
               <AccordionItem value="faq-4">
                 <AccordionTrigger>{dict?.add_text_to_image?.faq_4_q || "How do I make text readable on dark images?"}</AccordionTrigger>
                 <AccordionContent>
-                  {dict?.add_text_to_image?.faq_4_a || "Enable the "Outline" option and use a contrasting outline color. For example, use white text with a black outline — this combination is readable on virtually any background."}
+                  {dict?.add_text_to_image?.faq_4_a || "Enable the 'Outline' option and use a contrasting outline color. For example, use white text with a black outline — this combination is readable on virtually any background."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">

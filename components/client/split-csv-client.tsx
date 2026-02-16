@@ -175,8 +175,7 @@ export function SplitCsvClient({ dict }: { dict?: any }) {
           {dict?.split_csv?.title || "Split CSV File"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.split_csv?.subtitle || "Split large CSV files into smaller chunks. Maintain headers in every
-          file."}
+          {dict?.split_csv?.subtitle || "Split large CSV files into smaller chunks. Maintain headers in every file."}
         </p>
 
         <div className="w-full max-w-2xl mb-8">

@@ -126,8 +126,7 @@ export function ExcelToCsvClient({ dict }: { dict?: any }) {
           {dict?.excel_to_csv?.title || "Excel to CSV Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.excel_to_csv?.subtitle || "Convert Excel spreadsheets (.xlsx, .xls) to CSV format. Select
-          specific sheets to export."}
+          {dict?.excel_to_csv?.subtitle || "Convert Excel spreadsheets (.xlsx, .xls) to CSV format. Select specific sheets to export."}
         </p>
 
         <div className="w-full max-w-2xl mb-8">

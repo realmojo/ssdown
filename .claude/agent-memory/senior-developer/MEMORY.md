@@ -56,7 +56,12 @@ When adding new tools to `/tools/*`, follow this sequence:
   - Common: `breadcrumb.home`, `breadcrumb.tools`, `breadcrumb.image_tools`, `breadcrumb.file_tools`, etc.
 - **Tool page counts**: Image 20, File 12, PDF 18, Video/Audio 7, Utility 5, Social/Text 2, Category index 7
 - **All tool pages localized** (as of Feb 2026): All 64 tool pages + 7 category pages use `getLocale()`+`getDictionary()` pattern
-- **Client components receiving dict prop**: image/*, file/*, social-text/*, utility/*, video-to-gif, video-to-mp3, video-frame-extractor, audio-trimmer. PDF clients do NOT receive dict prop.
+- **Client components receiving dict prop**: ALL 64 tool client components now receive `dict` prop
+- **Dict usage pattern in client components**: `{dict?.tool_key?.ui_key || "English fallback"}`
+- **Top-level dict keys for tool UI**: e.g., `"gif_to_mp4": { title, subtitle, drop_zone, ... }` (separate from `"page_gif_to_mp4"` which has meta/faq)
+- **Common UI keys per tool**: title, subtitle, drop_zone, supported, max_file_size, loading_engine, processing, action_btn, success_msg, download_btn, another_btn, guide_title, guide_desc, step1-3_title/desc, tips_title, tips_desc, tip1-4_title/desc, faq_title, faq_desc, faq_1-5_q/a
+- **Pitfall**: Multi-line subtitle strings in JSX create unterminated string constants when wrapped in dict pattern. Always ensure fallback strings are single-line.
+- **Pitfall**: Strings containing double quotes must use single quotes in fallback values.
 
 ### Common Components
 - `components/ui/button`, `card`, `accordion`, `slider`, `select`

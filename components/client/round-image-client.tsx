@@ -469,7 +469,7 @@ export function RoundImageClient({ dict }: { dict?: any }) {
               <AccordionItem value="faq-4">
                 <AccordionTrigger>{dict?.round_image?.faq_4_q || "What size should I choose?"}</AccordionTrigger>
                 <AccordionContent>
-                  {dict?.round_image?.faq_4_a || "Choose "Original" to preserve maximum quality. For profile pictures, 400×400 works well. For social media avatars, 200×200 is typical. For high-DPI displays or print, use 800×800 or Original."}
+                  {dict?.round_image?.faq_4_a || "Choose 'Original' to preserve maximum quality. For profile pictures, 400x400 works well. For social media avatars, 200x200 is typical. For high-DPI displays or print, use 800x800 or Original."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">

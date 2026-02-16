@@ -122,8 +122,7 @@ export function XmlToExcelClient({ dict }: { dict?: any }) {
           {dict?.xml_to_excel?.title || "XML to Excel Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.xml_to_excel?.subtitle || "Convert XML data to Excel (.xlsx) spreadsheet. Paste your XML or Drag
-          & Drop a file."}
+          {dict?.xml_to_excel?.subtitle || "Convert XML data to Excel (.xlsx) spreadsheet. Paste your XML or Drag & Drop a file."}
         </p>
 
         <div className="w-full max-w-2xl">

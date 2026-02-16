@@ -170,8 +170,7 @@ export function XmlToJsonClient({ dict }: { dict?: any }) {
           {dict?.xml_to_json?.title || "XML to JSON Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.xml_to_json?.subtitle || "Convert XML data to JSON format instantly. Paste your XML code, or
-          Drag & Drop a file."}
+          {dict?.xml_to_json?.subtitle || "Convert XML data to JSON format instantly. Paste your XML code, or Drag & Drop a file."}
         </p>
 
         <div className="w-full grid md:grid-cols-2 gap-4">
