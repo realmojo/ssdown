@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Post } from "@/lib/posts";

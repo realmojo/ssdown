@@ -1,6 +1,7 @@
 import { YoutubePreviewClient } from "@/components/client/youtube-preview-client";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -34,7 +35,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function YoutubePreviewPage() {
-  const dict = await getDictionary();
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",

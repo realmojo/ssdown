@@ -2,6 +2,7 @@ import { YoutubePreviewClient } from "@/components/client/youtube-preview-client
 import { fetchVideoDetails } from "@/lib/youtube";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 
 interface Props {
   params: Promise<{
@@ -52,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function YoutubePreviewIdPage({ params }: Props) {
-  await getDictionary();
+  await getDictionary(await getLocale());
   const { id } = await params;
   const data = await fetchVideoDetails(id);
 

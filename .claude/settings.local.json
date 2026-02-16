@@ -10,10 +10,15 @@
       "Bash(ls:*)",
       "Bash(npm run lint:*)",
       "Bash(curl:*)",
-      "Bash(lsof:*)"
+      "Bash(lsof:*)",
+      "Bash(python3:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run dev:*)"
     ]
   },
+  "model": "sonnet",
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["supabase"],
-  "model": "sonnet"
+  "enabledMcpjsonServers": [
+    "supabase"
+  ]
 }

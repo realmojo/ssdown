@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 import Image from "next/image";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import {
@@ -21,12 +20,15 @@ import {
 } from "@/components/ui/sheet";
 import { ChevronDown, Menu } from "lucide-react";
 import { PaypalDonateButton } from "@/components/paypal-donate-button";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import type { Locale } from "@/lib/i18n-utils";
 
 interface SiteHeaderProps {
   dict: any;
+  locale: Locale;
 }
 
-export function SiteHeader({ dict }: SiteHeaderProps) {
+export function SiteHeader({ dict, locale }: SiteHeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
@@ -608,6 +610,10 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
 
         <div className="ml-auto flex items-center gap-2">
           <PaypalDonateButton className="hidden md:flex mr-2" />
+          {/* PC Language Switcher */}
+          <div className="hidden md:block">
+            <LanguageSwitcher locale={locale} />
+          </div>
           {/* PC Theme Toggle */}
           <div className="hidden md:block">
             <ModeToggle />
@@ -1202,9 +1208,15 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                       <PaypalDonateButton className="w-full justify-center" />
                     </div>
 
+                    {/* Settings - Language Switcher */}
+                    <div className="flex items-center justify-between py-4 border-t">
+                      <span className="text-sm font-medium">{locale === "kr" ? "언어" : "Language"}</span>
+                      <LanguageSwitcher locale={locale} />
+                    </div>
+
                     {/* Settings - Theme Switcher */}
                     <div className="flex items-center justify-between py-4 border-t">
-                      <span className="text-sm font-medium">Theme Setting</span>
+                      <span className="text-sm font-medium">{locale === "kr" ? "테마 설정" : "Theme Setting"}</span>
                       <ModeToggle />
                     </div>
                   </div>

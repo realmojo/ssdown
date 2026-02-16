@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { ImageCompressorClient } from "@/components/client/image-compressor-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
@@ -34,7 +35,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ImageCompressorPage() {
-  const dict = await getDictionary();
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
 
   const faqSchema = {
     "@context": "https://schema.org",

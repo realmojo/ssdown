@@ -1,10 +1,12 @@
 import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { XClient } from "@/components/client/x-client";
 
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const dict = await getDictionary();
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
 
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/x`;
@@ -30,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
           alt: "SSDown - X Saver",
         },
       ],
-      locale: "en_US",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
     },
     twitter: {
@@ -46,8 +48,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function TwitterPage() {
-  const dict = await getDictionary();
-  // 동적 import로 번들 크기 최적화
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",

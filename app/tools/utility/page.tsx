@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { QrCode, Calculator, Download, Eye, ArrowRight, Type } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 

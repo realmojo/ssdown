@@ -1,9 +1,11 @@
 import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { FacebookClient } from "@/components/client/facebook-client";
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const dict = await getDictionary();
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
 
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/facebook`;
@@ -31,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
           alt: "SSDown - Facebook Downloader",
         },
       ],
-      locale: "en_US",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
     },
     twitter: {
@@ -48,7 +50,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function FacebookPage() {
-  const dict = await getDictionary();
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
 
   const jsonLd = {
     "@context": "https://schema.org",

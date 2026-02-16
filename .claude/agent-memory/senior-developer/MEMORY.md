@@ -40,10 +40,15 @@ When adding new tools to `/tools/*`, follow this sequence:
 - Image tools: 10MB recommended max
 - Video tools: 500MB recommended max (browser memory constraints)
 
-### Dictionary Pattern
-- Server-only via `lib/get-dictionary.ts`
-- Fallback text in components for missing keys
-- Nested structure: `dict?.section?.key || "Fallback"`
+### i18n / Dictionary Pattern (Updated Feb 2026)
+- **Locale type**: `"en" | "kr"` in `/lib/i18n-utils.ts` (no server-only, Edge-compatible)
+- **Detection flow**: Middleware reads `ssdown-locale` cookie -> IP headers (CF-IPCountry) -> sets `x-user-locale` header + cookie (1yr)
+- **Server-side**: `getLocale()` from `/lib/get-locale.ts` reads header
+- **Loading**: `getDictionary(locale)` with deep-merge fallback (kr.json over en.json)
+- **Client switching**: `LanguageSwitcher` component sets cookie + reloads
+- **Pattern**: All pages call `const locale = await getLocale()` then `getDictionary(locale)`
+- **kr.json**: Main sections translated; tool pages fallback to en automatically
+- Fallback text in components for missing keys: `dict?.section?.key || "Fallback"`
 
 ### Common Components
 - `components/ui/button`, `card`, `accordion`, `slider`, `select`

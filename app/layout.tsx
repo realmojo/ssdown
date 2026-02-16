@@ -3,12 +3,14 @@ import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AdsenseInit } from "@/components/AdsenseInit";
 import { CookieConsent } from "@/components/cookie-consent";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const dict = await getDictionary();
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
 
   const baseUrl = "https://ssdown.app";
 
@@ -56,7 +58,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     openGraph: {
       type: "website",
-      locale: "en_US",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
       url: baseUrl,
       title:
         dict.home?.title ||
@@ -104,10 +106,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
-  const dict = await getDictionary();
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale === "kr" ? "ko" : "en"} suppressHydrationWarning>
       <head>
         {/* Naver Analytics */}
 
@@ -156,7 +159,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           disableTransitionOnChange
         >
           <div className="relative flex min-h-screen flex-col">
-            <SiteHeader dict={dict.nav} />
+            <SiteHeader dict={dict.nav} locale={locale} />
             <main className="flex-1">{props.children}</main>
             <SiteFooter dict={dict.nav} />
             <CookieConsent />

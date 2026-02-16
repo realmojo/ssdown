@@ -2,6 +2,7 @@ import { YoutubeThumbnailClient } from "@/components/client/youtube-thumbnail-cl
 import { fetchVideoDetails } from "@/lib/youtube";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 
 interface Props {
   params: Promise<{
@@ -52,7 +53,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function YoutubeThumbnailIdPage({ params }: Props) {
-  const dict = await getDictionary();
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
   const { id } = await params;
   const data = await fetchVideoDetails(id);
 

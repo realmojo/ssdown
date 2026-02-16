@@ -1,9 +1,11 @@
 import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { DailymotionClient } from "@/components/client/dailymotion-client";
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const dict = await getDictionary();
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
 
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/dailymotion`;
@@ -31,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
           alt: "SSDown - Dailymotion Downloader",
         },
       ],
-      locale: "en_US",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
     },
     twitter: {
@@ -48,7 +50,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function DailymotionPage() {
-  const dict = await getDictionary();
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
 
   const jsonLd = {
     "@context": "https://schema.org",

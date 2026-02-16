@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { VideoToGifClient } from "@/components/client/video-to-gif-client";
 
@@ -34,7 +35,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function VideoToGifPage() {
-  const dict = await getDictionary();
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",

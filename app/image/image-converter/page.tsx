@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { ImageConverterClient } from "@/components/client/image-converter-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
@@ -35,7 +36,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ImageConverterPage() {
-  const dict = await getDictionary();
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
 
   const faqSchema = {
     "@context": "https://schema.org",

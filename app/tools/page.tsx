@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import {
   ImageIcon,
   Film,
@@ -111,7 +111,8 @@ const categories = [
 ];
 
 export default async function ToolsPage() {
-  const dict = await getDictionary();
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",

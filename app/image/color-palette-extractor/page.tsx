@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { ColorPaletteExtractorClient } from "@/components/client/color-palette-extractor-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
@@ -35,7 +36,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ColorPaletteExtractorPage() {
-  const dict = await getDictionary();
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
 
   const faqSchema = {
     "@context": "https://schema.org",

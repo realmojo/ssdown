@@ -2,7 +2,6 @@ import { Metadata } from "next";
 
 import { PostCard } from "@/components/PostCard";
 import { BookOpen } from "lucide-react";
-import Link from "next/link";
 import { Post } from "@/lib/blog-utils";
 import { Key } from "react";
 import { Breadcrumbs } from "@/components/breadcrumbs";

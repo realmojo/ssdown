@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { IconToPngClient } from "@/components/client/icon-to-png-client";
 import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -28,7 +29,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function IconToPngPage() {
-  const dict = await getDictionary();
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
 
   const faqSchema = {
     "@context": "https://schema.org",

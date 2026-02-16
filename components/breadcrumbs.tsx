@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ChevronRight, Home } from "lucide-react";
 
 export interface BreadcrumbItem {

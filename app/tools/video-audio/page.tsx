@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { Music, ImageIcon, Film, Scissors, ArrowRight, VolumeX, FileVideo } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
