@@ -21,7 +21,7 @@ import {
 import * as XLSX from "xlsx";
 import { toast } from "sonner";
 
-export function XmlToExcelClient() {
+export function XmlToExcelClient({ dict }: { dict?: any }) {
   const [xmlInput, setXmlInput] = useState("");
   const [error, setError] = useState<string | null>(null);
 
@@ -119,11 +119,11 @@ export function XmlToExcelClient() {
           <FileSpreadsheet className="w-8 h-8 text-blue-600 dark:text-blue-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          XML to Excel Converter
+          {dict?.xml_to_excel?.title || "XML to Excel Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Convert XML data to Excel (.xlsx) spreadsheet. Paste your XML or Drag
-          & Drop a file.
+          {dict?.xml_to_excel?.subtitle || "Convert XML data to Excel (.xlsx) spreadsheet. Paste your XML or Drag
+          & Drop a file."}
         </p>
 
         <div className="w-full max-w-2xl">
@@ -178,7 +178,7 @@ export function XmlToExcelClient() {
             className="bg-blue-600 hover:bg-blue-700 text-white min-w-[200px]"
           >
             <Download className="w-4 h-4 mr-2" />
-            Download as Excel
+            {dict?.xml_to_excel?.download_btn || "Download as Excel"}
           </Button>
         </div>
       </div>
@@ -190,22 +190,22 @@ export function XmlToExcelClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Tips for Best Results
+              {dict?.xml_to_excel?.tips_title || "Tips for Best Results"}
             </h2>
             <p className="text-muted-foreground">
-              Format your XML for optimal conversion.
+              {dict?.xml_to_excel?.tips_desc || "Format your XML for optimal conversion."}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Flat Structure",
-                desc: "Excel is a flat table format. XML with simple nested items (rows) works best.",
+                title: dict?.xml_to_excel?.tip1_title || "Flat Structure",
+                desc: dict?.xml_to_excel?.tip1_desc || "Excel is a flat table format. XML with simple nested items (rows) works best.",
               },
               {
-                title: "Attributes & Tags",
-                desc: "Both element attributes and child tags are converted into columns.",
+                title: dict?.xml_to_excel?.tip2_title || "Attributes & Tags",
+                desc: dict?.xml_to_excel?.tip2_desc || "Both element attributes and child tags are converted into columns.",
               },
             ].map((tip, idx) => (
               <div

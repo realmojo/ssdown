@@ -5,33 +5,27 @@ import { VideoFrameExtractorClient } from "@/components/client/video-frame-extra
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/video-audio/video-frame-extractor`;
 
-  const title =
-    "Video Frame Extractor - Extract Images from Video Online | SSDown";
-  const description =
-    "Free online video frame extractor. Capture and download high-quality images from your videos frame by frame. 100% private, client-side processing.";
+  const title = dict.page_video_frame_extractor.meta_title;
+  const description = dict.page_video_frame_extractor.meta_description;
 
   return {
     title,
     description,
-    alternates: {
-      canonical,
-    },
+    alternates: { canonical },
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: "en_US",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
     },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -42,73 +36,24 @@ export default async function VideoFrameExtractorPage() {
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name:
-          dict?.qna_video_frame_extractor?.faq_1_q || "Is my video uploaded?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_video_frame_extractor?.faq_1_a ||
-            "No. All processing happens 100% on your device using your browser.",
-        },
+    mainEntity: dict.page_video_frame_extractor.faq.map((item: { question: string; answer: string }) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-      {
-        "@type": "Question",
-        name:
-          dict?.qna_video_frame_extractor?.faq_2_q ||
-          "Can I extract every single frame?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_video_frame_extractor?.faq_2_a ||
-            "Yes, set the interval to a very low number (e.g., 0.04s for 25fps video). Be careful as this generates many images!",
-        },
-      },
-      {
-        "@type": "Question",
-        name:
-          dict?.qna_video_frame_extractor?.faq_3_q ||
-          "How do I save the images?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_video_frame_extractor?.faq_3_a ||
-            "You can download individual frames or get them all in a single ZIP file.",
-        },
-      },
-    ],
+    })),
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tools",
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "Video & Audio",
-        item: "https://ssdown.app/tools/video-audio",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "Video Frame Extractor",
-        item: "https://ssdown.app/video-audio/video-frame-extractor",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.video_audio, item: "https://ssdown.app/tools/video-audio" },
+      { "@type": "ListItem", position: 4, name: dict.page_video_frame_extractor.breadcrumb_title, item: "https://ssdown.app/video-audio/video-frame-extractor" },
     ],
   };
 
@@ -125,11 +70,11 @@ export default async function VideoFrameExtractorPage() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
-            { label: "Home", href: "/" },
-            { label: "Tools", href: "/tools" },
-            { label: "Video & Audio", href: "/tools/video-audio" },
+            { label: dict.breadcrumb.home, href: "/" },
+            { label: dict.breadcrumb.tools, href: "/tools" },
+            { label: dict.breadcrumb.video_audio, href: "/tools/video-audio" },
             {
-              label: "Video Frame Extractor",
+              label: dict.page_video_frame_extractor.breadcrumb_title,
               href: "/video-audio/video-frame-extractor",
               isCurrent: true,
             },

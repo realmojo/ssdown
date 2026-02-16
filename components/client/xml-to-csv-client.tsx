@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/accordion";
 import { toast } from "sonner";
 
-export function XmlToCsvClient() {
+export function XmlToCsvClient({ dict }: { dict?: any }) {
   const [xmlInput, setXmlInput] = useState("");
   const [csvOutput, setCsvOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -153,11 +153,11 @@ export function XmlToCsvClient() {
           <FileSpreadsheet className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          XML to CSV Converter
+          {dict?.xml_to_csv?.title || "XML to CSV Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Convert XML list data to CSV spreadsheet. Paste your XML code, or Drag
-          & Drop a file.
+          {dict?.xml_to_csv?.subtitle || "Convert XML list data to CSV spreadsheet. Paste your XML code, or Drag
+          & Drop a file."}
         </p>
 
         <div className="w-full grid md:grid-cols-2 gap-4">
@@ -251,22 +251,22 @@ export function XmlToCsvClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Tips for Best Results
+              {dict?.xml_to_csv?.tips_title || "Tips for Best Results"}
             </h2>
             <p className="text-muted-foreground">
-              Ensure your XML is formatted as a list of items.
+              {dict?.xml_to_csv?.tips_desc || "Ensure your XML is formatted as a list of items."}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "List Structure",
-                desc: "The tool works best when your XML root element contains a list of similar child elements (representing rows).",
+                title: dict?.xml_to_csv?.tip1_title || "List Structure",
+                desc: dict?.xml_to_csv?.tip1_desc || "The tool works best when your XML root element contains a list of similar child elements (representing rows).",
               },
               {
-                title: "Consistent Tags",
-                desc: "Use consistent tag names across your items. Missing tags will result in empty CSV cells.",
+                title: dict?.xml_to_csv?.tip2_title || "Consistent Tags",
+                desc: dict?.xml_to_csv?.tip2_desc || "Use consistent tag names across your items. Missing tags will result in empty CSV cells.",
               },
             ].map((tip, idx) => (
               <div

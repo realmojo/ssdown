@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/accordion";
 import { toast } from "sonner";
 
-export function XmlToJsonClient() {
+export function XmlToJsonClient({ dict }: { dict?: any }) {
   const [xmlInput, setXmlInput] = useState("");
   const [jsonOutput, setJsonOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -167,11 +167,11 @@ export function XmlToJsonClient() {
           <FileJson className="w-8 h-8 text-blue-600 dark:text-blue-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          XML to JSON Converter
+          {dict?.xml_to_json?.title || "XML to JSON Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Convert XML data to JSON format instantly. Paste your XML code, or
-          Drag & Drop a file.
+          {dict?.xml_to_json?.subtitle || "Convert XML data to JSON format instantly. Paste your XML code, or
+          Drag & Drop a file."}
         </p>
 
         <div className="w-full grid md:grid-cols-2 gap-4">
@@ -263,22 +263,22 @@ export function XmlToJsonClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Tips for XML Conversion
+              {dict?.xml_to_json?.tips_title || "Tips for XML Conversion"}
             </h2>
             <p className="text-muted-foreground">
-              Ensure your XML is well-formed.
+              {dict?.xml_to_json?.tips_desc || "Ensure your XML is well-formed."}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Attributes",
-                desc: "XML attributes typically become properties prefixed with '@attributes' or similar in the resulting JSON object.",
+                title: dict?.xml_to_json?.tip1_title || "Attributes",
+                desc: dict?.xml_to_json?.tip1_desc || "XML attributes typically become properties prefixed with '@attributes' or similar in the resulting JSON object.",
               },
               {
-                title: "Arrays",
-                desc: "Repeated XML tags at the same level are converted into a JSON array.",
+                title: dict?.xml_to_json?.tip2_title || "Arrays",
+                desc: dict?.xml_to_json?.tip2_desc || "Repeated XML tags at the same level are converted into a JSON array.",
               },
             ].map((tip, idx) => (
               <div

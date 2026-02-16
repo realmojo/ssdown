@@ -25,7 +25,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-export function ProtectPdfClient() {
+export function ProtectPdfClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfName, setPdfName] = useState("");
   const [pageCount, setPageCount] = useState(0);
@@ -164,10 +164,10 @@ export function ProtectPdfClient() {
           <Lock className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Protect PDF
+          {dict?.protect_pdf?.title || "Protect PDF"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Add password protection to your PDF file. Encrypt your document to prevent unauthorized access. 100% private — processed in your browser.
+          {dict?.protect_pdf?.subtitle || "Add password protection to your PDF file. Encrypt your document to prevent unauthorized access. 100% private — processed in your browser."}
         </p>
 
         {!pdfFile && (
@@ -190,7 +190,7 @@ export function ProtectPdfClient() {
               className="hidden"
             />
             <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <p className="text-lg font-medium mb-2">Drag & drop a PDF file here</p>
+            <p className="text-lg font-medium mb-2">{dict?.protect_pdf?.drop_zone || "Drag & drop a PDF file here"}</p>
             <p className="text-sm text-muted-foreground">Only PDF files accepted. Max 50MB per file.</p>
           </div>
         )}
@@ -265,7 +265,7 @@ export function ProtectPdfClient() {
                 {isProcessing ? (
                   <><Loader2 className="w-5 h-5 mr-2 animate-spin" />Encrypting...</>
                 ) : (
-                  <><Lock className="w-5 h-5 mr-2" />Protect PDF</>
+                  <><Lock className="w-5 h-5 mr-2" />{dict?.protect_pdf?.title || "Protect PDF"}</>
                 )}
               </Button>
             </div>
@@ -288,7 +288,7 @@ export function ProtectPdfClient() {
                 Protected successfully! {resultSize} MB
               </div>
               <Button size="lg" onClick={handleDownload} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]">
-                <Download className="w-5 h-5 mr-2" />Download Protected PDF
+                <Download className="w-5 h-5 mr-2" />{dict?.protect_pdf?.download_btn || "Download Protected PDF"}
               </Button>
             </div>
           </div>
@@ -298,14 +298,14 @@ export function ProtectPdfClient() {
       <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">How to Protect a PDF</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Add password protection to your PDF in 3 simple steps.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.protect_pdf?.guide_title || "How to Protect a PDF"}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{dict?.protect_pdf?.guide_desc || "Add password protection to your PDF in 3 simple steps."}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { step: 1, title: "Upload PDF", desc: "Drag and drop or click to select a PDF file from your device.", icon: Upload },
-              { step: 2, title: "Set Password", desc: "Enter and confirm a password to protect your PDF document.", icon: Lock },
-              { step: 3, title: "Download", desc: "Click 'Protect PDF' and download your encrypted file.", icon: Download },
+              { step: 1, title: dict?.protect_pdf?.step1_title || "Upload PDF", desc: dict?.protect_pdf?.step1_desc || "Drag and drop or click to select a PDF file from your device.", icon: Upload },
+              { step: 2, title: dict?.protect_pdf?.step2_title || "Set Password", desc: dict?.protect_pdf?.step2_desc || "Enter and confirm a password to protect your PDF document.", icon: Lock },
+              { step: 3, title: dict?.protect_pdf?.step3_title || "Download", desc: dict?.protect_pdf?.step3_desc || "Click 'Protect PDF' and download your encrypted file.", icon: Download },
             ].map((step) => (
               <Card key={step.step} className="border-red-200 dark:border-red-900/50">
                 <CardHeader>
@@ -325,15 +325,15 @@ export function ProtectPdfClient() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">PDF Protection Tips</h2>
-            <p className="text-muted-foreground">Get the best results when protecting PDF files.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.protect_pdf?.tips_title || "PDF Protection Tips"}</h2>
+            <p className="text-muted-foreground">{dict?.protect_pdf?.tips_desc || "Get the best results when protecting PDF files."}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: "100% Private", desc: "All encryption happens in your browser using pdf-lib. Your files and passwords never leave your device.", icon: Shield },
-              { title: "Strong Encryption", desc: "Your PDF is encrypted with the password you provide. Anyone needs the password to open the file.", icon: Lock },
-              { title: "Instant Processing", desc: "Password protection is applied instantly. No waiting for server-side processing.", icon: Zap },
-              { title: "Remember Your Password", desc: "Store your password safely. If you forget it, there is no way to recover access to the protected PDF.", icon: Eye },
+              { title: dict?.protect_pdf?.tip1_title || "100% Private", desc: dict?.protect_pdf?.tip1_desc || "All encryption happens in your browser using pdf-lib. Your files and passwords never leave your device.", icon: Shield },
+              { title: dict?.protect_pdf?.tip2_title || "Strong Encryption", desc: dict?.protect_pdf?.tip2_desc || "Your PDF is encrypted with the password you provide. Anyone needs the password to open the file.", icon: Lock },
+              { title: dict?.protect_pdf?.tip3_title || "Instant Processing", desc: dict?.protect_pdf?.tip3_desc || "Password protection is applied instantly. No waiting for server-side processing.", icon: Zap },
+              { title: dict?.protect_pdf?.tip4_title || "Remember Your Password", desc: dict?.protect_pdf?.tip4_desc || "Store your password safely. If you forget it, there is no way to recover access to the protected PDF.", icon: Eye },
             ].map((tip, idx) => (
               <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-red-800/30">
                 <div className="flex-shrink-0"><tip.icon className="w-6 h-6 text-red-600 dark:text-red-400" /></div>
@@ -348,30 +348,30 @@ export function ProtectPdfClient() {
 
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Protect PDF FAQ</h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto">Common questions about PDF password protection.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.protect_pdf?.faq_title || "Protect PDF FAQ"}</h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto">{dict?.protect_pdf?.faq_desc || "Common questions about PDF password protection."}</p>
           </div>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to protect a PDF?</AccordionTrigger>
-                <AccordionContent>Yes, this tool is 100% free to use. There are no hidden fees, watermarks, or usage limits.</AccordionContent>
+                <AccordionTrigger>{dict?.protect_pdf?.faq_1_q || "Is it free to protect a PDF?"}</AccordionTrigger>
+                <AccordionContent>{dict?.protect_pdf?.faq_1_a || "Yes, this tool is 100% free to use. There are no hidden fees, watermarks, or usage limits."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Is my password safe?</AccordionTrigger>
-                <AccordionContent>Your password is completely safe because all processing happens in your browser. Your password is never transmitted to any server — it is used locally to encrypt the PDF.</AccordionContent>
+                <AccordionTrigger>{dict?.protect_pdf?.faq_2_q || "Is my password safe?"}</AccordionTrigger>
+                <AccordionContent>{dict?.protect_pdf?.faq_2_a || "Your password is completely safe because all processing happens in your browser. Your password is never transmitted to any server — it is used locally to encrypt the PDF."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>What happens if I forget the password?</AccordionTrigger>
-                <AccordionContent>If you forget the password, you will not be able to open the protected PDF. Make sure to store your password in a safe place. We do not store any passwords.</AccordionContent>
+                <AccordionTrigger>{dict?.protect_pdf?.faq_3_q || "What happens if I forget the password?"}</AccordionTrigger>
+                <AccordionContent>{dict?.protect_pdf?.faq_3_a || "If you forget the password, you will not be able to open the protected PDF. Make sure to store your password in a safe place. We do not store any passwords."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>What is the file size limit?</AccordionTrigger>
-                <AccordionContent>The maximum file size is 50MB. Larger files may cause performance issues depending on your browser and device capabilities.</AccordionContent>
+                <AccordionTrigger>{dict?.protect_pdf?.faq_4_q || "What is the file size limit?"}</AccordionTrigger>
+                <AccordionContent>{dict?.protect_pdf?.faq_4_a || "The maximum file size is 50MB. Larger files may cause performance issues depending on your browser and device capabilities."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>Can I protect an already encrypted PDF?</AccordionTrigger>
-                <AccordionContent>You can try, but if the PDF is already encrypted, it may fail to load. In that case, you would need to unlock the PDF first, then apply a new password.</AccordionContent>
+                <AccordionTrigger>{dict?.protect_pdf?.faq_5_q || "Can I protect an already encrypted PDF?"}</AccordionTrigger>
+                <AccordionContent>{dict?.protect_pdf?.faq_5_a || "You can try, but if the PDF is already encrypted, it may fail to load. In that case, you would need to unlock the PDF first, then apply a new password."}</AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>

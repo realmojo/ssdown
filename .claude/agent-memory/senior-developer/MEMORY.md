@@ -47,8 +47,16 @@ When adding new tools to `/tools/*`, follow this sequence:
 - **Loading**: `getDictionary(locale)` with deep-merge fallback (kr.json over en.json)
 - **Client switching**: `LanguageSwitcher` component sets cookie + reloads
 - **Pattern**: All pages call `const locale = await getLocale()` then `getDictionary(locale)`
-- **kr.json**: Main sections translated; tool pages fallback to en automatically
-- Fallback text in components for missing keys: `dict?.section?.key || "Fallback"`
+- **Type source**: `type Dictionary = typeof en` -- en.json must be updated first
+- **deepMerge**: Arrays are NOT deep-merged (replaced entirely) -- kr.json FAQ arrays must be complete
+- **OpenGraph locale**: `locale === "kr" ? "ko_KR" : "en_US"`
+- **Dictionary structure for tool pages**:
+  - Individual: `page_{tool_name}` with `meta_title`, `meta_description`, `breadcrumb_title`, `faq[]`, optional `software_description`
+  - Category: `page_tools_{category}` with `meta_title`, `meta_description`, `heading`, `subtitle`, `tools[]`
+  - Common: `breadcrumb.home`, `breadcrumb.tools`, `breadcrumb.image_tools`, `breadcrumb.file_tools`, etc.
+- **Tool page counts**: Image 20, File 12, PDF 18, Video/Audio 7, Utility 5, Social/Text 2, Category index 7
+- **All tool pages localized** (as of Feb 2026): All 64 tool pages + 7 category pages use `getLocale()`+`getDictionary()` pattern
+- **Client components receiving dict prop**: image/*, file/*, social-text/*, utility/*, video-to-gif, video-to-mp3, video-frame-extractor, audio-trimmer. PDF clients do NOT receive dict prop.
 
 ### Common Components
 - `components/ui/button`, `card`, `accordion`, `slider`, `select`

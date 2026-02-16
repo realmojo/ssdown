@@ -40,7 +40,7 @@ const ASPECT_RATIOS: { label: string; value: AspectRatio; ratio?: number }[] = [
   { label: "2:3", value: "2:3", ratio: 2 / 3 },
 ];
 
-export function CropImageClient() {
+export function CropImageClient({ dict }: { dict?: any }) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>("");
   const [isDragging, setIsDragging] = useState(false);
@@ -376,10 +376,10 @@ export function CropImageClient() {
           <Crop className="w-10 h-10 text-orange-600 dark:text-orange-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Crop Image
+          {dict?.crop_image?.title || "Crop Image"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Crop your image to any size. Select a region, choose an aspect ratio, and download. 100% free and private.
+          {dict?.crop_image?.subtitle || "Crop your image to any size. Select a region, choose an aspect ratio, and download. 100% free and private."}
         </p>
 
         {!imageSrc ? (
@@ -403,13 +403,13 @@ export function CropImageClient() {
             />
             <FileImage className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
             <p className="text-lg font-medium mb-2">
-              Drag & drop your image here
+              {dict?.crop_image?.drop_zone || "Drag & drop your image here"}
             </p>
             <p className="text-sm text-muted-foreground">
-              Supported: PNG, JPG, JPEG, WebP, GIF, BMP
+              {dict?.crop_image?.supported || "Supported: PNG, JPG, JPEG, WebP, GIF, BMP"}
             </p>
             <p className="text-xs text-muted-foreground mt-2">
-              Max file size: 20MB
+              {dict?.crop_image?.max_file_size || "Max file size: 20MB"}
             </p>
             <button
               type="button"
@@ -550,7 +550,7 @@ export function CropImageClient() {
                 className="bg-orange-600 hover:bg-orange-700 text-white shadow-lg min-w-[160px]"
               >
                 <Scissors className="w-5 h-5 mr-2" />
-                Crop Image
+                {dict?.crop_image?.title || "Crop Image"}
               </Button>
               {croppedUrl && (
                 <Button
@@ -595,30 +595,30 @@ export function CropImageClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              How to Crop Images
+              {dict?.crop_image?.guide_title || "How to Crop Images"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Crop any image to the perfect size in 3 simple steps.
+              {dict?.crop_image?.guide_desc || "Crop any image to the perfect size in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 step: 1,
-                title: "Upload Image",
-                desc: "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
+                title: dict?.crop_image?.step1_title || "Upload Image",
+                desc: dict?.crop_image?.step1_desc || "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
                 icon: Upload,
               },
               {
                 step: 2,
-                title: "Select Crop Area",
-                desc: "Drag to move, resize handles to adjust. Choose a preset aspect ratio or crop freely.",
+                title: dict?.crop_image?.step2_title || "Select Crop Area",
+                desc: dict?.crop_image?.step2_desc || "Drag to move, resize handles to adjust. Choose a preset aspect ratio or crop freely.",
                 icon: Crop,
               },
               {
                 step: 3,
-                title: "Crop & Download",
-                desc: "Click 'Crop Image' and download your perfectly cropped image.",
+                title: dict?.crop_image?.step3_title || "Crop & Download",
+                desc: dict?.crop_image?.step3_desc || "Click 'Crop Image' and download your perfectly cropped image.",
                 icon: Download,
               },
             ].map((step) => (
@@ -645,7 +645,7 @@ export function CropImageClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Cropping Tips
+              {dict?.crop_image?.tips_title || "Cropping Tips"}
             </h2>
             <p className="text-muted-foreground">
               Get the best results when cropping your images.
@@ -690,7 +690,7 @@ export function CropImageClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Image Cropping FAQ
+              {dict?.crop_image?.faq_title || "Image Cropping FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
               Common questions about cropping images online.
@@ -699,33 +699,33 @@ export function CropImageClient() {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is my image uploaded to a server?</AccordionTrigger>
+                <AccordionTrigger>{dict?.crop_image?.faq_1_q || "Is my image uploaded to a server?"}</AccordionTrigger>
                 <AccordionContent>
-                  No. All image processing happens entirely in your browser using the Canvas API. Your images never leave your device and are never sent to any server.
+                  {dict?.crop_image?.faq_1_a || "No. All image processing happens entirely in your browser using the Canvas API. Your images never leave your device and are never sent to any server."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>What image formats are supported?</AccordionTrigger>
+                <AccordionTrigger>{dict?.crop_image?.faq_2_q || "What image formats are supported?"}</AccordionTrigger>
                 <AccordionContent>
-                  You can crop PNG, JPG, JPEG, WebP, GIF, and BMP images. The cropped image will be saved in the same format as the original.
+                  {dict?.crop_image?.faq_2_a || "You can crop PNG, JPG, JPEG, WebP, GIF, and BMP images. The cropped image will be saved in the same format as the original."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>Will cropping reduce image quality?</AccordionTrigger>
+                <AccordionTrigger>{dict?.crop_image?.faq_3_q || "Will cropping reduce image quality?"}</AccordionTrigger>
                 <AccordionContent>
-                  No. The crop tool extracts the selected region at full original resolution. There is no re-compression or quality loss during the cropping process.
+                  {dict?.crop_image?.faq_3_a || "No. The crop tool extracts the selected region at full original resolution. There is no re-compression or quality loss during the cropping process."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>Can I crop to a specific aspect ratio?</AccordionTrigger>
+                <AccordionTrigger>{dict?.crop_image?.faq_4_q || "Can I crop to a specific aspect ratio?"}</AccordionTrigger>
                 <AccordionContent>
-                  Yes! Choose from preset aspect ratios like 1:1 (square), 16:9 (widescreen), 9:16 (portrait), 4:3, 3:2, and 2:3. You can also crop freely without any ratio constraint.
+                  {dict?.crop_image?.faq_4_a || "Yes! Choose from preset aspect ratios like 1:1 (square), 16:9 (widescreen), 9:16 (portrait), 4:3, 3:2, and 2:3. You can also crop freely without any ratio constraint."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>What is the maximum file size?</AccordionTrigger>
+                <AccordionTrigger>{dict?.crop_image?.faq_5_q || "What is the maximum file size?"}</AccordionTrigger>
                 <AccordionContent>
-                  The maximum file size is 20MB. Since all processing happens in your browser, larger files may take a moment to load depending on your device.
+                  {dict?.crop_image?.faq_5_a || "The maximum file size is 20MB. Since all processing happens in your browser, larger files may take a moment to load depending on your device."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

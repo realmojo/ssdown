@@ -63,7 +63,7 @@ function parseRanges(input: string, maxPage: number): number[][] | null {
   return ranges.length > 0 ? ranges : null;
 }
 
-export function SplitPdfClient() {
+export function SplitPdfClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfName, setPdfName] = useState("");
   const [pageCount, setPageCount] = useState(0);
@@ -222,10 +222,10 @@ export function SplitPdfClient() {
           <Scissors className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Split PDF
+          {dict?.split_pdf?.title || "Split PDF"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Split a PDF into multiple files. Extract every page separately or define custom page ranges. 100% private — processed in your browser.
+          {dict?.split_pdf?.subtitle || "Split a PDF into multiple files. Extract every page separately or define custom page ranges. 100% private — processed in your browser."}
         </p>
 
         {!pdfFile && (
@@ -248,7 +248,7 @@ export function SplitPdfClient() {
               className="hidden"
             />
             <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <p className="text-lg font-medium mb-2">Drag & drop a PDF file here</p>
+            <p className="text-lg font-medium mb-2">{dict?.split_pdf?.drop_zone || "Drag & drop a PDF file here"}</p>
             <p className="text-sm text-muted-foreground">Only PDF files accepted. Max 50MB per file.</p>
           </div>
         )}
@@ -338,7 +338,7 @@ export function SplitPdfClient() {
                 {isProcessing ? (
                   <><Loader2 className="w-5 h-5 mr-2 animate-spin" />Splitting... {progress}%</>
                 ) : (
-                  <><Scissors className="w-5 h-5 mr-2" />Split PDF</>
+                  <><Scissors className="w-5 h-5 mr-2" />{dict?.split_pdf?.title || "Split PDF"}</>
                 )}
               </Button>
             </div>
@@ -399,14 +399,14 @@ export function SplitPdfClient() {
       <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">How to Split a PDF</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Split your PDF into multiple files in 3 simple steps.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.split_pdf?.guide_title || "How to Split a PDF"}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{dict?.split_pdf?.guide_desc || "Split your PDF into multiple files in 3 simple steps."}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { step: 1, title: "Upload PDF", desc: "Drag and drop or click to select a PDF file from your device.", icon: Upload },
-              { step: 2, title: "Choose Split Mode", desc: "Split every page into separate files, or define custom page ranges.", icon: Scissors },
-              { step: 3, title: "Download Files", desc: "Click 'Split PDF' and download each resulting file individually.", icon: Download },
+              { step: 1, title: dict?.split_pdf?.step1_title || "Upload PDF", desc: dict?.split_pdf?.step1_desc || "Drag and drop or click to select a PDF file from your device.", icon: Upload },
+              { step: 2, title: dict?.split_pdf?.step2_title || "Choose Split Mode", desc: dict?.split_pdf?.step2_desc || "Split every page into separate files, or define custom page ranges.", icon: Scissors },
+              { step: 3, title: dict?.split_pdf?.step3_title || "Download Files", desc: dict?.split_pdf?.step3_desc || "Click 'Split PDF' and download each resulting file individually.", icon: Download },
             ].map((step) => (
               <Card key={step.step} className="border-red-200 dark:border-red-900/50">
                 <CardHeader>
@@ -426,15 +426,15 @@ export function SplitPdfClient() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">PDF Split Tips</h2>
-            <p className="text-muted-foreground">Get the best results when splitting PDF files.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.split_pdf?.tips_title || "PDF Split Tips"}</h2>
+            <p className="text-muted-foreground">{dict?.split_pdf?.tips_desc || "Get the best results when splitting PDF files."}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: "100% Private", desc: "All processing happens in your browser using pdf-lib. Your files never leave your device.", icon: Shield },
-              { title: "Flexible Splitting", desc: "Split every page individually, or define custom ranges like '1-3, 4-6, 7-10' for precise control.", icon: Layers },
-              { title: "Instant Processing", desc: "Splitting is processed instantly without re-encoding. Quality remains unchanged.", icon: Zap },
-              { title: "Original Preserved", desc: "Your original PDF file remains untouched. Only new split files are created for download.", icon: FileText },
+              { title: dict?.split_pdf?.tip1_title || "100% Private", desc: dict?.split_pdf?.tip1_desc || "All processing happens in your browser using pdf-lib. Your files never leave your device.", icon: Shield },
+              { title: dict?.split_pdf?.tip2_title || "Flexible Splitting", desc: dict?.split_pdf?.tip2_desc || "Split every page individually, or define custom ranges like '1-3, 4-6, 7-10' for precise control.", icon: Layers },
+              { title: dict?.split_pdf?.tip3_title || "Instant Processing", desc: dict?.split_pdf?.tip3_desc || "Splitting is processed instantly without re-encoding. Quality remains unchanged.", icon: Zap },
+              { title: dict?.split_pdf?.tip4_title || "Original Preserved", desc: dict?.split_pdf?.tip4_desc || "Your original PDF file remains untouched. Only new split files are created for download.", icon: FileText },
             ].map((tip, idx) => (
               <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-red-800/30">
                 <div className="flex-shrink-0"><tip.icon className="w-6 h-6 text-red-600 dark:text-red-400" /></div>
@@ -449,30 +449,30 @@ export function SplitPdfClient() {
 
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Split PDF FAQ</h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto">Common questions about splitting PDF files.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.split_pdf?.faq_title || "Split PDF FAQ"}</h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto">{dict?.split_pdf?.faq_desc || "Common questions about splitting PDF files."}</p>
           </div>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to split a PDF?</AccordionTrigger>
-                <AccordionContent>Yes, this tool is 100% free to use. There are no hidden fees, watermarks, or usage limits.</AccordionContent>
+                <AccordionTrigger>{dict?.split_pdf?.faq_1_q || "Is it free to split a PDF?"}</AccordionTrigger>
+                <AccordionContent>{dict?.split_pdf?.faq_1_a || "Yes, this tool is 100% free to use. There are no hidden fees, watermarks, or usage limits."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Is my PDF secure?</AccordionTrigger>
-                <AccordionContent>Absolutely. All processing happens entirely in your browser using pdf-lib. Your PDF files never leave your device and are never uploaded to any server.</AccordionContent>
+                <AccordionTrigger>{dict?.split_pdf?.faq_2_q || "Is my PDF secure?"}</AccordionTrigger>
+                <AccordionContent>{dict?.split_pdf?.faq_2_a || "Absolutely. All processing happens entirely in your browser using pdf-lib. Your PDF files never leave your device and are never uploaded to any server."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>How do I define custom page ranges?</AccordionTrigger>
-                <AccordionContent>Enter ranges separated by commas. For example, &quot;1-3, 4-6, 7-10&quot; creates three files: one with pages 1-3, one with pages 4-6, and one with pages 7-10. You can also specify individual pages like &quot;1, 3, 5&quot;.</AccordionContent>
+                <AccordionTrigger>{dict?.split_pdf?.faq_3_q || "How do I define custom page ranges?"}</AccordionTrigger>
+                <AccordionContent>{dict?.split_pdf?.faq_3_a || "Enter ranges separated by commas. For example, &quot;1-3, 4-6, 7-10&quot; creates three files: one with pages 1-3, one with pages 4-6, and one with pages 7-10. You can also specify individual pages like &quot;1, 3, 5&quot;."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>What is the file size limit?</AccordionTrigger>
-                <AccordionContent>The maximum file size is 50MB. Larger files may cause performance issues depending on your browser and device capabilities.</AccordionContent>
+                <AccordionTrigger>{dict?.split_pdf?.faq_4_q || "What is the file size limit?"}</AccordionTrigger>
+                <AccordionContent>{dict?.split_pdf?.faq_4_a || "The maximum file size is 50MB. Larger files may cause performance issues depending on your browser and device capabilities."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>Can I download all split files at once?</AccordionTrigger>
-                <AccordionContent>Currently, each file must be downloaded individually using its download button. This gives you control over which files to save. For a large number of files, consider using custom ranges to reduce the total.</AccordionContent>
+                <AccordionTrigger>{dict?.split_pdf?.faq_5_q || "Can I download all split files at once?"}</AccordionTrigger>
+                <AccordionContent>{dict?.split_pdf?.faq_5_a || "Currently, each file must be downloaded individually using its download button. This gives you control over which files to save. For a large number of files, consider using custom ranges to reduce the total."}</AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>

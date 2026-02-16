@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function ExcelToPdfClient() {
+export function ExcelToPdfClient({ dict }: { dict?: any }) {
   const [file, setFile] = useState<File | null>(null);
   const [sheets, setSheets] = useState<string[]>([]);
   const [selectedSheet, setSelectedSheet] = useState<string>("");
@@ -143,10 +143,10 @@ export function ExcelToPdfClient() {
           <FileType className="w-8 h-8 text-red-600 dark:text-red-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Excel to PDF Converter
+          {dict?.excel_to_pdf?.title || "Excel to PDF Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Convert Excel spreadsheets to PDF documents. Upload your file and download the PDF.
+          {dict?.excel_to_pdf?.subtitle || "Convert Excel spreadsheets to PDF documents. Upload your file and download the PDF."}
         </p>
 
         <Card className="w-full border-gray-200 dark:border-gray-800">
@@ -230,22 +230,22 @@ export function ExcelToPdfClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Tips for Best Results
+              {dict?.excel_to_pdf?.tips_title || "Tips for Best Results"}
             </h2>
             <p className="text-muted-foreground">
-              What to expect from PDF conversion.
+              {dict?.excel_to_pdf?.tips_desc || "What to expect from PDF conversion."}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Data Table",
-                desc: "The tool automatically formats your data into a clean table structure.",
+                title: dict?.excel_to_pdf?.tip1_title || "Data Table",
+                desc: dict?.excel_to_pdf?.tip1_desc || "The tool automatically formats your data into a clean table structure.",
               },
               {
-                title: "Column Fit",
-                desc: "Columns are distributed evenly across the page width. Very wide tables may wrap text.",
+                title: dict?.excel_to_pdf?.tip2_title || "Column Fit",
+                desc: dict?.excel_to_pdf?.tip2_desc || "Columns are distributed evenly across the page width. Very wide tables may wrap text.",
               },
             ].map((tip, idx) => (
               <div

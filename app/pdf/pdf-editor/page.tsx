@@ -1,13 +1,17 @@
 import { Metadata } from "next";
+import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { PdfEditorClient } from "@/components/client/pdf-editor-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/pdf/pdf-editor`;
-  const title = "PDF Editor Online Free | Edit PDF Files | SSDown";
-  const description =
-    "Edit PDF files online for free. Add text, images, rotate, delete, and rearrange pages. 100% private — processed in your browser, no upload to server.";
+
+  const title = dict.page_pdf_editor.meta_title;
+  const description = dict.page_pdf_editor.meta_description;
 
   return {
     title,
@@ -18,89 +22,38 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: "en_US",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
     },
     twitter: { card: "summary_large_image", title, description },
   };
 }
 
-export default function PdfEditorPage() {
+export default async function PdfEditorPage() {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "Is this PDF editor free?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, this PDF editor is 100% free with no hidden fees or watermarks.",
-        },
+    mainEntity: dict.page_pdf_editor.faq.map((item: { question: string; answer: string }) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-      {
-        "@type": "Question",
-        name: "What can I edit in a PDF?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "You can add text, add images, rotate pages, delete pages, and rearrange page order.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Is my PDF secure?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "All processing happens in your browser using pdf-lib. Your files never leave your device.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Can I add images to a PDF?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, you can upload JPG or PNG images and place them on any page at a position you specify.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What is the file size limit?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Each PDF file can be up to 50MB.",
-        },
-      },
-    ],
+    })),
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tools",
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "PDF Tools",
-        item: "https://ssdown.app/tools/pdf",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "PDF Editor",
-        item: "https://ssdown.app/pdf/pdf-editor",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.pdf_tools, item: "https://ssdown.app/tools/pdf" },
+      { "@type": "ListItem", position: 4, name: dict.page_pdf_editor.breadcrumb_title, item: "https://ssdown.app/pdf/pdf-editor" },
     ],
   };
 
@@ -117,14 +70,18 @@ export default function PdfEditorPage() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
-            { label: "Home", href: "/" },
-            { label: "Tools", href: "/tools" },
-            { label: "PDF Tools", href: "/tools/pdf" },
-            { label: "PDF Editor", href: "/pdf/pdf-editor", isCurrent: true },
+            { label: dict.breadcrumb.home, href: "/" },
+            { label: dict.breadcrumb.tools, href: "/tools" },
+            { label: dict.breadcrumb.pdf_tools, href: "/tools/pdf" },
+            {
+              label: dict.page_pdf_editor.breadcrumb_title,
+              href: "/pdf/pdf-editor",
+              isCurrent: true,
+            },
           ]}
         />
       </div>
-      <PdfEditorClient />
+      <PdfEditorClient dict={dict} />
     </>
   );
 }

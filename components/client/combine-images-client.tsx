@@ -36,7 +36,7 @@ interface LoadedImage {
   element: HTMLImageElement;
 }
 
-export function CombineImagesClient() {
+export function CombineImagesClient({ dict }: { dict?: any }) {
   const [images, setImages] = useState<LoadedImage[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [direction, setDirection] = useState<LayoutDirection>("horizontal");
@@ -209,10 +209,10 @@ export function CombineImagesClient() {
           <Columns className="w-10 h-10 text-lime-600 dark:text-lime-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Combine Images
+          {dict?.combine_images?.title || "Combine Images"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Combine multiple images side by side or stacked vertically. Adjust gap and background color. 100% private — processed in your browser.
+          {dict?.combine_images?.subtitle || "Combine multiple images side by side or stacked vertically. Adjust gap and background color. 100% private — processed in your browser."}
         </p>
 
         {/* Upload Zone — always show when less than 10 images */}
@@ -239,7 +239,7 @@ export function CombineImagesClient() {
             <>
               <FileImage className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
               <p className="text-lg font-medium mb-2">
-                Drag & drop images here
+                {dict?.combine_images?.drop_zone || "Drag & drop images here"}
               </p>
               <p className="text-sm text-muted-foreground">
                 Upload 2 or more images to combine. Supported: PNG, JPG, WebP, GIF, BMP
@@ -435,30 +435,30 @@ export function CombineImagesClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              How to Combine Images
+              {dict?.combine_images?.guide_title || "How to Combine Images"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Combine multiple images in 3 simple steps.
+              {dict?.combine_images?.guide_desc || "Combine multiple images in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 step: 1,
-                title: "Upload Images",
-                desc: "Upload 2 or more images. Drag & drop or click to browse. You can add more images after uploading.",
+                title: dict?.combine_images?.step1_title || "Upload Images",
+                desc: dict?.combine_images?.step1_desc || "Upload 2 or more images. Drag & drop or click to browse. You can add more images after uploading.",
                 icon: Upload,
               },
               {
                 step: 2,
-                title: "Choose Layout",
-                desc: "Pick horizontal (side by side) or vertical (stacked). Adjust gap and background color.",
+                title: dict?.combine_images?.step2_title || "Choose Layout",
+                desc: dict?.combine_images?.step2_desc || "Pick horizontal (side by side) or vertical (stacked). Adjust gap and background color.",
                 icon: Columns,
               },
               {
                 step: 3,
-                title: "Download Result",
-                desc: "Click 'Download' to save the combined image as PNG.",
+                title: dict?.combine_images?.step3_title || "Download Result",
+                desc: dict?.combine_images?.step3_desc || "Click 'Download' to save the combined image as PNG.",
                 icon: Download,
               },
             ].map((step) => (
@@ -485,7 +485,7 @@ export function CombineImagesClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Combine Tips
+              {dict?.combine_images?.tips_title || "Combine Tips"}
             </h2>
             <p className="text-muted-foreground">
               Get the best results when combining images.
@@ -530,7 +530,7 @@ export function CombineImagesClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Image Combiner FAQ
+              {dict?.combine_images?.faq_title || "Image Combiner FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
               Common questions about combining images.
@@ -539,33 +539,33 @@ export function CombineImagesClient() {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to use?</AccordionTrigger>
+                <AccordionTrigger>{dict?.combine_images?.faq_1_q || "Is it free to use?"}</AccordionTrigger>
                 <AccordionContent>
-                  Yes, this image combiner is 100% free. There are no hidden fees, watermarks, or limitations on the number of images you can combine.
+                  {dict?.combine_images?.faq_1_a || "Yes, this image combiner is 100% free. There are no hidden fees, watermarks, or limitations on the number of images you can combine."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Is it secure? Where are my images stored?</AccordionTrigger>
+                <AccordionTrigger>{dict?.combine_images?.faq_2_q || "Is it secure? Where are my images stored?"}</AccordionTrigger>
                 <AccordionContent>
-                  Your images are completely secure. All processing happens in your browser using Canvas API. Images never leave your device and are never uploaded to any server.
+                  {dict?.combine_images?.faq_2_a || "Your images are completely secure. All processing happens in your browser using Canvas API. Images never leave your device and are never uploaded to any server."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>How many images can I combine?</AccordionTrigger>
+                <AccordionTrigger>{dict?.combine_images?.faq_3_q || "How many images can I combine?"}</AccordionTrigger>
                 <AccordionContent>
-                  You can combine 2 or more images. There is no hard limit, but very large numbers of images may slow down processing depending on your device. Each image must be under 20MB.
+                  {dict?.combine_images?.faq_3_a || "You can combine 2 or more images. There is no hard limit, but very large numbers of images may slow down processing depending on your device. Each image must be under 20MB."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>What happens if images have different sizes?</AccordionTrigger>
+                <AccordionTrigger>{dict?.combine_images?.faq_4_q || "What happens if images have different sizes?"}</AccordionTrigger>
                 <AccordionContent>
-                  Images are automatically scaled to match. In horizontal mode, all images are scaled to the same height. In vertical mode, all images are scaled to the same width. This ensures a clean, aligned result.
+                  {dict?.combine_images?.faq_4_a || "Images are automatically scaled to match. In horizontal mode, all images are scaled to the same height. In vertical mode, all images are scaled to the same width. This ensures a clean, aligned result."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>What format is the output?</AccordionTrigger>
+                <AccordionTrigger>{dict?.combine_images?.faq_5_q || "What format is the output?"}</AccordionTrigger>
                 <AccordionContent>
-                  The combined image is always saved as PNG to ensure maximum quality and transparency support. You can convert it to other formats using our Image Converter tool.
+                  {dict?.combine_images?.faq_5_a || "The combined image is always saved as PNG to ensure maximum quality and transparency support. You can convert it to other formats using our Image Converter tool."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

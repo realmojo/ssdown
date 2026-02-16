@@ -15,7 +15,7 @@ import {
 import JSZip from "jszip";
 import { toast } from "sonner";
 
-export function SplitCsvClient() {
+export function SplitCsvClient({ dict }: { dict?: any }) {
   const [file, setFile] = useState<File | null>(null);
   const [splitMode, setSplitMode] = useState<"rows" | "files">("rows");
   const [splitValue, setSplitValue] = useState<number>(100);
@@ -172,11 +172,11 @@ export function SplitCsvClient() {
           <Split className="w-8 h-8 text-orange-600 dark:text-orange-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Split CSV File
+          {dict?.split_csv?.title || "Split CSV File"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Split large CSV files into smaller chunks. Maintain headers in every
-          file.
+          {dict?.split_csv?.subtitle || "Split large CSV files into smaller chunks. Maintain headers in every
+          file."}
         </p>
 
         <div className="w-full max-w-2xl mb-8">
@@ -298,22 +298,22 @@ export function SplitCsvClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Tips for Best Results
+              {dict?.split_csv?.tips_title || "Tips for Best Results"}
             </h2>
             <p className="text-muted-foreground">
-              How to effectively split your CSV files.
+              {dict?.split_csv?.tips_desc || "How to effectively split your CSV files."}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Header Row",
-                desc: "We ensure the header row (first line) is copied to every split file so data structure remains consistent.",
+                title: dict?.split_csv?.tip1_title || "Header Row",
+                desc: dict?.split_csv?.tip1_desc || "We ensure the header row (first line) is copied to every split file so data structure remains consistent.",
               },
               {
-                title: "Download Format",
-                desc: "All split files are bundled into a single ZIP file for easy downloading.",
+                title: dict?.split_csv?.tip2_title || "Download Format",
+                desc: dict?.split_csv?.tip2_desc || "All split files are bundled into a single ZIP file for easy downloading.",
               },
             ].map((tip, idx) => (
               <div

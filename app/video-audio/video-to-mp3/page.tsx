@@ -1,37 +1,31 @@
-import { VideoToMp3Client } from "@/components/client/video-to-mp3-client";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
+import { VideoToMp3Client } from "@/components/client/video-to-mp3-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/video-audio/video-to-mp3`;
 
-  const title =
-    "Video to MP3 Converter - Convert Video to Audio Online | SSDown";
-  const description =
-    "Free online video to MP3 converter. Convert MP4, WebM, MKV to MP3 audio in your browser. No upload required, 100% private.";
+  const title = dict.page_video_to_mp3.meta_title;
+  const description = dict.page_video_to_mp3.meta_description;
 
   return {
     title,
     description,
-    alternates: {
-      canonical,
-    },
+    alternates: { canonical },
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: "en_US",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
     },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -42,95 +36,24 @@ export default async function VideoToMp3Page() {
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name:
-          dict?.qna_video_to_mp3?.faq_1_q ||
-          "Is my video uploaded to a server?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_video_to_mp3?.faq_1_a ||
-            "No. The conversion happens entirely in your browser using WebAssembly technology. Your video file never leaves your device, making it 100% private and secure.",
-        },
+    mainEntity: dict.page_video_to_mp3.faq.map((item: { question: string; answer: string }) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-      {
-        "@type": "Question",
-        name:
-          dict?.qna_video_to_mp3?.faq_2_q ||
-          "What video formats are supported?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_video_to_mp3?.faq_2_a ||
-            "We support the most common video formats: MP4, WebM, MKV, AVI, and MOV. If your format isn't listed, try converting it to MP4 first.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: dict?.qna_video_to_mp3?.faq_3_q || "Is there a file size limit?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_video_to_mp3?.faq_3_a ||
-            "There's no hard limit, but we recommend files under 500MB for the best experience. Larger files may cause your browser to slow down or run out of memory, especially on mobile devices.",
-        },
-      },
-      {
-        "@type": "Question",
-        name:
-          dict?.qna_video_to_mp3?.faq_4_q || "How long does conversion take?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_video_to_mp3?.faq_4_a ||
-            "Conversion time depends on the video file size and your device's processing power. A typical 5-minute video takes about 10-30 seconds. Larger files will take proportionally longer.",
-        },
-      },
-      {
-        "@type": "Question",
-        name:
-          dict?.qna_video_to_mp3?.faq_5_q ||
-          "Does this work on mobile devices?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_video_to_mp3?.faq_5_a ||
-            "Yes, it works on most modern mobile browsers. However, due to memory limitations on mobile devices, we recommend using files under 200MB on phones and tablets.",
-        },
-      },
-    ],
+    })),
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tools",
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "Video & Audio",
-        item: "https://ssdown.app/tools/video-audio",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "Video to MP3 Converter",
-        item: "https://ssdown.app/video-audio/video-to-mp3",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.video_audio, item: "https://ssdown.app/tools/video-audio" },
+      { "@type": "ListItem", position: 4, name: dict.page_video_to_mp3.breadcrumb_title, item: "https://ssdown.app/video-audio/video-to-mp3" },
     ],
   };
 
@@ -147,11 +70,11 @@ export default async function VideoToMp3Page() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
-            { label: "Home", href: "/" },
-            { label: "Tools", href: "/tools" },
-            { label: "Video & Audio", href: "/tools/video-audio" },
+            { label: dict.breadcrumb.home, href: "/" },
+            { label: dict.breadcrumb.tools, href: "/tools" },
+            { label: dict.breadcrumb.video_audio, href: "/tools/video-audio" },
             {
-              label: "Video to MP3",
+              label: dict.page_video_to_mp3.breadcrumb_title,
               href: "/video-audio/video-to-mp3",
               isCurrent: true,
             },

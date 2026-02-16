@@ -29,7 +29,7 @@ interface PageRotation {
   rotation: number; // 0, 90, 180, 270
 }
 
-export function RotatePdfClient() {
+export function RotatePdfClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfName, setPdfName] = useState("");
   const [pageCount, setPageCount] = useState(0);
@@ -198,10 +198,10 @@ export function RotatePdfClient() {
           <RotateCw className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Rotate PDF
+          {dict?.rotate_pdf?.title || "Rotate PDF"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Rotate PDF pages by 90, 180, or 270 degrees. Rotate all pages at once or each page individually. 100% private — processed in your browser.
+          {dict?.rotate_pdf?.subtitle || "Rotate PDF pages by 90, 180, or 270 degrees. Rotate all pages at once or each page individually. 100% private — processed in your browser."}
         </p>
 
         {/* Drop zone */}
@@ -226,7 +226,7 @@ export function RotatePdfClient() {
             />
             <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
             <p className="text-lg font-medium mb-2">
-              Drag & drop a PDF file here
+              {dict?.rotate_pdf?.drop_zone || "Drag & drop a PDF file here"}
             </p>
             <p className="text-sm text-muted-foreground">
               Only PDF files accepted. Max 50MB per file.
@@ -381,7 +381,7 @@ export function RotatePdfClient() {
                   className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]"
                 >
                   <Download className="w-5 h-5 mr-2" />
-                  Download Rotated PDF
+                  {dict?.rotate_pdf?.download_btn || "Download Rotated PDF"}
                 </Button>
               </div>
             )}
@@ -394,30 +394,30 @@ export function RotatePdfClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              How to Rotate PDF Pages
+              {dict?.rotate_pdf?.guide_title || "How to Rotate PDF Pages"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Rotate your PDF pages in 3 simple steps.
+              {dict?.rotate_pdf?.guide_desc || "Rotate your PDF pages in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 step: 1,
-                title: "Upload PDF",
-                desc: "Drag and drop or click to select a PDF file from your device.",
+                title: dict?.rotate_pdf?.step1_title || "Upload PDF",
+                desc: dict?.rotate_pdf?.step1_desc || "Drag and drop or click to select a PDF file from your device.",
                 icon: Upload,
               },
               {
                 step: 2,
-                title: "Choose Rotation",
-                desc: "Rotate all pages at once or each page individually by 90°, 180°, or 270°.",
+                title: dict?.rotate_pdf?.step2_title || "Choose Rotation",
+                desc: dict?.rotate_pdf?.step2_desc || "Rotate all pages at once or each page individually by 90°, 180°, or 270°.",
                 icon: RotateCw,
               },
               {
                 step: 3,
-                title: "Download",
-                desc: "Click 'Apply Rotation' and download your rotated PDF file.",
+                title: dict?.rotate_pdf?.step3_title || "Download",
+                desc: dict?.rotate_pdf?.step3_desc || "Click 'Apply Rotation' and download your rotated PDF file.",
                 icon: Download,
               },
             ].map((step) => (
@@ -444,7 +444,7 @@ export function RotatePdfClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              PDF Rotation Tips
+              {dict?.rotate_pdf?.tips_title || "PDF Rotation Tips"}
             </h2>
             <p className="text-muted-foreground">
               Get the best results when rotating PDF pages.
@@ -489,7 +489,7 @@ export function RotatePdfClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Rotate PDF FAQ
+              {dict?.rotate_pdf?.faq_title || "Rotate PDF FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
               Common questions about rotating PDF pages.
@@ -498,33 +498,33 @@ export function RotatePdfClient() {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to rotate PDF pages?</AccordionTrigger>
+                <AccordionTrigger>{dict?.rotate_pdf?.faq_1_q || "Is it free to rotate PDF pages?"}</AccordionTrigger>
                 <AccordionContent>
-                  Yes, this PDF rotation tool is 100% free. There are no hidden fees, watermarks, or usage limits.
+                  {dict?.rotate_pdf?.faq_1_a || "Yes, this PDF rotation tool is 100% free. There are no hidden fees, watermarks, or usage limits."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Is my PDF secure when rotating pages?</AccordionTrigger>
+                <AccordionTrigger>{dict?.rotate_pdf?.faq_2_q || "Is my PDF secure when rotating pages?"}</AccordionTrigger>
                 <AccordionContent>
-                  Absolutely. All processing happens entirely in your browser using pdf-lib. Your PDF files never leave your device and are never uploaded to any server.
+                  {dict?.rotate_pdf?.faq_2_a || "Absolutely. All processing happens entirely in your browser using pdf-lib. Your PDF files never leave your device and are never uploaded to any server."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>Can I rotate individual pages instead of all pages?</AccordionTrigger>
+                <AccordionTrigger>{dict?.rotate_pdf?.faq_3_q || "Can I rotate individual pages instead of all pages?"}</AccordionTrigger>
                 <AccordionContent>
-                  Yes, you can choose to rotate all pages at once or rotate each page individually. Each page has its own rotation controls for full flexibility.
+                  {dict?.rotate_pdf?.faq_3_a || "Yes, you can choose to rotate all pages at once or rotate each page individually. Each page has its own rotation controls for full flexibility."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>What rotation angles are supported?</AccordionTrigger>
+                <AccordionTrigger>{dict?.rotate_pdf?.faq_4_q || "What rotation angles are supported?"}</AccordionTrigger>
                 <AccordionContent>
-                  You can rotate pages by 90° clockwise, 180°, or 90° counter-clockwise (270°). These options cover all common rotation needs.
+                  {dict?.rotate_pdf?.faq_4_a || "You can rotate pages by 90° clockwise, 180°, or 90° counter-clockwise (270°). These options cover all common rotation needs."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>What is the file size limit?</AccordionTrigger>
+                <AccordionTrigger>{dict?.rotate_pdf?.faq_5_q || "What is the file size limit?"}</AccordionTrigger>
                 <AccordionContent>
-                  The maximum file size is 50MB. Larger files may cause performance issues depending on your browser and device capabilities.
+                  {dict?.rotate_pdf?.faq_5_a || "The maximum file size is 50MB. Larger files may cause performance issues depending on your browser and device capabilities."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

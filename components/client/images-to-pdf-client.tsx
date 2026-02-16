@@ -36,7 +36,7 @@ interface ImageItem {
   height: number;
 }
 
-export function ImagesToPdfClient() {
+export function ImagesToPdfClient({ dict }: { dict?: any }) {
   const [images, setImages] = useState<ImageItem[]>([]);
   const [pageSizeOption, setPageSizeOption] = useState<PageSizeOption>("fit");
   const [isDragging, setIsDragging] = useState(false);
@@ -246,8 +246,8 @@ export function ImagesToPdfClient() {
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-red-100 to-rose-100 dark:from-red-900/30 dark:to-rose-900/30 mb-6">
           <ImagePlus className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">Images to PDF</h1>
-        <p className="text-muted-foreground text-center max-w-2xl mb-8">Convert multiple images (JPG, PNG, WebP) into a single PDF document. Reorder pages and choose page size. 100% private — processed in your browser.</p>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">{dict?.images_to_pdf?.title || "Images to PDF"}</h1>
+        <p className="text-muted-foreground text-center max-w-2xl mb-8">{dict?.images_to_pdf?.subtitle || "Convert multiple images (JPG, PNG, WebP) into a single PDF document. Reorder pages and choose page size. 100% private — processed in your browser."}</p>
 
         {/* Drop zone */}
         <div
@@ -260,7 +260,7 @@ export function ImagesToPdfClient() {
           <input ref={fileInputRef} type="file" accept="image/jpeg,image/png,image/webp" multiple onChange={handleFileChange} className="hidden" />
           <ImagePlus className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
           <p className="text-lg font-medium mb-2">{images.length === 0 ? "Drag & drop images here" : "Add more images"}</p>
-          <p className="text-sm text-muted-foreground">Supported: JPG, PNG, WebP. Max 20MB per file.</p>
+          <p className="text-sm text-muted-foreground">{dict?.images_to_pdf?.supported || "Supported: JPG, PNG, WebP. Max 20MB per file."}</p>
         </div>
 
         {error && (<div className="w-full max-w-2xl mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-300 text-sm">{error}</div>)}
@@ -301,7 +301,7 @@ export function ImagesToPdfClient() {
             {!resultUrl && (
               <div className="flex justify-center pt-4">
                 <Button size="lg" onClick={convertToPdf} disabled={isProcessing} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]">
-                  {isProcessing ? (<><Loader2 className="w-5 h-5 mr-2 animate-spin" />Converting... {progress}%</>) : (<><ImagePlus className="w-5 h-5 mr-2" />Convert to PDF</>)}
+                  {isProcessing ? (<><Loader2 className="w-5 h-5 mr-2 animate-spin" />Converting... {progress}%</>) : (<><ImagePlus className="w-5 h-5 mr-2" />{dict?.images_to_pdf?.action_btn || "Convert to PDF"}</>)}
                 </Button>
               </div>
             )}
@@ -311,7 +311,7 @@ export function ImagesToPdfClient() {
             {resultUrl && (
               <div className="flex flex-col items-center gap-3 pt-4 animate-in fade-in slide-in-from-bottom-2">
                 <div className="text-sm text-muted-foreground">PDF created successfully! {images.length} page{images.length !== 1 ? "s" : ""} &middot; {resultSize} MB</div>
-                <Button size="lg" onClick={handleDownload} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]"><Download className="w-5 h-5 mr-2" />Download PDF</Button>
+                <Button size="lg" onClick={handleDownload} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]"><Download className="w-5 h-5 mr-2" />{dict?.images_to_pdf?.download_btn || "Download PDF"}</Button>
               </div>
             )}
           </div>
@@ -321,14 +321,14 @@ export function ImagesToPdfClient() {
       <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">How to Convert Images to PDF</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Turn your images into a PDF in 3 simple steps.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.images_to_pdf?.guide_title || "How to Convert Images to PDF"}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{dict?.images_to_pdf?.guide_desc || "Turn your images into a PDF in 3 simple steps."}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { step: 1, title: "Upload Images", desc: "Drag and drop or click to select JPG, PNG, or WebP images from your device.", icon: Upload },
-              { step: 2, title: "Arrange & Configure", desc: "Reorder images using up/down buttons. Choose 'Fit to image' or 'A4' page size.", icon: Layers },
-              { step: 3, title: "Convert & Download", desc: "Click 'Convert to PDF' and download your image-based PDF document.", icon: Download },
+              { step: 1, title: dict?.images_to_pdf?.step1_title || "Upload Images", desc: dict?.images_to_pdf?.step1_desc || "Drag and drop or click to select JPG, PNG, or WebP images from your device.", icon: Upload },
+              { step: 2, title: dict?.images_to_pdf?.step2_title || "Arrange & Configure", desc: dict?.images_to_pdf?.step2_desc || "Reorder images using up/down buttons. Choose 'Fit to image' or 'A4' page size.", icon: Layers },
+              { step: 3, title: dict?.images_to_pdf?.step3_title || "Convert & Download", desc: dict?.images_to_pdf?.step3_desc || "Click 'Convert to PDF' and download your image-based PDF document.", icon: Download },
             ].map((s) => (
               <Card key={s.step} className="border-red-200 dark:border-red-900/50">
                 <CardHeader><div className="flex items-center gap-3 mb-2"><div className="flex items-center justify-center w-10 h-10 rounded-full bg-red-600 text-white font-bold">{s.step}</div><CardTitle className="text-xl">{s.title}</CardTitle></div></CardHeader>
@@ -341,15 +341,15 @@ export function ImagesToPdfClient() {
         <section className="bg-red-50 dark:bg-red-900/20 rounded-2xl p-8 md:p-12">
           <div className="text-center mb-10">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4"><Lightbulb className="w-8 h-8 text-yellow-500" /></div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Images to PDF Tips</h2>
-            <p className="text-muted-foreground">Get the best results when converting images to PDF.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.images_to_pdf?.tips_title || "Images to PDF Tips"}</h2>
+            <p className="text-muted-foreground">{dict?.images_to_pdf?.tips_desc || "Get the best results when converting images to PDF."}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: "100% Private", desc: "All processing happens in your browser using pdf-lib. Your images never leave your device.", icon: Shield },
-              { title: "Flexible Page Sizing", desc: "Choose 'Fit to image' to match each page to the image size, or 'A4' for standard document format.", icon: Layers },
-              { title: "Easy Reordering", desc: "Arrange your images in any order before converting. The order in the list becomes the page order.", icon: FileText },
-              { title: "Multiple Formats", desc: "Supports JPG, PNG, and WebP images. WebP files are automatically converted for PDF compatibility.", icon: Zap },
+              { title: dict?.images_to_pdf?.tip1_title || "100% Private", desc: dict?.images_to_pdf?.tip1_desc || "All processing happens in your browser using pdf-lib. Your images never leave your device.", icon: Shield },
+              { title: dict?.images_to_pdf?.tip2_title || "Flexible Page Sizing", desc: dict?.images_to_pdf?.tip2_desc || "Choose 'Fit to image' to match each page to the image size, or 'A4' for standard document format.", icon: Layers },
+              { title: dict?.images_to_pdf?.tip3_title || "Easy Reordering", desc: dict?.images_to_pdf?.tip3_desc || "Arrange your images in any order before converting. The order in the list becomes the page order.", icon: FileText },
+              { title: dict?.images_to_pdf?.tip4_title || "Multiple Formats", desc: dict?.images_to_pdf?.tip4_desc || "Supports JPG, PNG, and WebP images. WebP files are automatically converted for PDF compatibility.", icon: Zap },
             ].map((tip, idx) => (
               <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-red-800/30">
                 <div className="flex-shrink-0"><tip.icon className="w-6 h-6 text-red-600 dark:text-red-400" /></div>
@@ -361,16 +361,16 @@ export function ImagesToPdfClient() {
 
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Images to PDF FAQ</h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto">Common questions about converting images to PDF.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.images_to_pdf?.faq_title || "Images to PDF FAQ"}</h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto">{dict?.images_to_pdf?.faq_desc || "Common questions about converting images to PDF."}</p>
           </div>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="faq-1"><AccordionTrigger>Is it free to convert images to PDF?</AccordionTrigger><AccordionContent>Yes, this tool is 100% free. There are no hidden fees, watermarks, or limitations on the number of images you can convert.</AccordionContent></AccordionItem>
-              <AccordionItem value="faq-2"><AccordionTrigger>Are my images uploaded to a server?</AccordionTrigger><AccordionContent>No. All processing happens entirely in your browser. Your images never leave your device and are never uploaded to any server.</AccordionContent></AccordionItem>
-              <AccordionItem value="faq-3"><AccordionTrigger>What image formats are supported?</AccordionTrigger><AccordionContent>JPG/JPEG, PNG, and WebP images are supported. WebP images are automatically converted to PNG format internally for PDF compatibility.</AccordionContent></AccordionItem>
-              <AccordionItem value="faq-4"><AccordionTrigger>Can I change the order of images?</AccordionTrigger><AccordionContent>Yes, use the up/down arrow buttons next to each image to rearrange them. The order in the list determines the page order in the PDF.</AccordionContent></AccordionItem>
-              <AccordionItem value="faq-5"><AccordionTrigger>What is the maximum file size?</AccordionTrigger><AccordionContent>Each image can be up to 20MB. There is no limit on the number of images. The total PDF size depends on your browser memory.</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-1"><AccordionTrigger>{dict?.images_to_pdf?.faq_1_q || "Is it free to convert images to PDF?"}</AccordionTrigger><AccordionContent>{dict?.images_to_pdf?.faq_1_a || "Yes, this tool is 100% free. There are no hidden fees, watermarks, or limitations on the number of images you can convert."}</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-2"><AccordionTrigger>{dict?.images_to_pdf?.faq_2_q || "Are my images uploaded to a server?"}</AccordionTrigger><AccordionContent>{dict?.images_to_pdf?.faq_2_a || "No. All processing happens entirely in your browser. Your images never leave your device and are never uploaded to any server."}</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-3"><AccordionTrigger>{dict?.images_to_pdf?.faq_3_q || "What image formats are supported?"}</AccordionTrigger><AccordionContent>{dict?.images_to_pdf?.faq_3_a || "JPG/JPEG, PNG, and WebP images are supported. WebP images are automatically converted to PNG format internally for PDF compatibility."}</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-4"><AccordionTrigger>{dict?.images_to_pdf?.faq_4_q || "Can I change the order of images?"}</AccordionTrigger><AccordionContent>{dict?.images_to_pdf?.faq_4_a || "Yes, use the up/down arrow buttons next to each image to rearrange them. The order in the list determines the page order in the PDF."}</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-5"><AccordionTrigger>{dict?.images_to_pdf?.faq_5_q || "What is the maximum file size?"}</AccordionTrigger><AccordionContent>{dict?.images_to_pdf?.faq_5_a || "Each image can be up to 20MB. There is no limit on the number of images. The total PDF size depends on your browser memory."}</AccordionContent></AccordionItem>
             </Accordion>
           </div>
         </section>

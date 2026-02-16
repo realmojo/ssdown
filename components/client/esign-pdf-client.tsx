@@ -57,7 +57,7 @@ const CANVAS_WIDTH = 400;
 const CANVAS_HEIGHT = 200;
 const SIGNATURE_PADDING = 20;
 
-export function EsignPdfClient() {
+export function EsignPdfClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfName, setPdfName] = useState("");
   const [pageCount, setPageCount] = useState(0);
@@ -328,10 +328,10 @@ export function EsignPdfClient() {
           <PenTool className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          eSign PDF
+          {dict?.esign_pdf?.title || "eSign PDF"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Add your electronic signature to any PDF document. Draw your signature, choose placement, and download. 100% private — processed in your browser.
+          {dict?.esign_pdf?.subtitle || "Add your electronic signature to any PDF document. Draw your signature, choose placement, and download. 100% private — processed in your browser."}
         </p>
 
         {/* Drop zone */}
@@ -356,7 +356,7 @@ export function EsignPdfClient() {
             />
             <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
             <p className="text-lg font-medium mb-2">
-              Drag & drop a PDF file here
+              {dict?.esign_pdf?.drop_zone || "Drag & drop a PDF file here"}
             </p>
             <p className="text-sm text-muted-foreground">
               Only PDF files accepted. Max 50MB per file.
@@ -550,7 +550,7 @@ export function EsignPdfClient() {
                   {isProcessing ? (
                     <>
                       <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                      Applying...
+                      {dict?.esign_pdf?.processing || "Applying..."}
                     </>
                   ) : (
                     <>
@@ -580,7 +580,7 @@ export function EsignPdfClient() {
                   className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]"
                 >
                   <Download className="w-5 h-5 mr-2" />
-                  Download Signed PDF
+                  {dict?.esign_pdf?.download_btn || "Download Signed PDF"}
                 </Button>
               </div>
             )}
@@ -593,30 +593,30 @@ export function EsignPdfClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              How to eSign a PDF
+              {dict?.esign_pdf?.guide_title || "How to eSign a PDF"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Add your electronic signature to any PDF in 3 simple steps.
+              {dict?.esign_pdf?.guide_desc || "Add your electronic signature to any PDF in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 step: 1,
-                title: "Upload PDF",
-                desc: "Drag and drop or click to select a PDF file from your device.",
+                title: dict?.esign_pdf?.step1_title || "Upload PDF",
+                desc: dict?.esign_pdf?.step1_desc || "Drag and drop or click to select a PDF file from your device.",
                 icon: Upload,
               },
               {
                 step: 2,
-                title: "Draw Signature",
-                desc: "Use the canvas pad to draw your signature with mouse or touch. Choose pen color and thickness.",
+                title: dict?.esign_pdf?.step2_title || "Draw Signature",
+                desc: dict?.esign_pdf?.step2_desc || "Use the canvas pad to draw your signature with mouse or touch. Choose pen color and thickness.",
                 icon: PenTool,
               },
               {
                 step: 3,
-                title: "Apply & Download",
-                desc: "Select page and position, then apply your signature and download the signed PDF.",
+                title: dict?.esign_pdf?.step3_title || "Apply & Download",
+                desc: dict?.esign_pdf?.step3_desc || "Select page and position, then apply your signature and download the signed PDF.",
                 icon: Download,
               },
             ].map((step) => (
@@ -643,7 +643,7 @@ export function EsignPdfClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              eSign PDF Tips
+              {dict?.esign_pdf?.tips_title || "eSign PDF Tips"}
             </h2>
             <p className="text-muted-foreground">
               Get the best results when signing PDF documents.
@@ -688,7 +688,7 @@ export function EsignPdfClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              eSign PDF FAQ
+              {dict?.esign_pdf?.faq_title || "eSign PDF FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
               Common questions about electronically signing PDFs.
@@ -697,33 +697,33 @@ export function EsignPdfClient() {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to use?</AccordionTrigger>
+                <AccordionTrigger>{dict?.esign_pdf?.faq_1_q || "Is it free to use?"}</AccordionTrigger>
                 <AccordionContent>
-                  Yes, this eSign PDF tool is 100% free. There are no hidden fees, watermarks, or usage limits. Sign as many documents as you need.
+                  {dict?.esign_pdf?.faq_1_a || "Yes, this eSign PDF tool is 100% free. There are no hidden fees, watermarks, or usage limits. Sign as many documents as you need."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Is my electronic signature legally valid?</AccordionTrigger>
+                <AccordionTrigger>{dict?.esign_pdf?.faq_2_q || "Is my electronic signature legally valid?"}</AccordionTrigger>
                 <AccordionContent>
-                  This tool creates a visual representation of your signature on the PDF. While electronic signatures are legally recognized in many jurisdictions (e.g., ESIGN Act, eIDAS), the legal validity depends on your specific use case and local regulations. For legally binding contracts, consider using a certified digital signature service.
+                  {dict?.esign_pdf?.faq_2_a || "This tool creates a visual representation of your signature on the PDF. While electronic signatures are legally recognized in many jurisdictions (e.g., ESIGN Act, eIDAS), the legal validity depends on your specific use case and local regulations. For legally binding contracts, consider using a certified digital signature service."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>Is my document secure?</AccordionTrigger>
+                <AccordionTrigger>{dict?.esign_pdf?.faq_3_q || "Is my document secure?"}</AccordionTrigger>
                 <AccordionContent>
-                  Absolutely. All processing happens entirely in your browser using pdf-lib. Your PDF files and signature data never leave your device and are never uploaded to any server. Your documents remain completely private.
+                  {dict?.esign_pdf?.faq_3_a || "Absolutely. All processing happens entirely in your browser using pdf-lib. Your PDF files and signature data never leave your device and are never uploaded to any server. Your documents remain completely private."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>Can I add multiple signatures to one PDF?</AccordionTrigger>
+                <AccordionTrigger>{dict?.esign_pdf?.faq_4_q || "Can I add multiple signatures to one PDF?"}</AccordionTrigger>
                 <AccordionContent>
-                  You can apply one signature at a time. To add multiple signatures, download the signed PDF after each application, then upload it again to add another signature on the same or a different page.
+                  {dict?.esign_pdf?.faq_4_a || "You can apply one signature at a time. To add multiple signatures, download the signed PDF after each application, then upload it again to add another signature on the same or a different page."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>What is the file size limit?</AccordionTrigger>
+                <AccordionTrigger>{dict?.esign_pdf?.faq_5_q || "What is the file size limit?"}</AccordionTrigger>
                 <AccordionContent>
-                  The maximum file size is 50MB. This covers most standard documents. The signed PDF will be approximately the same size as the original, with a small increase for the embedded signature image.
+                  {dict?.esign_pdf?.faq_5_a || "The maximum file size is 50MB. This covers most standard documents. The signed PDF will be approximately the same size as the original, with a small increase for the embedded signature image."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

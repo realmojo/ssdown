@@ -35,7 +35,7 @@ const COLOR_MAP: Record<ColorOption, { r: number; g: number; b: number; label: s
   gray: { r: 0.5, g: 0.5, b: 0.5, label: "Gray", cssClass: "bg-gray-400" },
 };
 
-export function AddTextToPdfClient() {
+export function AddTextToPdfClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfName, setPdfName] = useState("");
   const [pageCount, setPageCount] = useState(0);
@@ -198,9 +198,9 @@ export function AddTextToPdfClient() {
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-red-100 to-rose-100 dark:from-red-900/30 dark:to-rose-900/30 mb-6">
           <Type className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">Add Text to PDF</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">{dict?.add_text_to_pdf?.title || "Add Text to PDF"}</h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Add custom text to any page of your PDF. Choose the page, position, font size, and color. 100% private — processed in your browser.
+          {dict?.add_text_to_pdf?.subtitle || "Add custom text to any page of your PDF. Choose the page, position, font size, and color. 100% private — processed in your browser."}
         </p>
 
         {!pdfFile && (
@@ -213,7 +213,7 @@ export function AddTextToPdfClient() {
           >
             <input ref={fileInputRef} type="file" accept="application/pdf" onChange={handleFileChange} className="hidden" />
             <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <p className="text-lg font-medium mb-2">Drag & drop a PDF file here</p>
+            <p className="text-lg font-medium mb-2">{dict?.add_text_to_pdf?.drop_zone || "Drag & drop a PDF file here"}</p>
             <p className="text-sm text-muted-foreground">Only PDF files accepted. Max 50MB per file.</p>
           </div>
         )}
@@ -278,7 +278,7 @@ export function AddTextToPdfClient() {
             {!resultUrl && (
               <div className="flex justify-center pt-4">
                 <Button size="lg" onClick={applyText} disabled={isProcessing || !text.trim()} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]">
-                  {isProcessing ? (<><Loader2 className="w-5 h-5 mr-2 animate-spin" />Adding... {progress}%</>) : (<><Type className="w-5 h-5 mr-2" />Add Text to PDF</>)}
+                  {isProcessing ? (<><Loader2 className="w-5 h-5 mr-2 animate-spin" />Adding... {progress}%</>) : (<><Type className="w-5 h-5 mr-2" />{dict?.add_text_to_pdf?.title || "Add Text to PDF"}</>)}
                 </Button>
               </div>
             )}
@@ -293,7 +293,7 @@ export function AddTextToPdfClient() {
               <div className="flex flex-col items-center gap-3 pt-4 animate-in fade-in slide-in-from-bottom-2">
                 <div className="text-sm text-muted-foreground">Text added successfully! &middot; {resultSize} MB</div>
                 <Button size="lg" onClick={handleDownload} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]">
-                  <Download className="w-5 h-5 mr-2" />Download PDF
+                  <Download className="w-5 h-5 mr-2" />{dict?.add_text_to_pdf?.action_btn || "Download PDF"}
                 </Button>
               </div>
             )}
@@ -304,14 +304,14 @@ export function AddTextToPdfClient() {
       <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">How to Add Text to a PDF</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Add text to your PDF in 3 simple steps.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.add_text_to_pdf?.guide_title || "How to Add Text to a PDF"}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{dict?.add_text_to_pdf?.guide_desc || "Add text to your PDF in 3 simple steps."}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { step: 1, title: "Upload PDF", desc: "Drag and drop or click to select a PDF file from your device.", icon: Upload },
-              { step: 2, title: "Enter Text", desc: "Type your text, choose the page, position, font size, and color.", icon: Type },
-              { step: 3, title: "Download", desc: "Click 'Add Text to PDF' and download your modified PDF file.", icon: Download },
+              { step: 1, title: dict?.add_text_to_pdf?.step1_title || "Upload PDF", desc: dict?.add_text_to_pdf?.step1_desc || "Drag and drop or click to select a PDF file from your device.", icon: Upload },
+              { step: 2, title: dict?.add_text_to_pdf?.step2_title || "Enter Text", desc: dict?.add_text_to_pdf?.step2_desc || "Type your text, choose the page, position, font size, and color.", icon: Type },
+              { step: 3, title: dict?.add_text_to_pdf?.step3_title || "Download", desc: dict?.add_text_to_pdf?.step3_desc || "Click 'Add Text to PDF' and download your modified PDF file.", icon: Download },
             ].map((step) => (
               <Card key={step.step} className="border-red-200 dark:border-red-900/50">
                 <CardHeader>
@@ -331,15 +331,15 @@ export function AddTextToPdfClient() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Text Adding Tips</h2>
-            <p className="text-muted-foreground">Get the best results when adding text to PDFs.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.add_text_to_pdf?.tips_title || "Text Adding Tips"}</h2>
+            <p className="text-muted-foreground">{dict?.add_text_to_pdf?.tips_desc || "Get the best results when adding text to PDFs."}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: "100% Private", desc: "All processing happens in your browser using pdf-lib. Your files never leave your device.", icon: Shield },
-              { title: "Precise Positioning", desc: "Use X and Y coordinates in PDF points for exact text placement. The origin is at the bottom-left corner.", icon: Eye },
-              { title: "Multiple Colors", desc: "Choose from black, red, blue, green, or gray to match your document style.", icon: Zap },
-              { title: "Original Preserved", desc: "Your original PDF file remains untouched. Only a new modified file is created for download.", icon: FileText },
+              { title: dict?.add_text_to_pdf?.tip1_title || "100% Private", desc: dict?.add_text_to_pdf?.tip1_desc || "All processing happens in your browser using pdf-lib. Your files never leave your device.", icon: Shield },
+              { title: dict?.add_text_to_pdf?.tip2_title || "Precise Positioning", desc: dict?.add_text_to_pdf?.tip2_desc || "Use X and Y coordinates in PDF points for exact text placement. The origin is at the bottom-left corner.", icon: Eye },
+              { title: dict?.add_text_to_pdf?.tip3_title || "Multiple Colors", desc: dict?.add_text_to_pdf?.tip3_desc || "Choose from black, red, blue, green, or gray to match your document style.", icon: Zap },
+              { title: dict?.add_text_to_pdf?.tip4_title || "Original Preserved", desc: dict?.add_text_to_pdf?.tip4_desc || "Your original PDF file remains untouched. Only a new modified file is created for download.", icon: FileText },
             ].map((tip, idx) => (
               <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-red-800/30">
                 <div className="flex-shrink-0"><tip.icon className="w-6 h-6 text-red-600 dark:text-red-400" /></div>
@@ -354,30 +354,30 @@ export function AddTextToPdfClient() {
 
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Add Text to PDF FAQ</h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto">Common questions about adding text to PDFs.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.add_text_to_pdf?.faq_title || "Add Text to PDF FAQ"}</h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto">{dict?.add_text_to_pdf?.faq_desc || "Common questions about adding text to PDFs."}</p>
           </div>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to add text to PDFs?</AccordionTrigger>
-                <AccordionContent>Yes, this tool is 100% free. There are no hidden fees, watermarks, or usage limits.</AccordionContent>
+                <AccordionTrigger>{dict?.add_text_to_pdf?.faq_1_q || "Is it free to add text to PDFs?"}</AccordionTrigger>
+                <AccordionContent>{dict?.add_text_to_pdf?.faq_1_a || "Yes, this tool is 100% free. There are no hidden fees, watermarks, or usage limits."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>What font is used for the text?</AccordionTrigger>
-                <AccordionContent>Text is rendered using Helvetica, a standard PDF font that displays consistently across all PDF viewers. The font size is adjustable between 8 and 72 points.</AccordionContent>
+                <AccordionTrigger>{dict?.add_text_to_pdf?.faq_2_q || "What font is used for the text?"}</AccordionTrigger>
+                <AccordionContent>{dict?.add_text_to_pdf?.faq_2_a || "Text is rendered using Helvetica, a standard PDF font that displays consistently across all PDF viewers. The font size is adjustable between 8 and 72 points."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>Can I add text to multiple pages at once?</AccordionTrigger>
-                <AccordionContent>Currently, text is added to one page at a time. You can process the PDF multiple times to add text to different pages, or use the watermark tool for text on all pages.</AccordionContent>
+                <AccordionTrigger>{dict?.add_text_to_pdf?.faq_3_q || "Can I add text to multiple pages at once?"}</AccordionTrigger>
+                <AccordionContent>{dict?.add_text_to_pdf?.faq_3_a || "Currently, text is added to one page at a time. You can process the PDF multiple times to add text to different pages, or use the watermark tool for text on all pages."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>How do I know the right X and Y coordinates?</AccordionTrigger>
-                <AccordionContent>PDF coordinates start from the bottom-left corner. For an A4 page (595x842 points), x=50 y=700 places text near the top-left. Try different values and preview the result to fine-tune placement.</AccordionContent>
+                <AccordionTrigger>{dict?.add_text_to_pdf?.faq_4_q || "How do I know the right X and Y coordinates?"}</AccordionTrigger>
+                <AccordionContent>{dict?.add_text_to_pdf?.faq_4_a || "PDF coordinates start from the bottom-left corner. For an A4 page (595x842 points), x=50 y=700 places text near the top-left. Try different values and preview the result to fine-tune placement."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>What is the file size limit?</AccordionTrigger>
-                <AccordionContent>The maximum file size is 50MB. Since all processing happens in your browser, very large files may take longer depending on your device&apos;s capabilities.</AccordionContent>
+                <AccordionTrigger>{dict?.add_text_to_pdf?.faq_5_q || "What is the file size limit?"}</AccordionTrigger>
+                <AccordionContent>{dict?.add_text_to_pdf?.faq_5_a || "The maximum file size is 50MB. Since all processing happens in your browser, very large files may take longer depending on your device&apos;s capabilities."}</AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>

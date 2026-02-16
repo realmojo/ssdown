@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/accordion";
 import exifr from "exifr";
 
-export function ImageMetadataViewerClient() {
+export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>("");
   const [fileSize, setFileSize] = useState<number>(0);
@@ -200,10 +200,10 @@ export function ImageMetadataViewerClient() {
           <FileSearch className="w-10 h-10 text-sky-600 dark:text-sky-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Image Metadata Viewer
+          {dict?.image_metadata_viewer?.title || "Image Metadata Viewer"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          View EXIF metadata from your photos. See camera settings, GPS location, date taken, and more. 100% private — processed in your browser.
+          {dict?.image_metadata_viewer?.subtitle || "View EXIF metadata from your photos. See camera settings, GPS location, date taken, and more. 100% private — processed in your browser."}
         </p>
 
         {!imageSrc ? (
@@ -227,13 +227,13 @@ export function ImageMetadataViewerClient() {
             />
             <FileImage className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
             <p className="text-lg font-medium mb-2">
-              Drag & drop your image here
+              {dict?.image_metadata_viewer?.drop_zone || "Drag & drop your image here"}
             </p>
             <p className="text-sm text-muted-foreground">
-              Supported: PNG, JPG, JPEG, WebP, GIF, BMP, TIFF, HEIC
+              {dict?.image_metadata_viewer?.supported || "Supported: PNG, JPG, JPEG, WebP, GIF, BMP, TIFF, HEIC"}
             </p>
             <p className="text-xs text-muted-foreground mt-2">
-              Max file size: 20MB
+              {dict?.image_metadata_viewer?.max_file_size || "Max file size: 20MB"}
             </p>
             <button
               type="button"
@@ -499,7 +499,7 @@ export function ImageMetadataViewerClient() {
                     <CardContent>
                       <Accordion type="single" collapsible>
                         <AccordionItem value="all-metadata">
-                          <AccordionTrigger>View All Fields</AccordionTrigger>
+                          <AccordionTrigger>{dict?.image_metadata_viewer?.faq_1_q || "View All Fields"}</AccordionTrigger>
                           <AccordionContent>
                             <div className="space-y-2 max-h-96 overflow-y-auto">
                               {Object.entries(metadata).map(([key, value]) => (
@@ -537,30 +537,30 @@ export function ImageMetadataViewerClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              How to View Image Metadata
+              {dict?.image_metadata_viewer?.guide_title || "How to View Image Metadata"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Extract EXIF metadata from your photos in 3 simple steps.
+              {dict?.image_metadata_viewer?.guide_desc || "Extract EXIF metadata from your photos in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 step: 1,
-                title: "Upload Image",
-                desc: "Upload a photo from your device. Most photos from cameras and smartphones contain EXIF metadata.",
+                title: dict?.image_metadata_viewer?.step1_title || "Upload Image",
+                desc: dict?.image_metadata_viewer?.step1_desc || "Upload a photo from your device. Most photos from cameras and smartphones contain EXIF metadata.",
                 icon: Upload,
               },
               {
                 step: 2,
-                title: "View Metadata",
-                desc: "Browse organized sections showing camera settings, GPS location, date taken, and more.",
+                title: dict?.image_metadata_viewer?.step2_title || "View Metadata",
+                desc: dict?.image_metadata_viewer?.step2_desc || "Browse organized sections showing camera settings, GPS location, date taken, and more.",
                 icon: FileSearch,
               },
               {
                 step: 3,
-                title: "Copy or Export",
-                desc: "Click 'Copy Metadata' to copy all information as text, or view specific fields in detail.",
+                title: dict?.image_metadata_viewer?.step3_title || "Copy or Export",
+                desc: dict?.image_metadata_viewer?.step3_desc || "Click 'Copy Metadata' to copy all information as text, or view specific fields in detail.",
                 icon: Download,
               },
             ].map((step) => (
@@ -587,7 +587,7 @@ export function ImageMetadataViewerClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Image Metadata Tips
+              {dict?.image_metadata_viewer?.tips_title || "Image Metadata Tips"}
             </h2>
             <p className="text-muted-foreground">
               Get the most out of the metadata viewer.
@@ -632,7 +632,7 @@ export function ImageMetadataViewerClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Image Metadata FAQ
+              {dict?.image_metadata_viewer?.faq_title || "Image Metadata FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
               Common questions about viewing image metadata and EXIF data.
@@ -641,33 +641,33 @@ export function ImageMetadataViewerClient() {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>What is EXIF metadata?</AccordionTrigger>
+                <AccordionTrigger>{dict?.image_metadata_viewer?.faq_2_q || "What is EXIF metadata?"}</AccordionTrigger>
                 <AccordionContent>
-                  EXIF (Exchangeable Image File Format) is a standard that stores metadata in image files. It includes information like camera settings (ISO, aperture, shutter speed), date/time, GPS coordinates, camera model, and more. Most digital cameras and smartphones automatically embed this data when taking photos.
+                  {dict?.image_metadata_viewer?.faq_1_a || "EXIF (Exchangeable Image File Format) is a standard that stores metadata in image files. It includes information like camera settings (ISO, aperture, shutter speed), date/time, GPS coordinates, camera model, and more. Most digital cameras and smartphones automatically embed this data when taking photos."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Is it safe to view metadata online?</AccordionTrigger>
+                <AccordionTrigger>{dict?.image_metadata_viewer?.faq_3_q || "Is it safe to view metadata online?"}</AccordionTrigger>
                 <AccordionContent>
-                  Yes! All metadata extraction happens entirely in your browser using JavaScript. Your images are never uploaded to any server. The metadata is read locally on your device and displayed instantly. Your photos and their metadata remain completely private.
+                  {dict?.image_metadata_viewer?.faq_2_a || "Yes! All metadata extraction happens entirely in your browser using JavaScript. Your images are never uploaded to any server. The metadata is read locally on your device and displayed instantly. Your photos and their metadata remain completely private."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>Why doesn't my image have metadata?</AccordionTrigger>
+                <AccordionTrigger>{dict?.image_metadata_viewer?.faq_4_q || "Why doesn't my image have metadata?"}</AccordionTrigger>
                 <AccordionContent>
-                  Several reasons: (1) Screenshots and digitally-created images don't contain EXIF data, (2) Many social media platforms strip metadata when you upload photos for privacy, (3) Some photo editing software removes EXIF data when saving, (4) The image may have been exported without preserving metadata.
+                  {dict?.image_metadata_viewer?.faq_3_a || "Several reasons: (1) Screenshots and digitally-created images don't contain EXIF data, (2) Many social media platforms strip metadata when you upload photos for privacy, (3) Some photo editing software removes EXIF data when saving, (4) The image may have been exported without preserving metadata."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>Can I see GPS coordinates?</AccordionTrigger>
+                <AccordionTrigger>{dict?.image_metadata_viewer?.faq_5_q || "Can I see GPS coordinates?"}</AccordionTrigger>
                 <AccordionContent>
-                  Yes, if the photo was taken with a GPS-enabled device (like a smartphone with location services enabled) and the GPS data wasn't removed, you'll see the exact coordinates. We provide a direct link to view the location on Google Maps. Be aware that sharing photos with GPS data can reveal your location.
+                  {dict?.image_metadata_viewer?.faq_4_a || "Yes, if the photo was taken with a GPS-enabled device (like a smartphone with location services enabled) and the GPS data wasn't removed, you'll see the exact coordinates. We provide a direct link to view the location on Google Maps. Be aware that sharing photos with GPS data can reveal your location."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>What image formats are supported?</AccordionTrigger>
+                <AccordionTrigger>{dict?.image_metadata_viewer?.faq_6_q || "What image formats are supported?"}</AccordionTrigger>
                 <AccordionContent>
-                  We support all common image formats including JPG, JPEG, PNG, WebP, GIF, BMP, TIFF, HEIC, and HEIF. JPG images from cameras typically contain the most complete EXIF data. Maximum file size is 20MB.
+                  {dict?.image_metadata_viewer?.faq_5_a || "We support all common image formats including JPG, JPEG, PNG, WebP, GIF, BMP, TIFF, HEIC, and HEIF. JPG images from cameras typically contain the most complete EXIF data. Maximum file size is 20MB."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/accordion";
 import { toast } from "sonner";
 
-export function CsvToXmlClient() {
+export function CsvToXmlClient({ dict }: { dict?: any }) {
   const [csvInput, setCsvInput] = useState("");
   const [xmlOutput, setXmlOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -160,11 +160,11 @@ export function CsvToXmlClient() {
           <FileCode className="w-8 h-8 text-teal-600 dark:text-teal-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          CSV to XML Converter
+          {dict?.csv_to_xml?.title || "CSV to XML Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Convert CSV spreadsheets to structured XML format. Paste your CSV
-          code, or Drag & Drop a file.
+          {dict?.csv_to_xml?.subtitle || "Convert CSV spreadsheets to structured XML format. Paste your CSV
+          code, or Drag & Drop a file."}
         </p>
 
         <div className="w-full grid md:grid-cols-2 gap-4">
@@ -258,22 +258,22 @@ export function CsvToXmlClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Tips for XML Output
+              {dict?.csv_to_xml?.tips_title || "Tips for XML Output"}
             </h2>
             <p className="text-muted-foreground">
-              Understanding how your CSV becomes XML.
+              {dict?.csv_to_xml?.tips_desc || "Understanding how your CSV becomes XML."}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Tag Names",
-                desc: "CSV headers are sanitized (spaces replaced by underscores) to ensure valid XML tag names.",
+                title: dict?.csv_to_xml?.tip1_title || "Tag Names",
+                desc: dict?.csv_to_xml?.tip1_desc || "CSV headers are sanitized (spaces replaced by underscores) to ensure valid XML tag names.",
               },
               {
-                title: "Escaping",
-                desc: "Special characters like <, >, &, \", and ' are automatically escaped to keep the XML valid.",
+                title: dict?.csv_to_xml?.tip2_title || "Escaping",
+                desc: dict?.csv_to_xml?.tip2_desc || "Special characters like <, >, &, \", and ' are automatically escaped to keep the XML valid.",
               },
             ].map((tip, idx) => (
               <div

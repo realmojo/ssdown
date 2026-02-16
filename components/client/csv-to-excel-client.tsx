@@ -21,7 +21,7 @@ import {
 import * as XLSX from "xlsx";
 import { toast } from "sonner";
 
-export function CsvToExcelClient() {
+export function CsvToExcelClient({ dict }: { dict?: any }) {
   const [csvInput, setCsvInput] = useState("");
   const [error, setError] = useState<string | null>(null);
 
@@ -76,11 +76,11 @@ export function CsvToExcelClient() {
           <FileSpreadsheet className="w-8 h-8 text-green-600 dark:text-green-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          CSV to Excel Converter
+          {dict?.csv_to_excel?.title || "CSV to Excel Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Convert comma-separated values to Excel (.xlsx) format. Paste your
-          data, or Drag & Drop a file.
+          {dict?.csv_to_excel?.subtitle || "Convert comma-separated values to Excel (.xlsx) format. Paste your
+          data, or Drag & Drop a file."}
         </p>
 
         <div className="w-full max-w-2xl">
@@ -135,7 +135,7 @@ export function CsvToExcelClient() {
             className="bg-green-600 hover:bg-green-700 text-white min-w-[200px]"
           >
             <Download className="w-4 h-4 mr-2" />
-            Download as Excel
+            {dict?.csv_to_excel?.download_btn || "Download as Excel"}
           </Button>
         </div>
       </div>
@@ -147,22 +147,22 @@ export function CsvToExcelClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Tips for Best Results
+              {dict?.csv_to_excel?.tips_title || "Tips for Best Results"}
             </h2>
             <p className="text-muted-foreground">
-              Ensure your CSV data is clean.
+              {dict?.csv_to_excel?.tips_desc || "Ensure your CSV data is clean."}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Delimiters",
-                desc: "The tool automatically detects comma separators. Ensure your data uses consistent delimiters.",
+                title: dict?.csv_to_excel?.tip1_title || "Delimiters",
+                desc: dict?.csv_to_excel?.tip1_desc || "The tool automatically detects comma separators. Ensure your data uses consistent delimiters.",
               },
               {
-                title: "Character Encoding",
-                desc: "We support UTF-8 characters so your data is preserved correctly.",
+                title: dict?.csv_to_excel?.tip2_title || "Character Encoding",
+                desc: dict?.csv_to_excel?.tip2_desc || "We support UTF-8 characters so your data is preserved correctly.",
               },
             ].map((tip, idx) => (
               <div

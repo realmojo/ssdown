@@ -25,7 +25,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-export function UnlockPdfClient() {
+export function UnlockPdfClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfName, setPdfName] = useState("");
   const [pdfSizeMB, setPdfSizeMB] = useState("");
@@ -156,10 +156,10 @@ export function UnlockPdfClient() {
           <Unlock className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Unlock PDF
+          {dict?.unlock_pdf?.title || "Unlock PDF"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Remove password protection from your PDF. Enter the current password to unlock and save an unprotected copy. 100% private — processed in your browser.
+          {dict?.unlock_pdf?.subtitle || "Remove password protection from your PDF. Enter the current password to unlock and save an unprotected copy. 100% private — processed in your browser."}
         </p>
 
         {!pdfFile && (
@@ -182,7 +182,7 @@ export function UnlockPdfClient() {
               className="hidden"
             />
             <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <p className="text-lg font-medium mb-2">Drag & drop a PDF file here</p>
+            <p className="text-lg font-medium mb-2">{dict?.unlock_pdf?.drop_zone || "Drag & drop a PDF file here"}</p>
             <p className="text-sm text-muted-foreground">Only PDF files accepted. Max 50MB per file.</p>
           </div>
         )}
@@ -240,9 +240,9 @@ export function UnlockPdfClient() {
                 className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]"
               >
                 {isProcessing ? (
-                  <><Loader2 className="w-5 h-5 mr-2 animate-spin" />Unlocking...</>
+                  <><Loader2 className="w-5 h-5 mr-2 animate-spin" />{dict?.unlock_pdf?.processing || "Unlocking..."}</>
                 ) : (
-                  <><Unlock className="w-5 h-5 mr-2" />Unlock PDF</>
+                  <><Unlock className="w-5 h-5 mr-2" />{dict?.unlock_pdf?.title || "Unlock PDF"}</>
                 )}
               </Button>
             </div>
@@ -266,7 +266,7 @@ export function UnlockPdfClient() {
                 Unlocked successfully! {resultSize} MB
               </div>
               <Button size="lg" onClick={handleDownload} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]">
-                <Download className="w-5 h-5 mr-2" />Download Unlocked PDF
+                <Download className="w-5 h-5 mr-2" />{dict?.unlock_pdf?.download_btn || "Download Unlocked PDF"}
               </Button>
             </div>
           </div>
@@ -276,14 +276,14 @@ export function UnlockPdfClient() {
       <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">How to Unlock a PDF</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Remove password protection from your PDF in 3 simple steps.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.unlock_pdf?.guide_title || "How to Unlock a PDF"}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{dict?.unlock_pdf?.guide_desc || "Remove password protection from your PDF in 3 simple steps."}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { step: 1, title: "Upload PDF", desc: "Drag and drop or click to select a password-protected PDF file.", icon: Upload },
-              { step: 2, title: "Enter Password", desc: "Type the current password of the PDF document.", icon: KeyRound },
-              { step: 3, title: "Download", desc: "Click 'Unlock PDF' and download the unprotected version.", icon: Download },
+              { step: 1, title: dict?.unlock_pdf?.step1_title || "Upload PDF", desc: dict?.unlock_pdf?.step1_desc || "Drag and drop or click to select a password-protected PDF file.", icon: Upload },
+              { step: 2, title: dict?.unlock_pdf?.step2_title || "Enter Password", desc: dict?.unlock_pdf?.step2_desc || "Type the current password of the PDF document.", icon: KeyRound },
+              { step: 3, title: dict?.unlock_pdf?.step3_title || "Download", desc: dict?.unlock_pdf?.step3_desc || "Click 'Unlock PDF' and download the unprotected version.", icon: Download },
             ].map((step) => (
               <Card key={step.step} className="border-red-200 dark:border-red-900/50">
                 <CardHeader>
@@ -303,15 +303,15 @@ export function UnlockPdfClient() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">PDF Unlock Tips</h2>
-            <p className="text-muted-foreground">Get the best results when unlocking PDF files.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.unlock_pdf?.tips_title || "PDF Unlock Tips"}</h2>
+            <p className="text-muted-foreground">{dict?.unlock_pdf?.tips_desc || "Get the best results when unlocking PDF files."}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: "100% Private", desc: "All processing happens in your browser. Your files and passwords never leave your device.", icon: Shield },
-              { title: "Password Required", desc: "You must know the current password to unlock the PDF. This tool cannot crack or bypass passwords.", icon: KeyRound },
-              { title: "Instant Processing", desc: "Unlocking is processed instantly in your browser. No server uploads or waiting.", icon: Zap },
-              { title: "Original Preserved", desc: "Your original encrypted PDF remains untouched. A new unprotected copy is created for download.", icon: FileText },
+              { title: dict?.unlock_pdf?.tip1_title || "100% Private", desc: dict?.unlock_pdf?.tip1_desc || "All processing happens in your browser. Your files and passwords never leave your device.", icon: Shield },
+              { title: dict?.unlock_pdf?.tip2_title || "Password Required", desc: dict?.unlock_pdf?.tip2_desc || "You must know the current password to unlock the PDF. This tool cannot crack or bypass passwords.", icon: KeyRound },
+              { title: dict?.unlock_pdf?.tip3_title || "Instant Processing", desc: dict?.unlock_pdf?.tip3_desc || "Unlocking is processed instantly in your browser. No server uploads or waiting.", icon: Zap },
+              { title: dict?.unlock_pdf?.tip4_title || "Original Preserved", desc: dict?.unlock_pdf?.tip4_desc || "Your original encrypted PDF remains untouched. A new unprotected copy is created for download.", icon: FileText },
             ].map((tip, idx) => (
               <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-red-800/30">
                 <div className="flex-shrink-0"><tip.icon className="w-6 h-6 text-red-600 dark:text-red-400" /></div>
@@ -326,30 +326,30 @@ export function UnlockPdfClient() {
 
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Unlock PDF FAQ</h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto">Common questions about unlocking PDF files.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.unlock_pdf?.faq_title || "Unlock PDF FAQ"}</h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto">{dict?.unlock_pdf?.faq_desc || "Common questions about unlocking PDF files."}</p>
           </div>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to unlock a PDF?</AccordionTrigger>
-                <AccordionContent>Yes, this tool is 100% free to use. There are no hidden fees, watermarks, or usage limits.</AccordionContent>
+                <AccordionTrigger>{dict?.unlock_pdf?.faq_1_q || "Is it free to unlock a PDF?"}</AccordionTrigger>
+                <AccordionContent>{dict?.unlock_pdf?.faq_1_a || "Yes, this tool is 100% free to use. There are no hidden fees, watermarks, or usage limits."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Can I unlock a PDF without the password?</AccordionTrigger>
-                <AccordionContent>No. You must know the correct password to unlock a PDF. This tool does not crack, bypass, or brute-force passwords. It is designed for legitimate use only.</AccordionContent>
+                <AccordionTrigger>{dict?.unlock_pdf?.faq_2_q || "Can I unlock a PDF without the password?"}</AccordionTrigger>
+                <AccordionContent>{dict?.unlock_pdf?.faq_2_a || "No. You must know the correct password to unlock a PDF. This tool does not crack, bypass, or brute-force passwords. It is designed for legitimate use only."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>Is my password safe?</AccordionTrigger>
-                <AccordionContent>Your password is completely safe because all processing happens in your browser. Your password is never sent to any server.</AccordionContent>
+                <AccordionTrigger>{dict?.unlock_pdf?.faq_3_q || "Is my password safe?"}</AccordionTrigger>
+                <AccordionContent>{dict?.unlock_pdf?.faq_3_a || "Your password is completely safe because all processing happens in your browser. Your password is never sent to any server."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>What is the file size limit?</AccordionTrigger>
-                <AccordionContent>The maximum file size is 50MB. Larger files may cause performance issues depending on your browser and device capabilities.</AccordionContent>
+                <AccordionTrigger>{dict?.unlock_pdf?.faq_4_q || "What is the file size limit?"}</AccordionTrigger>
+                <AccordionContent>{dict?.unlock_pdf?.faq_4_a || "The maximum file size is 50MB. Larger files may cause performance issues depending on your browser and device capabilities."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>What if the wrong password is entered?</AccordionTrigger>
-                <AccordionContent>If the password is incorrect, you will see an error message. Simply try again with the correct password. There is no limit on the number of attempts.</AccordionContent>
+                <AccordionTrigger>{dict?.unlock_pdf?.faq_5_q || "What if the wrong password is entered?"}</AccordionTrigger>
+                <AccordionContent>{dict?.unlock_pdf?.faq_5_a || "If the password is incorrect, you will see an error message. Simply try again with the correct password. There is no limit on the number of attempts."}</AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>

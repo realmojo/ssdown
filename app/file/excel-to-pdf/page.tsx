@@ -1,82 +1,59 @@
 import { Metadata } from "next";
+import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ExcelToPdfClient } from "@/components/client/excel-to-pdf-client";
 
-export const metadata: Metadata = {
-  title: "Excel to PDF Converter | Free Online Tool | SSDown",
-  description:
-    "Convert Excel files to PDF documents online. Free tool to transform spreadsheets into printable PDF format. Secure and browser-based.",
-  openGraph: {
-    title: "Excel to PDF Converter | Free Online Tool | SSDown",
-    description:
-      "Convert Excel files to PDF documents online. Free tool to transform spreadsheets into printable PDF format.",
-    url: "https://ssdown.app/file/excel-to-pdf",
-    siteName: "SSDown",
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Excel to PDF Converter | Free Online Tool",
-    description: "Convert Excel files to PDF documents online.",
-  },
-  alternates: {
-    canonical: "https://ssdown.app/file/excel-to-pdf",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+  const baseUrl = "https://ssdown.app";
+  const canonical = `${baseUrl}/file/excel-to-pdf`;
 
-export default function ExcelToPdfPage() {
+  const title = dict.page_excel_to_pdf.meta_title;
+  const description = dict.page_excel_to_pdf.meta_description;
+
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      siteName: "SSDown",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
+      type: "website",
+    },
+    twitter: { card: "summary_large_image", title, description },
+  };
+}
+
+export default async function ExcelToPdfPage() {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "How does Excel to PDF conversion work?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "The tool reads your Excel file data using SheetJS and then generates a PDF document using the jsPDF library, creating a simple table layout of your data.",
-        },
+    mainEntity: dict.page_excel_to_pdf.faq.map((item: { question: string; answer: string }) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-      {
-        "@type": "Question",
-        name: "Does it keep the formatting?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "The tool extracts the data and presents it in a clean, standardized table format. Complex Excel styling, colors, and formulas are not preserved in the visual layout.",
-        },
-      },
-    ],
+    })),
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tools",
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "File & Data Tools",
-        item: "https://ssdown.app/tools/file",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "Excel to PDF",
-        item: "https://ssdown.app/file/excel-to-pdf",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.file_data_tools, item: "https://ssdown.app/tools/file" },
+      { "@type": "ListItem", position: 4, name: dict.page_excel_to_pdf.breadcrumb_title, item: "https://ssdown.app/file/excel-to-pdf" },
     ],
   };
 
@@ -93,18 +70,18 @@ export default function ExcelToPdfPage() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
-            { label: "Home", href: "/" },
-            { label: "Tools", href: "/tools" },
-            { label: "File Tools", href: "/tools/file" },
+            { label: dict.breadcrumb.home, href: "/" },
+            { label: dict.breadcrumb.tools, href: "/tools" },
+            { label: dict.breadcrumb.file_tools, href: "/tools/file" },
             {
-              label: "Excel to PDF",
+              label: dict.page_excel_to_pdf.breadcrumb_title,
               href: "/file/excel-to-pdf",
               isCurrent: true,
             },
           ]}
         />
       </div>
-      <ExcelToPdfClient />
+      <ExcelToPdfClient dict={dict} />
     </>
   );
 }

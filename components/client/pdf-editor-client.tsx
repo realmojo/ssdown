@@ -59,7 +59,7 @@ interface ImageOverlay {
   height: number;
 }
 
-export function PdfEditorClient() {
+export function PdfEditorClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfName, setPdfName] = useState("");
   const [pagesInfo, setPagesInfo] = useState<PageInfo[]>([]);
@@ -380,8 +380,8 @@ export function PdfEditorClient() {
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-red-100 to-rose-100 dark:from-red-900/30 dark:to-rose-900/30 mb-6">
           <Pencil className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">PDF Editor</h1>
-        <p className="text-muted-foreground text-center max-w-2xl mb-8">Edit your PDF: manage pages (delete, rotate, reorder), add text, and insert images. 100% private — processed in your browser.</p>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">{dict?.pdf_editor?.title || "PDF Editor"}</h1>
+        <p className="text-muted-foreground text-center max-w-2xl mb-8">{dict?.pdf_editor?.subtitle || "Edit your PDF: manage pages (delete, rotate, reorder), add text, and insert images. 100% private — processed in your browser."}</p>
 
         {!pdfFile && (
           <div
@@ -391,7 +391,7 @@ export function PdfEditorClient() {
           >
             <input ref={fileInputRef} type="file" accept="application/pdf" onChange={handleFileChange} className="hidden" />
             <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <p className="text-lg font-medium mb-2">Drag & drop a PDF file here</p>
+            <p className="text-lg font-medium mb-2">{dict?.pdf_editor?.drop_zone || "Drag & drop a PDF file here"}</p>
             <p className="text-sm text-muted-foreground">Only PDF files accepted. Max 50MB per file.</p>
           </div>
         )}
@@ -560,7 +560,7 @@ export function PdfEditorClient() {
             {resultUrl && (
               <div className="flex flex-col items-center gap-3 pt-4 animate-in fade-in slide-in-from-bottom-2">
                 <div className="text-sm text-muted-foreground">PDF edited successfully! {pagesInfo.length} page{pagesInfo.length !== 1 ? "s" : ""} &middot; {resultSize} MB</div>
-                <Button size="lg" onClick={handleDownload} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]"><Download className="w-5 h-5 mr-2" />Download Edited PDF</Button>
+                <Button size="lg" onClick={handleDownload} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]"><Download className="w-5 h-5 mr-2" />{dict?.pdf_editor?.download_btn || "Download Edited PDF"}</Button>
               </div>
             )}
           </div>
@@ -570,14 +570,14 @@ export function PdfEditorClient() {
       <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">How to Edit a PDF</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Edit your PDF documents in 3 simple steps.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_editor?.guide_title || "How to Edit a PDF"}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{dict?.pdf_editor?.guide_desc || "Edit your PDF documents in 3 simple steps."}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { step: 1, title: "Upload PDF", desc: "Drag and drop or click to select a PDF file from your device.", icon: Upload },
-              { step: 2, title: "Make Your Edits", desc: "Use tabs to manage pages (reorder, rotate, delete), add text annotations, or insert images.", icon: Pencil },
-              { step: 3, title: "Save & Download", desc: "Click 'Apply Edits & Save' to generate your edited PDF and download it.", icon: Download },
+              { step: 1, title: dict?.pdf_editor?.step1_title || "Upload PDF", desc: dict?.pdf_editor?.step1_desc || "Drag and drop or click to select a PDF file from your device.", icon: Upload },
+              { step: 2, title: dict?.pdf_editor?.step2_title || "Make Your Edits", desc: dict?.pdf_editor?.step2_desc || "Use tabs to manage pages (reorder, rotate, delete), add text annotations, or insert images.", icon: Pencil },
+              { step: 3, title: dict?.pdf_editor?.step3_title || "Save & Download", desc: dict?.pdf_editor?.step3_desc || "Click 'Apply Edits & Save' to generate your edited PDF and download it.", icon: Download },
             ].map((s) => (
               <Card key={s.step} className="border-red-200 dark:border-red-900/50">
                 <CardHeader><div className="flex items-center gap-3 mb-2"><div className="flex items-center justify-center w-10 h-10 rounded-full bg-red-600 text-white font-bold">{s.step}</div><CardTitle className="text-xl">{s.title}</CardTitle></div></CardHeader>
@@ -590,15 +590,15 @@ export function PdfEditorClient() {
         <section className="bg-red-50 dark:bg-red-900/20 rounded-2xl p-8 md:p-12">
           <div className="text-center mb-10">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4"><Lightbulb className="w-8 h-8 text-yellow-500" /></div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">PDF Editor Tips</h2>
-            <p className="text-muted-foreground">Get the best results when editing PDF documents.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_editor?.tips_title || "PDF Editor Tips"}</h2>
+            <p className="text-muted-foreground">{dict?.pdf_editor?.tips_desc || "Get the best results when editing PDF documents."}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: "100% Private", desc: "All processing happens in your browser using pdf-lib. Your files never leave your device.", icon: Shield },
-              { title: "Page Management", desc: "Reorder, rotate, and delete pages. Perfect for reorganizing scanned documents.", icon: Layers },
-              { title: "Text Annotations", desc: "Add text at precise coordinates. Specify page, position, and font size for each annotation.", icon: Type },
-              { title: "Image Insertion", desc: "Insert JPG, PNG, or WebP images at specific positions and sizes on any page.", icon: Zap },
+              { title: dict?.pdf_editor?.tip1_title || "100% Private", desc: dict?.pdf_editor?.tip1_desc || "All processing happens in your browser using pdf-lib. Your files never leave your device.", icon: Shield },
+              { title: dict?.pdf_editor?.tip2_title || "Page Management", desc: dict?.pdf_editor?.tip2_desc || "Reorder, rotate, and delete pages. Perfect for reorganizing scanned documents.", icon: Layers },
+              { title: dict?.pdf_editor?.tip3_title || "Text Annotations", desc: dict?.pdf_editor?.tip3_desc || "Add text at precise coordinates. Specify page, position, and font size for each annotation.", icon: Type },
+              { title: dict?.pdf_editor?.tip4_title || "Image Insertion", desc: dict?.pdf_editor?.tip4_desc || "Insert JPG, PNG, or WebP images at specific positions and sizes on any page.", icon: Zap },
             ].map((tip, idx) => (
               <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-red-800/30">
                 <div className="flex-shrink-0"><tip.icon className="w-6 h-6 text-red-600 dark:text-red-400" /></div>
@@ -610,16 +610,16 @@ export function PdfEditorClient() {
 
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">PDF Editor FAQ</h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto">Common questions about editing PDF documents.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_editor?.faq_title || "PDF Editor FAQ"}</h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto">{dict?.pdf_editor?.faq_desc || "Common questions about editing PDF documents."}</p>
           </div>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="faq-1"><AccordionTrigger>Is it free to edit PDFs?</AccordionTrigger><AccordionContent>Yes, this PDF editor is 100% free. There are no hidden fees, watermarks, or limitations on the edits you can make.</AccordionContent></AccordionItem>
-              <AccordionItem value="faq-2"><AccordionTrigger>Is my PDF secure when editing?</AccordionTrigger><AccordionContent>Absolutely. All processing happens entirely in your browser using pdf-lib. Your PDF never leaves your device and is never uploaded to any server.</AccordionContent></AccordionItem>
-              <AccordionItem value="faq-3"><AccordionTrigger>Can I edit the existing text in a PDF?</AccordionTrigger><AccordionContent>Currently, this tool supports adding new text overlays and managing pages. Editing existing text in a PDF requires re-creating the text content, which is not yet supported. You can add new text annotations on top of existing content.</AccordionContent></AccordionItem>
-              <AccordionItem value="faq-4"><AccordionTrigger>What coordinate system is used for positioning?</AccordionTrigger><AccordionContent>PDF coordinates start from the bottom-left corner of the page. X increases to the right, and Y increases upward. A typical A4 page is 595 x 842 points. Adjust X and Y values to position your text or images precisely.</AccordionContent></AccordionItem>
-              <AccordionItem value="faq-5"><AccordionTrigger>Can I undo my edits?</AccordionTrigger><AccordionContent>You can remove individual text or image overlays before applying. Once you click &quot;Apply Edits &amp; Save&quot;, a new PDF is generated. Your original file is never modified, so you can always start over with the original.</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-1"><AccordionTrigger>{dict?.pdf_editor?.faq_1_q || "Is it free to edit PDFs?"}</AccordionTrigger><AccordionContent>{dict?.pdf_editor?.faq_1_a || "Yes, this PDF editor is 100% free. There are no hidden fees, watermarks, or limitations on the edits you can make."}</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-2"><AccordionTrigger>{dict?.pdf_editor?.faq_2_q || "Is my PDF secure when editing?"}</AccordionTrigger><AccordionContent>{dict?.pdf_editor?.faq_2_a || "Absolutely. All processing happens entirely in your browser using pdf-lib. Your PDF never leaves your device and is never uploaded to any server."}</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-3"><AccordionTrigger>{dict?.pdf_editor?.faq_3_q || "Can I edit the existing text in a PDF?"}</AccordionTrigger><AccordionContent>{dict?.pdf_editor?.faq_3_a || "Currently, this tool supports adding new text overlays and managing pages. Editing existing text in a PDF requires re-creating the text content, which is not yet supported. You can add new text annotations on top of existing content."}</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-4"><AccordionTrigger>{dict?.pdf_editor?.faq_4_q || "What coordinate system is used for positioning?"}</AccordionTrigger><AccordionContent>{dict?.pdf_editor?.faq_4_a || "PDF coordinates start from the bottom-left corner of the page. X increases to the right, and Y increases upward. A typical A4 page is 595 x 842 points. Adjust X and Y values to position your text or images precisely."}</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-5"><AccordionTrigger>{dict?.pdf_editor?.faq_5_q || "Can I undo my edits?"}</AccordionTrigger><AccordionContent>{dict?.pdf_editor?.faq_5_a || "You can remove individual text or image overlays before applying. Once you click &quot;Apply Edits &amp; Save&quot;, a new PDF is generated. Your original file is never modified, so you can always start over with the original."}</AccordionContent></AccordionItem>
             </Accordion>
           </div>
         </section>

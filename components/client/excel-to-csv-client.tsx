@@ -28,7 +28,7 @@ import {
 import * as XLSX from "xlsx";
 import { toast } from "sonner";
 
-export function ExcelToCsvClient() {
+export function ExcelToCsvClient({ dict }: { dict?: any }) {
   const [csvOutput, setCsvOutput] = useState("");
   const [sheets, setSheets] = useState<string[]>([]);
   const [selectedSheet, setSelectedSheet] = useState<string>("");
@@ -123,11 +123,11 @@ export function ExcelToCsvClient() {
           <FileText className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Excel to CSV Converter
+          {dict?.excel_to_csv?.title || "Excel to CSV Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Convert Excel spreadsheets (.xlsx, .xls) to CSV format. Select
-          specific sheets to export.
+          {dict?.excel_to_csv?.subtitle || "Convert Excel spreadsheets (.xlsx, .xls) to CSV format. Select
+          specific sheets to export."}
         </p>
 
         <div className="w-full max-w-2xl mb-8">
@@ -231,22 +231,22 @@ export function ExcelToCsvClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Conversion Tips
+              {dict?.excel_to_csv?.tips_title || "Conversion Tips"}
             </h2>
             <p className="text-muted-foreground">
-              Get the most out of your Excel conversion.
+              {dict?.excel_to_csv?.tips_desc || "Get the most out of your Excel conversion."}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Multiple Sheets",
-                desc: "Excel files often contain multiple sheets. Use the dropdown menu to switch between them and convert each one individually.",
+                title: dict?.excel_to_csv?.tip1_title || "Multiple Sheets",
+                desc: dict?.excel_to_csv?.tip1_desc || "Excel files often contain multiple sheets. Use the dropdown menu to switch between them and convert each one individually.",
               },
               {
-                title: "Large Files",
-                desc: "Processing happens in your browser. Extremely large files might take a moment to load.",
+                title: dict?.excel_to_csv?.tip2_title || "Large Files",
+                desc: dict?.excel_to_csv?.tip2_desc || "Processing happens in your browser. Extremely large files might take a moment to load.",
               },
             ].map((tip, idx) => (
               <div

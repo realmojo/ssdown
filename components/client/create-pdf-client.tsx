@@ -44,7 +44,7 @@ const PAGE_SIZE_LABELS: Record<PageSize, string> = {
   Legal: "Legal (8.5 x 14 in)",
 };
 
-export function CreatePdfClient() {
+export function CreatePdfClient({ dict }: { dict?: any }) {
   const [pages, setPages] = useState<PageEntry[]>([
     { id: crypto.randomUUID(), text: "" },
   ]);
@@ -174,8 +174,8 @@ export function CreatePdfClient() {
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-red-100 to-rose-100 dark:from-red-900/30 dark:to-rose-900/30 mb-6">
           <FilePlus className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">Create PDF</h1>
-        <p className="text-muted-foreground text-center max-w-2xl mb-8">Create a new PDF document from text. Add multiple pages, choose page size and font size. 100% private — processed in your browser.</p>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">{dict?.create_pdf?.title || "Create PDF"}</h1>
+        <p className="text-muted-foreground text-center max-w-2xl mb-8">{dict?.create_pdf?.subtitle || "Create a new PDF document from text. Add multiple pages, choose page size and font size. 100% private — processed in your browser."}</p>
 
         <div className="w-full max-w-2xl space-y-6">
           <div className="flex flex-col sm:flex-row gap-4">
@@ -197,7 +197,7 @@ export function CreatePdfClient() {
               <h2 className="text-lg font-semibold">Pages ({pages.length})</h2>
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" onClick={addPage}><Plus className="w-4 h-4 mr-1" />Add Page</Button>
-                <Button variant="outline" size="sm" onClick={handleReset}><RotateCcw className="w-4 h-4 mr-1" />Reset</Button>
+                <Button variant="outline" size="sm" onClick={handleReset}><RotateCcw className="w-4 h-4 mr-1" />{dict?.create_pdf?.another_btn || "Reset"}</Button>
               </div>
             </div>
             {pages.map((page, idx) => (
@@ -229,7 +229,7 @@ export function CreatePdfClient() {
           {resultUrl && (
             <div className="flex flex-col items-center gap-3 pt-4 animate-in fade-in slide-in-from-bottom-2">
               <div className="text-sm text-muted-foreground">PDF generated successfully! {pages.length} page{pages.length !== 1 ? "s" : ""} &middot; {resultSize} MB</div>
-              <Button size="lg" onClick={handleDownload} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]"><Download className="w-5 h-5 mr-2" />Download PDF</Button>
+              <Button size="lg" onClick={handleDownload} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]"><Download className="w-5 h-5 mr-2" />{dict?.create_pdf?.download_btn || "Download PDF"}</Button>
             </div>
           )}
         </div>
@@ -238,14 +238,14 @@ export function CreatePdfClient() {
       <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">How to Create a PDF</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Create a professional PDF document from text in 3 simple steps.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.create_pdf?.guide_title || "How to Create a PDF"}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{dict?.create_pdf?.guide_desc || "Create a professional PDF document from text in 3 simple steps."}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { step: 1, title: "Enter Your Text", desc: "Type or paste your text into the editor. Add multiple pages as needed using the 'Add Page' button.", icon: FileText },
-              { step: 2, title: "Customize Settings", desc: "Choose your preferred page size (A4, Letter, Legal) and adjust the font size from 12px to 48px.", icon: FilePlus },
-              { step: 3, title: "Generate & Download", desc: "Click 'Generate PDF' and download your professionally formatted document.", icon: Download },
+              { step: 1, title: dict?.create_pdf?.step1_title || "Enter Your Text", desc: dict?.create_pdf?.step1_desc || "Type or paste your text into the editor. Add multiple pages as needed using the 'Add Page' button.", icon: FileText },
+              { step: 2, title: dict?.create_pdf?.step2_title || "Customize Settings", desc: dict?.create_pdf?.step2_desc || "Choose your preferred page size (A4, Letter, Legal) and adjust the font size from 12px to 48px.", icon: FilePlus },
+              { step: 3, title: dict?.create_pdf?.step3_title || "Generate & Download", desc: dict?.create_pdf?.step3_desc || "Click 'Generate PDF' and download your professionally formatted document.", icon: Download },
             ].map((s) => (
               <Card key={s.step} className="border-red-200 dark:border-red-900/50">
                 <CardHeader><div className="flex items-center gap-3 mb-2"><div className="flex items-center justify-center w-10 h-10 rounded-full bg-red-600 text-white font-bold">{s.step}</div><CardTitle className="text-xl">{s.title}</CardTitle></div></CardHeader>
@@ -258,15 +258,15 @@ export function CreatePdfClient() {
         <section className="bg-red-50 dark:bg-red-900/20 rounded-2xl p-8 md:p-12">
           <div className="text-center mb-10">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4"><Lightbulb className="w-8 h-8 text-yellow-500" /></div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">PDF Creation Tips</h2>
-            <p className="text-muted-foreground">Get the best results when creating PDF documents.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.create_pdf?.tips_title || "PDF Creation Tips"}</h2>
+            <p className="text-muted-foreground">{dict?.create_pdf?.tips_desc || "Get the best results when creating PDF documents."}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: "100% Private", desc: "All processing happens in your browser using pdf-lib. Your text never leaves your device.", icon: Shield },
-              { title: "Multi-Page Support", desc: "Add as many pages as you need. Each page has its own text editor for easy content management.", icon: FileText },
-              { title: "Flexible Formatting", desc: "Choose from A4, Letter, or Legal page sizes. Adjust font size from 12px to 48px for optimal readability.", icon: Zap },
-              { title: "Automatic Text Wrapping", desc: "Long lines are automatically wrapped to fit the page. Line breaks in your text are preserved.", icon: Upload },
+              { title: dict?.create_pdf?.tip1_title || "100% Private", desc: dict?.create_pdf?.tip1_desc || "All processing happens in your browser using pdf-lib. Your text never leaves your device.", icon: Shield },
+              { title: dict?.create_pdf?.tip2_title || "Multi-Page Support", desc: dict?.create_pdf?.tip2_desc || "Add as many pages as you need. Each page has its own text editor for easy content management.", icon: FileText },
+              { title: dict?.create_pdf?.tip3_title || "Flexible Formatting", desc: dict?.create_pdf?.tip3_desc || "Choose from A4, Letter, or Legal page sizes. Adjust font size from 12px to 48px for optimal readability.", icon: Zap },
+              { title: dict?.create_pdf?.tip4_title || "Automatic Text Wrapping", desc: dict?.create_pdf?.tip4_desc || "Long lines are automatically wrapped to fit the page. Line breaks in your text are preserved.", icon: Upload },
             ].map((tip, idx) => (
               <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-red-800/30">
                 <div className="flex-shrink-0"><tip.icon className="w-6 h-6 text-red-600 dark:text-red-400" /></div>
@@ -278,16 +278,16 @@ export function CreatePdfClient() {
 
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Create PDF FAQ</h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto">Common questions about creating PDF documents.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.create_pdf?.faq_title || "Create PDF FAQ"}</h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto">{dict?.create_pdf?.faq_desc || "Common questions about creating PDF documents."}</p>
           </div>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="faq-1"><AccordionTrigger>Is it free to create PDFs?</AccordionTrigger><AccordionContent>Yes, this PDF creation tool is 100% free. There are no hidden fees, watermarks, or limitations on the number of pages you can create.</AccordionContent></AccordionItem>
-              <AccordionItem value="faq-2"><AccordionTrigger>Is my text secure?</AccordionTrigger><AccordionContent>Absolutely. All processing happens entirely in your browser using pdf-lib. Your text never leaves your device and is never uploaded to any server.</AccordionContent></AccordionItem>
-              <AccordionItem value="faq-3"><AccordionTrigger>What fonts are supported?</AccordionTrigger><AccordionContent>Currently, the tool uses Helvetica, a clean and widely compatible sans-serif font. This ensures your PDF looks great on any device or PDF reader.</AccordionContent></AccordionItem>
-              <AccordionItem value="faq-4"><AccordionTrigger>Can I create multi-page documents?</AccordionTrigger><AccordionContent>Yes, you can add as many pages as you need. Each page has its own text editor. Long text on a single page is automatically split across multiple PDF pages.</AccordionContent></AccordionItem>
-              <AccordionItem value="faq-5"><AccordionTrigger>What page sizes are available?</AccordionTrigger><AccordionContent>You can choose from three standard page sizes: A4 (210 x 297 mm, international standard), Letter (8.5 x 11 inches, US standard), and Legal (8.5 x 14 inches).</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-1"><AccordionTrigger>{dict?.create_pdf?.faq_1_q || "Is it free to create PDFs?"}</AccordionTrigger><AccordionContent>{dict?.create_pdf?.faq_1_a || "Yes, this PDF creation tool is 100% free. There are no hidden fees, watermarks, or limitations on the number of pages you can create."}</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-2"><AccordionTrigger>{dict?.create_pdf?.faq_2_q || "Is my text secure?"}</AccordionTrigger><AccordionContent>{dict?.create_pdf?.faq_2_a || "Absolutely. All processing happens entirely in your browser using pdf-lib. Your text never leaves your device and is never uploaded to any server."}</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-3"><AccordionTrigger>{dict?.create_pdf?.faq_3_q || "What fonts are supported?"}</AccordionTrigger><AccordionContent>{dict?.create_pdf?.faq_3_a || "Currently, the tool uses Helvetica, a clean and widely compatible sans-serif font. This ensures your PDF looks great on any device or PDF reader."}</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-4"><AccordionTrigger>{dict?.create_pdf?.faq_4_q || "Can I create multi-page documents?"}</AccordionTrigger><AccordionContent>{dict?.create_pdf?.faq_4_a || "Yes, you can add as many pages as you need. Each page has its own text editor. Long text on a single page is automatically split across multiple PDF pages."}</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-5"><AccordionTrigger>{dict?.create_pdf?.faq_5_q || "What page sizes are available?"}</AccordionTrigger><AccordionContent>{dict?.create_pdf?.faq_5_a || "You can choose from three standard page sizes: A4 (210 x 297 mm, international standard), Letter (8.5 x 11 inches, US standard), and Legal (8.5 x 14 inches)."}</AccordionContent></AccordionItem>
             </Accordion>
           </div>
         </section>

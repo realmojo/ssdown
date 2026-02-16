@@ -1,14 +1,17 @@
-import { Metadata } from "next";
 import { Music, ImageIcon, Film, Scissors, ArrowRight, VolumeX, FileVideo } from "lucide-react";
+import { Metadata } from "next";
+import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/tools/video-audio`;
 
-  const title = "Free Online Video & Audio Tools | SSDown";
-  const description =
-    "Free online video and audio tools. Convert video to MP3, GIF, extract frames, and trim audio. All processing in your browser.";
+  const title = dict.page_tools_video_audio.meta_title;
+  const description = dict.page_tools_video_audio.meta_description;
 
   return {
     title,
@@ -18,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: "en_US",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
     },
     twitter: { card: "summary_large_image", title, description },
@@ -26,95 +29,33 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const tools = [
-  {
-    title: "Video to MP3 Converter",
-    description: "Convert video files to MP3 audio directly in your browser.",
-    href: "/video-audio/video-to-mp3",
-    icon: Music,
-    gradient: "from-pink-500 to-rose-500",
-    bgLight: "bg-pink-100 dark:bg-pink-900/30",
-    iconColor: "text-pink-500",
-  },
-  {
-    title: "Video to GIF Converter",
-    description: "Convert short video clips to animated GIFs.",
-    href: "/video-audio/video-to-gif",
-    icon: ImageIcon,
-    gradient: "from-pink-500 to-rose-500",
-    bgLight: "bg-pink-100 dark:bg-pink-900/30",
-    iconColor: "text-rose-500",
-  },
-  {
-    title: "Video Frame Extractor",
-    description: "Extract high-quality frames from video files.",
-    href: "/video-audio/video-frame-extractor",
-    icon: Film,
-    gradient: "from-indigo-500 to-purple-500",
-    bgLight: "bg-indigo-100 dark:bg-indigo-900/30",
-    iconColor: "text-indigo-500",
-  },
-  {
-    title: "Audio Trimmer",
-    description: "Cut and trim MP3, WAV, M4A files in your browser.",
-    href: "/video-audio/audio-trimmer",
-    icon: Scissors,
-    gradient: "from-orange-500 to-amber-500",
-    bgLight: "bg-orange-100 dark:bg-orange-900/30",
-    iconColor: "text-orange-500",
-  },
-  {
-    title: "Mute Video",
-    description: "Remove audio from any video file instantly. No re-encoding.",
-    href: "/video-audio/mute-video",
-    icon: VolumeX,
-    gradient: "from-violet-500 to-purple-500",
-    bgLight: "bg-violet-100 dark:bg-violet-900/30",
-    iconColor: "text-violet-500",
-  },
-  {
-    title: "GIF to MP4 Converter",
-    description: "Convert animated GIFs to compact MP4 video files.",
-    href: "/video-audio/gif-to-mp4",
-    icon: FileVideo,
-    gradient: "from-emerald-500 to-green-500",
-    bgLight: "bg-emerald-100 dark:bg-emerald-900/30",
-    iconColor: "text-emerald-500",
-  },
-  {
-    title: "Trim Video",
-    description: "Cut video clips by selecting start and end points.",
-    href: "/video-audio/trim-video",
-    icon: Scissors,
-    gradient: "from-amber-500 to-yellow-500",
-    bgLight: "bg-amber-100 dark:bg-amber-900/30",
-    iconColor: "text-amber-500",
-  },
+const toolMeta = [
+  { href: "/video-audio/video-to-mp3", icon: Music, gradient: "from-pink-500 to-rose-500", bgLight: "bg-pink-100 dark:bg-pink-900/30", iconColor: "text-pink-500" },
+  { href: "/video-audio/video-to-gif", icon: ImageIcon, gradient: "from-pink-500 to-rose-500", bgLight: "bg-pink-100 dark:bg-pink-900/30", iconColor: "text-rose-500" },
+  { href: "/video-audio/video-frame-extractor", icon: Film, gradient: "from-indigo-500 to-purple-500", bgLight: "bg-indigo-100 dark:bg-indigo-900/30", iconColor: "text-indigo-500" },
+  { href: "/video-audio/audio-trimmer", icon: Scissors, gradient: "from-orange-500 to-amber-500", bgLight: "bg-orange-100 dark:bg-orange-900/30", iconColor: "text-orange-500" },
+  { href: "/video-audio/mute-video", icon: VolumeX, gradient: "from-violet-500 to-purple-500", bgLight: "bg-violet-100 dark:bg-violet-900/30", iconColor: "text-violet-500" },
+  { href: "/video-audio/gif-to-mp4", icon: FileVideo, gradient: "from-emerald-500 to-green-500", bgLight: "bg-emerald-100 dark:bg-emerald-900/30", iconColor: "text-emerald-500" },
+  { href: "/video-audio/trim-video", icon: Scissors, gradient: "from-amber-500 to-yellow-500", bgLight: "bg-amber-100 dark:bg-amber-900/30", iconColor: "text-amber-500" },
 ];
 
-export default function VideoAudioToolsPage() {
+export default async function VideoAudioToolsPage() {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+
+  const tools = toolMeta.map((meta, i) => ({
+    ...meta,
+    title: dict.page_tools_video_audio.tools[i].title,
+    description: dict.page_tools_video_audio.tools[i].description,
+  }));
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tools",
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "Video & Audio",
-        item: "https://ssdown.app/tools/video-audio",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.video_audio, item: "https://ssdown.app/tools/video-audio" },
     ],
   };
 
@@ -128,10 +69,10 @@ export default function VideoAudioToolsPage() {
         <div className="container max-w-7xl mx-auto px-4 py-8">
           <Breadcrumbs
             items={[
-              { label: "Home", href: "/" },
-              { label: "Tools", href: "/tools" },
+              { label: dict.breadcrumb.home, href: "/" },
+              { label: dict.breadcrumb.tools, href: "/tools" },
               {
-                label: "Video & Audio",
+                label: dict.breadcrumb.video_audio,
                 href: "/tools/video-audio",
                 isCurrent: true,
               },
@@ -140,11 +81,10 @@ export default function VideoAudioToolsPage() {
 
           <header className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-              Video & Audio Tools
+              {dict.page_tools_video_audio.heading}
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Free online video and audio tools. Convert, extract, and trim
-              media files directly in your browser.
+              {dict.page_tools_video_audio.subtitle}
             </p>
           </header>
 
@@ -165,7 +105,7 @@ export default function VideoAudioToolsPage() {
                 <span
                   className={`inline-flex items-center gap-2 text-sm font-semibold bg-gradient-to-r ${tool.gradient} bg-clip-text text-transparent group-hover:gap-3 transition-all`}
                 >
-                  Try it now <ArrowRight className="w-4 h-4 text-current" />
+                  {dict.breadcrumb.try_it_now} <ArrowRight className="w-4 h-4 text-current" />
                 </span>
               </a>
             ))}

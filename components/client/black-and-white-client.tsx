@@ -21,7 +21,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-export function BlackAndWhiteClient() {
+export function BlackAndWhiteClient({ dict }: { dict?: any }) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>("");
   const [isDragging, setIsDragging] = useState(false);
@@ -145,10 +145,10 @@ export function BlackAndWhiteClient() {
           <Contrast className="w-10 h-10 text-gray-600 dark:text-gray-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Black & White
+          {dict?.black_and_white?.title || "Black & White"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Convert your photo to black & white instantly. Uses luminance-preserving grayscale conversion. 100% private — processed in your browser.
+          {dict?.black_and_white?.subtitle || "Convert your photo to black & white instantly. Uses luminance-preserving grayscale conversion. 100% private — processed in your browser."}
         </p>
 
         {!imageSrc ? (
@@ -172,13 +172,13 @@ export function BlackAndWhiteClient() {
             />
             <FileImage className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
             <p className="text-lg font-medium mb-2">
-              Drag & drop your image here
+              {dict?.black_and_white?.drop_zone || "Drag & drop your image here"}
             </p>
             <p className="text-sm text-muted-foreground">
-              Supported: PNG, JPG, JPEG, WebP, GIF, BMP
+              {dict?.black_and_white?.supported || "Supported: PNG, JPG, JPEG, WebP, GIF, BMP"}
             </p>
             <p className="text-xs text-muted-foreground mt-2">
-              Max file size: 20MB
+              {dict?.black_and_white?.max_file_size || "Max file size: 20MB"}
             </p>
             <button
               type="button"
@@ -264,30 +264,30 @@ export function BlackAndWhiteClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              How to Convert to Black & White
+              {dict?.black_and_white?.guide_title || "How to Convert to Black & White"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Convert any image to black & white in 3 simple steps.
+              {dict?.black_and_white?.guide_desc || "Convert any image to black & white in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 step: 1,
-                title: "Upload Image",
-                desc: "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
+                title: dict?.black_and_white?.step1_title || "Upload Image",
+                desc: dict?.black_and_white?.step1_desc || "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
                 icon: Upload,
               },
               {
                 step: 2,
-                title: "Auto Convert",
-                desc: "Your image is instantly converted to black & white using luminance-based grayscale.",
+                title: dict?.black_and_white?.step2_title || "Auto Convert",
+                desc: dict?.black_and_white?.step2_desc || "Your image is instantly converted to black & white using luminance-based grayscale.",
                 icon: Contrast,
               },
               {
                 step: 3,
-                title: "Download Result",
-                desc: "Click 'Download' to save your black & white image to your device.",
+                title: dict?.black_and_white?.step3_title || "Download Result",
+                desc: dict?.black_and_white?.step3_desc || "Click 'Download' to save your black & white image to your device.",
                 icon: Download,
               },
             ].map((step) => (
@@ -314,7 +314,7 @@ export function BlackAndWhiteClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Black & White Tips
+              {dict?.black_and_white?.tips_title || "Black & White Tips"}
             </h2>
             <p className="text-muted-foreground">
               Get the best results when converting images to black & white.
@@ -359,7 +359,7 @@ export function BlackAndWhiteClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Black & White FAQ
+              {dict?.black_and_white?.faq_title || "Black & White FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
               Common questions about converting images to black & white.
@@ -368,33 +368,33 @@ export function BlackAndWhiteClient() {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to use?</AccordionTrigger>
+                <AccordionTrigger>{dict?.black_and_white?.faq_1_q || "Is it free to use?"}</AccordionTrigger>
                 <AccordionContent>
-                  Yes, this black & white converter is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can convert.
+                  {dict?.black_and_white?.faq_1_a || "Yes, this black & white converter is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can convert."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Is it secure? Where are my images stored?</AccordionTrigger>
+                <AccordionTrigger>{dict?.black_and_white?.faq_2_q || "Is it secure? Where are my images stored?"}</AccordionTrigger>
                 <AccordionContent>
-                  Your images are completely secure because all processing happens entirely in your browser using Canvas API. Your images never leave your device and are never uploaded to any server.
+                  {dict?.black_and_white?.faq_2_a || "Your images are completely secure because all processing happens entirely in your browser using Canvas API. Your images never leave your device and are never uploaded to any server."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>How does the grayscale conversion work?</AccordionTrigger>
+                <AccordionTrigger>{dict?.black_and_white?.faq_3_q || "How does the grayscale conversion work?"}</AccordionTrigger>
                 <AccordionContent>
-                  We use the ITU-R BT.601 luminance formula: Gray = 0.299 x Red + 0.587 x Green + 0.114 x Blue. This weighted average produces natural-looking grayscale that matches how human eyes perceive brightness.
+                  {dict?.black_and_white?.faq_3_a || "We use the ITU-R BT.601 luminance formula: Gray = 0.299 x Red + 0.587 x Green + 0.114 x Blue. This weighted average produces natural-looking grayscale that matches how human eyes perceive brightness."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>Does it reduce image quality?</AccordionTrigger>
+                <AccordionTrigger>{dict?.black_and_white?.faq_4_q || "Does it reduce image quality?"}</AccordionTrigger>
                 <AccordionContent>
-                  No. The conversion maintains the original resolution and file quality. Only the color information is removed — the image dimensions, sharpness, and detail are fully preserved.
+                  {dict?.black_and_white?.faq_4_a || "No. The conversion maintains the original resolution and file quality. Only the color information is removed — the image dimensions, sharpness, and detail are fully preserved."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>What image formats are supported?</AccordionTrigger>
+                <AccordionTrigger>{dict?.black_and_white?.faq_5_q || "What image formats are supported?"}</AccordionTrigger>
                 <AccordionContent>
-                  You can convert PNG, JPG, JPEG, WebP, GIF, and BMP images to black & white. The converted image will be saved in the same format as the original. Maximum file size is 20MB.
+                  {dict?.black_and_white?.faq_5_a || "You can convert PNG, JPG, JPEG, WebP, GIF, and BMP images to black & white. The converted image will be saved in the same format as the original. Maximum file size is 20MB."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

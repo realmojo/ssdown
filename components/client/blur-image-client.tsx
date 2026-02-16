@@ -21,7 +21,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-export function BlurImageClient() {
+export function BlurImageClient({ dict }: { dict?: any }) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>("");
   const [isDragging, setIsDragging] = useState(false);
@@ -150,10 +150,10 @@ export function BlurImageClient() {
           <Droplets className="w-10 h-10 text-purple-600 dark:text-purple-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Blur Image
+          {dict?.blur_image?.title || "Blur Image"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Apply gaussian blur to your images instantly. Adjust blur intensity with a slider. 100% private — processed in your browser.
+          {dict?.blur_image?.subtitle || "Apply gaussian blur to your images instantly. Adjust blur intensity with a slider. 100% private — processed in your browser."}
         </p>
 
         {!imageSrc ? (
@@ -177,13 +177,13 @@ export function BlurImageClient() {
             />
             <FileImage className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
             <p className="text-lg font-medium mb-2">
-              Drag & drop your image here
+              {dict?.blur_image?.drop_zone || "Drag & drop your image here"}
             </p>
             <p className="text-sm text-muted-foreground">
-              Supported: PNG, JPG, JPEG, WebP, GIF, BMP
+              {dict?.blur_image?.supported || "Supported: PNG, JPG, JPEG, WebP, GIF, BMP"}
             </p>
             <p className="text-xs text-muted-foreground mt-2">
-              Max file size: 20MB
+              {dict?.blur_image?.max_file_size || "Max file size: 20MB"}
             </p>
             <button
               type="button"
@@ -332,30 +332,30 @@ export function BlurImageClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              How to Blur Images
+              {dict?.blur_image?.guide_title || "How to Blur Images"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Apply gaussian blur to any image in 3 simple steps.
+              {dict?.blur_image?.guide_desc || "Apply gaussian blur to any image in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 step: 1,
-                title: "Upload Image",
-                desc: "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
+                title: dict?.blur_image?.step1_title || "Upload Image",
+                desc: dict?.blur_image?.step1_desc || "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
                 icon: Upload,
               },
               {
                 step: 2,
-                title: "Adjust Blur",
-                desc: "Use the slider to control blur intensity from 0px to 20px, or select a quick preset.",
+                title: dict?.blur_image?.step2_title || "Adjust Blur",
+                desc: dict?.blur_image?.step2_desc || "Use the slider to control blur intensity from 0px to 20px, or select a quick preset.",
                 icon: Droplets,
               },
               {
                 step: 3,
-                title: "Download Result",
-                desc: "Click 'Download' to save your blurred image to your device.",
+                title: dict?.blur_image?.step3_title || "Download Result",
+                desc: dict?.blur_image?.step3_desc || "Click 'Download' to save your blurred image to your device.",
                 icon: Download,
               },
             ].map((step) => (
@@ -382,7 +382,7 @@ export function BlurImageClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Blur Image Tips
+              {dict?.blur_image?.tips_title || "Blur Image Tips"}
             </h2>
             <p className="text-muted-foreground">
               Get the best results when blurring images.
@@ -427,7 +427,7 @@ export function BlurImageClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Blur Image FAQ
+              {dict?.blur_image?.faq_title || "Blur Image FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
               Common questions about blurring images.
@@ -436,33 +436,33 @@ export function BlurImageClient() {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to use?</AccordionTrigger>
+                <AccordionTrigger>{dict?.blur_image?.faq_1_q || "Is it free to use?"}</AccordionTrigger>
                 <AccordionContent>
-                  Yes, this blur image tool is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can blur.
+                  {dict?.blur_image?.faq_1_a || "Yes, this blur image tool is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can blur."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Is it secure? Where are my images stored?</AccordionTrigger>
+                <AccordionTrigger>{dict?.blur_image?.faq_2_q || "Is it secure? Where are my images stored?"}</AccordionTrigger>
                 <AccordionContent>
-                  Your images are completely secure because all processing happens entirely in your browser using Canvas API. Your images never leave your device and are never uploaded to any server.
+                  {dict?.blur_image?.faq_2_a || "Your images are completely secure because all processing happens entirely in your browser using Canvas API. Your images never leave your device and are never uploaded to any server."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>What is gaussian blur?</AccordionTrigger>
+                <AccordionTrigger>{dict?.blur_image?.faq_3_q || "What is gaussian blur?"}</AccordionTrigger>
                 <AccordionContent>
-                  Gaussian blur is a widely-used image blur effect that applies a mathematical blur algorithm. It creates a smooth, natural-looking blur by averaging pixel colors based on a gaussian distribution, producing professional results.
+                  {dict?.blur_image?.faq_3_a || "Gaussian blur is a widely-used image blur effect that applies a mathematical blur algorithm. It creates a smooth, natural-looking blur by averaging pixel colors based on a gaussian distribution, producing professional results."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>Does it reduce image quality?</AccordionTrigger>
+                <AccordionTrigger>{dict?.blur_image?.faq_4_q || "Does it reduce image quality?"}</AccordionTrigger>
                 <AccordionContent>
-                  The blur effect itself does not reduce image quality beyond the intended blur. The original resolution and file quality are maintained. Only the sharpness is reduced by the blur filter.
+                  {dict?.blur_image?.faq_4_a || "The blur effect itself does not reduce image quality beyond the intended blur. The original resolution and file quality are maintained. Only the sharpness is reduced by the blur filter."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>What image formats are supported?</AccordionTrigger>
+                <AccordionTrigger>{dict?.blur_image?.faq_5_q || "What image formats are supported?"}</AccordionTrigger>
                 <AccordionContent>
-                  You can blur PNG, JPG, JPEG, WebP, GIF, and BMP images. The blurred image will be saved in the same format as the original. Maximum file size is 20MB.
+                  {dict?.blur_image?.faq_5_a || "You can blur PNG, JPG, JPEG, WebP, GIF, and BMP images. The blurred image will be saved in the same format as the original. Maximum file size is 20MB."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

@@ -28,7 +28,7 @@ import {
 import * as XLSX from "xlsx";
 import { toast } from "sonner";
 
-export function ExcelToXmlClient() {
+export function ExcelToXmlClient({ dict }: { dict?: any }) {
   const [xmlOutput, setXmlOutput] = useState("");
   const [sheets, setSheets] = useState<string[]>([]);
   const [selectedSheet, setSelectedSheet] = useState<string>("");
@@ -148,11 +148,11 @@ export function ExcelToXmlClient() {
           <FileCode className="w-8 h-8 text-purple-600 dark:text-purple-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Excel to XML Converter
+          {dict?.excel_to_xml?.title || "Excel to XML Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Convert Excel spreadsheet rows to XML elements. Supports multiple
-          sheets and custom columns.
+          {dict?.excel_to_xml?.subtitle || "Convert Excel spreadsheet rows to XML elements. Supports multiple
+          sheets and custom columns."}
         </p>
 
         <div className="w-full max-w-2xl mb-8">

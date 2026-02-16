@@ -1,37 +1,31 @@
-import { WatermarkRemoverClient } from "@/components/client/watermark-remover-client";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
+import { WatermarkRemoverClient } from "@/components/client/watermark-remover-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/watermark-remover`;
 
-  const title =
-    "Watermark Remover - Remove Watermarks from Images Online | SSDown";
-  const description =
-    "Free online watermark remover. Remove watermarks from images instantly in your browser. Batch processing, before/after preview. 100% private.";
+  const title = dict.page_watermark_remover.meta_title;
+  const description = dict.page_watermark_remover.meta_description;
 
   return {
     title,
     description,
-    alternates: {
-      canonical,
-    },
+    alternates: { canonical },
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: "en_US",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
     },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -42,97 +36,24 @@ export default async function WatermarkRemoverPage() {
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name:
-          dict?.qna_watermark_remover?.faq_1_q ||
-          "Is my image uploaded to a server?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_watermark_remover?.faq_1_a ||
-            "No. All processing happens entirely in your browser. Your images never leave your device.",
-        },
+    mainEntity: dict.page_watermark_remover.faq.map((item: { question: string; answer: string }) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-      {
-        "@type": "Question",
-        name:
-          dict?.qna_watermark_remover?.faq_2_q ||
-          "What image formats are supported?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_watermark_remover?.faq_2_a ||
-            "We support PNG, JPG, and WebP image formats.",
-        },
-      },
-      {
-        "@type": "Question",
-        name:
-          dict?.qna_watermark_remover?.faq_3_q ||
-          "Can I process multiple images at once?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_watermark_remover?.faq_3_a ||
-            "Yes! You can select multiple images for batch processing. All images are processed sequentially in your browser.",
-        },
-      },
-      {
-        "@type": "Question",
-        name:
-          dict?.qna_watermark_remover?.faq_4_q ||
-          "What types of watermarks can be removed?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_watermark_remover?.faq_4_a ||
-            "This tool is optimized for removing semi-transparent logo watermarks commonly found in the bottom-right corner of images.",
-        },
-      },
-      {
-        "@type": "Question",
-        name:
-          dict?.qna_watermark_remover?.faq_5_q || "What is the output format?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_watermark_remover?.faq_5_a ||
-            "All processed images are saved as lossless PNG files for the best quality output.",
-        },
-      },
-    ],
+    })),
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tools",
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "Image Tools",
-        item: "https://ssdown.app/tools/image",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "Watermark Remover",
-        item: "https://ssdown.app/image/watermark-remover",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.image_tools, item: "https://ssdown.app/tools/image" },
+      { "@type": "ListItem", position: 4, name: dict.page_watermark_remover.breadcrumb_title, item: "https://ssdown.app/image/watermark-remover" },
     ],
   };
 
@@ -149,11 +70,11 @@ export default async function WatermarkRemoverPage() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
-            { label: "Home", href: "/" },
-            { label: "Tools", href: "/tools" },
-            { label: "Image Tools", href: "/tools/image" },
+            { label: dict.breadcrumb.home, href: "/" },
+            { label: dict.breadcrumb.tools, href: "/tools" },
+            { label: dict.breadcrumb.image_tools, href: "/tools/image" },
             {
-              label: "Watermark Remover",
+              label: dict.page_watermark_remover.breadcrumb_title,
               href: "/image/watermark-remover",
               isCurrent: true,
             },

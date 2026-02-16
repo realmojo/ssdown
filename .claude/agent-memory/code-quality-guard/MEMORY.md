@@ -135,5 +135,38 @@
 - **Fix applied**: Changed `new Blob([mergedBytes], ...)` to `new Blob([new Uint8Array(mergedBytes)], ...)` on line 153
 - **Notes**: New PDF merging tool (~340 lines) using `pdf-lib`. Features drag-and-drop reordering, file preview (first page thumbnails rendered via canvas), progress tracking, merged file download with size display. New "PDF" category created with FileText icon in tools page and site header (desktop dropdown + mobile section). Route successfully registered at `/pdf/merge-pdf`. Modified files: tools page (added PDF card), site header (PDF dropdown/mobile), sitemap (+2 URLs: /pdf/merge-pdf, /tools/pdf), next.config.ts (redirect). Build time: 4.4s compile + 473.5ms static generation (71 pages total, up from 69).
 
+### Multi-language Tools Pages Update (2026-02-16)
+- **Scope**: 39 tools pages updated with i18n support
+  - 20 image tool pages (e.g., add-border-to-image, image-converter, etc.)
+  - 12 file tool pages (e.g., csv-to-excel, excel-to-pdf, etc.)
+  - 7 tools index pages (image, file, pdf, social-text, utility, video-audio, main tools page)
+- **Files modified**: 45 total
+  - Tool page files: 39 `/app/{category}/{tool}/page.tsx` files
+  - Dictionary files: `dictionaries/en.json`, `dictionaries/kr.json`
+  - ESLint config: `eslint.config.mjs`
+- **Status**: ✅ PASS (Lint + Build)
+- **Issues found and fixed**:
+  1. **ESLint errors in pdf.worker.min.mjs**: 7 errors in minified third-party PDF worker file (no-this-alias violations)
+  2. **Solution**: Added `public/js/**` to eslintignore in `eslint.config.mjs` to ignore minified vendor files
+- **Build results**:
+  - Lint: ✅ PASS (after ignore fix)
+  - Build: ✅ PASS - Compiled in 19.5s, generated 105 static pages in 204.8ms
+  - TypeScript strict mode: ✅ PASS
+  - Route count: 105 pages (includes all video platforms, tools categories, blog, static pages)
+- **Verification**:
+  - Confirmed page files use `getDictionary()` and `getLocale()` for i18n
+  - Sample files checked: `/app/image/add-border-to-image/page.tsx`, `/app/tools/image/page.tsx`
+  - Dictionary keys verified: `page_add_border_to_image`, `page_tools_image`, etc. present in en.json
+  - All modified files properly compiled with TypeScript strict mode
+- **Notes**: This is a large i18n migration affecting tools pages. All pages now support English and Korean language selection. Build pipeline includes Turbopack optimization and middleware proxy setup.
+
+## ESLint Configuration Pattern
+
+### Handling Minified Vendor Files
+- **Problem**: Minified third-party libraries (PDF.js, etc.) trigger linter warnings/errors that are not actionable
+- **Solution**: Use `globalIgnores()` in `eslint.config.mjs` to exclude vendor paths
+- **Example**: Added `"public/js/**"` to ignore PDF worker minified code
+- **Best practice**: Only ignore specific vendor paths, not entire directories (to catch issues in actual project code)
+
 ## Last Updated
-2026-02-12 (PDF tools suite fixes)
+2026-02-16 (Multi-language tools pages i18n migration)

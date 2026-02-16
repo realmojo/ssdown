@@ -31,7 +31,7 @@ interface PageItem {
   label: string;
 }
 
-export function RearrangePdfClient() {
+export function RearrangePdfClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfName, setPdfName] = useState("");
   const [pages, setPages] = useState<PageItem[]>([]);
@@ -209,9 +209,9 @@ export function RearrangePdfClient() {
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-red-100 to-rose-100 dark:from-red-900/30 dark:to-rose-900/30 mb-6">
           <ArrowUpDown className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">Rearrange PDF Pages</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">{dict?.rearrange_pdf?.title || "Rearrange PDF Pages"}</h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Change the order of pages in your PDF. Move pages up, down, or reverse the entire order. 100% private — processed in your browser.
+          {dict?.rearrange_pdf?.subtitle || "Change the order of pages in your PDF. Move pages up, down, or reverse the entire order. 100% private — processed in your browser."}
         </p>
 
         {!pdfFile && (
@@ -224,7 +224,7 @@ export function RearrangePdfClient() {
           >
             <input ref={fileInputRef} type="file" accept="application/pdf" onChange={handleFileChange} className="hidden" />
             <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <p className="text-lg font-medium mb-2">Drag & drop a PDF file here</p>
+            <p className="text-lg font-medium mb-2">{dict?.rearrange_pdf?.drop_zone || "Drag & drop a PDF file here"}</p>
             <p className="text-sm text-muted-foreground">Only PDF files accepted. Max 50MB per file.</p>
           </div>
         )}
@@ -293,7 +293,7 @@ export function RearrangePdfClient() {
               <div className="flex flex-col items-center gap-3 pt-4 animate-in fade-in slide-in-from-bottom-2">
                 <div className="text-sm text-muted-foreground">Rearranged successfully! {pages.length} pages &middot; {resultSize} MB</div>
                 <Button size="lg" onClick={handleDownload} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]">
-                  <Download className="w-5 h-5 mr-2" />Download Rearranged PDF
+                  <Download className="w-5 h-5 mr-2" />{dict?.rearrange_pdf?.download_btn || "Download Rearranged PDF"}
                 </Button>
               </div>
             )}
@@ -304,14 +304,14 @@ export function RearrangePdfClient() {
       <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">How to Rearrange PDF Pages</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Reorder your PDF pages in 3 simple steps.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.rearrange_pdf?.guide_title || "How to Rearrange PDF Pages"}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{dict?.rearrange_pdf?.guide_desc || "Reorder your PDF pages in 3 simple steps."}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { step: 1, title: "Upload PDF", desc: "Drag and drop or click to select a PDF file from your device.", icon: Upload },
-              { step: 2, title: "Rearrange Pages", desc: "Use the up/down buttons to move pages to your desired order, or reverse the entire document.", icon: ArrowUpDown },
-              { step: 3, title: "Download", desc: "Click 'Apply New Order' and download your rearranged PDF file.", icon: Download },
+              { step: 1, title: dict?.rearrange_pdf?.step1_title || "Upload PDF", desc: dict?.rearrange_pdf?.step1_desc || "Drag and drop or click to select a PDF file from your device.", icon: Upload },
+              { step: 2, title: dict?.rearrange_pdf?.step2_title || "Rearrange Pages", desc: dict?.rearrange_pdf?.step2_desc || "Use the up/down buttons to move pages to your desired order, or reverse the entire document.", icon: ArrowUpDown },
+              { step: 3, title: dict?.rearrange_pdf?.step3_title || "Download", desc: dict?.rearrange_pdf?.step3_desc || "Click 'Apply New Order' and download your rearranged PDF file.", icon: Download },
             ].map((step) => (
               <Card key={step.step} className="border-red-200 dark:border-red-900/50">
                 <CardHeader>
@@ -331,15 +331,15 @@ export function RearrangePdfClient() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Page Rearranging Tips</h2>
-            <p className="text-muted-foreground">Get the best results when reordering PDF pages.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.rearrange_pdf?.tips_title || "Page Rearranging Tips"}</h2>
+            <p className="text-muted-foreground">{dict?.rearrange_pdf?.tips_desc || "Get the best results when reordering PDF pages."}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: "100% Private", desc: "All processing happens in your browser using pdf-lib. Your files never leave your device.", icon: Shield },
-              { title: "Visual Page List", desc: "Each page shows its original and new position, making it easy to track your changes.", icon: Eye },
-              { title: "Quick Reverse", desc: "Use the Reverse button to instantly flip the entire page order — great for fixing scanned documents.", icon: Zap },
-              { title: "Original Preserved", desc: "Your original PDF file remains untouched. Only a new rearranged file is created for download.", icon: FileText },
+              { title: dict?.rearrange_pdf?.tip1_title || "100% Private", desc: dict?.rearrange_pdf?.tip1_desc || "All processing happens in your browser using pdf-lib. Your files never leave your device.", icon: Shield },
+              { title: dict?.rearrange_pdf?.tip2_title || "Visual Page List", desc: dict?.rearrange_pdf?.tip2_desc || "Each page shows its original and new position, making it easy to track your changes.", icon: Eye },
+              { title: dict?.rearrange_pdf?.tip3_title || "Quick Reverse", desc: dict?.rearrange_pdf?.tip3_desc || "Use the Reverse button to instantly flip the entire page order — great for fixing scanned documents.", icon: Zap },
+              { title: dict?.rearrange_pdf?.tip4_title || "Original Preserved", desc: dict?.rearrange_pdf?.tip4_desc || "Your original PDF file remains untouched. Only a new rearranged file is created for download.", icon: FileText },
             ].map((tip, idx) => (
               <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-red-800/30">
                 <div className="flex-shrink-0"><tip.icon className="w-6 h-6 text-red-600 dark:text-red-400" /></div>
@@ -354,30 +354,30 @@ export function RearrangePdfClient() {
 
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Rearrange PDF FAQ</h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto">Common questions about rearranging PDF pages.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.rearrange_pdf?.faq_title || "Rearrange PDF FAQ"}</h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto">{dict?.rearrange_pdf?.faq_desc || "Common questions about rearranging PDF pages."}</p>
           </div>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to rearrange PDF pages?</AccordionTrigger>
-                <AccordionContent>Yes, this PDF page rearranging tool is 100% free. There are no hidden fees, watermarks, or usage limits.</AccordionContent>
+                <AccordionTrigger>{dict?.rearrange_pdf?.faq_1_q || "Is it free to rearrange PDF pages?"}</AccordionTrigger>
+                <AccordionContent>{dict?.rearrange_pdf?.faq_1_a || "Yes, this PDF page rearranging tool is 100% free. There are no hidden fees, watermarks, or usage limits."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Is my PDF secure when rearranging pages?</AccordionTrigger>
-                <AccordionContent>Absolutely. All processing happens entirely in your browser using pdf-lib. Your PDF files never leave your device and are never uploaded to any server.</AccordionContent>
+                <AccordionTrigger>{dict?.rearrange_pdf?.faq_2_q || "Is my PDF secure when rearranging pages?"}</AccordionTrigger>
+                <AccordionContent>{dict?.rearrange_pdf?.faq_2_a || "Absolutely. All processing happens entirely in your browser using pdf-lib. Your PDF files never leave your device and are never uploaded to any server."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>Will the page content or quality change?</AccordionTrigger>
-                <AccordionContent>No. Rearranging pages only changes the order — the content, formatting, and quality of each page remain exactly the same. Pages are copied as-is into the new document.</AccordionContent>
+                <AccordionTrigger>{dict?.rearrange_pdf?.faq_3_q || "Will the page content or quality change?"}</AccordionTrigger>
+                <AccordionContent>{dict?.rearrange_pdf?.faq_3_a || "No. Rearranging pages only changes the order — the content, formatting, and quality of each page remain exactly the same. Pages are copied as-is into the new document."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>Can I move a page to a specific position?</AccordionTrigger>
-                <AccordionContent>Yes, you can move pages up or down one position at a time, or jump directly to the top or bottom of the document using the double-arrow buttons.</AccordionContent>
+                <AccordionTrigger>{dict?.rearrange_pdf?.faq_4_q || "Can I move a page to a specific position?"}</AccordionTrigger>
+                <AccordionContent>{dict?.rearrange_pdf?.faq_4_a || "Yes, you can move pages up or down one position at a time, or jump directly to the top or bottom of the document using the double-arrow buttons."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>What is the file size limit?</AccordionTrigger>
-                <AccordionContent>The maximum file size is 50MB. Since all processing happens in your browser, very large files may take longer depending on your device&apos;s capabilities.</AccordionContent>
+                <AccordionTrigger>{dict?.rearrange_pdf?.faq_5_q || "What is the file size limit?"}</AccordionTrigger>
+                <AccordionContent>{dict?.rearrange_pdf?.faq_5_a || "The maximum file size is 50MB. Since all processing happens in your browser, very large files may take longer depending on your device&apos;s capabilities."}</AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>

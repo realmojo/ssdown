@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/accordion";
 import { toast } from "sonner";
 
-export function CsvToJsonClient() {
+export function CsvToJsonClient({ dict }: { dict?: any }) {
   const [csvInput, setCsvInput] = useState("");
   const [jsonOutput, setJsonOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -163,11 +163,11 @@ export function CsvToJsonClient() {
           <FileJson className="w-8 h-8 text-green-600 dark:text-green-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          CSV to JSON Converter
+          {dict?.csv_to_json?.title || "CSV to JSON Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Convert comma-separated values (CSV) to JSON array. Paste your CSV
-          code, or Drag & Drop a file.
+          {dict?.csv_to_json?.subtitle || "Convert comma-separated values (CSV) to JSON array. Paste your CSV
+          code, or Drag & Drop a file."}
         </p>
 
         <div className="w-full grid md:grid-cols-2 gap-4">
@@ -261,18 +261,18 @@ export function CsvToJsonClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Tips for CSV Conversion
+              {dict?.csv_to_json?.tips_title || "Tips for CSV Conversion"}
             </h2>
             <p className="text-muted-foreground">
-              Format your CSV correctly for best results.
+              {dict?.csv_to_json?.tips_desc || "Format your CSV correctly for best results."}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Headers",
-                desc: "The first row must contain the column headers. These will become the keys in your JSON objects.",
+                title: dict?.csv_to_json?.tip1_title || "Headers",
+                desc: dict?.csv_to_json?.tip1_desc || "The first row must contain the column headers. These will become the keys in your JSON objects.",
               },
               {
                 title: "Quotes",

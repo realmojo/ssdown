@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/accordion";
 import { toast } from "sonner";
 
-export function JsonToXmlClient() {
+export function JsonToXmlClient({ dict }: { dict?: any }) {
   const [jsonInput, setJsonInput] = useState("");
   const [xmlOutput, setXmlOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -156,11 +156,11 @@ export function JsonToXmlClient() {
           <FileCode className="w-8 h-8 text-orange-600 dark:text-orange-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          JSON to XML Converter
+          {dict?.json_to_xml?.title || "JSON to XML Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Convert JSON data to XML format instantly. Paste your JSON code, or
-          Drag & Drop a file.
+          {dict?.json_to_xml?.subtitle || "Convert JSON data to XML format instantly. Paste your JSON code, or
+          Drag & Drop a file."}
         </p>
 
         <div className="w-full grid md:grid-cols-2 gap-4">
@@ -252,22 +252,22 @@ export function JsonToXmlClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Tips for JSON Conversion
+              {dict?.json_to_xml?.tips_title || "Tips for JSON Conversion"}
             </h2>
             <p className="text-muted-foreground">
-              Make sure your JSON is valid before converting.
+              {dict?.json_to_xml?.tips_desc || "Make sure your JSON is valid before converting."}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Valid JSON",
-                desc: "Ensure keys are quoted using double quotes. Single quotes are not valid JSON.",
+                title: dict?.json_to_xml?.tip1_title || "Valid JSON",
+                desc: dict?.json_to_xml?.tip1_desc || "Ensure keys are quoted using double quotes. Single quotes are not valid JSON.",
               },
               {
-                title: "Root Element",
-                desc: "XML requires a single root element. If your JSON structure is an array or has multiple top-level keys, we wrap it in a <root> tag.",
+                title: dict?.json_to_xml?.tip2_title || "Root Element",
+                desc: dict?.json_to_xml?.tip2_desc || "XML requires a single root element. If your JSON structure is an array or has multiple top-level keys, we wrap it in a <root> tag.",
               },
             ].map((tip, idx) => (
               <div

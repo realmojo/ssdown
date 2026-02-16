@@ -35,7 +35,7 @@ import { Label } from "@/components/ui/label";
 // Types only - actual imports happen dynamically to avoid SSR issues
 type FFmpeg = any;
 
-export function TrimVideoClient() {
+export function TrimVideoClient({ dict }: { dict?: any }) {
   const [file, setFile] = useState<File | null>(null);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [duration, setDuration] = useState<number>(0);
@@ -300,10 +300,10 @@ export function TrimVideoClient() {
           <Scissors className="w-10 h-10 text-amber-600 dark:text-amber-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Trim Video Online
+          {dict?.trim_video?.title || "Trim Video Online"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Cut and trim video files by selecting start and end points. Fast, free, and private — all processing in your browser.
+          {dict?.trim_video?.subtitle || "Cut and trim video files by selecting start and end points. Fast, free, and private — all processing in your browser."}
         </p>
 
         {/* Upload Section */}
@@ -328,13 +328,13 @@ export function TrimVideoClient() {
             />
             <Upload className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
             <p className="text-lg font-medium mb-2">
-              Drag & drop a video file here, or click to browse
+              {dict?.trim_video?.drop_zone || "Drag & drop a video file here, or click to browse"}
             </p>
             <p className="text-sm text-muted-foreground mb-1">
-              Supported: MP4, WebM, MKV
+              {dict?.trim_video?.supported || "Supported: MP4, WebM, MKV"}
             </p>
             <p className="text-xs text-muted-foreground">
-              Recommended max file size: 500MB
+              {dict?.trim_video?.max_file_size || "Recommended max file size: 500MB"}
             </p>
           </div>
         )}
@@ -523,7 +523,7 @@ export function TrimVideoClient() {
                 ) : (
                   <>
                     <Scissors className="mr-2 h-5 w-5" />
-                    Trim Video
+                    {dict?.trim_video?.action_btn || "Trim Video"}
                   </>
                 )}
               </Button>
@@ -558,12 +558,12 @@ export function TrimVideoClient() {
                   >
                     <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
                       <Download className="mr-2 h-4 w-4" />
-                      Download Trimmed Video
+                      {dict?.trim_video?.download_btn || "Download Trimmed Video"}
                     </Button>
                   </a>
                   <Button variant="outline" onClick={reset} className="flex-1">
                     <RotateCcw className="mr-2 h-4 w-4" />
-                    Trim Another
+                    {dict?.trim_video?.another_btn || "Trim Another"}
                   </Button>
                 </div>
               </CardContent>
@@ -588,10 +588,10 @@ export function TrimVideoClient() {
               <BookOpen className="w-8 h-8 text-amber-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              How to Trim a Video
+              {dict?.trim_video?.guide_title || "How to Trim a Video"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Cut your video in 3 simple steps.
+              {dict?.trim_video?.guide_desc || "Cut your video in 3 simple steps."}
             </p>
           </div>
 
@@ -599,20 +599,20 @@ export function TrimVideoClient() {
             {[
               {
                 step: 1,
-                title: "Upload Video",
-                desc: "Drag and drop a video file or click to browse. Supports MP4, WebM, and MKV formats up to 500MB.",
+                title: dict?.trim_video?.step1_title || "Upload Video",
+                desc: dict?.trim_video?.step1_desc || "Drag and drop a video file or click to browse. Supports MP4, WebM, and MKV formats up to 500MB.",
                 icon: Upload,
               },
               {
                 step: 2,
-                title: "Select Range",
-                desc: "Use the timeline slider or enter exact times to select the portion of the video you want to keep.",
+                title: dict?.trim_video?.step2_title || "Select Range",
+                desc: dict?.trim_video?.step2_desc || "Use the timeline slider or enter exact times to select the portion of the video you want to keep.",
                 icon: Scissors,
               },
               {
                 step: 3,
-                title: "Trim & Download",
-                desc: "Click Trim Video and download the result. The process is fast since we copy the stream without re-encoding.",
+                title: dict?.trim_video?.step3_title || "Trim & Download",
+                desc: dict?.trim_video?.step3_desc || "Click Trim Video and download the result. The process is fast since we copy the stream without re-encoding.",
                 icon: Download,
               },
             ].map((step) => (
@@ -640,33 +640,33 @@ export function TrimVideoClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Video Trimming Tips
+              {dict?.trim_video?.tips_title || "Video Trimming Tips"}
             </h2>
             <p className="text-muted-foreground">
-              Get the best results when cutting your videos.
+              {dict?.trim_video?.tips_desc || "Get the best results when cutting your videos."}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "No Quality Loss",
-                desc: "We use stream copying which copies video and audio without re-encoding. Your trimmed video has identical quality to the original.",
+                title: dict?.trim_video?.tip1_title || "No Quality Loss",
+                desc: dict?.trim_video?.tip1_desc || "We use stream copying which copies video and audio without re-encoding. Your trimmed video has identical quality to the original.",
                 icon: CheckCircle2,
               },
               {
-                title: "100% Private",
-                desc: "Your video never leaves your device. All processing happens locally in your browser using WebAssembly technology.",
+                title: dict?.trim_video?.tip2_title || "100% Private",
+                desc: dict?.trim_video?.tip2_desc || "Your video never leaves your device. All processing happens locally in your browser using WebAssembly technology.",
                 icon: Info,
               },
               {
-                title: "Preview Before Trimming",
-                desc: "Use the play button to preview your selected range before trimming. This ensures you capture exactly the right moment.",
+                title: dict?.trim_video?.tip3_title || "Preview Before Trimming",
+                desc: dict?.trim_video?.tip3_desc || "Use the play button to preview your selected range before trimming. This ensures you capture exactly the right moment.",
                 icon: Play,
               },
               {
-                title: "Precise Time Input",
-                desc: "For frame-accurate trimming, use the manual time input fields instead of the slider. Enter values in seconds with decimal precision.",
+                title: dict?.trim_video?.tip4_title || "Precise Time Input",
+                desc: dict?.trim_video?.tip4_desc || "For frame-accurate trimming, use the manual time input fields instead of the slider. Enter values in seconds with decimal precision.",
                 icon: Scissors,
               },
             ].map((tip, idx) => (
@@ -687,7 +687,7 @@ export function TrimVideoClient() {
         <section>
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Trim Video FAQ
+              {dict?.trim_video?.faq_title || "Trim Video FAQ"}
             </h2>
             <p className="text-muted-foreground">
               Common questions about trimming videos online.
@@ -697,42 +697,42 @@ export function TrimVideoClient() {
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
               <AccordionTrigger className="text-left">
-                Is my video uploaded to a server?
+                {dict?.trim_video?.faq_1_q || "Is my video uploaded to a server?"}
               </AccordionTrigger>
               <AccordionContent className="whitespace-pre-line text-muted-foreground">
-                No. All processing happens entirely in your browser using WebAssembly technology. Your video file never leaves your device, making it 100% private and secure.
+                {dict?.trim_video?.faq_1_a || "No. All processing happens entirely in your browser using WebAssembly technology. Your video file never leaves your device, making it 100% private and secure."}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
               <AccordionTrigger className="text-left">
-                What video formats are supported?
+                {dict?.trim_video?.faq_2_q || "What video formats are supported?"}
               </AccordionTrigger>
               <AccordionContent className="whitespace-pre-line text-muted-foreground">
-                We support the most common video formats: MP4, WebM, and MKV. The output file maintains the same format and quality as the original since we use stream copying.
+                {dict?.trim_video?.faq_2_a || "We support the most common video formats: MP4, WebM, and MKV. The output file maintains the same format and quality as the original since we use stream copying."}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
               <AccordionTrigger className="text-left">
-                Does trimming affect video quality?
+                {dict?.trim_video?.faq_3_q || "Does trimming affect video quality?"}
               </AccordionTrigger>
               <AccordionContent className="whitespace-pre-line text-muted-foreground">
-                No. We use stream copying (-c copy) which copies the video and audio streams directly without re-encoding. This means zero quality loss and very fast processing.
+                {dict?.trim_video?.faq_3_a || "No. We use stream copying (-c copy) which copies the video and audio streams directly without re-encoding. This means zero quality loss and very fast processing."}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-4">
               <AccordionTrigger className="text-left">
-                Is there a file size limit?
+                {dict?.trim_video?.faq_4_q || "Is there a file size limit?"}
               </AccordionTrigger>
               <AccordionContent className="whitespace-pre-line text-muted-foreground">
-                There is no hard limit, but we recommend files under 500MB for the best experience. Larger files may cause your browser to slow down or run out of memory, especially on mobile devices.
+                {dict?.trim_video?.faq_4_a || "There is no hard limit, but we recommend files under 500MB for the best experience. Larger files may cause your browser to slow down or run out of memory, especially on mobile devices."}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-5">
               <AccordionTrigger className="text-left">
-                Why might the trim be slightly inaccurate?
+                {dict?.trim_video?.faq_5_q || "Why might the trim be slightly inaccurate?"}
               </AccordionTrigger>
               <AccordionContent className="whitespace-pre-line text-muted-foreground">
-                Since we use stream copying for instant processing and zero quality loss, the actual cut points may snap to the nearest keyframe. For most videos, this is within 1-2 seconds of the selected point. Re-encoding would give exact cuts but takes much longer.
+                {dict?.trim_video?.faq_5_a || "Since we use stream copying for instant processing and zero quality loss, the actual cut points may snap to the nearest keyframe. For most videos, this is within 1-2 seconds of the selected point. Re-encoding would give exact cuts but takes much longer."}
               </AccordionContent>
             </AccordionItem>
           </Accordion>

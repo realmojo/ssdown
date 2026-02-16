@@ -15,6 +15,7 @@ const eslintConfig = defineConfig([
     // Custom ignores
     ".open-next/**",
     "lambda/**",
+    "public/js/**", // Minified third-party files (PDF.js worker)
   ]),
   {
     rules: {

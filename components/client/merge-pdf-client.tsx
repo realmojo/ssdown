@@ -34,7 +34,7 @@ interface PdfFileItem {
   sizeMB: string;
 }
 
-export function MergePdfClient() {
+export function MergePdfClient({ dict }: { dict?: any }) {
   const [pdfFiles, setPdfFiles] = useState<PdfFileItem[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -192,10 +192,10 @@ export function MergePdfClient() {
           <FilePlus2 className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Merge PDF
+          {dict?.merge_pdf?.title || "Merge PDF"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Combine multiple PDF files into one. Reorder pages, preview file details, and download the merged result. 100% private — processed in your browser.
+          {dict?.merge_pdf?.subtitle || "Combine multiple PDF files into one. Reorder pages, preview file details, and download the merged result. 100% private — processed in your browser."}
         </p>
 
         {/* Drop zone */}
@@ -351,7 +351,7 @@ export function MergePdfClient() {
                   className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]"
                 >
                   <Download className="w-5 h-5 mr-2" />
-                  Download Merged PDF
+                  {dict?.merge_pdf?.download_btn || "Download Merged PDF"}
                 </Button>
               </div>
             )}
@@ -364,30 +364,30 @@ export function MergePdfClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              How to Merge PDFs
+              {dict?.merge_pdf?.guide_title || "How to Merge PDFs"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Combine multiple PDF files into one in 3 simple steps.
+              {dict?.merge_pdf?.guide_desc || "Combine multiple PDF files into one in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 step: 1,
-                title: "Upload PDFs",
-                desc: "Drag and drop or click to select multiple PDF files from your device.",
+                title: dict?.merge_pdf?.step1_title || "Upload PDFs",
+                desc: dict?.merge_pdf?.step1_desc || "Drag and drop or click to select multiple PDF files from your device.",
                 icon: Upload,
               },
               {
                 step: 2,
-                title: "Reorder Files",
-                desc: "Arrange your PDFs in the desired order using the up/down buttons.",
+                title: dict?.merge_pdf?.step2_title || "Reorder Files",
+                desc: dict?.merge_pdf?.step2_desc || "Arrange your PDFs in the desired order using the up/down buttons.",
                 icon: Layers,
               },
               {
                 step: 3,
-                title: "Merge & Download",
-                desc: "Click 'Merge' and download your combined PDF file.",
+                title: dict?.merge_pdf?.step3_title || "Merge & Download",
+                desc: dict?.merge_pdf?.step3_desc || "Click 'Merge' and download your combined PDF file.",
                 icon: Download,
               },
             ].map((step) => (
@@ -414,7 +414,7 @@ export function MergePdfClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              PDF Merge Tips
+              {dict?.merge_pdf?.tips_title || "PDF Merge Tips"}
             </h2>
             <p className="text-muted-foreground">
               Get the best results when merging PDF files.
@@ -459,7 +459,7 @@ export function MergePdfClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Merge PDF FAQ
+              {dict?.merge_pdf?.faq_title || "Merge PDF FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
               Common questions about merging PDF files.
@@ -468,33 +468,33 @@ export function MergePdfClient() {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to use?</AccordionTrigger>
+                <AccordionTrigger>{dict?.merge_pdf?.faq_1_q || "Is it free to use?"}</AccordionTrigger>
                 <AccordionContent>
-                  Yes, this PDF merge tool is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of files you can merge.
+                  {dict?.merge_pdf?.faq_1_a || "Yes, this PDF merge tool is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of files you can merge."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Is it secure? Where are my files stored?</AccordionTrigger>
+                <AccordionTrigger>{dict?.merge_pdf?.faq_2_q || "Is it secure? Where are my files stored?"}</AccordionTrigger>
                 <AccordionContent>
-                  Your files are completely secure because all processing happens entirely in your browser using pdf-lib. Your PDFs never leave your device and are never uploaded to any server.
+                  {dict?.merge_pdf?.faq_2_a || "Your files are completely secure because all processing happens entirely in your browser using pdf-lib. Your PDFs never leave your device and are never uploaded to any server."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>What is the file size limit?</AccordionTrigger>
+                <AccordionTrigger>{dict?.merge_pdf?.faq_3_q || "What is the file size limit?"}</AccordionTrigger>
                 <AccordionContent>
-                  Each individual PDF file can be up to 50MB. There is no limit on the number of files you can merge. The total merged file size depends on your browser&apos;s memory capacity.
+                  {dict?.merge_pdf?.faq_3_a || "Each individual PDF file can be up to 50MB. There is no limit on the number of files you can merge. The total merged file size depends on your browser&apos;s memory capacity."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>Can I merge password-protected PDFs?</AccordionTrigger>
+                <AccordionTrigger>{dict?.merge_pdf?.faq_4_q || "Can I merge password-protected PDFs?"}</AccordionTrigger>
                 <AccordionContent>
-                  We attempt to read password-protected PDFs, but some encrypted files may not be supported. If a file cannot be read, you&apos;ll see an error message. Try removing the password first using your PDF reader.
+                  {dict?.merge_pdf?.faq_4_a || "We attempt to read password-protected PDFs, but some encrypted files may not be supported. If a file cannot be read, you&apos;ll see an error message. Try removing the password first using your PDF reader."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>Can I change the order of pages?</AccordionTrigger>
+                <AccordionTrigger>{dict?.merge_pdf?.faq_5_q || "Can I change the order of pages?"}</AccordionTrigger>
                 <AccordionContent>
-                  You can reorder entire PDF files using the up/down buttons before merging. The pages within each PDF will maintain their original order. For page-level reordering, use a dedicated PDF editor.
+                  {dict?.merge_pdf?.faq_5_a || "You can reorder entire PDF files using the up/down buttons before merging. The pages within each PDF will maintain their original order. For page-level reordering, use a dedicated PDF editor."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

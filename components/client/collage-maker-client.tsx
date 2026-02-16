@@ -115,7 +115,7 @@ const TEMPLATES: Template[] = [
 
 const CANVAS_SIZE = 1000;
 
-export function CollageMakerClient() {
+export function CollageMakerClient({ dict }: { dict?: any }) {
   const [images, setImages] = useState<LoadedImage[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<Template>(TEMPLATES[3]);
@@ -302,10 +302,10 @@ export function CollageMakerClient() {
           <LayoutGrid className="w-10 h-10 text-fuchsia-600 dark:text-fuchsia-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Collage Maker
+          {dict?.collage_maker?.title || "Collage Maker"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Create beautiful photo collages with 8 customizable templates. Upload images, choose a layout, customize spacing and style. 100% private — processed in your browser.
+          {dict?.collage_maker?.subtitle || "Create beautiful photo collages with 8 customizable templates. Upload images, choose a layout, customize spacing and style. 100% private — processed in your browser."}
         </p>
 
         {/* Upload Zone */}
@@ -332,7 +332,7 @@ export function CollageMakerClient() {
             <>
               <Upload className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
               <p className="text-lg font-medium mb-2">
-                Drag & drop images here
+                {dict?.collage_maker?.drop_zone || "Drag & drop images here"}
               </p>
               <p className="text-sm text-muted-foreground">
                 Upload multiple images for your collage. Supported: PNG, JPG, WebP, GIF, BMP
@@ -375,7 +375,7 @@ export function CollageMakerClient() {
                   </span>
                   <Button variant="outline" size="sm" onClick={handleReset}>
                     <RotateCcw className="w-4 h-4 mr-2" />
-                    Reset
+                    {dict?.collage_maker?.another_btn || "Reset"}
                   </Button>
                 </div>
                 <div className="flex flex-wrap gap-3">
@@ -593,7 +593,7 @@ export function CollageMakerClient() {
                   className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white shadow-lg min-w-[180px]"
                 >
                   <Download className="w-5 h-5 mr-2" />
-                  Download Collage
+                  {dict?.collage_maker?.download_btn || "Download Collage"}
                 </Button>
               </div>
             )}
@@ -608,36 +608,36 @@ export function CollageMakerClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              How to Create a Collage
+              {dict?.collage_maker?.guide_title || "How to Create a Collage"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Create a beautiful photo collage in 4 simple steps.
+              {dict?.collage_maker?.guide_desc || "Create a beautiful photo collage in 4 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-4 gap-6">
             {[
               {
                 step: 1,
-                title: "Upload Images",
-                desc: "Upload multiple images by dragging & dropping or clicking to browse. You can add as many images as you need.",
+                title: dict?.collage_maker?.step1_title || "Upload Images",
+                desc: dict?.collage_maker?.step1_desc || "Upload multiple images by dragging & dropping or clicking to browse. You can add as many images as you need.",
                 icon: Upload,
               },
               {
                 step: 2,
-                title: "Choose Template",
-                desc: "Select from 8 predefined templates: single, 2x1, 1x2, 2x2, 3x1, 1x3, big left, or big top layouts.",
+                title: dict?.collage_maker?.step2_title || "Choose Template",
+                desc: dict?.collage_maker?.step2_desc || "Select from 8 predefined templates: single, 2x1, 1x2, 2x2, 3x1, 1x3, big left, or big top layouts.",
                 icon: LayoutGrid,
               },
               {
                 step: 3,
-                title: "Assign Images",
-                desc: "Click a slot in the preview, then click an image to assign it. Repeat for all slots until the collage is complete.",
+                title: dict?.collage_maker?.step3_title || "Assign Images",
+                desc: dict?.collage_maker?.step3_desc || "Click a slot in the preview, then click an image to assign it. Repeat for all slots until the collage is complete.",
                 icon: MousePointerClick,
               },
               {
                 step: 4,
-                title: "Download",
-                desc: "Customize gap, background color, and corner radius. Click 'Download' to save your collage as PNG.",
+                title: dict?.collage_maker?.tip4_title || "Download",
+                desc: dict?.collage_maker?.tip4_desc || "Customize gap, background color, and corner radius. Click 'Download' to save your collage as PNG.",
                 icon: Download,
               },
             ].map((step) => (
@@ -664,7 +664,7 @@ export function CollageMakerClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Collage Tips
+              {dict?.collage_maker?.tips_title || "Collage Tips"}
             </h2>
             <p className="text-muted-foreground">
               Get the best results when creating photo collages.
@@ -709,7 +709,7 @@ export function CollageMakerClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Collage Maker FAQ
+              {dict?.collage_maker?.faq_title || "Collage Maker FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
               Common questions about creating photo collages.
@@ -718,33 +718,33 @@ export function CollageMakerClient() {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to use?</AccordionTrigger>
+                <AccordionTrigger>{dict?.collage_maker?.faq_1_q || "Is it free to use?"}</AccordionTrigger>
                 <AccordionContent>
-                  Yes, this collage maker is 100% free. There are no hidden fees, watermarks, or limitations on the number of collages you can create.
+                  {dict?.collage_maker?.faq_1_a || "Yes, this collage maker is 100% free. There are no hidden fees, watermarks, or limitations on the number of collages you can create."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Is it secure? Where are my images stored?</AccordionTrigger>
+                <AccordionTrigger>{dict?.collage_maker?.faq_2_q || "Is it secure? Where are my images stored?"}</AccordionTrigger>
                 <AccordionContent>
-                  Your images are completely secure. All processing happens in your browser using Canvas API. Images never leave your device and are never uploaded to any server.
+                  {dict?.collage_maker?.faq_2_a || "Your images are completely secure. All processing happens in your browser using Canvas API. Images never leave your device and are never uploaded to any server."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>What templates are available?</AccordionTrigger>
+                <AccordionTrigger>{dict?.collage_maker?.faq_3_q || "What templates are available?"}</AccordionTrigger>
                 <AccordionContent>
-                  We offer 8 templates: Single (1x1), Side by Side (2x1), Stacked (1x2), Grid (2x2), Trio Horizontal (3x1), Trio Vertical (1x3), Big Left (1+2 layout), and Big Top (2+1 layout).
+                  {dict?.collage_maker?.faq_3_a || "We offer 8 templates: Single (1x1), Side by Side (2x1), Stacked (1x2), Grid (2x2), Trio Horizontal (3x1), Trio Vertical (1x3), Big Left (1+2 layout), and Big Top (2+1 layout)."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>How do I assign images to slots?</AccordionTrigger>
+                <AccordionTrigger>{dict?.collage_maker?.faq_4_q || "How do I assign images to slots?"}</AccordionTrigger>
                 <AccordionContent>
-                  Click a slot in the preview area, then click an image from your uploaded images. The image will be assigned to that slot. To change it, click the slot again and select a different image.
+                  {dict?.collage_maker?.faq_4_a || "Click a slot in the preview area, then click an image from your uploaded images. The image will be assigned to that slot. To change it, click the slot again and select a different image."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>What format is the output?</AccordionTrigger>
+                <AccordionTrigger>{dict?.collage_maker?.faq_5_q || "What format is the output?"}</AccordionTrigger>
                 <AccordionContent>
-                  The collage is always saved as PNG (1000x1000px) to ensure maximum quality. You can convert it to other formats using our Image Converter tool if needed.
+                  {dict?.collage_maker?.faq_5_a || "The collage is always saved as PNG (1000x1000px) to ensure maximum quality. You can convert it to other formats using our Image Converter tool if needed."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

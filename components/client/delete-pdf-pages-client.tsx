@@ -23,7 +23,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-export function DeletePdfPagesClient() {
+export function DeletePdfPagesClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfName, setPdfName] = useState("");
   const [pageCount, setPageCount] = useState(0);
@@ -194,10 +194,10 @@ export function DeletePdfPagesClient() {
           <FileX className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Delete PDF Pages
+          {dict?.delete_pdf_pages?.title || "Delete PDF Pages"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Remove specific pages from your PDF. Select pages to delete, keep the rest. 100% private — processed in your browser.
+          {dict?.delete_pdf_pages?.subtitle || "Remove specific pages from your PDF. Select pages to delete, keep the rest. 100% private — processed in your browser."}
         </p>
 
         {!pdfFile && (
@@ -220,7 +220,7 @@ export function DeletePdfPagesClient() {
               className="hidden"
             />
             <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <p className="text-lg font-medium mb-2">Drag & drop a PDF file here</p>
+            <p className="text-lg font-medium mb-2">{dict?.delete_pdf_pages?.drop_zone || "Drag & drop a PDF file here"}</p>
             <p className="text-sm text-muted-foreground">Only PDF files accepted. Max 50MB per file.</p>
           </div>
         )}
@@ -307,7 +307,7 @@ export function DeletePdfPagesClient() {
                   Deleted successfully! {remainingPages} page{remainingPages !== 1 ? "s" : ""} remaining &middot; {resultSize} MB
                 </div>
                 <Button size="lg" onClick={handleDownload} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]">
-                  <Download className="w-5 h-5 mr-2" />Download PDF
+                  <Download className="w-5 h-5 mr-2" />{dict?.delete_pdf_pages?.action_btn || "Download PDF"}
                 </Button>
               </div>
             )}
@@ -318,14 +318,14 @@ export function DeletePdfPagesClient() {
       <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">How to Delete PDF Pages</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Remove unwanted pages from your PDF in 3 simple steps.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.delete_pdf_pages?.guide_title || "How to Delete PDF Pages"}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{dict?.delete_pdf_pages?.guide_desc || "Remove unwanted pages from your PDF in 3 simple steps."}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { step: 1, title: "Upload PDF", desc: "Drag and drop or click to select a PDF file from your device.", icon: Upload },
-              { step: 2, title: "Select Pages", desc: "Choose the pages you want to delete by clicking on them.", icon: CheckSquare },
-              { step: 3, title: "Delete & Download", desc: "Click 'Delete' and download your PDF without the removed pages.", icon: Download },
+              { step: 1, title: dict?.delete_pdf_pages?.step1_title || "Upload PDF", desc: dict?.delete_pdf_pages?.step1_desc || "Drag and drop or click to select a PDF file from your device.", icon: Upload },
+              { step: 2, title: dict?.delete_pdf_pages?.step2_title || "Select Pages", desc: dict?.delete_pdf_pages?.step2_desc || "Choose the pages you want to delete by clicking on them.", icon: CheckSquare },
+              { step: 3, title: dict?.delete_pdf_pages?.step3_title || "Delete & Download", desc: dict?.delete_pdf_pages?.step3_desc || "Click 'Delete' and download your PDF without the removed pages.", icon: Download },
             ].map((step) => (
               <Card key={step.step} className="border-red-200 dark:border-red-900/50">
                 <CardHeader>
@@ -345,15 +345,15 @@ export function DeletePdfPagesClient() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Page Deletion Tips</h2>
-            <p className="text-muted-foreground">Get the best results when deleting PDF pages.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.delete_pdf_pages?.tips_title || "Page Deletion Tips"}</h2>
+            <p className="text-muted-foreground">{dict?.delete_pdf_pages?.tips_desc || "Get the best results when deleting PDF pages."}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: "100% Private", desc: "All processing happens in your browser using pdf-lib. Your files never leave your device.", icon: Shield },
-              { title: "Selective Deletion", desc: "Choose exactly which pages to remove. Use Select All / Deselect All for quick operations.", icon: CheckSquare },
-              { title: "Instant Processing", desc: "Pages are removed instantly without re-encoding. Your PDF quality remains unchanged.", icon: Zap },
-              { title: "Original Preserved", desc: "Your original PDF file remains untouched. Only a new file with remaining pages is created.", icon: FileText },
+              { title: dict?.delete_pdf_pages?.tip1_title || "100% Private", desc: dict?.delete_pdf_pages?.tip1_desc || "All processing happens in your browser using pdf-lib. Your files never leave your device.", icon: Shield },
+              { title: dict?.delete_pdf_pages?.tip2_title || "Selective Deletion", desc: dict?.delete_pdf_pages?.tip2_desc || "Choose exactly which pages to remove. Use Select All / Deselect All for quick operations.", icon: CheckSquare },
+              { title: dict?.delete_pdf_pages?.tip3_title || "Instant Processing", desc: dict?.delete_pdf_pages?.tip3_desc || "Pages are removed instantly without re-encoding. Your PDF quality remains unchanged.", icon: Zap },
+              { title: dict?.delete_pdf_pages?.tip4_title || "Original Preserved", desc: dict?.delete_pdf_pages?.tip4_desc || "Your original PDF file remains untouched. Only a new file with remaining pages is created.", icon: FileText },
             ].map((tip, idx) => (
               <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-red-800/30">
                 <div className="flex-shrink-0"><tip.icon className="w-6 h-6 text-red-600 dark:text-red-400" /></div>
@@ -368,30 +368,30 @@ export function DeletePdfPagesClient() {
 
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Delete PDF Pages FAQ</h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto">Common questions about deleting PDF pages.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.delete_pdf_pages?.faq_title || "Delete PDF Pages FAQ"}</h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto">{dict?.delete_pdf_pages?.faq_desc || "Common questions about deleting PDF pages."}</p>
           </div>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to delete PDF pages?</AccordionTrigger>
-                <AccordionContent>Yes, this tool is 100% free to use. There are no hidden fees, watermarks, or usage limits.</AccordionContent>
+                <AccordionTrigger>{dict?.delete_pdf_pages?.faq_1_q || "Is it free to delete PDF pages?"}</AccordionTrigger>
+                <AccordionContent>{dict?.delete_pdf_pages?.faq_1_a || "Yes, this tool is 100% free to use. There are no hidden fees, watermarks, or usage limits."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Is my PDF secure?</AccordionTrigger>
-                <AccordionContent>Absolutely. All processing happens entirely in your browser using pdf-lib. Your PDF files never leave your device and are never uploaded to any server.</AccordionContent>
+                <AccordionTrigger>{dict?.delete_pdf_pages?.faq_2_q || "Is my PDF secure?"}</AccordionTrigger>
+                <AccordionContent>{dict?.delete_pdf_pages?.faq_2_a || "Absolutely. All processing happens entirely in your browser using pdf-lib. Your PDF files never leave your device and are never uploaded to any server."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>Can I delete all pages?</AccordionTrigger>
-                <AccordionContent>No, you must keep at least one page. A PDF file requires at least one page to be valid. If you need to remove all pages, consider deleting the file instead.</AccordionContent>
+                <AccordionTrigger>{dict?.delete_pdf_pages?.faq_3_q || "Can I delete all pages?"}</AccordionTrigger>
+                <AccordionContent>{dict?.delete_pdf_pages?.faq_3_a || "No, you must keep at least one page. A PDF file requires at least one page to be valid. If you need to remove all pages, consider deleting the file instead."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>What is the file size limit?</AccordionTrigger>
-                <AccordionContent>The maximum file size is 50MB. Larger files may cause performance issues depending on your browser and device capabilities.</AccordionContent>
+                <AccordionTrigger>{dict?.delete_pdf_pages?.faq_4_q || "What is the file size limit?"}</AccordionTrigger>
+                <AccordionContent>{dict?.delete_pdf_pages?.faq_4_a || "The maximum file size is 50MB. Larger files may cause performance issues depending on your browser and device capabilities."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>Will the remaining pages keep their formatting?</AccordionTrigger>
-                <AccordionContent>Yes, all remaining pages retain their original formatting, fonts, images, and layout. Only the selected pages are removed — nothing else is modified.</AccordionContent>
+                <AccordionTrigger>{dict?.delete_pdf_pages?.faq_5_q || "Will the remaining pages keep their formatting?"}</AccordionTrigger>
+                <AccordionContent>{dict?.delete_pdf_pages?.faq_5_a || "Yes, all remaining pages retain their original formatting, fonts, images, and layout. Only the selected pages are removed — nothing else is modified."}</AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>

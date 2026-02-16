@@ -45,7 +45,7 @@ const QUALITY_OPTIONS = [
   { label: "High (Best quality)", value: 18 },
 ];
 
-export function GifToMp4Client() {
+export function GifToMp4Client({ dict }: { dict?: any }) {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [fps, setFps] = useState(15);
@@ -195,10 +195,10 @@ export function GifToMp4Client() {
           <FileVideo className="w-10 h-10 text-emerald-600 dark:text-emerald-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          GIF to MP4 Converter
+          {dict?.gif_to_mp4?.title || "GIF to MP4 Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Convert animated GIF files to MP4 video format directly in your browser. Smaller file size, better quality.
+          {dict?.gif_to_mp4?.subtitle || "Convert animated GIF files to MP4 video format directly in your browser. Smaller file size, better quality."}
         </p>
 
         {/* Drop Zone */}
@@ -223,13 +223,13 @@ export function GifToMp4Client() {
             />
             <Upload className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
             <p className="text-lg font-medium mb-2">
-              Drag & drop a GIF file here, or click to browse
+              {dict?.gif_to_mp4?.drop_zone || "Drag & drop a GIF file here, or click to browse"}
             </p>
             <p className="text-sm text-muted-foreground mb-1">
-              Supported: GIF (animated)
+              {dict?.gif_to_mp4?.supported || "Supported: GIF (animated)"}
             </p>
             <p className="text-xs text-muted-foreground">
-              Recommended max file size: 100MB
+              {dict?.gif_to_mp4?.max_file_size || "Recommended max file size: 100MB"}
             </p>
           </div>
         )}
@@ -324,7 +324,7 @@ export function GifToMp4Client() {
             {loading ? (
               <>
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                Loading converter engine...
+                {dict?.gif_to_mp4?.loading_engine || "Loading converter engine..."}
               </>
             ) : converting ? (
               <>
@@ -334,7 +334,7 @@ export function GifToMp4Client() {
             ) : (
               <>
                 <FileVideo className="mr-2 h-5 w-5" />
-                Convert to MP4
+                {dict?.gif_to_mp4?.action_btn || "Convert to MP4"}
               </>
             )}
           </Button>
@@ -350,7 +350,7 @@ export function GifToMp4Client() {
               />
             </div>
             <p className="text-center text-sm text-muted-foreground mt-2">
-              {progress}% complete
+              {progress}% {dict?.gif_to_mp4?.complete || "complete"}
             </p>
           </div>
         )}
@@ -370,7 +370,7 @@ export function GifToMp4Client() {
                 <div className="flex items-center gap-3 mb-4">
                   <CheckCircle2 className="w-8 h-8 text-green-600 dark:text-green-400" />
                   <div>
-                    <p className="font-semibold text-lg">Conversion Complete!</p>
+                    <p className="font-semibold text-lg">{dict?.gif_to_mp4?.success_msg || "Conversion Complete!"}</p>
                     <p className="text-sm text-muted-foreground">{fileName}</p>
                   </div>
                 </div>
@@ -380,14 +380,14 @@ export function GifToMp4Client() {
                     className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
                   >
                     <Download className="mr-2 h-4 w-4" />
-                    Download MP4
+                    {dict?.gif_to_mp4?.download_btn || "Download MP4"}
                   </Button>
                   <Button
                     onClick={handleRemoveFile}
                     variant="outline"
                     className="flex-1"
                   >
-                    Convert Another
+                    {dict?.gif_to_mp4?.another_btn || "Convert Another"}
                   </Button>
                 </div>
               </CardContent>
@@ -405,10 +405,10 @@ export function GifToMp4Client() {
               <BookOpen className="w-8 h-8 text-emerald-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              How to Convert GIF to MP4
+              {dict?.gif_to_mp4?.guide_title || "How to Convert GIF to MP4"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Follow these simple steps to convert your animated GIF to a compact MP4 video.
+              {dict?.gif_to_mp4?.guide_desc || "Follow these simple steps to convert your animated GIF to a compact MP4 video."}
             </p>
           </div>
 
@@ -416,20 +416,20 @@ export function GifToMp4Client() {
             {[
               {
                 step: 1,
-                title: "Select a GIF File",
-                desc: "Drag and drop an animated GIF file or click to browse. Large GIFs work best with this tool since MP4 offers much better compression.",
+                title: dict?.gif_to_mp4?.step1_title || "Select a GIF File",
+                desc: dict?.gif_to_mp4?.step1_desc || "Drag and drop an animated GIF file or click to browse. Large GIFs work best with this tool since MP4 offers much better compression.",
                 icon: Upload,
               },
               {
                 step: 2,
-                title: "Adjust Settings",
-                desc: "Choose your preferred frame rate and quality level. Higher FPS means smoother playback, while lower CRF means better quality.",
+                title: dict?.gif_to_mp4?.step2_title || "Adjust Settings",
+                desc: dict?.gif_to_mp4?.step2_desc || "Choose your preferred frame rate and quality level. Higher FPS means smoother playback, while lower CRF means better quality.",
                 icon: ImageIcon,
               },
               {
                 step: 3,
-                title: "Download MP4",
-                desc: "Click Convert and download the resulting MP4 file. Enjoy a much smaller file size with the same visual quality.",
+                title: dict?.gif_to_mp4?.step3_title || "Download MP4",
+                desc: dict?.gif_to_mp4?.step3_desc || "Click Convert and download the resulting MP4 file. Enjoy a much smaller file size with the same visual quality.",
                 icon: Download,
               },
             ].map((step) => (
@@ -457,33 +457,33 @@ export function GifToMp4Client() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              GIF to MP4 Conversion Tips
+              {dict?.gif_to_mp4?.tips_title || "GIF to MP4 Conversion Tips"}
             </h2>
             <p className="text-muted-foreground">
-              Get the best results from your GIF to MP4 conversions.
+              {dict?.gif_to_mp4?.tips_desc || "Get the best results from your GIF to MP4 conversions."}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Massive Size Reduction",
-                desc: "MP4 files can be 80-90% smaller than the original GIF while maintaining the same visual quality thanks to H.264 compression.",
+                title: dict?.gif_to_mp4?.tip1_title || "Massive Size Reduction",
+                desc: dict?.gif_to_mp4?.tip1_desc || "MP4 files can be 80-90% smaller than the original GIF while maintaining the same visual quality thanks to H.264 compression.",
                 icon: FileVideo,
               },
               {
-                title: "100% Private",
-                desc: "Your GIF never leaves your device. All processing happens locally in your browser using WebAssembly technology.",
+                title: dict?.gif_to_mp4?.tip2_title || "100% Private",
+                desc: dict?.gif_to_mp4?.tip2_desc || "Your GIF never leaves your device. All processing happens locally in your browser using WebAssembly technology.",
                 icon: CheckCircle2,
               },
               {
-                title: "Match the Original FPS",
-                desc: "For the most accurate conversion, match the frame rate of the original GIF. Most GIFs use 10-15 FPS.",
+                title: dict?.gif_to_mp4?.tip3_title || "Match the Original FPS",
+                desc: dict?.gif_to_mp4?.tip3_desc || "For the most accurate conversion, match the frame rate of the original GIF. Most GIFs use 10-15 FPS.",
                 icon: ImageIcon,
               },
               {
-                title: "Browser Compatibility",
-                desc: "MP4 videos are universally supported across all modern browsers, social media platforms, and mobile devices.",
+                title: dict?.gif_to_mp4?.tip4_title || "Browser Compatibility",
+                desc: dict?.gif_to_mp4?.tip4_desc || "MP4 videos are universally supported across all modern browsers, social media platforms, and mobile devices.",
                 icon: Info,
               },
             ].map((tip, idx) => (
@@ -504,7 +504,7 @@ export function GifToMp4Client() {
         <section>
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              GIF to MP4 FAQ
+              {dict?.gif_to_mp4?.faq_title || "GIF to MP4 FAQ"}
             </h2>
             <p className="text-muted-foreground">
               Common questions about converting GIF to MP4 video.
@@ -514,42 +514,42 @@ export function GifToMp4Client() {
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
               <AccordionTrigger className="text-left">
-                Why convert GIF to MP4?
+                {dict?.gif_to_mp4?.faq_1_q || "Why convert GIF to MP4?"}
               </AccordionTrigger>
               <AccordionContent className="whitespace-pre-line text-muted-foreground">
-                MP4 files are significantly smaller than GIFs while maintaining the same visual quality. An MP4 can be 80-90% smaller than its GIF equivalent, making it ideal for web use, social media, and faster page loading.
+                {dict?.gif_to_mp4?.faq_1_a || "MP4 files are significantly smaller than GIFs while maintaining the same visual quality. An MP4 can be 80-90% smaller than its GIF equivalent, making it ideal for web use, social media, and faster page loading."}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
               <AccordionTrigger className="text-left">
-                Is my GIF uploaded to a server?
+                {dict?.gif_to_mp4?.faq_2_q || "Is my GIF uploaded to a server?"}
               </AccordionTrigger>
               <AccordionContent className="whitespace-pre-line text-muted-foreground">
-                No. The conversion happens entirely in your browser using WebAssembly technology. Your GIF file never leaves your device, making it 100% private and secure.
+                {dict?.gif_to_mp4?.faq_2_a || "No. The conversion happens entirely in your browser using WebAssembly technology. Your GIF file never leaves your device, making it 100% private and secure."}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
               <AccordionTrigger className="text-left">
-                What quality settings should I choose?
+                {dict?.gif_to_mp4?.faq_3_q || "What quality settings should I choose?"}
               </AccordionTrigger>
               <AccordionContent className="whitespace-pre-line text-muted-foreground">
-                For most use cases, Medium quality (CRF 23) offers the best balance between file size and visual quality. Use High quality (CRF 18) for professional content where quality is critical, and Low quality (CRF 28) for maximum file size reduction.
+                {dict?.gif_to_mp4?.faq_3_a || "For most use cases, Medium quality (CRF 23) offers the best balance between file size and visual quality. Use High quality (CRF 18) for professional content where quality is critical, and Low quality (CRF 28) for maximum file size reduction."}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-4">
               <AccordionTrigger className="text-left">
-                What FPS should I select?
+                {dict?.gif_to_mp4?.faq_4_q || "What FPS should I select?"}
               </AccordionTrigger>
               <AccordionContent className="whitespace-pre-line text-muted-foreground">
-                Most GIFs play at around 10-15 FPS. Choosing a higher FPS like 24 or 30 can make the animation smoother but will increase file size. Match the original GIF frame rate for the most accurate conversion.
+                {dict?.gif_to_mp4?.faq_4_a || "Most GIFs play at around 10-15 FPS. Choosing a higher FPS like 24 or 30 can make the animation smoother but will increase file size. Match the original GIF frame rate for the most accurate conversion."}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-5">
               <AccordionTrigger className="text-left">
-                Is there a file size limit?
+                {dict?.gif_to_mp4?.faq_5_q || "Is there a file size limit?"}
               </AccordionTrigger>
               <AccordionContent className="whitespace-pre-line text-muted-foreground">
-                There is no hard limit, but we recommend GIF files under 100MB for the best experience. Very large GIFs may cause your browser to slow down or run out of memory.
+                {dict?.gif_to_mp4?.faq_5_a || "There is no hard limit, but we recommend GIF files under 100MB for the best experience. Very large GIFs may cause your browser to slow down or run out of memory."}
               </AccordionContent>
             </AccordionItem>
           </Accordion>

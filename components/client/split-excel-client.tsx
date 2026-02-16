@@ -13,7 +13,7 @@ import * as XLSX from "xlsx";
 import JSZip from "jszip";
 import { toast } from "sonner";
 
-export function SplitExcelClient() {
+export function SplitExcelClient({ dict }: { dict?: any }) {
   const [file, setFile] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -98,10 +98,10 @@ export function SplitExcelClient() {
           <Split className="w-8 h-8 text-lime-600 dark:text-lime-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Split Excel by Sheets
+          {dict?.split_excel?.title || "Split Excel by Sheets"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Upload an Excel workbook and save each sheet as a separate file.
+          {dict?.split_excel?.subtitle || "Upload an Excel workbook and save each sheet as a separate file."}
         </p>
 
         <div className="w-full max-w-2xl mb-8">
@@ -166,22 +166,22 @@ export function SplitExcelClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Tips for Best Results
+              {dict?.split_excel?.tips_title || "Tips for Best Results"}
             </h2>
             <p className="text-muted-foreground">
-              How to effectively split your Excel files.
+              {dict?.split_excel?.tips_desc || "How to effectively split your Excel files."}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "One Sheet per File",
-                desc: "This tool creates a new Excel file for every worksheet found in your uploaded workbook.",
+                title: dict?.split_excel?.tip1_title || "One Sheet per File",
+                desc: dict?.split_excel?.tip1_desc || "This tool creates a new Excel file for every worksheet found in your uploaded workbook.",
               },
               {
-                title: "File Naming",
-                desc: "The output files are named after the sheet names defined in your original Excel file.",
+                title: dict?.split_excel?.tip2_title || "File Naming",
+                desc: dict?.split_excel?.tip2_desc || "The output files are named after the sheet names defined in your original Excel file.",
               },
             ].map((tip, idx) => (
               <div

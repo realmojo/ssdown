@@ -12,12 +12,13 @@ import {
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/tools`;
 
-  const title = "Free Online Creator Tools | SSDown";
-  const description =
-    "Free online creator tools by SSDown. Image editing, video conversion, YouTube tools, and more. All tools run in your browser — no upload required.";
+  const title = dict.page_tools.meta_title;
+  const description = dict.page_tools.meta_description;
 
   return {
     title,
@@ -27,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: "en_US",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
     },
     twitter: {
@@ -41,11 +42,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const categories = [
+const categoryMeta = [
   {
-    title: "Image Tools",
-    description:
-      "Compress, convert, resize, and edit images. Remove backgrounds, extract colors, generate favicons, and more.",
     href: "/tools/image",
     icon: ImageIcon,
     gradient: "from-pink-500 to-rose-500",
@@ -54,9 +52,6 @@ const categories = [
     count: 20,
   },
   {
-    title: "Video & Audio",
-    description:
-      "Convert video to MP3, GIF, or extract frames. Trim audio files directly in your browser.",
     href: "/tools/video-audio",
     icon: Film,
     gradient: "from-indigo-500 to-purple-500",
@@ -65,9 +60,6 @@ const categories = [
     count: 7,
   },
   {
-    title: "Social & Text",
-    description:
-      "Generate trending hashtags for TikTok, Instagram, YouTube. Create clean Instagram captions.",
     href: "/tools/social-text",
     icon: MessageSquare,
     gradient: "from-cyan-500 to-blue-500",
@@ -76,9 +68,6 @@ const categories = [
     count: 2,
   },
   {
-    title: "Utility",
-    description:
-      "YouTube tools, QR codes, aspect ratio calculator, and more essential tools for creators.",
     href: "/tools/utility",
     icon: Wrench,
     gradient: "from-violet-500 to-purple-500",
@@ -87,9 +76,6 @@ const categories = [
     count: 4,
   },
   {
-    title: "PDF Tools",
-    description:
-      "Merge, split, rotate, convert, protect, and manage PDF files. All processing happens in your browser — no upload required.",
     href: "/tools/pdf",
     icon: FileText,
     gradient: "from-red-500 to-rose-500",
@@ -98,9 +84,6 @@ const categories = [
     count: 18,
   },
   {
-    title: "File & Data Tools",
-    description:
-      "Convert, split, and manage JSON, XML, CSV, and Excel files. 100% browser-based.",
     href: "/tools/file",
     icon: FileText,
     gradient: "from-blue-600 to-indigo-600",
@@ -114,6 +97,12 @@ export default async function ToolsPage() {
   const locale = await getLocale();
   const dict = await getDictionary(locale);
 
+  const categories = categoryMeta.map((meta, i) => ({
+    ...meta,
+    title: dict.page_tools.categories[i].title,
+    description: dict.page_tools.categories[i].description,
+  }));
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -121,13 +110,13 @@ export default async function ToolsPage() {
       {
         "@type": "ListItem",
         position: 1,
-        name: "Home",
+        name: dict.breadcrumb.home,
         item: "https://ssdown.app",
       },
       {
         "@type": "ListItem",
         position: 2,
-        name: "Tools",
+        name: dict.breadcrumb.tools,
         item: "https://ssdown.app/tools",
       },
     ],
@@ -143,18 +132,17 @@ export default async function ToolsPage() {
         <div className="container max-w-7xl mx-auto px-4 py-8">
           <Breadcrumbs
             items={[
-              { label: "Home", href: "/" },
-              { label: "Tools", href: "/tools", isCurrent: true },
+              { label: dict.breadcrumb.home, href: "/" },
+              { label: dict.breadcrumb.tools, href: "/tools", isCurrent: true },
             ]}
           />
 
           <header className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-              {dict?.tools?.title || "Free Online Creator Tools"}
+              {dict.tools.title}
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              {dict?.tools?.subtitle ||
-                "Powerful browser-based tools to help you create, convert, and optimize content. No sign-up required."}
+              {dict.tools.subtitle}
             </p>
           </header>
 
@@ -174,12 +162,13 @@ export default async function ToolsPage() {
                 <p className="text-muted-foreground mb-4">{cat.description}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">
-                    {cat.count} tools
+                    {cat.count} {dict.breadcrumb.tools_count}
                   </span>
                   <span
                     className={`inline-flex items-center gap-2 text-sm font-semibold bg-gradient-to-r ${cat.gradient} bg-clip-text text-transparent group-hover:gap-3 transition-all`}
                   >
-                    Browse <ArrowRight className="w-4 h-4 text-current" />
+                    {dict.breadcrumb.browse}{" "}
+                    <ArrowRight className="w-4 h-4 text-current" />
                   </span>
                 </div>
               </a>

@@ -1,98 +1,59 @@
 import { Metadata } from "next";
+import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { JsonToXmlClient } from "@/components/client/json-to-xml-client";
 
-export const metadata: Metadata = {
-  title: "JSON to XML Converter | Free Online Tool | SSDown",
-  description:
-    "Convert JSON to XML format instantly. Free online tool to parse JSON and export XML data. 100% browser-based, no upload required.",
-  openGraph: {
-    title: "JSON to XML Converter | Free Online Tool | SSDown",
-    description:
-      "Convert JSON to XML format instantly. Free online tool to parse JSON and export XML data.",
-    url: "https://ssdown.app/file/json-to-xml",
-    siteName: "SSDown",
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "JSON to XML Converter | Free Online Tool",
-    description: "Convert JSON to XML format instantly.",
-  },
-  alternates: {
-    canonical: "https://ssdown.app/file/json-to-xml",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+  const baseUrl = "https://ssdown.app";
+  const canonical = `${baseUrl}/file/json-to-xml`;
 
-export default function JsonToXmlPage() {
+  const title = dict.page_json_to_xml.meta_title;
+  const description = dict.page_json_to_xml.meta_description;
+
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      siteName: "SSDown",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
+      type: "website",
+    },
+    twitter: { card: "summary_large_image", title, description },
+  };
+}
+
+export default async function JsonToXmlPage() {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "How does JSON to XML conversion work?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "The tool parses your valid JSON string and recursively transforms key-value pairs into XML tags.",
-        },
+    mainEntity: dict.page_json_to_xml.faq.map((item: { question: string; answer: string }) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-      {
-        "@type": "Question",
-        name: "Is my data secure?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes. The conversion happens entirely in your browser using JavaScript. Your data is never sent to any server.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Can I convert complex nested JSON?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, the tool supports nested objects and arrays locally.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How do I handle arrays?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Arrays are typically converted to repeated XML tags either using the parent key or a predefined item tag.",
-        },
-      },
-    ],
+    })),
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tools",
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "File & Data Tools",
-        item: "https://ssdown.app/tools/file",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "JSON to XML",
-        item: "https://ssdown.app/file/json-to-xml",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.file_data_tools, item: "https://ssdown.app/tools/file" },
+      { "@type": "ListItem", position: 4, name: dict.page_json_to_xml.breadcrumb_title, item: "https://ssdown.app/file/json-to-xml" },
     ],
   };
 
@@ -109,18 +70,18 @@ export default function JsonToXmlPage() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
-            { label: "Home", href: "/" },
-            { label: "Tools", href: "/tools" },
-            { label: "File Tools", href: "/tools/file" },
+            { label: dict.breadcrumb.home, href: "/" },
+            { label: dict.breadcrumb.tools, href: "/tools" },
+            { label: dict.breadcrumb.file_tools, href: "/tools/file" },
             {
-              label: "JSON to XML",
+              label: dict.page_json_to_xml.breadcrumb_title,
               href: "/file/json-to-xml",
               isCurrent: true,
             },
           ]}
         />
       </div>
-      <JsonToXmlClient />
+      <JsonToXmlClient dict={dict} />
     </>
   );
 }

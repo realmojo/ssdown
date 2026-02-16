@@ -29,7 +29,7 @@ async function loadPdfJs() {
   return pdfjsLib;
 }
 
-export function PdfToTextClient() {
+export function PdfToTextClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfName, setPdfName] = useState("");
   const [pageCount, setPageCount] = useState(0);
@@ -158,10 +158,10 @@ export function PdfToTextClient() {
           <Type className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          PDF to Text
+          {dict?.pdf_to_text?.title || "PDF to Text"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Extract text from PDF files. Copy to clipboard or download as a .txt file. 100% private — processed in your browser.
+          {dict?.pdf_to_text?.subtitle || "Extract text from PDF files. Copy to clipboard or download as a .txt file. 100% private — processed in your browser."}
         </p>
 
         {!pdfFile && (
@@ -184,7 +184,7 @@ export function PdfToTextClient() {
               className="hidden"
             />
             <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <p className="text-lg font-medium mb-2">Drag & drop a PDF file here</p>
+            <p className="text-lg font-medium mb-2">{dict?.pdf_to_text?.drop_zone || "Drag & drop a PDF file here"}</p>
             <p className="text-sm text-muted-foreground">Only PDF files accepted. Max 50MB per file.</p>
           </div>
         )}
@@ -253,14 +253,14 @@ export function PdfToTextClient() {
       <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">How to Extract Text from PDF</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Extract text from your PDF in 3 simple steps.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_to_text?.guide_title || "How to Extract Text from PDF"}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{dict?.pdf_to_text?.guide_desc || "Extract text from your PDF in 3 simple steps."}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { step: 1, title: "Upload PDF", desc: "Drag and drop or click to select a PDF file from your device.", icon: Upload },
-              { step: 2, title: "Extract Text", desc: "Text is automatically extracted from all pages of your PDF.", icon: Type },
-              { step: 3, title: "Copy or Download", desc: "Copy the text to your clipboard or download it as a .txt file.", icon: Download },
+              { step: 1, title: dict?.pdf_to_text?.step1_title || "Upload PDF", desc: dict?.pdf_to_text?.step1_desc || "Drag and drop or click to select a PDF file from your device.", icon: Upload },
+              { step: 2, title: dict?.pdf_to_text?.step2_title || "Extract Text", desc: dict?.pdf_to_text?.step2_desc || "Text is automatically extracted from all pages of your PDF.", icon: Type },
+              { step: 3, title: dict?.pdf_to_text?.step3_title || "Copy or Download", desc: dict?.pdf_to_text?.step3_desc || "Copy the text to your clipboard or download it as a .txt file.", icon: Download },
             ].map((step) => (
               <Card key={step.step} className="border-red-200 dark:border-red-900/50">
                 <CardHeader>
@@ -280,15 +280,15 @@ export function PdfToTextClient() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">PDF to Text Tips</h2>
-            <p className="text-muted-foreground">Get the best results when extracting text from PDFs.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_to_text?.tips_title || "PDF to Text Tips"}</h2>
+            <p className="text-muted-foreground">{dict?.pdf_to_text?.tips_desc || "Get the best results when extracting text from PDFs."}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: "100% Private", desc: "All processing happens in your browser using pdf.js. Your files never leave your device.", icon: Shield },
-              { title: "Text-Based PDFs Only", desc: "This tool extracts embedded text. Scanned documents (images) require OCR, which is not supported here.", icon: FileText },
-              { title: "Instant Extraction", desc: "Text is extracted instantly from each page. Large PDFs may take a few seconds.", icon: Zap },
-              { title: "Page Markers", desc: "Extracted text includes page markers so you can easily find content from specific pages.", icon: Type },
+              { title: dict?.pdf_to_text?.tip1_title || "100% Private", desc: dict?.pdf_to_text?.tip1_desc || "All processing happens in your browser using pdf.js. Your files never leave your device.", icon: Shield },
+              { title: dict?.pdf_to_text?.tip2_title || "Text-Based PDFs Only", desc: dict?.pdf_to_text?.tip2_desc || "This tool extracts embedded text. Scanned documents (images) require OCR, which is not supported here.", icon: FileText },
+              { title: dict?.pdf_to_text?.tip3_title || "Instant Extraction", desc: dict?.pdf_to_text?.tip3_desc || "Text is extracted instantly from each page. Large PDFs may take a few seconds.", icon: Zap },
+              { title: dict?.pdf_to_text?.tip4_title || "Page Markers", desc: dict?.pdf_to_text?.tip4_desc || "Extracted text includes page markers so you can easily find content from specific pages.", icon: Type },
             ].map((tip, idx) => (
               <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-red-800/30">
                 <div className="flex-shrink-0"><tip.icon className="w-6 h-6 text-red-600 dark:text-red-400" /></div>
@@ -303,30 +303,30 @@ export function PdfToTextClient() {
 
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">PDF to Text FAQ</h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto">Common questions about extracting text from PDFs.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_to_text?.faq_title || "PDF to Text FAQ"}</h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto">{dict?.pdf_to_text?.faq_desc || "Common questions about extracting text from PDFs."}</p>
           </div>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to extract text from a PDF?</AccordionTrigger>
-                <AccordionContent>Yes, this tool is 100% free to use. There are no hidden fees, watermarks, or usage limits.</AccordionContent>
+                <AccordionTrigger>{dict?.pdf_to_text?.faq_1_q || "Is it free to extract text from a PDF?"}</AccordionTrigger>
+                <AccordionContent>{dict?.pdf_to_text?.faq_1_a || "Yes, this tool is 100% free to use. There are no hidden fees, watermarks, or usage limits."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Can I extract text from scanned PDFs?</AccordionTrigger>
-                <AccordionContent>No, this tool extracts embedded text only. Scanned PDFs contain images of text and require OCR (Optical Character Recognition) software to convert them.</AccordionContent>
+                <AccordionTrigger>{dict?.pdf_to_text?.faq_2_q || "Can I extract text from scanned PDFs?"}</AccordionTrigger>
+                <AccordionContent>{dict?.pdf_to_text?.faq_2_a || "No, this tool extracts embedded text only. Scanned PDFs contain images of text and require OCR (Optical Character Recognition) software to convert them."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>Is my PDF secure?</AccordionTrigger>
-                <AccordionContent>Absolutely. All processing happens entirely in your browser using pdf.js. Your PDF files never leave your device and are never uploaded to any server.</AccordionContent>
+                <AccordionTrigger>{dict?.pdf_to_text?.faq_3_q || "Is my PDF secure?"}</AccordionTrigger>
+                <AccordionContent>{dict?.pdf_to_text?.faq_3_a || "Absolutely. All processing happens entirely in your browser using pdf.js. Your PDF files never leave your device and are never uploaded to any server."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>What is the file size limit?</AccordionTrigger>
-                <AccordionContent>The maximum file size is 50MB. Larger files may cause performance issues depending on your browser and device capabilities.</AccordionContent>
+                <AccordionTrigger>{dict?.pdf_to_text?.faq_4_q || "What is the file size limit?"}</AccordionTrigger>
+                <AccordionContent>{dict?.pdf_to_text?.faq_4_a || "The maximum file size is 50MB. Larger files may cause performance issues depending on your browser and device capabilities."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>Why is the extracted text garbled or empty?</AccordionTrigger>
-                <AccordionContent>If the text appears garbled, the PDF may use custom fonts or encoding. If the text is empty, the PDF likely contains scanned images rather than embedded text. Try a different PDF or use OCR software for scanned documents.</AccordionContent>
+                <AccordionTrigger>{dict?.pdf_to_text?.faq_5_q || "Why is the extracted text garbled or empty?"}</AccordionTrigger>
+                <AccordionContent>{dict?.pdf_to_text?.faq_5_a || "If the text appears garbled, the PDF may use custom fonts or encoding. If the text is empty, the PDF likely contains scanned images rather than embedded text. Try a different PDF or use OCR software for scanned documents."}</AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>

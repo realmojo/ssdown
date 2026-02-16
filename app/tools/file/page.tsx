@@ -1,173 +1,66 @@
+import { FileJson, FileCode, FileSpreadsheet, FileType, Split, FileText, ArrowRight } from "lucide-react";
 import { Metadata } from "next";
-import {
-  FileJson,
-  FileCode,
-  FileSpreadsheet,
-  FileType,
-  Split,
-  FileText,
-  ArrowRight,
-} from "lucide-react";
+import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
-export const metadata: Metadata = {
-  title: "Free Online File & Data Tools | SSDown",
-  description:
-    "Free online file and data tools. Convert JSON, XML, CSV, Excel. Split files and manage data formats directly in your browser. No upload required — 100% private.",
-  openGraph: {
-    title: "Free Online File & Data Tools | SSDown",
-    description:
-      "Free online file and data tools. Convert JSON, XML, CSV, Excel. Split files and manage data formats directly in your browser.",
-    url: "https://ssdown.app/tools/file",
-    siteName: "SSDown",
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Free Online File & Data Tools | SSDown",
-    description:
-      "Free online file and data tools. Convert JSON, XML, CSV, Excel directly in your browser.",
-  },
-  alternates: {
-    canonical: "https://ssdown.app/tools/file",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+  const baseUrl = "https://ssdown.app";
+  const canonical = `${baseUrl}/tools/file`;
 
-const tools = [
-  {
-    title: "JSON to XML",
-    description: "Convert JSON data to XML format instantly.",
-    href: "/file/json-to-xml",
-    icon: FileCode,
-    gradient: "from-orange-500 to-red-500",
-    bgLight: "bg-orange-100 dark:bg-orange-900/30",
-    iconColor: "text-orange-500",
-  },
-  {
-    title: "XML to JSON",
-    description: "Convert XML data to JSON format instantly.",
-    href: "/file/xml-to-json",
-    icon: FileJson,
-    gradient: "from-blue-500 to-cyan-500",
-    bgLight: "bg-blue-100 dark:bg-blue-900/30",
-    iconColor: "text-blue-500",
-  },
-  {
-    title: "CSV to JSON",
-    description: "Convert CSV files to JSON format.",
-    href: "/file/csv-to-json",
-    icon: FileJson,
-    gradient: "from-green-500 to-emerald-500",
-    bgLight: "bg-green-100 dark:bg-green-900/30",
-    iconColor: "text-green-500",
-  },
-  {
-    title: "CSV to XML",
-    description: "Convert CSV files to XML format.",
-    href: "/file/csv-to-xml",
-    icon: FileCode,
-    gradient: "from-teal-500 to-green-500",
-    bgLight: "bg-teal-100 dark:bg-teal-900/30",
-    iconColor: "text-teal-500",
-  },
-  {
-    title: "XML to CSV",
-    description: "Convert XML data to CSV format.",
-    href: "/file/xml-to-csv",
-    icon: FileSpreadsheet,
-    gradient: "from-indigo-500 to-blue-500",
-    bgLight: "bg-indigo-100 dark:bg-indigo-900/30",
-    iconColor: "text-indigo-500",
-  },
-  {
-    title: "CSV to Excel",
-    description: "Convert CSV files to Excel (.xlsx).",
-    href: "/file/csv-to-excel",
-    icon: FileSpreadsheet,
-    gradient: "from-green-600 to-emerald-600",
-    bgLight: "bg-green-100 dark:bg-green-900/30",
-    iconColor: "text-green-600",
-  },
-  {
-    title: "Excel to CSV",
-    description: "Convert Excel (.xlsx) files to CSV.",
-    href: "/file/excel-to-csv",
-    icon: FileText,
-    gradient: "from-emerald-500 to-green-500",
-    bgLight: "bg-emerald-100 dark:bg-emerald-900/30",
-    iconColor: "text-emerald-500",
-  },
-  {
-    title: "XML to Excel",
-    description: "Convert XML data to Excel (.xlsx).",
-    href: "/file/xml-to-excel",
-    icon: FileSpreadsheet,
-    gradient: "from-blue-600 to-indigo-600",
-    bgLight: "bg-blue-100 dark:bg-blue-900/30",
-    iconColor: "text-blue-600",
-  },
-  {
-    title: "Excel to XML",
-    description: "Convert Excel (.xlsx) files to XML.",
-    href: "/file/excel-to-xml",
-    icon: FileCode,
-    gradient: "from-purple-500 to-indigo-500",
-    bgLight: "bg-purple-100 dark:bg-purple-900/30",
-    iconColor: "text-purple-500",
-  },
-  {
-    title: "Split CSV",
-    description: "Split a CSV file into multiple files.",
-    href: "/file/split-csv",
-    icon: Split,
-    gradient: "from-yellow-500 to-orange-500",
-    bgLight: "bg-yellow-100 dark:bg-yellow-900/30",
-    iconColor: "text-yellow-500",
-  },
-  {
-    title: "Split Excel",
-    description: "Split an Excel file by sheets.",
-    href: "/file/split-excel",
-    icon: Split,
-    gradient: "from-lime-500 to-green-500",
-    bgLight: "bg-lime-100 dark:bg-lime-900/30",
-    iconColor: "text-lime-500",
-  },
-  {
-    title: "Excel to PDF",
-    description: "Convert Excel spreadsheets to PDF.",
-    href: "/file/excel-to-pdf",
-    icon: FileType,
-    gradient: "from-red-500 to-pink-500",
-    bgLight: "bg-red-100 dark:bg-red-900/30",
-    iconColor: "text-red-500",
-  },
+  const title = dict.page_tools_file.meta_title;
+  const description = dict.page_tools_file.meta_description;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      siteName: "SSDown",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
+      type: "website",
+    },
+    twitter: { card: "summary_large_image", title, description },
+    alternates: { canonical },
+  };
+}
+
+const toolMeta = [
+  { href: "/file/json-to-xml", icon: FileCode, gradient: "from-orange-500 to-red-500", bgLight: "bg-orange-100 dark:bg-orange-900/30", iconColor: "text-orange-500" },
+  { href: "/file/xml-to-json", icon: FileJson, gradient: "from-blue-500 to-cyan-500", bgLight: "bg-blue-100 dark:bg-blue-900/30", iconColor: "text-blue-500" },
+  { href: "/file/csv-to-json", icon: FileJson, gradient: "from-green-500 to-emerald-500", bgLight: "bg-green-100 dark:bg-green-900/30", iconColor: "text-green-500" },
+  { href: "/file/csv-to-xml", icon: FileCode, gradient: "from-teal-500 to-green-500", bgLight: "bg-teal-100 dark:bg-teal-900/30", iconColor: "text-teal-500" },
+  { href: "/file/xml-to-csv", icon: FileSpreadsheet, gradient: "from-indigo-500 to-blue-500", bgLight: "bg-indigo-100 dark:bg-indigo-900/30", iconColor: "text-indigo-500" },
+  { href: "/file/csv-to-excel", icon: FileSpreadsheet, gradient: "from-green-600 to-emerald-600", bgLight: "bg-green-100 dark:bg-green-900/30", iconColor: "text-green-600" },
+  { href: "/file/excel-to-csv", icon: FileText, gradient: "from-emerald-500 to-green-500", bgLight: "bg-emerald-100 dark:bg-emerald-900/30", iconColor: "text-emerald-500" },
+  { href: "/file/xml-to-excel", icon: FileSpreadsheet, gradient: "from-blue-600 to-indigo-600", bgLight: "bg-blue-100 dark:bg-blue-900/30", iconColor: "text-blue-600" },
+  { href: "/file/excel-to-xml", icon: FileCode, gradient: "from-purple-500 to-indigo-500", bgLight: "bg-purple-100 dark:bg-purple-900/30", iconColor: "text-purple-500" },
+  { href: "/file/split-csv", icon: Split, gradient: "from-yellow-500 to-orange-500", bgLight: "bg-yellow-100 dark:bg-yellow-900/30", iconColor: "text-yellow-500" },
+  { href: "/file/split-excel", icon: Split, gradient: "from-lime-500 to-green-500", bgLight: "bg-lime-100 dark:bg-lime-900/30", iconColor: "text-lime-500" },
+  { href: "/file/excel-to-pdf", icon: FileType, gradient: "from-red-500 to-pink-500", bgLight: "bg-red-100 dark:bg-red-900/30", iconColor: "text-red-500" },
 ];
 
-export default function FileToolsPage() {
+export default async function FileToolsPage() {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+
+  const tools = toolMeta.map((meta, i) => ({
+    ...meta,
+    title: dict.page_tools_file.tools[i].title,
+    description: dict.page_tools_file.tools[i].description,
+  }));
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tools",
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "File & Data Tools",
-        item: "https://ssdown.app/tools/file",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.file_data_tools, item: "https://ssdown.app/tools/file" },
     ],
   };
 
@@ -181,20 +74,22 @@ export default function FileToolsPage() {
         <div className="container max-w-7xl mx-auto px-4 py-8">
           <Breadcrumbs
             items={[
-              { label: "Home", href: "/" },
-              { label: "Tools", href: "/tools" },
-              { label: "File Tools", href: "/tools/file", isCurrent: true },
+              { label: dict.breadcrumb.home, href: "/" },
+              { label: dict.breadcrumb.tools, href: "/tools" },
+              {
+                label: dict.breadcrumb.file_data_tools,
+                href: "/tools/file",
+                isCurrent: true,
+              },
             ]}
           />
 
           <header className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-              File & Data Tools
+              {dict.page_tools_file.heading}
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Free online file and data tools. Convert JSON, XML, CSV, Excel.
-              Split files and manage data formats directly in your browser. No
-              upload required.
+              {dict.page_tools_file.subtitle}
             </p>
           </header>
 
@@ -215,7 +110,7 @@ export default function FileToolsPage() {
                 <span
                   className={`inline-flex items-center gap-2 text-sm font-semibold bg-gradient-to-r ${tool.gradient} bg-clip-text text-transparent group-hover:gap-3 transition-all`}
                 >
-                  Try it now <ArrowRight className="w-4 h-4 text-current" />
+                  {dict.breadcrumb.try_it_now} <ArrowRight className="w-4 h-4 text-current" />
                 </span>
               </a>
             ))}

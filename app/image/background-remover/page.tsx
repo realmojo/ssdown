@@ -5,13 +5,13 @@ import { BackgroundRemoverClient } from "@/components/client/background-remover-
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/background-remover`;
 
-  const title =
-    "Background Remover - Remove Image Background Free with AI | SSDown";
-  const description =
-    "Remove image backgrounds instantly with AI. Free online background remover — no upload to server, 100% private. Works with PNG, JPG, WebP. Powered by WebAssembly.";
+  const title = dict.page_background_remover.meta_title;
+  const description = dict.page_background_remover.meta_description;
 
   return {
     title,
@@ -28,22 +28,16 @@ export async function generateMetadata(): Promise<Metadata> {
       "online background remover",
       "no upload background remover",
     ],
-    alternates: {
-      canonical,
-    },
+    alternates: { canonical },
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: "en_US",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
     },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -54,40 +48,14 @@ export default async function BackgroundRemoverPage() {
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "Is my image uploaded to any server?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "No. All processing happens 100% in your browser using WebAssembly. Your images never leave your device.",
-        },
+    mainEntity: dict.page_background_remover.faq.map((item: { question: string; answer: string }) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-      {
-        "@type": "Question",
-        name: "What image formats are supported?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "We support PNG, JPG/JPEG, and WebP formats. The output is always PNG with transparency.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How long does it take?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "The first time may take 10-30 seconds to download the AI model (~40MB). After that, most images process in 3-10 seconds.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Is there a file size limit?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, the maximum file size is 20MB. For best results, use images under 4000x4000 pixels.",
-        },
-      },
-    ],
+    })),
   };
 
   const softwareSchema = {
@@ -101,38 +69,17 @@ export default async function BackgroundRemoverPage() {
       price: "0",
       priceCurrency: "USD",
     },
-    description:
-      "Free AI-powered background remover that works entirely in your browser. No upload required.",
+    description: dict.page_background_remover.software_description,
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tools",
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "Image Tools",
-        item: "https://ssdown.app/tools/image",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "Background Remover",
-        item: "https://ssdown.app/image/background-remover",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.image_tools, item: "https://ssdown.app/tools/image" },
+      { "@type": "ListItem", position: 4, name: dict.page_background_remover.breadcrumb_title, item: "https://ssdown.app/image/background-remover" },
     ],
   };
 
@@ -153,11 +100,11 @@ export default async function BackgroundRemoverPage() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
-            { label: "Home", href: "/" },
-            { label: "Tools", href: "/tools" },
-            { label: "Image Tools", href: "/tools/image" },
+            { label: dict.breadcrumb.home, href: "/" },
+            { label: dict.breadcrumb.tools, href: "/tools" },
+            { label: dict.breadcrumb.image_tools, href: "/tools/image" },
             {
-              label: "Background Remover",
+              label: dict.page_background_remover.breadcrumb_title,
               href: "/image/background-remover",
               isCurrent: true,
             },

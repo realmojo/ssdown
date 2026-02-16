@@ -35,7 +35,7 @@ const POSITION_LABELS: Record<PositionOption, string> = {
   "bottom-right": "Bottom Right",
 };
 
-export function PdfPageNumbersClient() {
+export function PdfPageNumbersClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfName, setPdfName] = useState("");
   const [pageCount, setPageCount] = useState(0);
@@ -195,9 +195,9 @@ export function PdfPageNumbersClient() {
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-red-100 to-rose-100 dark:from-red-900/30 dark:to-rose-900/30 mb-6">
           <Hash className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">Add Page Numbers to PDF</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">{dict?.pdf_page_numbers?.title || "Add Page Numbers to PDF"}</h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Add page numbers to every page of your PDF. Choose position, font size, and starting number. 100% private — processed in your browser.
+          {dict?.pdf_page_numbers?.subtitle || "Add page numbers to every page of your PDF. Choose position, font size, and starting number. 100% private — processed in your browser."}
         </p>
 
         {!pdfFile && (
@@ -210,7 +210,7 @@ export function PdfPageNumbersClient() {
           >
             <input ref={fileInputRef} type="file" accept="application/pdf" onChange={handleFileChange} className="hidden" />
             <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <p className="text-lg font-medium mb-2">Drag & drop a PDF file here</p>
+            <p className="text-lg font-medium mb-2">{dict?.pdf_page_numbers?.drop_zone || "Drag & drop a PDF file here"}</p>
             <p className="text-sm text-muted-foreground">Only PDF files accepted. Max 50MB per file.</p>
           </div>
         )}
@@ -259,7 +259,7 @@ export function PdfPageNumbersClient() {
             {!resultUrl && (
               <div className="flex justify-center pt-4">
                 <Button size="lg" onClick={applyPageNumbers} disabled={isProcessing} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]">
-                  {isProcessing ? (<><Loader2 className="w-5 h-5 mr-2 animate-spin" />Adding... {progress}%</>) : (<><Hash className="w-5 h-5 mr-2" />Add Page Numbers</>)}
+                  {isProcessing ? (<><Loader2 className="w-5 h-5 mr-2 animate-spin" />Adding... {progress}%</>) : (<><Hash className="w-5 h-5 mr-2" />{dict?.pdf_page_numbers?.action_btn || "Add Page Numbers"}</>)}
                 </Button>
               </div>
             )}
@@ -274,7 +274,7 @@ export function PdfPageNumbersClient() {
               <div className="flex flex-col items-center gap-3 pt-4 animate-in fade-in slide-in-from-bottom-2">
                 <div className="text-sm text-muted-foreground">Page numbers added successfully! {pageCount} pages &middot; {resultSize} MB</div>
                 <Button size="lg" onClick={handleDownload} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]">
-                  <Download className="w-5 h-5 mr-2" />Download Numbered PDF
+                  <Download className="w-5 h-5 mr-2" />{dict?.pdf_page_numbers?.download_btn || "Download Numbered PDF"}
                 </Button>
               </div>
             )}
@@ -285,14 +285,14 @@ export function PdfPageNumbersClient() {
       <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">How to Add Page Numbers</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Number your PDF pages in 3 simple steps.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_page_numbers?.guide_title || "How to Add Page Numbers"}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{dict?.pdf_page_numbers?.guide_desc || "Number your PDF pages in 3 simple steps."}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { step: 1, title: "Upload PDF", desc: "Drag and drop or click to select a PDF file from your device.", icon: Upload },
-              { step: 2, title: "Configure", desc: "Choose the position, font size, and starting number for your page numbers.", icon: Hash },
-              { step: 3, title: "Download", desc: "Click 'Add Page Numbers' and download your numbered PDF file.", icon: Download },
+              { step: 1, title: dict?.pdf_page_numbers?.step1_title || "Upload PDF", desc: dict?.pdf_page_numbers?.step1_desc || "Drag and drop or click to select a PDF file from your device.", icon: Upload },
+              { step: 2, title: dict?.pdf_page_numbers?.step2_title || "Configure", desc: dict?.pdf_page_numbers?.step2_desc || "Choose the position, font size, and starting number for your page numbers.", icon: Hash },
+              { step: 3, title: dict?.pdf_page_numbers?.step3_title || "Download", desc: dict?.pdf_page_numbers?.step3_desc || "Click 'Add Page Numbers' and download your numbered PDF file.", icon: Download },
             ].map((step) => (
               <Card key={step.step} className="border-red-200 dark:border-red-900/50">
                 <CardHeader>
@@ -312,15 +312,15 @@ export function PdfPageNumbersClient() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Page Numbering Tips</h2>
-            <p className="text-muted-foreground">Get the best results when adding page numbers.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_page_numbers?.tips_title || "Page Numbering Tips"}</h2>
+            <p className="text-muted-foreground">{dict?.pdf_page_numbers?.tips_desc || "Get the best results when adding page numbers."}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: "100% Private", desc: "All processing happens in your browser using pdf-lib. Your files never leave your device.", icon: Shield },
-              { title: "Flexible Positioning", desc: "Choose from 6 positions: top or bottom, aligned left, center, or right.", icon: Eye },
-              { title: "Custom Start Number", desc: "Start numbering from any number — useful for documents with front matter or appendices.", icon: Zap },
-              { title: "Original Preserved", desc: "Your original PDF file remains untouched. Only a new numbered file is created for download.", icon: FileText },
+              { title: dict?.pdf_page_numbers?.tip1_title || "100% Private", desc: dict?.pdf_page_numbers?.tip1_desc || "All processing happens in your browser using pdf-lib. Your files never leave your device.", icon: Shield },
+              { title: dict?.pdf_page_numbers?.tip2_title || "Flexible Positioning", desc: dict?.pdf_page_numbers?.tip2_desc || "Choose from 6 positions: top or bottom, aligned left, center, or right.", icon: Eye },
+              { title: dict?.pdf_page_numbers?.tip3_title || "Custom Start Number", desc: dict?.pdf_page_numbers?.tip3_desc || "Start numbering from any number — useful for documents with front matter or appendices.", icon: Zap },
+              { title: dict?.pdf_page_numbers?.tip4_title || "Original Preserved", desc: dict?.pdf_page_numbers?.tip4_desc || "Your original PDF file remains untouched. Only a new numbered file is created for download.", icon: FileText },
             ].map((tip, idx) => (
               <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-red-800/30">
                 <div className="flex-shrink-0"><tip.icon className="w-6 h-6 text-red-600 dark:text-red-400" /></div>
@@ -335,30 +335,30 @@ export function PdfPageNumbersClient() {
 
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Page Numbers FAQ</h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto">Common questions about adding page numbers to PDFs.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_page_numbers?.faq_title || "Page Numbers FAQ"}</h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto">{dict?.pdf_page_numbers?.faq_desc || "Common questions about adding page numbers to PDFs."}</p>
           </div>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to add page numbers?</AccordionTrigger>
-                <AccordionContent>Yes, this tool is 100% free. There are no hidden fees, watermarks, or usage limits.</AccordionContent>
+                <AccordionTrigger>{dict?.pdf_page_numbers?.faq_1_q || "Is it free to add page numbers?"}</AccordionTrigger>
+                <AccordionContent>{dict?.pdf_page_numbers?.faq_1_a || "Yes, this tool is 100% free. There are no hidden fees, watermarks, or usage limits."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>What font is used for page numbers?</AccordionTrigger>
-                <AccordionContent>Page numbers are rendered using Helvetica, a standard PDF font available in all PDF viewers. The font size is adjustable between 10 and 24 points.</AccordionContent>
+                <AccordionTrigger>{dict?.pdf_page_numbers?.faq_2_q || "What font is used for page numbers?"}</AccordionTrigger>
+                <AccordionContent>{dict?.pdf_page_numbers?.faq_2_a || "Page numbers are rendered using Helvetica, a standard PDF font available in all PDF viewers. The font size is adjustable between 10 and 24 points."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>Can I skip numbering on certain pages?</AccordionTrigger>
-                <AccordionContent>Currently, page numbers are added to all pages. To skip certain pages, you could split the PDF first, add numbers to the desired pages, and then merge them back together.</AccordionContent>
+                <AccordionTrigger>{dict?.pdf_page_numbers?.faq_3_q || "Can I skip numbering on certain pages?"}</AccordionTrigger>
+                <AccordionContent>{dict?.pdf_page_numbers?.faq_3_a || "Currently, page numbers are added to all pages. To skip certain pages, you could split the PDF first, add numbers to the desired pages, and then merge them back together."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>Can I change the number color?</AccordionTrigger>
-                <AccordionContent>Currently, page numbers are drawn in black. For custom colors, a more advanced PDF editor would be needed.</AccordionContent>
+                <AccordionTrigger>{dict?.pdf_page_numbers?.faq_4_q || "Can I change the number color?"}</AccordionTrigger>
+                <AccordionContent>{dict?.pdf_page_numbers?.faq_4_a || "Currently, page numbers are drawn in black. For custom colors, a more advanced PDF editor would be needed."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>What is the file size limit?</AccordionTrigger>
-                <AccordionContent>The maximum file size is 50MB. Since all processing happens in your browser, very large files may take longer depending on your device&apos;s capabilities.</AccordionContent>
+                <AccordionTrigger>{dict?.pdf_page_numbers?.faq_5_q || "What is the file size limit?"}</AccordionTrigger>
+                <AccordionContent>{dict?.pdf_page_numbers?.faq_5_a || "The maximum file size is 50MB. Since all processing happens in your browser, very large files may take longer depending on your device&apos;s capabilities."}</AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>

@@ -5,32 +5,27 @@ import { QRCodeGeneratorClient } from "@/components/client/qr-code-generator-cli
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/utility/qr-code-generator`;
 
-  const title = "QR Code Generator - Free, Custom, Instant Download | SSDown";
-  const description =
-    "Create custom QR codes for any link in seconds. No sign-up required. Free, instant high-quality PNG download.";
+  const title = dict.page_qr_code_generator.meta_title;
+  const description = dict.page_qr_code_generator.meta_description;
 
   return {
     title,
     description,
-    alternates: {
-      canonical,
-    },
+    alternates: { canonical },
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: "en_US",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
     },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -41,70 +36,24 @@ export default async function QRCodeGeneratorPage() {
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: dict?.qna_qr_code_generator?.faq_1_q || "Is it free to use?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_qr_code_generator?.faq_1_a ||
-            "Yes, our QR code generator is 100% free with no limits.",
-        },
+    mainEntity: dict.page_qr_code_generator.faq.map((item: { question: string; answer: string }) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-      {
-        "@type": "Question",
-        name: dict?.qna_qr_code_generator?.faq_2_q || "Do the QR codes expire?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_qr_code_generator?.faq_2_a ||
-            "No, standard static QR codes like these never expire as long as the link works.",
-        },
-      },
-      {
-        "@type": "Question",
-        name:
-          dict?.qna_qr_code_generator?.faq_3_q ||
-          "Can I use it for commercial purposes?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_qr_code_generator?.faq_3_a ||
-            "Yes, you can use the generated QR codes for any purpose, including commercial use.",
-        },
-      },
-    ],
+    })),
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tools",
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "Utility",
-        item: "https://ssdown.app/tools/utility",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "QR Code Generator",
-        item: "https://ssdown.app/utility/qr-code-generator",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.utility, item: "https://ssdown.app/tools/utility" },
+      { "@type": "ListItem", position: 4, name: dict.page_qr_code_generator.breadcrumb_title, item: "https://ssdown.app/utility/qr-code-generator" },
     ],
   };
 
@@ -121,11 +70,11 @@ export default async function QRCodeGeneratorPage() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
-            { label: "Home", href: "/" },
-            { label: "Tools", href: "/tools" },
-            { label: "Utility", href: "/tools/utility" },
+            { label: dict.breadcrumb.home, href: "/" },
+            { label: dict.breadcrumb.tools, href: "/tools" },
+            { label: dict.breadcrumb.utility, href: "/tools/utility" },
             {
-              label: "QR Code Generator",
+              label: dict.page_qr_code_generator.breadcrumb_title,
               href: "/utility/qr-code-generator",
               isCurrent: true,
             },

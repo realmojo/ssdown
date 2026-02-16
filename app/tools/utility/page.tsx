@@ -1,14 +1,17 @@
-import { Metadata } from "next";
 import { QrCode, Calculator, Download, Eye, ArrowRight, Type } from "lucide-react";
+import { Metadata } from "next";
+import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/tools/utility`;
 
-  const title = "Free Utility Tools | SSDown";
-  const description =
-    "Free utility tools for creators. YouTube thumbnail downloader, preview editor, QR codes, and aspect ratio calculator.";
+  const title = dict.page_tools_utility.meta_title;
+  const description = dict.page_tools_utility.meta_description;
 
   return {
     title,
@@ -18,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: "en_US",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
     },
     twitter: { card: "summary_large_image", title, description },
@@ -26,77 +29,31 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const tools = [
-  {
-    title: "YT Thumbnail Downloader",
-    description: "Download YouTube thumbnails in high quality HD, 4K.",
-    href: "/utility/youtube-thumbnail",
-    icon: Download,
-    gradient: "from-red-500 to-orange-500",
-    bgLight: "bg-red-100 dark:bg-red-900/30",
-    iconColor: "text-red-500",
-  },
-  {
-    title: "YT Preview Editor",
-    description: "Edit and preview your YouTube video metadata and thumbnails.",
-    href: "/utility/youtube-preview",
-    icon: Eye,
-    gradient: "from-orange-500 to-yellow-500",
-    bgLight: "bg-orange-100 dark:bg-orange-900/30",
-    iconColor: "text-orange-500",
-  },
-  {
-    title: "QR Code Generator",
-    description: "Create custom QR codes for any link in seconds.",
-    href: "/utility/qr-code-generator",
-    icon: QrCode,
-    gradient: "from-blue-600 to-cyan-600",
-    bgLight: "bg-blue-100 dark:bg-blue-900/30",
-    iconColor: "text-blue-600",
-  },
-  {
-    title: "Aspect Ratio Calculator",
-    description: "Calculate aspect ratios and resolutions for video editing.",
-    href: "/utility/aspect-ratio-calculator",
-    icon: Calculator,
-    gradient: "from-violet-500 to-purple-500",
-    bgLight: "bg-violet-100 dark:bg-violet-900/30",
-    iconColor: "text-violet-500",
-  },
-  {
-    title: "Word Counter",
-    description: "Count words, characters, sentences, and paragraphs in real-time.",
-    href: "/utility/word-counter",
-    icon: Type,
-    gradient: "from-emerald-500 to-green-500",
-    bgLight: "bg-emerald-100 dark:bg-emerald-900/30",
-    iconColor: "text-emerald-600",
-  },
+const toolMeta = [
+  { href: "/utility/youtube-thumbnail", icon: Download, gradient: "from-red-500 to-orange-500", bgLight: "bg-red-100 dark:bg-red-900/30", iconColor: "text-red-500" },
+  { href: "/utility/youtube-preview", icon: Eye, gradient: "from-orange-500 to-yellow-500", bgLight: "bg-orange-100 dark:bg-orange-900/30", iconColor: "text-orange-500" },
+  { href: "/utility/qr-code-generator", icon: QrCode, gradient: "from-blue-600 to-cyan-600", bgLight: "bg-blue-100 dark:bg-blue-900/30", iconColor: "text-blue-600" },
+  { href: "/utility/aspect-ratio-calculator", icon: Calculator, gradient: "from-violet-500 to-purple-500", bgLight: "bg-violet-100 dark:bg-violet-900/30", iconColor: "text-violet-500" },
+  { href: "/utility/word-counter", icon: Type, gradient: "from-emerald-500 to-green-500", bgLight: "bg-emerald-100 dark:bg-emerald-900/30", iconColor: "text-emerald-600" },
 ];
 
-export default function UtilityToolsPage() {
+export default async function UtilityToolsPage() {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+
+  const tools = toolMeta.map((meta, i) => ({
+    ...meta,
+    title: dict.page_tools_utility.tools[i].title,
+    description: dict.page_tools_utility.tools[i].description,
+  }));
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tools",
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "Utility",
-        item: "https://ssdown.app/tools/utility",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.utility, item: "https://ssdown.app/tools/utility" },
     ],
   };
 
@@ -110,19 +67,22 @@ export default function UtilityToolsPage() {
         <div className="container max-w-7xl mx-auto px-4 py-8">
           <Breadcrumbs
             items={[
-              { label: "Home", href: "/" },
-              { label: "Tools", href: "/tools" },
-              { label: "Utility", href: "/tools/utility", isCurrent: true },
+              { label: dict.breadcrumb.home, href: "/" },
+              { label: dict.breadcrumb.tools, href: "/tools" },
+              {
+                label: dict.breadcrumb.utility,
+                href: "/tools/utility",
+                isCurrent: true,
+              },
             ]}
           />
 
           <header className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-              Utility Tools
+              {dict.page_tools_utility.heading}
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Essential utility tools for content creators. QR codes,
-              calculators, and more.
+              {dict.page_tools_utility.subtitle}
             </p>
           </header>
 
@@ -143,7 +103,7 @@ export default function UtilityToolsPage() {
                 <span
                   className={`inline-flex items-center gap-2 text-sm font-semibold bg-gradient-to-r ${tool.gradient} bg-clip-text text-transparent group-hover:gap-3 transition-all`}
                 >
-                  Try it now <ArrowRight className="w-4 h-4 text-current" />
+                  {dict.breadcrumb.try_it_now} <ArrowRight className="w-4 h-4 text-current" />
                 </span>
               </a>
             ))}

@@ -1,82 +1,59 @@
 import { Metadata } from "next";
+import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { XmlToExcelClient } from "@/components/client/xml-to-excel-client";
 
-export const metadata: Metadata = {
-  title: "XML to Excel Converter | Free Online Tool | SSDown",
-  description:
-    "Convert XML to Excel (XLSX) format instantly. Free online tool to parse XML data and export as Excel spreadsheet. 100% browser-based.",
-  openGraph: {
-    title: "XML to Excel Converter | Free Online Tool | SSDown",
-    description:
-      "Convert XML to Excel (XLSX) format instantly. Free online tool to parse XML data and export as Excel spreadsheet.",
-    url: "https://ssdown.app/file/xml-to-excel",
-    siteName: "SSDown",
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "XML to Excel Converter | Free Online Tool",
-    description: "Convert XML to Excel format instantly.",
-  },
-  alternates: {
-    canonical: "https://ssdown.app/file/xml-to-excel",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+  const baseUrl = "https://ssdown.app";
+  const canonical = `${baseUrl}/file/xml-to-excel`;
 
-export default function XmlToExcelPage() {
+  const title = dict.page_xml_to_excel.meta_title;
+  const description = dict.page_xml_to_excel.meta_description;
+
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      siteName: "SSDown",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
+      type: "website",
+    },
+    twitter: { card: "summary_large_image", title, description },
+  };
+}
+
+export default async function XmlToExcelPage() {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "How does XML to Excel conversion work?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "The tool parses the XML structure to identify list items and converts their child elements into Excel columns using the SheetJS library.",
-        },
+    mainEntity: dict.page_xml_to_excel.faq.map((item: { question: string; answer: string }) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-      {
-        "@type": "Question",
-        name: "Can I open the file in Google Sheets?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, the generated .xlsx file is fully compatible with Google Sheets, Microsoft Excel, and other spreadsheet software.",
-        },
-      },
-    ],
+    })),
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tools",
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "File & Data Tools",
-        item: "https://ssdown.app/tools/file",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "XML to Excel",
-        item: "https://ssdown.app/file/xml-to-excel",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.file_data_tools, item: "https://ssdown.app/tools/file" },
+      { "@type": "ListItem", position: 4, name: dict.page_xml_to_excel.breadcrumb_title, item: "https://ssdown.app/file/xml-to-excel" },
     ],
   };
 
@@ -93,18 +70,18 @@ export default function XmlToExcelPage() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
-            { label: "Home", href: "/" },
-            { label: "Tools", href: "/tools" },
-            { label: "File Tools", href: "/tools/file" },
+            { label: dict.breadcrumb.home, href: "/" },
+            { label: dict.breadcrumb.tools, href: "/tools" },
+            { label: dict.breadcrumb.file_tools, href: "/tools/file" },
             {
-              label: "XML to Excel",
+              label: dict.page_xml_to_excel.breadcrumb_title,
               href: "/file/xml-to-excel",
               isCurrent: true,
             },
           ]}
         />
       </div>
-      <XmlToExcelClient />
+      <XmlToExcelClient dict={dict} />
     </>
   );
 }

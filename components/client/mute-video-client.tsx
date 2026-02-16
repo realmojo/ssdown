@@ -30,7 +30,7 @@ import {
 // Types only - actual imports happen dynamically to avoid SSR issues
 type FFmpeg = any;
 
-export function MuteVideoClient() {
+export function MuteVideoClient({ dict }: { dict?: any }) {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
   const [converting, setConverting] = useState(false);
@@ -169,10 +169,10 @@ export function MuteVideoClient() {
           <VolumeX className="w-10 h-10 text-violet-600 dark:text-violet-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Mute Video - Remove Audio
+          {dict?.mute_video?.title || "Mute Video - Remove Audio"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Remove audio from any video file directly in your browser. 100% private, no upload to server.
+          {dict?.mute_video?.subtitle || "Remove audio from any video file directly in your browser. 100% private, no upload to server."}
         </p>
 
         {/* Drop Zone */}
@@ -197,13 +197,13 @@ export function MuteVideoClient() {
             />
             <Upload className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
             <p className="text-lg font-medium mb-2">
-              Drag & drop a video file here, or click to browse
+              {dict?.mute_video?.drop_zone || "Drag & drop a video file here, or click to browse"}
             </p>
             <p className="text-sm text-muted-foreground mb-1">
-              Supported: MP4, WebM, MKV, AVI
+              {dict?.mute_video?.supported || "Supported: MP4, WebM, MKV, AVI"}
             </p>
             <p className="text-xs text-muted-foreground">
-              Recommended max file size: 500MB
+              {dict?.mute_video?.max_file_size || "Recommended max file size: 500MB"}
             </p>
           </div>
         )}
@@ -247,7 +247,7 @@ export function MuteVideoClient() {
             {loading ? (
               <>
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                Loading converter engine...
+                {dict?.mute_video?.loading_engine || "Loading converter engine..."}
               </>
             ) : converting ? (
               <>
@@ -257,7 +257,7 @@ export function MuteVideoClient() {
             ) : (
               <>
                 <VolumeX className="mr-2 h-5 w-5" />
-                Remove Audio
+                {dict?.mute_video?.action_btn || "Remove Audio"}
               </>
             )}
           </Button>
@@ -273,7 +273,7 @@ export function MuteVideoClient() {
               />
             </div>
             <p className="text-center text-sm text-muted-foreground mt-2">
-              {progress}% complete
+              {progress}% {dict?.mute_video?.complete || "complete"}
             </p>
           </div>
         )}
@@ -293,7 +293,7 @@ export function MuteVideoClient() {
                 <div className="flex items-center gap-3 mb-4">
                   <CheckCircle2 className="w-8 h-8 text-green-600 dark:text-green-400" />
                   <div>
-                    <p className="font-semibold text-lg">Audio Removed Successfully!</p>
+                    <p className="font-semibold text-lg">{dict?.mute_video?.success_msg || "Audio Removed Successfully!"}</p>
                     <p className="text-sm text-muted-foreground">{fileName}</p>
                   </div>
                 </div>
@@ -303,14 +303,14 @@ export function MuteVideoClient() {
                     className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
                   >
                     <Download className="mr-2 h-4 w-4" />
-                    Download Muted Video
+                    {dict?.mute_video?.download_btn || "Download Muted Video"}
                   </Button>
                   <Button
                     onClick={handleRemoveFile}
                     variant="outline"
                     className="flex-1"
                   >
-                    Mute Another Video
+                    {dict?.mute_video?.another_btn || "Mute Another Video"}
                   </Button>
                 </div>
               </CardContent>
@@ -328,10 +328,10 @@ export function MuteVideoClient() {
               <BookOpen className="w-8 h-8 text-violet-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              How to Remove Audio from Video
+              {dict?.mute_video?.guide_title || "How to Remove Audio from Video"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Follow these simple steps to mute any video file.
+              {dict?.mute_video?.guide_desc || "Follow these simple steps to mute any video file."}
             </p>
           </div>
 
@@ -339,20 +339,20 @@ export function MuteVideoClient() {
             {[
               {
                 step: 1,
-                title: "Select a Video File",
-                desc: "Drag and drop a video file or click to browse. Supports MP4, WebM, MKV, and AVI formats.",
+                title: dict?.mute_video?.step1_title || "Select a Video File",
+                desc: dict?.mute_video?.step1_desc || "Drag and drop a video file or click to browse. Supports MP4, WebM, MKV, and AVI formats.",
                 icon: Upload,
               },
               {
                 step: 2,
-                title: "Remove Audio",
-                desc: "Click the Remove Audio button. The process is fast since only the audio track is stripped without re-encoding the video.",
+                title: dict?.mute_video?.step2_title || "Remove Audio",
+                desc: dict?.mute_video?.step2_desc || "Click the Remove Audio button. The process is fast since only the audio track is stripped without re-encoding the video.",
                 icon: VolumeX,
               },
               {
                 step: 3,
-                title: "Download Muted Video",
-                desc: "Once processing is complete, click Download to save the silent video file to your device.",
+                title: dict?.mute_video?.step3_title || "Download Muted Video",
+                desc: dict?.mute_video?.step3_desc || "Once processing is complete, click Download to save the silent video file to your device.",
                 icon: Download,
               },
             ].map((step) => (
@@ -380,33 +380,33 @@ export function MuteVideoClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Video Muting Tips
+              {dict?.mute_video?.tips_title || "Video Muting Tips"}
             </h2>
             <p className="text-muted-foreground">
-              Get the best results when removing audio from your videos.
+              {dict?.mute_video?.tips_desc || "Get the best results when removing audio from your videos."}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "No Quality Loss",
-                desc: "The video stream is copied directly without re-encoding, so video quality remains identical to the original.",
+                title: dict?.mute_video?.tip1_title || "No Quality Loss",
+                desc: dict?.mute_video?.tip1_desc || "The video stream is copied directly without re-encoding, so video quality remains identical to the original.",
                 icon: CheckCircle2,
               },
               {
-                title: "100% Private",
-                desc: "Your video never leaves your device. All processing happens locally in your browser using WebAssembly.",
+                title: dict?.mute_video?.tip2_title || "100% Private",
+                desc: dict?.mute_video?.tip2_desc || "Your video never leaves your device. All processing happens locally in your browser using WebAssembly.",
                 icon: Info,
               },
               {
-                title: "Fast Processing",
-                desc: "Since we skip re-encoding and just remove the audio track, the process is much faster than traditional converters.",
+                title: dict?.mute_video?.tip3_title || "Fast Processing",
+                desc: dict?.mute_video?.tip3_desc || "Since we skip re-encoding and just remove the audio track, the process is much faster than traditional converters.",
                 icon: VolumeX,
               },
               {
-                title: "Browser Support",
-                desc: "Works best in Chrome, Edge, and Firefox. Safari may have limited support for large files.",
+                title: dict?.mute_video?.tip4_title || "Browser Support",
+                desc: dict?.mute_video?.tip4_desc || "Works best in Chrome, Edge, and Firefox. Safari may have limited support for large files.",
                 icon: FileVideo,
               },
             ].map((tip, idx) => (
@@ -427,7 +427,7 @@ export function MuteVideoClient() {
         <section>
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Mute Video FAQ
+              {dict?.mute_video?.faq_title || "Mute Video FAQ"}
             </h2>
             <p className="text-muted-foreground">
               Common questions about removing audio from videos.
@@ -437,42 +437,42 @@ export function MuteVideoClient() {
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
               <AccordionTrigger className="text-left">
-                Is my video uploaded to a server?
+                {dict?.mute_video?.faq_1_q || "Is my video uploaded to a server?"}
               </AccordionTrigger>
               <AccordionContent className="whitespace-pre-line text-muted-foreground">
-                No. All processing happens entirely in your browser using WebAssembly technology. Your video file never leaves your device, making it 100% private and secure.
+                {dict?.mute_video?.faq_1_a || "No. All processing happens entirely in your browser using WebAssembly technology. Your video file never leaves your device, making it 100% private and secure."}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
               <AccordionTrigger className="text-left">
-                What video formats are supported?
+                {dict?.mute_video?.faq_2_q || "What video formats are supported?"}
               </AccordionTrigger>
               <AccordionContent className="whitespace-pre-line text-muted-foreground">
-                We support the most common video formats: MP4, WebM, MKV, and AVI. The output file maintains the same format and video quality as the original.
+                {dict?.mute_video?.faq_2_a || "We support the most common video formats: MP4, WebM, MKV, and AVI. The output file maintains the same format and video quality as the original."}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
               <AccordionTrigger className="text-left">
-                Does muting affect video quality?
+                {dict?.mute_video?.faq_3_q || "Does muting affect video quality?"}
               </AccordionTrigger>
               <AccordionContent className="whitespace-pre-line text-muted-foreground">
-                No. The video stream is copied directly without re-encoding, so the video quality remains identical to the original. Only the audio track is removed.
+                {dict?.mute_video?.faq_3_a || "No. The video stream is copied directly without re-encoding, so the video quality remains identical to the original. Only the audio track is removed."}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-4">
               <AccordionTrigger className="text-left">
-                Is there a file size limit?
+                {dict?.mute_video?.faq_4_q || "Is there a file size limit?"}
               </AccordionTrigger>
               <AccordionContent className="whitespace-pre-line text-muted-foreground">
-                There is no hard limit, but we recommend files under 500MB for the best experience. Larger files may cause your browser to slow down or run out of memory, especially on mobile devices.
+                {dict?.mute_video?.faq_4_a || "There is no hard limit, but we recommend files under 500MB for the best experience. Larger files may cause your browser to slow down or run out of memory, especially on mobile devices."}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-5">
               <AccordionTrigger className="text-left">
-                How long does the process take?
+                {dict?.mute_video?.faq_5_q || "How long does the process take?"}
               </AccordionTrigger>
               <AccordionContent className="whitespace-pre-line text-muted-foreground">
-                Since we copy the video stream without re-encoding, the process is very fast — typically just a few seconds regardless of video length. The main time is spent reading and writing the file.
+                {dict?.mute_video?.faq_5_a || "Since we copy the video stream without re-encoding, the process is very fast — typically just a few seconds regardless of video length. The main time is spent reading and writing the file."}
               </AccordionContent>
             </AccordionItem>
           </Accordion>

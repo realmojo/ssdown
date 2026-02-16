@@ -24,7 +24,7 @@ import {
 
 type OutputSize = "original" | "200" | "400" | "800";
 
-export function RoundImageClient() {
+export function RoundImageClient({ dict }: { dict?: any }) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>("");
   const [isDragging, setIsDragging] = useState(false);
@@ -162,10 +162,10 @@ export function RoundImageClient() {
           <Circle className="w-10 h-10 text-teal-600 dark:text-cyan-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Round Image Maker
+          {dict?.round_image?.title || "Round Image Maker"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Crop any image into a perfect circle. Choose output size and background color. 100% private — processed in your browser.
+          {dict?.round_image?.subtitle || "Crop any image into a perfect circle. Choose output size and background color. 100% private — processed in your browser."}
         </p>
 
         {!imageSrc ? (
@@ -189,13 +189,13 @@ export function RoundImageClient() {
             />
             <FileImage className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
             <p className="text-lg font-medium mb-2">
-              Drag & drop your image here
+              {dict?.round_image?.drop_zone || "Drag & drop your image here"}
             </p>
             <p className="text-sm text-muted-foreground">
-              Supported: PNG, JPG, JPEG, WebP, GIF, BMP
+              {dict?.round_image?.supported || "Supported: PNG, JPG, JPEG, WebP, GIF, BMP"}
             </p>
             <p className="text-xs text-muted-foreground mt-2">
-              Max file size: 20MB
+              {dict?.round_image?.max_file_size || "Max file size: 20MB"}
             </p>
             <button
               type="button"
@@ -330,7 +330,7 @@ export function RoundImageClient() {
                   className="bg-teal-600 hover:bg-teal-700 text-white shadow-lg min-w-[180px]"
                 >
                   <Download className="w-5 h-5 mr-2" />
-                  Download PNG
+                  {dict?.round_image?.download_btn || "Download PNG"}
                 </Button>
               </div>
             )}
@@ -345,30 +345,30 @@ export function RoundImageClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              How to Make a Round Image
+              {dict?.round_image?.guide_title || "How to Make a Round Image"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Create a circular image in 3 simple steps.
+              {dict?.round_image?.guide_desc || "Create a circular image in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 step: 1,
-                title: "Upload Image",
-                desc: "Upload any PNG, JPG, WebP, GIF, or BMP image from your device.",
+                title: dict?.round_image?.step1_title || "Upload Image",
+                desc: dict?.round_image?.step1_desc || "Upload any PNG, JPG, WebP, GIF, or BMP image from your device.",
                 icon: Upload,
               },
               {
                 step: 2,
-                title: "Customize",
-                desc: "Choose your output size and background color. Preview updates instantly.",
+                title: dict?.round_image?.step2_title || "Customize",
+                desc: dict?.round_image?.step2_desc || "Choose your output size and background color. Preview updates instantly.",
                 icon: Palette,
               },
               {
                 step: 3,
-                title: "Download Result",
-                desc: "Click 'Download PNG' to save your circular image with transparency.",
+                title: dict?.round_image?.step3_title || "Download Result",
+                desc: dict?.round_image?.step3_desc || "Click 'Download PNG' to save your circular image with transparency.",
                 icon: Download,
               },
             ].map((step) => (
@@ -395,7 +395,7 @@ export function RoundImageClient() {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Round Image Tips
+              {dict?.round_image?.tips_title || "Round Image Tips"}
             </h2>
             <p className="text-muted-foreground">
               Get the best results when creating circular profile pictures and avatars.
@@ -440,7 +440,7 @@ export function RoundImageClient() {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Round Image Maker FAQ
+              {dict?.round_image?.faq_title || "Round Image Maker FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
               Common questions about creating circular images.
@@ -449,33 +449,33 @@ export function RoundImageClient() {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to use?</AccordionTrigger>
+                <AccordionTrigger>{dict?.round_image?.faq_1_q || "Is it free to use?"}</AccordionTrigger>
                 <AccordionContent>
-                  Yes, this round image maker is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can process.
+                  {dict?.round_image?.faq_1_a || "Yes, this round image maker is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can process."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Is it secure? Where are my images stored?</AccordionTrigger>
+                <AccordionTrigger>{dict?.round_image?.faq_2_q || "Is it secure? Where are my images stored?"}</AccordionTrigger>
                 <AccordionContent>
-                  Your images are completely secure because all processing happens entirely in your browser using Canvas API. Your images never leave your device and are never uploaded to any server.
+                  {dict?.round_image?.faq_2_a || "Your images are completely secure because all processing happens entirely in your browser using Canvas API. Your images never leave your device and are never uploaded to any server."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>How does the circular crop work?</AccordionTrigger>
+                <AccordionTrigger>{dict?.round_image?.faq_3_q || "How does the circular crop work?"}</AccordionTrigger>
                 <AccordionContent>
-                  The tool first center-crops your image to a square, then applies a circular mask using Canvas arc and clip. The result is a perfectly circular image with optional background color or transparency.
+                  {dict?.round_image?.faq_3_a || "The tool first center-crops your image to a square, then applies a circular mask using Canvas arc and clip. The result is a perfectly circular image with optional background color or transparency."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>What size should I choose?</AccordionTrigger>
+                <AccordionTrigger>{dict?.round_image?.faq_4_q || "What size should I choose?"}</AccordionTrigger>
                 <AccordionContent>
-                  Choose "Original" to preserve maximum quality. For profile pictures, 400×400 works well. For social media avatars, 200×200 is typical. For high-DPI displays or print, use 800×800 or Original.
+                  {dict?.round_image?.faq_4_a || "Choose "Original" to preserve maximum quality. For profile pictures, 400×400 works well. For social media avatars, 200×200 is typical. For high-DPI displays or print, use 800×800 or Original."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>What image formats are supported?</AccordionTrigger>
+                <AccordionTrigger>{dict?.round_image?.faq_5_q || "What image formats are supported?"}</AccordionTrigger>
                 <AccordionContent>
-                  You can upload PNG, JPG, JPEG, WebP, GIF, and BMP images. The output is always PNG format to preserve transparency. Maximum file size is 20MB.
+                  {dict?.round_image?.faq_5_a || "You can upload PNG, JPG, JPEG, WebP, GIF, and BMP images. The output is always PNG format to preserve transparency. Maximum file size is 20MB."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

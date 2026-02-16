@@ -1,13 +1,17 @@
 import { Metadata } from "next";
+import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { DeletePdfPagesClient } from "@/components/client/delete-pdf-pages-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/pdf/delete-pdf-pages`;
-  const title = "Delete PDF Pages Online Free | Remove PDF Pages | SSDown";
-  const description =
-    "Delete specific pages from your PDF files instantly. Select and remove unwanted pages with ease. 100% private — processed in your browser, no upload to server.";
+
+  const title = dict.page_delete_pdf_pages.meta_title;
+  const description = dict.page_delete_pdf_pages.meta_description;
 
   return {
     title,
@@ -18,89 +22,38 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: "en_US",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
     },
     twitter: { card: "summary_large_image", title, description },
   };
 }
 
-export default function DeletePdfPagesPage() {
+export default async function DeletePdfPagesPage() {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "Is it free to delete pages from a PDF?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, this PDF page deletion tool is 100% free. There are no hidden fees, watermarks, or usage limits.",
-        },
+    mainEntity: dict.page_delete_pdf_pages.faq.map((item: { question: string; answer: string }) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-      {
-        "@type": "Question",
-        name: "Is my PDF secure when deleting pages?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Absolutely. All processing happens entirely in your browser using pdf-lib. Your PDF files never leave your device.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Can I delete multiple pages at once?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, you can select multiple pages to delete at once using the checkboxes.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Will deleting pages affect remaining content?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "No, deleting pages only removes the selected pages. All remaining pages are preserved exactly as they were.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What is the file size limit?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Each PDF file can be up to 50MB.",
-        },
-      },
-    ],
+    })),
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tools",
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "PDF Tools",
-        item: "https://ssdown.app/tools/pdf",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "Delete PDF Pages",
-        item: "https://ssdown.app/pdf/delete-pdf-pages",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.pdf_tools, item: "https://ssdown.app/tools/pdf" },
+      { "@type": "ListItem", position: 4, name: dict.page_delete_pdf_pages.breadcrumb_title, item: "https://ssdown.app/pdf/delete-pdf-pages" },
     ],
   };
 
@@ -117,18 +70,18 @@ export default function DeletePdfPagesPage() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
-            { label: "Home", href: "/" },
-            { label: "Tools", href: "/tools" },
-            { label: "PDF Tools", href: "/tools/pdf" },
+            { label: dict.breadcrumb.home, href: "/" },
+            { label: dict.breadcrumb.tools, href: "/tools" },
+            { label: dict.breadcrumb.pdf_tools, href: "/tools/pdf" },
             {
-              label: "Delete PDF Pages",
+              label: dict.page_delete_pdf_pages.breadcrumb_title,
               href: "/pdf/delete-pdf-pages",
               isCurrent: true,
             },
           ]}
         />
       </div>
-      <DeletePdfPagesClient />
+      <DeletePdfPagesClient dict={dict} />
     </>
   );
 }

@@ -25,7 +25,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-export function PdfWatermarkClient() {
+export function PdfWatermarkClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfName, setPdfName] = useState("");
   const [pageCount, setPageCount] = useState(0);
@@ -176,9 +176,9 @@ export function PdfWatermarkClient() {
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-red-100 to-rose-100 dark:from-red-900/30 dark:to-rose-900/30 mb-6">
           <Type className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">Add Watermark to PDF</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">{dict?.pdf_watermark?.title || "Add Watermark to PDF"}</h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Add a text watermark to every page of your PDF. Customize text, size, opacity, and rotation angle. 100% private — processed in your browser.
+          {dict?.pdf_watermark?.subtitle || "Add a text watermark to every page of your PDF. Customize text, size, opacity, and rotation angle. 100% private — processed in your browser."}
         </p>
 
         {!pdfFile && (
@@ -191,7 +191,7 @@ export function PdfWatermarkClient() {
           >
             <input ref={fileInputRef} type="file" accept="application/pdf" onChange={handleFileChange} className="hidden" />
             <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <p className="text-lg font-medium mb-2">Drag & drop a PDF file here</p>
+            <p className="text-lg font-medium mb-2">{dict?.pdf_watermark?.drop_zone || "Drag & drop a PDF file here"}</p>
             <p className="text-sm text-muted-foreground">Only PDF files accepted. Max 50MB per file.</p>
           </div>
         )}
@@ -239,7 +239,7 @@ export function PdfWatermarkClient() {
             {!resultUrl && (
               <div className="flex justify-center pt-4">
                 <Button size="lg" onClick={applyWatermark} disabled={isProcessing || !watermarkText.trim()} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]">
-                  {isProcessing ? (<><Loader2 className="w-5 h-5 mr-2 animate-spin" />Adding... {progress}%</>) : (<><Type className="w-5 h-5 mr-2" />Add Watermark</>)}
+                  {isProcessing ? (<><Loader2 className="w-5 h-5 mr-2 animate-spin" />Adding... {progress}%</>) : (<><Type className="w-5 h-5 mr-2" />{dict?.pdf_watermark?.action_btn || "Add Watermark"}</>)}
                 </Button>
               </div>
             )}
@@ -254,7 +254,7 @@ export function PdfWatermarkClient() {
               <div className="flex flex-col items-center gap-3 pt-4 animate-in fade-in slide-in-from-bottom-2">
                 <div className="text-sm text-muted-foreground">Watermark added successfully! {pageCount} pages &middot; {resultSize} MB</div>
                 <Button size="lg" onClick={handleDownload} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]">
-                  <Download className="w-5 h-5 mr-2" />Download Watermarked PDF
+                  <Download className="w-5 h-5 mr-2" />{dict?.pdf_watermark?.download_btn || "Download Watermarked PDF"}
                 </Button>
               </div>
             )}
@@ -265,14 +265,14 @@ export function PdfWatermarkClient() {
       <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">How to Add a Watermark</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Watermark your PDF in 3 simple steps.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_watermark?.guide_title || "How to Add a Watermark"}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{dict?.pdf_watermark?.guide_desc || "Watermark your PDF in 3 simple steps."}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { step: 1, title: "Upload PDF", desc: "Drag and drop or click to select a PDF file from your device.", icon: Upload },
-              { step: 2, title: "Customize", desc: "Enter your watermark text and adjust font size, opacity, and rotation angle.", icon: Type },
-              { step: 3, title: "Download", desc: "Click 'Add Watermark' and download your watermarked PDF file.", icon: Download },
+              { step: 1, title: dict?.pdf_watermark?.step1_title || "Upload PDF", desc: dict?.pdf_watermark?.step1_desc || "Drag and drop or click to select a PDF file from your device.", icon: Upload },
+              { step: 2, title: dict?.pdf_watermark?.step2_title || "Customize", desc: dict?.pdf_watermark?.step2_desc || "Enter your watermark text and adjust font size, opacity, and rotation angle.", icon: Type },
+              { step: 3, title: dict?.pdf_watermark?.step3_title || "Download", desc: dict?.pdf_watermark?.step3_desc || "Click 'Add Watermark' and download your watermarked PDF file.", icon: Download },
             ].map((step) => (
               <Card key={step.step} className="border-red-200 dark:border-red-900/50">
                 <CardHeader>
@@ -292,15 +292,15 @@ export function PdfWatermarkClient() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Watermark Tips</h2>
-            <p className="text-muted-foreground">Get the best results when watermarking PDFs.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_watermark?.tips_title || "Watermark Tips"}</h2>
+            <p className="text-muted-foreground">{dict?.pdf_watermark?.tips_desc || "Get the best results when watermarking PDFs."}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: "100% Private", desc: "All processing happens in your browser using pdf-lib. Your files never leave your device.", icon: Shield },
-              { title: "Adjustable Opacity", desc: "Use the slider to set watermark transparency. Low opacity keeps content readable while showing the watermark.", icon: Eye },
-              { title: "Custom Rotation", desc: "Rotate the watermark to any angle. The default -45 degrees creates a classic diagonal watermark.", icon: Zap },
-              { title: "Original Preserved", desc: "Your original PDF file remains untouched. Only a new watermarked file is created for download.", icon: FileText },
+              { title: dict?.pdf_watermark?.tip1_title || "100% Private", desc: dict?.pdf_watermark?.tip1_desc || "All processing happens in your browser using pdf-lib. Your files never leave your device.", icon: Shield },
+              { title: dict?.pdf_watermark?.tip2_title || "Adjustable Opacity", desc: dict?.pdf_watermark?.tip2_desc || "Use the slider to set watermark transparency. Low opacity keeps content readable while showing the watermark.", icon: Eye },
+              { title: dict?.pdf_watermark?.tip3_title || "Custom Rotation", desc: dict?.pdf_watermark?.tip3_desc || "Rotate the watermark to any angle. The default -45 degrees creates a classic diagonal watermark.", icon: Zap },
+              { title: dict?.pdf_watermark?.tip4_title || "Original Preserved", desc: dict?.pdf_watermark?.tip4_desc || "Your original PDF file remains untouched. Only a new watermarked file is created for download.", icon: FileText },
             ].map((tip, idx) => (
               <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-red-800/30">
                 <div className="flex-shrink-0"><tip.icon className="w-6 h-6 text-red-600 dark:text-red-400" /></div>
@@ -315,30 +315,30 @@ export function PdfWatermarkClient() {
 
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Watermark PDF FAQ</h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto">Common questions about adding watermarks to PDFs.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_watermark?.faq_title || "Watermark PDF FAQ"}</h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto">{dict?.pdf_watermark?.faq_desc || "Common questions about adding watermarks to PDFs."}</p>
           </div>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to add watermarks?</AccordionTrigger>
-                <AccordionContent>Yes, this watermark tool is 100% free. There are no hidden fees, usage limits, or watermarks added by the tool itself.</AccordionContent>
+                <AccordionTrigger>{dict?.pdf_watermark?.faq_1_q || "Is it free to add watermarks?"}</AccordionTrigger>
+                <AccordionContent>{dict?.pdf_watermark?.faq_1_a || "Yes, this watermark tool is 100% free. There are no hidden fees, usage limits, or watermarks added by the tool itself."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Can I add an image watermark?</AccordionTrigger>
-                <AccordionContent>Currently, only text watermarks are supported. Image watermark support may be added in the future.</AccordionContent>
+                <AccordionTrigger>{dict?.pdf_watermark?.faq_2_q || "Can I add an image watermark?"}</AccordionTrigger>
+                <AccordionContent>{dict?.pdf_watermark?.faq_2_a || "Currently, only text watermarks are supported. Image watermark support may be added in the future."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>Is the watermark applied to all pages?</AccordionTrigger>
-                <AccordionContent>Yes, the watermark is applied to every page in the PDF with the same settings (text, size, opacity, and rotation).</AccordionContent>
+                <AccordionTrigger>{dict?.pdf_watermark?.faq_3_q || "Is the watermark applied to all pages?"}</AccordionTrigger>
+                <AccordionContent>{dict?.pdf_watermark?.faq_3_a || "Yes, the watermark is applied to every page in the PDF with the same settings (text, size, opacity, and rotation)."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>Can the watermark be removed after adding?</AccordionTrigger>
-                <AccordionContent>The watermark is permanently embedded in the new PDF file. However, your original file remains unchanged, so you always have the unwatermarked version.</AccordionContent>
+                <AccordionTrigger>{dict?.pdf_watermark?.faq_4_q || "Can the watermark be removed after adding?"}</AccordionTrigger>
+                <AccordionContent>{dict?.pdf_watermark?.faq_4_a || "The watermark is permanently embedded in the new PDF file. However, your original file remains unchanged, so you always have the unwatermarked version."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>What is the file size limit?</AccordionTrigger>
-                <AccordionContent>The maximum file size is 50MB. Since all processing happens in your browser, very large files may take longer depending on your device&apos;s capabilities.</AccordionContent>
+                <AccordionTrigger>{dict?.pdf_watermark?.faq_5_q || "What is the file size limit?"}</AccordionTrigger>
+                <AccordionContent>{dict?.pdf_watermark?.faq_5_a || "The maximum file size is 50MB. Since all processing happens in your browser, very large files may take longer depending on your device&apos;s capabilities."}</AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>

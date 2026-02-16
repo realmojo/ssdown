@@ -1,13 +1,17 @@
 import { Metadata } from "next";
+import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { PdfToTextClient } from "@/components/client/pdf-to-text-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/pdf/pdf-to-text`;
-  const title = "PDF to Text Online Free | Extract Text from PDF | SSDown";
-  const description =
-    "Extract all text from PDF files instantly. Copy to clipboard or download as TXT file. 100% private — processed in your browser, no upload to server.";
+
+  const title = dict.page_pdf_to_text.meta_title;
+  const description = dict.page_pdf_to_text.meta_description;
 
   return {
     title,
@@ -18,89 +22,38 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: "en_US",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
     },
     twitter: { card: "summary_large_image", title, description },
   };
 }
 
-export default function PdfToTextPage() {
+export default async function PdfToTextPage() {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "Is it free to extract text from PDF?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, this tool is 100% free with no hidden fees or usage limits.",
-        },
+    mainEntity: dict.page_pdf_to_text.faq.map((item: { question: string; answer: string }) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-      {
-        "@type": "Question",
-        name: "Can it extract text from scanned PDFs?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "This tool extracts embedded text from PDFs. Scanned documents (image-based PDFs) may not contain extractable text and would require OCR.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Can I copy the extracted text?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, you can copy all extracted text to your clipboard with one click or download it as a .txt file.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Is my PDF secure?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "All processing happens in your browser using pdf.js. Your files never leave your device.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What is the file size limit?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Each PDF file can be up to 50MB.",
-        },
-      },
-    ],
+    })),
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tools",
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "PDF Tools",
-        item: "https://ssdown.app/tools/pdf",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "PDF to Text",
-        item: "https://ssdown.app/pdf/pdf-to-text",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.pdf_tools, item: "https://ssdown.app/tools/pdf" },
+      { "@type": "ListItem", position: 4, name: dict.page_pdf_to_text.breadcrumb_title, item: "https://ssdown.app/pdf/pdf-to-text" },
     ],
   };
 
@@ -117,14 +70,18 @@ export default function PdfToTextPage() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
-            { label: "Home", href: "/" },
-            { label: "Tools", href: "/tools" },
-            { label: "PDF Tools", href: "/tools/pdf" },
-            { label: "PDF to Text", href: "/pdf/pdf-to-text", isCurrent: true },
+            { label: dict.breadcrumb.home, href: "/" },
+            { label: dict.breadcrumb.tools, href: "/tools" },
+            { label: dict.breadcrumb.pdf_tools, href: "/tools/pdf" },
+            {
+              label: dict.page_pdf_to_text.breadcrumb_title,
+              href: "/pdf/pdf-to-text",
+              isCurrent: true,
+            },
           ]}
         />
       </div>
-      <PdfToTextClient />
+      <PdfToTextClient dict={dict} />
     </>
   );
 }

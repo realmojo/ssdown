@@ -24,7 +24,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-export function CropPdfClient() {
+export function CropPdfClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfName, setPdfName] = useState("");
   const [pageCount, setPageCount] = useState(0);
@@ -175,9 +175,9 @@ export function CropPdfClient() {
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-red-100 to-rose-100 dark:from-red-900/30 dark:to-rose-900/30 mb-6">
           <Crop className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">Crop PDF</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">{dict?.crop_pdf?.title || "Crop PDF"}</h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          Adjust margins and crop all pages of your PDF. Set custom top, bottom, left, and right margins in points. 100% private — processed in your browser.
+          {dict?.crop_pdf?.subtitle || "Adjust margins and crop all pages of your PDF. Set custom top, bottom, left, and right margins in points. 100% private — processed in your browser."}
         </p>
 
         {!pdfFile && (
@@ -190,7 +190,7 @@ export function CropPdfClient() {
           >
             <input ref={fileInputRef} type="file" accept="application/pdf" onChange={handleFileChange} className="hidden" />
             <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <p className="text-lg font-medium mb-2">Drag & drop a PDF file here</p>
+            <p className="text-lg font-medium mb-2">{dict?.crop_pdf?.drop_zone || "Drag & drop a PDF file here"}</p>
             <p className="text-sm text-muted-foreground">Only PDF files accepted. Max 50MB per file.</p>
           </div>
         )}
@@ -234,7 +234,7 @@ export function CropPdfClient() {
             {!resultUrl && (
               <div className="flex justify-center pt-4">
                 <Button size="lg" onClick={applyCrop} disabled={isProcessing || !hasMargins} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]">
-                  {isProcessing ? (<><Loader2 className="w-5 h-5 mr-2 animate-spin" />Cropping... {progress}%</>) : (<><Crop className="w-5 h-5 mr-2" />Crop PDF</>)}
+                  {isProcessing ? (<><Loader2 className="w-5 h-5 mr-2 animate-spin" />Cropping... {progress}%</>) : (<><Crop className="w-5 h-5 mr-2" />{dict?.crop_pdf?.title || "Crop PDF"}</>)}
                 </Button>
               </div>
             )}
@@ -253,7 +253,7 @@ export function CropPdfClient() {
               <div className="flex flex-col items-center gap-3 pt-4 animate-in fade-in slide-in-from-bottom-2">
                 <div className="text-sm text-muted-foreground">Cropped successfully! {pageCount} pages &middot; {resultSize} MB</div>
                 <Button size="lg" onClick={handleDownload} className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[200px]">
-                  <Download className="w-5 h-5 mr-2" />Download Cropped PDF
+                  <Download className="w-5 h-5 mr-2" />{dict?.crop_pdf?.download_btn || "Download Cropped PDF"}
                 </Button>
               </div>
             )}
@@ -264,14 +264,14 @@ export function CropPdfClient() {
       <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">How to Crop a PDF</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Crop your PDF pages in 3 simple steps.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.crop_pdf?.guide_title || "How to Crop a PDF"}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{dict?.crop_pdf?.guide_desc || "Crop your PDF pages in 3 simple steps."}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { step: 1, title: "Upload PDF", desc: "Drag and drop or click to select a PDF file from your device.", icon: Upload },
-              { step: 2, title: "Set Margins", desc: "Enter crop margin values for top, bottom, left, and right in points.", icon: Crop },
-              { step: 3, title: "Download", desc: "Click 'Crop PDF' and download your cropped PDF file.", icon: Download },
+              { step: 1, title: dict?.crop_pdf?.step1_title || "Upload PDF", desc: dict?.crop_pdf?.step1_desc || "Drag and drop or click to select a PDF file from your device.", icon: Upload },
+              { step: 2, title: dict?.crop_pdf?.step2_title || "Set Margins", desc: dict?.crop_pdf?.step2_desc || "Enter crop margin values for top, bottom, left, and right in points.", icon: Crop },
+              { step: 3, title: dict?.crop_pdf?.step3_title || "Download", desc: dict?.crop_pdf?.step3_desc || "Click 'Crop PDF' and download your cropped PDF file.", icon: Download },
             ].map((step) => (
               <Card key={step.step} className="border-red-200 dark:border-red-900/50">
                 <CardHeader>
@@ -291,15 +291,15 @@ export function CropPdfClient() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">PDF Cropping Tips</h2>
-            <p className="text-muted-foreground">Get the best results when cropping PDF pages.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.crop_pdf?.tips_title || "PDF Cropping Tips"}</h2>
+            <p className="text-muted-foreground">{dict?.crop_pdf?.tips_desc || "Get the best results when cropping PDF pages."}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: "100% Private", desc: "All processing happens in your browser using pdf-lib. Your files never leave your device.", icon: Shield },
-              { title: "Uniform Crop", desc: "The same margins are applied to all pages, ensuring consistent cropping across the document.", icon: Eye },
-              { title: "Points Unit", desc: "Margins are in PDF points (1 inch = 72 points). Use this for precise control over your crop area.", icon: Zap },
-              { title: "Original Preserved", desc: "Your original PDF file remains untouched. Only a new cropped file is created for download.", icon: FileText },
+              { title: dict?.crop_pdf?.tip1_title || "100% Private", desc: dict?.crop_pdf?.tip1_desc || "All processing happens in your browser using pdf-lib. Your files never leave your device.", icon: Shield },
+              { title: dict?.crop_pdf?.tip2_title || "Uniform Crop", desc: dict?.crop_pdf?.tip2_desc || "The same margins are applied to all pages, ensuring consistent cropping across the document.", icon: Eye },
+              { title: dict?.crop_pdf?.tip3_title || "Points Unit", desc: dict?.crop_pdf?.tip3_desc || "Margins are in PDF points (1 inch = 72 points). Use this for precise control over your crop area.", icon: Zap },
+              { title: dict?.crop_pdf?.tip4_title || "Original Preserved", desc: dict?.crop_pdf?.tip4_desc || "Your original PDF file remains untouched. Only a new cropped file is created for download.", icon: FileText },
             ].map((tip, idx) => (
               <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-red-800/30">
                 <div className="flex-shrink-0"><tip.icon className="w-6 h-6 text-red-600 dark:text-red-400" /></div>
@@ -314,30 +314,30 @@ export function CropPdfClient() {
 
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">Crop PDF FAQ</h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto">Common questions about cropping PDF pages.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.crop_pdf?.faq_title || "Crop PDF FAQ"}</h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto">{dict?.crop_pdf?.faq_desc || "Common questions about cropping PDF pages."}</p>
           </div>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>Is it free to crop PDFs?</AccordionTrigger>
-                <AccordionContent>Yes, this PDF cropping tool is 100% free. There are no hidden fees, watermarks, or usage limits.</AccordionContent>
+                <AccordionTrigger>{dict?.crop_pdf?.faq_1_q || "Is it free to crop PDFs?"}</AccordionTrigger>
+                <AccordionContent>{dict?.crop_pdf?.faq_1_a || "Yes, this PDF cropping tool is 100% free. There are no hidden fees, watermarks, or usage limits."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>What unit are the margin values in?</AccordionTrigger>
-                <AccordionContent>Margin values are in PDF points. One inch equals 72 points, and one centimeter equals approximately 28.35 points. A standard A4 page is 595 x 842 points.</AccordionContent>
+                <AccordionTrigger>{dict?.crop_pdf?.faq_2_q || "What unit are the margin values in?"}</AccordionTrigger>
+                <AccordionContent>{dict?.crop_pdf?.faq_2_a || "Margin values are in PDF points. One inch equals 72 points, and one centimeter equals approximately 28.35 points. A standard A4 page is 595 x 842 points."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>Does cropping remove content outside the crop area?</AccordionTrigger>
-                <AccordionContent>Cropping sets a crop box that hides content outside the defined area. The original content is still in the PDF but won&apos;t be visible in most PDF viewers or when printed.</AccordionContent>
+                <AccordionTrigger>{dict?.crop_pdf?.faq_3_q || "Does cropping remove content outside the crop area?"}</AccordionTrigger>
+                <AccordionContent>{dict?.crop_pdf?.faq_3_a || "Cropping sets a crop box that hides content outside the defined area. The original content is still in the PDF but won&apos;t be visible in most PDF viewers or when printed."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>Can I crop each page differently?</AccordionTrigger>
-                <AccordionContent>Currently, the same crop margins are applied to all pages uniformly. For per-page cropping, you may need a more advanced PDF editor.</AccordionContent>
+                <AccordionTrigger>{dict?.crop_pdf?.faq_4_q || "Can I crop each page differently?"}</AccordionTrigger>
+                <AccordionContent>{dict?.crop_pdf?.faq_4_a || "Currently, the same crop margins are applied to all pages uniformly. For per-page cropping, you may need a more advanced PDF editor."}</AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>What is the file size limit?</AccordionTrigger>
-                <AccordionContent>The maximum file size is 50MB. Since all processing happens in your browser, very large files may take longer depending on your device&apos;s capabilities.</AccordionContent>
+                <AccordionTrigger>{dict?.crop_pdf?.faq_5_q || "What is the file size limit?"}</AccordionTrigger>
+                <AccordionContent>{dict?.crop_pdf?.faq_5_a || "The maximum file size is 50MB. Since all processing happens in your browser, very large files may take longer depending on your device&apos;s capabilities."}</AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>

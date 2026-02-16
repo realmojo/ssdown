@@ -1,82 +1,59 @@
 import { Metadata } from "next";
+import { getDictionary } from "@/lib/get-dictionary";
+import { getLocale } from "@/lib/get-locale";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { XmlToCsvClient } from "@/components/client/xml-to-csv-client";
 
-export const metadata: Metadata = {
-  title: "XML to CSV Converter | Free Online Tool | SSDown",
-  description:
-    "Convert XML to CSV format instantly. Free online tool to parse XML data and export as CSV spreadsheet. 100% browser-based, no upload required.",
-  openGraph: {
-    title: "XML to CSV Converter | Free Online Tool | SSDown",
-    description:
-      "Convert XML to CSV format instantly. Free online tool to parse XML data and export as CSV spreadsheet.",
-    url: "https://ssdown.app/file/xml-to-csv",
-    siteName: "SSDown",
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "XML to CSV Converter | Free Online Tool",
-    description: "Convert XML to CSV format instantly.",
-  },
-  alternates: {
-    canonical: "https://ssdown.app/file/xml-to-csv",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+  const baseUrl = "https://ssdown.app";
+  const canonical = `${baseUrl}/file/xml-to-csv`;
 
-export default function XmlToCsvPage() {
+  const title = dict.page_xml_to_csv.meta_title;
+  const description = dict.page_xml_to_csv.meta_description;
+
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      siteName: "SSDown",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
+      type: "website",
+    },
+    twitter: { card: "summary_large_image", title, description },
+  };
+}
+
+export default async function XmlToCsvPage() {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "How does XML to CSV conversion work?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "The tool identifies repeated elements within your XML (e.g., <item> inside <root>) and treats them as rows. Child tags become columns.",
-        },
+    mainEntity: dict.page_xml_to_csv.faq.map((item: { question: string; answer: string }) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-      {
-        "@type": "Question",
-        name: "What happens to nested data?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Currently, this tool uses a flat structure assumption. Deeply nested data may be stringified or ignored. It works best for list-based XML.",
-        },
-      },
-    ],
+    })),
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tools",
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "File & Data Tools",
-        item: "https://ssdown.app/tools/file",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "XML to CSV",
-        item: "https://ssdown.app/file/xml-to-csv",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.file_data_tools, item: "https://ssdown.app/tools/file" },
+      { "@type": "ListItem", position: 4, name: dict.page_xml_to_csv.breadcrumb_title, item: "https://ssdown.app/file/xml-to-csv" },
     ],
   };
 
@@ -93,18 +70,18 @@ export default function XmlToCsvPage() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
-            { label: "Home", href: "/" },
-            { label: "Tools", href: "/tools" },
-            { label: "File Tools", href: "/tools/file" },
+            { label: dict.breadcrumb.home, href: "/" },
+            { label: dict.breadcrumb.tools, href: "/tools" },
+            { label: dict.breadcrumb.file_tools, href: "/tools/file" },
             {
-              label: "XML to CSV",
+              label: dict.page_xml_to_csv.breadcrumb_title,
               href: "/file/xml-to-csv",
               isCurrent: true,
             },
           ]}
         />
       </div>
-      <XmlToCsvClient />
+      <XmlToCsvClient dict={dict} />
     </>
   );
 }

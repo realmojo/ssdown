@@ -5,32 +5,27 @@ import { InstagramLineBreakClient } from "@/components/client/instagram-line-bre
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/social-text/instagram-line-break`;
 
-  const title = "Instagram Line Break Generator - Clean Captions | SSDown";
-  const description =
-    "Add invisible line breaks to your Instagram captions. Create clean, spaced-out text for better engagement. Free online caption formatter.";
+  const title = dict.page_instagram_line_break.meta_title;
+  const description = dict.page_instagram_line_break.meta_description;
 
   return {
     title,
     description,
-    alternates: {
-      canonical,
-    },
+    alternates: { canonical },
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: "en_US",
+      locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
     },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -41,72 +36,24 @@ export default async function InstagramLineBreakPage() {
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: dict?.qna_instagram_line_break?.faq_1_q || "How does it work?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_instagram_line_break?.faq_1_a ||
-            "We insert an invisible 'zero-width space' or special blank character that forces Instagram to respect the line break.",
-        },
+    mainEntity: dict.page_instagram_line_break.faq.map((item: { question: string; answer: string }) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-      {
-        "@type": "Question",
-        name:
-          dict?.qna_instagram_line_break?.faq_2_q ||
-          "Does this work on comments?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_instagram_line_break?.faq_2_a ||
-            "Yes, you can use this for bio, comments, and captions.",
-        },
-      },
-      {
-        "@type": "Question",
-        name:
-          dict?.qna_instagram_line_break?.faq_3_q ||
-          "Is it allowed by Instagram?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            dict?.qna_instagram_line_break?.faq_3_a ||
-            "Yes, it uses standard Unicode characters that are fully compatible.",
-        },
-      },
-    ],
+    })),
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tools",
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "Social & Text",
-        item: "https://ssdown.app/tools/social-text",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "Instagram Line Break",
-        item: "https://ssdown.app/social-text/instagram-line-break",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.social_text, item: "https://ssdown.app/tools/social-text" },
+      { "@type": "ListItem", position: 4, name: dict.page_instagram_line_break.breadcrumb_title, item: "https://ssdown.app/social-text/instagram-line-break" },
     ],
   };
 
@@ -123,11 +70,11 @@ export default async function InstagramLineBreakPage() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
-            { label: "Home", href: "/" },
-            { label: "Tools", href: "/tools" },
-            { label: "Social & Text", href: "/tools/social-text" },
+            { label: dict.breadcrumb.home, href: "/" },
+            { label: dict.breadcrumb.tools, href: "/tools" },
+            { label: dict.breadcrumb.social_text, href: "/tools/social-text" },
             {
-              label: "Instagram Line Break",
+              label: dict.page_instagram_line_break.breadcrumb_title,
               href: "/social-text/instagram-line-break",
               isCurrent: true,
             },

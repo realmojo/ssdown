@@ -35,7 +35,7 @@ async function loadPdfJs() {
   return pdfjsLib;
 }
 
-export function PdfToJpgClient() {
+export function PdfToJpgClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfName, setPdfName] = useState("");
   const [pageCount, setPageCount] = useState(0);
@@ -184,8 +184,8 @@ export function PdfToJpgClient() {
           {/* eslint-disable-next-line jsx-a11y/alt-text */}
           <Image className="w-10 h-10 text-red-600 dark:text-red-400" />
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">PDF to JPG</h1>
-        <p className="text-muted-foreground text-center max-w-2xl mb-8">Convert each page of your PDF into high-quality JPG images. Choose scale for resolution. 100% private — processed in your browser.</p>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">{dict?.pdf_to_jpg?.title || "PDF to JPG"}</h1>
+        <p className="text-muted-foreground text-center max-w-2xl mb-8">{dict?.pdf_to_jpg?.subtitle || "Convert each page of your PDF into high-quality JPG images. Choose scale for resolution. 100% private — processed in your browser."}</p>
 
         {!pdfFile && (
           <div
@@ -195,7 +195,7 @@ export function PdfToJpgClient() {
           >
             <input ref={fileInputRef} type="file" accept="application/pdf" onChange={handleFileChange} className="hidden" />
             <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <p className="text-lg font-medium mb-2">Drag & drop a PDF file here</p>
+            <p className="text-lg font-medium mb-2">{dict?.pdf_to_jpg?.drop_zone || "Drag & drop a PDF file here"}</p>
             <p className="text-sm text-muted-foreground">Only PDF files accepted. Max 50MB per file.</p>
           </div>
         )}
@@ -230,7 +230,7 @@ export function PdfToJpgClient() {
                   <>
                     {/* eslint-disable-next-line jsx-a11y/alt-text */}
                     <Image className="w-5 h-5 mr-2" />
-                    Convert to JPG
+                    {dict?.pdf_to_jpg?.action_btn || "Convert to JPG"}
                   </>
                 )}
               </Button>
@@ -245,8 +245,8 @@ export function PdfToJpgClient() {
             <div className="flex items-center justify-between">
               <div className="text-sm text-muted-foreground">{convertedPages.length} JPG image{convertedPages.length !== 1 ? "s" : ""} generated</div>
               <div className="flex gap-2">
-                <Button variant="outline" size="sm" onClick={handleReset}><RotateCcw className="w-4 h-4 mr-2" />Start Over</Button>
-                <Button size="sm" onClick={downloadAll} className="bg-red-600 hover:bg-red-700 text-white"><Download className="w-4 h-4 mr-2" />Download All</Button>
+                <Button variant="outline" size="sm" onClick={handleReset}><RotateCcw className="w-4 h-4 mr-2" />{dict?.pdf_to_jpg?.another_btn || "Start Over"}</Button>
+                <Button size="sm" onClick={downloadAll} className="bg-red-600 hover:bg-red-700 text-white"><Download className="w-4 h-4 mr-2" />{dict?.pdf_to_jpg?.download_btn || "Download All"}</Button>
               </div>
             </div>
 
@@ -270,14 +270,14 @@ export function PdfToJpgClient() {
       <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">How to Convert PDF to JPG</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Extract high-quality JPG images from your PDF in 3 simple steps.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_to_jpg?.guide_title || "How to Convert PDF to JPG"}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{dict?.pdf_to_jpg?.guide_desc || "Extract high-quality JPG images from your PDF in 3 simple steps."}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { step: 1, title: "Upload PDF", desc: "Drag and drop or click to select a PDF file from your device.", icon: Upload },
-              { step: 2, title: "Choose Scale", desc: "Select 1x, 2x, or 3x scale for the output resolution. Higher scale means better quality.", icon: Layers },
-              { step: 3, title: "Convert & Download", desc: "Click 'Convert to JPG' and download individual pages or all at once as a ZIP.", icon: Download },
+              { step: 1, title: dict?.pdf_to_jpg?.step1_title || "Upload PDF", desc: dict?.pdf_to_jpg?.step1_desc || "Drag and drop or click to select a PDF file from your device.", icon: Upload },
+              { step: 2, title: dict?.pdf_to_jpg?.step2_title || "Choose Scale", desc: dict?.pdf_to_jpg?.step2_desc || "Select 1x, 2x, or 3x scale for the output resolution. Higher scale means better quality.", icon: Layers },
+              { step: 3, title: dict?.pdf_to_jpg?.step3_title || "Convert & Download", desc: dict?.pdf_to_jpg?.step3_desc || "Click 'Convert to JPG' and download individual pages or all at once as a ZIP.", icon: Download },
             ].map((s) => (
               <Card key={s.step} className="border-red-200 dark:border-red-900/50">
                 <CardHeader><div className="flex items-center gap-3 mb-2"><div className="flex items-center justify-center w-10 h-10 rounded-full bg-red-600 text-white font-bold">{s.step}</div><CardTitle className="text-xl">{s.title}</CardTitle></div></CardHeader>
@@ -290,15 +290,15 @@ export function PdfToJpgClient() {
         <section className="bg-red-50 dark:bg-red-900/20 rounded-2xl p-8 md:p-12">
           <div className="text-center mb-10">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4"><Lightbulb className="w-8 h-8 text-yellow-500" /></div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">PDF to JPG Tips</h2>
-            <p className="text-muted-foreground">Get the best results when converting PDF to JPG.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_to_jpg?.tips_title || "PDF to JPG Tips"}</h2>
+            <p className="text-muted-foreground">{dict?.pdf_to_jpg?.tips_desc || "Get the best results when converting PDF to JPG."}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: "100% Private", desc: "All processing happens in your browser using pdf.js. Your files never leave your device.", icon: Shield },
-              { title: "Scale for Quality", desc: "Use 2x scale for a good balance of quality and file size. Use 3x for print-quality output.", icon: Layers },
-              { title: "JPEG Compression", desc: "Images are saved at 92% JPEG quality for excellent visual fidelity with reasonable file sizes.", icon: Zap },
-              { title: "Batch Download", desc: "Download all pages at once as a ZIP file, or download individual pages one at a time.", icon: FileText },
+              { title: dict?.pdf_to_jpg?.tip1_title || "100% Private", desc: dict?.pdf_to_jpg?.tip1_desc || "All processing happens in your browser using pdf.js. Your files never leave your device.", icon: Shield },
+              { title: dict?.pdf_to_jpg?.tip2_title || "Scale for Quality", desc: dict?.pdf_to_jpg?.tip2_desc || "Use 2x scale for a good balance of quality and file size. Use 3x for print-quality output.", icon: Layers },
+              { title: dict?.pdf_to_jpg?.tip3_title || "JPEG Compression", desc: dict?.pdf_to_jpg?.tip3_desc || "Images are saved at 92% JPEG quality for excellent visual fidelity with reasonable file sizes.", icon: Zap },
+              { title: dict?.pdf_to_jpg?.tip4_title || "Batch Download", desc: dict?.pdf_to_jpg?.tip4_desc || "Download all pages at once as a ZIP file, or download individual pages one at a time.", icon: FileText },
             ].map((tip, idx) => (
               <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-red-800/30">
                 <div className="flex-shrink-0"><tip.icon className="w-6 h-6 text-red-600 dark:text-red-400" /></div>
@@ -310,16 +310,16 @@ export function PdfToJpgClient() {
 
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">PDF to JPG FAQ</h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto">Common questions about converting PDF to JPG.</p>
+            <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_to_jpg?.faq_title || "PDF to JPG FAQ"}</h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto">{dict?.pdf_to_jpg?.faq_desc || "Common questions about converting PDF to JPG."}</p>
           </div>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="faq-1"><AccordionTrigger>Is it free to convert PDF to JPG?</AccordionTrigger><AccordionContent>Yes, this tool is 100% free. There are no hidden fees, watermarks, or limitations on the number of pages you can convert.</AccordionContent></AccordionItem>
-              <AccordionItem value="faq-2"><AccordionTrigger>Is my PDF secure?</AccordionTrigger><AccordionContent>Absolutely. All processing happens entirely in your browser using pdf.js. Your PDF never leaves your device and is never uploaded to any server.</AccordionContent></AccordionItem>
-              <AccordionItem value="faq-3"><AccordionTrigger>What does the scale option do?</AccordionTrigger><AccordionContent>The scale multiplier controls the output resolution. 1x produces standard resolution, 2x produces double resolution (good for most uses), and 3x produces triple resolution (ideal for printing).</AccordionContent></AccordionItem>
-              <AccordionItem value="faq-4"><AccordionTrigger>What is the maximum file size?</AccordionTrigger><AccordionContent>The maximum PDF file size is 50MB. Very large PDFs with many pages at high scale may require more browser memory.</AccordionContent></AccordionItem>
-              <AccordionItem value="faq-5"><AccordionTrigger>Can I download all pages at once?</AccordionTrigger><AccordionContent>Yes, use the &quot;Download All&quot; button to get all converted JPG images in a single ZIP file. You can also download individual pages separately.</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-1"><AccordionTrigger>{dict?.pdf_to_jpg?.faq_1_q || "Is it free to convert PDF to JPG?"}</AccordionTrigger><AccordionContent>{dict?.pdf_to_jpg?.faq_1_a || "Yes, this tool is 100% free. There are no hidden fees, watermarks, or limitations on the number of pages you can convert."}</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-2"><AccordionTrigger>{dict?.pdf_to_jpg?.faq_2_q || "Is my PDF secure?"}</AccordionTrigger><AccordionContent>{dict?.pdf_to_jpg?.faq_2_a || "Absolutely. All processing happens entirely in your browser using pdf.js. Your PDF never leaves your device and is never uploaded to any server."}</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-3"><AccordionTrigger>{dict?.pdf_to_jpg?.faq_3_q || "What does the scale option do?"}</AccordionTrigger><AccordionContent>{dict?.pdf_to_jpg?.faq_3_a || "The scale multiplier controls the output resolution. 1x produces standard resolution, 2x produces double resolution (good for most uses), and 3x produces triple resolution (ideal for printing)."}</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-4"><AccordionTrigger>{dict?.pdf_to_jpg?.faq_4_q || "What is the maximum file size?"}</AccordionTrigger><AccordionContent>{dict?.pdf_to_jpg?.faq_4_a || "The maximum PDF file size is 50MB. Very large PDFs with many pages at high scale may require more browser memory."}</AccordionContent></AccordionItem>
+              <AccordionItem value="faq-5"><AccordionTrigger>{dict?.pdf_to_jpg?.faq_5_q || "Can I download all pages at once?"}</AccordionTrigger><AccordionContent>{dict?.pdf_to_jpg?.faq_5_a || "Yes, use the &quot;Download All&quot; button to get all converted JPG images in a single ZIP file. You can also download individual pages separately."}</AccordionContent></AccordionItem>
             </Accordion>
           </div>
         </section>
