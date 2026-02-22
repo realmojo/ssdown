@@ -114,14 +114,14 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       <head>
         {/* Naver Analytics */}
 
-        {/* <script id="naver-analytics" src="//wcs.naver.net/wcslog.js" />
+        <script id="naver-analytics" src="//wcs.naver.net/wcslog.js" />
         <script
           id="naver-analytics-init"
           dangerouslySetInnerHTML={{
             __html:
               'if(!wcs_add) var wcs_add = {}; wcs_add["wa"] = "159353d1b5eedb0"; if(window.wcs) {wcs_do();}',
           }}
-        /> */}
+        />
 
         <script
           id="google-tag-manager"
