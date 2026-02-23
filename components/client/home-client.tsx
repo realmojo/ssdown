@@ -10,6 +10,7 @@ import {
   Lock,
   Smartphone,
   ArrowRight,
+  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -314,6 +315,20 @@ export function HomeClient() {
               >
                 <NineGagIcon className="h-6 w-6" />
                 <span className="font-semibold">9GAG Tool</span>
+              </Button>
+            </a>
+            <a
+              href="https://upscale.ssdown.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group md:col-span-3"
+            >
+              <Button
+                variant="outline"
+                className="w-full h-auto py-6 flex flex-col gap-2 hover:border-violet-500 hover:bg-violet-50 dark:hover:bg-violet-950 transition-all"
+              >
+                <Sparkles className="h-6 w-6 text-violet-500" />
+                <span className="font-semibold">Upscale Image & Video</span>
               </Button>
             </a>
           </div>

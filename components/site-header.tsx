@@ -598,6 +598,14 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          <a href="https://upscale.ssdown.app" target="_blank">
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:text-primary"
+            >
+              Upscale
+            </Button>
+          </a>
           <a href="/blog">
             <Button
               variant="ghost"
@@ -1194,6 +1202,15 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                       </h4>
                       <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
                         <a
+                          href="https://upscale.ssdown.app"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Upscale
+                        </a>
+                        <a
                           href="/blog"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                           onClick={() => setIsOpen(false)}
@@ -1210,13 +1227,17 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
 
                     {/* Settings - Language Switcher */}
                     <div className="flex items-center justify-between py-4 border-t">
-                      <span className="text-sm font-medium">{locale === "kr" ? "언어" : "Language"}</span>
+                      <span className="text-sm font-medium">
+                        {locale === "kr" ? "언어" : "Language"}
+                      </span>
                       <LanguageSwitcher locale={locale} />
                     </div>
 
                     {/* Settings - Theme Switcher */}
                     <div className="flex items-center justify-between py-4 border-t">
-                      <span className="text-sm font-medium">{locale === "kr" ? "테마 설정" : "Theme Setting"}</span>
+                      <span className="text-sm font-medium">
+                        {locale === "kr" ? "테마 설정" : "Theme Setting"}
+                      </span>
                       <ModeToggle />
                     </div>
                   </div>
