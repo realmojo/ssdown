@@ -12,16 +12,17 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/x`;
 
   return {
-    title: dict.x?.seo_title || "X (Twitter) Saver",
+    robots: { index: false, follow: false },
+    title: dict.x?.seo_title || "X (Twitter) Video Tool",
     description:
-      dict.x?.seo_description || "Download X (Twitter) videos in high quality.",
+      dict.x?.seo_description || "X (Twitter) video content management tool.",
     keywords: dict.x?.seo_keywords
       ? dict.x.seo_keywords.split(", ")
-      : ["twitter saver", "x video download"],
+      : ["x video tool", "twitter video tool"],
     openGraph: {
-      title: dict.x?.seo_title || "X (Twitter) Saver",
+      title: dict.x?.seo_title || "X (Twitter) Video Tool",
       description:
-        dict.x?.seo_description || "Download X (Twitter) videos securely.",
+        dict.x?.seo_description || "X (Twitter) video content management tool.",
       url: canonical,
       siteName: "SSDown",
       images: [
@@ -29,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "https://ssdown.app/ssdown-x-og.png",
           width: 1200,
           height: 630,
-          alt: "SSDown - X Saver",
+          alt: "SSDown - X Video Tool",
         },
       ],
       locale: locale === "kr" ? "ko_KR" : "en_US",
@@ -37,8 +38,8 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: dict.x?.title || "X (Twitter) Saver",
-      description: dict.x?.subtitle || "Download X videos and GIFs online.",
+      title: dict.x?.title || "X (Twitter) Video Tool",
+      description: dict.x?.subtitle || "X (Twitter) video content tool.",
       images: ["https://ssdown.app/ssdown-x-og.png"],
     },
     alternates: {

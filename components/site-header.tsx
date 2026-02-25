@@ -56,49 +56,6 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
           aria-label="Main navigation"
         >
           <DropdownMenu>
-            {/* <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
-              >
-                Platform Tools <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger> */}
-            <DropdownMenuContent align="start">
-              <DropdownMenuItem asChild>
-                <a href="/x" className="w-full cursor-pointer">
-                  {dict?.twitter || "X (Twitter)"}
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/tiktok" className="w-full cursor-pointer">
-                  {dict?.tiktok || "TikTok"}
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/instagram" className="w-full cursor-pointer">
-                  {dict?.instagram?.nav || "Instagram"}
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/facebook" className="w-full cursor-pointer">
-                  {dict?.facebook?.nav || "Facebook"}
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/dailymotion" className="w-full cursor-pointer">
-                  {dict?.dailymotion?.nav || "Dailymotion"}
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/9gag" className="w-full cursor-pointer">
-                  {dict?.["9gag"]?.nav || "9GAG"}
-                </a>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
@@ -372,7 +329,7 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                   href="/utility/youtube-thumbnail"
                   className="w-full cursor-pointer"
                 >
-                  YT Thumbnail Downloader
+                  YT Thumbnail Tool
                 </a>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
@@ -642,57 +599,6 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                 </SheetHeader>
                 <div className="h-[calc(100vh-80px)] overflow-y-auto px-6 py-4">
                   <div className="flex flex-col gap-8 pb-10">
-                    {/* Platform Tools Section */}
-                    {/* <div className="flex flex-col gap-4">
-                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                        Platform Tools
-                      </h4>
-                      <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
-                        <a
-                          href="/x"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          {dict?.twitter || "X (Twitter)"}
-                        </a>
-                        <a
-                          href="/tiktok"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          {dict?.tiktok || "TikTok"}
-                        </a>
-                        <a
-                          href="/instagram"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          {dict?.instagram?.nav || "Instagram"}
-                        </a>
-                        <a
-                          href="/facebook"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          {dict?.facebook?.nav || "Facebook"}
-                        </a>
-                        <a
-                          href="/dailymotion"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          {dict?.dailymotion?.nav || "Dailymotion"}
-                        </a>
-                        <a
-                          href="/9gag"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          {dict?.["9gag"]?.nav || "9GAG"}
-                        </a>
-                      </div>
-                    </div> */}
-
                     {/* Image Tools */}
                     <div className="flex flex-col gap-4">
                       <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
@@ -934,7 +840,7 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                           className="text-base font-medium hover:text-primary transition-colors py-1"
                           onClick={() => setIsOpen(false)}
                         >
-                          YT Thumbnail Downloader
+                          YT Thumbnail Tool
                         </a>
                         <a
                           href="/utility/youtube-preview"

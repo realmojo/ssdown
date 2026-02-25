@@ -7,11 +7,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Privacy Policy - SSDown",
     description:
-      "Learn about SSDown's privacy policy, Google AdSense data usage, and how we handle your data when you use our video saver service.",
+      "Learn about SSDown's privacy policy, Google AdSense data usage, and how we handle your data when you use our online tools.",
     openGraph: {
       title: "Privacy Policy - SSDown",
       description:
-        "Learn about SSDown's privacy policy, Google AdSense data usage, and how we handle your data when you use our video saver service.",
+        "Learn about SSDown's privacy policy, Google AdSense data usage, and how we handle your data when you use our online tools.",
       url: canonical,
       siteName: "SSDown",
       locale: "en_US",
@@ -60,11 +60,11 @@ export default async function PrivacyPage() {
             </p>
             <p>
               <strong>Submitted Content ("No Logs" Policy):</strong> We process
-              the video URLs you submit solely to generate a download link. We
+              the content you submit solely to provide tool results. We
               do
-              <strong> NOT</strong> keep a history of which videos you
-              downloaded. Once the download link is generated and you leave the
-              page, the connection between your IP and that specific video is
+              <strong> NOT</strong> keep a history of your processed content.
+              Once the result is generated and you leave the
+              page, the submitted data is
               not retained in any user-facing history database.
             </p>
           </div>

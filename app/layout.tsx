@@ -18,22 +18,21 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(baseUrl),
     title: {
       default:
-        dict.home?.title || "SSDown - Video Technology & Digital Archiving Hub",
+        dict.home?.title || "SSDown - Free Online Tools for Everyday Tasks",
       template: "%s | SSDown",
     },
     description:
       dict.home?.subtitle ||
-      "Learn about video codecs, streaming protocols, and responsible digital content management. Educational resources for understanding modern video technology.",
+      "Free online tools for image editing, PDF management, video conversion, and file transformation. Fast, secure, and browser-based.",
     keywords: [
-      "video technology",
-      "codec education",
-      "digital archiving",
-      "video format guide",
-      "HLS streaming",
-      "HEVC vs H264",
-      "content preservation",
-      "video analysis tools",
-      "media technology hub",
+      "free online tools",
+      "image compressor",
+      "PDF tools",
+      "video converter",
+      "file converter",
+      "browser-based tools",
+      "online image editor",
+      "free PDF editor",
       "ssdown",
     ],
     authors: [{ name: "SSDown Tech Team" }],
@@ -62,26 +61,26 @@ export async function generateMetadata(): Promise<Metadata> {
       url: baseUrl,
       title:
         dict.home?.title ||
-        "SSDown - Video Technology & Archiving Education Hub",
+        "SSDown - Free Online Tools for Everyday Tasks",
       description:
         dict.home?.subtitle ||
-        "Comprehensive guides on video codecs, streaming technology, and ethical digital content management. Learn how modern video platforms work.",
+        "Free online tools for image editing, PDF management, video conversion, and file transformation. Fast, secure, and browser-based.",
       siteName: "SSDown",
       images: [
         {
           url: "https://ssdown.app/logo.png",
           width: 1200,
           height: 630,
-          alt: "SSDown - Video Technology Hub",
+          alt: "SSDown - Free Online Tools",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: dict.home?.title || "SSDown - Video Technology Hub",
+      title: dict.home?.title || "SSDown - Free Online Tools",
       description:
         dict.home?.subtitle ||
-        "Educational platform for video technology, codecs, and digital archiving best practices.",
+        "Free online tools for image editing, PDF management, video conversion, and file transformation.",
       images: ["https://ssdown.app/logo.png"],
       creator: "@ssdown",
       site: "@ssdown",

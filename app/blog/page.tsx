@@ -12,9 +12,9 @@ export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/blog`;
 
-  const title = "Video Download Guides & Tutorials";
+  const title = "Blog & Tutorials";
   const description =
-    "Expert guides on downloading videos from TikTok, Instagram, X, Facebook. Learn video formats, security tips, and creator strategies.";
+    "Tips, tutorials, and guides for getting the most out of SSDown's free online tools. Learn image editing, PDF management, video conversion, and more.";
 
   return {
     title: `${title} | SSDown`,
@@ -78,7 +78,7 @@ export default async function BlogPage(props: {
 
   const pageTitle = "Creator Hub";
   const pageDescription =
-    "Expert guides on downloading videos from TikTok, Instagram, X, Facebook. Learn video formats, security tips, and creator strategies.";
+    "Tips, tutorials, and guides for getting the most out of SSDown's free online tools.";
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">

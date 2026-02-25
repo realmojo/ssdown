@@ -11,18 +11,19 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/dailymotion`;
 
   return {
-    title: dict.dailymotion?.seo_title || "Dailymotion Saver",
+    robots: { index: false, follow: false },
+    title: dict.dailymotion?.seo_title || "Dailymotion Video Tool",
     description:
       dict.dailymotion?.seo_description ||
-      "Download Dailymotion videos in high quality.",
+      "Dailymotion video content management tool.",
     keywords: dict.dailymotion?.seo_keywords
       ? dict.dailymotion.seo_keywords.split(", ")
-      : ["dailymotion saver", "dailymotion video download"],
+      : ["dailymotion video tool", "dailymotion content tool"],
     openGraph: {
-      title: dict.dailymotion?.seo_title || "Dailymotion Saver",
+      title: dict.dailymotion?.seo_title || "Dailymotion Video Tool",
       description:
         dict.dailymotion?.seo_description ||
-        "Download Dailymotion videos instantly.",
+        "Dailymotion video content management tool.",
       url: canonical,
       siteName: "SSDown",
       images: [
@@ -30,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "https://ssdown.app/ssdown-dailymotion-og.png",
           width: 1200,
           height: 630,
-          alt: "SSDown - Dailymotion Downloader",
+          alt: "SSDown - Dailymotion Video Tool",
         },
       ],
       locale: locale === "kr" ? "ko_KR" : "en_US",
@@ -38,9 +39,9 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: dict.dailymotion?.title || "Dailymotion Saver",
+      title: dict.dailymotion?.title || "Dailymotion Video Tool",
       description:
-        dict.dailymotion?.subtitle || "Download Dailymotion videos instantly.",
+        dict.dailymotion?.subtitle || "Dailymotion video content tool.",
       images: ["https://ssdown.app/ssdown-dailymotion-og.png"],
     },
     alternates: {

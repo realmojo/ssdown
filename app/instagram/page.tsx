@@ -11,18 +11,19 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/instagram`;
 
   return {
-    title: dict.instagram?.seo_title || "Instagram Saver",
+    robots: { index: false, follow: false },
+    title: dict.instagram?.seo_title || "Instagram Content Tool",
     description:
       dict.instagram?.seo_description ||
-      "Download Instagram Reels, Stories, and Videos.",
+      "Instagram content management tool.",
     keywords: dict.instagram?.seo_keywords
       ? dict.instagram.seo_keywords.split(", ")
-      : ["instagram saver", "reels saver"],
+      : ["instagram content tool", "instagram media tool"],
     openGraph: {
-      title: dict.instagram?.seo_title || "Instagram Saver",
+      title: dict.instagram?.seo_title || "Instagram Content Tool",
       description:
         dict.instagram?.seo_description ||
-        "Download Instagram content instantly.",
+        "Instagram content management tool.",
       url: canonical,
       siteName: "SSDown",
       images: [
@@ -30,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "https://ssdown.app/ssdown-instagram-og.png",
           width: 1200,
           height: 630,
-          alt: "SSDown - Instagram Downloader",
+          alt: "SSDown - Instagram Content Tool",
         },
       ],
       locale: locale === "kr" ? "ko_KR" : "en_US",
@@ -38,9 +39,9 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: dict.instagram?.title || "Instagram Saver",
+      title: dict.instagram?.title || "Instagram Content Tool",
       description:
-        dict.instagram?.subtitle || "Download Instagram content instantly.",
+        dict.instagram?.subtitle || "Instagram content management tool.",
       images: ["https://ssdown.app/ssdown-instagram-og.png"],
     },
     alternates: {

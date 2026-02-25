@@ -2,22 +2,22 @@ import { Metadata } from "next";
 import { HomeClient } from "@/components/client/home-client";
 
 export const metadata: Metadata = {
-  title: "SSDown - Video Technology & Digital Archiving Education Hub",
+  title: "SSDown - Free Online Tools for Everyday Tasks",
   description:
-    "Learn about video codecs, streaming protocols, and responsible digital content management. Comprehensive educational resources for understanding modern video technology.",
+    "Free online tools for image editing, PDF management, video conversion, and file transformation. Fast, secure, and browser-based.",
   keywords: [
-    "video technology",
-    "codec education",
-    "digital archiving",
-    "HLS streaming",
-    "HEVC H264",
-    "content preservation",
-    "video analysis",
+    "free online tools",
+    "image compressor",
+    "PDF tools",
+    "video converter",
+    "file converter",
+    "browser-based tools",
+    "online image editor",
   ],
   openGraph: {
-    title: "SSDown - Video Technology Education Hub",
+    title: "SSDown - Free Online Tools",
     description:
-      "Comprehensive guides on video codecs, streaming technology, and ethical digital content management.",
+      "Free online tools for image editing, PDF management, video conversion, and file transformation. Fast, secure, and browser-based.",
     url: "https://ssdown.app",
     siteName: "SSDown",
     images: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         url: "https://ssdown.app/logo.png",
         width: 1200,
         height: 630,
-        alt: "SSDown - Video Technology Hub",
+        alt: "SSDown - Free Online Tools",
       },
     ],
     locale: "en_US",
@@ -33,9 +33,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SSDown - Video Technology Hub",
+    title: "SSDown - Free Online Tools",
     description:
-      "Educational platform for video technology, codecs, and digital archiving best practices.",
+      "Free online tools for image editing, PDF management, video conversion, and file transformation.",
     images: ["https://ssdown.app/logo.png"],
   },
   alternates: {
@@ -47,23 +47,23 @@ export default function Home() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "SSDown - Video Technology Education Hub",
+    name: "SSDown - Free Online Tools",
     url: "https://ssdown.app",
     description:
-      "Educational platform dedicated to teaching video technology, codec standards, digital archiving ethics, and responsible content management.",
+      "Free online tools for image editing, PDF management, video conversion, and file transformation. Fast, secure, and browser-based.",
     about: {
       "@type": "Thing",
-      name: "Video Technology Education",
+      name: "Online Tools Platform",
       description:
-        "Comprehensive information about video codecs (H.264, HEVC, AV1), streaming protocols (HLS, DASH), and digital content management best practices.",
+        "A comprehensive suite of free browser-based tools for image editing, PDF management, video and audio conversion, and file format transformation.",
     },
     audience: {
       "@type": "Audience",
       audienceType:
-        "Digital Archivists, Tech Enthusiasts, Content Creators, Media Students",
+        "Content Creators, Designers, Developers, Students, Professionals",
     },
     keywords:
-      "video technology, codec education, digital archiving, HLS streaming, HEVC, H264, AV1, content preservation",
+      "free online tools, image compressor, PDF tools, video converter, file converter, browser-based tools",
   };
 
   return (

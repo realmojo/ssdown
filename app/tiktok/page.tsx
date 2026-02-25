@@ -12,18 +12,19 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/tiktok`;
 
   return {
-    title: dict.tiktok?.seo_title || "TikTok Saver",
+    robots: { index: false, follow: false },
+    title: dict.tiktok?.seo_title || "TikTok Video Tool",
     description:
       dict.tiktok?.seo_description ||
-      "Download TikTok videos without watermark.",
+      "TikTok video content management tool.",
     keywords: dict.tiktok?.seo_keywords
       ? dict.tiktok.seo_keywords.split(", ")
-      : ["tiktok saver", "tiktok no watermark"],
+      : ["tiktok video tool", "tiktok content tool"],
     openGraph: {
-      title: dict.tiktok?.seo_title || "TikTok Saver",
+      title: dict.tiktok?.seo_title || "TikTok Video Tool",
       description:
         dict.tiktok?.seo_description ||
-        "Download TikTok videos without watermark.",
+        "TikTok video content management tool.",
       url: canonical,
       siteName: "SSDown",
       images: [
@@ -31,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "https://ssdown.app/ssdown-tiktok-og.png",
           width: 1200,
           height: 630,
-          alt: "SSDown - TikTok Saver",
+          alt: "SSDown - TikTok Video Tool",
         },
       ],
       locale: locale === "kr" ? "ko_KR" : "en_US",
@@ -39,9 +40,9 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: dict.tiktok?.title || "TikTok Saver",
+      title: dict.tiktok?.title || "TikTok Video Tool",
       description:
-        dict.tiktok?.subtitle || "Download TikTok videos without watermark.",
+        dict.tiktok?.subtitle || "TikTok video content management tool.",
       images: ["https://ssdown.app/ssdown-tiktok-og.png"],
     },
     alternates: {

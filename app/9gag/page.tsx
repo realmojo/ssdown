@@ -13,16 +13,17 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/9gag`;
 
   return {
-    title: ninegagDict?.seo_title || "9GAG Saver",
+    robots: { index: false, follow: false },
+    title: ninegagDict?.seo_title || "9GAG Video Tool",
     description:
-      ninegagDict?.seo_description || "Download 9GAG videos in high quality.",
+      ninegagDict?.seo_description || "9GAG video content management tool.",
     keywords: ninegagDict?.seo_keywords
       ? ninegagDict.seo_keywords.split(", ")
-      : ["9gag saver", "9gag video download"],
+      : ["9gag video tool", "9gag content tool"],
     openGraph: {
-      title: ninegagDict?.seo_title || "9GAG Saver",
+      title: ninegagDict?.seo_title || "9GAG Video Tool",
       description:
-        ninegagDict?.seo_description || "Download 9GAG videos securely.",
+        ninegagDict?.seo_description || "9GAG video content management tool.",
       url: canonical,
       siteName: "SSDown",
       images: [
@@ -30,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "https://ssdown.app/ssdown-9gag-og.png",
           width: 1200,
           height: 630,
-          alt: "SSDown - 9GAG Saver",
+          alt: "SSDown - 9GAG Video Tool",
         },
       ],
       locale: locale === "kr" ? "ko_KR" : "en_US",
@@ -38,8 +39,8 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: ninegagDict?.title || "9GAG Saver",
-      description: ninegagDict?.subtitle || "Download 9GAG videos online.",
+      title: ninegagDict?.title || "9GAG Video Tool",
+      description: ninegagDict?.subtitle || "9GAG video content tool.",
       images: ["https://ssdown.app/ssdown-9gag-og.png"],
     },
     alternates: {

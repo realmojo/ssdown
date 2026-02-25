@@ -19,72 +19,8 @@ export function SiteFooter({ dict }: SiteFooterProps) {
               </span>
             </a>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-              {dict?.home?.subtitle ||
-                "The ultimate video saver for X (Twitter), TikTok, Instagram, and Facebook. Fast, free, and secure."}
+              Free online tools for image editing, PDF management, video conversion, and more. Fast, free, and secure.
             </p>
-          </div>
-
-          {/* Downloaders Column */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-foreground tracking-tight">
-              Downloaders
-            </h3>
-            <ul className="space-y-2.5 text-sm text-muted-foreground">
-              <li>
-                <a
-                  target="_self"
-                  href="/x"
-                  className="hover:text-primary transition-colors"
-                >
-                  {dict?.nav?.twitter || "X (Twitter)"}
-                </a>
-              </li>
-              <li>
-                <a
-                  target="_self"
-                  href="/tiktok"
-                  className="hover:text-primary transition-colors"
-                >
-                  {dict?.nav?.tiktok || "TikTok"}
-                </a>
-              </li>
-              <li>
-                <a
-                  target="_self"
-                  href="/instagram"
-                  className="hover:text-primary transition-colors"
-                >
-                  {dict?.nav?.instagram || "Instagram"}
-                </a>
-              </li>
-              <li>
-                <a
-                  target="_self"
-                  href="/facebook"
-                  className="hover:text-primary transition-colors"
-                >
-                  {dict?.nav?.facebook || "Facebook"}
-                </a>
-              </li>
-              <li>
-                <a
-                  target="_self"
-                  href="/9gag"
-                  className="hover:text-primary transition-colors"
-                >
-                  {dict?.nav?.ninegag || "9GAG"}
-                </a>
-              </li>
-              <li>
-                <a
-                  target="_self"
-                  href="/dailymotion"
-                  className="hover:text-primary transition-colors"
-                >
-                  {dict?.nav?.dailymotion || "Dailymotion"}
-                </a>
-              </li>
-            </ul>
           </div>
 
           {/* Tools Column */}
@@ -193,39 +129,6 @@ export function SiteFooter({ dict }: SiteFooterProps) {
                 </a>
               </li>
             </ul>
-          </div>
-        </div>
-
-        {/* Disclaimer / Legal Shield Section */}
-        <div className="mt-12 pt-8 border-t space-y-4">
-          <div className="text-xs text-muted-foreground space-y-3">
-            <h4 className="font-semibold text-foreground">
-              Disclaimer & Legal Policy
-            </h4>
-            <p>
-              <strong>1. No Files Hosted:</strong> SSDown does not host, store,
-              archive, or cache any video, audio, or image files on its servers.
-              All media is streamed or downloaded directly from the respective
-              source platforms (CDN) to the user&apos;s device. We act solely as
-              a technical intermediary (tool).
-            </p>
-            <p>
-              <strong>2. Copyright & Ownership:</strong> All rights, title, and
-              interest in and to the content (videos, music, images) belong to
-              their respective copyright owners and the platforms hosting them.
-              SSDown is not affiliated with, endorsed by, or connected to X,
-              TikTok, Instagram, Facebook, or any other platform.
-            </p>
-            <p>
-              <strong>3. Usage Policy:</strong> This service is provided
-              strictly for{" "}
-              <strong>Personal, Private, and Non-Commercial Use</strong> (e.g.,
-              time-shifting, personal archiving). Users are solely responsible
-              for ensuring their use of downloaded content complies with the
-              relevant platform&apos;s Terms of Service and applicable copyright
-              laws in their jurisdiction. Do not distribute or re-upload
-              copyrighted material without permission.
-            </p>
           </div>
         </div>
 

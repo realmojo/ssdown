@@ -11,10 +11,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/about`;
 
   return {
-    title: dict.about?.title || "About SSDown - Social Media Saver",
+    title: dict.about?.title || "About SSDown - Online Tools Platform",
     description:
       dict.about?.description ||
-      "Learn more about SSDown, the best tool for downloading videos from X, TikTok, Instagram, and Facebook.",
+      "Learn more about SSDown, a free online tools platform for image editing, PDF management, video conversion, and more.",
     openGraph: {
       title: dict.about?.title || "About SSDown",
       description: dict.about?.description,

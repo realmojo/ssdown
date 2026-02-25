@@ -14,42 +14,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/x`,
-      lastModified: "2026-01-01",
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/tiktok`,
-      lastModified: "2026-01-01",
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/instagram`,
-      lastModified: "2026-01-01",
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/facebook`,
-      lastModified: "2026-01-01",
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/dailymotion`,
-      lastModified: "2026-01-01",
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/9gag`,
-      lastModified: "2026-01-01",
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
       url: `${baseUrl}/blog`,
       lastModified: "2026-01-01",
       changeFrequency: "daily",

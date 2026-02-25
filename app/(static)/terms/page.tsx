@@ -7,11 +7,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Terms and Conditions - SSDown",
     description:
-      "Read SSDown's terms and conditions of use. Understand the rules and guidelines for using our video saver service.",
+      "Read SSDown's terms and conditions of use. Understand the rules and guidelines for using our online tools and services.",
     openGraph: {
       title: "Terms and Conditions - SSDown",
       description:
-        "Read SSDown's terms and conditions of use. Understand the rules and guidelines for using our video saver service.",
+        "Read SSDown's terms and conditions of use. Understand the rules and guidelines for using our online tools and services.",
       url: canonical,
       siteName: "SSDown",
       locale: "en_US",

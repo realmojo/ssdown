@@ -8,11 +8,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Contact SSDown - Support & Help",
     description:
-      "Contact SSDown support team for any questions, feedback or issues regarding our video saver service.",
+      "Contact SSDown support team for any questions, feedback or issues regarding our online tools and services.",
     openGraph: {
       title: "Contact SSDown",
       description:
-        "Contact SSDown support team for any questions, feedback or issues regarding our video saver service.",
+        "Contact SSDown support team for any questions, feedback or issues regarding our online tools and services.",
       url: canonical,
       siteName: "SSDown",
       locale: "en_US",

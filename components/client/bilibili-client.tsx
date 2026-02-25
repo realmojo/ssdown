@@ -209,7 +209,7 @@ export function BilibiliClient({ dict }: BilibiliClientProps) {
           </h2>
           <p className="text-muted-foreground">
             {dict?.bilibili?.features_desc ||
-              "Key features of our Bilibili video saver."}
+              "Key features of our Bilibili video tool."}
           </p>
         </div>
 

@@ -1,4 +1,4 @@
-# X Video Downloader - AWS Lambda Deployment Guide
+# X Saver - AWS Lambda Deployment Guide
 
 `/api/x/download/route.ts`의 기능을 AWS Lambda로 옮기기 위한 가이드입니다.
 이 람다 함수는 **AWS Lambda Function URL**과 **Response Streaming** 기능을 사용하여 대용량 파일도 안정적으로 다운로드할 수 있게 해줍니다.
@@ -11,25 +11,21 @@
 ## 2. 배포 방법 (AWS 콘솔 사용)
 
 1. **AWS Lambda 콘솔 접속**
-
    - [Functions 페이지](https://console.aws.amazon.com/lambda/home#/functions)로 이동합니다.
    - **Create function** 클릭.
 
 2. **함수 생성**
-
    - **Function name**: `ssdown-x-download` (원하는 이름)
    - **Runtime**: `Node.js 20.x` (또는 18.x)
    - **Architecture**: `x86_64` (또는 arm64)
    - **Create function** 클릭.
 
 3. **코드 업로드**
-
    - 생성된 함수의 **Code** 탭으로 이동.
    - 프로젝트 `lambda/x-download/index.mjs` 파일의 내용을 복사하여 `index.mjs`에 붙여넣습니다. (기본 `index.mjs` 내용을 지우고 덮어쓰기)
    - **Deploy** 클릭.
 
 4. **Function URL 활성화 (중요)**
-
    - **Configuration** 탭 -> **Function URL** 메뉴 선택.
    - **Create function URL** 클릭.
    - **Auth type**: `NONE` (누구나 접근 가능하게 하려면)
@@ -52,13 +48,13 @@ Lambda Function URL이 생성되면 `https://<random-id>.lambda-url.<region>.on.
 ```typescript
 // 기존
 const downloadUrl = `/api/x/download?videoUrl=${encodeURIComponent(
-  url
+  url,
 )}&filename=${filename}`;
 
 // 변경 후
 const LAMBDA_URL = "https://abc12345.lambda-url.ap-northeast-2.on.aws/"; // 생성된 Function URL
 const downloadUrl = `${LAMBDA_URL}?videoUrl=${encodeURIComponent(
-  url
+  url,
 )}&filename=${filename}`;
 ```
 

@@ -5,7 +5,21 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/'],
+      disallow: [
+        '/api/',
+        '/x',
+        '/x/',
+        '/tiktok',
+        '/tiktok/',
+        '/instagram',
+        '/instagram/',
+        '/facebook',
+        '/facebook/',
+        '/dailymotion',
+        '/dailymotion/',
+        '/9gag',
+        '/9gag/',
+      ],
     },
     sitemap: 'https://ssdown.app/sitemap.xml',
   }
