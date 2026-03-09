@@ -39,7 +39,8 @@
       "Bash(basename:*)",
       "Bash(iconv:*)",
       "Bash(__NEW_LINE_d966ee5cf00c4abd__ cat /tmp/korean-ui-verification-report.md)",
-      "Bash(npx eslint components/client/home-client.tsx components/site-footer.tsx components/site-header.tsx app/robots.ts app/sitemap.ts)"
+      "Bash(npx eslint components/client/home-client.tsx components/site-footer.tsx components/site-header.tsx app/robots.ts app/sitemap.ts)",
+      "Bash(git log:*)"
     ]
   },
   "model": "sonnet",
