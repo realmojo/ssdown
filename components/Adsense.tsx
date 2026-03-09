@@ -37,7 +37,7 @@ export default function Adsense({ slotId, format = "auto" }: AdsenseProps) {
   return (
     <ins
       className="adsbygoogle"
-      style={{ display: "block" }}
+      style={{ display: "block", width: "100%" }}
       data-ad-client="ca-pub-9130836798889522"
       data-ad-slot={slotId}
       data-ad-format={format}

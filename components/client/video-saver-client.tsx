@@ -293,7 +293,9 @@ export function VideoDownloaderClient({
             {subtitle}
           </p>
 
-          <Adsense slotId={slotId1 || ""} />
+          <div className="w-full">
+            <Adsense slotId={slotId1 || ""} />
+          </div>
 
           <Card
             className={`w-full shadow-xl ${theme.cardBorder} overflow-hidden`}
