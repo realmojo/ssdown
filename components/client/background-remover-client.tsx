@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 export function BackgroundRemoverClient({ dict }: { dict?: any }) {
   const [file, setFile] = useState<File | null>(null);
@@ -212,7 +213,9 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
+      <div className="flex gap-8">
+      <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-3xl mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 mb-6">
           <Eraser className="w-10 h-10 text-purple-600 dark:text-purple-400" />
@@ -261,7 +264,9 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
                 e.stopPropagation();
                 const res = await fetch("/test-image.jpg");
                 const blob = await res.blob();
-                const file = new File([blob], "test-image.jpg", { type: "image/jpeg" });
+                const file = new File([blob], "test-image.jpg", {
+                  type: "image/jpeg",
+                });
                 processFile(file);
               }}
               className="mt-4 text-sm text-purple-600 dark:text-purple-400 hover:underline"
@@ -605,6 +610,11 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
             </div>
           </div>
         )}
+      </div>
+      </div>
+      <aside className="hidden lg:block w-64 shrink-0">
+        <ToolsSidebar category="image" dict={dict} />
+      </aside>
       </div>
     </div>
   );

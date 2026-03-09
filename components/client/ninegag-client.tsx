@@ -342,6 +342,7 @@ export function NineGagClient({ dict }: NineGagClientProps) {
       downloadFileName={(quality) => `9gag_video_${quality}.mp4`}
       faqSection={faqSection}
       slotId1="4858242218"
+      slotId2="4858242218"
     />
   );
 }

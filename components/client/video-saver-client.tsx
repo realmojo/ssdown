@@ -111,6 +111,7 @@ export interface VideoDownloaderClientProps {
   transformVideoUrl?: (url: string) => string;
   faqSection?: React.ReactNode;
   slotId1?: string;
+  slotId2?: string;
 }
 
 export function VideoDownloaderClient({
@@ -136,6 +137,7 @@ export function VideoDownloaderClient({
   transformVideoUrl,
   faqSection,
   slotId1,
+  slotId2,
 }: VideoDownloaderClientProps) {
   // 플랫폼 타입 추출 (apiEndpoint에서)
   const getPlatformType = () => {
@@ -548,6 +550,11 @@ export function VideoDownloaderClient({
                       </div>
                     </Card>
                   ))}
+                  {slotId2 && (
+                    <div className="w-full mt-6">
+                      <Adsense slotId={slotId2} />
+                    </div>
+                  )}
                 </div>
               );
             })()}

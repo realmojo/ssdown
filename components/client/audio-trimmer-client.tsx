@@ -20,6 +20,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 // Types only - actual imports happen dynamically
 type FFmpeg = any;
@@ -462,390 +463,415 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center min-h-[50vh]">
-      <div className="flex flex-col items-center justify-center w-full max-w-3xl mb-12">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-blue-100 to-cyan-100 dark:from-blue-900/30 dark:to-cyan-900/30 mb-6">
-          <Scissors className="w-10 h-10 text-blue-600 dark:text-blue-400" />
-        </div>
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          {dict?.audio_trimmer?.title || "Audio Trimmer"}
-        </h1>
-        <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.audio_trimmer?.subtitle ||
-            "Cut and trim MP3 audio files directly in your browser. Fast, free, and private."}
-        </p>
+    <div className="container mx-auto px-4 py-8 min-h-[50vh]">
+      <div className="flex gap-8">
+        <div className="flex-1 min-w-0 flex flex-col items-center">
+          <div className="flex flex-col items-center justify-center w-full max-w-3xl mb-12">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-blue-100 to-cyan-100 dark:from-blue-900/30 dark:to-cyan-900/30 mb-6">
+              <Scissors className="w-10 h-10 text-blue-600 dark:text-blue-400" />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+              {dict?.audio_trimmer?.title || "Audio Trimmer"}
+            </h1>
+            <p className="text-muted-foreground text-center max-w-2xl mb-8">
+              {dict?.audio_trimmer?.subtitle ||
+                "Cut and trim MP3 audio files directly in your browser. Fast, free, and private."}
+            </p>
 
-        <Adsense slotId="7759160077" />
+            <Adsense slotId="7759160077" />
 
-        {/* Hidden Audio Player - always mounted for ref access */}
-        <audio
-          ref={audioRef}
-          onLoadedMetadata={onLoadedMetadata}
-          onTimeUpdate={onTimeUpdate}
-          onEnded={() => setIsPlaying(false)}
-          className="hidden"
-        />
-
-        {/* Upload Section */}
-        {!file && (
-          <div
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
-            onClick={() => fileInputRef.current?.click()}
-            className={`w-full border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-all duration-300 ${
-              isDragging
-                ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
-                : "border-muted-foreground/30 hover:border-blue-500/50 hover:bg-blue-50/50 dark:hover:bg-blue-900/10"
-            }`}
-          >
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="audio/*"
-              onChange={handleFileChange}
+            {/* Hidden Audio Player - always mounted for ref access */}
+            <audio
+              ref={audioRef}
+              onLoadedMetadata={onLoadedMetadata}
+              onTimeUpdate={onTimeUpdate}
+              onEnded={() => setIsPlaying(false)}
               className="hidden"
             />
-            <Music className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <p className="text-lg font-medium mb-2">
-              {dict?.audio_trimmer?.drop_zone ||
-                "Drag & drop your audio file here"}
-            </p>
-            <p className="text-sm text-muted-foreground">
-              {dict?.audio_trimmer?.supported ||
-                "Supported: MP3, WAV, OGG, M4A"}
-            </p>
-          </div>
-        )}
 
-        {/* Editor Section */}
-        {file && !downloadUrl && (
-          <Card className="w-full border-blue-100 dark:border-blue-900/50 animate-in fade-in slide-in-from-bottom-4">
-            <CardHeader className="border-b pb-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                    <Music className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg line-clamp-1">
-                      {file.name}
-                    </CardTitle>
-                    <p className="text-sm text-muted-foreground">
-                      {formatTime(duration)} •{" "}
-                      {(file.size / (1024 * 1024)).toFixed(2)} MB
-                    </p>
-                  </div>
-                </div>
-                <Button variant="ghost" size="icon" onClick={reset}>
-                  <X className="w-4 h-4" />
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="pt-8 space-y-6">
-              {/* Playback Controls */}
-              <div className="flex items-center justify-center gap-4">
-                <Button
-                  size="icon"
-                  variant="outline"
-                  className="h-12 w-12 rounded-full"
-                  onClick={togglePlay}
-                >
-                  {isPlaying ? (
-                    <Pause className="w-6 h-6" />
-                  ) : (
-                    <Play className="w-6 h-6 ml-1" />
-                  )}
-                </Button>
-                <div className="text-2xl font-mono tabular-nums">
-                  {formatTime(currentTime)}
-                </div>
-              </div>
-
-              {/* Waveform Visualization */}
-              <div className="space-y-2">
-                <div
-                  ref={waveformContainerRef}
-                  className="relative w-full h-32 bg-gray-50 dark:bg-gray-900 rounded-xl overflow-hidden cursor-crosshair select-none border border-gray-200 dark:border-gray-700"
-                  onMouseDown={handleWaveformMouseDown}
-                >
-                  {waveformData.length > 0 ? (
-                    <canvas
-                      ref={canvasRef}
-                      className="w-full h-full"
-                      style={{ display: "block" }}
-                    />
-                  ) : (
-                    <div className="flex items-center justify-center h-full">
-                      <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
-                      <span className="ml-2 text-sm text-muted-foreground">
-                        Loading waveform...
-                      </span>
-                    </div>
-                  )}
-                </div>
-                <div className="flex justify-between text-xs text-muted-foreground px-1">
-                  <span>{formatTime(0)}</span>
-                  <span>{formatTime(duration / 4)}</span>
-                  <span>{formatTime(duration / 2)}</span>
-                  <span>{formatTime((duration * 3) / 4)}</span>
-                  <span>{formatTime(duration)}</span>
-                </div>
-              </div>
-
-              {/* Selection Range Info */}
-              <div className="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-100 dark:border-blue-900/50">
-                <div className="flex-1 text-center">
-                  <p className="text-xs text-muted-foreground mb-1">Start</p>
-                  <p className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
-                    {formatTime(range[0])}
-                  </p>
-                </div>
-                <div className="w-px h-8 bg-blue-200 dark:bg-blue-800" />
-                <div className="flex-1 text-center">
-                  <p className="text-xs text-muted-foreground mb-1">Duration</p>
-                  <p className="text-sm font-mono font-semibold">
-                    {formatTime(range[1] - range[0])}
-                  </p>
-                </div>
-                <div className="w-px h-8 bg-blue-200 dark:bg-blue-800" />
-                <div className="flex-1 text-center">
-                  <p className="text-xs text-muted-foreground mb-1">End</p>
-                  <p className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
-                    {formatTime(range[1])}
-                  </p>
-                </div>
-              </div>
-
-              {/* Exact Inputs */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label>Start Time (sec)</Label>
-                  <Input
-                    type="number"
-                    step="0.1"
-                    min="0"
-                    max={range[1]}
-                    value={Math.round(range[0] * 100) / 100}
-                    onChange={(e) => {
-                      const val = Math.max(0, parseFloat(e.target.value) || 0);
-                      setRange([Math.min(val, range[1] - 0.1), range[1]]);
-                    }}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>End Time (sec)</Label>
-                  <Input
-                    type="number"
-                    step="0.1"
-                    min={range[0]}
-                    max={duration}
-                    value={Math.round(range[1] * 100) / 100}
-                    onChange={(e) => {
-                      const val = Math.min(
-                        duration,
-                        parseFloat(e.target.value) || duration,
-                      );
-                      setRange([range[0], Math.max(val, range[0] + 0.1)]);
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* Action Button */}
-              <Button
-                onClick={handleTrim}
-                disabled={isProcessing || !ffmpegLoaded}
-                className="w-full h-12 text-lg bg-blue-600 hover:bg-blue-700 text-white"
+            {/* Upload Section */}
+            {!file && (
+              <div
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                onClick={() => fileInputRef.current?.click()}
+                className={`w-full border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-all duration-300 ${
+                  isDragging
+                    ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
+                    : "border-muted-foreground/30 hover:border-blue-500/50 hover:bg-blue-50/50 dark:hover:bg-blue-900/10"
+                }`}
               >
-                {isProcessing ? (
-                  <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    {dict?.audio_trimmer?.trimming || "Trimming..."} {progress}%
-                  </>
-                ) : (
-                  <>
-                    <Scissors className="mr-2 h-5 w-5" />
-                    {dict?.audio_trimmer?.trim_btn || "Trim Audio"}
-                  </>
-                )}
-              </Button>
-            </CardContent>
-          </Card>
-        )}
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="audio/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
+                <Music className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <p className="text-lg font-medium mb-2">
+                  {dict?.audio_trimmer?.drop_zone ||
+                    "Drag & drop your audio file here"}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {dict?.audio_trimmer?.supported ||
+                    "Supported: MP3, WAV, OGG, M4A"}
+                </p>
+              </div>
+            )}
 
-        {/* Download Section */}
-        {downloadUrl && (
-          <div className="w-full space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <Card className="border-green-100 dark:border-green-900/50 bg-green-50/50 dark:bg-green-900/10">
-              <CardContent className="pt-6">
-                <div className="flex flex-col items-center text-center gap-4 mb-6">
-                  <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-full">
-                    <Download className="w-8 h-8 text-green-600 dark:text-green-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-green-800 dark:text-green-300">
-                      Ready to Download!
-                    </h3>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      New Duration: {formatTime(range[1] - range[0])}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <a
-                    href={downloadUrl}
-                    download={`trimmed_${file?.name}`}
-                    className="flex-1"
-                  >
-                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
-                      <Download className="mr-2 h-4 w-4" />
-                      {dict?.audio_trimmer?.download_btn ||
-                        "Download Trimmed Audio"}
+            {/* Editor Section */}
+            {file && !downloadUrl && (
+              <Card className="w-full border-blue-100 dark:border-blue-900/50 animate-in fade-in slide-in-from-bottom-4">
+                <CardHeader className="border-b pb-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                        <Music className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg line-clamp-1">
+                          {file.name}
+                        </CardTitle>
+                        <p className="text-sm text-muted-foreground">
+                          {formatTime(duration)} •{" "}
+                          {(file.size / (1024 * 1024)).toFixed(2)} MB
+                        </p>
+                      </div>
+                    </div>
+                    <Button variant="ghost" size="icon" onClick={reset}>
+                      <X className="w-4 h-4" />
                     </Button>
-                  </a>
-                  <Button variant="outline" onClick={reset} className="flex-1">
-                    <RotateCcw className="mr-2 h-4 w-4" />
-                    Trim Another
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
-
-        {/* Error Message */}
-        {error && (
-          <div className="w-full mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-            <p className="text-red-600 dark:text-red-400 text-sm">{error}</p>
-          </div>
-        )}
-      </div>
-
-      {/* Guide Section */}
-      <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
-        <section>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">
-              {dict?.audio_trimmer?.guide_title || "How to Trim Audio"}
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              {dict?.audio_trimmer?.guide_desc ||
-                "Cut your audio file in 3 simple steps."}
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                step: 1,
-                title: dict?.audio_trimmer?.step1_title || "Upload Audio",
-                desc:
-                  dict?.audio_trimmer?.step1_desc ||
-                  "Upload the MP3 or audio file you want to cut.",
-                icon: Upload,
-              },
-              {
-                step: 2,
-                title: dict?.audio_trimmer?.step2_title || "Select Range",
-                desc:
-                  dict?.audio_trimmer?.step2_desc ||
-                  "Use the sliders or enter exact times to select the part you want to keep.",
-                icon: Music,
-              },
-              {
-                step: 3,
-                title: dict?.audio_trimmer?.step3_title || "Trim & Download",
-                desc:
-                  dict?.audio_trimmer?.step3_desc ||
-                  "Click 'Trim Audio' and download your new file instantly.",
-                icon: Scissors,
-              },
-            ].map((step) => (
-              <Card
-                key={step.step}
-                className="border-blue-100 dark:border-blue-900/50"
-              >
-                <CardHeader>
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500 text-white font-bold">
-                      {step.step}
-                    </div>
-                    <CardTitle className="text-xl">{step.title}</CardTitle>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {step.desc}
-                  </p>
+                <CardContent className="pt-8 space-y-6">
+                  {/* Playback Controls */}
+                  <div className="flex items-center justify-center gap-4">
+                    <Button
+                      size="icon"
+                      variant="outline"
+                      className="h-12 w-12 rounded-full"
+                      onClick={togglePlay}
+                    >
+                      {isPlaying ? (
+                        <Pause className="w-6 h-6" />
+                      ) : (
+                        <Play className="w-6 h-6 ml-1" />
+                      )}
+                    </Button>
+                    <div className="text-2xl font-mono tabular-nums">
+                      {formatTime(currentTime)}
+                    </div>
+                  </div>
+
+                  {/* Waveform Visualization */}
+                  <div className="space-y-2">
+                    <div
+                      ref={waveformContainerRef}
+                      className="relative w-full h-32 bg-gray-50 dark:bg-gray-900 rounded-xl overflow-hidden cursor-crosshair select-none border border-gray-200 dark:border-gray-700"
+                      onMouseDown={handleWaveformMouseDown}
+                    >
+                      {waveformData.length > 0 ? (
+                        <canvas
+                          ref={canvasRef}
+                          className="w-full h-full"
+                          style={{ display: "block" }}
+                        />
+                      ) : (
+                        <div className="flex items-center justify-center h-full">
+                          <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
+                          <span className="ml-2 text-sm text-muted-foreground">
+                            Loading waveform...
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex justify-between text-xs text-muted-foreground px-1">
+                      <span>{formatTime(0)}</span>
+                      <span>{formatTime(duration / 4)}</span>
+                      <span>{formatTime(duration / 2)}</span>
+                      <span>{formatTime((duration * 3) / 4)}</span>
+                      <span>{formatTime(duration)}</span>
+                    </div>
+                  </div>
+
+                  {/* Selection Range Info */}
+                  <div className="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-100 dark:border-blue-900/50">
+                    <div className="flex-1 text-center">
+                      <p className="text-xs text-muted-foreground mb-1">
+                        Start
+                      </p>
+                      <p className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
+                        {formatTime(range[0])}
+                      </p>
+                    </div>
+                    <div className="w-px h-8 bg-blue-200 dark:bg-blue-800" />
+                    <div className="flex-1 text-center">
+                      <p className="text-xs text-muted-foreground mb-1">
+                        Duration
+                      </p>
+                      <p className="text-sm font-mono font-semibold">
+                        {formatTime(range[1] - range[0])}
+                      </p>
+                    </div>
+                    <div className="w-px h-8 bg-blue-200 dark:bg-blue-800" />
+                    <div className="flex-1 text-center">
+                      <p className="text-xs text-muted-foreground mb-1">End</p>
+                      <p className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
+                        {formatTime(range[1])}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Exact Inputs */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>Start Time (sec)</Label>
+                      <Input
+                        type="number"
+                        step="0.1"
+                        min="0"
+                        max={range[1]}
+                        value={Math.round(range[0] * 100) / 100}
+                        onChange={(e) => {
+                          const val = Math.max(
+                            0,
+                            parseFloat(e.target.value) || 0,
+                          );
+                          setRange([Math.min(val, range[1] - 0.1), range[1]]);
+                        }}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>End Time (sec)</Label>
+                      <Input
+                        type="number"
+                        step="0.1"
+                        min={range[0]}
+                        max={duration}
+                        value={Math.round(range[1] * 100) / 100}
+                        onChange={(e) => {
+                          const val = Math.min(
+                            duration,
+                            parseFloat(e.target.value) || duration,
+                          );
+                          setRange([range[0], Math.max(val, range[0] + 0.1)]);
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Action Button */}
+                  <Button
+                    onClick={handleTrim}
+                    disabled={isProcessing || !ffmpegLoaded}
+                    className="w-full h-12 text-lg bg-blue-600 hover:bg-blue-700 text-white"
+                  >
+                    {isProcessing ? (
+                      <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        {dict?.audio_trimmer?.trimming || "Trimming..."}{" "}
+                        {progress}%
+                      </>
+                    ) : (
+                      <>
+                        <Scissors className="mr-2 h-5 w-5" />
+                        {dict?.audio_trimmer?.trim_btn || "Trim Audio"}
+                      </>
+                    )}
+                  </Button>
                 </CardContent>
               </Card>
-            ))}
-          </div>
-        </section>
+            )}
 
-        {/* Tips Section */}
-        <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
-              <Lightbulb className="w-8 h-8 text-yellow-500" />
-            </div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">
-              {dict?.audio_trimmer?.tips_title || "Audio Trimming Tips"}
-            </h2>
-            <p className="text-muted-foreground">
-              {dict?.audio_trimmer?.tips_desc ||
-                "Get the best results for your audio cuts."}
-            </p>
-          </div>
+            {/* Download Section */}
+            {downloadUrl && (
+              <div className="w-full space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <Card className="border-green-100 dark:border-green-900/50 bg-green-50/50 dark:bg-green-900/10">
+                  <CardContent className="pt-6">
+                    <div className="flex flex-col items-center text-center gap-4 mb-6">
+                      <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-full">
+                        <Download className="w-8 h-8 text-green-600 dark:text-green-400" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-green-800 dark:text-green-300">
+                          Ready to Download!
+                        </h3>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          New Duration: {formatTime(range[1] - range[0])}
+                        </p>
+                      </div>
+                    </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {[
-              {
-                title: dict?.audio_trimmer?.tip1_title || "Precision Cutting",
-                desc:
-                  dict?.audio_trimmer?.tip1_desc ||
-                  "Use the manual input fields for 0.1s precision if the slider is not exact enough.",
-                icon: Scissors,
-              },
-              {
-                title: dict?.audio_trimmer?.tip2_title || "Audio Quality",
-                desc:
-                  dict?.audio_trimmer?.tip2_desc ||
-                  "We use high-quality VBR encoding to ensure your trimmed audio sounds just like the original.",
-                icon: Music,
-              },
-              {
-                title: dict?.audio_trimmer?.tip3_title || "Preview First",
-                desc:
-                  dict?.audio_trimmer?.tip3_desc ||
-                  "Always listen to your selected range before trimming to make sure you caught the right beat.",
-                icon: Play,
-              },
-              {
-                title: dict?.audio_trimmer?.tip4_title || "File Formats",
-                desc:
-                  dict?.audio_trimmer?.tip4_desc ||
-                  "You can upload various formats (WAV, OGG, M4A) and we'll automatically convert them to MP3.",
-                icon: Info,
-              },
-            ].map((tip, idx) => (
-              <div
-                key={idx}
-                className="flex gap-4 p-4 rounded-lg bg-white dark:bg-gray-800"
-              >
-                <div className="flex-shrink-0">
-                  <tip.icon className="w-6 h-6 text-blue-500" />
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-2">{tip.title}</h3>
-                  <p className="text-sm text-muted-foreground">{tip.desc}</p>
-                </div>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <a
+                        href={downloadUrl}
+                        download={`trimmed_${file?.name}`}
+                        className="flex-1"
+                      >
+                        <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
+                          <Download className="mr-2 h-4 w-4" />
+                          {dict?.audio_trimmer?.download_btn ||
+                            "Download Trimmed Audio"}
+                        </Button>
+                      </a>
+                      <Button
+                        variant="outline"
+                        onClick={reset}
+                        className="flex-1"
+                      >
+                        <RotateCcw className="mr-2 h-4 w-4" />
+                        Trim Another
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
-            ))}
+            )}
+
+            {/* Error Message */}
+            {error && (
+              <div className="w-full mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                <p className="text-red-600 dark:text-red-400 text-sm">
+                  {error}
+                </p>
+              </div>
+            )}
           </div>
-        </section>
+
+          {/* Guide Section */}
+          <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
+            <section>
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold tracking-tight mb-4">
+                  {dict?.audio_trimmer?.guide_title || "How to Trim Audio"}
+                </h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  {dict?.audio_trimmer?.guide_desc ||
+                    "Cut your audio file in 3 simple steps."}
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6">
+                {[
+                  {
+                    step: 1,
+                    title: dict?.audio_trimmer?.step1_title || "Upload Audio",
+                    desc:
+                      dict?.audio_trimmer?.step1_desc ||
+                      "Upload the MP3 or audio file you want to cut.",
+                    icon: Upload,
+                  },
+                  {
+                    step: 2,
+                    title: dict?.audio_trimmer?.step2_title || "Select Range",
+                    desc:
+                      dict?.audio_trimmer?.step2_desc ||
+                      "Use the sliders or enter exact times to select the part you want to keep.",
+                    icon: Music,
+                  },
+                  {
+                    step: 3,
+                    title:
+                      dict?.audio_trimmer?.step3_title || "Trim & Download",
+                    desc:
+                      dict?.audio_trimmer?.step3_desc ||
+                      "Click 'Trim Audio' and download your new file instantly.",
+                    icon: Scissors,
+                  },
+                ].map((step) => (
+                  <Card
+                    key={step.step}
+                    className="border-blue-100 dark:border-blue-900/50"
+                  >
+                    <CardHeader>
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500 text-white font-bold">
+                          {step.step}
+                        </div>
+                        <CardTitle className="text-xl">{step.title}</CardTitle>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {step.desc}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </section>
+
+            {/* Tips Section */}
+            <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
+              <div className="text-center mb-10">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
+                  <Lightbulb className="w-8 h-8 text-yellow-500" />
+                </div>
+                <h2 className="text-3xl font-bold tracking-tight mb-4">
+                  {dict?.audio_trimmer?.tips_title || "Audio Trimming Tips"}
+                </h2>
+                <p className="text-muted-foreground">
+                  {dict?.audio_trimmer?.tips_desc ||
+                    "Get the best results for your audio cuts."}
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {[
+                  {
+                    title:
+                      dict?.audio_trimmer?.tip1_title || "Precision Cutting",
+                    desc:
+                      dict?.audio_trimmer?.tip1_desc ||
+                      "Use the manual input fields for 0.1s precision if the slider is not exact enough.",
+                    icon: Scissors,
+                  },
+                  {
+                    title: dict?.audio_trimmer?.tip2_title || "Audio Quality",
+                    desc:
+                      dict?.audio_trimmer?.tip2_desc ||
+                      "We use high-quality VBR encoding to ensure your trimmed audio sounds just like the original.",
+                    icon: Music,
+                  },
+                  {
+                    title: dict?.audio_trimmer?.tip3_title || "Preview First",
+                    desc:
+                      dict?.audio_trimmer?.tip3_desc ||
+                      "Always listen to your selected range before trimming to make sure you caught the right beat.",
+                    icon: Play,
+                  },
+                  {
+                    title: dict?.audio_trimmer?.tip4_title || "File Formats",
+                    desc:
+                      dict?.audio_trimmer?.tip4_desc ||
+                      "You can upload various formats (WAV, OGG, M4A) and we'll automatically convert them to MP3.",
+                    icon: Info,
+                  },
+                ].map((tip, idx) => (
+                  <div
+                    key={idx}
+                    className="flex gap-4 p-4 rounded-lg bg-white dark:bg-gray-800"
+                  >
+                    <div className="flex-shrink-0">
+                      <tip.icon className="w-6 h-6 text-blue-500" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-2">{tip.title}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {tip.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </div>
+        </div>
+        <aside className="hidden lg:block w-64 shrink-0">
+          <ToolsSidebar category="video-audio" dict={dict} />
+        </aside>
       </div>
     </div>
   );

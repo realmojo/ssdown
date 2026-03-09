@@ -14,12 +14,7 @@ import {
   Loader2,
   CheckCircle2,
 } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Accordion,
   AccordionContent,
@@ -27,6 +22,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 // ---------------------------------------------------------------------------
 // Watermark Engine (ported from Node pngjs to browser Canvas)
@@ -86,7 +82,10 @@ function removeWatermark(
       for (let c = 0; c < 3; c++) {
         const watermarked = imageData.data[imgIdx + c];
         const original = (watermarked - alpha * LOGO_VALUE) / oneMinusAlpha;
-        imageData.data[imgIdx + c] = Math.max(0, Math.min(255, Math.round(original)));
+        imageData.data[imgIdx + c] = Math.max(
+          0,
+          Math.min(255, Math.round(original)),
+        );
       }
     }
   }
@@ -123,7 +122,9 @@ async function getAlphaMap(size: number): Promise<Float32Array> {
   return alphaMap;
 }
 
-async function processImage(file: File): Promise<{ url: string; fileName: string }> {
+async function processImage(
+  file: File,
+): Promise<{ url: string; fileName: string }> {
   const url = URL.createObjectURL(file);
   const img = await loadImage(url);
   URL.revokeObjectURL(url);
@@ -266,7 +267,9 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
+      <div className="flex gap-8">
+      <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-3xl mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/30 dark:to-teal-900/30 mb-6">
           <Eraser className="w-10 h-10 text-emerald-600 dark:text-emerald-400" />
@@ -308,10 +311,12 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
                 "Drag & drop images here, or click to browse"}
             </p>
             <p className="text-sm text-muted-foreground mb-1">
-              {dict?.watermark_remover?.supported || "Supported: PNG, JPG, WebP"}
+              {dict?.watermark_remover?.supported ||
+                "Supported: PNG, JPG, WebP"}
             </p>
             <p className="text-xs text-muted-foreground">
-              {dict?.watermark_remover?.batch || "Multiple files supported for batch processing"}
+              {dict?.watermark_remover?.batch ||
+                "Multiple files supported for batch processing"}
             </p>
             <button
               type="button"
@@ -319,7 +324,9 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
                 e.stopPropagation();
                 const res = await fetch("/test-image.jpg");
                 const blob = await res.blob();
-                const file = new File([blob], "test-image.jpg", { type: "image/jpeg" });
+                const file = new File([blob], "test-image.jpg", {
+                  type: "image/jpeg",
+                });
                 setFiles([file]);
                 setResults([]);
                 setError(null);
@@ -337,7 +344,8 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between mb-4">
                 <span className="text-sm font-medium">
-                  {files.length} {files.length === 1 ? "file" : "files"} selected
+                  {files.length} {files.length === 1 ? "file" : "files"}{" "}
+                  selected
                 </span>
                 <Button variant="ghost" size="icon" onClick={handleReset}>
                   <X className="w-4 h-4" />
@@ -431,7 +439,11 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
                       Download All ({results.length})
                     </Button>
                   )}
-                  <Button onClick={handleReset} variant="outline" className="flex-1">
+                  <Button
+                    onClick={handleReset}
+                    variant="outline"
+                    className="flex-1"
+                  >
                     Process More Images
                   </Button>
                 </div>
@@ -475,7 +487,9 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
                       </div>
                     </div>
                     <Button
-                      onClick={() => handleDownload(result.url, result.fileName)}
+                      onClick={() =>
+                        handleDownload(result.url, result.fileName)
+                      }
                       className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white"
                     >
                       <Download className="mr-2 h-4 w-4" />
@@ -498,7 +512,8 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
               <BookOpen className="w-8 h-8 text-emerald-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              {dict?.watermark_remover?.guide_title || "How to Remove Watermarks"}
+              {dict?.watermark_remover?.guide_title ||
+                "How to Remove Watermarks"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               {dict?.watermark_remover?.guide_desc ||
@@ -601,7 +616,8 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
               },
               {
                 title:
-                  dict?.watermark_remover?.tip4_title || "High-Resolution Support",
+                  dict?.watermark_remover?.tip4_title ||
+                  "High-Resolution Support",
                 desc:
                   dict?.watermark_remover?.tip4_desc ||
                   "Works with images of any resolution. The tool auto-detects watermark size and position.",
@@ -664,8 +680,7 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
                   "Compare original and cleaned images side by side.",
               },
               {
-                title:
-                  dict?.watermark_remover?.feature4_title || "Zero Upload",
+                title: dict?.watermark_remover?.feature4_title || "Zero Upload",
                 desc:
                   dict?.watermark_remover?.feature4_desc ||
                   "Images are processed locally. Nothing is sent to any server.",
@@ -708,6 +723,11 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
             ))}
           </Accordion>
         </section>
+      </div>
+      </div>
+      <aside className="hidden lg:block w-64 shrink-0">
+        <ToolsSidebar category="image" dict={dict} />
+      </aside>
       </div>
     </div>
   );

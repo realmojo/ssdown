@@ -21,6 +21,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 type FlipMode = "none" | "horizontal" | "vertical";
 
@@ -30,7 +31,10 @@ export function FlipImageClient({ dict }: { dict?: any }) {
   const [isDragging, setIsDragging] = useState(false);
   const [flippedUrl, setFlippedUrl] = useState<string | null>(null);
   const [currentFlip, setCurrentFlip] = useState<FlipMode>("none");
-  const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
+  const [imageSize, setImageSize] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -43,7 +47,13 @@ export function FlipImageClient({ dict }: { dict?: any }) {
   };
 
   const loadImage = (file: File) => {
-    const validTypes = ["image/png", "image/jpeg", "image/webp", "image/gif", "image/bmp"];
+    const validTypes = [
+      "image/png",
+      "image/jpeg",
+      "image/webp",
+      "image/gif",
+      "image/bmp",
+    ];
     if (!validTypes.includes(file.type)) return;
     if (file.size > 20 * 1024 * 1024) return;
 
@@ -95,7 +105,9 @@ export function FlipImageClient({ dict }: { dict?: any }) {
       // Restore context state
       ctx.restore();
 
-      const ext = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+      const ext = fileName
+        .substring(fileName.lastIndexOf(".") + 1)
+        .toLowerCase();
       let mimeType = "image/png";
       if (ext === "jpg" || ext === "jpeg") mimeType = "image/jpeg";
       else if (ext === "webp") mimeType = "image/webp";
@@ -145,7 +157,9 @@ export function FlipImageClient({ dict }: { dict?: any }) {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
+      <div className="flex gap-8">
+      <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-sky-100 to-teal-100 dark:from-sky-900/30 dark:to-teal-900/30 mb-6">
           <FlipHorizontal className="w-10 h-10 text-sky-600 dark:text-sky-400" />
@@ -154,7 +168,8 @@ export function FlipImageClient({ dict }: { dict?: any }) {
           {dict?.flip_image?.title || "Flip Image"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.flip_image?.subtitle || "Flip or mirror your image horizontally or vertically. 100% free and private — all processing happens in your browser."}
+          {dict?.flip_image?.subtitle ||
+            "Flip or mirror your image horizontally or vertically. 100% free and private — all processing happens in your browser."}
         </p>
 
         <Adsense slotId="7759160077" />
@@ -183,7 +198,8 @@ export function FlipImageClient({ dict }: { dict?: any }) {
               {dict?.flip_image?.drop_zone || "Drag & drop your image here"}
             </p>
             <p className="text-sm text-muted-foreground">
-              {dict?.flip_image?.supported || "Supported: PNG, JPG, JPEG, WebP, GIF, BMP"}
+              {dict?.flip_image?.supported ||
+                "Supported: PNG, JPG, JPEG, WebP, GIF, BMP"}
             </p>
             <p className="text-xs text-muted-foreground mt-2">
               {dict?.flip_image?.max_file_size || "Max file size: 20MB"}
@@ -207,15 +223,14 @@ export function FlipImageClient({ dict }: { dict?: any }) {
               <CardContent className="p-6 space-y-4">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={handleReset}
-                    >
+                    <Button variant="outline" size="sm" onClick={handleReset}>
                       <RotateCcw className="w-4 h-4 mr-2" />
                       New Image
                     </Button>
-                    <span className="text-sm text-muted-foreground truncate max-w-[200px]" title={fileName}>
+                    <span
+                      className="text-sm text-muted-foreground truncate max-w-[200px]"
+                      title={fileName}
+                    >
                       {fileName}
                     </span>
                   </div>
@@ -279,7 +294,8 @@ export function FlipImageClient({ dict }: { dict?: any }) {
             {/* Status indicator */}
             {currentFlip !== "none" && (
               <div className="text-center text-sm text-muted-foreground animate-in fade-in">
-                Flipped {currentFlip === "horizontal" ? "horizontally" : "vertically"}
+                Flipped{" "}
+                {currentFlip === "horizontal" ? "horizontally" : "vertically"}
               </div>
             )}
 
@@ -296,7 +312,8 @@ export function FlipImageClient({ dict }: { dict?: any }) {
               {dict?.flip_image?.guide_title || "How to Flip Images"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              {dict?.flip_image?.guide_desc || "Flip any image in 3 simple steps."}
+              {dict?.flip_image?.guide_desc ||
+                "Flip any image in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -304,23 +321,32 @@ export function FlipImageClient({ dict }: { dict?: any }) {
               {
                 step: 1,
                 title: dict?.flip_image?.step1_title || "Upload Image",
-                desc: dict?.flip_image?.step1_desc || "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
+                desc:
+                  dict?.flip_image?.step1_desc ||
+                  "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
                 icon: Upload,
               },
               {
                 step: 2,
                 title: dict?.flip_image?.step2_title || "Choose Flip Direction",
-                desc: dict?.flip_image?.step2_desc || "Click 'Flip Horizontal' to mirror left-right or 'Flip Vertical' to flip upside down.",
+                desc:
+                  dict?.flip_image?.step2_desc ||
+                  "Click 'Flip Horizontal' to mirror left-right or 'Flip Vertical' to flip upside down.",
                 icon: FlipHorizontal,
               },
               {
                 step: 3,
                 title: dict?.flip_image?.step3_title || "Download Result",
-                desc: dict?.flip_image?.step3_desc || "Click 'Download' to save your flipped image to your device.",
+                desc:
+                  dict?.flip_image?.step3_desc ||
+                  "Click 'Download' to save your flipped image to your device.",
                 icon: Download,
               },
             ].map((step) => (
-              <Card key={step.step} className="border-sky-100 dark:border-sky-900/50">
+              <Card
+                key={step.step}
+                className="border-sky-100 dark:border-sky-900/50"
+              >
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-sky-500 text-white font-bold">
@@ -330,7 +356,9 @@ export function FlipImageClient({ dict }: { dict?: any }) {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.desc}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -372,7 +400,10 @@ export function FlipImageClient({ dict }: { dict?: any }) {
                 icon: FileImage,
               },
             ].map((tip, idx) => (
-              <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-gray-800">
+              <div
+                key={idx}
+                className="flex gap-4 p-4 rounded-lg bg-white dark:bg-gray-800"
+              >
                 <div className="flex-shrink-0">
                   <tip.icon className="w-6 h-6 text-sky-500" />
                 </div>
@@ -396,38 +427,62 @@ export function FlipImageClient({ dict }: { dict?: any }) {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>{dict?.flip_image?.faq_1_q || "Is it free to use?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.flip_image?.faq_1_q || "Is it free to use?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.flip_image?.faq_1_a || "Yes, this image flipper is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can flip."}
+                  {dict?.flip_image?.faq_1_a ||
+                    "Yes, this image flipper is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can flip."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>{dict?.flip_image?.faq_2_q || "Is it secure? Where are my images stored?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.flip_image?.faq_2_q ||
+                    "Is it secure? Where are my images stored?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.flip_image?.faq_2_a || "Your images are completely secure because all processing happens entirely in your browser. Your images never leave your device and are never uploaded to any server. This ensures 100% privacy."}
+                  {dict?.flip_image?.faq_2_a ||
+                    "Your images are completely secure because all processing happens entirely in your browser. Your images never leave your device and are never uploaded to any server. This ensures 100% privacy."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>{dict?.flip_image?.faq_3_q || "What's the difference between horizontal and vertical flip?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.flip_image?.faq_3_q ||
+                    "What's the difference between horizontal and vertical flip?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.flip_image?.faq_3_a || "Horizontal flip mirrors your image left-to-right, like looking in a mirror. Vertical flip turns your image upside down (top becomes bottom). Both maintain the original image quality."}
+                  {dict?.flip_image?.faq_3_a ||
+                    "Horizontal flip mirrors your image left-to-right, like looking in a mirror. Vertical flip turns your image upside down (top becomes bottom). Both maintain the original image quality."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>{dict?.flip_image?.faq_4_q || "Does flipping reduce image quality?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.flip_image?.faq_4_q ||
+                    "Does flipping reduce image quality?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.flip_image?.faq_4_a || "No. The canvas-based flip process preserves your original image quality and resolution. There is no re-compression or quality loss."}
+                  {dict?.flip_image?.faq_4_a ||
+                    "No. The canvas-based flip process preserves your original image quality and resolution. There is no re-compression or quality loss."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>{dict?.flip_image?.faq_5_q || "What image formats are supported?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.flip_image?.faq_5_q ||
+                    "What image formats are supported?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.flip_image?.faq_5_a || "You can flip PNG, JPG, JPEG, WebP, GIF, and BMP images. The flipped image will be saved in the same format as the original. PNG transparency is preserved."}
+                  {dict?.flip_image?.faq_5_a ||
+                    "You can flip PNG, JPG, JPEG, WebP, GIF, and BMP images. The flipped image will be saved in the same format as the original. PNG transparency is preserved."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>
         </section>
+      </div>
+      </div>
+      <aside className="hidden lg:block w-64 shrink-0">
+        <ToolsSidebar category="image" dict={dict} />
+      </aside>
       </div>
     </div>
   );

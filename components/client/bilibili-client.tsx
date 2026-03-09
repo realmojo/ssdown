@@ -333,6 +333,7 @@ export function BilibiliClient({ dict }: BilibiliClientProps) {
       downloadFileName={(quality) => `bilibili_video_${quality}.mp4`}
       faqSection={faqSection}
       slotId1="2395730401"
+      slotId2="2395730401"
     />
   );
 }

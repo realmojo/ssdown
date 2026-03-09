@@ -25,13 +25,17 @@ import {
 } from "@/components/ui/accordion";
 import exifr from "exifr";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>("");
   const [fileSize, setFileSize] = useState<number>(0);
   const [fileType, setFileType] = useState<string>("");
-  const [imageDimensions, setImageDimensions] = useState<{ width: number; height: number } | null>(null);
+  const [imageDimensions, setImageDimensions] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
   const [metadata, setMetadata] = useState<Record<string, any> | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -45,7 +49,16 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
   };
 
   const loadImage = async (file: File) => {
-    const validTypes = ["image/png", "image/jpeg", "image/webp", "image/gif", "image/bmp", "image/tiff", "image/heic", "image/heif"];
+    const validTypes = [
+      "image/png",
+      "image/jpeg",
+      "image/webp",
+      "image/gif",
+      "image/bmp",
+      "image/tiff",
+      "image/heic",
+      "image/heif",
+    ];
     if (!validTypes.includes(file.type)) return;
     if (file.size > 20 * 1024 * 1024) return;
 
@@ -70,7 +83,10 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
       setImageSrc(dataUrl);
       const img = new Image();
       img.onload = () => {
-        setImageDimensions({ width: img.naturalWidth, height: img.naturalHeight });
+        setImageDimensions({
+          width: img.naturalWidth,
+          height: img.naturalHeight,
+        });
       };
       img.src = dataUrl;
     };
@@ -156,21 +172,36 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
       text += `\n`;
     }
 
-    if (metadata.ISO || metadata.FNumber || metadata.ExposureTime || metadata.FocalLength) {
+    if (
+      metadata.ISO ||
+      metadata.FNumber ||
+      metadata.ExposureTime ||
+      metadata.FocalLength
+    ) {
       text += `Shooting Settings:\n`;
       if (metadata.ISO) text += `  ISO: ${metadata.ISO}\n`;
-      if (metadata.FNumber) text += `  Aperture: ${formatAperture(metadata.FNumber)}\n`;
-      if (metadata.ExposureTime) text += `  Shutter Speed: ${formatShutterSpeed(metadata.ExposureTime)}\n`;
-      if (metadata.FocalLength) text += `  Focal Length: ${formatFocalLength(metadata.FocalLength)}\n`;
+      if (metadata.FNumber)
+        text += `  Aperture: ${formatAperture(metadata.FNumber)}\n`;
+      if (metadata.ExposureTime)
+        text += `  Shutter Speed: ${formatShutterSpeed(metadata.ExposureTime)}\n`;
+      if (metadata.FocalLength)
+        text += `  Focal Length: ${formatFocalLength(metadata.FocalLength)}\n`;
       if (metadata.Flash) text += `  Flash: ${metadata.Flash}\n`;
-      if (metadata.WhiteBalance !== undefined) text += `  White Balance: ${metadata.WhiteBalance}\n`;
-      if (metadata.ExposureMode !== undefined) text += `  Exposure Mode: ${metadata.ExposureMode}\n`;
+      if (metadata.WhiteBalance !== undefined)
+        text += `  White Balance: ${metadata.WhiteBalance}\n`;
+      if (metadata.ExposureMode !== undefined)
+        text += `  Exposure Mode: ${metadata.ExposureMode}\n`;
       text += `\n`;
     }
 
-    if (metadata.DateTimeOriginal || metadata.CreateDate || metadata.ModifyDate) {
+    if (
+      metadata.DateTimeOriginal ||
+      metadata.CreateDate ||
+      metadata.ModifyDate
+    ) {
       text += `Date/Time:\n`;
-      if (metadata.DateTimeOriginal) text += `  Date Taken: ${metadata.DateTimeOriginal}\n`;
+      if (metadata.DateTimeOriginal)
+        text += `  Date Taken: ${metadata.DateTimeOriginal}\n`;
       if (metadata.CreateDate) text += `  Created: ${metadata.CreateDate}\n`;
       if (metadata.ModifyDate) text += `  Modified: ${metadata.ModifyDate}\n`;
       text += `\n`;
@@ -189,13 +220,29 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const hasCameraInfo = metadata && (metadata.Make || metadata.Model || metadata.Software);
-  const hasShootingSettings = metadata && (metadata.ISO || metadata.FNumber || metadata.ExposureTime || metadata.FocalLength || metadata.Flash !== undefined || metadata.WhiteBalance !== undefined || metadata.ExposureMode !== undefined);
-  const hasDateTime = metadata && (metadata.DateTimeOriginal || metadata.CreateDate || metadata.ModifyDate);
-  const hasGPS = metadata && metadata.latitude !== undefined && metadata.longitude !== undefined;
+  const hasCameraInfo =
+    metadata && (metadata.Make || metadata.Model || metadata.Software);
+  const hasShootingSettings =
+    metadata &&
+    (metadata.ISO ||
+      metadata.FNumber ||
+      metadata.ExposureTime ||
+      metadata.FocalLength ||
+      metadata.Flash !== undefined ||
+      metadata.WhiteBalance !== undefined ||
+      metadata.ExposureMode !== undefined);
+  const hasDateTime =
+    metadata &&
+    (metadata.DateTimeOriginal || metadata.CreateDate || metadata.ModifyDate);
+  const hasGPS =
+    metadata &&
+    metadata.latitude !== undefined &&
+    metadata.longitude !== undefined;
 
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
+      <div className="flex gap-8">
+        <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-sky-100 to-indigo-100 dark:from-sky-900/30 dark:to-indigo-900/30 mb-6">
           <FileSearch className="w-10 h-10 text-sky-600 dark:text-sky-400" />
@@ -204,7 +251,8 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
           {dict?.image_metadata_viewer?.title || "Image Metadata Viewer"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.image_metadata_viewer?.subtitle || "View EXIF metadata from your photos. See camera settings, GPS location, date taken, and more. 100% private — processed in your browser."}
+          {dict?.image_metadata_viewer?.subtitle ||
+            "View EXIF metadata from your photos. See camera settings, GPS location, date taken, and more. 100% private — processed in your browser."}
         </p>
 
         <Adsense slotId="7759160077" />
@@ -230,13 +278,16 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
             />
             <FileImage className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
             <p className="text-lg font-medium mb-2">
-              {dict?.image_metadata_viewer?.drop_zone || "Drag & drop your image here"}
+              {dict?.image_metadata_viewer?.drop_zone ||
+                "Drag & drop your image here"}
             </p>
             <p className="text-sm text-muted-foreground">
-              {dict?.image_metadata_viewer?.supported || "Supported: PNG, JPG, JPEG, WebP, GIF, BMP, TIFF, HEIC"}
+              {dict?.image_metadata_viewer?.supported ||
+                "Supported: PNG, JPG, JPEG, WebP, GIF, BMP, TIFF, HEIC"}
             </p>
             <p className="text-xs text-muted-foreground mt-2">
-              {dict?.image_metadata_viewer?.max_file_size || "Max file size: 20MB"}
+              {dict?.image_metadata_viewer?.max_file_size ||
+                "Max file size: 20MB"}
             </p>
             <button
               type="button"
@@ -256,15 +307,14 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
               <CardContent className="p-6">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={handleReset}
-                    >
+                    <Button variant="outline" size="sm" onClick={handleReset}>
                       <RotateCcw className="w-4 h-4 mr-2" />
                       New Image
                     </Button>
-                    <span className="text-sm text-muted-foreground truncate max-w-[200px]" title={fileName}>
+                    <span
+                      className="text-sm text-muted-foreground truncate max-w-[200px]"
+                      title={fileName}
+                    >
                       {fileName}
                     </span>
                   </div>
@@ -320,21 +370,38 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                   </CardHeader>
                   <CardContent className="space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Name:</span>
-                      <span className="text-sm font-medium truncate ml-2" title={fileName}>{fileName}</span>
+                      <span className="text-sm text-muted-foreground">
+                        Name:
+                      </span>
+                      <span
+                        className="text-sm font-medium truncate ml-2"
+                        title={fileName}
+                      >
+                        {fileName}
+                      </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Size:</span>
-                      <span className="text-sm font-medium">{formatFileSize(fileSize)}</span>
+                      <span className="text-sm text-muted-foreground">
+                        Size:
+                      </span>
+                      <span className="text-sm font-medium">
+                        {formatFileSize(fileSize)}
+                      </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Type:</span>
+                      <span className="text-sm text-muted-foreground">
+                        Type:
+                      </span>
                       <span className="text-sm font-medium">{fileType}</span>
                     </div>
                     {imageDimensions && (
                       <div className="flex justify-between">
-                        <span className="text-sm text-muted-foreground">Dimensions:</span>
-                        <span className="text-sm font-medium">{imageDimensions.width} x {imageDimensions.height}px</span>
+                        <span className="text-sm text-muted-foreground">
+                          Dimensions:
+                        </span>
+                        <span className="text-sm font-medium">
+                          {imageDimensions.width} x {imageDimensions.height}px
+                        </span>
                       </div>
                     )}
                   </CardContent>
@@ -352,20 +419,32 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                     <CardContent className="space-y-2">
                       {metadata.Make && (
                         <div className="flex justify-between">
-                          <span className="text-sm text-muted-foreground">Make:</span>
-                          <span className="text-sm font-medium">{metadata.Make}</span>
+                          <span className="text-sm text-muted-foreground">
+                            Make:
+                          </span>
+                          <span className="text-sm font-medium">
+                            {metadata.Make}
+                          </span>
                         </div>
                       )}
                       {metadata.Model && (
                         <div className="flex justify-between">
-                          <span className="text-sm text-muted-foreground">Model:</span>
-                          <span className="text-sm font-medium">{metadata.Model}</span>
+                          <span className="text-sm text-muted-foreground">
+                            Model:
+                          </span>
+                          <span className="text-sm font-medium">
+                            {metadata.Model}
+                          </span>
                         </div>
                       )}
                       {metadata.Software && (
                         <div className="flex justify-between">
-                          <span className="text-sm text-muted-foreground">Software:</span>
-                          <span className="text-sm font-medium">{metadata.Software}</span>
+                          <span className="text-sm text-muted-foreground">
+                            Software:
+                          </span>
+                          <span className="text-sm font-medium">
+                            {metadata.Software}
+                          </span>
                         </div>
                       )}
                     </CardContent>
@@ -384,44 +463,72 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                     <CardContent className="space-y-2">
                       {metadata.ISO && (
                         <div className="flex justify-between">
-                          <span className="text-sm text-muted-foreground">ISO:</span>
-                          <span className="text-sm font-medium">{metadata.ISO}</span>
+                          <span className="text-sm text-muted-foreground">
+                            ISO:
+                          </span>
+                          <span className="text-sm font-medium">
+                            {metadata.ISO}
+                          </span>
                         </div>
                       )}
                       {metadata.FNumber && (
                         <div className="flex justify-between">
-                          <span className="text-sm text-muted-foreground">Aperture:</span>
-                          <span className="text-sm font-medium">{formatAperture(metadata.FNumber)}</span>
+                          <span className="text-sm text-muted-foreground">
+                            Aperture:
+                          </span>
+                          <span className="text-sm font-medium">
+                            {formatAperture(metadata.FNumber)}
+                          </span>
                         </div>
                       )}
                       {metadata.ExposureTime && (
                         <div className="flex justify-between">
-                          <span className="text-sm text-muted-foreground">Shutter Speed:</span>
-                          <span className="text-sm font-medium">{formatShutterSpeed(metadata.ExposureTime)}</span>
+                          <span className="text-sm text-muted-foreground">
+                            Shutter Speed:
+                          </span>
+                          <span className="text-sm font-medium">
+                            {formatShutterSpeed(metadata.ExposureTime)}
+                          </span>
                         </div>
                       )}
                       {metadata.FocalLength && (
                         <div className="flex justify-between">
-                          <span className="text-sm text-muted-foreground">Focal Length:</span>
-                          <span className="text-sm font-medium">{formatFocalLength(metadata.FocalLength)}</span>
+                          <span className="text-sm text-muted-foreground">
+                            Focal Length:
+                          </span>
+                          <span className="text-sm font-medium">
+                            {formatFocalLength(metadata.FocalLength)}
+                          </span>
                         </div>
                       )}
                       {metadata.Flash !== undefined && (
                         <div className="flex justify-between">
-                          <span className="text-sm text-muted-foreground">Flash:</span>
-                          <span className="text-sm font-medium">{metadata.Flash}</span>
+                          <span className="text-sm text-muted-foreground">
+                            Flash:
+                          </span>
+                          <span className="text-sm font-medium">
+                            {metadata.Flash}
+                          </span>
                         </div>
                       )}
                       {metadata.WhiteBalance !== undefined && (
                         <div className="flex justify-between">
-                          <span className="text-sm text-muted-foreground">White Balance:</span>
-                          <span className="text-sm font-medium">{metadata.WhiteBalance}</span>
+                          <span className="text-sm text-muted-foreground">
+                            White Balance:
+                          </span>
+                          <span className="text-sm font-medium">
+                            {metadata.WhiteBalance}
+                          </span>
                         </div>
                       )}
                       {metadata.ExposureMode !== undefined && (
                         <div className="flex justify-between">
-                          <span className="text-sm text-muted-foreground">Exposure Mode:</span>
-                          <span className="text-sm font-medium">{metadata.ExposureMode}</span>
+                          <span className="text-sm text-muted-foreground">
+                            Exposure Mode:
+                          </span>
+                          <span className="text-sm font-medium">
+                            {metadata.ExposureMode}
+                          </span>
                         </div>
                       )}
                     </CardContent>
@@ -440,20 +547,32 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                     <CardContent className="space-y-2">
                       {metadata.DateTimeOriginal && (
                         <div className="flex justify-between">
-                          <span className="text-sm text-muted-foreground">Date Taken:</span>
-                          <span className="text-sm font-medium">{String(metadata.DateTimeOriginal)}</span>
+                          <span className="text-sm text-muted-foreground">
+                            Date Taken:
+                          </span>
+                          <span className="text-sm font-medium">
+                            {String(metadata.DateTimeOriginal)}
+                          </span>
                         </div>
                       )}
                       {metadata.CreateDate && (
                         <div className="flex justify-between">
-                          <span className="text-sm text-muted-foreground">Created:</span>
-                          <span className="text-sm font-medium">{String(metadata.CreateDate)}</span>
+                          <span className="text-sm text-muted-foreground">
+                            Created:
+                          </span>
+                          <span className="text-sm font-medium">
+                            {String(metadata.CreateDate)}
+                          </span>
                         </div>
                       )}
                       {metadata.ModifyDate && (
                         <div className="flex justify-between">
-                          <span className="text-sm text-muted-foreground">Modified:</span>
-                          <span className="text-sm font-medium">{String(metadata.ModifyDate)}</span>
+                          <span className="text-sm text-muted-foreground">
+                            Modified:
+                          </span>
+                          <span className="text-sm font-medium">
+                            {String(metadata.ModifyDate)}
+                          </span>
                         </div>
                       )}
                     </CardContent>
@@ -471,12 +590,19 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                     </CardHeader>
                     <CardContent className="space-y-2">
                       {(() => {
-                        const gps = formatGPS(metadata.latitude, metadata.longitude);
+                        const gps = formatGPS(
+                          metadata.latitude,
+                          metadata.longitude,
+                        );
                         return (
                           <>
                             <div className="flex justify-between">
-                              <span className="text-sm text-muted-foreground">Coordinates:</span>
-                              <span className="text-sm font-medium">{gps.text}</span>
+                              <span className="text-sm text-muted-foreground">
+                                Coordinates:
+                              </span>
+                              <span className="text-sm font-medium">
+                                {gps.text}
+                              </span>
                             </div>
                             <a
                               href={gps.mapsUrl}
@@ -502,13 +628,29 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                     <CardContent>
                       <Accordion type="single" collapsible>
                         <AccordionItem value="all-metadata">
-                          <AccordionTrigger>{dict?.image_metadata_viewer?.faq_1_q || "View All Fields"}</AccordionTrigger>
+                          <AccordionTrigger>
+                            {dict?.image_metadata_viewer?.faq_1_q ||
+                              "View All Fields"}
+                          </AccordionTrigger>
                           <AccordionContent>
                             <div className="space-y-2 max-h-96 overflow-y-auto">
                               {Object.entries(metadata).map(([key, value]) => (
-                                <div key={key} className="flex justify-between py-1 border-b last:border-b-0">
-                                  <span className="text-sm text-muted-foreground truncate max-w-[150px]" title={key}>{key}:</span>
-                                  <span className="text-sm font-medium truncate max-w-[250px] ml-2" title={String(value)}>{String(value)}</span>
+                                <div
+                                  key={key}
+                                  className="flex justify-between py-1 border-b last:border-b-0"
+                                >
+                                  <span
+                                    className="text-sm text-muted-foreground truncate max-w-[150px]"
+                                    title={key}
+                                  >
+                                    {key}:
+                                  </span>
+                                  <span
+                                    className="text-sm font-medium truncate max-w-[250px] ml-2"
+                                    title={String(value)}
+                                  >
+                                    {String(value)}
+                                  </span>
                                 </div>
                               ))}
                             </div>
@@ -524,7 +666,9 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                   <Card className="border-yellow-200 dark:border-yellow-900/50 bg-yellow-50 dark:bg-yellow-900/10">
                     <CardContent className="p-6">
                       <p className="text-sm text-muted-foreground">
-                        No EXIF metadata found in this image. This is common for screenshots, web images, or images that have been edited/compressed.
+                        No EXIF metadata found in this image. This is common for
+                        screenshots, web images, or images that have been
+                        edited/compressed.
                       </p>
                     </CardContent>
                   </Card>
@@ -540,34 +684,48 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              {dict?.image_metadata_viewer?.guide_title || "How to View Image Metadata"}
+              {dict?.image_metadata_viewer?.guide_title ||
+                "How to View Image Metadata"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              {dict?.image_metadata_viewer?.guide_desc || "Extract EXIF metadata from your photos in 3 simple steps."}
+              {dict?.image_metadata_viewer?.guide_desc ||
+                "Extract EXIF metadata from your photos in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 step: 1,
-                title: dict?.image_metadata_viewer?.step1_title || "Upload Image",
-                desc: dict?.image_metadata_viewer?.step1_desc || "Upload a photo from your device. Most photos from cameras and smartphones contain EXIF metadata.",
+                title:
+                  dict?.image_metadata_viewer?.step1_title || "Upload Image",
+                desc:
+                  dict?.image_metadata_viewer?.step1_desc ||
+                  "Upload a photo from your device. Most photos from cameras and smartphones contain EXIF metadata.",
                 icon: Upload,
               },
               {
                 step: 2,
-                title: dict?.image_metadata_viewer?.step2_title || "View Metadata",
-                desc: dict?.image_metadata_viewer?.step2_desc || "Browse organized sections showing camera settings, GPS location, date taken, and more.",
+                title:
+                  dict?.image_metadata_viewer?.step2_title || "View Metadata",
+                desc:
+                  dict?.image_metadata_viewer?.step2_desc ||
+                  "Browse organized sections showing camera settings, GPS location, date taken, and more.",
                 icon: FileSearch,
               },
               {
                 step: 3,
-                title: dict?.image_metadata_viewer?.step3_title || "Copy or Export",
-                desc: dict?.image_metadata_viewer?.step3_desc || "Click 'Copy Metadata' to copy all information as text, or view specific fields in detail.",
+                title:
+                  dict?.image_metadata_viewer?.step3_title || "Copy or Export",
+                desc:
+                  dict?.image_metadata_viewer?.step3_desc ||
+                  "Click 'Copy Metadata' to copy all information as text, or view specific fields in detail.",
                 icon: Download,
               },
             ].map((step) => (
-              <Card key={step.step} className="border-indigo-200 dark:border-indigo-900/50">
+              <Card
+                key={step.step}
+                className="border-indigo-200 dark:border-indigo-900/50"
+              >
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-indigo-600 text-white font-bold">
@@ -577,7 +735,9 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.desc}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -619,7 +779,10 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                 icon: Shield,
               },
             ].map((tip, idx) => (
-              <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-indigo-900/30">
+              <div
+                key={idx}
+                className="flex gap-4 p-4 rounded-lg bg-white dark:bg-indigo-900/30"
+              >
                 <div className="flex-shrink-0">
                   <tip.icon className="w-6 h-6 text-indigo-600" />
                 </div>
@@ -643,38 +806,63 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>{dict?.image_metadata_viewer?.faq_2_q || "What is EXIF metadata?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.image_metadata_viewer?.faq_2_q ||
+                    "What is EXIF metadata?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.image_metadata_viewer?.faq_1_a || "EXIF (Exchangeable Image File Format) is a standard that stores metadata in image files. It includes information like camera settings (ISO, aperture, shutter speed), date/time, GPS coordinates, camera model, and more. Most digital cameras and smartphones automatically embed this data when taking photos."}
+                  {dict?.image_metadata_viewer?.faq_1_a ||
+                    "EXIF (Exchangeable Image File Format) is a standard that stores metadata in image files. It includes information like camera settings (ISO, aperture, shutter speed), date/time, GPS coordinates, camera model, and more. Most digital cameras and smartphones automatically embed this data when taking photos."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>{dict?.image_metadata_viewer?.faq_3_q || "Is it safe to view metadata online?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.image_metadata_viewer?.faq_3_q ||
+                    "Is it safe to view metadata online?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.image_metadata_viewer?.faq_2_a || "Yes! All metadata extraction happens entirely in your browser using JavaScript. Your images are never uploaded to any server. The metadata is read locally on your device and displayed instantly. Your photos and their metadata remain completely private."}
+                  {dict?.image_metadata_viewer?.faq_2_a ||
+                    "Yes! All metadata extraction happens entirely in your browser using JavaScript. Your images are never uploaded to any server. The metadata is read locally on your device and displayed instantly. Your photos and their metadata remain completely private."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>{dict?.image_metadata_viewer?.faq_4_q || "Why doesn't my image have metadata?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.image_metadata_viewer?.faq_4_q ||
+                    "Why doesn't my image have metadata?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.image_metadata_viewer?.faq_3_a || "Several reasons: (1) Screenshots and digitally-created images don't contain EXIF data, (2) Many social media platforms strip metadata when you upload photos for privacy, (3) Some photo editing software removes EXIF data when saving, (4) The image may have been exported without preserving metadata."}
+                  {dict?.image_metadata_viewer?.faq_3_a ||
+                    "Several reasons: (1) Screenshots and digitally-created images don't contain EXIF data, (2) Many social media platforms strip metadata when you upload photos for privacy, (3) Some photo editing software removes EXIF data when saving, (4) The image may have been exported without preserving metadata."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>{dict?.image_metadata_viewer?.faq_5_q || "Can I see GPS coordinates?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.image_metadata_viewer?.faq_5_q ||
+                    "Can I see GPS coordinates?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.image_metadata_viewer?.faq_4_a || "Yes, if the photo was taken with a GPS-enabled device (like a smartphone with location services enabled) and the GPS data wasn't removed, you'll see the exact coordinates. We provide a direct link to view the location on Google Maps. Be aware that sharing photos with GPS data can reveal your location."}
+                  {dict?.image_metadata_viewer?.faq_4_a ||
+                    "Yes, if the photo was taken with a GPS-enabled device (like a smartphone with location services enabled) and the GPS data wasn't removed, you'll see the exact coordinates. We provide a direct link to view the location on Google Maps. Be aware that sharing photos with GPS data can reveal your location."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>{dict?.image_metadata_viewer?.faq_6_q || "What image formats are supported?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.image_metadata_viewer?.faq_6_q ||
+                    "What image formats are supported?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.image_metadata_viewer?.faq_5_a || "We support all common image formats including JPG, JPEG, PNG, WebP, GIF, BMP, TIFF, HEIC, and HEIF. JPG images from cameras typically contain the most complete EXIF data. Maximum file size is 20MB."}
+                  {dict?.image_metadata_viewer?.faq_5_a ||
+                    "We support all common image formats including JPG, JPEG, PNG, WebP, GIF, BMP, TIFF, HEIC, and HEIF. JPG images from cameras typically contain the most complete EXIF data. Maximum file size is 20MB."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>
         </section>
+      </div>
+        </div>
+        <aside className="hidden lg:block w-64 shrink-0">
+          <ToolsSidebar category="image" dict={dict} />
+        </aside>
       </div>
     </div>
   );

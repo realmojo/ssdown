@@ -330,6 +330,7 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
       downloadFileName={(quality) => `dailymotion_video_${quality}.mp4`}
       faqSection={faqSection}
       slotId1="2395730401"
+      slotId2="2395730401"
     />
   );
 }

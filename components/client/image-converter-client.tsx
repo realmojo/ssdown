@@ -32,6 +32,7 @@ import {
 } from "@/components/ui/accordion";
 import JSZip from "jszip";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 type ValidFormat = "png" | "jpeg" | "webp" | "avif" | "gif";
 
@@ -63,7 +64,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
         setSupportsAvif(blob !== null);
       },
       "image/avif",
-      0.5
+      0.5,
     );
   }, []);
 
@@ -89,7 +90,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
           file.type.startsWith("image/") ||
           validTypes.includes(file.type) ||
           file.name.toLowerCase().endsWith(".heic") ||
-          file.name.toLowerCase().endsWith(".heif")
+          file.name.toLowerCase().endsWith(".heif"),
       )
       .map((file) => ({
         id: Math.random().toString(36).substring(7),
@@ -131,7 +132,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
             resolve(blob);
           },
           "image/png",
-          1.0
+          1.0,
         );
       };
 
@@ -161,7 +162,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
             resolve(blob);
           },
           "image/jpeg",
-          0.9
+          0.9,
         );
       };
 
@@ -197,7 +198,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
               } else {
                 resolve(null);
               }
-            }
+            },
           );
         };
         img.onerror = () => resolve(null);
@@ -212,7 +213,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
   // Helper: Convert HEIC to standard format
   const convertHeicToStandard = async (
     file: File,
-    format: ValidFormat
+    format: ValidFormat,
   ): Promise<Blob | null> => {
     try {
       const heic2any = (await import("heic2any")).default;
@@ -380,7 +381,9 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
+      <div className="flex gap-8">
+      <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 mb-6">
           <RefreshCw className="w-10 h-10 text-purple-600 dark:text-purple-400" />
@@ -431,7 +434,9 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
                 e.stopPropagation();
                 const res = await fetch("/test-image.jpg");
                 const blob = await res.blob();
-                const file = new File([blob], "test-image.jpg", { type: "image/jpeg" });
+                const file = new File([blob], "test-image.jpg", {
+                  type: "image/jpeg",
+                });
                 processFiles([file]);
               }}
               className="mt-4 text-sm text-purple-600 dark:text-purple-400 hover:underline"
@@ -767,15 +772,21 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
               {[
                 {
                   q: dict?.qna_image_converter?.faq_1_q || "Is it free?",
-                  a: dict?.qna_image_converter?.faq_1_a || "Yes, our image converter is 100% free to use with no limits on conversions.",
+                  a:
+                    dict?.qna_image_converter?.faq_1_a ||
+                    "Yes, our image converter is 100% free to use with no limits on conversions.",
                 },
                 {
                   q: dict?.qna_image_converter?.faq_2_q || "Is it secure?",
-                  a: dict?.qna_image_converter?.faq_2_a || "Absolutely. All conversions happen in your browser. Your images are never uploaded to any server.",
+                  a:
+                    dict?.qna_image_converter?.faq_2_a ||
+                    "Absolutely. All conversions happen in your browser. Your images are never uploaded to any server.",
                 },
                 {
                   q: dict?.qna_image_converter?.faq_3_q || "What is WebP?",
-                  a: dict?.qna_image_converter?.faq_3_a || "WebP is a modern image format developed by Google that provides superior lossless and lossy compression for images on the web, resulting in smaller file sizes with comparable quality.",
+                  a:
+                    dict?.qna_image_converter?.faq_3_a ||
+                    "WebP is a modern image format developed by Google that provides superior lossless and lossy compression for images on the web, resulting in smaller file sizes with comparable quality.",
                 },
                 {
                   q: "What is AVIF and which browsers support it?",
@@ -806,6 +817,11 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
             </Accordion>
           </div>
         </section>
+      </div>
+      </div>
+      <aside className="hidden lg:block w-64 shrink-0">
+        <ToolsSidebar category="image" dict={dict} />
+      </aside>
       </div>
     </div>
   );

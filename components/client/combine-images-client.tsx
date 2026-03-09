@@ -25,6 +25,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 type LayoutDirection = "horizontal" | "vertical";
 
@@ -44,15 +45,24 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
   const [gap, setGap] = useState(0);
   const [bgColor, setBgColor] = useState("#ffffff");
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [resultSize, setResultSize] = useState<{ width: number; height: number } | null>(null);
+  const [resultSize, setResultSize] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const addFiles = (files: FileList | File[]) => {
-    const validTypes = ["image/png", "image/jpeg", "image/webp", "image/gif", "image/bmp"];
+    const validTypes = [
+      "image/png",
+      "image/jpeg",
+      "image/webp",
+      "image/gif",
+      "image/bmp",
+    ];
     const fileArray = Array.from(files).filter(
-      (f) => validTypes.includes(f.type) && f.size <= 20 * 1024 * 1024
+      (f) => validTypes.includes(f.type) && f.size <= 20 * 1024 * 1024,
     );
 
     fileArray.forEach((file) => {
@@ -110,10 +120,12 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
 
     if (direction === "horizontal") {
       const maxH = Math.max(...images.map((i) => i.height));
-      const totalW = images.reduce((sum, i) => {
-        const scale = maxH / i.height;
-        return sum + Math.round(i.width * scale);
-      }, 0) + gap * (images.length - 1);
+      const totalW =
+        images.reduce((sum, i) => {
+          const scale = maxH / i.height;
+          return sum + Math.round(i.width * scale);
+        }, 0) +
+        gap * (images.length - 1);
 
       canvas.width = totalW;
       canvas.height = maxH;
@@ -132,10 +144,12 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
       setResultSize({ width: totalW, height: maxH });
     } else {
       const maxW = Math.max(...images.map((i) => i.width));
-      const totalH = images.reduce((sum, i) => {
-        const scale = maxW / i.width;
-        return sum + Math.round(i.height * scale);
-      }, 0) + gap * (images.length - 1);
+      const totalH =
+        images.reduce((sum, i) => {
+          const scale = maxW / i.width;
+          return sum + Math.round(i.height * scale);
+        }, 0) +
+        gap * (images.length - 1);
 
       canvas.width = maxW;
       canvas.height = totalH;
@@ -204,7 +218,9 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
+      <div className="flex gap-8">
+        <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-lime-100 to-green-100 dark:from-lime-900/30 dark:to-green-900/30 mb-6">
           <Columns className="w-10 h-10 text-lime-600 dark:text-lime-400" />
@@ -213,7 +229,8 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
           {dict?.combine_images?.title || "Combine Images"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.combine_images?.subtitle || "Combine multiple images side by side or stacked vertically. Adjust gap and background color. 100% private — processed in your browser."}
+          {dict?.combine_images?.subtitle ||
+            "Combine multiple images side by side or stacked vertically. Adjust gap and background color. 100% private — processed in your browser."}
         </p>
 
         <Adsense slotId="7759160077" />
@@ -245,7 +262,8 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                 {dict?.combine_images?.drop_zone || "Drag & drop images here"}
               </p>
               <p className="text-sm text-muted-foreground">
-                Upload 2 or more images to combine. Supported: PNG, JPG, WebP, GIF, BMP
+                Upload 2 or more images to combine. Supported: PNG, JPG, WebP,
+                GIF, BMP
               </p>
               <p className="text-xs text-muted-foreground mt-2">
                 Max 20MB per file
@@ -276,7 +294,9 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
             <Card className="border-lime-200 dark:border-lime-900/50">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-medium">{images.length} images</span>
+                  <span className="text-sm font-medium">
+                    {images.length} images
+                  </span>
                   <Button variant="outline" size="sm" onClick={handleReset}>
                     <RotateCcw className="w-4 h-4 mr-2" />
                     Clear All
@@ -322,7 +342,9 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
               <CardContent className="p-6 space-y-4">
                 {/* Direction */}
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Layout Direction</label>
+                  <label className="text-sm font-medium">
+                    Layout Direction
+                  </label>
                   <div className="flex gap-2">
                     <button
                       onClick={() => setDirection("horizontal")}
@@ -354,7 +376,9 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <label className="text-sm font-medium">Gap</label>
-                      <span className="text-sm text-muted-foreground">{gap}px</span>
+                      <span className="text-sm text-muted-foreground">
+                        {gap}px
+                      </span>
                     </div>
                     <input
                       type="range"
@@ -367,7 +391,9 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Background Color</label>
+                    <label className="text-sm font-medium">
+                      Background Color
+                    </label>
                     <div className="flex items-center gap-2">
                       <input
                         type="color"
@@ -380,7 +406,9 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                           key={c}
                           onClick={() => setBgColor(c)}
                           className={`w-8 h-8 rounded-full border-2 transition-transform ${
-                            bgColor === c ? "border-lime-500 scale-110" : "border-muted"
+                            bgColor === c
+                              ? "border-lime-500 scale-110"
+                              : "border-muted"
                           }`}
                           style={{ backgroundColor: c }}
                         />
@@ -427,7 +455,6 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                 Add at least one more image to combine.
               </p>
             )}
-
           </div>
         )}
         <canvas ref={canvasRef} className="hidden" />
@@ -441,7 +468,8 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
               {dict?.combine_images?.guide_title || "How to Combine Images"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              {dict?.combine_images?.guide_desc || "Combine multiple images in 3 simple steps."}
+              {dict?.combine_images?.guide_desc ||
+                "Combine multiple images in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -449,23 +477,32 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
               {
                 step: 1,
                 title: dict?.combine_images?.step1_title || "Upload Images",
-                desc: dict?.combine_images?.step1_desc || "Upload 2 or more images. Drag & drop or click to browse. You can add more images after uploading.",
+                desc:
+                  dict?.combine_images?.step1_desc ||
+                  "Upload 2 or more images. Drag & drop or click to browse. You can add more images after uploading.",
                 icon: Upload,
               },
               {
                 step: 2,
                 title: dict?.combine_images?.step2_title || "Choose Layout",
-                desc: dict?.combine_images?.step2_desc || "Pick horizontal (side by side) or vertical (stacked). Adjust gap and background color.",
+                desc:
+                  dict?.combine_images?.step2_desc ||
+                  "Pick horizontal (side by side) or vertical (stacked). Adjust gap and background color.",
                 icon: Columns,
               },
               {
                 step: 3,
                 title: dict?.combine_images?.step3_title || "Download Result",
-                desc: dict?.combine_images?.step3_desc || "Click 'Download' to save the combined image as PNG.",
+                desc:
+                  dict?.combine_images?.step3_desc ||
+                  "Click 'Download' to save the combined image as PNG.",
                 icon: Download,
               },
             ].map((step) => (
-              <Card key={step.step} className="border-lime-200 dark:border-lime-900/50">
+              <Card
+                key={step.step}
+                className="border-lime-200 dark:border-lime-900/50"
+              >
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-lime-500 text-white font-bold">
@@ -475,7 +512,9 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.desc}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -517,7 +556,10 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                 icon: Shield,
               },
             ].map((tip, idx) => (
-              <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-gray-800">
+              <div
+                key={idx}
+                className="flex gap-4 p-4 rounded-lg bg-white dark:bg-gray-800"
+              >
                 <div className="flex-shrink-0">
                   <tip.icon className="w-6 h-6 text-lime-500" />
                 </div>
@@ -541,38 +583,62 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>{dict?.combine_images?.faq_1_q || "Is it free to use?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.combine_images?.faq_1_q || "Is it free to use?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.combine_images?.faq_1_a || "Yes, this image combiner is 100% free. There are no hidden fees, watermarks, or limitations on the number of images you can combine."}
+                  {dict?.combine_images?.faq_1_a ||
+                    "Yes, this image combiner is 100% free. There are no hidden fees, watermarks, or limitations on the number of images you can combine."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>{dict?.combine_images?.faq_2_q || "Is it secure? Where are my images stored?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.combine_images?.faq_2_q ||
+                    "Is it secure? Where are my images stored?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.combine_images?.faq_2_a || "Your images are completely secure. All processing happens in your browser using Canvas API. Images never leave your device and are never uploaded to any server."}
+                  {dict?.combine_images?.faq_2_a ||
+                    "Your images are completely secure. All processing happens in your browser using Canvas API. Images never leave your device and are never uploaded to any server."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>{dict?.combine_images?.faq_3_q || "How many images can I combine?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.combine_images?.faq_3_q ||
+                    "How many images can I combine?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.combine_images?.faq_3_a || "You can combine 2 or more images. There is no hard limit, but very large numbers of images may slow down processing depending on your device. Each image must be under 20MB."}
+                  {dict?.combine_images?.faq_3_a ||
+                    "You can combine 2 or more images. There is no hard limit, but very large numbers of images may slow down processing depending on your device. Each image must be under 20MB."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>{dict?.combine_images?.faq_4_q || "What happens if images have different sizes?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.combine_images?.faq_4_q ||
+                    "What happens if images have different sizes?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.combine_images?.faq_4_a || "Images are automatically scaled to match. In horizontal mode, all images are scaled to the same height. In vertical mode, all images are scaled to the same width. This ensures a clean, aligned result."}
+                  {dict?.combine_images?.faq_4_a ||
+                    "Images are automatically scaled to match. In horizontal mode, all images are scaled to the same height. In vertical mode, all images are scaled to the same width. This ensures a clean, aligned result."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>{dict?.combine_images?.faq_5_q || "What format is the output?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.combine_images?.faq_5_q ||
+                    "What format is the output?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.combine_images?.faq_5_a || "The combined image is always saved as PNG to ensure maximum quality and transparency support. You can convert it to other formats using our Image Converter tool."}
+                  {dict?.combine_images?.faq_5_a ||
+                    "The combined image is always saved as PNG to ensure maximum quality and transparency support. You can convert it to other formats using our Image Converter tool."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>
         </section>
+      </div>
+        </div>
+        <aside className="hidden lg:block w-64 shrink-0">
+          <ToolsSidebar category="image" dict={dict} />
+        </aside>
       </div>
     </div>
   );

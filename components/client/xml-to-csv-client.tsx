@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/accordion";
 import { toast } from "sonner";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 export function XmlToCsvClient({ dict }: { dict?: any }) {
   const [xmlInput, setXmlInput] = useState("");
@@ -148,7 +149,9 @@ export function XmlToCsvClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 min-h-[50vh]">
+      <div className="flex gap-8">
+      <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-indigo-100 to-blue-100 dark:from-indigo-900/30 dark:to-blue-900/30 mb-6">
           <FileSpreadsheet className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
@@ -316,6 +319,11 @@ export function XmlToCsvClient({ dict }: { dict?: any }) {
             </Accordion>
           </div>
         </section>
+      </div>
+      </div>
+      <aside className="hidden lg:block w-64 shrink-0">
+        <ToolsSidebar category="file" dict={dict} />
+      </aside>
       </div>
     </div>
   );

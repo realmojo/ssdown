@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/accordion";
 import JSZip from "jszip";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 interface ImageFile {
   id: string;
@@ -204,7 +205,9 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
+      <div className="flex gap-8">
+      <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 mb-6">
           <Minimize2 className="w-10 h-10 text-green-600 dark:text-green-400" />
@@ -257,7 +260,9 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
                 e.stopPropagation();
                 const res = await fetch("/test-image.jpg");
                 const blob = await res.blob();
-                const file = new File([blob], "test-image.jpg", { type: "image/jpeg" });
+                const file = new File([blob], "test-image.jpg", {
+                  type: "image/jpeg",
+                });
                 processFiles([file]);
               }}
               className="mt-4 text-sm text-green-600 dark:text-green-400 hover:underline"
@@ -316,7 +321,8 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <label className="text-sm font-medium">
-                      {dict?.image_compressor?.quality_label || "Quality"}: {quality}%
+                      {dict?.image_compressor?.quality_label || "Quality"}:{" "}
+                      {quality}%
                     </label>
                     {quality < 70 && (
                       <span className="text-xs text-amber-600 dark:text-amber-400">
@@ -406,7 +412,11 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
                         </div>
                         <div className="text-xs font-medium text-green-600 dark:text-green-400">
                           {dict?.image_compressor?.saved || "Saved"}:{" "}
-                          {calculateSavings(img.originalSize, img.compressedSize)}%
+                          {calculateSavings(
+                            img.originalSize,
+                            img.compressedSize,
+                          )}
+                          %
                         </div>
                       </div>
                     )}
@@ -435,8 +445,7 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              {dict?.image_compressor?.guide_title ||
-                "How to Compress Images"}
+              {dict?.image_compressor?.guide_title || "How to Compress Images"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               {dict?.image_compressor?.guide_desc ||
@@ -448,8 +457,7 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
             {[
               {
                 step: 1,
-                title:
-                  dict?.image_compressor?.step1_title || "Upload Images",
+                title: dict?.image_compressor?.step1_title || "Upload Images",
                 desc:
                   dict?.image_compressor?.step1_desc ||
                   "Upload the PNG, JPG, or WebP images you want to compress.",
@@ -457,8 +465,7 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
               },
               {
                 step: 2,
-                title:
-                  dict?.image_compressor?.step2_title || "Adjust Quality",
+                title: dict?.image_compressor?.step2_title || "Adjust Quality",
                 desc:
                   dict?.image_compressor?.step2_desc ||
                   "Use the quality slider to control compression level (1-100). Lower values mean smaller files.",
@@ -467,8 +474,7 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
               {
                 step: 3,
                 title:
-                  dict?.image_compressor?.step3_title ||
-                  "Compress & Download",
+                  dict?.image_compressor?.step3_title || "Compress & Download",
                 desc:
                   dict?.image_compressor?.step3_desc ||
                   "Click 'Compress Images' and download your optimized files instantly.",
@@ -524,8 +530,7 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
               },
               {
                 title:
-                  dict?.image_compressor?.tip2_title ||
-                  "PNG Compression Note",
+                  dict?.image_compressor?.tip2_title || "PNG Compression Note",
                 desc:
                   dict?.image_compressor?.tip2_desc ||
                   "PNG compression is lossless but limited. For better compression, consider converting PNG to WebP or JPEG.",
@@ -533,16 +538,14 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
               },
               {
                 title:
-                  dict?.image_compressor?.tip3_title ||
-                  "WebP Best Compression",
+                  dict?.image_compressor?.tip3_title || "WebP Best Compression",
                 desc:
                   dict?.image_compressor?.tip3_desc ||
                   "WebP format provides the best compression ratio while maintaining excellent visual quality.",
                 icon: Minimize2,
               },
               {
-                title:
-                  dict?.image_compressor?.tip4_title || "Batch Processing",
+                title: dict?.image_compressor?.tip4_title || "Batch Processing",
                 desc:
                   dict?.image_compressor?.tip4_desc ||
                   "Compress multiple images at once to save time. Download all as a ZIP file.",
@@ -592,6 +595,11 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
             </Accordion>
           </div>
         </section>
+      </div>
+      </div>
+      <aside className="hidden lg:block w-64 shrink-0">
+        <ToolsSidebar category="image" dict={dict} />
+      </aside>
       </div>
     </div>
   );

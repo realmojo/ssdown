@@ -23,6 +23,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 interface LoadedImage {
   id: string;
@@ -119,21 +120,31 @@ const CANVAS_SIZE = 1000;
 export function CollageMakerClient({ dict }: { dict?: any }) {
   const [images, setImages] = useState<LoadedImage[]>([]);
   const [isDragging, setIsDragging] = useState(false);
-  const [selectedTemplate, setSelectedTemplate] = useState<Template>(TEMPLATES[3]);
+  const [selectedTemplate, setSelectedTemplate] = useState<Template>(
+    TEMPLATES[3],
+  );
   const [gap, setGap] = useState(0);
   const [bgColor, setBgColor] = useState("#ffffff");
   const [cornerRadius, setCornerRadius] = useState(0);
   const [activeSlot, setActiveSlot] = useState<number | null>(null);
-  const [slotAssignments, setSlotAssignments] = useState<Record<number, LoadedImage>>({});
+  const [slotAssignments, setSlotAssignments] = useState<
+    Record<number, LoadedImage>
+  >({});
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const addFiles = (files: FileList | File[]) => {
-    const validTypes = ["image/png", "image/jpeg", "image/webp", "image/gif", "image/bmp"];
+    const validTypes = [
+      "image/png",
+      "image/jpeg",
+      "image/webp",
+      "image/gif",
+      "image/bmp",
+    ];
     const fileArray = Array.from(files).filter(
-      (f) => validTypes.includes(f.type) && f.size <= 20 * 1024 * 1024
+      (f) => validTypes.includes(f.type) && f.size <= 20 * 1024 * 1024,
     );
 
     fileArray.forEach((file) => {
@@ -249,8 +260,10 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
 
       const slotX = slot.x * CANVAS_SIZE + (slot.x > 0 ? gap / 2 : 0);
       const slotY = slot.y * CANVAS_SIZE + (slot.y > 0 ? gap / 2 : 0);
-      const slotW = slot.w * CANVAS_SIZE - (slot.x > 0 || slot.x + slot.w < 1 ? gap : 0);
-      const slotH = slot.h * CANVAS_SIZE - (slot.y > 0 || slot.y + slot.h < 1 ? gap : 0);
+      const slotW =
+        slot.w * CANVAS_SIZE - (slot.x > 0 || slot.x + slot.w < 1 ? gap : 0);
+      const slotH =
+        slot.h * CANVAS_SIZE - (slot.y > 0 || slot.y + slot.h < 1 ? gap : 0);
 
       ctx.save();
 
@@ -261,7 +274,13 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
         ctx.lineTo(slotX + slotW - radius, slotY);
         ctx.arcTo(slotX + slotW, slotY, slotX + slotW, slotY + radius, radius);
         ctx.lineTo(slotX + slotW, slotY + slotH - radius);
-        ctx.arcTo(slotX + slotW, slotY + slotH, slotX + slotW - radius, slotY + slotH, radius);
+        ctx.arcTo(
+          slotX + slotW,
+          slotY + slotH,
+          slotX + slotW - radius,
+          slotY + slotH,
+          radius,
+        );
         ctx.lineTo(slotX + radius, slotY + slotH);
         ctx.arcTo(slotX, slotY + slotH, slotX, slotY + slotH - radius, radius);
         ctx.lineTo(slotX, slotY + radius);
@@ -294,10 +313,14 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
     link.click();
   };
 
-  const hasAllSlotsAssigned = selectedTemplate.slots.every((_, idx) => slotAssignments[idx]);
+  const hasAllSlotsAssigned = selectedTemplate.slots.every(
+    (_, idx) => slotAssignments[idx],
+  );
 
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
+      <div className="flex gap-8">
+        <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-5xl mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-fuchsia-100 to-pink-100 dark:from-fuchsia-900/30 dark:to-pink-900/30 mb-6">
           <LayoutGrid className="w-10 h-10 text-fuchsia-600 dark:text-fuchsia-400" />
@@ -306,7 +329,8 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
           {dict?.collage_maker?.title || "Collage Maker"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.collage_maker?.subtitle || "Create beautiful photo collages with 8 customizable templates. Upload images, choose a layout, customize spacing and style. 100% private — processed in your browser."}
+          {dict?.collage_maker?.subtitle ||
+            "Create beautiful photo collages with 8 customizable templates. Upload images, choose a layout, customize spacing and style. 100% private — processed in your browser."}
         </p>
 
         <Adsense slotId="7759160077" />
@@ -338,7 +362,8 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                 {dict?.collage_maker?.drop_zone || "Drag & drop images here"}
               </p>
               <p className="text-sm text-muted-foreground">
-                Upload multiple images for your collage. Supported: PNG, JPG, WebP, GIF, BMP
+                Upload multiple images for your collage. Supported: PNG, JPG,
+                WebP, GIF, BMP
               </p>
               <p className="text-xs text-muted-foreground mt-2">
                 Max 20MB per file
@@ -369,7 +394,8 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-sm font-medium">
-                    {images.length} image{images.length !== 1 ? "s" : ""} uploaded
+                    {images.length} image{images.length !== 1 ? "s" : ""}{" "}
+                    uploaded
                     {activeSlot !== null && (
                       <span className="ml-2 text-fuchsia-600 dark:text-fuchsia-400">
                         • Click an image for slot {activeSlot + 1}
@@ -385,9 +411,13 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                   {images.map((img) => (
                     <div
                       key={img.id}
-                      onClick={() => activeSlot !== null && assignImageToSlot(img)}
+                      onClick={() =>
+                        activeSlot !== null && assignImageToSlot(img)
+                      }
                       className={`relative group ${
-                        activeSlot !== null ? "cursor-pointer ring-2 ring-fuchsia-500 ring-offset-2" : ""
+                        activeSlot !== null
+                          ? "cursor-pointer ring-2 ring-fuchsia-500 ring-offset-2"
+                          : ""
                       }`}
                     >
                       <img
@@ -432,10 +462,7 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                           : "border-muted hover:border-fuchsia-300 hover:bg-fuchsia-50/50 dark:hover:bg-fuchsia-900/10"
                       }`}
                     >
-                      <svg
-                        viewBox="0 0 100 100"
-                        className="w-full h-auto mb-2"
-                      >
+                      <svg viewBox="0 0 100 100" className="w-full h-auto mb-2">
                         {template.slots.map((slot, idx) => (
                           <rect
                             key={idx}
@@ -449,7 +476,9 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                           />
                         ))}
                       </svg>
-                      <p className="text-xs font-medium text-center">{template.name}</p>
+                      <p className="text-xs font-medium text-center">
+                        {template.name}
+                      </p>
                     </button>
                   ))}
                 </div>
@@ -466,7 +495,9 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <label className="text-sm font-medium">Gap</label>
-                      <span className="text-sm text-muted-foreground">{gap}px</span>
+                      <span className="text-sm text-muted-foreground">
+                        {gap}px
+                      </span>
                     </div>
                     <input
                       type="range"
@@ -479,7 +510,9 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Background Color</label>
+                    <label className="text-sm font-medium">
+                      Background Color
+                    </label>
                     <div className="flex items-center gap-2">
                       <input
                         type="color"
@@ -492,7 +525,9 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                           key={c}
                           onClick={() => setBgColor(c)}
                           className={`w-8 h-8 rounded-full border-2 transition-transform ${
-                            bgColor === c ? "border-fuchsia-500 scale-110" : "border-muted"
+                            bgColor === c
+                              ? "border-fuchsia-500 scale-110"
+                              : "border-muted"
                           }`}
                           style={{ backgroundColor: c }}
                         />
@@ -501,8 +536,12 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium">Corner Radius</label>
-                      <span className="text-sm text-muted-foreground">{cornerRadius}px</span>
+                      <label className="text-sm font-medium">
+                        Corner Radius
+                      </label>
+                      <span className="text-sm text-muted-foreground">
+                        {cornerRadius}px
+                      </span>
                     </div>
                     <input
                       type="range"
@@ -544,8 +583,8 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                             isActive
                               ? "border-fuchsia-500 bg-fuchsia-500/20 animate-pulse"
                               : hasImage
-                              ? "border-transparent hover:border-fuchsia-300"
-                              : "border-dashed border-muted-foreground/50 hover:border-fuchsia-400 bg-black/10"
+                                ? "border-transparent hover:border-fuchsia-300"
+                                : "border-dashed border-muted-foreground/50 hover:border-fuchsia-400 bg-black/10"
                           }`}
                           style={{
                             left: `${slot.x * 100}%`,
@@ -553,12 +592,18 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                             width: `${slot.w * 100}%`,
                             height: `${slot.h * 100}%`,
                           }}
-                          title={hasImage ? `Slot ${idx + 1}: Click to change` : `Slot ${idx + 1}: Click to assign`}
+                          title={
+                            hasImage
+                              ? `Slot ${idx + 1}: Click to change`
+                              : `Slot ${idx + 1}: Click to assign`
+                          }
                         >
                           {!hasImage && (
                             <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground">
                               <MousePointerClick className="w-6 h-6 mb-1" />
-                              <span className="text-xs font-medium">{idx + 1}</span>
+                              <span className="text-xs font-medium">
+                                {idx + 1}
+                              </span>
                             </div>
                           )}
                           {hasImage && (
@@ -614,7 +659,8 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
               {dict?.collage_maker?.guide_title || "How to Create a Collage"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              {dict?.collage_maker?.guide_desc || "Create a beautiful photo collage in 4 simple steps."}
+              {dict?.collage_maker?.guide_desc ||
+                "Create a beautiful photo collage in 4 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-4 gap-6">
@@ -622,29 +668,40 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
               {
                 step: 1,
                 title: dict?.collage_maker?.step1_title || "Upload Images",
-                desc: dict?.collage_maker?.step1_desc || "Upload multiple images by dragging & dropping or clicking to browse. You can add as many images as you need.",
+                desc:
+                  dict?.collage_maker?.step1_desc ||
+                  "Upload multiple images by dragging & dropping or clicking to browse. You can add as many images as you need.",
                 icon: Upload,
               },
               {
                 step: 2,
                 title: dict?.collage_maker?.step2_title || "Choose Template",
-                desc: dict?.collage_maker?.step2_desc || "Select from 8 predefined templates: single, 2x1, 1x2, 2x2, 3x1, 1x3, big left, or big top layouts.",
+                desc:
+                  dict?.collage_maker?.step2_desc ||
+                  "Select from 8 predefined templates: single, 2x1, 1x2, 2x2, 3x1, 1x3, big left, or big top layouts.",
                 icon: LayoutGrid,
               },
               {
                 step: 3,
                 title: dict?.collage_maker?.step3_title || "Assign Images",
-                desc: dict?.collage_maker?.step3_desc || "Click a slot in the preview, then click an image to assign it. Repeat for all slots until the collage is complete.",
+                desc:
+                  dict?.collage_maker?.step3_desc ||
+                  "Click a slot in the preview, then click an image to assign it. Repeat for all slots until the collage is complete.",
                 icon: MousePointerClick,
               },
               {
                 step: 4,
                 title: dict?.collage_maker?.tip4_title || "Download",
-                desc: dict?.collage_maker?.tip4_desc || "Customize gap, background color, and corner radius. Click 'Download' to save your collage as PNG.",
+                desc:
+                  dict?.collage_maker?.tip4_desc ||
+                  "Customize gap, background color, and corner radius. Click 'Download' to save your collage as PNG.",
                 icon: Download,
               },
             ].map((step) => (
-              <Card key={step.step} className="border-fuchsia-200 dark:border-fuchsia-900/50">
+              <Card
+                key={step.step}
+                className="border-fuchsia-200 dark:border-fuchsia-900/50"
+              >
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-fuchsia-500 text-white font-bold">
@@ -654,7 +711,9 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.desc}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -696,7 +755,10 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                 icon: MousePointerClick,
               },
             ].map((tip, idx) => (
-              <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-gray-800">
+              <div
+                key={idx}
+                className="flex gap-4 p-4 rounded-lg bg-white dark:bg-gray-800"
+              >
                 <div className="flex-shrink-0">
                   <tip.icon className="w-6 h-6 text-fuchsia-500" />
                 </div>
@@ -720,38 +782,61 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>{dict?.collage_maker?.faq_1_q || "Is it free to use?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.collage_maker?.faq_1_q || "Is it free to use?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.collage_maker?.faq_1_a || "Yes, this collage maker is 100% free. There are no hidden fees, watermarks, or limitations on the number of collages you can create."}
+                  {dict?.collage_maker?.faq_1_a ||
+                    "Yes, this collage maker is 100% free. There are no hidden fees, watermarks, or limitations on the number of collages you can create."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>{dict?.collage_maker?.faq_2_q || "Is it secure? Where are my images stored?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.collage_maker?.faq_2_q ||
+                    "Is it secure? Where are my images stored?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.collage_maker?.faq_2_a || "Your images are completely secure. All processing happens in your browser using Canvas API. Images never leave your device and are never uploaded to any server."}
+                  {dict?.collage_maker?.faq_2_a ||
+                    "Your images are completely secure. All processing happens in your browser using Canvas API. Images never leave your device and are never uploaded to any server."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>{dict?.collage_maker?.faq_3_q || "What templates are available?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.collage_maker?.faq_3_q ||
+                    "What templates are available?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.collage_maker?.faq_3_a || "We offer 8 templates: Single (1x1), Side by Side (2x1), Stacked (1x2), Grid (2x2), Trio Horizontal (3x1), Trio Vertical (1x3), Big Left (1+2 layout), and Big Top (2+1 layout)."}
+                  {dict?.collage_maker?.faq_3_a ||
+                    "We offer 8 templates: Single (1x1), Side by Side (2x1), Stacked (1x2), Grid (2x2), Trio Horizontal (3x1), Trio Vertical (1x3), Big Left (1+2 layout), and Big Top (2+1 layout)."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>{dict?.collage_maker?.faq_4_q || "How do I assign images to slots?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.collage_maker?.faq_4_q ||
+                    "How do I assign images to slots?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.collage_maker?.faq_4_a || "Click a slot in the preview area, then click an image from your uploaded images. The image will be assigned to that slot. To change it, click the slot again and select a different image."}
+                  {dict?.collage_maker?.faq_4_a ||
+                    "Click a slot in the preview area, then click an image from your uploaded images. The image will be assigned to that slot. To change it, click the slot again and select a different image."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>{dict?.collage_maker?.faq_5_q || "What format is the output?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.collage_maker?.faq_5_q || "What format is the output?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.collage_maker?.faq_5_a || "The collage is always saved as PNG (1000x1000px) to ensure maximum quality. You can convert it to other formats using our Image Converter tool if needed."}
+                  {dict?.collage_maker?.faq_5_a ||
+                    "The collage is always saved as PNG (1000x1000px) to ensure maximum quality. You can convert it to other formats using our Image Converter tool if needed."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>
         </section>
+      </div>
+        </div>
+        <aside className="hidden lg:block w-64 shrink-0">
+          <ToolsSidebar category="image" dict={dict} />
+        </aside>
       </div>
     </div>
   );

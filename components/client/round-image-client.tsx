@@ -22,6 +22,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 type OutputSize = "original" | "200" | "400" | "800";
 
@@ -44,7 +45,13 @@ export function RoundImageClient({ dict }: { dict?: any }) {
   };
 
   const loadImage = (file: File) => {
-    const validTypes = ["image/png", "image/jpeg", "image/webp", "image/gif", "image/bmp"];
+    const validTypes = [
+      "image/png",
+      "image/jpeg",
+      "image/webp",
+      "image/gif",
+      "image/bmp",
+    ];
     if (!validTypes.includes(file.type)) return;
     if (file.size > 20 * 1024 * 1024) return;
 
@@ -112,7 +119,17 @@ export function RoundImageClient({ dict }: { dict?: any }) {
       const srcY = (img.naturalHeight - srcSize) / 2;
 
       // Draw image
-      ctx.drawImage(img, srcX, srcY, srcSize, srcSize, 0, 0, finalSize, finalSize);
+      ctx.drawImage(
+        img,
+        srcX,
+        srcY,
+        srcSize,
+        srcSize,
+        0,
+        0,
+        finalSize,
+        finalSize,
+      );
       ctx.restore();
 
       // Set preview
@@ -124,7 +141,8 @@ export function RoundImageClient({ dict }: { dict?: any }) {
   const handleDownload = () => {
     if (!previewUrl) return;
     const link = document.createElement("a");
-    const nameWithoutExt = fileName.substring(0, fileName.lastIndexOf(".")) || fileName;
+    const nameWithoutExt =
+      fileName.substring(0, fileName.lastIndexOf(".")) || fileName;
     link.href = previewUrl;
     link.download = `${nameWithoutExt}_round.png`;
     link.click();
@@ -157,7 +175,9 @@ export function RoundImageClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
+      <div className="flex gap-8">
+        <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-teal-100 to-cyan-100 dark:from-teal-900/30 dark:to-cyan-900/30 mb-6">
           <Circle className="w-10 h-10 text-teal-600 dark:text-cyan-400" />
@@ -166,7 +186,8 @@ export function RoundImageClient({ dict }: { dict?: any }) {
           {dict?.round_image?.title || "Round Image Maker"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.round_image?.subtitle || "Crop any image into a perfect circle. Choose output size and background color. 100% private — processed in your browser."}
+          {dict?.round_image?.subtitle ||
+            "Crop any image into a perfect circle. Choose output size and background color. 100% private — processed in your browser."}
         </p>
 
         <Adsense slotId="7759160077" />
@@ -195,7 +216,8 @@ export function RoundImageClient({ dict }: { dict?: any }) {
               {dict?.round_image?.drop_zone || "Drag & drop your image here"}
             </p>
             <p className="text-sm text-muted-foreground">
-              {dict?.round_image?.supported || "Supported: PNG, JPG, JPEG, WebP, GIF, BMP"}
+              {dict?.round_image?.supported ||
+                "Supported: PNG, JPG, JPEG, WebP, GIF, BMP"}
             </p>
             <p className="text-xs text-muted-foreground mt-2">
               {dict?.round_image?.max_file_size || "Max file size: 20MB"}
@@ -218,15 +240,14 @@ export function RoundImageClient({ dict }: { dict?: any }) {
               <CardContent className="p-6">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
                   <div className="flex items-center gap-3">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={handleReset}
-                    >
+                    <Button variant="outline" size="sm" onClick={handleReset}>
                       <RotateCcw className="w-4 h-4 mr-2" />
                       New Image
                     </Button>
-                    <span className="text-sm text-muted-foreground truncate max-w-[200px]" title={fileName}>
+                    <span
+                      className="text-sm text-muted-foreground truncate max-w-[200px]"
+                      title={fileName}
+                    >
                       {fileName}
                     </span>
                   </div>
@@ -236,19 +257,21 @@ export function RoundImageClient({ dict }: { dict?: any }) {
                 <div className="space-y-3 mb-6">
                   <label className="text-sm font-medium">Output Size</label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    {(["original", "200", "400", "800"] as OutputSize[]).map((size) => (
-                      <button
-                        key={size}
-                        onClick={() => setOutputSize(size)}
-                        className={`px-4 py-2 rounded-lg border text-sm font-medium transition-all ${
-                          outputSize === size
-                            ? "bg-teal-500 text-white border-teal-500"
-                            : "bg-background border-muted-foreground/30 hover:border-teal-500/50"
-                        }`}
-                      >
-                        {size === "original" ? "Original" : `${size}×${size}`}
-                      </button>
-                    ))}
+                    {(["original", "200", "400", "800"] as OutputSize[]).map(
+                      (size) => (
+                        <button
+                          key={size}
+                          onClick={() => setOutputSize(size)}
+                          className={`px-4 py-2 rounded-lg border text-sm font-medium transition-all ${
+                            outputSize === size
+                              ? "bg-teal-500 text-white border-teal-500"
+                              : "bg-background border-muted-foreground/30 hover:border-teal-500/50"
+                          }`}
+                        >
+                          {size === "original" ? "Original" : `${size}×${size}`}
+                        </button>
+                      ),
+                    )}
                   </div>
                 </div>
 
@@ -284,7 +307,11 @@ export function RoundImageClient({ dict }: { dict?: any }) {
                     />
                     <input
                       type="color"
-                      value={backgroundColor === "transparent" ? "#ffffff" : backgroundColor}
+                      value={
+                        backgroundColor === "transparent"
+                          ? "#ffffff"
+                          : backgroundColor
+                      }
                       onChange={(e) => setBackgroundColor(e.target.value)}
                       className="w-10 h-10 rounded-lg border-2 border-muted-foreground/30 cursor-pointer"
                     />
@@ -299,7 +326,8 @@ export function RoundImageClient({ dict }: { dict?: any }) {
               style={
                 backgroundColor === "transparent"
                   ? {
-                      backgroundImage: "repeating-conic-gradient(#d4d4d4 0% 25%, transparent 0% 50%)",
+                      backgroundImage:
+                        "repeating-conic-gradient(#d4d4d4 0% 25%, transparent 0% 50%)",
                       backgroundSize: "16px 16px",
                     }
                   : {}
@@ -351,7 +379,8 @@ export function RoundImageClient({ dict }: { dict?: any }) {
               {dict?.round_image?.guide_title || "How to Make a Round Image"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              {dict?.round_image?.guide_desc || "Create a circular image in 3 simple steps."}
+              {dict?.round_image?.guide_desc ||
+                "Create a circular image in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -359,23 +388,32 @@ export function RoundImageClient({ dict }: { dict?: any }) {
               {
                 step: 1,
                 title: dict?.round_image?.step1_title || "Upload Image",
-                desc: dict?.round_image?.step1_desc || "Upload any PNG, JPG, WebP, GIF, or BMP image from your device.",
+                desc:
+                  dict?.round_image?.step1_desc ||
+                  "Upload any PNG, JPG, WebP, GIF, or BMP image from your device.",
                 icon: Upload,
               },
               {
                 step: 2,
                 title: dict?.round_image?.step2_title || "Customize",
-                desc: dict?.round_image?.step2_desc || "Choose your output size and background color. Preview updates instantly.",
+                desc:
+                  dict?.round_image?.step2_desc ||
+                  "Choose your output size and background color. Preview updates instantly.",
                 icon: Palette,
               },
               {
                 step: 3,
                 title: dict?.round_image?.step3_title || "Download Result",
-                desc: dict?.round_image?.step3_desc || "Click 'Download PNG' to save your circular image with transparency.",
+                desc:
+                  dict?.round_image?.step3_desc ||
+                  "Click 'Download PNG' to save your circular image with transparency.",
                 icon: Download,
               },
             ].map((step) => (
-              <Card key={step.step} className="border-teal-200 dark:border-teal-900/50">
+              <Card
+                key={step.step}
+                className="border-teal-200 dark:border-teal-900/50"
+              >
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-teal-600 text-white font-bold">
@@ -385,7 +423,9 @@ export function RoundImageClient({ dict }: { dict?: any }) {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.desc}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -401,7 +441,8 @@ export function RoundImageClient({ dict }: { dict?: any }) {
               {dict?.round_image?.tips_title || "Round Image Tips"}
             </h2>
             <p className="text-muted-foreground">
-              Get the best results when creating circular profile pictures and avatars.
+              Get the best results when creating circular profile pictures and
+              avatars.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
@@ -427,7 +468,10 @@ export function RoundImageClient({ dict }: { dict?: any }) {
                 icon: Shield,
               },
             ].map((tip, idx) => (
-              <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-teal-800/30">
+              <div
+                key={idx}
+                className="flex gap-4 p-4 rounded-lg bg-white dark:bg-teal-800/30"
+              >
                 <div className="flex-shrink-0">
                   <tip.icon className="w-6 h-6 text-teal-600" />
                 </div>
@@ -451,38 +495,61 @@ export function RoundImageClient({ dict }: { dict?: any }) {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>{dict?.round_image?.faq_1_q || "Is it free to use?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.round_image?.faq_1_q || "Is it free to use?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.round_image?.faq_1_a || "Yes, this round image maker is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can process."}
+                  {dict?.round_image?.faq_1_a ||
+                    "Yes, this round image maker is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can process."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>{dict?.round_image?.faq_2_q || "Is it secure? Where are my images stored?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.round_image?.faq_2_q ||
+                    "Is it secure? Where are my images stored?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.round_image?.faq_2_a || "Your images are completely secure because all processing happens entirely in your browser using Canvas API. Your images never leave your device and are never uploaded to any server."}
+                  {dict?.round_image?.faq_2_a ||
+                    "Your images are completely secure because all processing happens entirely in your browser using Canvas API. Your images never leave your device and are never uploaded to any server."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>{dict?.round_image?.faq_3_q || "How does the circular crop work?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.round_image?.faq_3_q ||
+                    "How does the circular crop work?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.round_image?.faq_3_a || "The tool first center-crops your image to a square, then applies a circular mask using Canvas arc and clip. The result is a perfectly circular image with optional background color or transparency."}
+                  {dict?.round_image?.faq_3_a ||
+                    "The tool first center-crops your image to a square, then applies a circular mask using Canvas arc and clip. The result is a perfectly circular image with optional background color or transparency."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>{dict?.round_image?.faq_4_q || "What size should I choose?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.round_image?.faq_4_q || "What size should I choose?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.round_image?.faq_4_a || "Choose 'Original' to preserve maximum quality. For profile pictures, 400x400 works well. For social media avatars, 200x200 is typical. For high-DPI displays or print, use 800x800 or Original."}
+                  {dict?.round_image?.faq_4_a ||
+                    "Choose 'Original' to preserve maximum quality. For profile pictures, 400x400 works well. For social media avatars, 200x200 is typical. For high-DPI displays or print, use 800x800 or Original."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>{dict?.round_image?.faq_5_q || "What image formats are supported?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.round_image?.faq_5_q ||
+                    "What image formats are supported?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.round_image?.faq_5_a || "You can upload PNG, JPG, JPEG, WebP, GIF, and BMP images. The output is always PNG format to preserve transparency. Maximum file size is 20MB."}
+                  {dict?.round_image?.faq_5_a ||
+                    "You can upload PNG, JPG, JPEG, WebP, GIF, and BMP images. The output is always PNG format to preserve transparency. Maximum file size is 20MB."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>
         </section>
+      </div>
+        </div>
+        <aside className="hidden lg:block w-64 shrink-0">
+          <ToolsSidebar category="image" dict={dict} />
+        </aside>
       </div>
     </div>
   );

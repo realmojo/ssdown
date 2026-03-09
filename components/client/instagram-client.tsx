@@ -396,6 +396,7 @@ export function InstagramClient({ dict }: InstagramClientProps) {
       downloadFileName={(quality) => `instagram_video_${quality}.mp4`}
       faqSection={faqSection}
       slotId1="3689271403"
+      slotId2="3689271403"
     />
   );
 }

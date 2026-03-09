@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/accordion";
 import JSZip from "jszip";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 interface FaviconSize {
   size: number;
@@ -282,7 +283,9 @@ export function FaviconGeneratorClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
+      <div className="flex gap-8">
+      <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-indigo-100 to-blue-100 dark:from-indigo-900/30 dark:to-blue-900/30 mb-6">
           <FileImage className="w-10 h-10 text-indigo-600 dark:text-indigo-400" />
@@ -334,7 +337,9 @@ export function FaviconGeneratorClient({ dict }: { dict?: any }) {
                 e.stopPropagation();
                 const res = await fetch("/test-image.jpg");
                 const blob = await res.blob();
-                const file = new File([blob], "test-image.jpg", { type: "image/jpeg" });
+                const file = new File([blob], "test-image.jpg", {
+                  type: "image/jpeg",
+                });
                 processFile(file);
               }}
               className="mt-4 text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
@@ -490,8 +495,7 @@ export function FaviconGeneratorClient({ dict }: { dict?: any }) {
               },
               {
                 step: 2,
-                title:
-                  dict?.favicon_generator?.step2_title || "Auto-Generate",
+                title: dict?.favicon_generator?.step2_title || "Auto-Generate",
                 desc:
                   dict?.favicon_generator?.step2_desc ||
                   "We automatically generate 6 standard favicon sizes from 16x16 to 256x256 pixels.",
@@ -555,16 +559,14 @@ export function FaviconGeneratorClient({ dict }: { dict?: any }) {
               },
               {
                 title:
-                  dict?.favicon_generator?.tip2_title ||
-                  "High Contrast Colors",
+                  dict?.favicon_generator?.tip2_title || "High Contrast Colors",
                 desc:
                   dict?.favicon_generator?.tip2_desc ||
                   "Use colors with strong contrast so your favicon stands out in browser tabs and bookmarks.",
                 icon: Layers,
               },
               {
-                title:
-                  dict?.favicon_generator?.tip3_title || "Square Images",
+                title: dict?.favicon_generator?.tip3_title || "Square Images",
                 desc:
                   dict?.favicon_generator?.tip3_desc ||
                   "Start with a square image for best results. Non-square images will be center-cropped automatically.",
@@ -572,8 +574,7 @@ export function FaviconGeneratorClient({ dict }: { dict?: any }) {
               },
               {
                 title:
-                  dict?.favicon_generator?.tip4_title ||
-                  "Test at Small Sizes",
+                  dict?.favicon_generator?.tip4_title || "Test at Small Sizes",
                 desc:
                   dict?.favicon_generator?.tip4_desc ||
                   "Always preview your favicon at 16x16 and 32x32 to ensure it's still recognizable when scaled down.",
@@ -623,6 +624,11 @@ export function FaviconGeneratorClient({ dict }: { dict?: any }) {
             </Accordion>
           </div>
         </section>
+      </div>
+      </div>
+      <aside className="hidden lg:block w-64 shrink-0">
+        <ToolsSidebar category="image" dict={dict} />
+      </aside>
       </div>
     </div>
   );

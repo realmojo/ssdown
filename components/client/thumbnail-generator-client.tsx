@@ -4,12 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Accordion,
   AccordionContent,
@@ -29,6 +24,7 @@ import {
   Upload,
 } from "lucide-react";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 interface Template {
   id: string;
@@ -176,7 +172,19 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
       ctx.font = `${sticker.size}px Arial`;
       ctx.fillText(sticker.emoji, sticker.x, sticker.y);
     });
-  }, [template, backgroundImage, title, subtitle, titleSize, titleColor, subtitleSize, subtitleColor, titleFont, subtitleFont, selectedStickers]);
+  }, [
+    template,
+    backgroundImage,
+    title,
+    subtitle,
+    titleSize,
+    titleColor,
+    subtitleSize,
+    subtitleColor,
+    titleFont,
+    subtitleFont,
+    selectedStickers,
+  ]);
 
   useEffect(() => {
     renderCanvas();
@@ -254,7 +262,9 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex gap-8">
+      <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="text-center mb-12">
         <h1 className="text-3xl md:text-4xl font-bold mb-4">
           {dict?.thumbnail_generator?.title || "Thumbnail Generator"}
@@ -377,9 +387,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
                 />
               </div>
               <div>
-                <Label htmlFor="title-size">
-                  Size: {titleSize}px
-                </Label>
+                <Label htmlFor="title-size">Size: {titleSize}px</Label>
                 <input
                   id="title-size"
                   type="range"
@@ -445,9 +453,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
                 />
               </div>
               <div>
-                <Label htmlFor="subtitle-size">
-                  Size: {subtitleSize}px
-                </Label>
+                <Label htmlFor="subtitle-size">Size: {subtitleSize}px</Label>
                 <input
                   id="subtitle-size"
                   type="range"
@@ -607,8 +613,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
               {
                 step: 1,
                 title:
-                  dict?.thumbnail_generator?.step1_title ||
-                  "Choose a Template",
+                  dict?.thumbnail_generator?.step1_title || "Choose a Template",
                 desc:
                   dict?.thumbnail_generator?.step1_desc ||
                   "Select a preset size: YouTube (1280x720), Instagram Post (1080x1080), or Twitter Header (1500x500).",
@@ -627,8 +632,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
               {
                 step: 3,
                 title:
-                  dict?.thumbnail_generator?.step3_title ||
-                  "Export & Download",
+                  dict?.thumbnail_generator?.step3_title || "Export & Download",
                 desc:
                   dict?.thumbnail_generator?.step3_desc ||
                   "Preview your thumbnail and export it as a high-quality PNG or JPG image.",
@@ -663,8 +667,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              {dict?.thumbnail_generator?.tips_title ||
-                "Thumbnail Design Tips"}
+              {dict?.thumbnail_generator?.tips_title || "Thumbnail Design Tips"}
             </h2>
             <p className="text-muted-foreground">
               {dict?.thumbnail_generator?.tips_desc ||
@@ -675,8 +678,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title:
-                  dict?.thumbnail_generator?.tip1_title || "Use Bold Text",
+                title: dict?.thumbnail_generator?.tip1_title || "Use Bold Text",
                 desc:
                   dict?.thumbnail_generator?.tip1_desc ||
                   "Large, readable text with contrasting colors catches attention in search results and feeds.",
@@ -759,16 +761,14 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
               },
               {
                 title:
-                  dict?.thumbnail_generator?.feature3_title ||
-                  "Emoji Stickers",
+                  dict?.thumbnail_generator?.feature3_title || "Emoji Stickers",
                 desc:
                   dict?.thumbnail_generator?.feature3_desc ||
                   "Add popular emoji stickers to make your thumbnails more engaging.",
               },
               {
                 title:
-                  dict?.thumbnail_generator?.feature4_title ||
-                  "Instant Export",
+                  dict?.thumbnail_generator?.feature4_title || "Instant Export",
                 desc:
                   dict?.thumbnail_generator?.feature4_desc ||
                   "Download your thumbnail as PNG or JPG with a single click.",
@@ -801,8 +801,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
             {[1, 2, 3, 4, 5].map((i) => (
               <AccordionItem key={i} value={`item-${i}`}>
                 <AccordionTrigger className="text-left">
-                  {dict?.qna_thumbnail_generator?.[`faq_${i}_q`] ||
-                    "Question"}
+                  {dict?.qna_thumbnail_generator?.[`faq_${i}_q`] || "Question"}
                 </AccordionTrigger>
                 <AccordionContent className="whitespace-pre-line text-muted-foreground">
                   {dict?.qna_thumbnail_generator?.[`faq_${i}_a`] || "Answer"}
@@ -811,6 +810,11 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
             ))}
           </Accordion>
         </section>
+      </div>
+      </div>
+      <aside className="hidden lg:block w-64 shrink-0">
+        <ToolsSidebar category="image" dict={dict} />
+      </aside>
       </div>
     </div>
   );

@@ -21,6 +21,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 export function PixelateImageClient({ dict }: { dict?: any }) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -28,7 +29,10 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
   const [isDragging, setIsDragging] = useState(false);
   const [pixelSize, setPixelSize] = useState<number>(10);
   const [pixelatedUrl, setPixelatedUrl] = useState<string | null>(null);
-  const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
+  const [imageSize, setImageSize] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -41,7 +45,13 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
   };
 
   const loadImage = (file: File) => {
-    const validTypes = ["image/png", "image/jpeg", "image/webp", "image/gif", "image/bmp"];
+    const validTypes = [
+      "image/png",
+      "image/jpeg",
+      "image/webp",
+      "image/gif",
+      "image/bmp",
+    ];
     if (!validTypes.includes(file.type)) return;
     if (file.size > 20 * 1024 * 1024) return;
 
@@ -105,7 +115,9 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
       ctx.drawImage(tempCanvas, 0, 0, w, h);
 
       // Determine mime type from filename extension
-      const ext = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+      const ext = fileName
+        .substring(fileName.lastIndexOf(".") + 1)
+        .toLowerCase();
       let mimeType = "image/png";
       if (ext === "jpg" || ext === "jpeg") mimeType = "image/jpeg";
       else if (ext === "webp") mimeType = "image/webp";
@@ -161,7 +173,9 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
+      <div className="flex gap-8">
+        <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-violet-100 to-purple-100 dark:from-violet-900/30 dark:to-purple-900/30 mb-6">
           <Sparkles className="w-10 h-10 text-violet-600 dark:text-violet-400" />
@@ -170,7 +184,8 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
           {dict?.pixelate_image?.title || "Pixelate Image"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.pixelate_image?.subtitle || "Pixelate your photo for privacy or artistic effect. Adjust pixel size freely. 100% private — processed in your browser."}
+          {dict?.pixelate_image?.subtitle ||
+            "Pixelate your photo for privacy or artistic effect. Adjust pixel size freely. 100% private — processed in your browser."}
         </p>
 
         <Adsense slotId="7759160077" />
@@ -199,7 +214,8 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
               {dict?.pixelate_image?.drop_zone || "Drag & drop your image here"}
             </p>
             <p className="text-sm text-muted-foreground">
-              {dict?.pixelate_image?.supported || "Supported: PNG, JPG, JPEG, WebP, GIF, BMP"}
+              {dict?.pixelate_image?.supported ||
+                "Supported: PNG, JPG, JPEG, WebP, GIF, BMP"}
             </p>
             <p className="text-xs text-muted-foreground mt-2">
               {dict?.pixelate_image?.max_file_size || "Max file size: 20MB"}
@@ -222,15 +238,14 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
               <CardContent className="p-6 space-y-4">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={handleReset}
-                    >
+                    <Button variant="outline" size="sm" onClick={handleReset}>
                       <RotateCcw className="w-4 h-4 mr-2" />
                       New Image
                     </Button>
-                    <span className="text-sm text-muted-foreground truncate max-w-[200px]" title={fileName}>
+                    <span
+                      className="text-sm text-muted-foreground truncate max-w-[200px]"
+                      title={fileName}
+                    >
                       {fileName}
                     </span>
                   </div>
@@ -245,7 +260,9 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <label className="text-sm font-medium">Pixel Size</label>
-                    <span className="text-sm text-muted-foreground">{pixelSize}px</span>
+                    <span className="text-sm text-muted-foreground">
+                      {pixelSize}px
+                    </span>
                   </div>
                   <input
                     type="range"
@@ -319,7 +336,8 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
               {dict?.pixelate_image?.guide_title || "How to Pixelate Images"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              {dict?.pixelate_image?.guide_desc || "Pixelate any image in 3 simple steps."}
+              {dict?.pixelate_image?.guide_desc ||
+                "Pixelate any image in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -327,23 +345,32 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
               {
                 step: 1,
                 title: dict?.pixelate_image?.step1_title || "Upload Image",
-                desc: dict?.pixelate_image?.step1_desc || "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
+                desc:
+                  dict?.pixelate_image?.step1_desc ||
+                  "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
                 icon: Upload,
               },
               {
                 step: 2,
                 title: dict?.pixelate_image?.step2_title || "Adjust Pixel Size",
-                desc: dict?.pixelate_image?.step2_desc || "Use the slider to control the pixelation intensity. Higher values create stronger blur.",
+                desc:
+                  dict?.pixelate_image?.step2_desc ||
+                  "Use the slider to control the pixelation intensity. Higher values create stronger blur.",
                 icon: Sparkles,
               },
               {
                 step: 3,
                 title: dict?.pixelate_image?.step3_title || "Download Result",
-                desc: dict?.pixelate_image?.step3_desc || "Click 'Download' to save your pixelated image to your device.",
+                desc:
+                  dict?.pixelate_image?.step3_desc ||
+                  "Click 'Download' to save your pixelated image to your device.",
                 icon: Download,
               },
             ].map((step) => (
-              <Card key={step.step} className="border-violet-100 dark:border-violet-900/50">
+              <Card
+                key={step.step}
+                className="border-violet-100 dark:border-violet-900/50"
+              >
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-violet-500 text-white font-bold">
@@ -353,7 +380,9 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.desc}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -395,7 +424,10 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
                 icon: Layers,
               },
             ].map((tip, idx) => (
-              <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-gray-800">
+              <div
+                key={idx}
+                className="flex gap-4 p-4 rounded-lg bg-white dark:bg-gray-800"
+              >
                 <div className="flex-shrink-0">
                   <tip.icon className="w-6 h-6 text-violet-500" />
                 </div>
@@ -419,38 +451,62 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>{dict?.pixelate_image?.faq_1_q || "Is it free to use?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.pixelate_image?.faq_1_q || "Is it free to use?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.pixelate_image?.faq_1_a || "Yes, this image pixelator is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can pixelate."}
+                  {dict?.pixelate_image?.faq_1_a ||
+                    "Yes, this image pixelator is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can pixelate."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>{dict?.pixelate_image?.faq_2_q || "Is it secure? Where are my images stored?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.pixelate_image?.faq_2_q ||
+                    "Is it secure? Where are my images stored?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.pixelate_image?.faq_2_a || "Your images are completely secure because all processing happens entirely in your browser using Canvas API. Your images never leave your device and are never uploaded to any server. This ensures 100% privacy."}
+                  {dict?.pixelate_image?.faq_2_a ||
+                    "Your images are completely secure because all processing happens entirely in your browser using Canvas API. Your images never leave your device and are never uploaded to any server. This ensures 100% privacy."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>{dict?.pixelate_image?.faq_3_q || "What is pixelation used for?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.pixelate_image?.faq_3_q ||
+                    "What is pixelation used for?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.pixelate_image?.faq_3_a || "Pixelation is commonly used for privacy protection (hiding faces, license plates, sensitive text), censoring content, creating artistic retro effects, and preparing images for social media where certain details need to be obscured."}
+                  {dict?.pixelate_image?.faq_3_a ||
+                    "Pixelation is commonly used for privacy protection (hiding faces, license plates, sensitive text), censoring content, creating artistic retro effects, and preparing images for social media where certain details need to be obscured."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>{dict?.pixelate_image?.faq_4_q || "Does pixelation reduce image quality?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.pixelate_image?.faq_4_q ||
+                    "Does pixelation reduce image quality?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.pixelate_image?.faq_4_a || "Pixelation changes the visual appearance of your image by reducing detail, but it maintains the original resolution. The effect is reversible only if you keep the original file — once pixelated and saved, the lost detail cannot be recovered."}
+                  {dict?.pixelate_image?.faq_4_a ||
+                    "Pixelation changes the visual appearance of your image by reducing detail, but it maintains the original resolution. The effect is reversible only if you keep the original file — once pixelated and saved, the lost detail cannot be recovered."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>{dict?.pixelate_image?.faq_5_q || "What image formats are supported?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.pixelate_image?.faq_5_q ||
+                    "What image formats are supported?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.pixelate_image?.faq_5_a || "You can pixelate PNG, JPG, JPEG, WebP, GIF, and BMP images. The pixelated image will be saved in the same format as the original. Maximum file size is 20MB."}
+                  {dict?.pixelate_image?.faq_5_a ||
+                    "You can pixelate PNG, JPG, JPEG, WebP, GIF, and BMP images. The pixelated image will be saved in the same format as the original. Maximum file size is 20MB."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>
         </section>
+      </div>
+        </div>
+        <aside className="hidden lg:block w-64 shrink-0">
+          <ToolsSidebar category="image" dict={dict} />
+        </aside>
       </div>
     </div>
   );

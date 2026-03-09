@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/accordion";
 import JSZip from "jszip";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 interface ResizedImage {
   id: string;
@@ -216,7 +217,9 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
+      <div className="flex gap-8">
+      <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-6xl mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-pink-100 to-orange-100 dark:from-pink-900/30 dark:to-orange-900/30 mb-6">
           <Crop className="w-10 h-10 text-pink-600 dark:text-pink-400" />
@@ -266,7 +269,9 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
                 e.stopPropagation();
                 const res = await fetch("/test-image.jpg");
                 const blob = await res.blob();
-                const file = new File([blob], "test-image.jpg", { type: "image/jpeg" });
+                const file = new File([blob], "test-image.jpg", {
+                  type: "image/jpeg",
+                });
                 processFile(file);
               }}
               className="mt-4 text-sm text-pink-600 dark:text-pink-400 hover:underline"
@@ -524,6 +529,11 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
             </Accordion>
           </div>
         </section>
+      </div>
+      </div>
+      <aside className="hidden lg:block w-64 shrink-0">
+        <ToolsSidebar category="image" dict={dict} />
+      </aside>
       </div>
     </div>
   );

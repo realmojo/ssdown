@@ -21,6 +21,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 const BORDER_STYLES = [
   { label: "Solid", value: "solid" },
@@ -34,7 +35,10 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
   const [fileName, setFileName] = useState<string>("");
   const [isDragging, setIsDragging] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
+  const [imageSize, setImageSize] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
 
   const [borderWidth, setBorderWidth] = useState(20);
   const [borderColor, setBorderColor] = useState("#ffffff");
@@ -52,7 +56,13 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
   };
 
   const loadImage = (file: File) => {
-    const validTypes = ["image/png", "image/jpeg", "image/webp", "image/gif", "image/bmp"];
+    const validTypes = [
+      "image/png",
+      "image/jpeg",
+      "image/webp",
+      "image/gif",
+      "image/bmp",
+    ];
     if (!validTypes.includes(file.type)) return;
     if (file.size > 20 * 1024 * 1024) return;
 
@@ -104,7 +114,12 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
       ctx.shadowOffsetX = bw * 0.15;
       ctx.shadowOffsetY = bw * 0.15;
       ctx.fillStyle = "#ffffff";
-      ctx.fillRect(bw * 0.3, bw * 0.3, img.naturalWidth + bw * 0.4, img.naturalHeight + bw * 0.4);
+      ctx.fillRect(
+        bw * 0.3,
+        bw * 0.3,
+        img.naturalWidth + bw * 0.4,
+        img.naturalHeight + bw * 0.4,
+      );
       ctx.shadowColor = "transparent";
       ctx.shadowBlur = 0;
       ctx.shadowOffsetX = 0;
@@ -118,13 +133,25 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
 
       // Inner gap (slightly lighter/darker)
       const gap = Math.max(2, bw * 0.3);
-      ctx.fillStyle = imageSrc.includes("image/png") ? "rgba(255,255,255,0)" : "#f5f5f5";
-      ctx.fillRect(bw - gap, bw - gap, img.naturalWidth + gap * 2, img.naturalHeight + gap * 2);
+      ctx.fillStyle = imageSrc.includes("image/png")
+        ? "rgba(255,255,255,0)"
+        : "#f5f5f5";
+      ctx.fillRect(
+        bw - gap,
+        bw - gap,
+        img.naturalWidth + gap * 2,
+        img.naturalHeight + gap * 2,
+      );
 
       // Inner border
       const innerBw = Math.max(1, bw * 0.3);
       ctx.fillStyle = borderColor;
-      ctx.fillRect(bw - innerBw, bw - innerBw, img.naturalWidth + innerBw * 2, img.naturalHeight + innerBw * 2);
+      ctx.fillRect(
+        bw - innerBw,
+        bw - innerBw,
+        img.naturalWidth + innerBw * 2,
+        img.naturalHeight + innerBw * 2,
+      );
 
       ctx.drawImage(img, bw, bw);
     } else if (borderStyle === "rounded") {
@@ -151,11 +178,26 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
       ctx.beginPath();
       ctx.moveTo(bw + imgR, bw);
       ctx.lineTo(bw + img.naturalWidth - imgR, bw);
-      ctx.quadraticCurveTo(bw + img.naturalWidth, bw, bw + img.naturalWidth, bw + imgR);
+      ctx.quadraticCurveTo(
+        bw + img.naturalWidth,
+        bw,
+        bw + img.naturalWidth,
+        bw + imgR,
+      );
       ctx.lineTo(bw + img.naturalWidth, bw + img.naturalHeight - imgR);
-      ctx.quadraticCurveTo(bw + img.naturalWidth, bw + img.naturalHeight, bw + img.naturalWidth - imgR, bw + img.naturalHeight);
+      ctx.quadraticCurveTo(
+        bw + img.naturalWidth,
+        bw + img.naturalHeight,
+        bw + img.naturalWidth - imgR,
+        bw + img.naturalHeight,
+      );
       ctx.lineTo(bw + imgR, bw + img.naturalHeight);
-      ctx.quadraticCurveTo(bw, bw + img.naturalHeight, bw, bw + img.naturalHeight - imgR);
+      ctx.quadraticCurveTo(
+        bw,
+        bw + img.naturalHeight,
+        bw,
+        bw + img.naturalHeight - imgR,
+      );
       ctx.lineTo(bw, bw + imgR);
       ctx.quadraticCurveTo(bw, bw, bw + imgR, bw);
       ctx.closePath();
@@ -230,7 +272,9 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
+      <div className="flex gap-8">
+        <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-rose-100 to-pink-100 dark:from-rose-900/30 dark:to-pink-900/30 mb-6">
           <Frame className="w-10 h-10 text-rose-600 dark:text-rose-400" />
@@ -239,7 +283,8 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
           {dict?.add_border_to_image?.title || "Add Border to Image"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.add_border_to_image?.subtitle || "Add a border or frame to your image. Choose width, color, and style. 100% private — processed in your browser."}
+          {dict?.add_border_to_image?.subtitle ||
+            "Add a border or frame to your image. Choose width, color, and style. 100% private — processed in your browser."}
         </p>
 
         <Adsense slotId="7759160077" />
@@ -265,13 +310,16 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
             />
             <FileImage className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
             <p className="text-lg font-medium mb-2">
-              {dict?.add_border_to_image?.drop_zone || "Drag & drop your image here"}
+              {dict?.add_border_to_image?.drop_zone ||
+                "Drag & drop your image here"}
             </p>
             <p className="text-sm text-muted-foreground">
-              {dict?.add_border_to_image?.supported || "Supported: PNG, JPG, JPEG, WebP, GIF, BMP"}
+              {dict?.add_border_to_image?.supported ||
+                "Supported: PNG, JPG, JPEG, WebP, GIF, BMP"}
             </p>
             <p className="text-xs text-muted-foreground mt-2">
-              {dict?.add_border_to_image?.max_file_size || "Max file size: 20MB"}
+              {dict?.add_border_to_image?.max_file_size ||
+                "Max file size: 20MB"}
             </p>
             <button
               type="button"
@@ -296,7 +344,10 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
                       <RotateCcw className="w-4 h-4 mr-2" />
                       New Image
                     </Button>
-                    <span className="text-sm text-muted-foreground truncate max-w-[200px]" title={fileName}>
+                    <span
+                      className="text-sm text-muted-foreground truncate max-w-[200px]"
+                      title={fileName}
+                    >
                       {fileName}
                     </span>
                   </div>
@@ -331,7 +382,9 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <label className="text-sm font-medium">Border Width</label>
-                    <span className="text-sm text-muted-foreground">{borderWidth}px</span>
+                    <span className="text-sm text-muted-foreground">
+                      {borderWidth}px
+                    </span>
                   </div>
                   <input
                     type="range"
@@ -360,12 +413,20 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
                         className="w-12 h-10 rounded-lg border border-muted cursor-pointer"
                       />
                       <div className="flex gap-2">
-                        {["#ffffff", "#000000", "#f5f5f4", "#1e293b", "#e11d48"].map((c) => (
+                        {[
+                          "#ffffff",
+                          "#000000",
+                          "#f5f5f4",
+                          "#1e293b",
+                          "#e11d48",
+                        ].map((c) => (
                           <button
                             key={c}
                             onClick={() => setBorderColor(c)}
                             className={`w-8 h-8 rounded-full border-2 transition-transform ${
-                              borderColor === c ? "border-rose-500 scale-110" : "border-muted"
+                              borderColor === c
+                                ? "border-rose-500 scale-110"
+                                : "border-muted"
                             }`}
                             style={{ backgroundColor: c }}
                           />
@@ -378,8 +439,12 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
                   {borderStyle === "rounded" && (
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <label className="text-sm font-medium">Corner Radius</label>
-                        <span className="text-sm text-muted-foreground">{cornerRadius}px</span>
+                        <label className="text-sm font-medium">
+                          Corner Radius
+                        </label>
+                        <span className="text-sm text-muted-foreground">
+                          {cornerRadius}px
+                        </span>
                       </div>
                       <input
                         type="range"
@@ -387,7 +452,9 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
                         max="80"
                         step="1"
                         value={cornerRadius}
-                        onChange={(e) => setCornerRadius(Number(e.target.value))}
+                        onChange={(e) =>
+                          setCornerRadius(Number(e.target.value))
+                        }
                         className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-rose-600"
                       />
                     </div>
@@ -441,10 +508,12 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              {dict?.add_border_to_image?.guide_title || "How to Add Border to Images"}
+              {dict?.add_border_to_image?.guide_title ||
+                "How to Add Border to Images"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              {dict?.add_border_to_image?.guide_desc || "Add a border or frame to any image in 3 simple steps."}
+              {dict?.add_border_to_image?.guide_desc ||
+                "Add a border or frame to any image in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -452,23 +521,34 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
               {
                 step: 1,
                 title: dict?.add_border_to_image?.step1_title || "Upload Image",
-                desc: dict?.add_border_to_image?.step1_desc || "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
+                desc:
+                  dict?.add_border_to_image?.step1_desc ||
+                  "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
                 icon: Upload,
               },
               {
                 step: 2,
-                title: dict?.add_border_to_image?.step2_title || "Customize Border",
-                desc: dict?.add_border_to_image?.step2_desc || "Choose border style, width, color, and corner radius to create the perfect frame.",
+                title:
+                  dict?.add_border_to_image?.step2_title || "Customize Border",
+                desc:
+                  dict?.add_border_to_image?.step2_desc ||
+                  "Choose border style, width, color, and corner radius to create the perfect frame.",
                 icon: Frame,
               },
               {
                 step: 3,
-                title: dict?.add_border_to_image?.step3_title || "Download Result",
-                desc: dict?.add_border_to_image?.step3_desc || "Click 'Download' to save your bordered image to your device.",
+                title:
+                  dict?.add_border_to_image?.step3_title || "Download Result",
+                desc:
+                  dict?.add_border_to_image?.step3_desc ||
+                  "Click 'Download' to save your bordered image to your device.",
                 icon: Download,
               },
             ].map((step) => (
-              <Card key={step.step} className="border-rose-200 dark:border-rose-900/50">
+              <Card
+                key={step.step}
+                className="border-rose-200 dark:border-rose-900/50"
+              >
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-rose-500 text-white font-bold">
@@ -478,7 +558,9 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.desc}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -520,7 +602,10 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
                 icon: Zap,
               },
             ].map((tip, idx) => (
-              <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-gray-800">
+              <div
+                key={idx}
+                className="flex gap-4 p-4 rounded-lg bg-white dark:bg-gray-800"
+              >
                 <div className="flex-shrink-0">
                   <tip.icon className="w-6 h-6 text-rose-500" />
                 </div>
@@ -544,38 +629,62 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>{dict?.add_border_to_image?.faq_1_q || "Is it free to use?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.add_border_to_image?.faq_1_q || "Is it free to use?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.add_border_to_image?.faq_1_a || "Yes, this border tool is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can edit."}
+                  {dict?.add_border_to_image?.faq_1_a ||
+                    "Yes, this border tool is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can edit."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>{dict?.add_border_to_image?.faq_2_q || "Is it secure? Where are my images stored?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.add_border_to_image?.faq_2_q ||
+                    "Is it secure? Where are my images stored?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.add_border_to_image?.faq_2_a || "Your images are completely secure because all processing happens entirely in your browser using Canvas API. Your images never leave your device and are never uploaded to any server."}
+                  {dict?.add_border_to_image?.faq_2_a ||
+                    "Your images are completely secure because all processing happens entirely in your browser using Canvas API. Your images never leave your device and are never uploaded to any server."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>{dict?.add_border_to_image?.faq_3_q || "Does adding a border change the image resolution?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.add_border_to_image?.faq_3_q ||
+                    "Does adding a border change the image resolution?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.add_border_to_image?.faq_3_a || "The output image will be slightly larger than the original because the border adds extra pixels around the edges. For example, a 20px border adds 40px to both width and height. The original image quality is fully preserved."}
+                  {dict?.add_border_to_image?.faq_3_a ||
+                    "The output image will be slightly larger than the original because the border adds extra pixels around the edges. For example, a 20px border adds 40px to both width and height. The original image quality is fully preserved."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>{dict?.add_border_to_image?.faq_4_q || "What border styles are available?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.add_border_to_image?.faq_4_q ||
+                    "What border styles are available?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.add_border_to_image?.faq_4_a || "We offer 4 border styles: Solid (clean flat border), Double (layered frame effect), Rounded (with adjustable corner radius), and Shadow (floating card effect with drop shadow)."}
+                  {dict?.add_border_to_image?.faq_4_a ||
+                    "We offer 4 border styles: Solid (clean flat border), Double (layered frame effect), Rounded (with adjustable corner radius), and Shadow (floating card effect with drop shadow)."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>{dict?.add_border_to_image?.faq_5_q || "What image formats are supported?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.add_border_to_image?.faq_5_q ||
+                    "What image formats are supported?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.add_border_to_image?.faq_5_a || "You can add borders to PNG, JPG, JPEG, WebP, GIF, and BMP images. The result will be saved in the same format as the original. Maximum file size is 20MB."}
+                  {dict?.add_border_to_image?.faq_5_a ||
+                    "You can add borders to PNG, JPG, JPEG, WebP, GIF, and BMP images. The result will be saved in the same format as the original. Maximum file size is 20MB."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>
         </section>
+      </div>
+        </div>
+        <aside className="hidden lg:block w-64 shrink-0">
+          <ToolsSidebar category="image" dict={dict} />
+        </aside>
       </div>
     </div>
   );

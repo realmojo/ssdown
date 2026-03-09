@@ -378,6 +378,7 @@ export function TikTokClient({ dict }: TikTokClientProps) {
       downloadFileName={(quality) => `tiktok_video_${quality}.mp4`}
       faqSection={faqSection}
       slotId1="1620870631"
+      slotId2="1620870631"
     />
   );
 }

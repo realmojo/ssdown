@@ -21,6 +21,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 export function BlurImageClient({ dict }: { dict?: any }) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -28,7 +29,10 @@ export function BlurImageClient({ dict }: { dict?: any }) {
   const [isDragging, setIsDragging] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [blurAmount, setBlurAmount] = useState<number>(5);
-  const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
+  const [imageSize, setImageSize] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -41,7 +45,13 @@ export function BlurImageClient({ dict }: { dict?: any }) {
   };
 
   const loadImage = (file: File) => {
-    const validTypes = ["image/png", "image/jpeg", "image/webp", "image/gif", "image/bmp"];
+    const validTypes = [
+      "image/png",
+      "image/jpeg",
+      "image/webp",
+      "image/gif",
+      "image/bmp",
+    ];
     if (!validTypes.includes(file.type)) return;
     if (file.size > 20 * 1024 * 1024) return;
 
@@ -78,8 +88,8 @@ export function BlurImageClient({ dict }: { dict?: any }) {
     const mimeType = fileName.endsWith(".png")
       ? "image/png"
       : fileName.endsWith(".webp")
-      ? "image/webp"
-      : "image/jpeg";
+        ? "image/webp"
+        : "image/jpeg";
 
     setPreviewUrl(canvas.toDataURL(mimeType, 0.95));
   }, [imageSrc, blurAmount, fileName]);
@@ -145,7 +155,9 @@ export function BlurImageClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
+      <div className="flex gap-8">
+        <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-purple-100 to-violet-100 dark:from-purple-900/30 dark:to-violet-900/30 mb-6">
           <Droplets className="w-10 h-10 text-purple-600 dark:text-purple-400" />
@@ -154,7 +166,8 @@ export function BlurImageClient({ dict }: { dict?: any }) {
           {dict?.blur_image?.title || "Blur Image"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.blur_image?.subtitle || "Apply gaussian blur to your images instantly. Adjust blur intensity with a slider. 100% private — processed in your browser."}
+          {dict?.blur_image?.subtitle ||
+            "Apply gaussian blur to your images instantly. Adjust blur intensity with a slider. 100% private — processed in your browser."}
         </p>
 
         <Adsense slotId="7759160077" />
@@ -183,7 +196,8 @@ export function BlurImageClient({ dict }: { dict?: any }) {
               {dict?.blur_image?.drop_zone || "Drag & drop your image here"}
             </p>
             <p className="text-sm text-muted-foreground">
-              {dict?.blur_image?.supported || "Supported: PNG, JPG, JPEG, WebP, GIF, BMP"}
+              {dict?.blur_image?.supported ||
+                "Supported: PNG, JPG, JPEG, WebP, GIF, BMP"}
             </p>
             <p className="text-xs text-muted-foreground mt-2">
               {dict?.blur_image?.max_file_size || "Max file size: 20MB"}
@@ -210,15 +224,14 @@ export function BlurImageClient({ dict }: { dict?: any }) {
                 {/* File info and reset */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={handleReset}
-                    >
+                    <Button variant="outline" size="sm" onClick={handleReset}>
                       <RotateCcw className="w-4 h-4 mr-2" />
                       New Image
                     </Button>
-                    <span className="text-sm text-muted-foreground truncate max-w-[200px]" title={fileName}>
+                    <span
+                      className="text-sm text-muted-foreground truncate max-w-[200px]"
+                      title={fileName}
+                    >
                       {fileName}
                     </span>
                   </div>
@@ -232,7 +245,9 @@ export function BlurImageClient({ dict }: { dict?: any }) {
                 {/* Blur intensity slider */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium">Blur Intensity</label>
+                    <label className="text-sm font-medium">
+                      Blur Intensity
+                    </label>
                     <span className="text-sm font-semibold text-purple-600 dark:text-purple-400">
                       {blurAmount}px
                     </span>
@@ -338,7 +353,8 @@ export function BlurImageClient({ dict }: { dict?: any }) {
               {dict?.blur_image?.guide_title || "How to Blur Images"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              {dict?.blur_image?.guide_desc || "Apply gaussian blur to any image in 3 simple steps."}
+              {dict?.blur_image?.guide_desc ||
+                "Apply gaussian blur to any image in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -346,23 +362,32 @@ export function BlurImageClient({ dict }: { dict?: any }) {
               {
                 step: 1,
                 title: dict?.blur_image?.step1_title || "Upload Image",
-                desc: dict?.blur_image?.step1_desc || "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
+                desc:
+                  dict?.blur_image?.step1_desc ||
+                  "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
                 icon: Upload,
               },
               {
                 step: 2,
                 title: dict?.blur_image?.step2_title || "Adjust Blur",
-                desc: dict?.blur_image?.step2_desc || "Use the slider to control blur intensity from 0px to 20px, or select a quick preset.",
+                desc:
+                  dict?.blur_image?.step2_desc ||
+                  "Use the slider to control blur intensity from 0px to 20px, or select a quick preset.",
                 icon: Droplets,
               },
               {
                 step: 3,
                 title: dict?.blur_image?.step3_title || "Download Result",
-                desc: dict?.blur_image?.step3_desc || "Click 'Download' to save your blurred image to your device.",
+                desc:
+                  dict?.blur_image?.step3_desc ||
+                  "Click 'Download' to save your blurred image to your device.",
                 icon: Download,
               },
             ].map((step) => (
-              <Card key={step.step} className="border-purple-200 dark:border-purple-900/50">
+              <Card
+                key={step.step}
+                className="border-purple-200 dark:border-purple-900/50"
+              >
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-purple-600 text-white font-bold">
@@ -372,7 +397,9 @@ export function BlurImageClient({ dict }: { dict?: any }) {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.desc}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -414,7 +441,10 @@ export function BlurImageClient({ dict }: { dict?: any }) {
                 icon: Layers,
               },
             ].map((tip, idx) => (
-              <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-purple-800/30">
+              <div
+                key={idx}
+                className="flex gap-4 p-4 rounded-lg bg-white dark:bg-purple-800/30"
+              >
                 <div className="flex-shrink-0">
                   <tip.icon className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                 </div>
@@ -438,38 +468,60 @@ export function BlurImageClient({ dict }: { dict?: any }) {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>{dict?.blur_image?.faq_1_q || "Is it free to use?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.blur_image?.faq_1_q || "Is it free to use?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.blur_image?.faq_1_a || "Yes, this blur image tool is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can blur."}
+                  {dict?.blur_image?.faq_1_a ||
+                    "Yes, this blur image tool is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can blur."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>{dict?.blur_image?.faq_2_q || "Is it secure? Where are my images stored?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.blur_image?.faq_2_q ||
+                    "Is it secure? Where are my images stored?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.blur_image?.faq_2_a || "Your images are completely secure because all processing happens entirely in your browser using Canvas API. Your images never leave your device and are never uploaded to any server."}
+                  {dict?.blur_image?.faq_2_a ||
+                    "Your images are completely secure because all processing happens entirely in your browser using Canvas API. Your images never leave your device and are never uploaded to any server."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>{dict?.blur_image?.faq_3_q || "What is gaussian blur?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.blur_image?.faq_3_q || "What is gaussian blur?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.blur_image?.faq_3_a || "Gaussian blur is a widely-used image blur effect that applies a mathematical blur algorithm. It creates a smooth, natural-looking blur by averaging pixel colors based on a gaussian distribution, producing professional results."}
+                  {dict?.blur_image?.faq_3_a ||
+                    "Gaussian blur is a widely-used image blur effect that applies a mathematical blur algorithm. It creates a smooth, natural-looking blur by averaging pixel colors based on a gaussian distribution, producing professional results."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>{dict?.blur_image?.faq_4_q || "Does it reduce image quality?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.blur_image?.faq_4_q || "Does it reduce image quality?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.blur_image?.faq_4_a || "The blur effect itself does not reduce image quality beyond the intended blur. The original resolution and file quality are maintained. Only the sharpness is reduced by the blur filter."}
+                  {dict?.blur_image?.faq_4_a ||
+                    "The blur effect itself does not reduce image quality beyond the intended blur. The original resolution and file quality are maintained. Only the sharpness is reduced by the blur filter."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>{dict?.blur_image?.faq_5_q || "What image formats are supported?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.blur_image?.faq_5_q ||
+                    "What image formats are supported?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.blur_image?.faq_5_a || "You can blur PNG, JPG, JPEG, WebP, GIF, and BMP images. The blurred image will be saved in the same format as the original. Maximum file size is 20MB."}
+                  {dict?.blur_image?.faq_5_a ||
+                    "You can blur PNG, JPG, JPEG, WebP, GIF, and BMP images. The blurred image will be saved in the same format as the original. Maximum file size is 20MB."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>
         </section>
+      </div>
+        </div>
+        <aside className="hidden lg:block w-64 shrink-0">
+          <ToolsSidebar category="image" dict={dict} />
+        </aside>
       </div>
     </div>
   );

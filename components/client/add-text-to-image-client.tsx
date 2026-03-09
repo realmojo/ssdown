@@ -21,6 +21,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 const FONT_FAMILIES = [
   "Arial",
@@ -43,7 +44,10 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
   const [fileName, setFileName] = useState<string>("");
   const [isDragging, setIsDragging] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
+  const [imageSize, setImageSize] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
 
   // Text options
   const [text, setText] = useState("Your Text Here");
@@ -69,7 +73,13 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
   };
 
   const loadImage = (file: File) => {
-    const validTypes = ["image/png", "image/jpeg", "image/webp", "image/gif", "image/bmp"];
+    const validTypes = [
+      "image/png",
+      "image/jpeg",
+      "image/webp",
+      "image/gif",
+      "image/bmp",
+    ];
     if (!validTypes.includes(file.type)) return;
     if (file.size > 20 * 1024 * 1024) return;
 
@@ -133,7 +143,21 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
     else if (ext.endsWith(".webp")) mimeType = "image/webp";
 
     setPreviewUrl(canvas.toDataURL(mimeType, 0.95));
-  }, [imageSrc, text, fontSize, fontFamily, textColor, textX, textY, isBold, isItalic, strokeEnabled, strokeColor, strokeWidth, fileName]);
+  }, [
+    imageSrc,
+    text,
+    fontSize,
+    fontFamily,
+    textColor,
+    textX,
+    textY,
+    isBold,
+    isItalic,
+    strokeEnabled,
+    strokeColor,
+    strokeWidth,
+    fileName,
+  ]);
 
   const loadSampleImage = async () => {
     try {
@@ -194,7 +218,9 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
+      <div className="flex gap-8">
+        <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-amber-100 to-yellow-100 dark:from-amber-900/30 dark:to-yellow-900/30 mb-6">
           <Type className="w-10 h-10 text-amber-600 dark:text-amber-400" />
@@ -203,7 +229,8 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
           {dict?.add_text_to_image?.title || "Add Text to Image"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.add_text_to_image?.subtitle || "Add custom text overlay to your image. Choose font, size, color, and position. 100% private — processed in your browser."}
+          {dict?.add_text_to_image?.subtitle ||
+            "Add custom text overlay to your image. Choose font, size, color, and position. 100% private — processed in your browser."}
         </p>
 
         <Adsense slotId="7759160077" />
@@ -229,10 +256,12 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
             />
             <FileImage className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
             <p className="text-lg font-medium mb-2">
-              {dict?.add_text_to_image?.drop_zone || "Drag & drop your image here"}
+              {dict?.add_text_to_image?.drop_zone ||
+                "Drag & drop your image here"}
             </p>
             <p className="text-sm text-muted-foreground">
-              {dict?.add_text_to_image?.supported || "Supported: PNG, JPG, JPEG, WebP, GIF, BMP"}
+              {dict?.add_text_to_image?.supported ||
+                "Supported: PNG, JPG, JPEG, WebP, GIF, BMP"}
             </p>
             <p className="text-xs text-muted-foreground mt-2">
               {dict?.add_text_to_image?.max_file_size || "Max file size: 20MB"}
@@ -260,7 +289,10 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                       <RotateCcw className="w-4 h-4 mr-2" />
                       New Image
                     </Button>
-                    <span className="text-sm text-muted-foreground truncate max-w-[200px]" title={fileName}>
+                    <span
+                      className="text-sm text-muted-foreground truncate max-w-[200px]"
+                      title={fileName}
+                    >
                       {fileName}
                     </span>
                   </div>
@@ -302,7 +334,9 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <label className="text-sm font-medium">Font Size</label>
-                      <span className="text-sm text-muted-foreground">{fontSize}px</span>
+                      <span className="text-sm text-muted-foreground">
+                        {fontSize}px
+                      </span>
                     </div>
                     <input
                       type="range"
@@ -374,8 +408,12 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                 {strokeEnabled && (
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium">Outline Width</label>
-                      <span className="text-sm text-muted-foreground">{strokeWidth}px</span>
+                      <label className="text-sm font-medium">
+                        Outline Width
+                      </label>
+                      <span className="text-sm text-muted-foreground">
+                        {strokeWidth}px
+                      </span>
                     </div>
                     <input
                       type="range"
@@ -491,10 +529,12 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              {dict?.add_text_to_image?.guide_title || "How to Add Text to Images"}
+              {dict?.add_text_to_image?.guide_title ||
+                "How to Add Text to Images"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              {dict?.add_text_to_image?.guide_desc || "Add text overlays to your images in 3 simple steps."}
+              {dict?.add_text_to_image?.guide_desc ||
+                "Add text overlays to your images in 3 simple steps."}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -502,23 +542,33 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
               {
                 step: 1,
                 title: dict?.add_text_to_image?.step1_title || "Upload Image",
-                desc: dict?.add_text_to_image?.step1_desc || "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
+                desc:
+                  dict?.add_text_to_image?.step1_desc ||
+                  "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
                 icon: Upload,
               },
               {
                 step: 2,
                 title: dict?.add_text_to_image?.step2_title || "Customize Text",
-                desc: dict?.add_text_to_image?.step2_desc || "Type your text and adjust font, size, color, position, and outline settings.",
+                desc:
+                  dict?.add_text_to_image?.step2_desc ||
+                  "Type your text and adjust font, size, color, position, and outline settings.",
                 icon: Type,
               },
               {
                 step: 3,
-                title: dict?.add_text_to_image?.step3_title || "Download Result",
-                desc: dict?.add_text_to_image?.step3_desc || "Click 'Download' to save your image with the text overlay.",
+                title:
+                  dict?.add_text_to_image?.step3_title || "Download Result",
+                desc:
+                  dict?.add_text_to_image?.step3_desc ||
+                  "Click 'Download' to save your image with the text overlay.",
                 icon: Download,
               },
             ].map((step) => (
-              <Card key={step.step} className="border-amber-200 dark:border-amber-900/50">
+              <Card
+                key={step.step}
+                className="border-amber-200 dark:border-amber-900/50"
+              >
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-amber-500 text-white font-bold">
@@ -528,7 +578,9 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.desc}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -570,7 +622,10 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                 icon: Layers,
               },
             ].map((tip, idx) => (
-              <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white dark:bg-gray-800">
+              <div
+                key={idx}
+                className="flex gap-4 p-4 rounded-lg bg-white dark:bg-gray-800"
+              >
                 <div className="flex-shrink-0">
                   <tip.icon className="w-6 h-6 text-amber-500" />
                 </div>
@@ -594,38 +649,62 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="faq-1">
-                <AccordionTrigger>{dict?.add_text_to_image?.faq_1_q || "Is it free to use?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.add_text_to_image?.faq_1_q || "Is it free to use?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.add_text_to_image?.faq_1_a || "Yes, this tool is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can edit."}
+                  {dict?.add_text_to_image?.faq_1_a ||
+                    "Yes, this tool is 100% free to use. There are no hidden fees, watermarks, or limitations on the number of images you can edit."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>{dict?.add_text_to_image?.faq_2_q || "Is it secure? Where are my images stored?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.add_text_to_image?.faq_2_q ||
+                    "Is it secure? Where are my images stored?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.add_text_to_image?.faq_2_a || "Your images are completely secure because all processing happens entirely in your browser using Canvas API. Your images never leave your device and are never uploaded to any server."}
+                  {dict?.add_text_to_image?.faq_2_a ||
+                    "Your images are completely secure because all processing happens entirely in your browser using Canvas API. Your images never leave your device and are never uploaded to any server."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-3">
-                <AccordionTrigger>{dict?.add_text_to_image?.faq_3_q || "Can I use custom fonts?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.add_text_to_image?.faq_3_q ||
+                    "Can I use custom fonts?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.add_text_to_image?.faq_3_a || "Currently we offer 7 web-safe fonts including Arial, Georgia, Impact, and more. These fonts are available on all devices and browsers without any download required."}
+                  {dict?.add_text_to_image?.faq_3_a ||
+                    "Currently we offer 7 web-safe fonts including Arial, Georgia, Impact, and more. These fonts are available on all devices and browsers without any download required."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-4">
-                <AccordionTrigger>{dict?.add_text_to_image?.faq_4_q || "How do I make text readable on dark images?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.add_text_to_image?.faq_4_q ||
+                    "How do I make text readable on dark images?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.add_text_to_image?.faq_4_a || "Enable the 'Outline' option and use a contrasting outline color. For example, use white text with a black outline — this combination is readable on virtually any background."}
+                  {dict?.add_text_to_image?.faq_4_a ||
+                    "Enable the 'Outline' option and use a contrasting outline color. For example, use white text with a black outline — this combination is readable on virtually any background."}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-5">
-                <AccordionTrigger>{dict?.add_text_to_image?.faq_5_q || "What image formats are supported?"}</AccordionTrigger>
+                <AccordionTrigger>
+                  {dict?.add_text_to_image?.faq_5_q ||
+                    "What image formats are supported?"}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {dict?.add_text_to_image?.faq_5_a || "You can add text to PNG, JPG, JPEG, WebP, GIF, and BMP images. The result will be saved in the same format as the original. Maximum file size is 20MB."}
+                  {dict?.add_text_to_image?.faq_5_a ||
+                    "You can add text to PNG, JPG, JPEG, WebP, GIF, and BMP images. The result will be saved in the same format as the original. Maximum file size is 20MB."}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>
         </section>
+      </div>
+        </div>
+        <aside className="hidden lg:block w-64 shrink-0">
+          <ToolsSidebar category="image" dict={dict} />
+        </aside>
       </div>
     </div>
   );

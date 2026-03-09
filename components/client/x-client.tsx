@@ -373,6 +373,7 @@ export function XClient({ dict }: XClientProps) {
       downloadFileName={(quality) => `x_video_${quality}.mp4`}
       faqSection={faqSection}
       slotId1="3265765425"
+      slotId2="3265765425"
     />
   );
 }

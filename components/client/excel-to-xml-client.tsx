@@ -28,6 +28,7 @@ import {
 import * as XLSX from "xlsx";
 import { toast } from "sonner";
 import Adsense from "@/components/Adsense";
+import { ToolsSidebar } from "@/components/tools-sidebar";
 
 export function ExcelToXmlClient({ dict }: { dict?: any }) {
   const [xmlOutput, setXmlOutput] = useState("");
@@ -143,7 +144,9 @@ export function ExcelToXmlClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 flex flex-col items-center min-h-[50vh]">
+    <div className="container mx-auto px-4 py-8 min-h-[50vh]">
+      <div className="flex gap-8">
+      <div className="flex-1 min-w-0 flex flex-col items-center">
       <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-purple-900/30 dark:to-indigo-900/30 mb-6">
           <FileCode className="w-8 h-8 text-purple-600 dark:text-purple-400" />
@@ -321,6 +324,11 @@ export function ExcelToXmlClient({ dict }: { dict?: any }) {
             </Accordion>
           </div>
         </section>
+      </div>
+      </div>
+      <aside className="hidden lg:block w-64 shrink-0">
+        <ToolsSidebar category="file" dict={dict} />
+      </aside>
       </div>
     </div>
   );

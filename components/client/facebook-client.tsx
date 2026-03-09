@@ -377,6 +377,7 @@ export function FacebookClient({ dict }: FacebookClientProps) {
       downloadFileName={(quality) => `facebook_video_${quality}.mp4`}
       faqSection={faqSection}
       slotId1="3584688990"
+      slotId2="3584688990"
     />
   );
 }
