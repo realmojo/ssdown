@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
 import { ThemeProvider } from "@/components/theme-provider";
-import { AdsenseInit } from "@/components/AdsenseInit";
 import { CookieConsent } from "@/components/cookie-consent";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -60,8 +60,7 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: locale === "kr" ? "ko_KR" : "en_US",
       url: baseUrl,
       title:
-        dict.home?.title ||
-        "SSDown - Free Online Tools for Everyday Tasks",
+        dict.home?.title || "SSDown - Free Online Tools for Everyday Tasks",
       description:
         dict.home?.subtitle ||
         "Free online tools for image editing, PDF management, video conversion, and file transformation. Fast, secure, and browser-based.",
@@ -111,32 +110,21 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang={locale === "kr" ? "ko" : "en"} suppressHydrationWarning>
       <head>
-        {/* Naver Analytics */}
-
-        <script id="naver-analytics" src="//wcs.naver.net/wcslog.js" />
-        <script
-          id="naver-analytics-init"
-          dangerouslySetInnerHTML={{
-            __html:
-              'if(!wcs_add) var wcs_add = {}; wcs_add["wa"] = "159353d1b5eedb0"; if(window.wcs) {wcs_do();}',
-          }}
-        />
-
-        <script
-          id="google-tag-manager"
-          dangerouslySetInnerHTML={{
-            __html:
-              '(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);})(window,document,"script","dataLayer","GTM-M3V3PSB");',
-          }}
-        />
-
-        {/* Google Analytics */}
-        <script
-          src="https://www.googletagmanager.com/gtag/js?id=G-742J9X4BM5"
+        <Script
+          strategy="lazyOnload"
           async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9130836798889522"
         />
-        <script
-          id="google-analytics"
+
+        <Script
+          id="google-tag-manager"
+          strategy="afterInteractive"
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-742J9X4BM5"
+        />
+        <Script
+          id="google-tag-manager-script"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
             window.dataLayer = window.dataLayer || [];
@@ -148,7 +136,20 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           `,
           }}
         />
-        <AdsenseInit />
+        <Script
+          strategy="beforeInteractive"
+          id="naver-analytics"
+          src="//wcs.naver.net/wcslog.js"
+        />
+        <Script
+          strategy="beforeInteractive"
+          id="naver-analytics-init"
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html:
+              'if(!wcs_add) var wcs_add = {}; wcs_add["wa"] = "159353d1b5eedb0"; if(window.wcs) {wcs_do();}',
+          }}
+        />
       </head>
       <body className="antialiased">
         <ThemeProvider
