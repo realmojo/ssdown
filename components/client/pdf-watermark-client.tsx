@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   FileText,
@@ -25,6 +24,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 export function PdfWatermarkClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -182,6 +182,8 @@ export function PdfWatermarkClient({ dict }: { dict?: any }) {
           {dict?.pdf_watermark?.subtitle || "Add a text watermark to every page of your PDF. Customize text, size, opacity, and rotation angle. 100% private — processed in your browser."}
         </p>
 
+        <Adsense slotId="7759160077" />
+
         {!pdfFile && (
           <div
             onDragOver={handleDragOver}
@@ -313,9 +315,6 @@ export function PdfWatermarkClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_watermark?.faq_title || "Watermark PDF FAQ"}</h2>

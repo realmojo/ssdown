@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import { PDFDocument, PageSizes } from "pdf-lib";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   ImagePlus,
   Upload,
   Download,
@@ -26,6 +25,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 type PageSizeOption = "fit" | "A4";
 
@@ -250,6 +250,8 @@ export function ImagesToPdfClient({ dict }: { dict?: any }) {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">{dict?.images_to_pdf?.title || "Images to PDF"}</h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">{dict?.images_to_pdf?.subtitle || "Convert multiple images (JPG, PNG, WebP) into a single PDF document. Reorder pages and choose page size. 100% private — processed in your browser."}</p>
 
+        <Adsense slotId="7759160077" />
+
         {/* Drop zone */}
         <div
           onDragOver={handleDragOver}
@@ -359,9 +361,6 @@ export function ImagesToPdfClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.images_to_pdf?.faq_title || "Images to PDF FAQ"}</h2>

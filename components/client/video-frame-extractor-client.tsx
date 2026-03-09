@@ -3,7 +3,6 @@
 import { useRef, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   FileVideo,
@@ -34,6 +33,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import JSZip from "jszip";
+import Adsense from "@/components/Adsense";
 
 interface ExtractedFrame {
   id: number;
@@ -299,6 +299,8 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
           {dict?.video_frame_extractor?.subtitle ||
             "Extract high-quality images from your videos frame by frame. 100% client-side API."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {/* Upload Section */}
         {!file && (
@@ -670,8 +672,6 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
         </section>
 
         {/* FAQ Section */}
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

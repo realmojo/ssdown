@@ -3,7 +3,6 @@
 import { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Palette,
   Loader2,
@@ -23,6 +22,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 interface ExtractedColor {
   hex: string;
@@ -361,6 +361,8 @@ export function ColorPaletteExtractorClient({ dict }: { dict?: any }) {
           {dict?.color_palette_extractor?.subtitle ||
             "Extract dominant colors from any image. Get HEX, RGB, and HSL color codes instantly."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {!image ? (
           <div
@@ -751,9 +753,6 @@ export function ColorPaletteExtractorClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import { PDFDocument } from "pdf-lib";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   FileText,
@@ -26,6 +25,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 interface PdfFileItem {
   id: string;
@@ -198,6 +198,8 @@ export function MergePdfClient({ dict }: { dict?: any }) {
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.merge_pdf?.subtitle || "Combine multiple PDF files into one. Reorder pages, preview file details, and download the merged result. 100% private — processed in your browser."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {/* Drop zone */}
         <div
@@ -456,9 +458,6 @@ export function MergePdfClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

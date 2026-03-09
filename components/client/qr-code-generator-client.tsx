@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Download, QrCode, Link, Lightbulb, MousePointer2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-import Adsense from "@/components/Adsense";
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -14,6 +13,7 @@ import Adsense from "@/components/Adsense";
 } from "@/components/ui/accordion";
 import QRCode from "qrcode";
 import { toast } from "sonner";
+import Adsense from "@/components/Adsense";
 
 export function QRCodeGeneratorClient({ dict }: { dict?: any }) {
   const [url, setUrl] = useState("");
@@ -74,6 +74,8 @@ export function QRCodeGeneratorClient({ dict }: { dict?: any }) {
           {dict?.qr_code_generator?.subtitle ||
             "Create custom QR codes for any link in seconds. Free, instant download."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         <div className="w-full grid md:grid-cols-2 gap-8 items-start">
           {/* Input Side */}
@@ -236,8 +238,6 @@ export function QRCodeGeneratorClient({ dict }: { dict?: any }) {
         </section>
 
         {/* FAQ */}
-        <Adsense slotId="7759160077" />
-
         <section className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-2xl font-bold tracking-tight mb-4">

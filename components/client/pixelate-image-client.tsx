@@ -3,7 +3,6 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   FileImage,
@@ -21,6 +20,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 export function PixelateImageClient({ dict }: { dict?: any }) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -172,6 +172,8 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.pixelate_image?.subtitle || "Pixelate your photo for privacy or artistic effect. Adjust pixel size freely. 100% private — processed in your browser."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {!imageSrc ? (
           <div
@@ -405,9 +407,6 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

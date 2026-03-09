@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Download,
   BookOpen,
   Lightbulb,
@@ -33,6 +32,7 @@ import { YoutubeUrlInput } from "@/components/client/youtube-url-input";
 
 import { VideoDetails } from "@/lib/youtube";
 import { useRouter } from "next/navigation";
+import Adsense from "@/components/Adsense";
 
 // ... (other imports)
 
@@ -143,6 +143,8 @@ export function YoutubeThumbnailClient({
           <p className="text-muted-foreground text-center max-w-lg mb-8">
             Analyze high-quality thumbnails from any YouTube video.
           </p>
+
+          <Adsense slotId="7759160077" />
           {renderInputForm()}
         </div>
       ) : (
@@ -376,8 +378,6 @@ export function YoutubeThumbnailClient({
         </section>
 
         {/* FAQ Section */}
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

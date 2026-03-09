@@ -3,7 +3,6 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   Music,
@@ -20,6 +19,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Adsense from "@/components/Adsense";
 
 // Types only - actual imports happen dynamically
 type FFmpeg = any;
@@ -475,6 +475,8 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
             "Cut and trim MP3 audio files directly in your browser. Fast, free, and private."}
         </p>
 
+        <Adsense slotId="7759160077" />
+
         {/* Hidden Audio Player - always mounted for ref access */}
         <audio
           ref={audioRef}
@@ -784,8 +786,6 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
         </section>
 
         {/* Tips Section */}
-        <Adsense slotId="7759160077" />
-
         <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
           <div className="text-center mb-10">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">

@@ -3,7 +3,6 @@
 import { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   FileImage,
@@ -21,6 +20,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 type FlipMode = "none" | "horizontal" | "vertical";
 
@@ -156,6 +156,8 @@ export function FlipImageClient({ dict }: { dict?: any }) {
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.flip_image?.subtitle || "Flip or mirror your image horizontally or vertically. 100% free and private — all processing happens in your browser."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {!imageSrc ? (
           <div
@@ -382,9 +384,6 @@ export function FlipImageClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

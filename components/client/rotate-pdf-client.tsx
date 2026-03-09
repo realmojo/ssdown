@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import { PDFDocument, degrees } from "pdf-lib";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   FileText,
@@ -24,6 +23,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 interface PageRotation {
   pageIndex: number;
@@ -204,6 +204,8 @@ export function RotatePdfClient({ dict }: { dict?: any }) {
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.rotate_pdf?.subtitle || "Rotate PDF pages by 90, 180, or 270 degrees. Rotate all pages at once or each page individually. 100% private — processed in your browser."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {/* Drop zone */}
         {!pdfFile && (
@@ -486,9 +488,6 @@ export function RotatePdfClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

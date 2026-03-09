@@ -207,6 +207,8 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
           {dict?.image_metadata_viewer?.subtitle || "View EXIF metadata from your photos. See camera settings, GPS location, date taken, and more. 100% private — processed in your browser."}
         </p>
 
+        <Adsense slotId="7759160077" />
+
         {!imageSrc ? (
           <div
             onDragOver={handleDragOver}
@@ -629,9 +631,6 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

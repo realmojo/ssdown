@@ -5,7 +5,6 @@ import { PDFDocument } from "pdf-lib";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   FileText,
@@ -24,6 +23,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 export function CropPdfClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -181,6 +181,8 @@ export function CropPdfClient({ dict }: { dict?: any }) {
           {dict?.crop_pdf?.subtitle || "Adjust margins and crop all pages of your PDF. Set custom top, bottom, left, and right margins in points. 100% private — processed in your browser."}
         </p>
 
+        <Adsense slotId="7759160077" />
+
         {!pdfFile && (
           <div
             onDragOver={handleDragOver}
@@ -312,9 +314,6 @@ export function CropPdfClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.crop_pdf?.faq_title || "Crop PDF FAQ"}</h2>

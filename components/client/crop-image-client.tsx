@@ -3,7 +3,6 @@
 import { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   FileImage,
@@ -21,6 +20,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 interface CropArea {
   x: number;
@@ -383,6 +383,8 @@ export function CropImageClient({ dict }: { dict?: any }) {
           {dict?.crop_image?.subtitle || "Crop your image to any size. Select a region, choose an aspect ratio, and download. 100% free and private."}
         </p>
 
+        <Adsense slotId="7759160077" />
+
         {!imageSrc ? (
           <div
             onDragOver={handleDragOver}
@@ -687,9 +689,6 @@ export function CropImageClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

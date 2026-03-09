@@ -3,7 +3,6 @@
 import { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   Loader2,
@@ -24,6 +23,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import JSZip from "jszip";
+import Adsense from "@/components/Adsense";
 
 interface ImageFile {
   id: string;
@@ -216,6 +216,8 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
           {dict?.image_compressor?.subtitle ||
             "Compress images to reduce file size without losing quality. Fast, free, and 100% private."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {images.length === 0 ? (
           <div
@@ -562,9 +564,6 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

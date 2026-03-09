@@ -5,7 +5,6 @@ import { PDFDocument, PageSizes, rgb } from "pdf-lib";
 import fontkit from "@pdf-lib/fontkit";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   FilePlus,
   Download,
   Loader2,
@@ -25,6 +24,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 type PageSize = "A4" | "Letter" | "Legal";
 
@@ -178,6 +178,8 @@ export function CreatePdfClient({ dict }: { dict?: any }) {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">{dict?.create_pdf?.title || "Create PDF"}</h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">{dict?.create_pdf?.subtitle || "Create a new PDF document from text. Add multiple pages, choose page size and font size. 100% private — processed in your browser."}</p>
 
+        <Adsense slotId="7759160077" />
+
         <div className="w-full max-w-2xl space-y-6">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
@@ -276,9 +278,6 @@ export function CreatePdfClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.create_pdf?.faq_title || "Create PDF FAQ"}</h2>

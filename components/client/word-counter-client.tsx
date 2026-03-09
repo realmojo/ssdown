@@ -2,7 +2,6 @@
 
 import { useState, useMemo, useCallback } from "react";
 import {
-import Adsense from "@/components/Adsense";
   Type,
   FileText,
   Hash,
@@ -22,6 +21,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 interface TextStats {
   words: number;
@@ -157,6 +157,8 @@ export function WordCounterClient({ dict }: { dict?: any }) {
           {dict?.word_counter?.subtitle ||
             "Count words, characters, sentences, and paragraphs in real-time. Completely free, no signup required."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {/* Stats Grid */}
         <div className="w-full grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mb-8">
@@ -308,8 +310,6 @@ export function WordCounterClient({ dict }: { dict?: any }) {
         </section>
 
         {/* FAQ */}
-        <Adsense slotId="7759160077" />
-
         <section className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>

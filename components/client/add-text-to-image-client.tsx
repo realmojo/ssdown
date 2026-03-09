@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   FileImage,
@@ -21,6 +20,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 const FONT_FAMILIES = [
   "Arial",
@@ -205,6 +205,8 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.add_text_to_image?.subtitle || "Add custom text overlay to your image. Choose font, size, color, and position. 100% private — processed in your browser."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {!imageSrc ? (
           <div
@@ -580,9 +582,6 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

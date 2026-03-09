@@ -3,7 +3,6 @@
 import { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   Loader2,
@@ -22,6 +21,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import JSZip from "jszip";
+import Adsense from "@/components/Adsense";
 
 interface FaviconSize {
   size: number;
@@ -294,6 +294,8 @@ export function FaviconGeneratorClient({ dict }: { dict?: any }) {
           {dict?.favicon_generator?.subtitle ||
             "Convert any image to favicon (ICO) with multiple sizes. 100% client-side processing."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {!image ? (
           <div
@@ -593,9 +595,6 @@ export function FaviconGeneratorClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

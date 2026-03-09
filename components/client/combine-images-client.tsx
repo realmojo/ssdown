@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   FileImage,
@@ -25,6 +24,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 type LayoutDirection = "horizontal" | "vertical";
 
@@ -215,6 +215,8 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.combine_images?.subtitle || "Combine multiple images side by side or stacked vertically. Adjust gap and background color. 100% private — processed in your browser."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {/* Upload Zone — always show when less than 10 images */}
         <div
@@ -527,9 +529,6 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

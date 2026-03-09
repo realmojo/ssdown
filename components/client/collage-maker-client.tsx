@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   LayoutGrid,
@@ -23,6 +22,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 interface LoadedImage {
   id: string;
@@ -308,6 +308,8 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.collage_maker?.subtitle || "Create beautiful photo collages with 8 customizable templates. Upload images, choose a layout, customize spacing and style. 100% private — processed in your browser."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {/* Upload Zone */}
         <div
@@ -706,9 +708,6 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

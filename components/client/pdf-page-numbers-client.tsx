@@ -5,7 +5,6 @@ import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   FileText,
@@ -24,6 +23,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 type PositionOption = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right";
 
@@ -201,6 +201,8 @@ export function PdfPageNumbersClient({ dict }: { dict?: any }) {
           {dict?.pdf_page_numbers?.subtitle || "Add page numbers to every page of your PDF. Choose position, font size, and starting number. 100% private — processed in your browser."}
         </p>
 
+        <Adsense slotId="7759160077" />
+
         {!pdfFile && (
           <div
             onDragOver={handleDragOver}
@@ -333,9 +335,6 @@ export function PdfPageNumbersClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_page_numbers?.faq_title || "Page Numbers FAQ"}</h2>

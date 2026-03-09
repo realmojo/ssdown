@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-import Adsense from "@/components/Adsense";
   FileSpreadsheet,
   FileText,
   Copy,
@@ -28,6 +27,7 @@ import {
 } from "@/components/ui/accordion";
 import * as XLSX from "xlsx";
 import { toast } from "sonner";
+import Adsense from "@/components/Adsense";
 
 export function ExcelToCsvClient({ dict }: { dict?: any }) {
   const [csvOutput, setCsvOutput] = useState("");
@@ -129,6 +129,8 @@ export function ExcelToCsvClient({ dict }: { dict?: any }) {
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.excel_to_csv?.subtitle || "Convert Excel spreadsheets (.xlsx, .xls) to CSV format. Select specific sheets to export."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         <div className="w-full max-w-2xl mb-8">
           {!workbook ? (
@@ -264,9 +266,6 @@ export function ExcelToCsvClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-import Adsense from "@/components/Adsense";
   FileCode,
   ArrowRightLeft,
   Copy,
@@ -21,6 +20,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { toast } from "sonner";
+import Adsense from "@/components/Adsense";
 
 export function CsvToXmlClient({ dict }: { dict?: any }) {
   const [csvInput, setCsvInput] = useState("");
@@ -167,6 +167,8 @@ export function CsvToXmlClient({ dict }: { dict?: any }) {
           {dict?.csv_to_xml?.subtitle || "Convert CSV spreadsheets to structured XML format. Paste your CSV code, or Drag & Drop a file."}
         </p>
 
+        <Adsense slotId="7759160077" />
+
         <div className="w-full grid md:grid-cols-2 gap-4">
           <Card
             className={`border-gray-200 dark:border-gray-800 transition-colors ${isDragging ? "border-teal-500 bg-teal-50 dark:bg-teal-900/10" : ""}`}
@@ -291,9 +293,6 @@ export function CsvToXmlClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

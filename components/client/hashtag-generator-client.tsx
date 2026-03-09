@@ -4,7 +4,6 @@ import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-import Adsense from "@/components/Adsense";
   Card,
   CardContent,
   CardHeader,
@@ -28,6 +27,7 @@ import {
 } from "lucide-react";
 import { hashtagDatabase } from "@/lib/hashtag-data";
 import { cn } from "@/lib/utils";
+import Adsense from "@/components/Adsense";
 
 type Platform = "tiktok" | "instagram" | "youtube";
 
@@ -147,6 +147,8 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
           {dict?.hashtag_generator?.subtitle ||
             "Find trending and niche-specific hashtags for TikTok, Instagram, and YouTube. Boost your content reach."}
         </p>
+
+        <Adsense slotId="7759160077" />
       </div>
 
       {/* Platform Selector */}
@@ -490,8 +492,6 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
         </section>
 
         {/* FAQ Section */}
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

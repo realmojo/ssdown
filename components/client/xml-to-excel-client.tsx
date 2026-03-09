@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-import Adsense from "@/components/Adsense";
   FileCode,
   Download,
   Trash2,
@@ -21,6 +20,7 @@ import {
 } from "@/components/ui/accordion";
 import * as XLSX from "xlsx";
 import { toast } from "sonner";
+import Adsense from "@/components/Adsense";
 
 export function XmlToExcelClient({ dict }: { dict?: any }) {
   const [xmlInput, setXmlInput] = useState("");
@@ -126,6 +126,8 @@ export function XmlToExcelClient({ dict }: { dict?: any }) {
           {dict?.xml_to_excel?.subtitle || "Convert XML data to Excel (.xlsx) spreadsheet. Paste your XML or Drag & Drop a file."}
         </p>
 
+        <Adsense slotId="7759160077" />
+
         <div className="w-full max-w-2xl">
           <Card
             className={`border-gray-200 dark:border-gray-800 transition-colors ${isDragging ? "border-blue-500 bg-blue-50 dark:bg-blue-900/10" : ""}`}
@@ -223,9 +225,6 @@ export function XmlToExcelClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

@@ -3,7 +3,6 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Download,
   Image as ImageIcon,
   Loader2,
@@ -15,6 +14,7 @@ import Adsense from "@/components/Adsense";
   Eye,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Adsense from "@/components/Adsense";
 
 export function BackgroundRemoverClient({ dict }: { dict?: any }) {
   const [file, setFile] = useState<File | null>(null);
@@ -224,6 +224,8 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
           {dict?.background_remover?.subtitle ||
             "Remove image backgrounds instantly with AI. 100% free, no upload to server, works entirely in your browser."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {/* Upload Section */}
         {!file && (
@@ -567,9 +569,6 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
             </div>
           </div>
         )}
-
-        <Adsense slotId="7759160077" />
-
         {/* FAQ Section */}
         {!file && (
           <div className="w-full mt-12">

@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import { PDFDocument } from "pdf-lib";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   FileText,
@@ -26,6 +25,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 interface PageItem {
   originalIndex: number;
@@ -215,6 +215,8 @@ export function RearrangePdfClient({ dict }: { dict?: any }) {
           {dict?.rearrange_pdf?.subtitle || "Change the order of pages in your PDF. Move pages up, down, or reverse the entire order. 100% private — processed in your browser."}
         </p>
 
+        <Adsense slotId="7759160077" />
+
         {!pdfFile && (
           <div
             onDragOver={handleDragOver}
@@ -352,9 +354,6 @@ export function RearrangePdfClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.rearrange_pdf?.faq_title || "Rearrange PDF FAQ"}</h2>

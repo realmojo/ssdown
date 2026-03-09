@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import {
-import Adsense from "@/components/Adsense";
   FileText,
   Upload,
   Download,
@@ -23,6 +22,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 async function loadPdfJs() {
   const pdfjsLib = await import("pdfjs-dist");
@@ -165,6 +165,8 @@ export function PdfToTextClient({ dict }: { dict?: any }) {
           {dict?.pdf_to_text?.subtitle || "Extract text from PDF files. Copy to clipboard or download as a .txt file. 100% private — processed in your browser."}
         </p>
 
+        <Adsense slotId="7759160077" />
+
         {!pdfFile && (
           <div
             onDragOver={handleDragOver}
@@ -301,9 +303,6 @@ export function PdfToTextClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_to_text?.faq_title || "PDF to Text FAQ"}</h2>

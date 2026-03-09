@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   FileImage,
@@ -21,6 +20,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 const BORDER_STYLES = [
   { label: "Solid", value: "solid" },
@@ -241,6 +241,8 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.add_border_to_image?.subtitle || "Add a border or frame to your image. Choose width, color, and style. 100% private — processed in your browser."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {!imageSrc ? (
           <div
@@ -530,9 +532,6 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

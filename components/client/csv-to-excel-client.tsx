@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-import Adsense from "@/components/Adsense";
   FileSpreadsheet,
   Download,
   Trash2,
@@ -21,6 +20,7 @@ import {
 } from "@/components/ui/accordion";
 import * as XLSX from "xlsx";
 import { toast } from "sonner";
+import Adsense from "@/components/Adsense";
 
 export function CsvToExcelClient({ dict }: { dict?: any }) {
   const [csvInput, setCsvInput] = useState("");
@@ -82,6 +82,8 @@ export function CsvToExcelClient({ dict }: { dict?: any }) {
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.csv_to_excel?.subtitle || "Convert comma-separated values to Excel (.xlsx) format. Paste your data, or Drag & Drop a file."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         <div className="w-full max-w-2xl">
           <Card
@@ -180,9 +182,6 @@ export function CsvToExcelClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

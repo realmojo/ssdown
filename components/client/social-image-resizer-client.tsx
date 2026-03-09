@@ -3,7 +3,6 @@
 import { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   Image as ImageIcon,
@@ -26,6 +25,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import JSZip from "jszip";
+import Adsense from "@/components/Adsense";
 
 interface ResizedImage {
   id: string;
@@ -228,6 +228,8 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
           {dict?.social_image_resizer?.subtitle ||
             "Resize and crop images for Instagram, YouTube, and TikTok. Perfect dimensions, instantly."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {!originalFile ? (
           <div
@@ -495,8 +497,6 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
         </section>
 
         {/* FAQ */}
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   FileText,
@@ -25,6 +24,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 type ColorOption = "black" | "red" | "blue" | "green" | "gray";
 
@@ -204,6 +204,8 @@ export function AddTextToPdfClient({ dict }: { dict?: any }) {
           {dict?.add_text_to_pdf?.subtitle || "Add custom text to any page of your PDF. Choose the page, position, font size, and color. 100% private — processed in your browser."}
         </p>
 
+        <Adsense slotId="7759160077" />
+
         {!pdfFile && (
           <div
             onDragOver={handleDragOver}
@@ -352,9 +354,6 @@ export function AddTextToPdfClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.add_text_to_pdf?.faq_title || "Add Text to PDF FAQ"}</h2>

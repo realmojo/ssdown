@@ -3,7 +3,6 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Scissors,
   Upload,
   Download,
@@ -32,6 +31,7 @@ import {
 } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Adsense from "@/components/Adsense";
 
 // Types only - actual imports happen dynamically to avoid SSR issues
 type FFmpeg = any;
@@ -306,6 +306,8 @@ export function TrimVideoClient({ dict }: { dict?: any }) {
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.trim_video?.subtitle || "Cut and trim video files by selecting start and end points. Fast, free, and private — all processing in your browser."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {/* Upload Section */}
         {!file && (
@@ -685,8 +687,6 @@ export function TrimVideoClient({ dict }: { dict?: any }) {
         </section>
 
         {/* FAQ Section */}
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

@@ -3,7 +3,6 @@
 import { useRef, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Music,
   Upload,
   Download,
@@ -27,6 +26,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 // Types only - actual imports happen dynamically to avoid SSR issues
 type FFmpeg = any;
@@ -167,6 +167,8 @@ export function VideoToMp3Client({ dict }: { dict?: any }) {
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.video_to_mp3?.subtitle || "Convert any video file to MP3 audio directly in your browser. 100% private, no upload to server."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {/* Drop Zone */}
         {!file && (
@@ -460,8 +462,6 @@ export function VideoToMp3Client({ dict }: { dict?: any }) {
         </section>
 
         {/* FAQ Section */}
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

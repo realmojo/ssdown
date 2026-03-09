@@ -5,7 +5,6 @@ import { PDFDocument } from "pdf-lib";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-import Adsense from "@/components/Adsense";
   Unlock,
   Upload,
   Download,
@@ -25,6 +24,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 export function UnlockPdfClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -162,6 +162,8 @@ export function UnlockPdfClient({ dict }: { dict?: any }) {
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.unlock_pdf?.subtitle || "Remove password protection from your PDF. Enter the current password to unlock and save an unprotected copy. 100% private — processed in your browser."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {!pdfFile && (
           <div
@@ -324,9 +326,6 @@ export function UnlockPdfClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.unlock_pdf?.faq_title || "Unlock PDF FAQ"}</h2>

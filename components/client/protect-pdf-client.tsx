@@ -5,7 +5,6 @@ import { PDFDocument } from "pdf-lib";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-import Adsense from "@/components/Adsense";
   Lock,
   Upload,
   Download,
@@ -25,6 +24,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 export function ProtectPdfClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -170,6 +170,8 @@ export function ProtectPdfClient({ dict }: { dict?: any }) {
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.protect_pdf?.subtitle || "Add password protection to your PDF file. Encrypt your document to prevent unauthorized access. 100% private — processed in your browser."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {!pdfFile && (
           <div
@@ -346,9 +348,6 @@ export function ProtectPdfClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.protect_pdf?.faq_title || "Protect PDF FAQ"}</h2>

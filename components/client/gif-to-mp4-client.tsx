@@ -3,7 +3,6 @@
 import { useRef, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   FileVideo,
   Upload,
   Download,
@@ -28,6 +27,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Label } from "@/components/ui/label";
+import Adsense from "@/components/Adsense";
 
 // Types only - actual imports happen dynamically to avoid SSR issues
 type FFmpeg = any;
@@ -201,6 +201,8 @@ export function GifToMp4Client({ dict }: { dict?: any }) {
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.gif_to_mp4?.subtitle || "Convert animated GIF files to MP4 video format directly in your browser. Smaller file size, better quality."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {/* Drop Zone */}
         {!file && (
@@ -502,8 +504,6 @@ export function GifToMp4Client({ dict }: { dict?: any }) {
         </section>
 
         {/* FAQ Section */}
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

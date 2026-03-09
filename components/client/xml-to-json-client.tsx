@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-import Adsense from "@/components/Adsense";
   FileCode,
   ArrowRightLeft,
   Copy,
@@ -21,6 +20,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { toast } from "sonner";
+import Adsense from "@/components/Adsense";
 
 export function XmlToJsonClient({ dict }: { dict?: any }) {
   const [xmlInput, setXmlInput] = useState("");
@@ -174,6 +174,8 @@ export function XmlToJsonClient({ dict }: { dict?: any }) {
           {dict?.xml_to_json?.subtitle || "Convert XML data to JSON format instantly. Paste your XML code, or Drag & Drop a file."}
         </p>
 
+        <Adsense slotId="7759160077" />
+
         <div className="w-full grid md:grid-cols-2 gap-4">
           <Card
             className={`border-gray-200 dark:border-gray-800 transition-colors ${isDragging ? "border-blue-500 bg-blue-50 dark:bg-blue-900/10" : ""}`}
@@ -296,9 +298,6 @@ export function XmlToJsonClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Copy,
   CheckCircle2,
   AlignLeft,
@@ -21,6 +20,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { toast } from "sonner";
+import Adsense from "@/components/Adsense";
 
 export function InstagramLineBreakClient({ dict }: { dict?: any }) {
   const [text, setText] = useState("");
@@ -98,6 +98,8 @@ export function InstagramLineBreakClient({ dict }: { dict?: any }) {
           {dict?.instagram_line_break?.subtitle ||
             "Create clean Instagram captions with perfect line breaks."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         <div className="w-full grid md:grid-cols-2 gap-8 items-start">
           {/* Input Side */}
@@ -286,8 +288,6 @@ export function InstagramLineBreakClient({ dict }: { dict?: any }) {
         </section>
 
         {/* FAQ */}
-        <Adsense slotId="7759160077" />
-
         <section className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-2xl font-bold tracking-tight mb-4">

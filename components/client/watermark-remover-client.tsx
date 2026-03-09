@@ -3,7 +3,6 @@
 import { useRef, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Eraser,
   Upload,
   Download,
@@ -27,6 +26,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 // ---------------------------------------------------------------------------
 // Watermark Engine (ported from Node pngjs to browser Canvas)
@@ -278,6 +278,8 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
           {dict?.watermark_remover?.subtitle ||
             "Remove watermarks from images instantly. 100% browser-based, no upload to server. Supports batch processing."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {/* Drop Zone */}
         {files.length === 0 && (
@@ -682,8 +684,6 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
         </section>
 
         {/* FAQ */}
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

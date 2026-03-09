@@ -5,7 +5,6 @@ import { PDFDocument } from "pdf-lib";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-import Adsense from "@/components/Adsense";
   Scissors,
   Upload,
   Download,
@@ -25,6 +24,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 interface SplitResult {
   name: string;
@@ -228,6 +228,8 @@ export function SplitPdfClient({ dict }: { dict?: any }) {
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.split_pdf?.subtitle || "Split a PDF into multiple files. Extract every page separately or define custom page ranges. 100% private — processed in your browser."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {!pdfFile && (
           <div
@@ -447,9 +449,6 @@ export function SplitPdfClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.split_pdf?.faq_title || "Split PDF FAQ"}</h2>

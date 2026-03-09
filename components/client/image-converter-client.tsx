@@ -3,7 +3,6 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Upload,
   Download,
   Image as ImageIcon,
@@ -32,6 +31,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import JSZip from "jszip";
+import Adsense from "@/components/Adsense";
 
 type ValidFormat = "png" | "jpeg" | "webp" | "avif" | "gif";
 
@@ -393,6 +393,8 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
             "Convert images to WebP, PNG, JPG, AVIF, and GIF. Support for SVG, HEIC. Fast, free, and secure."}
         </p>
 
+        <Adsense slotId="7759160077" />
+
         {/* Start Screen / Drop Zone */}
         {images.length === 0 ? (
           <div
@@ -749,8 +751,6 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
         </section>
 
         {/* FAQ Section */}
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

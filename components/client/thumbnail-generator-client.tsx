@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-import Adsense from "@/components/Adsense";
   Card,
   CardContent,
   CardHeader,
@@ -29,6 +28,7 @@ import {
   Smile,
   Upload,
 } from "lucide-react";
+import Adsense from "@/components/Adsense";
 
 interface Template {
   id: string;
@@ -263,6 +263,8 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
           {dict?.thumbnail_generator?.subtitle ||
             "Create eye-catching thumbnails for YouTube, Instagram, and more. No design skills needed."}
         </p>
+
+        <Adsense slotId="7759160077" />
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8 mb-20">
@@ -783,9 +785,6 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

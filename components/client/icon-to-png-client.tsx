@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Download,
   Shapes,
   Search,
@@ -21,6 +20,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 interface IconItem {
   name: string;
@@ -318,6 +318,8 @@ export function IconToPngClient({ dict }: { dict?: any }) {
           {dict?.icon_to_png?.subtitle ||
             "Convert Font Awesome icons to PNG images. Choose from 150+ popular icons, customize colors, size, and download instantly."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {!fontsLoaded ? (
           <div className="flex items-center gap-3 text-muted-foreground">
@@ -636,9 +638,6 @@ export function IconToPngClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import { PDFDocument, StandardFonts, rgb, degrees } from "pdf-lib";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Pencil,
   Type,
   Image,
@@ -30,6 +29,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 type TabType = "pages" | "text" | "image";
 
@@ -384,6 +384,8 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">{dict?.pdf_editor?.title || "PDF Editor"}</h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">{dict?.pdf_editor?.subtitle || "Edit your PDF: manage pages (delete, rotate, reorder), add text, and insert images. 100% private — processed in your browser."}</p>
 
+        <Adsense slotId="7759160077" />
+
         {!pdfFile && (
           <div
             onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}
@@ -608,9 +610,6 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.pdf_editor?.faq_title || "PDF Editor FAQ"}</h2>

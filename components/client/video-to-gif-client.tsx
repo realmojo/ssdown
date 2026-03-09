@@ -3,7 +3,6 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   Film,
   Upload,
   Download,
@@ -22,6 +21,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 // Types only - actual imports happen dynamically to avoid SSR issues
 type FFmpeg = any;
@@ -201,6 +201,8 @@ export function VideoToGifClient({ dict }: { dict?: any }) {
           {dict?.video_to_gif?.subtitle ||
             "Convert short video clips to animated GIFs directly in your browser. Fast, free, and private."}
         </p>
+
+        <Adsense slotId="7759160077" />
 
         {/* Drop Zone */}
         {!file && (
@@ -523,8 +525,6 @@ export function VideoToGifClient({ dict }: { dict?: any }) {
         </section>
 
         {/* FAQ Section */}
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

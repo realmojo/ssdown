@@ -177,10 +177,9 @@ export default async function BlogPostPage(props: {
             ))}
           </div>
         </header>
+        <Adsense slotId="7759160077" />
 
         <PostContent content={post.content} />
-
-        <Adsense slotId="7759160077" />
       </article>
     </div>
   );

@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import { PDFDocument } from "pdf-lib";
 import { Button } from "@/components/ui/button";
 import {
-import Adsense from "@/components/Adsense";
   FileX,
   Upload,
   Download,
@@ -23,6 +22,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Adsense from "@/components/Adsense";
 
 export function DeletePdfPagesClient({ dict }: { dict?: any }) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -201,6 +201,8 @@ export function DeletePdfPagesClient({ dict }: { dict?: any }) {
           {dict?.delete_pdf_pages?.subtitle || "Remove specific pages from your PDF. Select pages to delete, keep the rest. 100% private — processed in your browser."}
         </p>
 
+        <Adsense slotId="7759160077" />
+
         {!pdfFile && (
           <div
             onDragOver={handleDragOver}
@@ -366,9 +368,6 @@ export function DeletePdfPagesClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
-
-        <Adsense slotId="7759160077" />
-
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">{dict?.delete_pdf_pages?.faq_title || "Delete PDF Pages FAQ"}</h2>
