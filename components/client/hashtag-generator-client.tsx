@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
+import Adsense from "@/components/Adsense";
   Card,
   CardContent,
   CardHeader,
@@ -489,6 +490,8 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
         </section>
 
         {/* FAQ Section */}
+        <Adsense slotId="7759160077" />
+
         <section>
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
+import Adsense from "@/components/Adsense";
   Card,
   CardContent,
   CardHeader,
@@ -782,6 +783,8 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
+
+        <Adsense slotId="7759160077" />
 
         <section>
           <div className="text-center mb-10">

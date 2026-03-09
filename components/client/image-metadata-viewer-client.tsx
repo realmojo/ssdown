@@ -24,6 +24,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import exifr from "exifr";
+import Adsense from "@/components/Adsense";
 
 export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -628,6 +629,8 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
+
+        <Adsense slotId="7759160077" />
 
         <section>
           <div className="text-center mb-12">

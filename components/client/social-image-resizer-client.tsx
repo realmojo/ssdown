@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
+import Adsense from "@/components/Adsense";
   Upload,
   Download,
   Image as ImageIcon,
@@ -494,6 +495,8 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
         </section>
 
         {/* FAQ */}
+        <Adsense slotId="7759160077" />
+
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

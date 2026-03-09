@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback } from "react";
 import {
+import Adsense from "@/components/Adsense";
   Type,
   FileText,
   Hash,
@@ -307,6 +308,8 @@ export function WordCounterClient({ dict }: { dict?: any }) {
         </section>
 
         {/* FAQ */}
+        <Adsense slotId="7759160077" />
+
         <section className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>

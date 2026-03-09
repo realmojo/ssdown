@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
+import Adsense from "@/components/Adsense";
   FileSpreadsheet,
   Split,
   Trash2,
@@ -291,6 +292,8 @@ export function SplitCsvClient({ dict }: { dict?: any }) {
       </div>
 
       <div className="w-full max-w-4xl mx-auto mt-12 px-4 space-y-16">
+        <Adsense slotId="7759160077" />
+
         <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
           <div className="text-center mb-10">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">

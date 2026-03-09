@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
+import Adsense from "@/components/Adsense";
   Upload,
   Download,
   Loader2,
@@ -592,6 +593,8 @@ export function FaviconGeneratorClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
+
+        <Adsense slotId="7759160077" />
 
         <section>
           <div className="text-center mb-12">

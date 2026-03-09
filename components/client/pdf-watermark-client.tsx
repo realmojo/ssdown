@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import {
+import Adsense from "@/components/Adsense";
   Upload,
   Download,
   FileText,
@@ -312,6 +313,8 @@ export function PdfWatermarkClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
+
+        <Adsense slotId="7759160077" />
 
         <section>
           <div className="text-center mb-12">

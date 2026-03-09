@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { PDFDocument } from "pdf-lib";
 import { Button } from "@/components/ui/button";
 import {
+import Adsense from "@/components/Adsense";
   FileX,
   Upload,
   Download,
@@ -365,6 +366,8 @@ export function DeletePdfPagesClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
+
+        <Adsense slotId="7759160077" />
 
         <section>
           <div className="text-center mb-12">

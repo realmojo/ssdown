@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
+import Adsense from "@/components/Adsense";
   Upload,
   Download,
   LayoutGrid,
@@ -705,6 +706,8 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
+
+        <Adsense slotId="7759160077" />
 
         <section>
           <div className="text-center mb-12">

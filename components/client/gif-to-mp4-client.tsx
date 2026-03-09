@@ -3,6 +3,7 @@
 import { useRef, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
+import Adsense from "@/components/Adsense";
   FileVideo,
   Upload,
   Download,
@@ -501,6 +502,8 @@ export function GifToMp4Client({ dict }: { dict?: any }) {
         </section>
 
         {/* FAQ Section */}
+        <Adsense slotId="7759160077" />
+
         <section>
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

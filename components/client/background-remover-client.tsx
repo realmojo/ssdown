@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
+import Adsense from "@/components/Adsense";
   Download,
   Image as ImageIcon,
   Loader2,
@@ -566,6 +567,8 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
             </div>
           </div>
         )}
+
+        <Adsense slotId="7759160077" />
 
         {/* FAQ Section */}
         {!file && (

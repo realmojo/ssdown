@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { PDFDocument, StandardFonts, rgb, degrees } from "pdf-lib";
 import { Button } from "@/components/ui/button";
 import {
+import Adsense from "@/components/Adsense";
   Pencil,
   Type,
   Image,
@@ -607,6 +608,8 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
+
+        <Adsense slotId="7759160077" />
 
         <section>
           <div className="text-center mb-12">

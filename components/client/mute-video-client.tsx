@@ -3,6 +3,7 @@
 import { useRef, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
+import Adsense from "@/components/Adsense";
   VolumeX,
   Upload,
   Download,
@@ -424,6 +425,8 @@ export function MuteVideoClient({ dict }: { dict?: any }) {
         </section>
 
         {/* FAQ Section */}
+        <Adsense slotId="7759160077" />
+
         <section>
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight mb-4">

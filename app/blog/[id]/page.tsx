@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { PostContent } from "@/components/PostContent";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Calendar, Clock, User } from "lucide-react";
+import Adsense from "@/components/Adsense";
 
 export async function generateMetadata({
   params,
@@ -178,6 +179,8 @@ export default async function BlogPostPage(props: {
         </header>
 
         <PostContent content={post.content} />
+
+        <Adsense slotId="7759160077" />
       </article>
     </div>
   );

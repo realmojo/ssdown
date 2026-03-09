@@ -5,6 +5,7 @@ import { PDFDocument, PageSizes, rgb } from "pdf-lib";
 import fontkit from "@pdf-lib/fontkit";
 import { Button } from "@/components/ui/button";
 import {
+import Adsense from "@/components/Adsense";
   FilePlus,
   Download,
   Loader2,
@@ -275,6 +276,8 @@ export function CreatePdfClient({ dict }: { dict?: any }) {
             ))}
           </div>
         </section>
+
+        <Adsense slotId="7759160077" />
 
         <section>
           <div className="text-center mb-12">

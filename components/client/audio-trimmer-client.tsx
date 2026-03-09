@@ -3,6 +3,7 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
+import Adsense from "@/components/Adsense";
   Upload,
   Download,
   Music,
@@ -783,6 +784,8 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
         </section>
 
         {/* Tips Section */}
+        <Adsense slotId="7759160077" />
+
         <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
           <div className="text-center mb-10">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">

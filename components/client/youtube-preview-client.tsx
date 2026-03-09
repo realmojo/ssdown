@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
+import Adsense from "@/components/Adsense";
   Select,
   SelectContent,
   SelectItem,
@@ -901,6 +902,8 @@ export function YoutubePreviewClient({
         </section>
 
         {/* FAQ Section */}
+        <Adsense slotId="7759160077" />
+
         <section>
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
