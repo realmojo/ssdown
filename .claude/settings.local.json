@@ -40,7 +40,13 @@
       "Bash(iconv:*)",
       "Bash(__NEW_LINE_d966ee5cf00c4abd__ cat /tmp/korean-ui-verification-report.md)",
       "Bash(npx eslint components/client/home-client.tsx components/site-footer.tsx components/site-header.tsx app/robots.ts app/sitemap.ts)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "mcp__supabase__apply_migration",
+      "WebFetch(domain:desmume.softonic.kr)",
+      "WebFetch(domain:api.softonic.com)",
+      "Bash(npm list:*)",
+      "Bash(npm install:*)",
+      "Bash(npx playwright:*)"
     ]
   },
   "model": "sonnet",
