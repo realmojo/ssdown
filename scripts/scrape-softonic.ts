@@ -2,8 +2,11 @@
  * Softonic 스크래퍼
  *
  * Usage:
+ *   npx tsx scripts/scrape-softonic.ts <URL> [--platform=Mac] [--ai] [--insert]
+ *
+ * Examples:
  *   npx tsx scripts/scrape-softonic.ts https://desmume.softonic.kr/
- *   npx tsx scripts/scrape-softonic.ts https://desmume.softonic.kr/ --insert
+ *   npx tsx scripts/scrape-softonic.ts https://desmume.softonic.kr/ --platform=Mac --ai --insert
  */
 
 import { chromium } from 'playwright';
@@ -18,8 +21,12 @@ type LicenseType = 'Free' | 'Trial' | 'Paid' | 'Open Source' | 'Freemium';
 type PlatformType = 'Windows' | 'Mac' | 'Android' | 'iOS' | 'Web' | 'Linux';
 type SecurityStatus = 'Safe' | 'Warning' | 'Dangerous' | 'Unknown';
 
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 interface ScrapedApp {
-  // Core
   id: string;
   slug: string;
   name: string;
@@ -39,6 +46,7 @@ interface ScrapedApp {
   // Download
   download_url: string;
   file_size: string;
+  download_count: string | null;
   license: LicenseType;
   price: number | null;
   currency: string | null;
@@ -59,6 +67,7 @@ interface ScrapedApp {
   pros: string[];
   cons: string[];
   features: string[];
+  faq: FaqItem[];
   // Specs
   os_requirements: string | null;
   languages: string[];
@@ -67,29 +76,30 @@ interface ScrapedApp {
   related_article_ids: string[];
 }
 
-// ── 플랫폼 정규화 ──────────────────────────────────────────────────────────────
+// ── 정규화 헬퍼 ────────────────────────────────────────────────────────────────
 
 function normalizePlatform(raw: string): PlatformType {
   const map: Record<string, PlatformType> = {
-    windows: 'Windows',
-    mac: 'Mac',
-    android: 'Android',
-    ios: 'iOS',
-    web: 'Web',
-    linux: 'Linux',
+    windows: 'Windows', mac: 'Mac', android: 'Android',
+    ios: 'iOS', web: 'Web', linux: 'Linux',
   };
   return map[raw.toLowerCase()] ?? 'Windows';
 }
 
 function normalizeLicense(raw: string): LicenseType {
-  const map: Record<string, LicenseType> = {
-    free: 'Free',
-    trial: 'Trial',
-    paid: 'Paid',
-    'open source': 'Open Source',
-    freemium: 'Freemium',
-  };
-  return map[raw.toLowerCase()] ?? 'Free';
+  const lower = raw.toLowerCase();
+  if (lower.includes('open source') || lower.includes('오픈')) return 'Open Source';
+  if (lower.includes('trial') || lower.includes('평가')) return 'Trial';
+  if (lower.includes('freemium') || lower.includes('부분')) return 'Freemium';
+  if (lower.includes('paid') || lower.includes('유료')) return 'Paid';
+  return 'Free';
+}
+
+function parseDownloadCount(raw: string): number {
+  const s = raw.replace(/[^\d.KMkm]/g, '');
+  if (s.toLowerCase().endsWith('m')) return Math.round(parseFloat(s) * 1_000_000);
+  if (s.toLowerCase().endsWith('k')) return Math.round(parseFloat(s) * 1_000);
+  return parseInt(s) || 0;
 }
 
 // ── 스크래퍼 메인 ─────────────────────────────────────────────────────────────
@@ -97,161 +107,209 @@ function normalizeLicense(raw: string): LicenseType {
 async function scrapeSoftonic(url: string): Promise<ScrapedApp> {
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
-    userAgent:
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
     locale: 'ko-KR',
+    extraHTTPHeaders: { 'Accept-Language': 'ko-KR,ko;q=0.9,en;q=0.8' },
   });
   const page = await context.newPage();
 
   console.log(`[scrape] 페이지 로딩: ${url}`);
-  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
-  await page.waitForTimeout(3000);
+  await page.goto(url, { waitUntil: 'networkidle', timeout: 45000 });
+  await page.waitForTimeout(2000);
 
-  // ── 1. dataLayer에서 핵심 메타데이터 추출 ────────────────────────────────
+  // ── 1. dataLayer ──────────────────────────────────────────────────────────
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const dlData: any = await page.evaluate('(function(){ var dl = window.dataLayer || []; return dl.find(function(e){ return e.programName || e.program_name; }) || {}; })()');
+  const dlData: any = await page.evaluate(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const dl = (window as any).dataLayer ?? [];
+    return dl.find((e: any) => e.programName || e.program_name) ?? {};
+  });
 
-  // ── 2. installerScriptParams JWT에서 추가 데이터 ─────────────────────────
+  // ── 2. JSON-LD ────────────────────────────────────────────────────────────
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const installerParams: any = await page.evaluate('(function(){ try { var scripts = Array.from(document.querySelectorAll("script")); for (var i=0;i<scripts.length;i++){ var m=scripts[i].textContent.match(/installerScriptParams\\s*=\\s*(\\{[^;]+\\})/); if(m) return JSON.parse(m[1]); } } catch(e){} return {}; })()');
+  const ldList: any[] = await page.evaluate(() => {
+    const els = Array.from(document.querySelectorAll('script[type="application/ld+json"]'));
+    return els.flatMap(el => {
+      try {
+        const parsed = JSON.parse(el.textContent ?? '');
+        return Array.isArray(parsed) ? parsed : [parsed];
+      } catch { return []; }
+    });
+  });
 
-  // ── 3. 메타 태그 ─────────────────────────────────────────────────────────
-  const meta: { title: string; description: string; ogImage: string | null; keywords: string } = await page.evaluate('(function(){ var q=function(s){ return document.querySelector(s); }; return { title: document.title, description: (q("meta[name=\'description\']")||{content:""}).content||"", ogImage: (q("meta[property=\'og:image\']")||{content:null}).content||null, keywords: (q("meta[name=\'keywords\']")||{content:""}).content||"" }; })()');
-
-  // ── 4. JSON-LD 구조화 데이터 ─────────────────────────────────────────────
-  const structuredData: Record<string, unknown> | null = await page.evaluate('(function(){ var el=document.querySelector("script[type=\'application/ld+json\']"); try{ return el ? JSON.parse(el.textContent||"") : null; }catch(e){ return null; } })()');
-
-  // ── 5. 본문 콘텐츠 (JS 렌더링 후) ────────────────────────────────────────
-
-  const content: {
-    pros: string[]; cons: string[]; features: string[];
-    screenshots: string[]; icon: string | null;
-    developer: string; fileSize: string; osReq: string;
-    langs: string[]; body: string; summary: string;
-    securityText: string; ratingText: string; reviewCountText: string;
-  } = await page.evaluate(`(function(){
-    function qt(sel){ var el=document.querySelector(sel); return el ? (el.textContent||"").trim() : ""; }
-    function qa(sel){ return Array.from(document.querySelectorAll(sel)).map(function(el){ return (el.textContent||"").trim(); }).filter(Boolean); }
-    function flatSel(sels){ var r=[]; sels.forEach(function(s){ r=r.concat(qa(s)); }); return r.filter(Boolean); }
-
-    var pros = flatSel([".pros li",".pros-list li","[class*=\\"pros\\"] li","[data-type=\\"pros\\"] li",".good-things li",".pros-cons__pros li"]);
-    var cons = flatSel([".cons li",".cons-list li","[class*=\\"cons\\"] li","[data-type=\\"cons\\"] li",".bad-things li",".pros-cons__cons li"]);
-    var features = flatSel([".features li","[class*=\\"feature\\"] li",".key-features li",".specs-list li",".technical-sheet li"]);
-
-    var screenshots = Array.from(document.querySelectorAll(".screenshots img,.gallery img,[class*=\\"screenshot\\"] img,[class*=\\"gallery\\"] img")).map(function(img){ return img.src||img.dataset.src||img.getAttribute("data-lazy-src")||""; }).filter(function(s){ return s && s.includes("sftcdn.net"); });
-
-    var iconEl = document.querySelector(".app-icon img,[class*=\\"program-icon\\"] img,header img[alt]");
-    var icon = iconEl ? iconEl.src : null;
-
-    var developer = qt("[class*=\\"developer\\"]") || qt("[class*=\\"author\\"]") || qt("a[href*=\\"/publisher/\\"]") || "";
-    var fileSize = qt("[class*=\\"file-size\\"]") || qt("[class*=\\"filesize\\"]") || "";
-    var osReq = qt("[class*=\\"os-requirements\\"]") || qt("[class*=\\"system-requirements\\"]") || "";
-    var langs = qa("[class*=\\"languages\\"] li,[class*=\\"language\\"] li");
-
-    var bodyEl = document.querySelector("[class*=\\"description\\"] .content,article .body,[class*=\\"body-copy\\"]");
-    var body = bodyEl ? bodyEl.innerHTML : "";
-
-    var summaryEl = document.querySelector("[class*=\\"description\\"] p,[class*=\\"summary\\"] p,[class*=\\"intro\\"] p");
-    var summary = summaryEl ? (summaryEl.textContent||"").trim() : "";
-
-    var secEl = document.querySelector("[class*=\\"security\\"],[class*=\\"antivirus\\"],[class*=\\"virus\\"]");
-    var securityText = secEl ? (secEl.textContent||"").trim() : "";
-
-    var ratingEl = document.querySelector("[class*=\\"rating\\"],[class*=\\"score\\"],[itemprop=\\"ratingValue\\"]");
-    var ratingText = ratingEl ? (ratingEl.textContent||"").trim() : "";
-
-    var reviewEl = document.querySelector("[itemprop=\\"reviewCount\\"],[class*=\\"review-count\\"],[class*=\\"nr-reviews\\"]");
-    var reviewCountText = reviewEl ? (reviewEl.textContent||"").trim() : "";
-
-    return { pros:pros, cons:cons, features:features, screenshots:screenshots, icon:icon, developer:developer, fileSize:fileSize, osReq:osReq, langs:langs, body:body, summary:summary, securityText:securityText, ratingText:ratingText, reviewCountText:reviewCountText };
-  })()`
-  );
-
-  await browser.close();
-
-  // ── 6. 데이터 조합 ────────────────────────────────────────────────────────
-
-  // JSON-LD에서 SoftwareApplication 항목 추출
-  const ldList = Array.isArray(structuredData) ? structuredData : structuredData ? [structuredData] : [];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ldApp = ldList.find((x: any) => x['@type'] === 'SoftwareApplication') as any ?? null;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ldBreadcrumb = ldList.find((x: any) => x['@type'] === 'BreadcrumbList') as any ?? null;
 
-  // 카테고리: BreadcrumbList의 3번째(main), 4번째(sub) 항목
+  // ── 3. 메타 태그 ──────────────────────────────────────────────────────────
+  const meta = await page.evaluate(() => ({
+    title: document.title,
+    description: (document.querySelector('meta[name="description"]') as HTMLMetaElement)?.content ?? '',
+    ogImage: (document.querySelector('meta[property="og:image"]') as HTMLMetaElement)?.content ?? null,
+    keywords: (document.querySelector('meta[name="keywords"]') as HTMLMetaElement)?.content ?? '',
+  }));
+
+  // ── 4. 페이지 본문 스크래핑 ───────────────────────────────────────────────
+  const scraped = await page.evaluate(() => {
+    const qt = (sel: string) => (document.querySelector(sel) as HTMLElement)?.textContent?.trim() ?? '';
+    const qa = (sel: string) => Array.from(document.querySelectorAll(sel))
+      .map(el => (el as HTMLElement).textContent?.trim() ?? '').filter(Boolean);
+    const qaSrc = (sel: string, attr = 'src') => Array.from(document.querySelectorAll(sel))
+      .map(el => (el as HTMLImageElement)[attr as 'src'] || el.getAttribute(`data-${attr}`) || el.getAttribute('data-lazy-src') || '').filter(Boolean);
+
+    // ── 앱명/버전/플랫폼 ──
+    const name = qt('h1[itemprop="name"],h1.program-header__name,.program-header h1,[class*="app-name"] h1')
+      || qt('h1');
+    const version = qt('[class*="version"],[itemprop="softwareVersion"],.program-header__version')
+      .replace(/^v/i, '').trim();
+
+    // ── 평점/리뷰 ──
+    const ratingText = qt('[itemprop="ratingValue"],[class*="rating-value"],[class*="stars-number"],.rating__value');
+    const reviewText = qt('[itemprop="ratingCount"],[class*="rating-count"],[class*="review-count"],[class*="nr-reviews"]');
+
+    // ── 다운로드 수 ──
+    const downloadCount = qt('[class*="download-count"],[class*="downloads-count"],[class*="program-header__downloads"]')
+      || qt('[class*="stat"][class*="download"]');
+
+    // ── 라이선스 ──
+    const licenseText = qt('[itemprop="offers"] [itemprop="price"],[class*="license"],[class*="type-tag"]')
+      || qt('[class*="program-header"] [class*="free"],[class*="tag--free"]');
+
+    // ── 개발사 ──
+    const developer = qt('[itemprop="author"] [itemprop="name"],[class*="developer-name"],[class*="author-name"]')
+      || (document.querySelector('a[href*="/publisher/"]') as HTMLElement)?.textContent?.trim() ?? '';
+
+    // ── 파일크기 / OS / 업데이트 날짜 / 언어 ──
+    const specItems = Array.from(document.querySelectorAll('[class*="specs"] [class*="item"],[class*="tech-specs"] li,.technical-sheet li,.specs-table tr'));
+    let fileSize = '', osReq = '', lastUpdated = '', langStr = '';
+    specItems.forEach(el => {
+      const txt = (el as HTMLElement).textContent?.trim() ?? '';
+      if (txt.match(/MB|KB|GB/i)) fileSize = txt;
+      else if (txt.match(/Windows|Mac|Android|iOS|Linux/i) && !osReq) osReq = txt;
+      else if (txt.match(/202[0-9]|201[0-9]/)) lastUpdated = txt;
+      else if (txt.match(/Language|언어|語/i)) langStr = txt;
+    });
+    // fallback selectors
+    if (!fileSize) fileSize = qt('[class*="file-size"],[class*="filesize"],[class*="size"]');
+    if (!osReq) osReq = qt('[itemprop="operatingSystem"],[class*="os-req"],[class*="system-req"]');
+    if (!lastUpdated) lastUpdated = qt('[class*="updated"],[class*="date-modified"],time[datetime]');
+    const languages = qa('[class*="languages"] li,[class*="language-list"] li')
+      .concat(langStr ? [langStr] : [])
+      .filter((v, i, a) => a.indexOf(v) === i);
+
+    // ── 보안 ──
+    const securityText = qt('[class*="security"],[class*="antivirus"],[class*="trusted"],[class*="virus-free"]');
+
+    // ── 아이콘 ──
+    const iconEl = document.querySelector(
+      '[class*="program-icon"] img,[class*="app-icon"] img,[class*="application-icon"] img,header img.icon'
+    ) as HTMLImageElement | null;
+    const icon = iconEl?.src ?? null;
+
+    // ── 스크린샷 ──
+    const screenshots = qaSrc(
+      '[class*="screenshot"] img,[class*="gallery"] img,[class*="slider"] img,[data-testid*="screenshot"] img'
+    ).filter(s => s.startsWith('http') && !s.includes('placeholder'));
+
+    // ── 장점/단점 ──
+    const pros = qa('[class*="pros"] li,[class*="good-things"] li,[class*="positive"] li');
+    const cons = qa('[class*="cons"] li,[class*="bad-things"] li,[class*="negative"] li');
+
+    // ── 본문 ──
+    const bodyEl = document.querySelector(
+      '[class*="article-text"],[class*="description-text"],[class*="program-description"],[class*="body-copy"] .content,article .body'
+    ) as HTMLElement | null;
+    const bodyHtml = bodyEl?.innerHTML?.trim() ?? '';
+    const summaryEl = document.querySelector(
+      '[class*="description"] > p:first-child,[class*="intro"] p,[class*="lead"] p'
+    ) as HTMLElement | null;
+    const summary = summaryEl?.textContent?.trim() ?? bodyEl?.textContent?.slice(0, 300).trim() ?? '';
+
+    // ── FAQ ──
+    const faqItems: { question: string; answer: string }[] = [];
+    // 방법 1: 명시적 FAQ 컨테이너
+    document.querySelectorAll('[class*="faq"] [class*="item"],[class*="faq-item"]').forEach(el => {
+      const q = (el.querySelector('[class*="question"],[class*="title"]') as HTMLElement)?.textContent?.trim();
+      const a = (el.querySelector('[class*="answer"],[class*="body"],[class*="content"]') as HTMLElement)?.textContent?.trim();
+      if (q && a) faqItems.push({ question: q, answer: a });
+    });
+    // 방법 2: details/summary
+    if (faqItems.length === 0) {
+      document.querySelectorAll('details').forEach(el => {
+        const q = (el.querySelector('summary') as HTMLElement)?.textContent?.trim();
+        const a = el.textContent?.replace(q ?? '', '').trim();
+        if (q && a) faqItems.push({ question: q, answer: a });
+      });
+    }
+
+    // ── 대체 앱 ──
+    const alternatives = Array.from(document.querySelectorAll('[class*="alternative"] [class*="name"],[class*="related-app"] h3'))
+      .map(el => (el as HTMLElement).textContent?.trim() ?? '').filter(Boolean).slice(0, 6);
+
+    return {
+      name, version, ratingText, reviewText, downloadCount, licenseText,
+      developer, fileSize, osReq, lastUpdated, languages, securityText,
+      icon, screenshots, pros, cons, bodyHtml, summary, faqItems, alternatives,
+    };
+  });
+
+  await browser.close();
+
+  // ── 5. 데이터 조합 ────────────────────────────────────────────────────────
+
   const breadcrumbItems = ldBreadcrumb?.itemListElement ?? [];
   const categoryMain = breadcrumbItems[2]?.item?.name ?? dlData.categoryId ?? '';
-  const categorySub = breadcrumbItems[3]?.item?.name ?? categoryMain;
+  const categorySub  = breadcrumbItems[3]?.item?.name ?? categoryMain;
 
-  // 개발자
-  const developerName = (ldApp?.review?.author?.name ?? content.developer) || 'Unknown';
-  const developerUrl = ldApp?.review?.author?.['@id'] ?? null;
+  const iconUrl = ldApp?.image ?? scraped.icon ?? null;
 
-  // 아이콘: JSON-LD image 필드 우선 (installer params의 SVG 말고)
-  const iconUrl = ldApp?.image ?? installerParams.programIconURL ?? content.icon ?? null;
-
-  // 스크린샷: JSON-LD mainEntityOfPage.thumbnailUrl 포함
   const coverImg = ldApp?.mainEntityOfPage?.thumbnailUrl;
-  const screenshots = content.screenshots.length > 0
-    ? content.screenshots
-    : coverImg ? [coverImg] : [];
+  const screenshots = scraped.screenshots.length > 0 ? scraped.screenshots : (coverImg ? [coverImg] : []);
 
-  // 본문 설명
-  const bodyText = ldApp?.mainEntityOfPage?.description ?? ldApp?.description ?? content.body ?? '';
-  const summary = content.summary || ldApp?.description || bodyText.slice(0, 200);
+  const bodyHtml = scraped.bodyHtml || ldApp?.mainEntityOfPage?.description || ldApp?.description || '';
+  const summary = scraped.summary || ldApp?.description || '';
 
-  // pros / cons: JSON-LD review.positiveNotes / negativeNotes
   const prosFromLd: string[] = (ldApp?.review?.positiveNotes?.itemListElement ?? [])
-    .map((x: any) => x.item ?? '')
-    .filter(Boolean);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .map((x: any) => x.item ?? '').filter(Boolean);
   const consFromLd: string[] = (ldApp?.review?.negativeNotes?.itemListElement ?? [])
-    .map((x: any) => x.item ?? '')
-    .filter(Boolean);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .map((x: any) => x.item ?? '').filter(Boolean);
 
-  // 평점: JSON-LD aggregateRating 우선 (10점 → 5점 변환)
+  // 평점
   const ldRatingValue = parseFloat(ldApp?.aggregateRating?.ratingValue ?? '0');
-  const ldBestRating = parseFloat(ldApp?.aggregateRating?.bestRating ?? '10');
+  const ldBestRating  = parseFloat(ldApp?.aggregateRating?.bestRating ?? '10');
   const ratingAvg = ldRatingValue > 0
     ? (ldRatingValue / ldBestRating) * 5
-    : parseFloat(dlData.program_user_score ?? '0') / 2;
-  const ratingCount = parseInt(ldApp?.aggregateRating?.ratingCount ?? dlData.nr_reviews ?? '0') || 0;
+    : parseFloat(scraped.ratingText) || parseFloat(dlData.program_user_score ?? '0') / 2;
+  const ratingCount = parseInt(ldApp?.aggregateRating?.ratingCount ?? scraped.reviewText ?? dlData.nr_reviews ?? '0') || 0;
 
-  // OS 요구사항
-  const osReq = ldApp?.operatingSystem ?? content.osReq ?? null;
+  // 날짜
+  let lastUpdated: string | null = null;
+  const dateStr = ldApp?.dateModified || scraped.lastUpdated || dlData.program_review_modification_date;
+  if (dateStr) {
+    try { lastUpdated = new Date(dateStr).toISOString(); } catch { lastUpdated = null; }
+  }
 
-  // 언어
-  const inLanguage = ldApp?.inLanguage;
-  const languages = content.langs.length > 0 ? content.langs : inLanguage ? [inLanguage] : [];
-
-  // 라이선스: offers.price === 0 이면 Free
-  const ldPrice = ldApp?.offers?.price ?? null;
-  const licenseRaw = dlData.program_licence ?? (ldPrice === 0 ? 'free' : 'free');
-
-  const programName = dlData.programName ?? dlData.program_name ?? installerParams.programName ?? ldApp?.name ?? 'Unknown';
-  const version = dlData.versionId ?? installerParams.versionId ?? '';
-  const platformRaw = dlData.platformId ?? installerParams.platformId ?? 'windows';
-
-  // slug을 URL에서 추출
-  const urlObj = new URL(url);
-  const pathParts = urlObj.hostname.split('.');  // desmume.softonic.kr
-  const appSlug = pathParts[0];
-  const platformSlug = normalizePlatform(platformRaw).toLowerCase();
-
-  // 보안 상태 판단
+  // 보안
   let secStatus: SecurityStatus = 'Unknown';
-  const secLower = content.securityText.toLowerCase();
-  if (secLower.includes('safe') || secLower.includes('안전') || secLower.includes('clean')) secStatus = 'Safe';
+  const secLower = scraped.securityText.toLowerCase();
+  if (secLower.includes('safe') || secLower.includes('안전') || secLower.includes('신뢰') || secLower.includes('clean')) secStatus = 'Safe';
   else if (secLower.includes('warn') || secLower.includes('경고')) secStatus = 'Warning';
   else if (secLower.includes('danger') || secLower.includes('위험')) secStatus = 'Dangerous';
 
-  const appId = dlData.programId ?? installerParams.programId ?? `${appSlug}-${platformSlug}`;
+  // 라이선스
+  const licenseRaw = dlData.program_licence || scraped.licenseText || 'free';
 
-  // 날짜
-  const lastUpdated = ldApp?.dateModified
-    ? new Date(ldApp.dateModified).toISOString()
-    : dlData.program_review_modification_date
-    ? new Date(dlData.program_review_modification_date).toISOString()
-    : null;
+  const programName = dlData.programName || dlData.program_name || scraped.name || ldApp?.name || 'Unknown';
+  const version = dlData.versionId || scraped.version || ldApp?.softwareVersion || '';
+  const platformRaw = dlData.platformId || 'windows';
+
+  const urlObj    = new URL(url);
+  const appSlug   = urlObj.hostname.split('.')[0];
+  const platformSlug = normalizePlatform(platformRaw).toLowerCase();
+  const appId     = String(dlData.programId || `${appSlug}-${platformSlug}`);
 
   const result: ScrapedApp = {
     id: appId,
@@ -260,21 +318,22 @@ async function scrapeSoftonic(url: string): Promise<ScrapedApp> {
     version,
     platform: normalizePlatform(platformRaw),
     supported_platforms: [normalizePlatform(platformRaw)],
-    developer_name: developerName,
-    developer_website_url: developerUrl,
+    developer_name: (ldApp?.review?.author?.name || scraped.developer || 'Unknown').trim(),
+    developer_website_url: ldApp?.review?.author?.['@id'] ?? null,
     category_main: categoryMain,
     category_sub: categorySub,
     // SEO
     seo_title: meta.title,
     seo_description: meta.description,
-    seo_keywords: meta.keywords ? meta.keywords.split(',').map((k) => k.trim()) : [],
+    seo_keywords: meta.keywords ? meta.keywords.split(',').map(k => k.trim()).filter(Boolean) : [],
     seo_og_image: meta.ogImage ?? coverImg ?? null,
-    seo_structured_data: structuredData,
+    seo_structured_data: ldList.length > 0 ? (ldList as Record<string, unknown>[]) : null,
     // Download
     download_url: url,
-    file_size: content.fileSize || 'N/A',
+    file_size: scraped.fileSize || ldApp?.fileSize || 'N/A',
+    download_count: scraped.downloadCount || null,
     license: normalizeLicense(licenseRaw),
-    price: ldPrice === 0 ? 0 : null,
+    price: ldApp?.offers?.price === 0 ? 0 : null,
     currency: ldApp?.offers?.priceCurrency ?? null,
     // Security
     security_status: secStatus,
@@ -289,19 +348,127 @@ async function scrapeSoftonic(url: string): Promise<ScrapedApp> {
     screenshot_urls: screenshots,
     video_url: null,
     short_summary: summary,
-    body_html: bodyText,
-    pros: prosFromLd.length > 0 ? prosFromLd : content.pros,
-    cons: consFromLd.length > 0 ? consFromLd : content.cons,
-    features: content.features,
+    body_html: bodyHtml,
+    pros: prosFromLd.length > 0 ? prosFromLd : scraped.pros,
+    cons: consFromLd.length > 0 ? consFromLd : scraped.cons,
+    features: [],
+    faq: scraped.faqItems,
     // Specs
-    os_requirements: osReq,
-    languages,
+    os_requirements: ldApp?.operatingSystem || scraped.osReq || null,
+    languages: scraped.languages,
     last_updated_date: lastUpdated,
     // Relations
-    related_article_ids: [],
+    related_article_ids: scraped.alternatives,
   };
 
   return result;
+}
+
+// ── Cloudflare AI ─────────────────────────────────────────────────────────────
+
+async function cfAI(prompt: string): Promise<string> {
+  const accountId = process.env.CF_ACCOUNT_ID;
+  const apiToken  = process.env.CF_API_TOKEN;
+  if (!accountId || !apiToken) throw new Error('CF_ACCOUNT_ID / CF_API_TOKEN 환경변수가 없습니다.');
+
+  const model = '@cf/meta/llama-3.1-8b-instruct';
+  const res = await fetch(
+    `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/${model}`,
+    {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${apiToken}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: [{ role: 'user', content: prompt }], max_tokens: 2048 }),
+    }
+  );
+  if (!res.ok) throw new Error(`Cloudflare AI 오류: ${res.status} ${await res.text()}`);
+  const json = await res.json() as { result?: { response?: string } };
+  return json.result?.response?.trim() ?? '';
+}
+
+async function generateAppContent(
+  raw: ScrapedApp
+): Promise<Pick<ScrapedApp, 'short_summary' | 'body_html' | 'pros' | 'cons' | 'features' | 'faq'>> {
+  console.log('[AI] 콘텐츠 생성 중...');
+
+  const ctx = `
+앱명: ${raw.name}
+플랫폼: ${raw.platform}
+버전: ${raw.version}
+개발사: ${raw.developer_name}
+카테고리: ${raw.category_main} > ${raw.category_sub}
+라이선스: ${raw.license}
+파일크기: ${raw.file_size}
+다운로드수: ${raw.download_count ?? ''}
+OS 요구사항: ${raw.os_requirements ?? ''}
+원본 요약: ${raw.short_summary}
+원본 장점: ${raw.pros.join(' / ')}
+원본 단점: ${raw.cons.join(' / ')}
+원본 FAQ: ${raw.faq.map(f => `Q: ${f.question} A: ${f.answer}`).join(' | ')}
+`.trim();
+
+  const summaryPrompt = `다음 앱 정보를 바탕으로 한국어로 2~3문장의 자연스럽고 매력적인 소개 문장을 작성해줘.
+원본을 번역하지 말고 새롭게 재구성해. 마크다운 없이 텍스트만 출력해.
+
+${ctx}`;
+
+  const bodyPrompt = `다음 앱 정보를 바탕으로 한국어 앱 소개 글을 작성해줘.
+규칙:
+- 본문만 출력 (제목 없음)
+- HTML 태그 <p>, <h3>, <ul>, <li>, <strong>만 사용
+- 600~900자 분량
+- 원본을 번역하지 말고 새롭게 재구성
+- 주요 기능, 특징, 추천 대상 포함
+
+${ctx}`;
+
+  const prosConsPrompt = `다음 앱 정보를 바탕으로 JSON만 출력해줘. 다른 텍스트 없음.
+형식: {"pros":["장점1","장점2","장점3"],"cons":["단점1","단점2"],"features":["기능1","기능2","기능3"]}
+- 장점 3~5개, 단점 2~3개, 주요기능 3~5개 (한국어)
+
+${ctx}`;
+
+  const faqPrompt = `다음 앱 정보를 바탕으로 자주 묻는 질문(FAQ) 3개를 한국어로 작성해줘.
+JSON만 출력해. 다른 텍스트 없음.
+형식: [{"question":"질문1","answer":"답변1"},{"question":"질문2","answer":"답변2"},{"question":"질문3","answer":"답변3"}]
+
+${ctx}`;
+
+  const [summaryRaw, bodyRaw, prosConsRaw, faqRaw] = await Promise.all([
+    cfAI(summaryPrompt),
+    cfAI(bodyPrompt),
+    cfAI(prosConsPrompt),
+    cfAI(faqPrompt),
+  ]);
+
+  // pros/cons/features JSON 파싱
+  let pros = raw.pros;
+  let cons = raw.cons;
+  let features = raw.features;
+  try {
+    const match = prosConsRaw.match(/\{[\s\S]*\}/);
+    if (match) {
+      const parsed = JSON.parse(match[0]);
+      if (Array.isArray(parsed.pros)) pros = parsed.pros;
+      if (Array.isArray(parsed.cons)) cons = parsed.cons;
+      if (Array.isArray(parsed.features)) features = parsed.features;
+    }
+  } catch {
+    console.warn('[AI] pros/cons JSON 파싱 실패 → 원본 유지');
+  }
+
+  // FAQ JSON 파싱
+  let faq = raw.faq;
+  try {
+    const match = faqRaw.match(/\[[\s\S]*\]/);
+    if (match) {
+      const parsed = JSON.parse(match[0]);
+      if (Array.isArray(parsed)) faq = parsed;
+    }
+  } catch {
+    console.warn('[AI] FAQ JSON 파싱 실패 → 원본 유지');
+  }
+
+  return { short_summary: summaryRaw, body_html: bodyRaw, pros, cons, features, faq };
 }
 
 // ── Supabase 삽입 ──────────────────────────────────────────────────────────────
@@ -323,16 +490,33 @@ async function insertToSupabase(data: ScrapedApp) {
 // ── CLI 진입점 ─────────────────────────────────────────────────────────────────
 
 async function main() {
-  const args = process.argv.slice(2);
-  const url = args.find((a) => a.startsWith('http'));
-  const doInsert = args.includes('--insert');
+  const args        = process.argv.slice(2);
+  const url         = args.find(a => a.startsWith('http'));
+  const platformArg = args.find(a => a.startsWith('--platform='))?.split('=')[1];
+  const doAI        = args.includes('--ai');
+  const doInsert    = args.includes('--insert');
 
   if (!url) {
-    console.error('Usage: npx tsx scripts/scrape-softonic.ts <URL> [--insert]');
+    console.error('Usage: npx tsx scripts/scrape-softonic.ts <URL> [--platform=Mac] [--ai] [--insert]');
     process.exit(1);
   }
 
   const data = await scrapeSoftonic(url);
+
+  if (platformArg) {
+    const normalized = normalizePlatform(platformArg);
+    data.platform = normalized;
+    data.supported_platforms = [normalized];
+    data.slug = data.slug.replace(/^\/(windows|mac|android|ios|linux|web)\//, `/${normalized.toLowerCase()}/`);
+    data.id   = data.id.replace(/-(windows|mac|android|ios|linux|web)$/, `-${normalized.toLowerCase()}`);
+    console.log(`[override] platform → ${normalized}`);
+  }
+
+  if (doAI) {
+    const generated = await generateAppContent(data);
+    Object.assign(data, generated);
+    console.log('[AI] 콘텐츠 생성 완료');
+  }
 
   console.log('\n──────────────── 추출 결과 ────────────────');
   console.log(JSON.stringify(data, null, 2));
@@ -342,11 +526,11 @@ async function main() {
     await insertToSupabase(data);
     console.log('Supabase에 저장 완료!');
   } else {
-    console.log('(--insert 플래그 없이 실행 → DB 저장 생략)');
+    console.log('(--insert 없이 실행 → DB 저장 생략)');
   }
 }
 
-main().catch((e) => {
+main().catch(e => {
   console.error(e);
   process.exit(1);
 });

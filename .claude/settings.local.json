@@ -46,7 +46,9 @@
       "WebFetch(domain:api.softonic.com)",
       "Bash(npm list:*)",
       "Bash(npm install:*)",
-      "Bash(npx playwright:*)"
+      "Bash(npx playwright:*)",
+      "Skill(claude-api)",
+      "Skill(claude-api:*)"
     ]
   },
   "model": "sonnet",
