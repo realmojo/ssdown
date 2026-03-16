@@ -62,6 +62,8 @@ export interface AppContent {
 
   shortSummary: string;
   bodyHtml: string;
+  editorReviewHtml: string;
+  aiReviewHtml: string;
 
   pros: string[];
   cons: string[];

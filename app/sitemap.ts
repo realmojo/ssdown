@@ -1,4 +1,6 @@
 import { MetadataRoute } from "next";
+import { CATEGORIES } from "@/lib/categories";
+import { supabase } from "@/lib/supabase";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://ssdown.app";
@@ -16,6 +18,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${baseUrl}/blog`,
       lastModified: "2026-01-01",
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/software`,
+      lastModified: "2026-03-16",
       changeFrequency: "daily",
       priority: 0.9,
     },
@@ -485,5 +493,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...blogPages];
+  const softwareCategoryPages: MetadataRoute.Sitemap = CATEGORIES.map((category) => ({
+    url: `${baseUrl}/software/${category.slug}`,
+    lastModified: "2026-03-16",
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
+
+  // Fetch software apps from Supabase
+  const { data: apps } = await supabase
+    .from("software_applications")
+    .select("slug, last_updated_date")
+    .order("last_updated_date", { ascending: false })
+    .limit(5000);
+
+  const softwareAppPages: MetadataRoute.Sitemap = (apps || []).map((app) => ({
+    url: `${baseUrl}${app.slug.startsWith("/") ? app.slug : "/" + app.slug}`,
+    lastModified: app.last_updated_date ? new Date(app.last_updated_date) : new Date(),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [...staticPages, ...blogPages, ...softwareCategoryPages, ...softwareAppPages];
 }

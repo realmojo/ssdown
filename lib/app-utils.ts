@@ -56,6 +56,8 @@ function transformRow(row: any): SoftwareApplication {
       videoUrl: row.video_url ?? undefined,
       shortSummary: row.short_summary ?? "",
       bodyHtml: row.body_html ?? "",
+      editorReviewHtml: row.editor_review_html ?? "",
+      aiReviewHtml: row.ai_review_html ?? "",
       pros: row.pros ?? [],
       cons: row.cons ?? [],
       features: row.features ?? [],
@@ -93,6 +95,38 @@ export async function getApp(
   return transformRow(data);
 }
 
+export async function getAppsByPlatform(
+  platform: string,
+  limit = 60,
+  offset = 0
+): Promise<{ apps: SoftwareApplication[]; total: number }> {
+  const platformName = platform.charAt(0).toUpperCase() + platform.slice(1).toLowerCase();
+  // iphone → iOS
+  const platformMap: Record<string, string> = { iphone: 'iOS', ios: 'iOS' };
+  const normalized = platformMap[platform.toLowerCase()] ?? platformName;
+
+  const { count, error: countError } = await supabase
+    .from("software_applications")
+    .select("id", { count: "exact", head: true })
+    .eq("platform", normalized);
+
+  if (countError) return { apps: [], total: 0 };
+
+  const { data, error } = await supabase
+    .from("software_applications")
+    .select("*")
+    .eq("platform", normalized)
+    .order("rating_average", { ascending: false })
+    .range(offset, offset + limit - 1);
+
+  if (error || !data) return { apps: [], total: count ?? 0 };
+
+  return {
+    apps: data.map(transformRow),
+    total: count ?? data.length,
+  };
+}
+
 export async function getAppsByCategory(
   categorySlug: string,
   limit = 20,
@@ -126,4 +160,21 @@ export async function getAppsByCategory(
     apps: data.map(transformRow),
     total: count ?? data.length,
   };
+}
+
+export async function getAlternatives(
+  app: SoftwareApplication,
+  limit = 5
+): Promise<SoftwareApplication[]> {
+  const { data, error } = await supabase
+    .from("software_applications")
+    .select("*")
+    .eq("category_main", app.core.category.main)
+    .eq("platform", app.core.platform)
+    .neq("id", app.core.id)
+    .order("rating_average", { ascending: false })
+    .limit(limit);
+
+  if (error || !data) return [];
+  return data.map(transformRow);
 }

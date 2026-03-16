@@ -1,0 +1,674 @@
+{
+  "generatedAt": "2026-03-16T07:56:24.936Z",
+  "total": 167,
+  "urls": [
+    {
+      "url": "https://hearica.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://octrafic.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://heatseat.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://troublebuddy.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://sidedoc.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://dictaflow.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://windowsill-etiennebaudoux.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://meva.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://deepl-write.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://mono-app.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://today-desktop-app.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://code-forge-ai.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://perplexity-ask-anything.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://talktotextai.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://neuralwriter.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://willow-voice.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://kaizen-speech-studio.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://studyx-ai.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://hitpaw-fotorpea.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://freedomgpt.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://flot-ai.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://lm-studio.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://clonmax.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://vidnoz-ai.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://avclabs-video-blur-ai.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://dinuai.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://elsi-smart-voice-assistant.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://gemma-google.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://audials-vision.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://topaz-video-ai.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://topaz-photo-ai.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://chatgpt.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://excire-foto-light.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://llama-2.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://notebooklm.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://wingpt.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://auto-gpt.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://github-co-pilot.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://bearly.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://picwish-background-eraser.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://code-gpt.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://spellbox.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://imagen.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://merlin-open-ai-chatgpt-powered-assistant.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://docgpt.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://dall-e.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://descript.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://krisp.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://ai-image-enlarger.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://voicemod.en.softonic.com/windows",
+      "platform": "windows"
+    },
+    {
+      "url": "https://whisper-transcription.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://octrafic.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://raindrop.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://meva.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://deepl-write.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://substage.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://mono-app.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://today-desktop-app.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://perplexity-ask-anything.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://code-forge-ai.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://talktotextai.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://neuralwriter.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://willow-voice.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://voicemod.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://chatgpt.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://topaz-video-ai.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://personal-ai.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://topaz-photo-ai.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://excire-foto-light.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://zozo.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://diffusionbee.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://bearly.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://spellbox.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://imagen.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://krisp.en.softonic.com/mac",
+      "platform": "mac"
+    },
+    {
+      "url": "https://ningenie-dont-ask-just-task.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://indus-by-sarvam.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://stickerbox.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://eloquentai.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://baby-tracker-ai-mybaby.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://alfi-your-group-chat.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://haiket.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://dreamwell.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://wiznote-ai-study-guide.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://lindy.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://google-notebooklm.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://driply.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://deepseek.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://everloop.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://kimi-chat.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://koupon.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://remaker-ai-face-swapper.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://museland-fun-ai-roleplay.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://gemini-google.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://dreamai-ai-images-generator.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://digi-ai-romance-reimagined.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://snapai.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://dream-u-your-art-generator.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://mateai-ai-chat-bot-assistant.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://heygen-ai-video-generator.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://talkie-soulful-ai.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://instant-portrait-ai-art.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://chatgpt.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://vega-ai-chat-app-with-gpt.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://riverside.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://replit-code-anything.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://starryai.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://coda-ai.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://clearai-photo-enhancer-remini.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://picwish-background-eraser.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://dream-by-wombo.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://photoroom-background-eraser-photo-editor.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://remini-photo-enhancer.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://otter-conversation-insights-unreleased.en.softonic.com/android",
+      "platform": "android"
+    },
+    {
+      "url": "https://lyte-total-health.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://jovio-ai-friend-and-journal.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://whisper-transcription.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://ningenie-dont-ask-just-task.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://neurosync-ai.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://surfscore-video-coach.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://ai-reader-read-aloud-pdf-book.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://alfi-your-group-chat.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://kiwi-ai.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://baby-tracker-ai-mybaby.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://ai-video-generator-make.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://lyric-studio-rap-rhyme-maker-1-2.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://haiket.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://wiz-note-ai-smart-notes.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://arcatext-ai-note-taker.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://tripo3d.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://lindy.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://willow-voice.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://google-notebooklm.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://deepseek.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://branded.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://harpy-chat.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://cardinal.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://dream-journal-with-ai.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://bytelearn.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://calibrex.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://dreamore.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://kimi-chat.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://digi-ai-romance-reimagined.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://microsoft-copilot.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://museland-fun-ai-roleplay.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://faith-forward.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://personal-ai.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://zozo.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://blend-background-eraser.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://chatgpt.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://riverside-fm.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://vega-ai-chat-app.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://picwish-background-eraser.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://finta-mobile.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://podcastle-podcast-recordings.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://playlistai.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://voi.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://ai-writer.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://jester-ai-caption-writer.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://green-screen-ai.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://poe-app.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://starryai.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://wonder-ai-art-generator.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://dream-by-wombo.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://remini-photo-enhancer.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://coda-ai.en.softonic.com/iphone",
+      "platform": "iphone"
+    },
+    {
+      "url": "https://otter-voice-meeting-notes.en.softonic.com/iphone",
+      "platform": "iphone"
+    }
+  ]
+}

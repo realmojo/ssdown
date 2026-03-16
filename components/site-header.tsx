@@ -61,6 +61,39 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                 variant="ghost"
                 className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
               >
+                Software <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem asChild>
+                <a href="/software/windows" className="w-full cursor-pointer">
+                  Windows
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="/software/mac" className="w-full cursor-pointer">
+                  Mac
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="/software/android" className="w-full cursor-pointer">
+                  Android
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="/software/iphone" className="w-full cursor-pointer">
+                  iOS
+                </a>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
+              >
                 Downloaders <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -692,6 +725,43 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                         </a>
                       </div>
                     </div> */}
+
+                    {/* Software */}
+                    <div className="flex flex-col gap-4">
+                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                        Software
+                      </h4>
+                      <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
+                        <a
+                          href="/software/windows"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Windows
+                        </a>
+                        <a
+                          href="/software/mac"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Mac
+                        </a>
+                        <a
+                          href="/software/android"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Android
+                        </a>
+                        <a
+                          href="/software/iphone"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          iOS
+                        </a>
+                      </div>
+                    </div>
 
                     {/* Image Tools */}
                     <div className="flex flex-col gap-4">

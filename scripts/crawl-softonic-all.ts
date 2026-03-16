@@ -1,11 +1,11 @@
 /**
- * Softonic.kr 전체 앱 크롤러 (최적화 버전)
+ * en.softonic.com 전체 앱 크롤러 (최적화 버전)
  *
  * PHASE 1: Playwright를 사용하여 카테고리 페이지에서 앱 URL 수집
  * PHASE 2: Fetch + Cheerio를 사용하여 상세 페이지 초고속 스크래핑 및 DB 저장
  */
 
-import { chromium, Browser, BrowserContext, Page } from 'playwright';
+import { chromium, Browser, BrowserContext } from 'playwright';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
@@ -16,25 +16,46 @@ dotenv.config({ path: '.env.local' });
 
 // ── 설정 ───────────────────────────────────────────────────────────────────────
 
-const PLATFORMS = ['windows', 'mac', 'android', 'iphone', 'pwa', 'web-apps'] as const;
+const PLATFORMS = ['windows', 'mac', 'android', 'iphone'] as const;
 type Platform = typeof PLATFORMS[number];
+
+const BASE_URL = 'https://en.softonic.com';
 
 const CATEGORIES = [
   'ai',
-  'development',
-  'personalization',
   'games',
-  'education-reference',
-  'lifestyle',
-  'multimedia',
-  'security-privacy',
   'browsers',
-  'business-productivity',
+  'security-privacy',
+  'productivity',
+  'internet-network',
+  'multimedia',
+  'development',
+  'education-reference',
+  'personalization',
+  'lifestyle',
   'social-communication',
   'travel-navigation',
   'utilities-tools',
-  'internet-network',
 ] as const;
+
+// 각 플랫폼+카테고리 조합의 마지막 페이지 (2026-03-16 기준 스캔값)
+// 500은 실제 상한선이므로 크롤러가 앱 없을 때 조기 종료됨
+const LAST_PAGES: Record<string, Record<string, number>> = {
+  'ai':                  { windows: 3,   mac: 2,   android: 2,   iphone: 3   },
+  'games':               { windows: 500, mac: 500, android: 500, iphone: 500 },
+  'browsers':            { windows: 46,  mac: 13,  android: 13,  iphone: 5   },
+  'security-privacy':    { windows: 77,  mac: 16,  android: 288, iphone: 55  },
+  'productivity':        { windows: 174, mac: 55,  android: 500, iphone: 500 },
+  'internet-network':    { windows: 34,  mac: 15,  android: 3,   iphone: 1   },
+  'multimedia':          { windows: 303, mac: 108, android: 500, iphone: 500 },
+  'development':         { windows: 130, mac: 30,  android: 5,   iphone: 2   },
+  'education-reference': { windows: 60,  mac: 32,  android: 500, iphone: 500 },
+  'personalization':     { windows: 123, mac: 28,  android: 500, iphone: 2   },
+  'lifestyle':           { windows: 36,  mac: 12,  android: 500, iphone: 500 },
+  'social-communication':{ windows: 36,  mac: 15,  android: 500, iphone: 402 },
+  'travel-navigation':   { windows: 1,   mac: 1,   android: 500, iphone: 500 },
+  'utilities-tools':     { windows: 500, mac: 271, android: 500, iphone: 500 },
+};
 
 const PLATFORM_MAP: Record<string, string> = {
   windows: 'Windows',
@@ -88,6 +109,7 @@ interface ScrapedApp {
   video_url: string | null;
   short_summary: string;
   body_html: string;
+  editor_review_html: string;
   pros: string[];
   cons: string[];
   features: string[];
@@ -104,6 +126,7 @@ const PROGRESS_FILE = path.join(process.cwd(), 'scripts', '.crawl-progress.json'
 
 interface Progress {
   scrapedUrls: string[];
+  processedUrls: string[];
   failedUrls: string[];
   startedAt: string;
   lastUpdated: string;
@@ -115,7 +138,7 @@ function loadProgress(): Progress {
       return JSON.parse(fs.readFileSync(PROGRESS_FILE, 'utf-8'));
     } catch { /* ignore */ }
   }
-  return { scrapedUrls: [], failedUrls: [], startedAt: new Date().toISOString(), lastUpdated: new Date().toISOString() };
+  return { scrapedUrls: [], processedUrls: [], failedUrls: [], startedAt: new Date().toISOString(), lastUpdated: new Date().toISOString() };
 }
 
 function saveProgress(progress: Progress) {
@@ -161,8 +184,8 @@ async function createBrowser(): Promise<{ browser: Browser; context: BrowserCont
   });
   const context = await browser.newContext({
     userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-    locale: 'ko-KR',
-    extraHTTPHeaders: { 'Accept-Language': 'ko-KR,ko;q=0.9,en;q=0.8' },
+    locale: 'en-US',
+    extraHTTPHeaders: { 'Accept-Language': 'en-US,en;q=0.9' },
     viewport: { width: 1280, height: 900 },
   });
   // 봇 탐지 우회
@@ -182,84 +205,58 @@ async function collectAppUrlsFromCategory(
   delayMs: number,
 ): Promise<string[]> {
   const urls: string[] = [];
-  let page: Page | null = null;
-  let totalPages = maxPages;
+  const page = await context.newPage();
+  await page.route('**/*.{png,jpg,jpeg,gif,webp,svg,woff,woff2,ttf,eot}', route => route.abort());
 
-  for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-    const categoryUrl = pageNum === 1
-      ? `https://www.softonic.kr/${platform}/${category}`
-      : `https://www.softonic.kr/${platform}/${category}/${pageNum}`;
+  try {
+    const baseUrl = `${BASE_URL}/${platform}/${category}:date`;
+    // LAST_PAGES 상수에서 마지막 페이지 조회 (없으면 maxPages 사용)
+    const totalPages = Math.min(LAST_PAGES[category]?.[platform] ?? maxPages, maxPages);
+    log('INFO', `${platform}/${category}: 총 ${totalPages}페이지 수집 예정`);
 
-    try {
-      if (!page) {
-        page = await context.newPage();
-        await page.route('**/*.{png,jpg,jpeg,gif,webp,svg,woff,woff2,ttf,eot}', route => route.abort());
-      }
+    // Step 2: 1~totalPages 순회
+    for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+      const categoryUrl = `${baseUrl}/${pageNum}`;
+      try {
+        log('INFO', `카테고리 수집: ${categoryUrl}`);
+        await page.goto(categoryUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+        await page.waitForTimeout(800);
 
-      log('INFO', `카테고리 수집: ${categoryUrl}`);
-      await page.goto(categoryUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
-      await page.waitForTimeout(1000);
+        const rawUrls = await page.evaluate(() => {
+          // data-meta="program" 링크만 수집 (앱 카드 링크)
+          const links = Array.from(document.querySelectorAll('a[data-meta="program"]')) as HTMLAnchorElement[];
+          return [...new Set(links.map(a => a.href).filter(Boolean))];
+        });
 
-      const result = await page.evaluate(() => {
-        const links = Array.from(document.querySelectorAll('a[href]')) as HTMLAnchorElement[];
-        const appUrls = links
-          .map(a => a.href)
-          .filter(href => {
-            try {
-              const u = new URL(href);
-              const parts = u.hostname.split('.');
-              return parts.length === 3 &&
-                parts[1] === 'softonic' &&
-                parts[2] === 'kr' &&
-                parts[0] !== 'www';
-            } catch { return false; }
-          })
-          .map(href => { const u = new URL(href); return `https://${u.hostname}/`; })
-          .filter((v, i, a) => a.indexOf(v) === i);
-
-        let lastPage = 0;
-        const navLinks = Array.from(document.querySelectorAll('[class*="pagination"] a, [class*="pager"] a, nav a, .pager li a')) as HTMLAnchorElement[];
-        for (const a of navLinks) {
-          const m = a.href.match(/\/([0-9]+)\/?$/);
-          if (m) { const n = parseInt(m[1]); if (n > lastPage) lastPage = n; }
-        }
-        if (!lastPage) {
-          const allA = Array.from(document.querySelectorAll('a')) as HTMLAnchorElement[];
-          for (const a of allA) {
-            const txt = (a.textContent || '').trim();
-            if (/^[0-9]+$/.test(txt)) {
-              const n = parseInt(txt);
-              if (n > lastPage && n < 1000) lastPage = n;
+        // windows는 href에 /windows 경로가 없으므로 플랫폼 경로 정규화
+        // https://{slug}.en.softonic.com/ → https://{slug}.en.softonic.com/windows
+        const pageUrls = rawUrls.map(href => {
+          try {
+            const u = new URL(href);
+            if (u.pathname === '/' || u.pathname === '') {
+              return `${u.origin}/${platform}`;
             }
-          }
+            return href;
+          } catch { return href; }
+        });
+
+        if (pageUrls.length === 0) {
+          log('INFO', `  → 앱 없음, 수집 종료`);
+          break;
         }
-        return { appUrls, lastPage };
-      });
 
-      const pageUrls = result.appUrls;
-      const detectedLastPage = result.lastPage;
-
-      if (pageNum === 1 && detectedLastPage > 1) {
-        totalPages = Math.min(detectedLastPage, maxPages);
-        log('INFO', `  → 총 ${detectedLastPage}페이지 감지 → ${totalPages}페이지까지 수집`);
-      }
-
-      if (pageUrls.length === 0) {
-        log('INFO', `  → 앱 없음, 수집 종료: ${categoryUrl}`);
+        urls.push(...pageUrls);
+        log('SUCCESS', `  → p${pageNum}/${totalPages}: ${pageUrls.length}개 앱 (누적 ${urls.length}개)`);
+        await sleep(delayMs / 2);
+      } catch (err) {
+        log('WARN', `페이지 오류 (${categoryUrl}): ${(err as Error).message}`);
         break;
       }
-
-      urls.push(...pageUrls);
-      log('SUCCESS', `  → p${pageNum}/${totalPages}: ${pageUrls.length}개 앱 (누적 ${urls.length}개)`);
-
-      await sleep(delayMs / 2);
-    } catch (err) {
-      log('WARN', `카테고리 페이지 오류 (${categoryUrl}): ${(err as Error).message}`);
-      break;
     }
+  } finally {
+    await page.close();
   }
 
-  if (page) await page.close();
   return [...new Set(urls)];
 }
 
@@ -273,12 +270,11 @@ async function scrapeAppDetail(
   const fetchHeaders = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-    'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7'
+    'Accept-Language': 'en-US,en;q=0.9'
   };
 
   try {
     let html = '';
-    let usedBrowser = false;
 
     // 1차 시도: 고속 Fetch
     try {
@@ -294,7 +290,6 @@ async function scrapeAppDetail(
 
     // 2차 시도: 브라우저 폴백 (챌린지 해결용)
     if (!html && context) {
-      usedBrowser = true;
       const page = await context.newPage();
       try {
         await page.route('**/*.{png,jpg,jpeg,gif,webp,svg,woff,woff2,ttf,eot}', route => route.abort());
@@ -375,17 +370,15 @@ async function scrapeAppDetail(
     // --- 공식 개발자 웹사이트 추출 강화 ---
     let officialWebsiteUrl: string | null = null;
     
-    // 방법 1: DT/DD 구조 (개발자: [링크]) 분석
-    $('dt').each((_, el) => {
+    // 방법 1: h3 "개발자" 아래의 리스트 분석 (사용자 제공 이미지 구조 대응)
+    $('h3').each((_, el) => {
       const text = $(el).text().trim();
-      if (text.includes('개발자') || text.includes('Developer')) {
-        const dd = $(el).next('dd');
-        dd.find('a[href]').each((__, a) => {
+      if (text === '개발자' || text === 'Developer') {
+        $(el).closest('li').find('a[href]').each((__, a) => {
           const href = $(a).attr('href');
-          // Softonic 내부 링크(author, publisher, search 등) 및 이미지 서버 배제
-          if (href && 
-              href.startsWith('http') && 
-              !href.includes('softonic.kr') && 
+          // Softonic 내부 링크(author, publisher 등) 및 자사 도메인 배제
+          if (href &&
+              href.startsWith('http') &&
               !href.includes('softonic.com') &&
               !href.includes('sftcdn.net')) {
             officialWebsiteUrl = href;
@@ -396,15 +389,31 @@ async function scrapeAppDetail(
       if (officialWebsiteUrl) return false;
     });
 
-    // 방법 2: 사이드바 및 페이지 전체에서 개발자 사이트 성격의 링크 찾기
+    // 방법 2: DT/DD 구조 분석 (레거시 대응)
+    if (!officialWebsiteUrl) {
+      $('dt').each((_, el) => {
+        const text = $(el).text().trim();
+        if (text.includes('개발자') || text.includes('Developer')) {
+          const dd = $(el).next('dd');
+          dd.find('a[href]').each((__, a) => {
+            const href = $(a).attr('href');
+            if (href && href.startsWith('http') && !href.includes('softonic') && !href.includes('sftcdn')) {
+              officialWebsiteUrl = href;
+              return false;
+            }
+          });
+        }
+        if (officialWebsiteUrl) return false;
+      });
+    }
+
+    // 방법 3: 페이지 전체에서 공식 사이트 키워드 기반 찾기
     if (!officialWebsiteUrl) {
       $('a[href^="http"]').each((_, el) => {
         const href = $(el).attr('href') || '';
         if (href.includes('softonic') || href.includes('sftcdn')) return;
-        
         const txt = $(el).text().toLowerCase();
         const parentTxt = $(el).parent().text().toLowerCase();
-        // 'Visit', 'Home', 'Official' 등의 키워드가 있거나 부모 요소에 '개발자' 텍스트가 있는 경우
         if (txt.includes('visit') || txt.includes('official') || txt.includes('homepage') || 
             parentTxt.includes('개발자') || parentTxt.includes('developer') || 
             parentTxt.includes('publisher') || parentTxt.includes('공식 사이트')) {
@@ -416,7 +425,6 @@ async function scrapeAppDetail(
 
     // --- 실제 다운로드 링크 추출 (추가 페치) ---
     let finalDownloadUrl = url;
-    let externalDownloadFound = false;
     try {
       const downloadPageUrl = url.endsWith('/') ? `${url}download` : `${url}/download`;
       const dlRes = await fetch(downloadPageUrl, { headers: fetchHeaders });
@@ -436,7 +444,6 @@ async function scrapeAppDetail(
             finalDownloadUrl = `${u.protocol}//${u.hostname}${extracted}`;
           } else {
             finalDownloadUrl = extracted;
-            if (external) externalDownloadFound = true;
           }
         }
       }
@@ -454,6 +461,38 @@ async function scrapeAppDetail(
     const bodyEl = $('[class*="article-text"], [class*="description-text"], [class*="program-description"], [class*="body-copy"] .content, article .body').first();
     const bodyHtml = bodyEl.html()?.trim() ?? '';
     const summary = $('[class*="description"] > p:first-child, [class*="intro"] p, [class*="lead"] p').first().text().trim() || bodyEl.text().slice(0, 300).trim() || '';
+
+    // 에디터 리뷰 아티클 수집 (article[data-meta="editor-review"]) - Clean HTML
+    const editorReviewEl = $('article[data-meta="editor-review"]').first();
+    let editorReviewHtml = '';
+    if (editorReviewEl.length) {
+      // 광고/위젯 요소 제거
+      editorReviewEl.find('[data-meta="placeholder-slot"], [data-meta="prime-picks"]').remove();
+      editorReviewEl.find('[id^="rscontainer"]').remove();
+      editorReviewEl.find('svg').remove();
+      editorReviewEl.find('script, style, iframe, noscript').remove();
+      // 허용 태그 외 제거 (h2, h3, p, strong, em, a, ul, ol, li 유지)
+      const ALLOWED_TAGS = new Set(['h2', 'h3', 'p', 'strong', 'em', 'a', 'ul', 'ol', 'li']);
+      editorReviewEl.find('*').each((_, el) => {
+        const tagName = (el as any).tagName?.toLowerCase();
+        if (!ALLOWED_TAGS.has(tagName)) {
+          // 허용 안된 태그: 자식만 남기고 태그 제거
+          $(el).replaceWith($(el).contents());
+        }
+      });
+      // 모든 class, id, style 속성 제거 (a의 href는 유지)
+      editorReviewEl.find('*').each((_, el) => {
+        const kept: Record<string, string> = {};
+        const tagName = (el as any).tagName?.toLowerCase();
+        if (tagName === 'a') {
+          const href = $(el).attr('href');
+          if (href) kept['href'] = href;
+        }
+        $(el).removeAttr('class').removeAttr('id').removeAttr('style').removeAttr('data-meta');
+        Object.entries(kept).forEach(([k, v]) => $(el).attr(k, v));
+      });
+      editorReviewHtml = editorReviewEl.html()?.trim() ?? '';
+    }
 
     const faqItems: FaqItem[] = [];
     $('[class*="faq"] [class*="item"], [class*="faq-item"]').each((_, el) => {
@@ -483,11 +522,8 @@ async function scrapeAppDetail(
     else if (secLower.includes('warn') || secLower.includes('경고')) secStatus = 'Warning';
     else if (secLower.includes('danger') || secLower.includes('위험')) secStatus = 'Dangerous';
 
-    const urlObj = new URL(url);
-    const appSlug = urlObj.hostname.split('.')[0];
-    const platformRaw = dlData.platformId || platform || $('meta[property="rv-platform-id"]').attr('content') || 'windows';
-    const platformSlug = normalizePlatform(platformRaw).toLowerCase();
-    const appId = String(dlData.programId || $('meta[property="rv-app-id"]').attr('content') || `${appSlug}-${platformSlug}`);
+    const finalName = name || ldApp?.name || $('meta[property="og:title"]').attr('content') || $('meta[property="rv-program-name"]').attr('content') || $('title').text().split('-')[0].trim() || 'Unknown';
+    const finalDevName = (ldApp?.author?.name || ldApp?.review?.author?.name || developer || $('meta[property="rv-author"]').attr('content') || 'Unknown').trim();
 
     let lastUpdatedIso: string | null = null;
     const dateStr = lastUpdated || ldApp?.dateModified || dlData.program_review_modification_date;
@@ -495,12 +531,21 @@ async function scrapeAppDetail(
       try { lastUpdatedIso = new Date(dateStr).toISOString(); } catch { lastUpdatedIso = null; }
     }
 
-    const finalName = name || ldApp?.name || $('meta[property="og:title"]').attr('content') || $('meta[property="rv-program-name"]').attr('content') || $('title').text().split('-')[0].trim() || 'Unknown';
-    const finalDevName = (ldApp?.author?.name || ldApp?.review?.author?.name || developer || $('meta[property="rv-author"]').attr('content') || 'Unknown').trim();
+    const urlObj = new URL(url);
+    const appSlugFromUrl = urlObj.hostname.split('.')[0];
+    const platformRaw = dlData.platformId || platform || $('meta[property="rv-platform-id"]').attr('content') || 'windows';
+    const platformSlug = normalizePlatform(platformRaw).toLowerCase();
+    
+    // 사용자가 요청한 '프로그램 이름 기반 ID' 생성
+    const nameSlug = finalName.toLowerCase()
+      .replace(/[^a-z0-9]/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+    const appId = `${nameSlug}-${platformSlug}`;
 
     return {
       id: appId,
-      slug: `/${platformSlug}/${appSlug}`,
+      slug: `/${platformSlug}/${nameSlug}`, // ID와 일관성 유지
       name: finalName,
       version: version || ldApp?.softwareVersion || '',
       platform: normalizePlatform(platformRaw),
@@ -531,6 +576,7 @@ async function scrapeAppDetail(
       video_url: null,
       short_summary: summary,
       body_html: bodyHtml,
+      editor_review_html: editorReviewHtml,
       pros: pros.length > 0 ? pros : (ldApp?.review?.positiveNotes?.itemListElement ?? []).map((x: any) => x.item ?? '').filter(Boolean),
       cons: cons.length > 0 ? cons : (ldApp?.review?.negativeNotes?.itemListElement ?? []).map((x: any) => x.item ?? '').filter(Boolean),
       features: [],
@@ -588,24 +634,41 @@ async function main() {
   const getArg = (prefix: string) => args.find(a => a.startsWith(prefix))?.split('=')[1];
   const platformFilter = getArg('--platform')?.split(',').map(p => p.trim().toLowerCase()) ?? null;
   const categoryFilter = getArg('--category')?.split(',').map(c => c.trim().toLowerCase()) ?? null;
-  const maxPages       = parseInt(getArg('--max-pages') ?? '999') || 999;
+  const maxPages       = parseInt(getArg('--max-pages') ?? '500') || 500;
   const concurrency    = parseInt(getArg('--concurrency') ?? '10') || 10; // 상세 스크래핑 동시성 상향
-  const delay          = parseInt(getArg('--delay') ?? '1000') || 1000; // 딜레이 축소
+  const delayMs          = parseInt(getArg('--delay') ?? '1000') || 1000; // 딜레이 축소
   const dryRun         = args.includes('--dry-run');
   const resume         = args.includes('--resume');
+  const singleUrl      = getArg('--url');
 
-  const supabase = dryRun ? null : createClient(
+  const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
   );
+
+  // ── 단일 URL 직접 스크래핑 모드 ──────────────────────────────────────────
+  if (singleUrl) {
+    const platform = new URL(singleUrl).pathname.replace(/^\//, '').split('/')[0] || 'windows';
+    log('INFO', `단일 URL 스크래핑: ${singleUrl} [${platform}]`);
+    const { browser, context } = await createBrowser();
+    try {
+      const appData = await scrapeAppDetail(context, singleUrl, platform);
+      log('INFO', `수집 결과:\n${JSON.stringify(appData, null, 2)}`);
+      await upsertToSupabase(supabase, appData);
+      log('SUCCESS', `DB 저장 완료: ${appData.name} [${appData.id}]`);
+    } finally {
+      await browser.close();
+    }
+    return;
+  }
 
   const progress = loadProgress();
   if (!resume) {
     progress.scrapedUrls = [];
     progress.failedUrls = [];
-    progress.processedUrls = []; // Add this for pMap tracking
+    progress.processedUrls = [];
   }
-  const skippedSet = new Set(progress.scrapedUrls); // Keep for initial filtering if needed, but pMap will use processedUrls
+  const skippedSet = new Set(progress.scrapedUrls);
 
   const targetPlatforms = platformFilter ? PLATFORMS.filter(p => platformFilter.includes(p)) : [...PLATFORMS];
   const targetCategories = categoryFilter ? CATEGORIES.filter(c => categoryFilter.includes(c)) : [...CATEGORIES];
@@ -623,13 +686,21 @@ async function main() {
       }
     }
 
-    const uniqueUrlMap = new Map<string, string>();
-    for (const { url, platform } of allAppUrls) {
-      if (!uniqueUrlMap.has(url)) uniqueUrlMap.set(url, platform);
-    }
-    const uniqueUrls = Array.from(uniqueUrlMap.entries()).map(([url, platform]) => ({ url, platform }));
+    // URL 자체에 platform이 포함되어 있으므로 URL로 중복 제거
+    // (같은 앱이라도 /mac, /windows는 다른 URL → 다른 레코드)
+    const uniqueUrls = [...new Map(allAppUrls.map(x => [x.url, x])).values()];
 
     log('SUCCESS', `총 ${uniqueUrls.length}개 유니크 앱 URL 수집 완료`);
+
+    // 수집된 URL을 JSON 파일로 저장 (dry-run 여부와 관계없이)
+    const outputFile = getArg('--output') ?? path.join(process.cwd(), 'scripts', '.crawl-urls.json');
+    const outputData = {
+      generatedAt: new Date().toISOString(),
+      total: uniqueUrls.length,
+      urls: uniqueUrls,
+    };
+    fs.writeFileSync(outputFile, JSON.stringify(outputData, null, 2));
+    log('SUCCESS', `URL 목록 저장: ${outputFile} (${uniqueUrls.length}개)`);
 
     if (dryRun) {
       console.log('\n── Dry Run (URL 목록) ──');
@@ -642,7 +713,6 @@ async function main() {
     let successCount = 0;
     let failCount = 0;
 
-    // pLimit으로 동시 실행 (이제 상세 정보 수집시에도 브라우저 컨텍스트 활용 가능)
     const tasks = todoUrls.map(({ url, platform }) => async () => {
       try {
         const appData = await scrapeAppDetail(collectorContext, url, platform);

@@ -32,6 +32,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "**.hdslb.com",
       },
+      {
+        protocol: "https",
+        hostname: "images.sftcdn.net",
+      },
     ],
     unoptimized: false,
   },

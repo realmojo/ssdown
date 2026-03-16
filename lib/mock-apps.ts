@@ -41,6 +41,7 @@ export const mockApps: Record<string, SoftwareApplication> = {
         "https://via.placeholder.com/600x400?text=Screenshot+2"
       ],
       shortSummary: "Mac 환경에서 닌텐도 DS(Nintendo DS) 게임을 원활하게 플레이할 수 있도록 도와주는 무료 오픈소스 에뮬레이터입니다.",
+      editorReviewHtml: "",
       bodyHtml: `
         <p><strong>DeSmuME</strong>는 Mac 환경에서 닌텐도 DS(Nintendo DS) 게임을 원활하게 플레이할 수 있도록 도와주는 무료 오픈소스 <strong>에뮬레이터</strong>입니다. 복잡한 설정 없이도 뛰어난 호환성과 다양한 편의 기능을 제공하여, 고전 게임 팬들에게 가장 인기 있는 선택지 중 하나입니다.</p>
         <h3 class="text-xl font-bold mt-6 mb-4">🚀 DeSmuME 주요 시스템 및 기능</h3>
@@ -63,11 +64,12 @@ export const mockApps: Record<string, SoftwareApplication> = {
         "오래된 Mac 기기에서는 프레임 드랍 발생 가능성"
       ],
       features: [
-        "마이크 에뮬레이션", 
-        "비디오/오디오 녹화 가능", 
-        "치트 코드 매니저", 
+        "마이크 에뮬레이션",
+        "비디오/오디오 녹화 가능",
+        "치트 코드 매니저",
         "키보드 및 게임패드 매핑"
-      ]
+      ],
+      faq: []
     },
     specs: {
       osRequirements: "macOS 10.12 Sierra 이상",
@@ -119,12 +121,14 @@ export const mockApps: Record<string, SoftwareApplication> = {
         "https://via.placeholder.com/600x400?text=Chrome+1",
       ],
       shortSummary: "Google이 만든 빠르고 안전한 무료 웹 브라우저입니다. 확장 프로그램으로 무한한 기능을 더하세요.",
+      editorReviewHtml: "",
       bodyHtml: `
         <p><strong>Google Chrome</strong>은 전 세계에서 가장 많이 사용되는 웹 브라우저입니다. 빠르고 간결한 디자인, 뛰어난 보안 기능, 구글 생태계와의 완벽한 연동을 자랑합니다.</p>
       `,
       pros: ["압도적인 브라우징 속도", "방대한 확장 프로그램 생태계", "강력한 보안 및 동기화"],
       cons: ["램(RAM) 메모리 사용량이 다소 높음"],
-      features: ["비밀번호 관리자 내장", "악성 사이트 차단", "빠른 구글 검색 연동"]
+      features: ["비밀번호 관리자 내장", "악성 사이트 차단", "빠른 구글 검색 연동"],
+      faq: []
     },
     specs: {
       osRequirements: "Windows 10/11 64-bit",
