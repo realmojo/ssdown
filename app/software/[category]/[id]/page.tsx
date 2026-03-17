@@ -36,12 +36,26 @@ export async function generateMetadata({
 }: {
   params: Promise<{ category: string; id: string }>;
 }): Promise<Metadata> {
-  const { id } = await params;
+  const { category, id } = await params;
   const app = await getAppById(id);
   if (!app) return {};
+  const canonical = `https://ssdown.app/software/${category}/${id}`;
   return {
     title: app.seo.title || `${app.core.name} 다운로드 - SSDown`,
     description: app.seo.description || app.content.shortSummary,
+    alternates: { canonical },
+    openGraph: {
+      title: app.seo.title || `${app.core.name} 다운로드`,
+      description: app.seo.description || app.content.shortSummary,
+      url: canonical,
+      images: app.content.iconUrl ? [{ url: app.content.iconUrl, width: 512, height: 512 }] : [],
+    },
+    twitter: {
+      card: "summary",
+      title: app.seo.title || `${app.core.name} 다운로드`,
+      description: app.seo.description || app.content.shortSummary,
+      images: app.content.iconUrl ? [app.content.iconUrl] : [],
+    },
   };
 }
 
@@ -113,6 +127,55 @@ export default async function AppDetailPage({
   const category =
     getCategoryBySlug(categorySlug) ??
     getCategoryByMain(app.core.category.main);
+  const canonicalUrl = `https://ssdown.app/software/${category?.slug ?? categorySlug}/${id}`;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: app.core.name,
+    description: app.content.shortSummary || app.seo.description,
+    url: canonicalUrl,
+    applicationCategory: app.core.category.main,
+    operatingSystem: app.core.platform,
+    ...(app.core.version && { softwareVersion: app.core.version }),
+    ...(app.download.fileSize && { fileSize: app.download.fileSize }),
+    ...(app.content.iconUrl && { image: app.content.iconUrl }),
+    ...(app.specs.lastUpdatedDate && { dateModified: new Date(app.specs.lastUpdatedDate).toISOString() }),
+    offers: {
+      "@type": "Offer",
+      price: app.download.license === "Free" || app.download.license === "Open Source" ? "0" : String(app.download.price ?? ""),
+      priceCurrency: app.download.currency ?? "USD",
+      availability: "https://schema.org/InStock",
+    },
+    ...(app.rating.average > 0 && app.rating.totalCount > 0 && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: app.rating.average.toFixed(1),
+        ratingCount: app.rating.totalCount,
+        bestRating: "5",
+        worstRating: "1",
+      },
+    }),
+    author: {
+      "@type": "Organization",
+      name: app.core.developer.name || "Unknown",
+      ...(app.core.developer.websiteUrl && { url: app.core.developer.websiteUrl }),
+    },
+    ...(app.content.screenshotUrls.length > 0 && {
+      screenshot: app.content.screenshotUrls.slice(0, 5).map((src) => ({
+        "@type": "ImageObject",
+        url: src,
+      })),
+    }),
+    ...(app.content.faq.length > 0 && {
+      mainEntity: app.content.faq.map((f) => ({
+        "@type": "Question",
+        name: f.question,
+        acceptedAnswer: { "@type": "Answer", text: f.answer },
+      })),
+    }),
+  };
+
   const licStyle = LICENSE_STYLE[app.download.license] ?? LICENSE_STYLE.Free;
   const secStyle = SECURITY_STYLE[app.download.security.status] ?? SECURITY_STYLE.Unknown;
   const hasScreenshots = app.content.screenshotUrls.length > 0;
@@ -124,6 +187,10 @@ export default async function AppDetailPage({
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
       {/* ── HERO ─────────────────────────────────────────────────── */}
       <div className="bg-slate-900 relative overflow-hidden">

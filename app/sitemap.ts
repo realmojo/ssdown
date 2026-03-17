@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { CATEGORIES } from "@/lib/categories";
+import { CATEGORIES, getCategoryByMain } from "@/lib/categories";
 import { supabase } from "@/lib/supabase";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -500,19 +500,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  // Fetch software apps from Supabase
+  // Fetch software apps from Supabase — use new /software/[category]/[id] URL structure
   const { data: apps } = await supabase
     .from("software_applications")
-    .select("slug, last_updated_date")
+    .select("id, category_main, last_updated_date")
     .order("last_updated_date", { ascending: false })
     .limit(5000);
 
-  const softwareAppPages: MetadataRoute.Sitemap = (apps || []).map((app) => ({
-    url: `${baseUrl}${app.slug.startsWith("/") ? app.slug : "/" + app.slug}`,
-    lastModified: app.last_updated_date ? new Date(app.last_updated_date) : new Date(),
-    changeFrequency: "monthly",
-    priority: 0.6,
-  }));
+  const softwareAppPages: MetadataRoute.Sitemap = (apps || [])
+    .map((app) => {
+      const category = getCategoryByMain(app.category_main ?? "");
+      if (!category) return null;
+      return {
+        url: `${baseUrl}/software/${category.slug}/${app.id}`,
+        lastModified: app.last_updated_date ? new Date(app.last_updated_date) : new Date(),
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+      };
+    })
+    .filter(Boolean) as MetadataRoute.Sitemap;
 
   return [...staticPages, ...blogPages, ...softwareCategoryPages, ...softwareAppPages];
 }
