@@ -178,7 +178,7 @@ async function scrapeSoftonic(url: string): Promise<ScrapedApp> {
 
     // ── 개발사 ──
     const developer = qt('[itemprop="author"] [itemprop="name"],[class*="developer-name"],[class*="author-name"]')
-      || (document.querySelector('a[href*="/publisher/"]') as HTMLElement)?.textContent?.trim() ?? '';
+      || ((document.querySelector('a[href*="/publisher/"]') as HTMLElement)?.textContent?.trim() ?? '');
 
     // ── 파일크기 / OS / 업데이트 날짜 / 언어 ──
     const specItems = Array.from(document.querySelectorAll('[class*="specs"] [class*="item"],[class*="tech-specs"] li,.technical-sheet li,.specs-table tr'));
