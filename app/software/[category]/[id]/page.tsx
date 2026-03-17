@@ -472,7 +472,7 @@ export default async function AppDetailPage({
           <div className="space-y-4">
 
             {/* Download card */}
-            <div className="bg-white rounded-2xl border border-gray-100 p-5 sticky top-4">
+            <div className="bg-white rounded-2xl border border-gray-100 p-5">
               <a
                 href={app.download.downloadUrl}
                 target="_blank"

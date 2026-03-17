@@ -1,7 +1,7 @@
 /**
  * AI Review Generator
  *
- * editor_review_html 컬럼을 읽어 로컬 Ollama gemma3 모델로 SEO 최적화된
+ * editor_review_html 컬럼을 읽어 로컬 Ollama qwen2.5:7b 모델로 SEO 최적화된
  * ai_review_html 을 생성하고 DB에 저장합니다.
  *
  * Usage:
@@ -19,10 +19,10 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 // ── 설정 ─────────────────────────────────────────────────────────────────────
 
-const CONCURRENCY = 2;   // 동시 처리 수 (로컬 모델은 낮게 유지)
+const CONCURRENCY = 1;   // 순차 처리 (1개씩)
 const RETRY_LIMIT = 3;
 const OLLAMA_BASE_URL = 'http://localhost:11434';
-const OLLAMA_MODEL = 'gemma3';
+const OLLAMA_MODEL = 'qwen2.5:7b';
 
 const args = process.argv.slice(2);
 const RESUME = args.includes('--resume');
@@ -57,7 +57,7 @@ Based on the [software spec data] provided below, write a detailed SEO-optimized
 Output ONLY valid HTML (no markdown, no code fences, no explanations). Use only these tags: <h2>, <h3>, <p>, <strong>, <em>, <ul>, <ol>, <li>. No class, id, or style attributes.
 
 Requirements:
-- Minimum 1500 characters in the HTML output
+- Between 1000 and 2000 characters in the HTML output (do not exceed 2000 characters)
 - Natural keyword integration (app name, platform, category)
 - Clear structure with h2/h3 headings
 - Cover: what the app does, key features, use cases, pros/cons, who it's for, tips
@@ -110,6 +110,7 @@ async function generateReview(app: Record<string, unknown>, attempt = 1): Promis
           },
         ],
         stream: false,
+        options: { num_predict: 1024 },
       }),
     });
 
@@ -146,7 +147,7 @@ async function saveReview(id: string, aiReviewHtml: string): Promise<void> {
 // ── 동시 처리 헬퍼 ─────────────────────────────────────────────────────────────
 
 async function processChunk(rows: Record<string, unknown>[]): Promise<void> {
-  await Promise.all(rows.map(async (row) => {
+  for (const row of rows) {
     const id = row.id as string;
     const name = row.name as string;
     process.stdout.write(`  Processing: ${name} (${id}) ...`);
@@ -157,7 +158,7 @@ async function processChunk(rows: Record<string, unknown>[]): Promise<void> {
     } else {
       console.log(` ✗ skipped`);
     }
-  }));
+  }
 }
 
 // ── 메인 ──────────────────────────────────────────────────────────────────────

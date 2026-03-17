@@ -536,16 +536,15 @@ async function scrapeAppDetail(
     const platformRaw = dlData.platformId || platform || $('meta[property="rv-platform-id"]').attr('content') || 'windows';
     const platformSlug = normalizePlatform(platformRaw).toLowerCase();
     
-    // 사용자가 요청한 '프로그램 이름 기반 ID' 생성
+    // 사용자가 요청한 '프로그램 이름 기반 ID' 생성 (끝의 OS 접미사 제거)
     const nameSlug = finalName.toLowerCase()
+      .replace(/\s+for\s+(windows|mac|android|ios|iphone|ipad|linux)$/i, '')
       .replace(/[^a-z0-9]/g, '-')
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '');
-    const appId = `${nameSlug}-${platformSlug}`;
-
     return {
-      id: appId,
-      slug: `/${platformSlug}/${nameSlug}`, // ID와 일관성 유지
+      id: nameSlug,
+      slug: `/${platformSlug}/${nameSlug}`,
       name: finalName,
       version: version || ldApp?.softwareVersion || '',
       platform: normalizePlatform(platformRaw),
