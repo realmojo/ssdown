@@ -48,7 +48,8 @@
       "Bash(npm install:*)",
       "Bash(npx playwright:*)",
       "Skill(claude-api)",
-      "Skill(claude-api:*)"
+      "Skill(claude-api:*)",
+      "Bash(git push:*)"
     ]
   },
   "model": "sonnet",

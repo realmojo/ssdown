@@ -1,16 +1,15 @@
 /**
  * AI Review Generator
  *
- * editor_review_html 컬럼을 읽어 Claude Haiku로 SEO 최적화된
+ * editor_review_html 컬럼을 읽어 로컬 Ollama gemma3 모델로 SEO 최적화된
  * ai_review_html 을 생성하고 DB에 저장합니다.
  *
  * Usage:
  *   npx tsx scripts/generate-ai-reviews.ts          # 전체 처리
  *   npx tsx scripts/generate-ai-reviews.ts --resume  # 미처리 행만 처리
- *   npx tsx scripts/generate-ai-reviews.ts --limit 50 # 50개만 처리
+ *   npx tsx scripts/generate-ai-reviews.ts --limit=50 # 50개만 처리
  */
 
-import Anthropic from '@anthropic-ai/sdk';
 import { createClient } from '@supabase/supabase-js';
 import * as dotenv from 'dotenv';
 
@@ -18,8 +17,10 @@ dotenv.config({ path: '.env.local' });
 
 // ── 설정 ─────────────────────────────────────────────────────────────────────
 
-const CONCURRENCY = 5;   // 동시 처리 수
+const CONCURRENCY = 2;   // 동시 처리 수 (로컬 모델은 낮게 유지)
 const RETRY_LIMIT = 3;
+const OLLAMA_BASE_URL = 'http://localhost:11434';
+const OLLAMA_MODEL = 'gemma3';
 
 const args = process.argv.slice(2);
 const RESUME = args.includes('--resume');
@@ -32,10 +33,6 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!,
 );
-
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY!,
-});
 
 // ── 프롬프트 빌더 ──────────────────────────────────────────────────────────────
 
@@ -91,40 +88,45 @@ function stripHtmlTags(html: string): string {
 
 async function generateReview(app: Record<string, unknown>, attempt = 1): Promise<string | null> {
   try {
-    const response = await anthropic.messages.create({
-      model: 'claude-haiku-4-5',
-      max_tokens: 4096,
-      messages: [
-        {
-          role: 'user',
-          content: buildPrompt({
-            name: app.name as string,
-            platform: app.platform as string,
-            category_main: app.category_main as string,
-            short_summary: app.short_summary as string,
-            pros: (app.pros as string[]) ?? [],
-            cons: (app.cons as string[]) ?? [],
-            editor_review_html: app.editor_review_html as string,
-          }),
-        },
-      ],
+    const response = await fetch(`${OLLAMA_BASE_URL}/api/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: OLLAMA_MODEL,
+        messages: [
+          {
+            role: 'user',
+            content: buildPrompt({
+              name: app.name as string,
+              platform: app.platform as string,
+              category_main: app.category_main as string,
+              short_summary: app.short_summary as string,
+              pros: (app.pros as string[]) ?? [],
+              cons: (app.cons as string[]) ?? [],
+              editor_review_html: app.editor_review_html as string,
+            }),
+          },
+        ],
+        stream: false,
+      }),
     });
 
-    const text = response.content.find(b => b.type === 'text')?.text ?? '';
+    if (!response.ok) {
+      throw new Error(`Ollama API error ${response.status}: ${await response.text()}`);
+    }
+
+    const data = await response.json() as { message: { content: string } };
+    const text = data.message?.content ?? '';
     // Remove any accidental markdown code fences
     return text.replace(/^```html?\n?/i, '').replace(/```$/m, '').trim();
   } catch (err) {
-    if (err instanceof Anthropic.RateLimitError && attempt <= RETRY_LIMIT) {
-      const wait = attempt * 10_000;
-      console.warn(`  Rate limited, waiting ${wait / 1000}s (attempt ${attempt})...`);
+    if (attempt <= RETRY_LIMIT) {
+      const wait = attempt * 5_000;
+      console.warn(`  Error, retrying in ${wait / 1000}s (attempt ${attempt})...`);
       await new Promise(r => setTimeout(r, wait));
       return generateReview(app, attempt + 1);
     }
-    if (err instanceof Anthropic.APIError) {
-      console.error(`  API error ${err.status}: ${err.message}`);
-    } else {
-      console.error(`  Unexpected error:`, err);
-    }
+    console.error(`  Unexpected error:`, err);
     return null;
   }
 }
@@ -175,6 +177,8 @@ async function main() {
   if (RESUME) {
     query = query.or('ai_review_html.is.null,ai_review_html.eq.');
   }
+
+  query = query.order('created_at', { ascending: false });
 
   const { data, error } = await query;
 
