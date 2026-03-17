@@ -77,6 +77,17 @@ function transformRow(row: any): SoftwareApplication {
   };
 }
 
+export async function getAppById(id: string): Promise<SoftwareApplication | null> {
+  const { data, error } = await supabase
+    .from("software_applications")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (error || !data) return null;
+  return transformRow(data);
+}
+
 export async function getApp(
   os: string,
   name: string

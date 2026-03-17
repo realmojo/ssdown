@@ -327,7 +327,7 @@ async function scrapeSoftonic(url: string): Promise<ScrapedApp> {
     seo_description: meta.description,
     seo_keywords: meta.keywords ? meta.keywords.split(',').map(k => k.trim()).filter(Boolean) : [],
     seo_og_image: meta.ogImage ?? coverImg ?? null,
-    seo_structured_data: ldList.length > 0 ? (ldList as Record<string, unknown>[]) : null,
+    seo_structured_data: ldList.length > 0 ? ({ items: ldList } as Record<string, unknown>) : null,
     // Download
     download_url: url,
     file_size: scraped.fileSize || ldApp?.fileSize || 'N/A',
