@@ -49,7 +49,8 @@
       "Bash(npx playwright:*)",
       "Skill(claude-api)",
       "Skill(claude-api:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Skill(geo-audit)"
     ]
   },
   "model": "sonnet",

@@ -21,6 +21,10 @@ export default function robots(): MetadataRoute.Robots {
         '/9gag/',
       ],
     },
-    sitemap: 'https://ssdown.app/sitemap.xml',
+    sitemap: [
+      'https://ssdown.app/sitemap.xml',
+      'https://ssdown.app/sitemap-static.xml',
+      'https://ssdown.app/sitemap-software.xml',
+    ],
   }
 }
