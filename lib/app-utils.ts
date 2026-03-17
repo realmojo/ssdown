@@ -88,24 +88,6 @@ export async function getAppById(id: string): Promise<SoftwareApplication | null
   return transformRow(data);
 }
 
-export async function getApp(
-  os: string,
-  name: string
-): Promise<SoftwareApplication | null> {
-  const platform = os.charAt(0).toUpperCase() + os.slice(1).toLowerCase();
-
-  const { data, error } = await supabase
-    .from("software_applications")
-    .select("*")
-    .eq("platform", platform)
-    .ilike("id", `%${name.toLowerCase()}%`)
-    .limit(1)
-    .maybeSingle();
-
-  if (error || !data) return null;
-  return transformRow(data);
-}
-
 export async function getAppsByPlatform(
   platform: string,
   limit = 60,

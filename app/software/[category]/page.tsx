@@ -23,13 +23,13 @@ import { getCategoryBySlug, CATEGORIES } from "@/lib/categories";
 import { getAppsByCategory, getAppsByPlatform } from "@/lib/app-utils";
 import type { SoftwareApplication } from "@/types/app";
 
-const PLATFORMS = ['windows', 'mac', 'android', 'iphone'] as const;
-type PlatformSlug = typeof PLATFORMS[number];
+const PLATFORMS = ["windows", "mac", "android", "iphone"] as const;
+type PlatformSlug = (typeof PLATFORMS)[number];
 const PLATFORM_LABELS: Record<PlatformSlug, string> = {
-  windows: 'Windows',
-  mac: 'Mac',
-  android: 'Android',
-  iphone: 'iOS',
+  windows: "Windows",
+  mac: "Mac",
+  android: "Android",
+  iphone: "iOS",
 };
 
 export const revalidate = 3600;
@@ -112,7 +112,13 @@ export async function generateMetadata({
   };
 }
 
-function CategoryIcon({ name, className }: { name: string; className?: string }) {
+function CategoryIcon({
+  name,
+  className,
+}: {
+  name: string;
+  className?: string;
+}) {
   const Icon = ICON_MAP[name];
   if (!Icon) return null;
   return <Icon className={className} />;
@@ -126,7 +132,10 @@ function RatingStars({ rating }: { rating: number }) {
   return (
     <div className="flex items-center gap-0.5">
       {Array.from({ length: full }).map((_, i) => (
-        <Star key={`f-${i}`} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+        <Star
+          key={`f-${i}`}
+          className="w-3.5 h-3.5 fill-amber-400 text-amber-400"
+        />
       ))}
       {hasHalf && (
         <Star className="w-3.5 h-3.5 fill-amber-200 text-amber-400" />
@@ -140,11 +149,14 @@ function RatingStars({ rating }: { rating: number }) {
 }
 
 function buildAppHref(app: SoftwareApplication): string {
-  const platform = app.core.platform.toLowerCase() === 'ios' ? 'iphone' : app.core.platform.toLowerCase();
+  const platform =
+    app.core.platform.toLowerCase() === "ios"
+      ? "iphone"
+      : app.core.platform.toLowerCase();
   const id = app.core.id.toLowerCase();
   const prefixPattern = new RegExp(`^${platform}-?`);
   const slug = id.replace(prefixPattern, "") || id;
-  return `/${platform}/${slug}`;
+  return `/software/${platform}/${slug}`;
 }
 
 function AppGrid({ apps }: { apps: SoftwareApplication[] }) {
@@ -167,9 +179,15 @@ function AppGrid({ apps }: { apps: SoftwareApplication[] }) {
             <div className="w-14 h-14 shrink-0 rounded-xl overflow-hidden bg-gray-100 flex items-center justify-center">
               {app.content.iconUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={app.content.iconUrl} alt={app.core.name} className="w-full h-full object-cover" />
+                <img
+                  src={app.content.iconUrl}
+                  alt={app.core.name}
+                  className="w-full h-full object-cover"
+                />
               ) : (
-                <span className="text-xl font-bold text-gray-400">{app.core.name.charAt(0)}</span>
+                <span className="text-xl font-bold text-gray-400">
+                  {app.core.name.charAt(0)}
+                </span>
               )}
             </div>
             <div className="flex-1 min-w-0">
@@ -177,7 +195,9 @@ function AppGrid({ apps }: { apps: SoftwareApplication[] }) {
                 {app.core.name}
               </h2>
               {app.core.developer.name && (
-                <p className="text-xs text-gray-500 truncate mt-0.5">{app.core.developer.name}</p>
+                <p className="text-xs text-gray-500 truncate mt-0.5">
+                  {app.core.developer.name}
+                </p>
               )}
               {app.rating.average > 0 && (
                 <div className="mt-1.5">
@@ -216,7 +236,12 @@ function CategoryJsonLd({
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
-        { "@type": "ListItem", position: 2, name: "Software", item: `${SITE_URL}/software` },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Software",
+          item: `${SITE_URL}/software`,
+        },
         { "@type": "ListItem", position: 3, name: label, item: pageUrl },
       ],
     },
@@ -230,7 +255,7 @@ function CategoryJsonLd({
         "@type": "ListItem",
         position: i + 1,
         name: app.core.name,
-        url: `${SITE_URL}/${app.core.platform.toLowerCase() === "ios" ? "iphone" : app.core.platform.toLowerCase()}/${app.core.id.toLowerCase()}`,
+        url: `${SITE_URL}/software/${app.core.platform.toLowerCase() === "ios" ? "iphone" : app.core.platform.toLowerCase()}/${app.core.id.toLowerCase()}`,
         ...(app.content.iconUrl && { image: app.content.iconUrl }),
       })),
     },
@@ -269,8 +294,12 @@ export default async function CategoryPage({
               <Monitor className="w-8 h-8 text-blue-600" />
             </div>
             <div>
-              <h1 className="text-3xl font-extrabold text-gray-900">{label} Software</h1>
-              <p className="text-sm text-gray-500 mt-1">{total > 0 ? `${total} apps` : ""}</p>
+              <h1 className="text-3xl font-extrabold text-gray-900">
+                {label} Software
+              </h1>
+              <p className="text-sm text-gray-500 mt-1">
+                {total > 0 ? `${total} apps` : ""}
+              </p>
             </div>
           </div>
           <AppGrid apps={apps} />
@@ -291,7 +320,10 @@ export default async function CategoryPage({
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
           <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center">
-            <CategoryIcon name={category.icon} className="w-8 h-8 text-blue-600" />
+            <CategoryIcon
+              name={category.icon}
+              className="w-8 h-8 text-blue-600"
+            />
           </div>
           <div>
             <h1 className="text-3xl font-extrabold text-gray-900">
