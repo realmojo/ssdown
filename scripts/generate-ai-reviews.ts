@@ -165,21 +165,17 @@ async function processChunk(rows: Record<string, unknown>[]): Promise<void> {
 
 async function main() {
   console.log('=== AI Review Generator ===');
-  console.log(`Mode: ${RESUME ? 'resume (skip existing)' : 'full'}`);
   console.log(`Concurrency: ${CONCURRENCY}`);
   if (LIMIT !== Infinity) console.log(`Limit: ${LIMIT}`);
   console.log('');
 
-  // 처리 대상 행 조회
+  // ai_review_html 이 없는 행만 조회
   let query = supabase
     .from('software_applications')
     .select('id, name, platform, category_main, short_summary, pros, cons, editor_review_html')
     .not('editor_review_html', 'is', null)
-    .neq('editor_review_html', '');
-
-  if (RESUME) {
-    query = query.or('ai_review_html.is.null,ai_review_html.eq.');
-  }
+    .neq('editor_review_html', '')
+    .or('ai_review_html.is.null,ai_review_html.eq.');
 
   query = query.order('created_at', { ascending: false });
 
