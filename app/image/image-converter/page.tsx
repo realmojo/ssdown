@@ -57,8 +57,55 @@ export default async function ImageConverterPage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Image Converter",
+    url: "https://ssdown.app/image/image-converter",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Convert images between PNG, JPG, WebP, GIF, and BMP formats online for free.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Image Converter Online",
+    description: "Convert images between PNG, JPG, WebP, GIF, and BMP formats online for free.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload your image",
+        text: "Select or drag and drop your image file (PNG, JPG, etc.).",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Choose output format",
+        text: "Select the target format you want to convert your image to.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download converted image",
+        text: "Click the convert button and download your processed file.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

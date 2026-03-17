@@ -57,8 +57,55 @@ export default async function FaviconGeneratorPage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Favicon Generator",
+    url: "https://ssdown.app/app/image/favicon-generator",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Generate favicon.ico and multi-size PNG icons from any image.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Favicon Generator Online",
+    description: "Generate favicon.ico and multi-size PNG icons from any image.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload logo",
+        text: "Select a square logo or image file.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Customize icon",
+        text: "Preview how it looks in different sizes.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download icons",
+        text: "Save the complete favicon package for your website.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

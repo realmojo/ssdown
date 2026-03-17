@@ -57,8 +57,55 @@ export default async function TrimVideoPage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Trim Video",
+    url: "https://ssdown.app/video-audio/trim-video",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Cut and trim video clips online without losing quality.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Trim Video Online",
+    description: "Cut and trim video clips online without losing quality.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload video",
+        text: "Select the video file you want to trim.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Set start and end",
+        text: "Use the sliders to select the portion you want to keep.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download clip",
+        text: "Save the trimmed video to your device.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

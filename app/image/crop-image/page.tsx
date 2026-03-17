@@ -57,8 +57,55 @@ export default async function CropImagePage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Image Crop Tool",
+    url: "https://ssdown.app/app/image/crop-image",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Crop images to exact dimensions or aspect ratios online.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Image Crop Tool Online",
+    description: "Crop images to exact dimensions or aspect ratios online.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload image",
+        text: "Select the image file you want to crop.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Select area",
+        text: "Drag the crop box to the desired area or enter specific dimensions.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download cropped image",
+        text: "Save the cropped version of your image.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

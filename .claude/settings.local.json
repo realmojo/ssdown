@@ -50,7 +50,8 @@
       "Skill(claude-api)",
       "Skill(claude-api:*)",
       "Bash(git push:*)",
-      "Skill(geo-audit)"
+      "Skill(geo-audit)",
+      "WebSearch"
     ]
   },
   "model": "sonnet",

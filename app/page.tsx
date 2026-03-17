@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const jsonLd = {
+  const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "SSDown - Free Online Tools",
@@ -66,11 +66,31 @@ export default function Home() {
       "free online tools, image compressor, PDF tools, video converter, file converter, browser-based tools",
   };
 
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "SSDown",
+    url: "https://ssdown.app",
+    logo: "https://ssdown.app/logo.png",
+    description:
+      "Free online tools for image editing, PDF management, video conversion, and file transformation. Fast, secure, and browser-based.",
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      url: "https://ssdown.app/contact",
+    },
+    sameAs: [],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
       />
       <HomeClient />
     </>

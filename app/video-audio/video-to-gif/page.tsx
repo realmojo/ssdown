@@ -57,8 +57,55 @@ export default async function VideoToGifPage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Video to GIF",
+    url: "https://ssdown.app/video-audio/video-to-gif",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Convert video clips into high-quality animated GIFs.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Video to GIF Online",
+    description: "Convert video clips into high-quality animated GIFs.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload video",
+        text: "Select the video file you want to convert to a GIF.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Adjust settings",
+        text: "Choose frame rate, size, and duration.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download GIF",
+        text: "Save the animated GIF to your device.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

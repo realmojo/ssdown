@@ -57,8 +57,55 @@ export default async function AddTextToImagePage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Add Text to Image",
+    url: "https://ssdown.app/app/image/add-text-to-image",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Add text overlays, captions, and quotes to your images easily.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Add Text to Image Online",
+    description: "Add text overlays, captions, and quotes to your images easily.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload image",
+        text: "Choose the photo you want to add text to.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Type text",
+        text: "Enter your message and customize font, size, and color.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Save image",
+        text: "Download the final image with your text overlay.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

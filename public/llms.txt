@@ -1,40 +1,106 @@
-# SSDown - Software Downloads & Productivity Tools Platform
+# SSDown — Free Online Tools for Everyday Tasks
+> Free browser-based tools for image editing, PDF management, video conversion, file transformation, and software discovery. No installation required. Fast, secure, and privacy-first.
 
-SSDown (https://ssdown.app) is a centralized hub for discovering, reviewing, and downloading high-quality software, alongside a powerful suite of web-based productivity tools.
+## Tools Overview
+- /tools: Browse all tools by category
 
-## Summary
+## Image Tools
+- /image/image-compressor: Compress PNG, JPG, WebP images without quality loss
+- /image/image-converter: Convert images between PNG, JPG, WebP, GIF, BMP formats
+- /image/social-image-resizer: Resize images for Instagram, Twitter, Facebook, LinkedIn
+- /image/watermark-remover: Remove watermarks from images
+- /image/favicon-generator: Generate favicon from any image
+- /image/color-palette-extractor: Extract dominant color palette from images
+- /image/thumbnail-generator: Generate thumbnails for video and blog content
+- /image/background-remover: Remove image backgrounds automatically
+- /image/crop-image: Crop images to custom dimensions
+- /image/flip-image: Flip or mirror images horizontally or vertically
+- /image/pixelate-image: Pixelate or blur regions of an image
+- /image/black-and-white: Convert images to black and white
+- /image/add-text-to-image: Add text overlays to images
+- /image/add-border-to-image: Add borders and frames to images
+- /image/combine-images: Combine multiple images side by side
+- /image/collage-maker: Create photo collages
+- /image/round-image-maker: Create circular or rounded images
+- /image/image-metadata-viewer: View EXIF and metadata from images
+- /image/blur-image: Apply blur effects to images
+- /image/icon-to-png: Convert ICO icon files to PNG
 
-SSDown provides a safe and verified environment for users to acquire software for Windows, Mac, Android, and iOS. The platform also hosts numerous online utilities for media processing, document management, and social media optimization, all optimized for speed and accessibility.
+## Video & Audio Tools
+- /video-audio/video-to-mp3: Extract audio from video files and convert to MP3
+- /video-audio/video-to-gif: Convert video clips to animated GIF
+- /video-audio/video-frame-extractor: Extract individual frames from video
+- /video-audio/audio-trimmer: Trim and cut audio files
+- /video-audio/mute-video: Remove audio track from video
+- /video-audio/gif-to-mp4: Convert animated GIF to MP4 video
+- /video-audio/trim-video: Trim and cut video clips
 
-## core content
+## PDF Tools
+- /pdf/merge-pdf: Merge multiple PDF files into one
+- /pdf/rotate-pdf: Rotate PDF pages
+- /pdf/delete-pdf-pages: Remove specific pages from PDF
+- /pdf/protect-pdf: Add password protection to PDF
+- /pdf/unlock-pdf: Remove password from PDF
+- /pdf/pdf-to-text: Extract text content from PDF
+- /pdf/split-pdf: Split PDF into separate files
+- /pdf/rearrange-pdf: Reorder pages in PDF
+- /pdf/crop-pdf: Crop PDF page margins
+- /pdf/pdf-page-numbers: Add page numbers to PDF
+- /pdf/pdf-watermark: Add watermark to PDF
+- /pdf/add-text-to-pdf: Add text annotations to PDF
+- /pdf/create-pdf: Create PDF from scratch
+- /pdf/images-to-pdf: Convert images to PDF
+- /pdf/pdf-to-jpg: Convert PDF pages to JPG images
+- /pdf/pdf-to-png: Convert PDF pages to PNG images
+- /pdf/pdf-editor: Online PDF editor
+- /pdf/esign-pdf: Electronically sign PDF documents
 
-- [Software Hub](https://ssdown.app/software): Comprehensive library of apps across AI, Productivity, Games, Security, and more.
-- [Productivity Tools](https://ssdown.app/tools): Free online utilities for Image, Video, Audio, and PDF.
-- [Tech Blog](https://ssdown.app/blog): Software reviews, tech guides, and industry news.
+## File Conversion Tools
+- /file/json-to-xml: Convert JSON to XML format
+- /file/xml-to-json: Convert XML to JSON format
+- /file/csv-to-json: Convert CSV to JSON format
+- /file/csv-to-xml: Convert CSV to XML format
+- /file/xml-to-csv: Convert XML to CSV format
+- /file/csv-to-excel: Convert CSV to Excel spreadsheet
+- /file/excel-to-csv: Convert Excel to CSV format
+- /file/xml-to-excel: Convert XML to Excel format
+- /file/excel-to-xml: Convert Excel to XML format
+- /file/split-csv: Split large CSV files
+- /file/split-excel: Split large Excel files
+- /file/excel-to-pdf: Convert Excel to PDF
 
-## software categories
+## Social & Text Tools
+- /social-text/hashtag-generator: Generate relevant hashtags for social media posts
+- /social-text/instagram-line-break: Add line breaks to Instagram captions
 
-- [AI Tools](https://ssdown.app/software/ai): Latest generative AI applications and productivity boosters.
-- [Games](https://ssdown.app/software/games): Popular PC and mobile gaming titles.
-- [Browsers](https://ssdown.app/software/browsers): Safe and fast web browsing software.
-- [Security](https://ssdown.app/software/security): Antivirus, VPNs, and privacy protection tools.
-- [Productivity](https://ssdown.app/software/productivity): Office suites, organization tools, and workflow enhancers.
-- [Development](https://ssdown.app/software/development): IDEs, compilers, and developer utilities.
+## Utility Tools
+- /utility/youtube-thumbnail: Download YouTube video thumbnails
+- /utility/youtube-preview: Preview YouTube videos
+- /utility/qr-code-generator: Generate QR codes from URLs or text
+- /utility/aspect-ratio-calculator: Calculate and convert aspect ratios
+- /utility/word-counter: Count words, characters, and sentences
 
-## productivity tools
+## Software Directory
+- /software: Browse software applications by category (Windows, Mac, Android, iOS)
+- /software/utilities: Utility and productivity software
+- /software/security: Security and privacy software
+- /software/multimedia: Media players and editors
+- /software/internet: Browsers and internet tools
+- /software/system-tools: System optimization tools
 
-- [Image Tools](https://ssdown.app/tools/image): Compressor, Converter, Background Remover, Resizer.
-- [Video/Audio Tools](https://ssdown.app/tools/video-audio): Video to MP3, GIF Maker, Audio Trimmer.
-- [PDF Tools](https://ssdown.app/tools/pdf): Merge, Split, Protect, and Convert PDF documents.
-- [File Converters](https://ssdown.app/tools/file): CSV, JSON, XML, Excel conversion utilities.
+## Video Downloaders
+- /x: Download videos from X (Twitter)
+- /tiktok: Download TikTok videos without watermark
+- /instagram: Download Instagram videos and reels
+- /facebook: Download Facebook videos
+- /dailymotion: Download Dailymotion videos
+- /9gag: Download 9GAG videos
 
-## technical optimization
+## Blog
+- /blog: Technology guides and tutorials (100+ articles on video downloading, file conversion, online tools, and digital security)
 
-SSDown is built with a focus on:
-- **SEO (Search Engine Optimization)**: High-quality metadata and fast performance for traditional search engines.
-- **GEO (Generative Engine Optimization)**: Semantic HTML and clear structure optimized for AI-driven search results (Perplexity, SearchGPT).
-- **AEO (Answer Engine Optimization)**: Structured data and FAQ sections providing direct answers to software-related queries.
-
-## official links policy
-
-SSDown strictly prioritizes links to official developer websites and verified app stores to ensure the highest level of security and authenticity for our users.
+## Company
+- /about: About SSDown — free online tools platform
+- /contact: Contact and support
+- /privacy: Privacy policy
+- /terms: Terms of service

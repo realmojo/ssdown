@@ -57,8 +57,55 @@ export default async function SplitPdfPage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Split PDF",
+    url: "https://ssdown.app/pdf/split-pdf",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Extract specific pages or split a PDF into multiple small files.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Split PDF Online",
+    description: "Extract specific pages or split a PDF into multiple small files.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload PDF",
+        text: "Select the PDF document you want to split.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Select pages",
+        text: "Specify page ranges or individual pages to extract.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download files",
+        text: "Save the extracted pages as new PDF files.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

@@ -57,8 +57,55 @@ export default async function RoundImageMakerPage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Round Image Maker",
+    url: "https://ssdown.app/app/image/round-image-maker",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Create circular or rounded-corner images instantly.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Round Image Maker Online",
+    description: "Create circular or rounded-corner images instantly.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload image",
+        text: "Select the image you want to make circular.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Adjust radius",
+        text: "Set the corner radius or make it a full circle.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download image",
+        text: "Save the rounded image as a transparent PNG.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

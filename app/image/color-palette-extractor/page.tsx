@@ -57,8 +57,55 @@ export default async function ColorPaletteExtractorPage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Color Palette Extractor",
+    url: "https://ssdown.app/image/color-palette-extractor",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Extract dominant colors and create a beautiful palette from any image.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Color Palette Extractor Online",
+    description: "Extract dominant colors and create a beautiful palette from any image.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload an image",
+        text: "Choose an image you want to extract colors from.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Analyze colors",
+        text: "Wait a second while we analyze the dominant colors and hex codes.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Copy hex codes",
+        text: "Copy the color codes or download the palette as an image.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

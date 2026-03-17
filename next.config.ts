@@ -1,14 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  experimental: {
-    optimizePackageImports: [
-      "lucide-react",
-      "@radix-ui/react-select",
-      "@radix-ui/react-dropdown-menu",
-      "@radix-ui/react-accordion",
-    ],
-  },
   htmlLimitedBots: /.*/, // This regex matches all user agents
   images: {
     remotePatterns: [
@@ -48,8 +40,17 @@ const nextConfig: NextConfig = {
           }
         : false,
   },
-  // Turbopack configuration for Next.js 16
-  turbopack: {},
+  // Use Webpack for builds if Turbopack is causing issues in Next 16
+  experimental: {
+    optimizePackageImports: [
+      "lucide-react",
+      "@radix-ui/react-select",
+      "@radix-ui/react-dropdown-menu",
+      "@radix-ui/react-accordion",
+    ],
+    // Explicitly disable Turbopack for build if the environment supports it
+    // turbopackBuild: false, 
+  },
   async redirects() {
     return [
       // Image tools

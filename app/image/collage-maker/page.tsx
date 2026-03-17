@@ -57,8 +57,55 @@ export default async function CollageMakerPage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Photo Collage Maker",
+    url: "https://ssdown.app/app/image/collage-maker",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Create beautiful photo collages from multiple images online for free.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Photo Collage Maker Online",
+    description: "Create beautiful photo collages from multiple images online for free.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Select layout",
+        text: "Choose a collage template or layout style.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Upload photos",
+        text: "Add your images to the different sections of the collage.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download collage",
+        text: "Save your combined photo collage as a single image.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

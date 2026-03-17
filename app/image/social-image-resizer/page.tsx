@@ -57,8 +57,55 @@ export default async function SocialImageResizerPage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Social Image Resizer",
+    url: "https://ssdown.app/app/image/social-image-resizer",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Resize images perfectly for Instagram, Twitter, Facebook, and LinkedIn.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Social Image Resizer Online",
+    description: "Resize images perfectly for Instagram, Twitter, Facebook, and LinkedIn.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload image",
+        text: "Choose the image you want to resize for social media.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Select platform",
+        text: "Pick a preset size for Instagram, X, Facebook, or LinkedIn.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download asset",
+        text: "Save the perfectly resized image for your post.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

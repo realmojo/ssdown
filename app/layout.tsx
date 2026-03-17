@@ -91,6 +91,9 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     alternates: {
       canonical: baseUrl,
+      types: {
+        "application/rss+xml": `${baseUrl}/rss.xml`,
+      },
     },
     other: {
       "application-name": "SSDown",

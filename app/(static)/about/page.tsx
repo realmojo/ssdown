@@ -11,13 +11,12 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/about`;
 
   return {
-    title: dict.about?.title || "About SSDown - Online Tools Platform",
+    title: "About SSDown - Free Online Tools Platform",
     description:
-      dict.about?.description ||
-      "Learn more about SSDown, a free online tools platform for image editing, PDF management, video conversion, and more.",
+      "Learn about SSDown's mission to provide free, secure, and browser-based tools for image editing, PDF management, and video conversion. Our story and commitment to privacy.",
     openGraph: {
-      title: dict.about?.title || "About SSDown",
-      description: dict.about?.description,
+      title: "About SSDown - Free Online Tools Platform",
+      description: "Learn about SSDown's mission to provide free, secure, and browser-based tools for image editing, PDF management, and video conversion.",
       url: canonical,
       siteName: "SSDown",
       locale: "en_US",
@@ -30,5 +29,30 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  return <AboutClient />;
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "SSDown",
+    url: "https://ssdown.app",
+    logo: "https://ssdown.app/logo.png",
+    description: "Free online tools for image editing, PDF management, video conversion, and file transformation. Fast, secure, and browser-based.",
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "",
+      contactType: "customer support",
+      email: "support@ssdown.app",
+      url: "https://ssdown.app/contact"
+    },
+    sameAs: []
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <AboutClient />
+    </>
+  );
 }

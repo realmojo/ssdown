@@ -15,6 +15,8 @@ import * as dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 // ── 설정 ─────────────────────────────────────────────────────────────────────
 
 const CONCURRENCY = 2;   // 동시 처리 수 (로컬 모델은 낮게 유지)

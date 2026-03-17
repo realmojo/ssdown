@@ -57,8 +57,55 @@ export default async function ImageMetadataViewerPage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Image Metadata Viewer",
+    url: "https://ssdown.app/app/image/image-metadata-viewer",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "View EXIF data, GPS coordinates, and camera info from your images.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Image Metadata Viewer Online",
+    description: "View EXIF data, GPS coordinates, and camera info from your images.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload image",
+        text: "Select an image file (JPEG, TIFF, etc.) to read its metadata.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Review data",
+        text: "Browse technical details like aperture, shutter speed, and location.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Export info",
+        text: "Optionally export the metadata details for your records.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

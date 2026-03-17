@@ -107,15 +107,18 @@ export default async function BlogPostPage(props: {
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
     author: {
-      "@type": "Organization",
+      "@type": "Person",
       name: post.author,
     },
     publisher: {
       "@type": "Organization",
       name: "SSDown",
+      url: baseUrl,
       logo: {
         "@type": "ImageObject",
         url: `${baseUrl}/logo.png`,
+        width: 200,
+        height: 60,
       },
     },
     mainEntityOfPage: {

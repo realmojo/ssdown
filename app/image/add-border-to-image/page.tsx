@@ -57,8 +57,55 @@ export default async function AddBorderToImagePage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Add Border to Image",
+    url: "https://ssdown.app/app/image/add-border-to-image",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Add stylish borders and frames to your photos online.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Add Border to Image Online",
+    description: "Add stylish borders and frames to your photos online.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload image",
+        text: "Select the photo you want to frame.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Select border",
+        text: "Choose border thickness, color, and style.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download image",
+        text: "Save the framed photo to your device.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

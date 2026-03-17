@@ -57,8 +57,55 @@ export default async function MergePdfPage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Merge PDF",
+    url: "https://ssdown.app/pdf/merge-pdf",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Combine multiple PDF files into one document quickly and easily.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Merge PDF Online",
+    description: "Combine multiple PDF files into one document quickly and easily.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Select PDF files",
+        text: "Choose multiple PDF documents you want to merge.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Arrange order",
+        text: "Drag and drop files to set the desired sequence.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download merged PDF",
+        text: "Click merge and save the combined file to your device.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

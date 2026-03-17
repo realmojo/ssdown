@@ -57,8 +57,55 @@ export default async function WatermarkRemoverPage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Watermark Remover",
+    url: "https://ssdown.app/image/watermark-remover",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Remove watermarks and unwanted objects from images automatically.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Watermark Remover Online",
+    description: "Remove watermarks and unwanted objects from images automatically.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload watermarked image",
+        text: "Select the image file that has a watermark.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Process removal",
+        text: "The AI will automatically detect and remove the watermark.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download clean image",
+        text: "Save the watermark-free image to your device.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

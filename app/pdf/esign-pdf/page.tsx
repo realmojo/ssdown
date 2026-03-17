@@ -57,8 +57,55 @@ export default async function EsignPdfPage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Esign Pdf",
+    url: "https://ssdown.app/pdf/esign-pdf",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Free online esign pdf tool. Fast, secure, and browser-based.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Esign Pdf Online",
+    description: "Use our free online esign pdf tool to process your files securely in your browser.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload your file",
+        text: "Select or drag and drop your file into the tool area.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Process your file",
+        text: "Follow the on-screen instructions to process or convert your file.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download result",
+        text: "Save the processed file to your device instantly.",
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

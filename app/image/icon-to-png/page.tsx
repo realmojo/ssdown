@@ -57,8 +57,55 @@ export default async function IconToPngPage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Icon to PNG Converter",
+    url: "https://ssdown.app/app/image/icon-to-png",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Convert ICO files to high-quality PNG images online.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Icon to PNG Converter Online",
+    description: "Convert ICO files to high-quality PNG images online.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload ICO file",
+        text: "Select the .ico icon file you want to convert.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Select size",
+        text: "Choose from available icon sizes contained in the file.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download PNG",
+        text: "Save the icon as a transparent PNG file.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

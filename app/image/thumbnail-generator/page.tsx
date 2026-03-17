@@ -57,8 +57,55 @@ export default async function ThumbnailGeneratorPage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Thumbnail Generator",
+    url: "https://ssdown.app/app/image/thumbnail-generator",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Generate professional thumbnails for YouTube, blogs, and social media.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Thumbnail Generator Online",
+    description: "Generate professional thumbnails for YouTube, blogs, and social media.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload source image",
+        text: "Choose a high-quality image to use as your thumbnail base.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Add overlays",
+        text: "Add text, icons, or branding to your thumbnail.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download thumbnail",
+        text: "Save the optimized thumbnail in the required size.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

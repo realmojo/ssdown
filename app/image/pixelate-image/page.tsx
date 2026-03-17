@@ -57,8 +57,55 @@ export default async function PixelateImagePage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Pixelate Image",
+    url: "https://ssdown.app/app/image/pixelate-image",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Pixelate or blur specific regions of an image to protect privacy.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Pixelate Image Online",
+    description: "Pixelate or blur specific regions of an image to protect privacy.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload image",
+        text: "Choose the image you want to pixelate.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Adjust pixel size",
+        text: "Use the slider to set the intensity of the pixelation effect.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download image",
+        text: "Save the pixelated image to your device.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

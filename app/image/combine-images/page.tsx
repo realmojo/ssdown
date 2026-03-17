@@ -57,8 +57,55 @@ export default async function CombineImagesPage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Combine Images",
+    url: "https://ssdown.app/app/image/combine-images",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Merge multiple images side-by-side or vertically into one file.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Combine Images Online",
+    description: "Merge multiple images side-by-side or vertically into one file.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload images",
+        text: "Select two or more images you want to join together.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Choose orientation",
+        text: "Select whether to combine them horizontally or vertically.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download result",
+        text: "Save the merged image to your device.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

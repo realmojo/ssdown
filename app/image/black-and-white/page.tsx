@@ -57,8 +57,55 @@ export default async function BlackAndWhitePage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Black and White Image Converter",
+    url: "https://ssdown.app/app/image/black-and-white",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Convert color images to black and white or grayscale instantly.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Black and White Image Converter Online",
+    description: "Convert color images to black and white or grayscale instantly.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload your image",
+        text: "Select the colorful image you want to transform.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Apply filter",
+        text: "The tool will instantly apply a grayscale filter to your image.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download B&W image",
+        text: "Save the monochrome image to your device.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

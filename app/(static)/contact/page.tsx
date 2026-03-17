@@ -25,5 +25,33 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ContactPage() {
-  return <ContactClient />;
+  const contactPageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contact SSDown",
+    url: "https://ssdown.app/contact",
+    description:
+      "Contact SSDown support team for any questions, feedback or issues regarding our online tools and services.",
+    mainEntity: {
+      "@type": "Organization",
+      name: "SSDown",
+      url: "https://ssdown.app",
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        url: "https://ssdown.app/contact",
+        availableLanguage: ["English", "Korean"],
+      },
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageJsonLd) }}
+      />
+      <ContactClient />
+    </>
+  );
 }

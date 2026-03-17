@@ -57,8 +57,55 @@ export default async function BlurImagePage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Blur Image",
+    url: "https://ssdown.app/app/image/blur-image",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Apply blur, Gaussian blur, or motion blur effects to your images.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Blur Image Online",
+    description: "Apply blur, Gaussian blur, or motion blur effects to your images.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload image",
+        text: "Select the photo you want to blur.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Adjust intensity",
+        text: "Use the slider to control the strength of the blur effect.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download image",
+        text: "Save the blurred image to your device.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

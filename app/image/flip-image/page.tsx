@@ -57,8 +57,55 @@ export default async function FlipImagePage() {
     ],
   };
 
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Flip Image",
+    url: "https://ssdown.app/app/image/flip-image",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Web Browser",
+    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Flip or mirror images horizontally or vertically online.",
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use Flip Image Online",
+    description: "Flip or mirror images horizontally or vertically online.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Upload your image",
+        text: "Select the image file you want to flip.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Choose flip direction",
+        text: "Select horizontal or vertical flip options.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download flipped image",
+        text: "Download the mirrored image to your device.",
+      }
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
