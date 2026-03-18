@@ -88,36 +88,24 @@ export async function getAppById(id: string): Promise<SoftwareApplication | null
   return transformRow(data);
 }
 
+const CARD_COLUMNS = "id,slug,name,platform,category_main,license,rating_average,rating_total_count,icon_url,short_summary,developer_name,download_url";
+
 export async function getAppsByPlatform(
   platform: string,
   limit = 60,
   offset = 0
 ): Promise<{ apps: SoftwareApplication[]; total: number }> {
   const platformName = platform.charAt(0).toUpperCase() + platform.slice(1).toLowerCase();
-  // iphone → iOS
   const platformMap: Record<string, string> = { iphone: 'iOS', ios: 'iOS' };
   const normalized = platformMap[platform.toLowerCase()] ?? platformName;
 
-  const { count, error: countError } = await supabase
-    .from("software_applications")
-    .select("id", { count: "exact", head: true })
-    .eq("platform", normalized);
+  const [{ count, error: countError }, { data, error }] = await Promise.all([
+    supabase.from("software_applications").select("id", { count: "exact", head: true }).eq("platform", normalized),
+    supabase.from("software_applications").select(CARD_COLUMNS).eq("platform", normalized).order("rating_average", { ascending: false }).range(offset, offset + limit - 1),
+  ]);
 
-  if (countError) return { apps: [], total: 0 };
-
-  const { data, error } = await supabase
-    .from("software_applications")
-    .select("*")
-    .eq("platform", normalized)
-    .order("rating_average", { ascending: false })
-    .range(offset, offset + limit - 1);
-
-  if (error || !data) return { apps: [], total: count ?? 0 };
-
-  return {
-    apps: data.map(transformRow),
-    total: count ?? data.length,
-  };
+  if (countError || error || !data) return { apps: [], total: 0 };
+  return { apps: data.map(transformRow), total: count ?? data.length };
 }
 
 export async function getAppsByCategory(
@@ -128,40 +116,72 @@ export async function getAppsByCategory(
   const category = getCategoryBySlug(categorySlug);
   if (!category) return { apps: [], total: 0 };
 
-  // Build ilike filters for all aliases
-  const orFilter = category.aliases
-    .map((alias) => `category_main.ilike.%${alias}%`)
-    .join(",");
+  const orFilter = category.aliases.map((alias) => `category_main.ilike.%${alias}%`).join(",");
 
-  const { count, error: countError } = await supabase
-    .from("software_applications")
-    .select("id", { count: "exact", head: true })
-    .or(orFilter);
+  const [{ count, error: countError }, { data, error }] = await Promise.all([
+    supabase.from("software_applications").select("id", { count: "exact", head: true }).or(orFilter),
+    supabase.from("software_applications").select(CARD_COLUMNS).or(orFilter).order("rating_average", { ascending: false }).range(offset, offset + limit - 1),
+  ]);
 
-  if (countError) return { apps: [], total: 0 };
+  if (countError || error || !data) return { apps: [], total: 0 };
+  return { apps: data.map(transformRow), total: count ?? data.length };
+}
 
-  const { data, error } = await supabase
-    .from("software_applications")
-    .select("*")
-    .or(orFilter)
-    .order("rating_average", { ascending: false })
-    .range(offset, offset + limit - 1);
+export async function searchApps(params: {
+  os?: string;
+  license?: string;
+  category?: string;
+  q?: string;
+  limit?: number;
+  offset?: number;
+}): Promise<{ apps: SoftwareApplication[]; total: number }> {
+  const { os, license, category, q, limit = 24, offset = 0 } = params;
 
-  if (error || !data) return { apps: [], total: count ?? 0 };
+  const platformMap: Record<string, string> = { iphone: "iOS", ios: "iOS" };
 
-  return {
-    apps: data.map(transformRow),
-    total: count ?? data.length,
-  };
+  function buildQuery(head = false) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let qb: any = supabase
+      .from("software_applications")
+      .select(head ? "id" : CARD_COLUMNS, head ? { count: "exact", head: true } : { count: "exact" });
+
+    if (os) {
+      const normalized = platformMap[os.toLowerCase()] ?? (os.charAt(0).toUpperCase() + os.slice(1).toLowerCase());
+      qb = qb.eq("platform", normalized);
+    }
+    if (license) {
+      qb = qb.ilike("license", license);
+    }
+    if (category) {
+      const cat = getCategoryBySlug(category);
+      if (cat) {
+        const orFilter = cat.aliases.map((a) => `category_main.ilike.%${a}%`).join(",");
+        qb = qb.or(orFilter);
+      }
+    }
+    if (q) {
+      qb = qb.or(`name.ilike.%${q}%,short_summary.ilike.%${q}%`);
+    }
+    return qb;
+  }
+
+  const [{ count, error: countErr }, { data, error }] = await Promise.all([
+    buildQuery(true),
+    buildQuery().order("rating_average", { ascending: false }).range(offset, offset + limit - 1),
+  ]);
+
+  if (countErr || error || !data) return { apps: [], total: 0 };
+  return { apps: data.map(transformRow), total: count ?? data.length };
 }
 
 export async function getAlternatives(
   app: SoftwareApplication,
   limit = 5
 ): Promise<SoftwareApplication[]> {
+  const CARD_COLUMNS = "id,slug,name,platform,category_main,license,rating_average,rating_total_count,icon_url,short_summary,developer_name,download_url";
   const { data, error } = await supabase
     .from("software_applications")
-    .select("*")
+    .select(CARD_COLUMNS)
     .eq("category_main", app.core.category.main)
     .eq("platform", app.core.platform)
     .neq("id", app.core.id)

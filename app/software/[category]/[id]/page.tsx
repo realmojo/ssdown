@@ -117,12 +117,9 @@ export default async function AppDetailPage({
   params: Promise<{ category: string; id: string }>;
 }) {
   const { category: categorySlug, id } = await params;
-  const [app, alternatives] = await Promise.all([
-    getAppById(id),
-    getAppById(id).then((a) => (a ? getAlternatives(a, 4) : [])),
-  ]);
-
+  const app = await getAppById(id);
   if (!app) notFound();
+  const alternatives = await getAlternatives(app, 4);
 
   const category =
     getCategoryBySlug(categorySlug) ??

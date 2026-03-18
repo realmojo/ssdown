@@ -9,6 +9,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -85,6 +86,12 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                   iOS
                 </a>
               </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <a href="/search" className="w-full cursor-pointer">
+                  Search & Filter
+                </a>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -131,503 +138,97 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* Tools Mega Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
                 className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
               >
-                Image <ChevronDown className="h-4 w-4" />
+                Tools <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
-              <DropdownMenuItem asChild>
-                <a
-                  href="/image/image-compressor"
-                  className="w-full cursor-pointer"
-                >
-                  Image Compressor
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/image/image-converter"
-                  className="w-full cursor-pointer"
-                >
-                  Image Converter
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/image/social-image-resizer"
-                  className="w-full cursor-pointer"
-                >
-                  Social Image Resizer
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/image/background-remover"
-                  className="w-full cursor-pointer"
-                >
-                  Background Remover
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/image/watermark-remover"
-                  className="w-full cursor-pointer"
-                >
-                  Watermark Remover
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/image/favicon-generator"
-                  className="w-full cursor-pointer"
-                >
-                  Favicon Generator
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/image/color-palette-extractor"
-                  className="w-full cursor-pointer"
-                >
-                  Color Palette Extractor
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/image/thumbnail-generator"
-                  className="w-full cursor-pointer"
-                >
-                  Thumbnail Generator
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/image/crop-image" className="w-full cursor-pointer">
-                  Crop Image
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/image/flip-image" className="w-full cursor-pointer">
-                  Flip Image
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/image/pixelate-image"
-                  className="w-full cursor-pointer"
-                >
-                  Pixelate Image
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/image/black-and-white"
-                  className="w-full cursor-pointer"
-                >
-                  Black & White
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/image/add-text-to-image"
-                  className="w-full cursor-pointer"
-                >
-                  Add Text to Image
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/image/add-border-to-image"
-                  className="w-full cursor-pointer"
-                >
-                  Add Border to Image
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/image/combine-images"
-                  className="w-full cursor-pointer"
-                >
-                  Combine Images
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/image/collage-maker"
-                  className="w-full cursor-pointer"
-                >
-                  Collage Maker
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/image/round-image-maker"
-                  className="w-full cursor-pointer"
-                >
-                  Round Image Maker
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/image/image-metadata-viewer"
-                  className="w-full cursor-pointer"
-                >
-                  Image Metadata Viewer
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/image/blur-image" className="w-full cursor-pointer">
-                  Blur Image
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/image/icon-to-png" className="w-full cursor-pointer">
-                  Icon to PNG
-                </a>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+            <DropdownMenuContent align="start" className="w-[640px] p-5">
+              <div className="grid grid-cols-4 gap-6">
+                {/* Image Column */}
+                <div>
+                  <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">Image</p>
+                  <a href="/image/image-compressor" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Image Compressor</a>
+                  <a href="/image/image-converter" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Image Converter</a>
+                  <a href="/image/social-image-resizer" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Social Image Resizer</a>
+                  <a href="/image/background-remover" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Background Remover</a>
+                  <a href="/image/watermark-remover" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Watermark Remover</a>
+                  <a href="/image/favicon-generator" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Favicon Generator</a>
+                  <a href="/image/color-palette-extractor" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Color Palette</a>
+                  <a href="/image/thumbnail-generator" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Thumbnail Generator</a>
+                  <a href="/image/crop-image" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Crop Image</a>
+                  <a href="/image/flip-image" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Flip Image</a>
+                  <a href="/image/pixelate-image" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Pixelate Image</a>
+                  <a href="/image/black-and-white" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Black & White</a>
+                  <a href="/image/add-text-to-image" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Add Text</a>
+                  <a href="/image/add-border-to-image" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Add Border</a>
+                  <a href="/image/combine-images" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Combine Images</a>
+                  <a href="/image/collage-maker" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Collage Maker</a>
+                  <a href="/image/round-image-maker" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Round Image</a>
+                  <a href="/image/image-metadata-viewer" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Metadata Viewer</a>
+                  <a href="/image/blur-image" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Blur Image</a>
+                  <a href="/image/icon-to-png" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Icon to PNG</a>
+                </div>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
-              >
-                Video & Audio <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
-              <DropdownMenuItem asChild>
-                <a
-                  href="/video-audio/video-to-mp3"
-                  className="w-full cursor-pointer"
-                >
-                  Video to MP3
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/video-audio/video-to-gif"
-                  className="w-full cursor-pointer"
-                >
-                  Video to GIF
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/video-audio/video-frame-extractor"
-                  className="w-full cursor-pointer"
-                >
-                  Video Frame Extractor
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/video-audio/audio-trimmer"
-                  className="w-full cursor-pointer"
-                >
-                  Audio Trimmer
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/video-audio/mute-video"
-                  className="w-full cursor-pointer"
-                >
-                  Mute Video
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/video-audio/gif-to-mp4"
-                  className="w-full cursor-pointer"
-                >
-                  GIF to MP4
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/video-audio/trim-video"
-                  className="w-full cursor-pointer"
-                >
-                  Trim Video
-                </a>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+                {/* Video & PDF Column */}
+                <div>
+                  <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">Video & PDF</p>
+                  <a href="/video-audio/video-to-mp3" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Video to MP3</a>
+                  <a href="/video-audio/video-to-gif" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Video to GIF</a>
+                  <a href="/video-audio/video-frame-extractor" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Frame Extractor</a>
+                  <a href="/video-audio/audio-trimmer" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Audio Trimmer</a>
+                  <a href="/video-audio/mute-video" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Mute Video</a>
+                  <a href="/video-audio/gif-to-mp4" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">GIF to MP4</a>
+                  <a href="/video-audio/trim-video" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Trim Video</a>
+                  <div className="my-2 border-t border-border" />
+                  <a href="/pdf/merge-pdf" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Merge PDF</a>
+                  <a href="/pdf/rotate-pdf" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Rotate PDF</a>
+                  <a href="/pdf/delete-pdf-pages" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Delete Pages</a>
+                  <a href="/pdf/split-pdf" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Split PDF</a>
+                  <a href="/pdf/compress-pdf" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Compress PDF</a>
+                  <a href="/pdf/pdf-to-word" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">PDF to Word</a>
+                  <a href="/pdf/pdf-to-excel" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">PDF to Excel</a>
+                  <a href="/pdf/pdf-to-jpg" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">PDF to JPG</a>
+                  <a href="/pdf/pdf-to-png" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">PDF to PNG</a>
+                  <a href="/pdf/pdf-editor" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">PDF Editor</a>
+                  <a href="/pdf/esign-pdf" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">eSign PDF</a>
+                </div>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
-              >
-                Social & Text <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
-              <DropdownMenuItem asChild>
-                <a
-                  href="/social-text/hashtag-generator"
-                  className="w-full cursor-pointer"
-                >
-                  Hashtag Generator
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/social-text/instagram-line-break"
-                  className="w-full cursor-pointer"
-                >
-                  Instagram Line Break
-                </a>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+                {/* File Column */}
+                <div>
+                  <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">File</p>
+                  <a href="/file/json-to-xml" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">JSON to XML</a>
+                  <a href="/file/xml-to-json" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">XML to JSON</a>
+                  <a href="/file/csv-to-json" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">CSV to JSON</a>
+                  <a href="/file/csv-to-xml" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">CSV to XML</a>
+                  <a href="/file/xml-to-csv" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">XML to CSV</a>
+                  <a href="/file/csv-to-excel" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">CSV to Excel</a>
+                  <a href="/file/excel-to-csv" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Excel to CSV</a>
+                  <a href="/file/xml-to-excel" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">XML to Excel</a>
+                  <a href="/file/excel-to-xml" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Excel to XML</a>
+                  <a href="/file/split-csv" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Split CSV</a>
+                  <a href="/file/split-excel" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Split Excel</a>
+                  <a href="/file/excel-to-pdf" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Excel to PDF</a>
+                </div>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
-              >
-                Utility <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
-              <DropdownMenuItem asChild>
-                <a
-                  href="/utility/youtube-thumbnail"
-                  className="w-full cursor-pointer"
-                >
-                  YT Thumbnail Downloader
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/utility/youtube-preview"
-                  className="w-full cursor-pointer"
-                >
-                  YT Preview Editor
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/utility/qr-code-generator"
-                  className="w-full cursor-pointer"
-                >
-                  QR Code Generator
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/utility/aspect-ratio-calculator"
-                  className="w-full cursor-pointer"
-                >
-                  Aspect Ratio Calculator
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/utility/word-counter"
-                  className="w-full cursor-pointer"
-                >
-                  Word Counter
-                </a>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
-              >
-                PDF <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="start"
-              className="max-h-[70vh] overflow-y-auto"
-            >
-              <DropdownMenuItem asChild>
-                <a href="/pdf/merge-pdf" className="w-full cursor-pointer">
-                  Merge PDF
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/pdf/rotate-pdf" className="w-full cursor-pointer">
-                  Rotate PDF
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/pdf/delete-pdf-pages"
-                  className="w-full cursor-pointer"
-                >
-                  Delete PDF Pages
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/pdf/protect-pdf" className="w-full cursor-pointer">
-                  Protect PDF
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/pdf/unlock-pdf" className="w-full cursor-pointer">
-                  Unlock PDF
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/pdf/pdf-to-text" className="w-full cursor-pointer">
-                  PDF to Text
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/pdf/split-pdf" className="w-full cursor-pointer">
-                  Split PDF
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/pdf/rearrange-pdf" className="w-full cursor-pointer">
-                  Rearrange PDF
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/pdf/crop-pdf" className="w-full cursor-pointer">
-                  Crop PDF
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/pdf/pdf-page-numbers"
-                  className="w-full cursor-pointer"
-                >
-                  PDF Page Numbers
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/pdf/pdf-watermark" className="w-full cursor-pointer">
-                  PDF Watermark
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/pdf/add-text-to-pdf"
-                  className="w-full cursor-pointer"
-                >
-                  Add Text to PDF
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/pdf/create-pdf" className="w-full cursor-pointer">
-                  Create PDF
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/pdf/images-to-pdf" className="w-full cursor-pointer">
-                  Images to PDF
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/pdf/pdf-to-jpg" className="w-full cursor-pointer">
-                  PDF to JPG
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/pdf/pdf-to-png" className="w-full cursor-pointer">
-                  PDF to PNG
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/pdf/pdf-editor" className="w-full cursor-pointer">
-                  PDF Editor
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/pdf/esign-pdf" className="w-full cursor-pointer">
-                  eSign PDF
-                </a>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className="flex items-center gap-1 text-muted-foreground hover:text-primary data-[state=open]:text-primary"
-              >
-                File <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
-              <DropdownMenuItem asChild>
-                <a href="/file/json-to-xml" className="w-full cursor-pointer">
-                  JSON to XML
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/file/xml-to-json" className="w-full cursor-pointer">
-                  XML to JSON
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/file/csv-to-json" className="w-full cursor-pointer">
-                  CSV to JSON
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/file/csv-to-xml" className="w-full cursor-pointer">
-                  CSV to XML
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/file/xml-to-csv" className="w-full cursor-pointer">
-                  XML to CSV
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/file/csv-to-excel" className="w-full cursor-pointer">
-                  CSV to Excel
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/file/excel-to-csv" className="w-full cursor-pointer">
-                  Excel to CSV
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/file/xml-to-excel" className="w-full cursor-pointer">
-                  XML to Excel
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/file/excel-to-xml" className="w-full cursor-pointer">
-                  Excel to XML
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/file/split-csv" className="w-full cursor-pointer">
-                  Split CSV
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/file/split-excel" className="w-full cursor-pointer">
-                  Split Excel
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/file/excel-to-pdf" className="w-full cursor-pointer">
-                  Excel to PDF
-                </a>
-              </DropdownMenuItem>
+                {/* Utility Column */}
+                <div>
+                  <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">Utility</p>
+                  <a href="/utility/youtube-thumbnail" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">YT Thumbnail Downloader</a>
+                  <a href="/utility/youtube-preview" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">YT Preview Editor</a>
+                  <a href="/utility/qr-code-generator" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">QR Code Generator</a>
+                  <a href="/utility/aspect-ratio-calculator" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Aspect Ratio Calculator</a>
+                  <a href="/utility/word-counter" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Word Counter</a>
+                  <div className="my-2 border-t border-border" />
+                  <a href="/social-text/hashtag-generator" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Hashtag Generator</a>
+                  <a href="/social-text/instagram-line-break" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Instagram Line Break</a>
+                </div>
+              </div>
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -675,10 +276,54 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                 </SheetHeader>
                 <div className="h-[calc(100vh-80px)] overflow-y-auto px-6 py-4">
                   <div className="flex flex-col gap-8 pb-10">
-                    {/* Platform Tools Section */}
-                    {/* <div className="flex flex-col gap-4">
+                    {/* Software */}
+                    <div className="flex flex-col gap-4">
                       <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                        Platform Tools
+                        Software
+                      </h4>
+                      <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
+                        <a
+                          href="/software/windows"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Windows
+                        </a>
+                        <a
+                          href="/software/mac"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Mac
+                        </a>
+                        <a
+                          href="/software/android"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Android
+                        </a>
+                        <a
+                          href="/software/iphone"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          iOS
+                        </a>
+                        <a
+                          href="/search"
+                          className="text-base font-medium hover:text-primary transition-colors py-1 text-blue-600"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Search & Filter
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* Downloaders */}
+                    <div className="flex flex-col gap-4">
+                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                        Downloaders
                       </h4>
                       <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
                         <a
@@ -724,544 +369,71 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                           {dict?.["9gag"]?.nav || "9GAG"}
                         </a>
                       </div>
-                    </div> */}
-
-                    {/* Software */}
-                    <div className="flex flex-col gap-4">
-                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                        Software
-                      </h4>
-                      <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
-                        <a
-                          href="/software/windows"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Windows
-                        </a>
-                        <a
-                          href="/software/mac"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Mac
-                        </a>
-                        <a
-                          href="/software/android"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Android
-                        </a>
-                        <a
-                          href="/software/iphone"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          iOS
-                        </a>
-                      </div>
                     </div>
 
-                    {/* Image Tools */}
+                    {/* Tools */}
                     <div className="flex flex-col gap-4">
                       <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                        Image Tools
+                        Tools
                       </h4>
-                      <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
-                        <a
-                          href="/image/image-compressor"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Image Compressor
-                        </a>
-                        <a
-                          href="/image/image-converter"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Image Converter
-                        </a>
-                        <a
-                          href="/image/social-image-resizer"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Social Image Resizer
-                        </a>
-                        <a
-                          href="/image/background-remover"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Background Remover
-                        </a>
-                        <a
-                          href="/image/watermark-remover"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Watermark Remover
-                        </a>
-                        <a
-                          href="/image/favicon-generator"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Favicon Generator
-                        </a>
-                        <a
-                          href="/image/color-palette-extractor"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Color Palette Extractor
-                        </a>
-                        <a
-                          href="/image/thumbnail-generator"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Thumbnail Generator
-                        </a>
-                        <a
-                          href="/image/crop-image"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Crop Image
-                        </a>
-                        <a
-                          href="/image/flip-image"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Flip Image
-                        </a>
-                        <a
-                          href="/image/pixelate-image"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Pixelate Image
-                        </a>
-                        <a
-                          href="/image/black-and-white"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Black & White
-                        </a>
-                        <a
-                          href="/image/add-text-to-image"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Add Text to Image
-                        </a>
-                        <a
-                          href="/image/add-border-to-image"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Add Border to Image
-                        </a>
-                        <a
-                          href="/image/combine-images"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Combine Images
-                        </a>
-                        <a
-                          href="/image/collage-maker"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Collage Maker
-                        </a>
-                        <a
-                          href="/image/round-image-maker"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Round Image Maker
-                        </a>
-                        <a
-                          href="/image/image-metadata-viewer"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Image Metadata Viewer
-                        </a>
-                        <a
-                          href="/image/blur-image"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Blur Image
-                        </a>
-                        <a
-                          href="/image/icon-to-png"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Icon to PNG
-                        </a>
-                      </div>
-                    </div>
-
-                    {/* Video & Audio */}
-                    <div className="flex flex-col gap-4">
-                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                        Video & Audio
-                      </h4>
-                      <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
-                        <a
-                          href="/video-audio/video-to-mp3"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Video to MP3
-                        </a>
-                        <a
-                          href="/video-audio/video-to-gif"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Video to GIF
-                        </a>
-                        <a
-                          href="/video-audio/video-frame-extractor"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Video Frame Extractor
-                        </a>
-                        <a
-                          href="/video-audio/audio-trimmer"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Audio Trimmer
-                        </a>
-                        <a
-                          href="/video-audio/mute-video"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Mute Video
-                        </a>
-                        <a
-                          href="/video-audio/gif-to-mp4"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          GIF to MP4
-                        </a>
-                        <a
-                          href="/video-audio/trim-video"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Trim Video
-                        </a>
-                      </div>
-                    </div>
-
-                    {/* Social & Text */}
-                    <div className="flex flex-col gap-4">
-                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                        Social & Text
-                      </h4>
-                      <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
-                        <a
-                          href="/social-text/hashtag-generator"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Hashtag Generator
-                        </a>
-                        <a
-                          href="/social-text/instagram-line-break"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Instagram Line Break
-                        </a>
-                      </div>
-                    </div>
-
-                    {/* Utility */}
-                    <div className="flex flex-col gap-4">
-                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                        Utility
-                      </h4>
-                      <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
-                        <a
-                          href="/utility/youtube-thumbnail"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          YT Thumbnail Downloader
-                        </a>
-                        <a
-                          href="/utility/youtube-preview"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          YT Preview Editor
-                        </a>
-                        <a
-                          href="/utility/qr-code-generator"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          QR Code Generator
-                        </a>
-                        <a
-                          href="/utility/aspect-ratio-calculator"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Aspect Ratio Calculator
-                        </a>
-                        <a
-                          href="/utility/word-counter"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Word Counter
-                        </a>
-                      </div>
-                    </div>
-
-                    {/* PDF Tools */}
-                    <div className="flex flex-col gap-4">
-                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                        PDF Tools
-                      </h4>
-                      <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
-                        <a
-                          href="/pdf/merge-pdf"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Merge PDF
-                        </a>
-                        <a
-                          href="/pdf/rotate-pdf"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Rotate PDF
-                        </a>
-                        <a
-                          href="/pdf/delete-pdf-pages"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Delete PDF Pages
-                        </a>
-                        <a
-                          href="/pdf/protect-pdf"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Protect PDF
-                        </a>
-                        <a
-                          href="/pdf/unlock-pdf"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Unlock PDF
-                        </a>
-                        <a
-                          href="/pdf/pdf-to-text"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          PDF to Text
-                        </a>
-                        <a
-                          href="/pdf/split-pdf"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Split PDF
-                        </a>
-                        <a
-                          href="/pdf/rearrange-pdf"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Rearrange PDF
-                        </a>
-                        <a
-                          href="/pdf/crop-pdf"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Crop PDF
-                        </a>
-                        <a
-                          href="/pdf/pdf-page-numbers"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          PDF Page Numbers
-                        </a>
-                        <a
-                          href="/pdf/pdf-watermark"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          PDF Watermark
-                        </a>
-                        <a
-                          href="/pdf/add-text-to-pdf"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Add Text to PDF
-                        </a>
-                        <a
-                          href="/pdf/create-pdf"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Create PDF
-                        </a>
-                        <a
-                          href="/pdf/images-to-pdf"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Images to PDF
-                        </a>
-                        <a
-                          href="/pdf/pdf-to-jpg"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          PDF to JPG
-                        </a>
-                        <a
-                          href="/pdf/pdf-to-png"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          PDF to PNG
-                        </a>
-                        <a
-                          href="/pdf/pdf-editor"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          PDF Editor
-                        </a>
-                        <a
-                          href="/pdf/esign-pdf"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          eSign PDF
-                        </a>
-                      </div>
-                    </div>
-
-                    {/* File Tools */}
-                    <div className="flex flex-col gap-4">
-                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                        File Tools
-                      </h4>
-                      <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
-                        <a
-                          href="/file/json-to-xml"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          JSON to XML
-                        </a>
-                        <a
-                          href="/file/xml-to-json"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          XML to JSON
-                        </a>
-                        <a
-                          href="/file/csv-to-json"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          CSV to JSON
-                        </a>
-                        <a
-                          href="/file/csv-to-xml"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          CSV to XML
-                        </a>
-                        <a
-                          href="/file/xml-to-csv"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          XML to CSV
-                        </a>
-                        <a
-                          href="/file/csv-to-excel"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          CSV to Excel
-                        </a>
-                        <a
-                          href="/file/excel-to-csv"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Excel to CSV
-                        </a>
-                        <a
-                          href="/file/xml-to-excel"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          XML to Excel
-                        </a>
-                        <a
-                          href="/file/excel-to-xml"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Excel to XML
-                        </a>
-                        <a
-                          href="/file/split-csv"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Split CSV
-                        </a>
-                        <a
-                          href="/file/split-excel"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Split Excel
-                        </a>
-                        <a
-                          href="/file/excel-to-pdf"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Excel to PDF
-                        </a>
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-1 ml-2 border-l pl-4 border-muted">
+                        <a href="/image/image-compressor" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Image Compressor</a>
+                        <a href="/image/image-converter" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Image Converter</a>
+                        <a href="/image/social-image-resizer" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Social Image Resizer</a>
+                        <a href="/image/background-remover" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Background Remover</a>
+                        <a href="/image/watermark-remover" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Watermark Remover</a>
+                        <a href="/image/favicon-generator" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Favicon Generator</a>
+                        <a href="/image/color-palette-extractor" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Color Palette</a>
+                        <a href="/image/thumbnail-generator" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Thumbnail Generator</a>
+                        <a href="/image/crop-image" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Crop Image</a>
+                        <a href="/image/flip-image" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Flip Image</a>
+                        <a href="/image/pixelate-image" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Pixelate Image</a>
+                        <a href="/image/black-and-white" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Black & White</a>
+                        <a href="/image/add-text-to-image" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Add Text</a>
+                        <a href="/image/add-border-to-image" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Add Border</a>
+                        <a href="/image/combine-images" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Combine Images</a>
+                        <a href="/image/collage-maker" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Collage Maker</a>
+                        <a href="/image/round-image-maker" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Round Image</a>
+                        <a href="/image/image-metadata-viewer" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Metadata Viewer</a>
+                        <a href="/image/blur-image" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Blur Image</a>
+                        <a href="/image/icon-to-png" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Icon to PNG</a>
+                        <a href="/video-audio/video-to-mp3" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Video to MP3</a>
+                        <a href="/video-audio/video-to-gif" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Video to GIF</a>
+                        <a href="/video-audio/video-frame-extractor" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Frame Extractor</a>
+                        <a href="/video-audio/audio-trimmer" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Audio Trimmer</a>
+                        <a href="/video-audio/mute-video" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Mute Video</a>
+                        <a href="/video-audio/gif-to-mp4" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>GIF to MP4</a>
+                        <a href="/video-audio/trim-video" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Trim Video</a>
+                        <a href="/pdf/merge-pdf" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Merge PDF</a>
+                        <a href="/pdf/rotate-pdf" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Rotate PDF</a>
+                        <a href="/pdf/delete-pdf-pages" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Delete Pages</a>
+                        <a href="/pdf/split-pdf" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Split PDF</a>
+                        <a href="/pdf/compress-pdf" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Compress PDF</a>
+                        <a href="/pdf/pdf-to-word" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>PDF to Word</a>
+                        <a href="/pdf/pdf-to-excel" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>PDF to Excel</a>
+                        <a href="/pdf/pdf-to-jpg" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>PDF to JPG</a>
+                        <a href="/pdf/pdf-to-png" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>PDF to PNG</a>
+                        <a href="/pdf/pdf-editor" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>PDF Editor</a>
+                        <a href="/pdf/esign-pdf" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>eSign PDF</a>
+                        <a href="/file/json-to-xml" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>JSON to XML</a>
+                        <a href="/file/xml-to-json" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>XML to JSON</a>
+                        <a href="/file/csv-to-json" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>CSV to JSON</a>
+                        <a href="/file/csv-to-xml" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>CSV to XML</a>
+                        <a href="/file/xml-to-csv" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>XML to CSV</a>
+                        <a href="/file/csv-to-excel" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>CSV to Excel</a>
+                        <a href="/file/excel-to-csv" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Excel to CSV</a>
+                        <a href="/file/xml-to-excel" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>XML to Excel</a>
+                        <a href="/file/excel-to-xml" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Excel to XML</a>
+                        <a href="/file/split-csv" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Split CSV</a>
+                        <a href="/file/split-excel" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Split Excel</a>
+                        <a href="/file/excel-to-pdf" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Excel to PDF</a>
+                        <a href="/utility/youtube-thumbnail" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>YT Thumbnail Downloader</a>
+                        <a href="/utility/youtube-preview" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>YT Preview Editor</a>
+                        <a href="/utility/qr-code-generator" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>QR Code Generator</a>
+                        <a href="/utility/aspect-ratio-calculator" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Aspect Ratio Calculator</a>
+                        <a href="/utility/word-counter" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Word Counter</a>
+                        <a href="/social-text/hashtag-generator" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Hashtag Generator</a>
+                        <a href="/social-text/instagram-line-break" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Instagram Line Break</a>
                       </div>
                     </div>
 
