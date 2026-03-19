@@ -311,8 +311,8 @@ export function DouyinClient({ dict }: DouyinClientProps) {
       emptyState={emptyState}
       downloadFileName={(quality) => `douyin_video_${quality}.mp4`}
       faqSection={guideSection}
-      slotId1="1620870631"
-      slotId2="1620870631"
+      slotId1="9629379592"
+      slotId2="9629379592"
     />
   );
 }
