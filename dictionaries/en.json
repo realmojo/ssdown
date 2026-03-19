@@ -4404,5 +4404,27 @@
     "faq_4_a": "No. SSDown can only download publicly accessible Douyin videos. Private or friend-only content cannot be fetched.",
     "faq_5_q": "Is downloading Douyin videos legal?",
     "faq_5_a": "Downloading videos for personal use is generally acceptable. However, redistributing or using content commercially without the creator permission may violate copyright law."
+  },
+  "kuaishou": {
+    "seo_title": "Kuaishou Video Downloader (快手) — No Watermark | SSDown",
+    "seo_description": "Download Kuaishou (快手) videos without watermark for free. Save HD MP4 videos and MP3 audio from any public Kuaishou post instantly.",
+    "seo_keywords": "kuaishou downloader, kuaishou video download, download kuaishou video, kuaishou no watermark, kuaishou video saver, kuaishou mp4, kuaishou mp3, 快手视频下载, free kuaishou downloader, v.kuaishou.com downloader, gifshow downloader",
+    "title": "Kuaishou Saver (快手)",
+    "subtitle": "Download Kuaishou videos without watermark. Save MP4 videos and MP3 audio instantly.",
+    "placeholder": "Paste Kuaishou link here... (e.g. https://www.kuaishou.com/video/...)"
+  },
+  "qna_kuaishou": {
+    "title": "Kuaishou FAQ",
+    "desc": "Common questions about downloading Kuaishou (快手) videos.",
+    "faq_1_q": "What is Kuaishou (快手)?",
+    "faq_1_a": "Kuaishou is one of China leading short-form video platforms with over 700 million registered users. It is known for authentic, grassroots content and competes with Douyin (TikTok) in the Chinese market.",
+    "faq_2_q": "Can I download Kuaishou videos without a watermark?",
+    "faq_2_a": "Yes. SSDown fetches the original video stream directly from Kuaishou servers before the watermark overlay is applied, so you get a clean MP4 file without any Kuaishou branding.",
+    "faq_3_q": "What URL formats are supported?",
+    "faq_3_a": "SSDown supports standard Kuaishou URLs (kuaishou.com/video/...), short share links (v.kuaishou.com/...), and gifshow.com URLs.",
+    "faq_4_q": "Can I download private Kuaishou videos?",
+    "faq_4_a": "No. SSDown can only download publicly accessible Kuaishou videos. Private or friend-only content cannot be fetched.",
+    "faq_5_q": "Is downloading Kuaishou videos legal?",
+    "faq_5_a": "Downloading videos for personal use is generally acceptable. However, redistributing or using content commercially without the creator permission may violate copyright law."
   }
 }

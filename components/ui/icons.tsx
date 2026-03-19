@@ -75,6 +75,17 @@ export const DouyinIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+export const KuaishouIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    className={className}
+    fill="currentColor"
+  >
+    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.75 13.5a.75.75 0 01-.75-.75v-1.5l-3 2.25V15a.75.75 0 01-.75.75h-3A.75.75 0 017.5 15V9a.75.75 0 01.75-.75h3a.75.75 0 01.75.75v1.5l3-2.25V9a.75.75 0 011.5 0v6a.75.75 0 01-.75.5z" />
+  </svg>
+);
+
 export const BilibiliIcon = ({ className }: { className?: string }) => (
   <svg
     viewBox="0 0 24 24"

@@ -140,6 +140,11 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                   Douyin (抖音)
                 </a>
               </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="/kuaishou" className="w-full cursor-pointer">
+                  Kuaishou (快手)
+                </a>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -379,6 +384,13 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                           onClick={() => setIsOpen(false)}
                         >
                           Douyin (抖音)
+                        </a>
+                        <a
+                          href="/kuaishou"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Kuaishou (快手)
                         </a>
                       </div>
                     </div>
