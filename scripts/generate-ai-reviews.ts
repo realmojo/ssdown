@@ -5,9 +5,12 @@
  * ai_review_html 을 생성하고 DB에 저장합니다.
  *
  * Usage:
- *   npx tsx scripts/generate-ai-reviews.ts          # 전체 처리
- *   npx tsx scripts/generate-ai-reviews.ts --resume  # 미처리 행만 처리
- *   npx tsx scripts/generate-ai-reviews.ts --limit=50 # 50개만 처리
+ *   npx tsx scripts/generate-ai-reviews.ts                                         # 전체 처리 (qwen2.5:7b)
+ *   npx tsx scripts/generate-ai-reviews.ts --model=exaone-deep                     # exaone-deep:latest 모델
+ *   npx tsx scripts/generate-ai-reviews.ts --resume                                # 미처리 행만 처리
+ *   npx tsx scripts/generate-ai-reviews.ts --limit=50                              # 50개만 처리
+ *   npx tsx scripts/generate-ai-reviews.ts                                         # 최신순 1000개 (qwen)
+ *   npx tsx scripts/generate-ai-reviews.ts --asc --model=exaone-deep              # 오래된순 1000개 (exaone, 겹치지 않음)
  */
 
 import { createClient } from '@supabase/supabase-js';
@@ -22,12 +25,23 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const CONCURRENCY = 1;   // 순차 처리 (1개씩)
 const RETRY_LIMIT = 3;
 const OLLAMA_BASE_URL = 'http://localhost:11434';
-const OLLAMA_MODEL = 'qwen2.5:7b';
+
+const MODEL_ALIASES: Record<string, string> = {
+  'qwen': 'qwen2.5:7b',
+  'exaone-deep': 'exaone-deep:latest',
+  'exaone': 'exaone-deep:latest',
+};
 
 const args = process.argv.slice(2);
 const RESUME = args.includes('--resume');
 const limitArg = args.find(a => a.startsWith('--limit='));
 const LIMIT = limitArg ? parseInt(limitArg.split('=')[1], 10) : Infinity;
+const modelArg = args.find(a => a.startsWith('--model='));
+const modelKey = modelArg ? modelArg.split('=')[1] : 'qwen';
+const OLLAMA_MODEL = MODEL_ALIASES[modelKey] ?? modelKey;
+const offsetArg = args.find(a => a.startsWith('--offset='));
+const OFFSET = offsetArg ? parseInt(offsetArg.split('=')[1], 10) : 0;
+const ASC = args.includes('--asc');
 
 // ── 클라이언트 ─────────────────────────────────────────────────────────────────
 
@@ -165,7 +179,10 @@ async function processChunk(rows: Record<string, unknown>[]): Promise<void> {
 
 async function main() {
   console.log('=== AI Review Generator ===');
+  console.log(`Model: ${OLLAMA_MODEL}`);
+  console.log(`Order: ${ASC ? 'oldest first (--asc)' : 'newest first'}`);
   console.log(`Concurrency: ${CONCURRENCY}`);
+  if (OFFSET > 0) console.log(`Offset: ${OFFSET}`);
   if (LIMIT !== Infinity) console.log(`Limit: ${LIMIT}`);
   console.log('');
 
@@ -177,7 +194,7 @@ async function main() {
     .neq('editor_review_html', '')
     .or('ai_review_html.is.null,ai_review_html.eq.');
 
-  query = query.order('created_at', { ascending: false });
+  query = query.order('created_at', { ascending: ASC }).limit(1000);
 
   const { data, error } = await query;
 
@@ -186,7 +203,9 @@ async function main() {
     process.exit(1);
   }
 
-  const rows = (data ?? []).slice(0, LIMIT === Infinity ? undefined : LIMIT);
+  const allRows = data ?? [];
+  const end = LIMIT === Infinity ? undefined : OFFSET + LIMIT;
+  const rows = allRows.slice(OFFSET, end);
   console.log(`Found ${rows.length} rows to process.\n`);
 
   if (rows.length === 0) {
