@@ -72,13 +72,13 @@
     "cta_btn_tiktok": "TikTok 체험하기"
   },
   "x": {
-    "title": "X (Twitter) 저장기",
+    "title": "X (Twitter) 다운로더",
     "subtitle": "X (Twitter) 비디오 및 GIF를 MP4로 저장하세요. 고화질, 무료, 무제한.",
     "placeholder": "여기에 X (Twitter) 링크 붙여넣기...",
     "desc_copy": "다운로드하려는 트윗을 찾아 링크를 복사하세요.",
     "desc_paste": "위 상자에 링크를 붙여넣고 다운로드를 누르세요.",
     "desc_save": "선호하는 화질을 선택하고 기기에 저장하세요.",
-    "seo_title": "X (Twitter) 저장기 - 트위터 비디오 및 GIF 저장",
+    "seo_title": "X (Twitter) 다운로더 - 트위터 비디오 및 GIF 저장",
     "seo_description": "가장 빠른 X (Twitter) 비디오 저장 도구. 트위터 비디오와 GIF를 HD, Full HD, 4K 화질로 모바일이나 PC에 저장하세요. 로그인 불필요.",
     "seo_keywords": "x 비디오 저장, 트위터 비디오 저장, 트위터 gif 저장, 트위터 mp4 다운로드, x 동영상 저장"
   },
@@ -86,7 +86,7 @@
     "seo_title": "TikTok 다운로더 - 워터마크 없는 틱톡 비디오 저장",
     "seo_description": "워터마크 없이 틱톡 비디오를 다운로드하는 최고의 도구. 틱톡 MP4 비디오 및 MP3 오디오를 고화질로 저장하세요. 무료 및 무제한.",
     "seo_keywords": "틱톡 저장, 틱톡 워터마크 제거, 틱톡 mp3 추출, 틱톡 비디오 저장, 틱톡 mp3 변환기",
-    "title": "TikTok 저장기",
+    "title": "TikTok 다운로더",
     "subtitle": "워터마크 없이 틱톡 비디오를 다운로드하세요. MP4 비디오와 MP3 오디오를 즉시 저장합니다.",
     "placeholder": "여기에 TikTok 링크 붙여넣기...",
     "no_watermark": "워터마크 없음",
@@ -98,7 +98,7 @@
     "seo_title": "Instagram 다운로더 - 릴스, 스토리, 사진 및 비디오 저장",
     "seo_description": "무료 인스타그램 비디오 저장 도구. 인스타그램 릴스, 스토리, 사진 및 IGTV 비디오를 고화질(1080p, 4K)로 저장하세요. 익명 및 안전 보장.",
     "seo_keywords": "인스타그램 저장, 인스타 릴스 저장, 인스타 스토리 다운로드, 인스타 사진 저장, 인스타그램 비디오 다운로드",
-    "title": "Instagram 저장기",
+    "title": "Instagram 다운로더",
     "subtitle": "인스타그램 릴스, 비디오, 사진을 즉시 다운로드하세요. 고화질, 워터마크 없음.",
     "placeholder": "여기에 Instagram URL 붙여넣기...",
     "feature_1_title": "릴스 및 비디오",
@@ -107,7 +107,7 @@
     "feature_2_desc": "공개 인스타그램 계정의 사진과 스토리를 쉽게 저장하세요."
   },
   "facebook": {
-    "title": "Facebook 저장기",
+    "title": "Facebook 다운로더",
     "subtitle": "페이스북 비디오를 쉽게 다운로드하세요. 고화질, 무료, 안전.",
     "placeholder": "여기에 Facebook 비디오 URL 붙여넣기...",
     "feature_1_title": "HD 화질 비디오",
@@ -119,13 +119,13 @@
     "seo_keywords": "페이스북 저장, fb 비디오 저장, 페이스북 비디오 다운로드, fb mp4 변환기"
   },
   "9gag": {
-    "title": "9GAG 저장기",
+    "title": "9GAG 다운로더",
     "subtitle": "9GAG 비디오 및 GIF를 MP4로 저장하세요. 고화질, 무료, 무제한.",
     "placeholder": "여기에 9GAG 링크 붙여넣기...",
     "desc_copy": "다운로드하려는 9GAG 게시물을 찾아 링크를 복사하세요.",
     "desc_paste": "위 상자에 링크를 붙여넣고 다운로드를 누르세요.",
     "desc_save": "선호하는 화질을 선택하고 기기에 저장하세요.",
-    "seo_title": "9GAG 저장기 - 9GAG 비디오 및 밈 저장",
+    "seo_title": "9GAG 다운로더 - 9GAG 비디오 및 밈 저장",
     "seo_description": "최고의 9GAG 비디오 저장 도구. 9GAG 비디오와 GIF를 HD 화질로 저장하세요. 무료, 신속, 간편.",
     "seo_keywords": "9gag 비디오 다운로드, 9gag 비디오 저장, 9gag 밈 다운로드, 9gag mp4 다운로드",
     "nav": "9GAG",
@@ -160,7 +160,7 @@
   },
   "about": {
     "title": "SSDown 소개",
-    "subtitle": "궁극의 소셜 미디어 저장기",
+    "subtitle": "궁극의 소셜 미디어 다운로더",
     "description": "SSDown은 X (Twitter), TikTok, Instagram, Facebook 등 다양한 소셜 미디어 플랫폼에서 비디오를 다운로드할 수 있도록 설계된 종합 온라인 도구입니다. 우리의 미션은 모두에게 빠르고 안전하며 완전 무료인 서비스를 제공하는 것입니다.",
     "mission_title": "우리의 미션",
     "mission_desc": "우리는 콘텐츠를 오프라인에서도 볼 수 있어야 한다고 믿습니다. 재미있는 틱톡이든, 영감을 주는 인스타 릴스든, 유익한 트위터 비디오든, 제약이나 워터마크 없이 원할 때 언제든 저장하고 시청할 수 있어야 합니다.",
@@ -246,10 +246,10 @@
     "seo_description": "저희 비디오 저장 서비스에 관한 질문, 피드백 또는 문제가 있다면 SSDown 지원팀에 문의하세요."
   },
   "dailymotion": {
-    "title": "Dailymotion 저장기",
+    "title": "Dailymotion 다운로더",
     "subtitle": "데일모션 비디오를 즉시 다운로드하세요. 고화질, 워터마크 없음.",
     "placeholder": "여기에 Dailymotion URL 붙여넣기...",
-    "seo_title": "Dailymotion 저장기 - 온라인 데일리모션 비디오 다운로드",
+    "seo_title": "Dailymotion 다운로더 - 온라인 데일리모션 비디오 다운로드",
     "seo_description": "최고의 데일리모션 비디오 저장 도구. 데일리모션 비디오를 HD 화질로 기기에 저장하세요. 무료, 신속, 간편.",
     "seo_keywords": "데일리모션 저장, 데일리모션 비디오 다운로드, 데일리모션 mp4 다운로드",
     "guide_title": "Dailymotion 비디오 다운로드 방법",
@@ -300,10 +300,10 @@
     "faq_5_a": "네, SSDown은 데일리모션 비디오 다운로드에 대해 완전 무료입니다."
   },
   "bilibili": {
-    "title": "Bilibili 저장기",
+    "title": "Bilibili 다운로더",
     "subtitle": "비리비리 비디오를 즉시 다운로드하세요. 고화질, 워터마크 없음.",
     "placeholder": "여기에 Bilibili URL 붙여넣기...",
-    "seo_title": "Bilibili 저장기 - 온라인 비리비리 비디오 다운로드",
+    "seo_title": "Bilibili 다운로더 - 온라인 비리비리 비디오 다운로드",
     "seo_description": "최고의 비리비리 비디오 저장 도구. Bilibili 비디오를 HD 화질로 저장하세요. 무료, 신속, 간편.",
     "seo_keywords": "비리비리 저장, bilibili 비디오 다운로드, 비리비리 mp4 다운로드",
     "nav": "Bilibili",
@@ -4135,5 +4135,27 @@
     "tip4_desc": "한국어, 영어 등 다양한 언어의 텍스트를 분석할 수 있습니다.",
     "faq_title": "글자 수 세기 FAQ",
     "faq_desc": "글자 수 세기에 대한 일반적인 질문들."
+  },
+  "douyin": {
+    "seo_title": "도우인 영상 다운로드 (抖音) — 워터마크 없이 무료 | SSDown",
+    "seo_description": "도우인(抖音) 동영상을 워터마크 없이 무료로 다운로드하세요. HD MP4 영상과 MP3 음원을 즉시 저장. 로그인 불필요.",
+    "seo_keywords": "도우인 다운로드, 도우인 영상 다운로드, 도우인 동영상 저장, 도우인 워터마크 없이, 抖音 다운로드, 도우인 mp4 저장, 도우인 mp3 추출, 도우인 무료 다운로드, v.douyin.com 다운로드, 도우인 고화질 저장",
+    "title": "도우인 다운로더 (抖音)",
+    "subtitle": "도우인(抖音) 영상을 워터마크 없이 다운로드하세요. MP4 동영상과 MP3 음원을 즉시 저장.",
+    "placeholder": "도우인 링크를 붙여넣으세요... (예: https://v.douyin.com/...)"
+  },
+  "qna_douyin": {
+    "title": "도우인 FAQ",
+    "desc": "도우인(抖音) 영상 다운로드에 관한 자주 묻는 질문입니다.",
+    "faq_1_q": "도우인(抖音)이란 무엇인가요?",
+    "faq_1_a": "도우인(抖音)은 ByteDance가 개발한 TikTok의 중국 버전입니다. 국제 TikTok과는 완전히 별개의 플랫폼으로, 중국 내에서만 접속 가능합니다. 월간 활성 사용자가 7억 명을 넘습니다.",
+    "faq_2_q": "도우인 영상을 워터마크 없이 다운로드할 수 있나요?",
+    "faq_2_a": "네. SSDown은 워터마크가 추가되기 전 원본 영상 스트림을 가져오므로, 도우인 브랜딩 없는 깨끗한 MP4 파일을 받을 수 있습니다.",
+    "faq_3_q": "어떤 도우인 URL 형식을 지원하나요?",
+    "faq_3_a": "SSDown은 표준 도우인 URL(douyin.com/video/...)과 앱에서 생성되는 단축 공유 링크(v.douyin.com/...) 모두 지원합니다.",
+    "faq_4_q": "비공개 도우인 영상도 다운로드할 수 있나요?",
+    "faq_4_a": "아니요. SSDown은 공개된 도우인 영상만 다운로드할 수 있습니다. 비공개 또는 친구 공개 콘텐츠는 가져올 수 없습니다.",
+    "faq_5_q": "도우인 영상 다운로드는 합법인가요?",
+    "faq_5_a": "개인 시청 목적의 다운로드는 일반적으로 허용됩니다. 단, 크리에이터의 허락 없이 재배포하거나 상업적으로 사용하는 것은 저작권법에 위반될 수 있습니다. 항상 원작자를 존중해 주세요."
   }
 }
