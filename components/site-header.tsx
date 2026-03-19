@@ -135,6 +135,11 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                   {dict?.["9gag"]?.nav || "9GAG"}
                 </a>
               </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="/douyin" className="w-full cursor-pointer">
+                  Douyin (抖音)
+                </a>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -367,6 +372,13 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                           onClick={() => setIsOpen(false)}
                         >
                           {dict?.["9gag"]?.nav || "9GAG"}
+                        </a>
+                        <a
+                          href="/douyin"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Douyin (抖音)
                         </a>
                       </div>
                     </div>

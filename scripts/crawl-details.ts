@@ -174,7 +174,7 @@ async function createBrowser(): Promise<{
   context: BrowserContext;
 }> {
   const browser = await chromium.launch({
-    headless: true,
+    headless: false,
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
