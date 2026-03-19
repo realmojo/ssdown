@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   Gamepad2,
   Globe,
@@ -73,7 +72,7 @@ export default function SoftwareCategoriesPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {CATEGORIES.map((category) => (
-            <Link
+            <a
               key={category.slug}
               href={`/software/${category.slug}`}
               className="group flex items-center gap-3 bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-md transition-all"
@@ -85,7 +84,7 @@ export default function SoftwareCategoriesPage() {
                 {category.name}
               </span>
               <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors" />
-            </Link>
+            </a>
           ))}
         </div>
       </div>

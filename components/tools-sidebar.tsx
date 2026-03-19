@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LucideIcon } from "lucide-react";
 import {
@@ -172,7 +171,7 @@ export function ToolsSidebar({ category, dict }: ToolsSidebarProps) {
           const title = toolNames?.[idx]?.title || tool.key.replace(/_/g, " ");
 
           return (
-            <Link
+            <a
               key={tool.href}
               href={tool.href}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
@@ -183,7 +182,7 @@ export function ToolsSidebar({ category, dict }: ToolsSidebarProps) {
             >
               <Icon className={`w-4 h-4 shrink-0 ${isActive ? config.activeIconColor : ""}`} />
               <span className="truncate">{title}</span>
-            </Link>
+            </a>
           );
         })}
       </nav>

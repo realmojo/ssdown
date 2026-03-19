@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { Metadata } from "next";
 import {
   Gamepad2,
@@ -170,7 +169,7 @@ function AppGrid({ apps }: { apps: SoftwareApplication[] }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {apps.map((app) => (
-        <Link
+        <a
           key={app.core.id}
           href={buildAppHref(app)}
           className="group bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-md transition-all"
@@ -214,7 +213,7 @@ function AppGrid({ apps }: { apps: SoftwareApplication[] }) {
               </div>
             </div>
           </div>
-        </Link>
+        </a>
       ))}
     </div>
   );

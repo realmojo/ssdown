@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Home, Search, ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
@@ -15,29 +14,29 @@ export default function NotFound() {
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
+            <a
               href="/"
               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-500 transition-colors"
             >
               <Home className="w-4 h-4" />
               홈으로 이동
-            </Link>
-            <Link
+            </a>
+            <a
               href="/software"
               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-gray-200 text-gray-700 font-semibold hover:bg-gray-50 transition-colors"
             >
               <Search className="w-4 h-4" />
               소프트웨어 둘러보기
-            </Link>
+            </a>
           </div>
 
-          <Link
+          <a
             href="/"
             className="mt-6 inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             이전으로 돌아가기
-          </Link>
+          </a>
         </div>
       </div>
     </div>

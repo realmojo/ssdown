@@ -2,7 +2,6 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useTransition } from "react";
-import Link from "next/link";
 import { Star, Search, SlidersHorizontal } from "lucide-react";
 import type { SoftwareApplication } from "@/types/app";
 import { CATEGORIES } from "@/lib/categories";
@@ -57,7 +56,7 @@ function RatingStars({ rating }: { rating: number }) {
 
 function AppCard({ app }: { app: SoftwareApplication }) {
   return (
-    <Link
+    <a
       href={buildAppHref(app)}
       className="group bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-md transition-all"
     >
@@ -102,7 +101,7 @@ function AppCard({ app }: { app: SoftwareApplication }) {
           {app.content.shortSummary}
         </p>
       )}
-    </Link>
+    </a>
   );
 }
 

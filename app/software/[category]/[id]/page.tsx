@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { Metadata } from "next";
 import {
   Download,
@@ -200,15 +199,15 @@ export default async function AppDetailPage({
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-10">
           {/* breadcrumb */}
           <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-7">
-            <Link href="/" className="hover:text-slate-200 transition-colors">홈</Link>
+            <a href="/" className="hover:text-slate-200 transition-colors">홈</a>
             <ChevronRight className="w-3 h-3" />
-            <Link href="/software" className="hover:text-slate-200 transition-colors">소프트웨어</Link>
+            <a href="/software" className="hover:text-slate-200 transition-colors">소프트웨어</a>
             {category && (
               <>
                 <ChevronRight className="w-3 h-3" />
-                <Link href={`/software/${category.slug}`} className="hover:text-slate-200 transition-colors">
+                <a href={`/software/${category.slug}`} className="hover:text-slate-200 transition-colors">
                   {category.name}
-                </Link>
+                </a>
               </>
             )}
             <ChevronRight className="w-3 h-3" />
@@ -589,7 +588,7 @@ export default async function AppDetailPage({
                   {alternatives.map((alt) => {
                     const altCat = getCategoryByMain(alt.core.category.main);
                     return (
-                      <Link
+                      <a
                         key={alt.core.id}
                         href={`/software/${altCat?.slug ?? "utilities"}/${alt.core.id}`}
                         className="flex items-center gap-3 group"
@@ -613,7 +612,7 @@ export default async function AppDetailPage({
                             </div>
                           )}
                         </div>
-                      </Link>
+                      </a>
                     );
                   })}
                 </div>
@@ -622,13 +621,13 @@ export default async function AppDetailPage({
 
             {/* Back link */}
             {category && (
-              <Link
+              <a
                 href={`/software/${category.slug}`}
                 className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-blue-600 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 {category.name} 전체 보기
-              </Link>
+              </a>
             )}
           </div>
         </div>

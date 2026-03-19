@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   FilePlus2,
@@ -65,7 +64,7 @@ export function PdfToolsSidebar({ dict }: PdfToolsSidebarProps) {
           const title = toolNames?.[idx]?.title || tool.key.replace(/_/g, " ");
 
           return (
-            <Link
+            <a
               key={tool.href}
               href={tool.href}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
@@ -76,7 +75,7 @@ export function PdfToolsSidebar({ dict }: PdfToolsSidebarProps) {
             >
               <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-red-600 dark:text-red-400" : ""}`} />
               <span className="truncate">{title}</span>
-            </Link>
+            </a>
           );
         })}
       </nav>
