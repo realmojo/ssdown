@@ -51,7 +51,14 @@
       "Skill(claude-api:*)",
       "Bash(git push:*)",
       "Skill(geo-audit)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(find /Users/realmojo/Desktop/m/ssdown/app -maxdepth 4 -path \"*/\\(static\\)/*\" -name \"page.tsx\")",
+      "Bash(/tmp/category_test.sh:*)",
+      "Bash(__NEW_LINE_5e9cb84f19864d85__ bash:*)",
+      "Bash(/tmp/test_report.md:*)",
+      "Bash(__NEW_LINE_d94338ea75f27c56__ cat:*)",
+      "Bash(/tmp/html_structure_check.sh:*)",
+      "Bash(__NEW_LINE_1223b784965ac1d0__ bash:*)"
     ]
   },
   "model": "sonnet",

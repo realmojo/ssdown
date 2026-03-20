@@ -93,19 +93,51 @@ const CARD_COLUMNS = "id,slug,name,platform,category_main,license,rating_average
 export async function getAppsByPlatform(
   platform: string,
   limit = 60,
-  offset = 0
+  offset = 0,
+  categoryMain?: string
 ): Promise<{ apps: SoftwareApplication[]; total: number }> {
   const platformName = platform.charAt(0).toUpperCase() + platform.slice(1).toLowerCase();
   const platformMap: Record<string, string> = { iphone: 'iOS', ios: 'iOS' };
   const normalized = platformMap[platform.toLowerCase()] ?? platformName;
 
+  function applyFilters(qb: ReturnType<typeof supabase.from>) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let q: any = qb.eq("platform", normalized);
+    if (categoryMain) q = q.eq("category_main", categoryMain);
+    return q;
+  }
+
   const [{ count, error: countError }, { data, error }] = await Promise.all([
-    supabase.from("software_applications").select("id", { count: "exact", head: true }).eq("platform", normalized),
-    supabase.from("software_applications").select(CARD_COLUMNS).eq("platform", normalized).order("rating_average", { ascending: false }).range(offset, offset + limit - 1),
+    applyFilters(supabase.from("software_applications").select("id", { count: "exact", head: true })),
+    applyFilters(supabase.from("software_applications").select(CARD_COLUMNS))
+      .order("rating_average", { ascending: false })
+      .range(offset, offset + limit - 1),
   ]);
 
   if (countError || error || !data) return { apps: [], total: 0 };
   return { apps: data.map(transformRow), total: count ?? data.length };
+}
+
+export async function getCategoriesForPlatform(platform: string): Promise<{ category_main: string; count: number }[]> {
+  const platformMap: Record<string, string> = { iphone: 'iOS', ios: 'iOS' };
+  const platformName = platform.charAt(0).toUpperCase() + platform.slice(1).toLowerCase();
+  const normalized = platformMap[platform.toLowerCase()] ?? platformName;
+
+  const { data, error } = await supabase
+    .from("software_applications")
+    .select("category_main")
+    .eq("platform", normalized)
+    .neq("category_main", "");
+
+  if (error || !data) return [];
+
+  const counts: Record<string, number> = {};
+  for (const row of data) {
+    if (row.category_main) counts[row.category_main] = (counts[row.category_main] ?? 0) + 1;
+  }
+  return Object.entries(counts)
+    .map(([category_main, count]) => ({ category_main, count }))
+    .sort((a, b) => b.count - a.count);
 }
 
 export async function getAppsByCategory(

@@ -39,19 +39,24 @@ export async function generateMetadata({
   const app = await getAppById(id);
   if (!app) return {};
   const canonical = `https://ssdown.app/software/${category}/${id}`;
+  const defaultTitle = `${app.core.name} Free Download - SSDown`;
+  const defaultOgTitle = `${app.core.name} Free Download`;
   return {
-    title: app.seo.title || `${app.core.name} 다운로드 - SSDown`,
+    title: app.seo.title || defaultTitle,
     description: app.seo.description || app.content.shortSummary,
+    keywords: `${app.core.name} download, free ${app.core.name}, ${app.core.platform} ${app.core.name}, ${app.core.name} ${app.download.license}`,
     alternates: { canonical },
     openGraph: {
-      title: app.seo.title || `${app.core.name} 다운로드`,
+      title: app.seo.title || defaultOgTitle,
       description: app.seo.description || app.content.shortSummary,
       url: canonical,
+      siteName: "SSDown",
+      type: "website",
       images: app.content.iconUrl ? [{ url: app.content.iconUrl, width: 512, height: 512 }] : [],
     },
     twitter: {
       card: "summary",
-      title: app.seo.title || `${app.core.name} 다운로드`,
+      title: app.seo.title || defaultOgTitle,
       description: app.seo.description || app.content.shortSummary,
       images: app.content.iconUrl ? [app.content.iconUrl] : [],
     },
@@ -125,7 +130,7 @@ export default async function AppDetailPage({
     getCategoryByMain(app.core.category.main);
   const canonicalUrl = `https://ssdown.app/software/${category?.slug ?? categorySlug}/${id}`;
 
-  const jsonLd = {
+  const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: app.core.name,
@@ -163,14 +168,28 @@ export default async function AppDetailPage({
         url: src,
       })),
     }),
-    ...(app.content.faq.length > 0 && {
-      mainEntity: app.content.faq.map((f) => ({
-        "@type": "Question",
-        name: f.question,
-        acceptedAnswer: { "@type": "Answer", text: f.answer },
-      })),
-    }),
   };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: "Software", item: "https://ssdown.app/software" },
+      ...(category ? [{ "@type": "ListItem", position: 3, name: category.name, item: `https://ssdown.app/software/${category.slug}` }] : []),
+      { "@type": "ListItem", position: category ? 4 : 3, name: app.core.name, item: canonicalUrl },
+    ],
+  };
+
+  const faqSchema = app.content.faq.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: app.content.faq.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  } : null;
 
   const licStyle = LICENSE_STYLE[app.download.license] ?? LICENSE_STYLE.Free;
   const secStyle = SECURITY_STYLE[app.download.security.status] ?? SECURITY_STYLE.Unknown;
@@ -183,10 +202,9 @@ export default async function AppDetailPage({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
 
       {/* ── HERO ─────────────────────────────────────────────────── */}
       <div className="bg-slate-900 relative overflow-hidden">

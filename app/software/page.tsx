@@ -21,9 +21,23 @@ import { CATEGORIES } from "@/lib/categories";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "소프트웨어 카테고리 - SSDown",
+  title: "Free Software Downloads by Category - SSDown",
   description:
-    "게임, 브라우저, 보안, 생산성 등 다양한 카테고리의 소프트웨어를 찾아보세요.",
+    "Browse and download free software by category — games, browsers, security, productivity, utilities, and more for Windows, Mac, Android, and iOS.",
+  keywords: "free software download, software categories, best free apps, windows software, mac software, android apps",
+  alternates: { canonical: "https://ssdown.app/software" },
+  openGraph: {
+    title: "Free Software Downloads by Category - SSDown",
+    description: "Browse and download free software by category — games, browsers, security, productivity, utilities, and more.",
+    url: "https://ssdown.app/software",
+    siteName: "SSDown",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image" as const,
+    title: "Free Software Downloads by Category - SSDown",
+    description: "Browse and download free software by category — games, browsers, security, productivity, utilities, and more.",
+  },
 };
 
 const ICON_MAP: Record<string, LucideIcon> = {
@@ -50,21 +64,43 @@ function CategoryIcon({ name }: { name: string }) {
 }
 
 export default function SoftwareCategoriesPage() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
-      { "@type": "ListItem", position: 2, name: "Software", item: "https://ssdown.app/software" },
-    ],
-  };
+  const schemas = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
+        { "@type": "ListItem", position: 2, name: "Software", item: "https://ssdown.app/software" },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "Free Software Downloads by Category",
+      description: "Browse and download free software by category — games, browsers, security, productivity, utilities, and more for Windows, Mac, Android, and iOS.",
+      url: "https://ssdown.app/software",
+      publisher: {
+        "@type": "Organization",
+        name: "SSDown",
+        url: "https://ssdown.app",
+      },
+      hasPart: CATEGORIES.map((cat) => ({
+        "@type": "WebPage",
+        name: `${cat.name} Software`,
+        url: `https://ssdown.app/software/${cat.slug}`,
+      })),
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {schemas.map((schema, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-3xl font-extrabold text-gray-900 mb-8">
           소프트웨어 카테고리

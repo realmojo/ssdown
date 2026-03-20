@@ -31,6 +31,24 @@ const PLATFORM_LABELS: Record<PlatformSlug, string> = {
   iphone: "iOS",
 };
 
+// DB에서 확인된 category_main 값 (내림차순)
+const PLATFORM_CATEGORIES: string[] = [
+  "Games",
+  "Multimedia",
+  "Productivity",
+  "Utilities & Tools",
+  "Personalization",
+  "Development & IT",
+  "Security & Privacy",
+  "Education & Reference",
+  "Lifestyle",
+  "Social & Communication",
+  "Browsers",
+  "Internet & Network",
+  "Travel & Navigation",
+  "AI",
+];
+
 export const revalidate = 3600;
 
 const ICON_MAP: Record<string, LucideIcon> = {
@@ -274,21 +292,25 @@ function CategoryJsonLd({
 
 export default async function CategoryPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ category: string }>;
+  searchParams: Promise<{ category?: string }>;
 }) {
   const { category: slug } = await params;
+  const { category: categoryFilter } = await searchParams;
 
   // 플랫폼 slug 처리 (windows / mac / android / iphone)
   const isPlatform = PLATFORMS.includes(slug as PlatformSlug);
   if (isPlatform) {
     const label = PLATFORM_LABELS[slug as PlatformSlug];
-    const { apps, total } = await getAppsByPlatform(slug, 60);
+    const { apps, total } = await getAppsByPlatform(slug, 60, 0, categoryFilter);
+
     return (
       <div className="min-h-screen bg-gray-50">
         <CategoryJsonLd label={label} slug={slug} apps={apps} />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="flex items-center gap-4 mb-8">
+          <div className="flex items-center gap-4 mb-6">
             <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center">
               <Monitor className="w-8 h-8 text-blue-600" />
             </div>
@@ -301,6 +323,37 @@ export default async function CategoryPage({
               </p>
             </div>
           </div>
+
+          {/* 카테고리 필터 탭 */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            <a
+              href={`/software/${slug}`}
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                !categoryFilter
+                  ? "bg-blue-600 text-white"
+                  : "bg-white text-gray-600 border border-gray-200 hover:border-blue-300"
+              }`}
+            >
+              All
+            </a>
+            {PLATFORM_CATEGORIES.map((category_main) => {
+              const isActive = categoryFilter === category_main;
+              return (
+                <a
+                  key={category_main}
+                  href={`/software/${slug}?category=${encodeURIComponent(category_main)}`}
+                  className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                    isActive
+                      ? "bg-blue-600 text-white"
+                      : "bg-white text-gray-600 border border-gray-200 hover:border-blue-300"
+                  }`}
+                >
+                  {category_main}
+                </a>
+              );
+            })}
+          </div>
+
           <AppGrid apps={apps} />
         </div>
       </div>

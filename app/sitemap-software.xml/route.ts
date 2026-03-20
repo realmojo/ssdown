@@ -28,6 +28,12 @@ export async function GET() {
       changefreq: "weekly",
       priority: 0.7,
     })),
+    ...["windows", "mac", "android", "iphone"].map((platform) => ({
+      url: `${BASE}/software/${platform}`,
+      lastmod: "2026-03-17",
+      changefreq: "weekly" as const,
+      priority: 0.8,
+    })),
   ];
 
   const { data: apps } = await supabase
