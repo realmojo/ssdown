@@ -100,9 +100,9 @@ export async function getAppsByPlatform(
   const platformMap: Record<string, string> = { iphone: 'iOS', ios: 'iOS' };
   const normalized = platformMap[platform.toLowerCase()] ?? platformName;
 
-  function applyFilters(qb: ReturnType<typeof supabase.from>) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let q: any = qb.eq("platform", normalized).not("ai_review_html", "is", null).neq("ai_review_html", "");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function applyFilters(q: any) {
+    q = q.eq("platform", normalized).not("ai_review_html", "is", null).neq("ai_review_html", "");
     if (categoryMain) q = q.eq("category_main", categoryMain);
     return q;
   }
