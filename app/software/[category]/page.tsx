@@ -78,54 +78,56 @@ export async function generateStaticParams() {
 const SITE_URL = "https://ssdown.app";
 const SITE_NAME = "SSDown";
 
+const OG_IMAGE = { url: "https://ssdown.app/logo.png", width: 1200, height: 630 };
+
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ category: string }>;
+  searchParams: Promise<{ page?: string }>;
 }): Promise<Metadata> {
   const { category: slug } = await params;
+  const { page: pageParam } = await searchParams;
+  const page = Math.max(1, parseInt(pageParam ?? "1", 10));
 
   if (PLATFORMS.includes(slug as PlatformSlug)) {
     const label = PLATFORM_LABELS[slug as PlatformSlug];
-    const title = `Best Free ${label} Software & Apps Download - ${SITE_NAME}`;
+    const title = `Best Free ${label} Software & Apps | ${SITE_NAME}`;
     const description = `Download the best free ${label} software and apps. Browse top-rated ${label} applications for productivity, games, security, and more.`;
     const canonical = `${SITE_URL}/software/${slug}`;
     return {
       title,
       description,
       keywords: `${label} software download, free ${label} apps, best ${label} programs, ${label} applications`,
-      alternates: { canonical },
-      openGraph: {
-        title,
-        description,
-        url: canonical,
-        siteName: SITE_NAME,
-        type: "website",
+      robots: { index: true, follow: true },
+      alternates: {
+        canonical: page > 1 ? `${canonical}?page=${page}` : canonical,
+        ...(page > 1 && { prev: page === 2 ? canonical : `${canonical}?page=${page - 1}` }),
       },
-      twitter: { card: "summary_large_image", title, description },
+      openGraph: { title, description, url: canonical, siteName: SITE_NAME, type: "website", images: [OG_IMAGE] },
+      twitter: { card: "summary_large_image", title, description, images: [OG_IMAGE.url] },
     };
   }
 
   const category = getCategoryBySlug(slug);
   if (!category) return {};
 
-  const title = `Best Free ${category.name} Software & Apps - ${SITE_NAME}`;
-  const description = `Download the best free ${category.name} software and apps. Find top-rated ${category.name} applications for Windows, Mac, Android, and iOS.`;
+  const title = `Best Free ${category.nameEn} Software & Apps | ${SITE_NAME}`;
+  const description = `Download the best free ${category.nameEn} software and apps. Find top-rated ${category.nameEn} applications for Windows, Mac, Android, and iOS.`;
   const canonical = `${SITE_URL}/software/${slug}`;
 
   return {
     title,
     description,
-    keywords: `${category.name} software download, free ${category.name} apps, best ${category.name} programs`,
-    alternates: { canonical },
-    openGraph: {
-      title,
-      description,
-      url: canonical,
-      siteName: SITE_NAME,
-      type: "website",
+    keywords: `${category.nameEn} software download, free ${category.nameEn} apps, best ${category.nameEn} programs`,
+    robots: { index: true, follow: true },
+    alternates: {
+      canonical: page > 1 ? `${canonical}?page=${page}` : canonical,
+      ...(page > 1 && { prev: page === 2 ? canonical : `${canonical}?page=${page - 1}` }),
     },
-    twitter: { card: "summary_large_image", title, description },
+    openGraph: { title, description, url: canonical, siteName: SITE_NAME, type: "website", images: [OG_IMAGE] },
+    twitter: { card: "summary_large_image", title, description, images: [OG_IMAGE.url] },
   };
 }
 
@@ -200,6 +202,7 @@ function AppGrid({ apps }: { apps: SoftwareApplication[] }) {
                   src={app.content.iconUrl}
                   alt={app.core.name}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               ) : (
                 <span className="text-xl font-bold text-gray-400">
@@ -453,7 +456,7 @@ export default async function CategoryPage({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <CategoryJsonLd label={category.name} slug={slug} apps={apps} />
+      <CategoryJsonLd label={category.nameEn} slug={slug} apps={apps} />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
@@ -465,7 +468,7 @@ export default async function CategoryPage({
           </div>
           <div>
             <h1 className="text-3xl font-extrabold text-gray-900">
-              {category.name}
+              {category.nameEn}
             </h1>
             <p className="text-sm text-gray-500 mt-1">
               {total > 0 ? `${total.toLocaleString()} apps` : ""}

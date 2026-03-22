@@ -102,7 +102,7 @@ export async function getAppsByPlatform(
 
   function applyFilters(qb: ReturnType<typeof supabase.from>) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let q: any = qb.eq("platform", normalized);
+    let q: any = qb.eq("platform", normalized).not("ai_review_html", "is", null).neq("ai_review_html", "");
     if (categoryMain) q = q.eq("category_main", categoryMain);
     return q;
   }
@@ -151,8 +151,8 @@ export async function getAppsByCategory(
   const orFilter = category.aliases.map((alias) => `category_main.ilike.%${alias}%`).join(",");
 
   const [{ count, error: countError }, { data, error }] = await Promise.all([
-    supabase.from("software_applications").select("id", { count: "exact", head: true }).or(orFilter),
-    supabase.from("software_applications").select(CARD_COLUMNS).or(orFilter).order("rating_average", { ascending: false }).range(offset, offset + limit - 1),
+    supabase.from("software_applications").select("id", { count: "exact", head: true }).or(orFilter).not("ai_review_html", "is", null).neq("ai_review_html", ""),
+    supabase.from("software_applications").select(CARD_COLUMNS).or(orFilter).not("ai_review_html", "is", null).neq("ai_review_html", "").order("rating_average", { ascending: false }).range(offset, offset + limit - 1),
   ]);
 
   if (countError || error || !data) return { apps: [], total: 0 };
@@ -208,18 +208,39 @@ export async function searchApps(params: {
 
 export async function getAlternatives(
   app: SoftwareApplication,
-  limit = 5
+  limit = 12
 ): Promise<SoftwareApplication[]> {
-  const CARD_COLUMNS = "id,slug,name,platform,category_main,license,rating_average,rating_total_count,icon_url,short_summary,developer_name,download_url";
-  const { data, error } = await supabase
+  const ALT_COLUMNS = "id,slug,name,platform,category_main,license,rating_average,rating_total_count,icon_url,short_summary,developer_name,download_url";
+
+  // 같은 카테고리 + 같은 플랫폼
+  const { data: sameCat } = await supabase
     .from("software_applications")
-    .select(CARD_COLUMNS)
+    .select(ALT_COLUMNS)
     .eq("category_main", app.core.category.main)
     .eq("platform", app.core.platform)
     .neq("id", app.core.id)
+    .not("ai_review_html", "is", null)
+    .neq("ai_review_html", "")
     .order("rating_average", { ascending: false })
     .limit(limit);
 
-  if (error || !data) return [];
-  return data.map(transformRow);
+  const results = sameCat ?? [];
+  if (results.length >= limit) return results.map(transformRow);
+
+  // 부족하면 같은 플랫폼 다른 카테고리로 채움
+  const existingIds = results.map((r) => r.id);
+  const remaining = limit - results.length;
+  const { data: crossCat } = await supabase
+    .from("software_applications")
+    .select(ALT_COLUMNS)
+    .eq("platform", app.core.platform)
+    .neq("category_main", app.core.category.main)
+    .neq("id", app.core.id)
+    .not("id", "in", `(${existingIds.join(",")})`)
+    .not("ai_review_html", "is", null)
+    .neq("ai_review_html", "")
+    .order("rating_average", { ascending: false })
+    .limit(remaining);
+
+  return [...results, ...(crossCat ?? [])].map(transformRow);
 }

@@ -20,23 +20,28 @@ import { CATEGORIES } from "@/lib/categories";
 
 export const revalidate = 3600;
 
+const OG_IMAGE = { url: "https://ssdown.app/logo.png", width: 1200, height: 630 };
+
 export const metadata = {
-  title: "Free Software Downloads by Category - SSDown",
+  title: "Free Software Downloads by Category | SSDown",
   description:
     "Browse and download free software by category — games, browsers, security, productivity, utilities, and more for Windows, Mac, Android, and iOS.",
   keywords: "free software download, software categories, best free apps, windows software, mac software, android apps",
+  robots: { index: true, follow: true },
   alternates: { canonical: "https://ssdown.app/software" },
   openGraph: {
-    title: "Free Software Downloads by Category - SSDown",
+    title: "Free Software Downloads by Category | SSDown",
     description: "Browse and download free software by category — games, browsers, security, productivity, utilities, and more.",
     url: "https://ssdown.app/software",
     siteName: "SSDown",
     type: "website",
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image" as const,
-    title: "Free Software Downloads by Category - SSDown",
+    title: "Free Software Downloads by Category | SSDown",
     description: "Browse and download free software by category — games, browsers, security, productivity, utilities, and more.",
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -102,10 +107,43 @@ export default function SoftwareCategoriesPage() {
         />
       ))}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-3xl font-extrabold text-gray-900 mb-8">
-          소프트웨어 카테고리
-        </h1>
+        {/* Breadcrumb */}
+        <nav className="flex items-center gap-1.5 text-xs text-gray-400 mb-6">
+          <a href="/" className="hover:text-gray-600 transition-colors">Home</a>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-gray-600">Software</span>
+        </nav>
 
+        <h1 className="text-3xl font-extrabold text-gray-900 mb-2">
+          Free Software Downloads
+        </h1>
+        <p className="text-gray-500 text-sm mb-8">
+          Browse top-rated free software and apps by category or platform.
+        </p>
+
+        {/* Browse by Platform */}
+        <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Browse by Platform</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
+          {[
+            { slug: "windows", label: "Windows", desc: "PC & Desktop" },
+            { slug: "mac",     label: "Mac",     desc: "macOS Apps" },
+            { slug: "android", label: "Android", desc: "Android Apps" },
+            { slug: "iphone",  label: "iPhone",  desc: "iOS Apps" },
+          ].map(({ slug, label, desc }) => (
+            <a
+              key={slug}
+              href={`/software/${slug}`}
+              className="group flex flex-col items-center justify-center gap-1 bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-md transition-all text-center"
+            >
+              <span className="text-2xl">{slug === "windows" ? "🖥️" : slug === "mac" ? "🍎" : slug === "android" ? "🤖" : "📱"}</span>
+              <span className="font-semibold text-gray-800 text-sm group-hover:text-blue-600 transition-colors">{label}</span>
+              <span className="text-[11px] text-gray-400">{desc}</span>
+            </a>
+          ))}
+        </div>
+
+        {/* Browse by Category */}
+        <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Browse by Category</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {CATEGORIES.map((category) => (
             <a
@@ -117,7 +155,7 @@ export default function SoftwareCategoriesPage() {
                 <CategoryIcon name={category.icon} />
               </div>
               <span className="flex-1 font-medium text-gray-800 text-sm">
-                {category.name}
+                {category.nameEn}
               </span>
               <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors" />
             </a>

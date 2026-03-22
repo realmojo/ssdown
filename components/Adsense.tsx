@@ -28,8 +28,8 @@ export default function Adsense({ slotId, format = "auto" }: AdsenseProps) {
 
   if (isDev) {
     return (
-      <div className="adsense-dev text-white bg-gray-800 min-h-[320px] w-full">
-        애드센스 {slotId}
+      <div className="adsense-dev text-white bg-gray-800 w-full h-full min-h-[150px] flex items-center justify-center text-xs text-gray-400">
+        AD {slotId}
       </div>
     );
   }
