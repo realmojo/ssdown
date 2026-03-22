@@ -290,21 +290,102 @@ function CategoryJsonLd({
   );
 }
 
+const PAGE_SIZE = 18;
+
+function buildUrl(base: string, params: Record<string, string | undefined>) {
+  const sp = new URLSearchParams();
+  for (const [k, v] of Object.entries(params)) {
+    if (v) sp.set(k, v);
+  }
+  const qs = sp.toString();
+  return qs ? `${base}?${qs}` : base;
+}
+
+function Pagination({
+  currentPage,
+  totalPages,
+  buildPageUrl,
+}: {
+  currentPage: number;
+  totalPages: number;
+  buildPageUrl: (page: number) => string;
+}) {
+  if (totalPages <= 1) return null;
+
+  const delta = 2;
+  const pages: (number | "...")[] = [];
+  const left = currentPage - delta;
+  const right = currentPage + delta;
+
+  for (let i = 1; i <= totalPages; i++) {
+    if (i === 1 || i === totalPages || (i >= left && i <= right)) {
+      pages.push(i);
+    } else if (i === left - 1 || i === right + 1) {
+      pages.push("...");
+    }
+  }
+
+  const btnBase = "px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors";
+  const activeBtn = `${btnBase} bg-blue-600 text-white border-blue-600`;
+  const inactiveBtn = `${btnBase} bg-white text-gray-600 border-gray-200 hover:border-blue-300`;
+  const disabledBtn = `${btnBase} bg-white text-gray-300 border-gray-100 pointer-events-none`;
+
+  return (
+    <div className="flex items-center justify-center gap-1.5 mt-8 flex-wrap">
+      {currentPage > 1 ? (
+        <a href={buildPageUrl(currentPage - 1)} className={inactiveBtn}>← Prev</a>
+      ) : (
+        <span className={disabledBtn}>← Prev</span>
+      )}
+
+      {pages.map((p, i) =>
+        p === "..." ? (
+          <span key={`ellipsis-${i}`} className="px-2 text-gray-400 text-sm">…</span>
+        ) : (
+          <a
+            key={p}
+            href={buildPageUrl(p)}
+            className={p === currentPage ? activeBtn : inactiveBtn}
+          >
+            {p}
+          </a>
+        )
+      )}
+
+      {currentPage < totalPages ? (
+        <a href={buildPageUrl(currentPage + 1)} className={inactiveBtn}>Next →</a>
+      ) : (
+        <span className={disabledBtn}>Next →</span>
+      )}
+    </div>
+  );
+}
+
 export default async function CategoryPage({
   params,
   searchParams,
 }: {
   params: Promise<{ category: string }>;
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; page?: string }>;
 }) {
   const { category: slug } = await params;
-  const { category: categoryFilter } = await searchParams;
+  const { category: categoryFilter, page: pageParam } = await searchParams;
+
+  const currentPage = Math.max(1, parseInt(pageParam ?? "1", 10));
+  const offset = (currentPage - 1) * PAGE_SIZE;
 
   // 플랫폼 slug 처리 (windows / mac / android / iphone)
   const isPlatform = PLATFORMS.includes(slug as PlatformSlug);
   if (isPlatform) {
     const label = PLATFORM_LABELS[slug as PlatformSlug];
-    const { apps, total } = await getAppsByPlatform(slug, 60, 0, categoryFilter);
+    const { apps, total } = await getAppsByPlatform(slug, PAGE_SIZE, offset, categoryFilter);
+    const totalPages = Math.ceil(total / PAGE_SIZE);
+
+    const buildPageUrl = (page: number) =>
+      buildUrl(`/software/${slug}`, {
+        category: categoryFilter,
+        page: page > 1 ? String(page) : undefined,
+      });
 
     return (
       <div className="min-h-screen bg-gray-50">
@@ -319,7 +400,7 @@ export default async function CategoryPage({
                 {label} Software
               </h1>
               <p className="text-sm text-gray-500 mt-1">
-                {total > 0 ? `${total} apps` : ""}
+                {total > 0 ? `${total.toLocaleString()} apps` : ""}
               </p>
             </div>
           </div>
@@ -355,6 +436,7 @@ export default async function CategoryPage({
           </div>
 
           <AppGrid apps={apps} />
+          <Pagination currentPage={currentPage} totalPages={totalPages} buildPageUrl={buildPageUrl} />
         </div>
       </div>
     );
@@ -363,7 +445,11 @@ export default async function CategoryPage({
   const category = getCategoryBySlug(slug);
   if (!category) notFound();
 
-  const { apps, total } = await getAppsByCategory(slug, 60);
+  const { apps, total } = await getAppsByCategory(slug, PAGE_SIZE, offset);
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+
+  const buildPageUrl = (page: number) =>
+    buildUrl(`/software/${slug}`, { page: page > 1 ? String(page) : undefined });
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -382,13 +468,14 @@ export default async function CategoryPage({
               {category.name}
             </h1>
             <p className="text-sm text-gray-500 mt-1">
-              {total > 0 ? `${total} apps` : ""}
+              {total > 0 ? `${total.toLocaleString()} apps` : ""}
             </p>
           </div>
         </div>
 
         {/* App Grid */}
         <AppGrid apps={apps} />
+        <Pagination currentPage={currentPage} totalPages={totalPages} buildPageUrl={buildPageUrl} />
       </div>
     </div>
   );

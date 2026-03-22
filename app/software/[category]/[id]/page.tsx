@@ -235,7 +235,7 @@ export default async function AppDetailPage({
           <div className="flex flex-col sm:flex-row gap-6 items-start">
             {/* Icon */}
             <div className="shrink-0">
-              <div className="w-24 h-24 rounded-2xl overflow-hidden ring-2 ring-white/10 shadow-2xl bg-slate-800 flex items-center justify-center">
+              <div className="w-36 h-36 rounded-3xl overflow-hidden shadow-2xl bg-slate-800 flex items-center justify-center">
                 {app.content.iconUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
