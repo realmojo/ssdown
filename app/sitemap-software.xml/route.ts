@@ -36,11 +36,26 @@ export async function GET() {
     })),
   ];
 
-  const { data: apps } = await supabase
-    .from("software_applications")
-    .select("id, category_main, last_updated_date")
-    .order("last_updated_date", { ascending: false })
-    .limit(10000);
+  const BATCH = 1000;
+  const allApps: { id: string; category_main: string; last_updated_date: string }[] = [];
+  let from = 0;
+
+  while (true) {
+    const { data, error } = await supabase
+      .from("software_applications")
+      .select("id, category_main, last_updated_date")
+      .not("ai_review_html", "is", null)
+      .neq("ai_review_html", "")
+      .order("last_updated_date", { ascending: false })
+      .range(from, from + BATCH - 1);
+
+    if (error || !data || data.length === 0) break;
+    allApps.push(...data);
+    if (data.length < BATCH) break;
+    from += BATCH;
+  }
+
+  const apps = allApps;
 
   const appEntries: Entry[] = (apps ?? [])
     .map((app) => {
