@@ -134,8 +134,10 @@ async function generateReview(app: Record<string, unknown>, attempt = 1): Promis
 
     const data = await response.json() as { message: { content: string } };
     const text = data.message?.content ?? '';
+    // Remove <thought>...</thought> blocks (reasoning model chain-of-thought)
+    const withoutThought = text.replace(/<thought>[\s\S]*?<\/thought>/gi, '').trim();
     // Remove any accidental markdown code fences
-    return text.replace(/^```html?\n?/i, '').replace(/```$/m, '').trim();
+    return withoutThought.replace(/^```html?\n?/i, '').replace(/```$/m, '').trim();
   } catch (err) {
     if (attempt <= RETRY_LIMIT) {
       const wait = attempt * 5_000;
@@ -167,8 +169,11 @@ async function processChunk(rows: Record<string, unknown>[]): Promise<void> {
     process.stdout.write(`  Processing: ${name} (${id}) ...`);
     const html = await generateReview(row);
     if (html) {
+      console.log(`\n--- ai_review_html preview (${html.length} chars) ---`);
+      console.log(html.slice(0, 500) + (html.length > 500 ? '\n...(truncated)' : ''));
+      console.log('---\n');
       await saveReview(id, html);
-      console.log(` ✓ (${html.length} chars)`);
+      console.log(` ✓ saved (${html.length} chars)`);
     } else {
       console.log(` ✗ skipped`);
     }

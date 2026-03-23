@@ -58,7 +58,11 @@
       "Bash(/tmp/test_report.md:*)",
       "Bash(__NEW_LINE_d94338ea75f27c56__ cat:*)",
       "Bash(/tmp/html_structure_check.sh:*)",
-      "Bash(__NEW_LINE_1223b784965ac1d0__ bash:*)"
+      "Bash(__NEW_LINE_1223b784965ac1d0__ bash:*)",
+      "Bash(head -100 /Users/gshs/Desktop/m/ssdown/app/blog/[id]/page.tsx)",
+      "Skill(dev)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   },
   "model": "sonnet",
