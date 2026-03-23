@@ -160,6 +160,32 @@ export function HomeClient() {
         </div>
       </section>
 
+      {/* Mood Palette Spotlight */}
+      <section className="py-10 bg-white dark:bg-gray-950">
+        <div className="container px-4 md:px-6 max-w-4xl">
+          <a
+            href="https://moodpalette.ssdown.app"
+            target="_blank"
+            rel="noopener"
+            className="flex flex-col sm:flex-row items-center gap-5 bg-gradient-to-r from-violet-50 to-pink-50 dark:from-violet-950/30 dark:to-pink-950/30 border border-violet-200 dark:border-violet-800 rounded-2xl p-6 hover:shadow-lg transition-all group"
+          >
+            <span className="text-5xl shrink-0">🎨</span>
+            <div className="flex-1 text-center sm:text-left">
+              <p className="text-xs font-semibold text-violet-500 uppercase tracking-wider mb-1">Featured Tool</p>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-violet-600 transition-colors">
+                Mood Palette — AI Color Palette Generator
+              </h2>
+              <p className="text-sm text-gray-500 mt-1">
+                Generate stunning color palettes from mood, keywords, or images. Perfect for designers and creators.
+              </p>
+            </div>
+            <span className="text-sm font-semibold text-violet-600 group-hover:underline shrink-0">
+              Try it free →
+            </span>
+          </a>
+        </div>
+      </section>
+
       {/* 5. How It Works (H2) - New Section */}
       <section className="py-16 bg-white dark:bg-gray-950">
         <div className="container px-4 md:px-6 max-w-4xl">

@@ -137,6 +137,27 @@ export default async function ColorPaletteExtractorPage() {
         />
       </div>
       <ColorPaletteExtractorClient dict={dict} />
+
+      {/* Mood Palette 관련 도구 배너 */}
+      <div className="container max-w-7xl mx-auto px-4 py-8">
+        <a
+          href="https://moodpalette.ssdown.app"
+          target="_blank"
+          rel="noopener"
+          className="flex items-center justify-between gap-4 bg-gradient-to-r from-violet-50 to-pink-50 dark:from-violet-950/30 dark:to-pink-950/30 border border-violet-200 dark:border-violet-800 rounded-2xl p-5 hover:shadow-md transition-all group"
+        >
+          <div>
+            <p className="text-xs font-semibold text-violet-500 uppercase tracking-wider mb-1">Try Also</p>
+            <h3 className="font-bold text-gray-900 dark:text-white text-lg group-hover:text-violet-600 transition-colors">
+              Mood Palette — AI Color Palette Generator
+            </h3>
+            <p className="text-sm text-gray-500 mt-0.5">
+              Generate beautiful color palettes from mood, keywords, or images. Free online tool.
+            </p>
+          </div>
+          <span className="shrink-0 text-2xl">🎨</span>
+        </a>
+      </div>
     </>
   );
 }

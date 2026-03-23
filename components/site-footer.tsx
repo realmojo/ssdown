@@ -104,6 +104,25 @@ export function SiteFooter({ dict }: SiteFooterProps) {
             </ul>
           </div>
 
+          {/* Related Sites Column */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-foreground tracking-tight">
+              Related Sites
+            </h3>
+            <ul className="space-y-2.5 text-sm text-muted-foreground">
+              <li>
+                <a
+                  href="https://moodpalette.ssdown.app"
+                  target="_blank"
+                  rel="noopener"
+                  className="hover:text-primary transition-colors"
+                >
+                  Mood Palette
+                </a>
+              </li>
+            </ul>
+          </div>
+
           {/* Legal Column */}
           <div className="space-y-4">
             <h3 className="font-semibold text-foreground tracking-tight">
