@@ -23,9 +23,17 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "SSDown",
       locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
+      images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
-    twitter: { card: "summary_large_image", title, description },
-    alternates: { canonical },
+    twitter: { card: "summary_large_image", title, description, images: ["https://ssdown.app/logo.png"] },
+    alternates: {
+      canonical,
+      languages: {
+        "en": canonical,
+        "ko": canonical,
+        "x-default": canonical,
+      },
+    },
   };
 }
 
@@ -69,6 +77,24 @@ export default async function FileToolsPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: dict.page_tools_file.heading,
+            url: "https://ssdown.app/tools/file",
+            numberOfItems: tools.length,
+            itemListElement: tools.map((tool, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              name: tool.title,
+              url: `https://ssdown.app${tool.href}`,
+            })),
+          }),
+        }}
       />
       <div className="flex flex-col min-h-[calc(100vh-4rem)]">
         <div className="container max-w-7xl mx-auto px-4 py-8">

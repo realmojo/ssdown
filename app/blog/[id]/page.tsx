@@ -61,6 +61,11 @@ export async function generateMetadata({
     },
     alternates: {
       canonical,
+      languages: {
+        "en": canonical,
+        "ko": canonical,
+        "x-default": canonical,
+      },
     },
   };
 }
@@ -109,6 +114,7 @@ export default async function BlogPostPage(props: {
     author: {
       "@type": "Person",
       name: post.author,
+      sameAs: "https://ssdown.app/blog",
     },
     publisher: {
       "@type": "Organization",

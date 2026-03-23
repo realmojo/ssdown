@@ -91,6 +91,11 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     alternates: {
       canonical: baseUrl,
+      languages: {
+        "en": baseUrl,
+        "ko": baseUrl,
+        "x-default": baseUrl,
+      },
       types: {
         "application/rss+xml": `${baseUrl}/rss.xml`,
       },

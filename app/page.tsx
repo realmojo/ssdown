@@ -79,7 +79,7 @@ export default function Home() {
       contactType: "customer support",
       url: "https://ssdown.app/contact",
     },
-    sameAs: [],
+    sameAs: ["https://twitter.com/ssdown"],
   };
 
   return (

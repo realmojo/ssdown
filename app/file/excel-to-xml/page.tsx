@@ -16,7 +16,14 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      languages: {
+        "en": canonical,
+        "ko": canonical,
+        "x-default": canonical,
+      },
+    },
     openGraph: {
       title,
       description,
@@ -24,8 +31,9 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "SSDown",
       locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
+      images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: { card: "summary_large_image", title, description, images: ["https://ssdown.app/logo.png"] },
   };
 }
 
@@ -59,7 +67,7 @@ export default async function ExcelToXmlPage() {
 
   const webAppSchema = {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "SoftwareApplication",
     name: "Excel To Xml",
     url: "https://ssdown.app/file/excel-to-xml",
     applicationCategory: "UtilityApplication",
