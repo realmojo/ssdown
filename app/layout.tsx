@@ -92,8 +92,8 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical: baseUrl,
       languages: {
-        "en": baseUrl,
-        "ko": baseUrl,
+        en: baseUrl,
+        ko: baseUrl,
         "x-default": baseUrl,
       },
       types: {
@@ -106,7 +106,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "apple-mobile-web-app-status-bar-style": "default",
       "apple-mobile-web-app-title": "SSDown",
       "format-detection": "telephone=no",
-      "google-adsense-account": "ca-pub-9130836798889522",
+      // "google-adsense-account": "ca-pub-9130836798889522",
     },
   };
 }
@@ -118,11 +118,11 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang={locale === "kr" ? "ko" : "en"} suppressHydrationWarning>
       <head>
-        <Script
+        {/* <Script
           strategy="lazyOnload"
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9130836798889522"
-        />
+        /> */}
 
         <Script
           id="google-tag-manager"
