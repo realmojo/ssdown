@@ -118,11 +118,11 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang={locale === "kr" ? "ko" : "en"} suppressHydrationWarning>
       <head>
-        {/* <Script
+        <Script
           strategy="lazyOnload"
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9130836798889522"
-        /> */}
+        />
 
         <Script
           id="google-tag-manager"
