@@ -69,7 +69,7 @@ export default async function RoundImageMakerPage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Round Image Maker",
-    url: "https://ssdown.app/app/image/round-image-maker",
+    url: "https://ssdown.app/image/round-image-maker",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",

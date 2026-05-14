@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/dailymotion`;
 
   return {
-    robots: { index: false, follow: false },
+    robots: { index: true, follow: true },
     title: dict.dailymotion?.seo_title || "Dailymotion Video Tool",
     description:
       dict.dailymotion?.seo_description ||
@@ -76,8 +76,38 @@ export default async function DailymotionPage() {
       .filter((item) => item !== null),
   };
 
+  const softwareAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Dailymotion Video Downloader",
+    url: "https://ssdown.app/dailymotion",
+    description:
+      dict.dailymotion?.seo_description ||
+      "Dailymotion video content management tool.",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: "Dailymotion Video Downloader", item: "https://ssdown.app/dailymotion" },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -69,7 +69,7 @@ export default async function ThumbnailGeneratorPage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Thumbnail Generator",
-    url: "https://ssdown.app/app/image/thumbnail-generator",
+    url: "https://ssdown.app/image/thumbnail-generator",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",

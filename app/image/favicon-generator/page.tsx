@@ -69,7 +69,7 @@ export default async function FaviconGeneratorPage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Favicon Generator",
-    url: "https://ssdown.app/app/image/favicon-generator",
+    url: "https://ssdown.app/image/favicon-generator",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",

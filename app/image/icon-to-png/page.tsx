@@ -69,7 +69,7 @@ export default async function IconToPngPage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Icon to PNG Converter",
-    url: "https://ssdown.app/app/image/icon-to-png",
+    url: "https://ssdown.app/image/icon-to-png",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",

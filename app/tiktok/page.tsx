@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/tiktok`;
 
   return {
-    robots: { index: false, follow: false },
+    robots: { index: true, follow: true },
     title: dict.tiktok?.seo_title || "TikTok Video Tool",
     description:
       dict.tiktok?.seo_description ||
@@ -77,8 +77,38 @@ export default async function TikTokPage() {
       .filter((item) => item !== null),
   };
 
+  const softwareAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "TikTok Video Downloader",
+    url: "https://ssdown.app/tiktok",
+    description:
+      dict.tiktok?.seo_description ||
+      "TikTok video content management tool.",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: "TikTok Video Downloader", item: "https://ssdown.app/tiktok" },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

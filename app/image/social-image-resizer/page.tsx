@@ -69,7 +69,7 @@ export default async function SocialImageResizerPage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Social Image Resizer",
-    url: "https://ssdown.app/app/image/social-image-resizer",
+    url: "https://ssdown.app/image/social-image-resizer",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",

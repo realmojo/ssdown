@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/facebook`;
 
   return {
-    robots: { index: false, follow: false },
+    robots: { index: true, follow: true },
     title: dict.facebook?.seo_title || "Facebook Video Tool",
     description:
       dict.facebook?.seo_description ||
@@ -76,8 +76,38 @@ export default async function FacebookPage() {
       .filter((item) => item !== null),
   };
 
+  const softwareAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Facebook Video Downloader",
+    url: "https://ssdown.app/facebook",
+    description:
+      dict.facebook?.seo_description ||
+      "Facebook video content management tool.",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: "Facebook Video Downloader", item: "https://ssdown.app/facebook" },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

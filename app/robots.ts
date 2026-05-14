@@ -6,21 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: [
-          '/api/',
-          '/x',
-          '/x/',
-          '/tiktok',
-          '/tiktok/',
-          '/instagram',
-          '/instagram/',
-          '/facebook',
-          '/facebook/',
-          '/dailymotion',
-          '/dailymotion/',
-          '/9gag',
-          '/9gag/',
-        ],
+        disallow: ['/api/'],
       },
       {
         userAgent: 'GPTBot',

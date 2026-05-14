@@ -69,7 +69,7 @@ export default async function AddTextToImagePage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Add Text to Image",
-    url: "https://ssdown.app/app/image/add-text-to-image",
+    url: "https://ssdown.app/image/add-text-to-image",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",

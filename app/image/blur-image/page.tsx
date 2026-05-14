@@ -69,7 +69,7 @@ export default async function BlurImagePage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Blur Image",
-    url: "https://ssdown.app/app/image/blur-image",
+    url: "https://ssdown.app/image/blur-image",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",

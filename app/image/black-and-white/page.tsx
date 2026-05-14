@@ -69,7 +69,7 @@ export default async function BlackAndWhitePage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Black and White Image Converter",
-    url: "https://ssdown.app/app/image/black-and-white",
+    url: "https://ssdown.app/image/black-and-white",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",

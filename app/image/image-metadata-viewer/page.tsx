@@ -69,7 +69,7 @@ export default async function ImageMetadataViewerPage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Image Metadata Viewer",
-    url: "https://ssdown.app/app/image/image-metadata-viewer",
+    url: "https://ssdown.app/image/image-metadata-viewer",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",

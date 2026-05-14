@@ -69,7 +69,7 @@ export default async function PixelateImagePage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Pixelate Image",
-    url: "https://ssdown.app/app/image/pixelate-image",
+    url: "https://ssdown.app/image/pixelate-image",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",

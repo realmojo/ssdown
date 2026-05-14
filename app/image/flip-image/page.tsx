@@ -69,7 +69,7 @@ export default async function FlipImagePage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Flip Image",
-    url: "https://ssdown.app/app/image/flip-image",
+    url: "https://ssdown.app/image/flip-image",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",

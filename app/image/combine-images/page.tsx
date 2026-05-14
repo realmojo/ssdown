@@ -69,7 +69,7 @@ export default async function CombineImagesPage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Combine Images",
-    url: "https://ssdown.app/app/image/combine-images",
+    url: "https://ssdown.app/image/combine-images",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",

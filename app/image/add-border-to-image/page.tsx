@@ -69,7 +69,7 @@ export default async function AddBorderToImagePage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Add Border to Image",
-    url: "https://ssdown.app/app/image/add-border-to-image",
+    url: "https://ssdown.app/image/add-border-to-image",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",

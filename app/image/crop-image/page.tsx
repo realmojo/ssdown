@@ -69,7 +69,7 @@ export default async function CropImagePage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Image Crop Tool",
-    url: "https://ssdown.app/app/image/crop-image",
+    url: "https://ssdown.app/image/crop-image",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",

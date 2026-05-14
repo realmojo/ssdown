@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/x`;
 
   return {
-    robots: { index: false, follow: false },
+    robots: { index: true, follow: true },
     title: dict.x?.seo_title || "X (Twitter) Video Tool",
     description:
       dict.x?.seo_description || "X (Twitter) video content management tool.",
@@ -73,8 +73,37 @@ export default async function TwitterPage() {
       .filter((item) => item !== null),
   };
 
+  const softwareAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "X (Twitter) Video Downloader",
+    url: "https://ssdown.app/x",
+    description:
+      dict.x?.seo_description || "X (Twitter) video content management tool.",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: "X (Twitter) Video Downloader", item: "https://ssdown.app/x" },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

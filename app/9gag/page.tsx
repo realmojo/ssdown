@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const canonical = `${baseUrl}/9gag`;
 
   return {
-    robots: { index: false, follow: false },
+    robots: { index: true, follow: true },
     title: ninegagDict?.seo_title || "9GAG Video Tool",
     description:
       ninegagDict?.seo_description || "9GAG video content management tool.",
@@ -52,6 +52,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function NineGagPage() {
   const locale = await getLocale();
   const dict = await getDictionary(locale);
+  const ninegagDict = (dict as any)["9gag"];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -75,8 +76,37 @@ export default async function NineGagPage() {
       .filter((item) => item !== null),
   };
 
+  const softwareAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "9GAG Video Downloader",
+    url: "https://ssdown.app/9gag",
+    description:
+      ninegagDict?.seo_description || "9GAG video content management tool.",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: "9GAG Video Downloader", item: "https://ssdown.app/9gag" },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

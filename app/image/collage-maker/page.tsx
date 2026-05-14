@@ -69,7 +69,7 @@ export default async function CollageMakerPage() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Photo Collage Maker",
-    url: "https://ssdown.app/app/image/collage-maker",
+    url: "https://ssdown.app/image/collage-maker",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",

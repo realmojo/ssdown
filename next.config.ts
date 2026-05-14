@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
       "@radix-ui/react-accordion",
     ],
   },
-  htmlLimitedBots: /.*/, // This regex matches all user agents
+  htmlLimitedBots: /GPTBot|ClaudeBot|PerplexityBot|Google-Extended|Bytespider|CCBot/,
   images: {
     remotePatterns: [
       {

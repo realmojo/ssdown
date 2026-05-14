@@ -42,8 +42,13 @@ export async function middleware(request: NextRequest) {
       });
     }
 
-    // Help CDN vary caching by cookie
-    response.headers.set("Vary", "Cookie");
+    // Help CDN vary caching by cookie, but skip for search engine bots so
+    // their cached HTML is not fragmented by locale-cookie state.
+    const userAgent = request.headers.get("user-agent") ?? "";
+    const isSearchBot = /Googlebot|Bingbot|Naverbot|Yeti|DuckDuckBot|Slurp|facebookexternalhit|Twitterbot|LinkedInBot/i.test(userAgent);
+    if (!isSearchBot) {
+      response.headers.set("Vary", "Cookie");
+    }
 
     return response;
   } catch (error) {
