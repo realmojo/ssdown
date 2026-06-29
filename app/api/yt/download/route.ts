@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export const runtime = "edge";
+// NOTE: No `export const runtime = "edge"`. @opennextjs/cloudflare requires the
+// default Node.js Workers runtime; edge-runtime API routes 500 in production.
+// Streaming (new NextResponse(upstream.body)) works fine on the Node runtime.
 
 // Match the ANDROID_VR client UA used to mint the URL in app/api/yt/route.ts.
 // The googlevideo (GVS) CDN is UA/session sensitive, so the proxied byte fetch

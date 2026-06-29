@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export const runtime = "edge";
+// NOTE: Do NOT set `export const runtime = "edge"`. This app deploys via
+// @opennextjs/cloudflare, where edge-runtime API routes crash with a 500
+// "Internal Server Error"; the default Node.js Workers runtime is required.
+// This route only uses fetch + Web APIs, so it runs fine on Node.
 
 /**
- * YouTube single-video downloader (edge / fetch-only, no yt-dlp).
+ * YouTube single-video downloader (fetch-only, no yt-dlp).
  *
  * Strategy (see research notes): YouTube's WEB client returns signatureCipher +
  * n-throttle + SABR formats that are impossible to resolve without a JS player.
