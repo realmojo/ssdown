@@ -4452,8 +4452,8 @@
     "tip1_desc": "SSDown delivers H.264 + AAC MP4 files that play everywhere — QuickTime, Windows, iPhone, Android, and every video editor.",
     "tip2_title": "Shorts Supported",
     "tip2_desc": "Paste a YouTube Shorts link just like a regular video — SSDown detects and downloads it automatically.",
-    "tip3_title": "Quality Options",
-    "tip3_desc": "Download 720p when it is available, with 360p as a reliable fallback. Choose the size that fits your needs.",
+    "tip3_title": "Up to 1080p",
+    "tip3_desc": "Download up to 1080p. Single-file formats save instantly; higher resolutions are combined from separate video and audio streams right in your browser.",
     "tip4_title": "Respect Copyright",
     "tip4_desc": "Only download videos you have the right to use, and keep downloads for personal, non-commercial purposes.",
     "features_title": "What You Can Download from YouTube",
@@ -4471,7 +4471,7 @@
     "seo_content": {
       "title": "About Downloading YouTube Videos with SSDown",
       "p1": "SSDown's YouTube downloader lets you save videos and Shorts as MP4 files that work on virtually any device or player. Instead of re-encoding, we serve YouTube's own progressive H.264 + AAC streams, so you get a single, ready-to-play file with both video and audio — the same compatibility-first approach trusted by desktop tools.",
-      "p2": "Just paste a YouTube or Shorts link, press Download, and choose your quality. Most videos are available in 360p, and 720p is offered whenever YouTube provides a combined stream for that video. Higher resolutions on YouTube are delivered as separate video-only and audio-only streams that require merging, which is outside the scope of this browser-based tool.",
+      "p2": "Just paste a YouTube or Shorts link, press Download, and choose your quality — up to 1080p. When YouTube serves a video as separate video and audio streams, SSDown recombines them into one MP4 directly in your browser using on-device processing, so your files are never uploaded. Single-file formats download instantly, and the first merged download loads a small one-time converter.",
       "p3": "SSDown is free, requires no account, and runs entirely through your browser. Some videos — such as age-restricted, members-only, region-locked, or 'made for kids' content — may not be downloadable. Please only download content you have the right to use, and respect YouTube's Terms of Service and the rights of creators."
     }
   },
@@ -4481,7 +4481,7 @@
     "faq_1_q": "How do I download a YouTube video?",
     "faq_1_a": "1. Open the YouTube video or Short you want to download.\n2. Copy its link using the Share button or your browser's address bar.\n3. Paste the link into the SSDown YouTube Downloader and click Download.\n4. Choose your preferred quality and save the MP4 to your device.",
     "faq_2_q": "What video quality can I download?",
-    "faq_2_a": "Most videos are available in 360p MP4, and 720p is offered whenever YouTube provides a combined (progressive) stream for that video. Resolutions above 720p are delivered as separate video-only and audio-only streams that need merging, which this tool does not do.",
+    "faq_2_a": "You can download up to 1080p MP4 for most videos, plus an audio-only (M4A) option. When YouTube serves a video as separate video and audio streams, SSDown merges them into a single MP4 right in your browser — nothing is uploaded. The first merge loads a small one-time converter. A few videos can't be downloaded if YouTube requires sign-in verification.",
     "faq_3_q": "Can I download YouTube Shorts?",
     "faq_3_a": "Yes. Paste a Shorts link (youtube.com/shorts/...) exactly like a normal video link and SSDown will detect and download it automatically.",
     "faq_4_q": "Why does a video fail to download?",

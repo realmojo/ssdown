@@ -16,6 +16,7 @@ import {
   StatsConfig,
 } from "./video-saver-client";
 import { YouTubeIcon } from "@/components/ui/icons";
+import { YtDownloads } from "./ytdown-downloads";
 import {
   Accordion,
   AccordionContent,
@@ -369,6 +370,7 @@ export function YtdownClient({ dict }: YtdownClientProps) {
       thumbnailHeight="h-64"
       emptyState={emptyState}
       downloadFileName={(quality) => `ssdown-youtube-${quality}.mp4`}
+      renderDownloads={(item) => <YtDownloads item={item as any} theme={theme} />}
       faqSection={guideSection}
       slotId1="3265765425"
       slotId2="3265765425"

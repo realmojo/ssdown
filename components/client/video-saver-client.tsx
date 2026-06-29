@@ -109,6 +109,16 @@ export interface VideoDownloaderClientProps {
   emptyState: React.ReactNode;
   downloadFileName: (quality: string) => string;
   transformVideoUrl?: (url: string) => string;
+  /**
+   * Optional override for the per-result download buttons. When provided, it is
+   * rendered instead of the default `<a>` link list — used by the YouTube
+   * downloader to run client-side video+audio merging. Opt-in; other platforms
+   * keep the default behavior.
+   */
+  renderDownloads?: (
+    item: VideoResponse,
+    itemIndex: number,
+  ) => React.ReactNode;
   faqSection?: React.ReactNode;
   slotId1?: string;
   slotId2?: string;
@@ -135,6 +145,7 @@ export function VideoDownloaderClient({
   emptyState,
   // downloadFileName, // No longer needed - browser handles filename from direct URL
   transformVideoUrl,
+  renderDownloads,
   faqSection,
   slotId1,
   slotId2,
@@ -484,7 +495,10 @@ export function VideoDownloaderClient({
                               <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
                                 Download Options
                               </p>
-                              <div className="grid gap-3">
+                              {renderDownloads ? (
+                                renderDownloads(item, itemIndex)
+                              ) : (
+                                <div className="grid gap-3">
                                 {item.videoItems.map(
                                   (video: VideoItem, videoIndex: number) => {
                                     const downloadKey = `${itemIndex}-${videoIndex}`;
@@ -547,6 +561,7 @@ export function VideoDownloaderClient({
                                   },
                                 )}
                               </div>
+                              )}
                             </div>
                           </div>
                         </div>
