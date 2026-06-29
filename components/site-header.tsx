@@ -106,11 +106,6 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
               <DropdownMenuItem asChild>
-                <a href="/ytdown" className="w-full cursor-pointer">
-                  {dict?.youtube || "YouTube"}
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
                 <a href="/x" className="w-full cursor-pointer">
                   {dict?.twitter || "X (Twitter)"}
                 </a>
@@ -234,8 +229,6 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                 {/* Utility Column */}
                 <div>
                   <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">Utility</p>
-                  <a href="/utility/youtube-thumbnail" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">YT Thumbnail Downloader</a>
-                  <a href="/utility/youtube-preview" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">YT Preview Editor</a>
                   <a href="/utility/qr-code-generator" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">QR Code Generator</a>
                   <a href="/utility/aspect-ratio-calculator" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Aspect Ratio Calculator</a>
                   <a href="/utility/word-counter" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Word Counter</a>
@@ -341,13 +334,6 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                         Downloaders
                       </h4>
                       <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
-                        <a
-                          href="/ytdown"
-                          className="text-base font-medium hover:text-primary transition-colors py-1"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          {dict?.youtube || "YouTube"}
-                        </a>
                         <a
                           href="/x"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
@@ -463,8 +449,6 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                         <a href="/file/split-csv" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Split CSV</a>
                         <a href="/file/split-excel" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Split Excel</a>
                         <a href="/file/excel-to-pdf" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Excel to PDF</a>
-                        <a href="/utility/youtube-thumbnail" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>YT Thumbnail Downloader</a>
-                        <a href="/utility/youtube-preview" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>YT Preview Editor</a>
                         <a href="/utility/qr-code-generator" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>QR Code Generator</a>
                         <a href="/utility/aspect-ratio-calculator" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Aspect Ratio Calculator</a>
                         <a href="/utility/word-counter" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Word Counter</a>

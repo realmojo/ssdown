@@ -14,7 +14,6 @@ const STATIC: Entry[] = [
   { url: `${BASE}/facebook`,                    lastmod: "2026-05-15", changefreq: "weekly",  priority: 0.9 },
   { url: `${BASE}/dailymotion`,                 lastmod: "2026-05-15", changefreq: "weekly",  priority: 0.9 },
   { url: `${BASE}/9gag`,                        lastmod: "2026-05-15", changefreq: "weekly",  priority: 0.9 },
-  { url: `${BASE}/ytdown`,                      lastmod: "2026-06-29", changefreq: "weekly",  priority: 0.9 },
   { url: `${BASE}/blog`,                        lastmod: "2026-01-01", changefreq: "daily",   priority: 0.9 },
   { url: `${BASE}/tools`,                       lastmod: "2026-01-01", changefreq: "monthly", priority: 0.7 },
   { url: `${BASE}/tools/image`,                 lastmod: "2026-02-12", changefreq: "monthly", priority: 0.7 },
@@ -56,8 +55,6 @@ const STATIC: Entry[] = [
   { url: `${BASE}/social-text/hashtag-generator`,     lastmod: "2026-01-01", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/social-text/instagram-line-break`,  lastmod: "2026-02-11", changefreq: "monthly", priority: 0.8 },
   // Utility
-  { url: `${BASE}/utility/youtube-thumbnail`,   lastmod: "2026-02-12", changefreq: "monthly", priority: 0.8 },
-  { url: `${BASE}/utility/youtube-preview`,     lastmod: "2026-02-12", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/utility/qr-code-generator`,   lastmod: "2026-02-11", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/utility/aspect-ratio-calculator`, lastmod: "2026-02-11", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/utility/word-counter`,        lastmod: "2026-02-13", changefreq: "monthly", priority: 0.8 },

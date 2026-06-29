@@ -19,7 +19,6 @@ import {
   FacebookIcon,
   DailymotionIcon,
   NineGagIcon,
-  YouTubeIcon,
 } from "@/components/ui/icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -287,15 +286,6 @@ export function HomeClient() {
 
           {/* Tool Links */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-            <a href="/ytdown" className="group">
-              <Button
-                variant="outline"
-                className="w-full h-auto py-6 flex flex-col gap-2 hover:border-red-500 hover:bg-red-50 dark:hover:bg-red-950 transition-all"
-              >
-                <YouTubeIcon className="h-6 w-6 text-red-600" />
-                <span className="font-semibold">YouTube Tool</span>
-              </Button>
-            </a>
             <a href="/x" className="group">
               <Button
                 variant="outline"

@@ -15,7 +15,7 @@ const extractReelId = (url: string): string | null => {
   try {
     // 정규식으로 /reel/ 다음의 ID 추출
     const reelMatch =
-      url.match(/\/reel\/([^/?]+)/) || url.match(/\/p\/([^/?]+)/);
+      url.match(/\/reels?\/([^/?]+)/) || url.match(/\/p\/([^/?]+)/);
     if (reelMatch && reelMatch[1]) {
       return reelMatch[1];
     }

@@ -15,7 +15,7 @@ import {
   // Social & Text
   AlignLeft,
   // Utility
-  QrCode, Calculator, Download, Eye,
+  QrCode, Calculator,
   // File
   FileJson, FileCode, FileSpreadsheet, Split, FileType,
 } from "lucide-react";
@@ -117,8 +117,6 @@ const categoryConfig: Record<string, { tools: ToolItem[]; label: string; dictKey
     activeIconColor: "text-violet-600 dark:text-violet-400",
     activeBg: "bg-violet-50 dark:bg-violet-900/20",
     tools: [
-      { href: "/utility/youtube-thumbnail", icon: Download, key: "youtube_thumbnail" },
-      { href: "/utility/youtube-preview", icon: Eye, key: "youtube_preview" },
       { href: "/utility/qr-code-generator", icon: QrCode, key: "qr_code_generator" },
       { href: "/utility/aspect-ratio-calculator", icon: Calculator, key: "aspect_ratio_calculator" },
       { href: "/utility/word-counter", icon: Type, key: "word_counter" },

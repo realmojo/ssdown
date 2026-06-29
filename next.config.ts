@@ -190,52 +190,6 @@ const nextConfig: NextConfig = {
         destination: "/video-audio/trim-video",
         permanent: true,
       },
-      // YouTube tools (moved to utility)
-      {
-        source: "/tools/youtube-thumbnail",
-        destination: "/utility/youtube-thumbnail",
-        permanent: true,
-      },
-      {
-        source: "/tools/youtube-thumbnail/:id",
-        destination: "/utility/youtube-thumbnail/:id",
-        permanent: true,
-      },
-      {
-        source: "/tools/youtube-preview",
-        destination: "/utility/youtube-preview",
-        permanent: true,
-      },
-      {
-        source: "/tools/youtube-preview/:id",
-        destination: "/utility/youtube-preview/:id",
-        permanent: true,
-      },
-      {
-        source: "/youtube/youtube-thumbnail",
-        destination: "/utility/youtube-thumbnail",
-        permanent: true,
-      },
-      {
-        source: "/youtube/youtube-thumbnail/:id",
-        destination: "/utility/youtube-thumbnail/:id",
-        permanent: true,
-      },
-      {
-        source: "/youtube/youtube-preview",
-        destination: "/utility/youtube-preview",
-        permanent: true,
-      },
-      {
-        source: "/youtube/youtube-preview/:id",
-        destination: "/utility/youtube-preview/:id",
-        permanent: true,
-      },
-      {
-        source: "/tools/youtube",
-        destination: "/tools/utility",
-        permanent: true,
-      },
       // Social & Text tools
       {
         source: "/tools/hashtag-generator",

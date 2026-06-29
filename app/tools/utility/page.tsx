@@ -1,4 +1,4 @@
-import { QrCode, Calculator, Download, Eye, ArrowRight, Type } from "lucide-react";
+import { QrCode, Calculator, ArrowRight, Type } from "lucide-react";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
@@ -38,8 +38,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const toolMeta = [
-  { href: "/utility/youtube-thumbnail", icon: Download, gradient: "from-red-500 to-orange-500", bgLight: "bg-red-100 dark:bg-red-900/30", iconColor: "text-red-500" },
-  { href: "/utility/youtube-preview", icon: Eye, gradient: "from-orange-500 to-yellow-500", bgLight: "bg-orange-100 dark:bg-orange-900/30", iconColor: "text-orange-500" },
   { href: "/utility/qr-code-generator", icon: QrCode, gradient: "from-blue-600 to-cyan-600", bgLight: "bg-blue-100 dark:bg-blue-900/30", iconColor: "text-blue-600" },
   { href: "/utility/aspect-ratio-calculator", icon: Calculator, gradient: "from-violet-500 to-purple-500", bgLight: "bg-violet-100 dark:bg-violet-900/30", iconColor: "text-violet-500" },
   { href: "/utility/word-counter", icon: Type, gradient: "from-emerald-500 to-green-500", bgLight: "bg-emerald-100 dark:bg-emerald-900/30", iconColor: "text-emerald-600" },
