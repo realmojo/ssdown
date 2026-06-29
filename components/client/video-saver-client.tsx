@@ -141,6 +141,7 @@ export function VideoDownloaderClient({
 }: VideoDownloaderClientProps) {
   // 플랫폼 타입 추출 (apiEndpoint에서)
   const getPlatformType = () => {
+    if (apiEndpoint.includes("/yt")) return "yt";
     if (apiEndpoint.includes("/x")) return "x";
     if (apiEndpoint.includes("/tiktok")) return "tiktok";
     if (apiEndpoint.includes("/instagram")) return "instagram";
@@ -433,14 +434,16 @@ export function VideoDownloaderClient({
                                   </p>
                                 </div>
                               </div>
-                              <div className="flex items-center gap-1 text-xs text-muted-foreground bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md whitespace-nowrap">
-                                <Calendar className="w-3 h-3" />
-                                <span>
-                                  {new Date(
-                                    item.createdAt,
-                                  ).toLocaleDateString()}
-                                </span>
-                              </div>
+                              {(() => {
+                                const d = new Date(item.createdAt);
+                                if (isNaN(d.getTime())) return null;
+                                return (
+                                  <div className="flex items-center gap-1 text-xs text-muted-foreground bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md whitespace-nowrap">
+                                    <Calendar className="w-3 h-3" />
+                                    <span>{d.toLocaleDateString()}</span>
+                                  </div>
+                                );
+                              })()}
                             </div>
 
                             <div className="space-y-4">

@@ -14,6 +14,7 @@ const STATIC: Entry[] = [
   { url: `${BASE}/facebook`,                    lastmod: "2026-05-15", changefreq: "weekly",  priority: 0.9 },
   { url: `${BASE}/dailymotion`,                 lastmod: "2026-05-15", changefreq: "weekly",  priority: 0.9 },
   { url: `${BASE}/9gag`,                        lastmod: "2026-05-15", changefreq: "weekly",  priority: 0.9 },
+  { url: `${BASE}/ytdown`,                      lastmod: "2026-06-29", changefreq: "weekly",  priority: 0.9 },
   { url: `${BASE}/blog`,                        lastmod: "2026-01-01", changefreq: "daily",   priority: 0.9 },
   { url: `${BASE}/tools`,                       lastmod: "2026-01-01", changefreq: "monthly", priority: 0.7 },
   { url: `${BASE}/tools/image`,                 lastmod: "2026-02-12", changefreq: "monthly", priority: 0.7 },

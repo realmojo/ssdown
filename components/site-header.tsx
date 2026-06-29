@@ -106,6 +106,11 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
               <DropdownMenuItem asChild>
+                <a href="/ytdown" className="w-full cursor-pointer">
+                  {dict?.youtube || "YouTube"}
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <a href="/x" className="w-full cursor-pointer">
                   {dict?.twitter || "X (Twitter)"}
                 </a>
@@ -336,6 +341,13 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                         Downloaders
                       </h4>
                       <div className="flex flex-col gap-3 ml-2 border-l pl-4 border-muted">
+                        <a
+                          href="/ytdown"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {dict?.youtube || "YouTube"}
+                        </a>
                         <a
                           href="/x"
                           className="text-base font-medium hover:text-primary transition-colors py-1"
