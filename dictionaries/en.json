@@ -1423,18 +1423,10 @@
   },
   "page_tools_utility": {
     "meta_title": "Free Utility Tools | SSDown",
-    "meta_description": "Free utility tools for creators. YouTube thumbnail downloader, preview editor, QR codes, and aspect ratio calculator.",
+    "meta_description": "Free utility tools for creators. QR codes, aspect ratio calculator, word counter, and share debugger for social media previews.",
     "heading": "Utility Tools",
     "subtitle": "Essential utility tools for content creators. QR codes, calculators, and more.",
     "tools": [
-      {
-        "title": "YT Thumbnail Downloader",
-        "description": "Download YouTube thumbnails in high quality HD, 4K."
-      },
-      {
-        "title": "YT Preview Editor",
-        "description": "Edit and preview your YouTube video metadata and thumbnails."
-      },
       {
         "title": "QR Code Generator",
         "description": "Create custom QR codes for any link in seconds."
@@ -1446,6 +1438,14 @@
       {
         "title": "Word Counter",
         "description": "Count words, characters, sentences, and paragraphs in real-time."
+      },
+      {
+        "title": "Share Debugger",
+        "description": "Preview how your link looks on Facebook, X, KakaoTalk, Threads, and more."
+      },
+      {
+        "title": "MP3 Splitter",
+        "description": "Split an MP3 file into multiple parts right in your browser."
       }
     ]
   },
@@ -2961,6 +2961,104 @@
       }
     ]
   },
+  "page_share_debugger": {
+    "meta_title": "Share Debugger - Social Media Preview Checker | SSDown",
+    "meta_description": "Free Open Graph and meta tag debugger. Check how your link looks when shared on Facebook, X, KakaoTalk, Threads, Naver Blog, and WordPress before you post.",
+    "breadcrumb_title": "Share Debugger",
+    "faq": [
+      {
+        "question": "What is a Share Debugger?",
+        "answer": "It's a tool that fetches a URL's HTML, reads its Open Graph (og:) and Twitter Card meta tags, and shows a mock-up of how the link will look when pasted into Facebook, X, KakaoTalk, Threads, Naver Blog, or WordPress."
+      },
+      {
+        "question": "Why does my link look different on each platform?",
+        "answer": "Each platform reads different tags (og:title vs twitter:title), truncates text at different lengths, and uses different layouts for the thumbnail image. This tool renders those layout differences side by side so you can catch problems before sharing."
+      },
+      {
+        "question": "Why is my image or title missing?",
+        "answer": "Most likely the page is missing an og:image, og:title, or og:description tag, or the page requires JavaScript to render its content, since crawlers only read the initial HTML."
+      },
+      {
+        "question": "Does this tool store the URLs I check?",
+        "answer": "No. The URL is fetched server-side to read its meta tags and the result is returned directly to your browser. Nothing is stored."
+      },
+      {
+        "question": "Why doesn't the preview match exactly what I see on Facebook or X?",
+        "answer": "Platforms sometimes cache a previously fetched preview or apply their own image cropping. This tool reflects the current meta tags on the page; if a platform shows a stale preview, use that platform's own cache-refresh tool after fixing your tags."
+      }
+    ]
+  },
+  "page_mp3_splitter": {
+    "meta_title": "MP3 Splitter - Split Audio into Multiple Parts | SSDown",
+    "meta_description": "Free online MP3 splitter. Cut one audio file into multiple parts with waveform markers, then download each segment or all of them as a ZIP. Runs 100% in your browser.",
+    "breadcrumb_title": "MP3 Splitter",
+    "faq": [
+      {
+        "question": "How does the MP3 splitter work?",
+        "answer": "You place split points on the waveform, or auto-generate them with Quick Split. Each region between two points becomes a separate MP3 file that you can download individually or all at once as a ZIP."
+      },
+      {
+        "question": "Is there a limit on the number of segments or file size?",
+        "answer": "There is no hard limit on the number of segments. Because processing happens in your browser's memory, very large files may be slower on low-memory devices, but typical music and podcast files split quickly."
+      },
+      {
+        "question": "Is the audio quality preserved?",
+        "answer": "Yes. Each segment is encoded with high-quality VBR (LAME -q:a 2), so the parts sound essentially identical to the source audio."
+      },
+      {
+        "question": "Is my file uploaded to a server?",
+        "answer": "No. All splitting is done locally in your browser using WebAssembly. Your audio never leaves your device, so it stays completely private."
+      },
+      {
+        "question": "What input formats are supported?",
+        "answer": "You can upload MP3, WAV, OGG, and M4A files. The tool automatically decodes them and exports each segment as an MP3."
+      }
+    ]
+  },
+  "mp3_splitter": {
+    "title": "MP3 Splitter",
+    "subtitle": "Split an MP3 into multiple parts right in your browser. Fast, free, and private.",
+    "drop_zone": "Drag & drop your audio file here",
+    "supported": "Supported: MP3, WAV, OGG, M4A",
+    "loading_waveform": "Loading waveform...",
+    "loading_engine": "Loading audio engine...",
+    "add_here": "Add Split Point Here",
+    "exact_time": "Time (sec)",
+    "add": "Add",
+    "quick_equal": "Quick Split: Equal Parts",
+    "quick_interval": "Quick Split: Every X seconds",
+    "generate": "Generate",
+    "segments": "Segments",
+    "split_btn": "Split Audio",
+    "splitting": "Splitting...",
+    "ready_title": "Your segments are ready!",
+    "files_created": "files created",
+    "download": "Download",
+    "download_all": "Download All (.zip)",
+    "split_another": "Split Another",
+    "error_load": "Failed to load audio processing engine. Please try a different browser.",
+    "error_invalid": "Please upload a valid audio file.",
+    "error_split": "Failed to split audio. Please try again.",
+    "guide_title": "How to Split an MP3",
+    "guide_desc": "Cut one audio file into multiple parts in 3 simple steps.",
+    "step1_title": "Upload Audio",
+    "step1_desc": "Upload the MP3 or audio file you want to split.",
+    "step2_title": "Add Split Points",
+    "step2_desc": "Place markers on the waveform, or use Quick Split to generate equal parts automatically.",
+    "step3_title": "Split & Download",
+    "step3_desc": "Click 'Split Audio', then download each part or grab them all as a ZIP.",
+    "tips_title": "MP3 Splitting Tips",
+    "tips_desc": "Get the best results when splitting audio.",
+    "tip1_title": "Precise Markers",
+    "tip1_desc": "Drag markers on the waveform or type an exact time to place split points down to a tenth of a second.",
+    "tip2_title": "Quick Split",
+    "tip2_desc": "Use Equal Parts to divide a track into N pieces, or Fixed Interval to cut every X seconds automatically.",
+    "tip3_title": "Preview First",
+    "tip3_desc": "Play each segment before splitting so every part starts and ends exactly where you want.",
+    "tip4_title": "100% Private",
+    "tip4_desc": "Everything runs in your browser. Your file is never uploaded to any server.",
+    "faq_title": "Frequently Asked Questions"
+  },
   "page_youtube_thumbnail": {
     "meta_title": "Youtube Thumbnail Downloader | SSDown",
     "meta_description": "Download Youtube thumbnails in high quality HD, 4K. Free and fast.",
@@ -4383,6 +4481,10 @@
     "tip3_desc": "Use the statistics to meet word limits, improve readability, and refine your writing.",
     "faq_title": "FAQ",
     "faq_desc": "Get accurate text statistics in seconds."
+  },
+  "share_debugger": {
+    "title": "Share Debugger",
+    "subtitle": "Paste a URL to inspect its Open Graph and meta tags, then preview exactly how the link will look when shared on Facebook, X, KakaoTalk, Threads, Naver Blog, and WordPress."
   },
   "douyin": {
     "seo_title": "Douyin Video Downloader (抖音) — No Watermark | SSDown",

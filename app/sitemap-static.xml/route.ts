@@ -58,6 +58,8 @@ const STATIC: Entry[] = [
   { url: `${BASE}/utility/qr-code-generator`,   lastmod: "2026-02-11", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/utility/aspect-ratio-calculator`, lastmod: "2026-02-11", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/utility/word-counter`,        lastmod: "2026-02-13", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/utility/share-debugger`,      lastmod: "2026-07-03", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/utility/mp3-splitter`,        lastmod: "2026-07-10", changefreq: "monthly", priority: 0.8 },
   // PDF
   { url: `${BASE}/pdf/merge-pdf`,       lastmod: "2026-02-12", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/pdf/rotate-pdf`,      lastmod: "2026-02-12", changefreq: "monthly", priority: 0.8 },

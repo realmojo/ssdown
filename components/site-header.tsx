@@ -232,6 +232,8 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                   <a href="/utility/qr-code-generator" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">QR Code Generator</a>
                   <a href="/utility/aspect-ratio-calculator" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Aspect Ratio Calculator</a>
                   <a href="/utility/word-counter" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Word Counter</a>
+                  <a href="/utility/share-debugger" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Share Debugger</a>
+                  <a href="/utility/mp3-splitter" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">MP3 Splitter</a>
                   <div className="my-2 border-t border-border" />
                   <a href="/social-text/hashtag-generator" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Hashtag Generator</a>
                   <a href="/social-text/instagram-line-break" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Instagram Line Break</a>
@@ -452,6 +454,8 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                         <a href="/utility/qr-code-generator" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>QR Code Generator</a>
                         <a href="/utility/aspect-ratio-calculator" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Aspect Ratio Calculator</a>
                         <a href="/utility/word-counter" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Word Counter</a>
+                        <a href="/utility/share-debugger" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Share Debugger</a>
+                        <a href="/utility/mp3-splitter" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>MP3 Splitter</a>
                         <a href="/social-text/hashtag-generator" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Hashtag Generator</a>
                         <a href="/social-text/instagram-line-break" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Instagram Line Break</a>
                       </div>
