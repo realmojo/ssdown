@@ -51,6 +51,7 @@ const STATIC: Entry[] = [
   { url: `${BASE}/video-audio/mute-video`,      lastmod: "2026-02-13", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/video-audio/gif-to-mp4`,      lastmod: "2026-02-13", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/video-audio/trim-video`,      lastmod: "2026-02-13", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/video-audio/silence-remover`, lastmod: "2026-07-10", changefreq: "monthly", priority: 0.8 },
   // Social & Text
   { url: `${BASE}/social-text/hashtag-generator`,     lastmod: "2026-01-01", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/social-text/instagram-line-break`,  lastmod: "2026-02-11", changefreq: "monthly", priority: 0.8 },
@@ -60,6 +61,12 @@ const STATIC: Entry[] = [
   { url: `${BASE}/utility/word-counter`,        lastmod: "2026-02-13", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/utility/share-debugger`,      lastmod: "2026-07-03", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/utility/mp3-splitter`,        lastmod: "2026-07-10", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/utility/password-generator`,  lastmod: "2026-07-10", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/utility/color-converter`,     lastmod: "2026-07-10", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/utility/text-case-converter`, lastmod: "2026-07-10", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/utility/timestamp-converter`, lastmod: "2026-07-10", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/utility/base64-url-encoder`,  lastmod: "2026-07-10", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/utility/qr-code-scanner`,     lastmod: "2026-07-10", changefreq: "monthly", priority: 0.8 },
   // PDF
   { url: `${BASE}/pdf/merge-pdf`,       lastmod: "2026-02-12", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/pdf/rotate-pdf`,      lastmod: "2026-02-12", changefreq: "monthly", priority: 0.8 },

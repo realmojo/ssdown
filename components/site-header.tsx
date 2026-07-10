@@ -195,6 +195,7 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                   <a href="/video-audio/mute-video" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Mute Video</a>
                   <a href="/video-audio/gif-to-mp4" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">GIF to MP4</a>
                   <a href="/video-audio/trim-video" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Trim Video</a>
+                  <a href="/video-audio/silence-remover" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Silence Remover</a>
                   <div className="my-2 border-t border-border" />
                   <a href="/pdf/merge-pdf" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Merge PDF</a>
                   <a href="/pdf/rotate-pdf" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Rotate PDF</a>
@@ -234,6 +235,12 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                   <a href="/utility/word-counter" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Word Counter</a>
                   <a href="/utility/share-debugger" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Share Debugger</a>
                   <a href="/utility/mp3-splitter" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">MP3 Splitter</a>
+                  <a href="/utility/password-generator" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Password Generator</a>
+                  <a href="/utility/color-converter" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Color Converter</a>
+                  <a href="/utility/text-case-converter" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Text Case Converter</a>
+                  <a href="/utility/timestamp-converter" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Timestamp Converter</a>
+                  <a href="/utility/base64-url-encoder" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Base64 / URL Encoder</a>
+                  <a href="/utility/qr-code-scanner" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">QR Code Scanner</a>
                   <div className="my-2 border-t border-border" />
                   <a href="/social-text/hashtag-generator" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Hashtag Generator</a>
                   <a href="/social-text/instagram-line-break" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Instagram Line Break</a>
@@ -428,6 +435,7 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                         <a href="/video-audio/mute-video" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Mute Video</a>
                         <a href="/video-audio/gif-to-mp4" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>GIF to MP4</a>
                         <a href="/video-audio/trim-video" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Trim Video</a>
+                        <a href="/video-audio/silence-remover" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Silence Remover</a>
                         <a href="/pdf/merge-pdf" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Merge PDF</a>
                         <a href="/pdf/rotate-pdf" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Rotate PDF</a>
                         <a href="/pdf/delete-pdf-pages" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Delete Pages</a>
@@ -456,6 +464,12 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                         <a href="/utility/word-counter" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Word Counter</a>
                         <a href="/utility/share-debugger" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Share Debugger</a>
                         <a href="/utility/mp3-splitter" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>MP3 Splitter</a>
+                        <a href="/utility/password-generator" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Password Generator</a>
+                        <a href="/utility/color-converter" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Color Converter</a>
+                        <a href="/utility/text-case-converter" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Text Case Converter</a>
+                        <a href="/utility/timestamp-converter" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Timestamp Converter</a>
+                        <a href="/utility/base64-url-encoder" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Base64 / URL Encoder</a>
+                        <a href="/utility/qr-code-scanner" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>QR Code Scanner</a>
                         <a href="/social-text/hashtag-generator" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Hashtag Generator</a>
                         <a href="/social-text/instagram-line-break" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Instagram Line Break</a>
                       </div>

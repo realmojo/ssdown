@@ -1446,6 +1446,30 @@
       {
         "title": "MP3 Splitter",
         "description": "Split an MP3 file into multiple parts right in your browser."
+      },
+      {
+        "title": "Password Generator",
+        "description": "Generate strong, random, secure passwords instantly in your browser."
+      },
+      {
+        "title": "Color Converter",
+        "description": "Convert colors between HEX, RGB, and HSL formats in real-time."
+      },
+      {
+        "title": "Text Case Converter",
+        "description": "Switch text between UPPERCASE, camelCase, snake_case, and more."
+      },
+      {
+        "title": "Timestamp Converter",
+        "description": "Convert Unix timestamps to dates and back, with a live clock."
+      },
+      {
+        "title": "Base64 / URL Encoder",
+        "description": "Encode and decode Base64 and URL text instantly and privately."
+      },
+      {
+        "title": "QR Code Scanner",
+        "description": "Scan and decode QR codes from an image or your camera."
       }
     ]
   },
@@ -1482,6 +1506,10 @@
       {
         "title": "Trim Video",
         "description": "Cut video clips by selecting start and end points."
+      },
+      {
+        "title": "Silence Remover",
+        "description": "Automatically detect and remove silent gaps from your audio."
       }
     ]
   },
@@ -3057,6 +3085,456 @@
     "tip3_desc": "Play each segment before splitting so every part starts and ends exactly where you want.",
     "tip4_title": "100% Private",
     "tip4_desc": "Everything runs in your browser. Your file is never uploaded to any server.",
+    "faq_title": "Frequently Asked Questions"
+  },
+  "page_password_generator": {
+    "meta_title": "Free Password Generator | SSDown",
+    "meta_description": "Generate strong, random passwords instantly in your browser. Free, secure, and 100% private — nothing is ever sent to a server.",
+    "breadcrumb_title": "Password Generator",
+    "faq": [
+      {
+        "question": "Is this password generator secure and private?",
+        "answer": "Yes. Every password is generated locally in your browser using the cryptographically secure crypto.getRandomValues API. Nothing is ever sent to a server, logged, or stored — close the tab and the password is gone."
+      },
+      {
+        "question": "What makes a strong password?",
+        "answer": "A strong password is long (16+ characters), unpredictable, and mixes uppercase letters, lowercase letters, numbers, and symbols. Randomly generated passwords are far stronger than anything a person invents because they contain no guessable patterns or personal information."
+      },
+      {
+        "question": "How long should a password be?",
+        "answer": "Aim for at least 12 characters, and 16 or more for important accounts. Length is the single biggest factor in resisting brute-force attacks — each extra character multiplies the number of possible combinations dramatically."
+      },
+      {
+        "question": "What does \"exclude ambiguous characters\" do?",
+        "answer": "When enabled, it removes characters that are easy to confuse when read or typed manually — such as the letter l, capital I, the number 1, capital O, and the number 0. This makes passwords easier to transcribe correctly without meaningfully reducing their strength."
+      },
+      {
+        "question": "Can I trust a browser-based password generator?",
+        "answer": "Yes, when it runs entirely client-side like this one. Because generation happens in your own browser with the Web Crypto API and no network requests are made, there is no server that could ever see your password. You can even disconnect from the internet and it will still work."
+      }
+    ]
+  },
+  "password_generator": {
+    "title": "Password Generator",
+    "subtitle": "Create strong, random, and secure passwords instantly. Generated locally in your browser — nothing is ever sent to a server.",
+    "copied_toast": "Copied to clipboard!",
+    "copy_error": "Failed to copy",
+    "select_hint": "Select at least one character type",
+    "copy": "Copy password",
+    "regenerate": "Regenerate",
+    "strength_label": "Strength",
+    "length_label": "Length",
+    "charset_label": "Character types",
+    "type_uppercase": "Uppercase (A-Z)",
+    "type_lowercase": "Lowercase (a-z)",
+    "type_numbers": "Numbers (0-9)",
+    "type_symbols": "Symbols (!@#$...)",
+    "exclude_ambiguous": "Exclude ambiguous characters (il1Lo0O)",
+    "bulk_label": "Generate multiple",
+    "bulk_button": "Generate List",
+    "guide_title": "How it Works",
+    "guide_subtitle": "Create a secure password in three simple steps.",
+    "step1_title": "Choose your options",
+    "step1_desc": "Set the length and pick which character types to include — uppercase, lowercase, numbers, and symbols.",
+    "step2_title": "Generate instantly",
+    "step2_desc": "A cryptographically secure random password is created immediately, right in your browser.",
+    "step3_title": "Copy and use it",
+    "step3_desc": "Copy the password with one click. Nothing is ever sent to a server or stored anywhere.",
+    "tips_title": "Password Tips",
+    "tips_desc": "Stay safe with these password best practices.",
+    "tip1_title": "Use a unique password per site",
+    "tip1_desc": "Never reuse passwords. If one account is breached, unique passwords keep the rest of your accounts safe.",
+    "tip2_title": "Longer beats complex-but-short",
+    "tip2_desc": "A long password is exponentially harder to crack. Favor length over hard-to-remember complexity in a short string.",
+    "tip3_title": "Use a password manager",
+    "tip3_desc": "A password manager securely stores every generated password so you only have to remember one master password.",
+    "tip4_title": "Avoid personal info",
+    "tip4_desc": "Don't build passwords from names, birthdays, or common words. Random characters have no guessable patterns.",
+    "faq_title": "Frequently Asked Questions"
+  },
+  "page_color_converter": {
+    "meta_title": "Color Converter - HEX, RGB, HSL | SSDown",
+    "meta_description": "Convert colors between HEX, RGB, and HSL formats instantly in your browser. Free, fast, and private with a live preview and eyedropper.",
+    "breadcrumb_title": "Color Converter",
+    "faq": [
+      {
+        "question": "What's the difference between HEX, RGB, and HSL?",
+        "answer": "They are three ways to describe the same color. HEX (e.g. #3B82F6) is a compact hexadecimal notation popular in CSS and design tools. RGB (e.g. rgb(59, 130, 246)) describes a color by its red, green, and blue channel intensities, which is convenient for canvas and JavaScript color math. HSL (e.g. hsl(217, 91%, 60%)) describes a color by hue, saturation, and lightness, which makes it easy to adjust brightness or create variants."
+      },
+      {
+        "question": "Is this color converter free and private?",
+        "answer": "Yes. The tool is completely free to use and all conversion happens locally in your browser. No color values are ever uploaded to a server, so your work stays private."
+      },
+      {
+        "question": "Does it support alpha or transparency?",
+        "answer": "Not in this version. The converter works with opaque colors only (HEX, RGB, and HSL without an alpha channel). Support for RGBA/HSLA transparency may be added later."
+      },
+      {
+        "question": "What is the eyedropper tool and which browsers support it?",
+        "answer": "The eyedropper (Pick from Screen) lets you sample any color from your screen using the native browser EyeDropper API. It is available in Chromium-based browsers such as Chrome and Edge. If your browser does not support it, the button is hidden automatically."
+      },
+      {
+        "question": "Is there a limit on how many colors I can convert?",
+        "answer": "No. You can convert as many colors as you like, as often as you like. There are no limits, accounts, or sign-ups required."
+      }
+    ]
+  },
+  "color_converter": {
+    "title": "Color Converter",
+    "subtitle": "Convert colors between HEX, RGB, and HSL instantly. Everything runs locally in your browser — free, fast, and private.",
+    "copied": "Copied",
+    "copy_failed": "Failed to copy",
+    "copy": "Copy",
+    "pick_visually": "Pick a color visually",
+    "preview_hint": "Click the swatch to open your system color picker, or edit any field below to convert live.",
+    "pick_screen": "Pick from Screen",
+    "presets_label": "Presets",
+    "guide_title": "How it Works",
+    "guide_desc": "Convert a color between three formats in seconds.",
+    "step1_title": "Enter a Color",
+    "step1_desc": "Type a value in any format, click the swatch to pick visually, or sample a color from your screen.",
+    "step2_title": "See It Converted",
+    "step2_desc": "The color is instantly translated to the other two formats and shown in a live preview.",
+    "step3_title": "Copy the Value",
+    "step3_desc": "Click the copy button next to the format you need and paste it straight into your project.",
+    "tips_title": "Color Tips",
+    "tips_desc": "Pick the right format for the job and use color with intention.",
+    "tip1_title": "Use HEX for Design & CSS",
+    "tip1_desc": "HEX is the most common format in CSS, design tools, and style guides. It's compact and easy to share.",
+    "tip2_title": "Use RGB for Color Math",
+    "tip2_desc": "RGB channels map directly to how screens render color, making it ideal for canvas work and JavaScript color calculations.",
+    "tip3_title": "Use HSL to Adjust Colors",
+    "tip3_desc": "HSL lets you tweak hue, saturation, and lightness independently — perfect for programmatically generating color variants.",
+    "tip4_title": "Mind Contrast for Text",
+    "tip4_desc": "For accessible text-on-background, ensure enough contrast. Nudge HSL lightness up or down until foreground and background are clearly distinct.",
+    "feature_note": "Bidirectional live conversion — edit HEX, RGB, or HSL and the others update instantly.",
+    "faq_title": "Frequently Asked Questions"
+  },
+  "page_text_case_converter": {
+    "meta_title": "Text Case Converter | SSDown",
+    "meta_description": "Convert text between uppercase, lowercase, Title Case, camelCase, snake_case, and more — instantly and privately in your browser.",
+    "breadcrumb_title": "Text Case Converter",
+    "faq": [
+      {
+        "question": "What is camelCase used for?",
+        "answer": "camelCase is the standard naming convention for variables, functions, and object properties in JavaScript and TypeScript. It joins words together without spaces, lowercasing the first word and capitalizing every subsequent word (e.g. myVariableName)."
+      },
+      {
+        "question": "What's the difference between snake_case and kebab-case?",
+        "answer": "Both join words in lowercase, but snake_case uses underscores (my_variable_name) while kebab-case uses hyphens (my-variable-name). snake_case is common in Python and database columns, whereas kebab-case is used for URLs, file names, and CSS class names."
+      },
+      {
+        "question": "Is my text stored anywhere?",
+        "answer": "No. All conversion happens locally in your browser using JavaScript. Your text is never uploaded to a server or stored anywhere, so it stays completely private."
+      },
+      {
+        "question": "Does it support non-English or Unicode text?",
+        "answer": "Partially. Case conversion works reliably for Latin-based scripts. Scripts without a concept of letter casing, such as Korean, Chinese, or Japanese, will pass through unchanged for upper/lowercase transforms, and word-splitting formats may not produce meaningful results for them."
+      },
+      {
+        "question": "Is there a text length limit?",
+        "answer": "No. You can paste text of any length and it will be converted instantly. Because everything runs in your browser, there are no upload limits or server-side restrictions."
+      }
+    ]
+  },
+  "text_case_converter": {
+    "title": "Text Case Converter",
+    "subtitle": "Convert text between UPPERCASE, lowercase, Title Case, camelCase, snake_case, and more — instantly and privately in your browser.",
+    "copied": "Result copied to clipboard!",
+    "copy_failed": "Failed to copy",
+    "input_label": "Your Text",
+    "output_label": "Result",
+    "sample": "Sample",
+    "clear": "Clear",
+    "copy": "Copy Result",
+    "input_placeholder": "Type or paste your text here...",
+    "output_placeholder": "Pick a case format above to see the result here...",
+    "words": "words",
+    "characters": "characters",
+    "guide_title": "How it Works",
+    "guide_desc": "Convert text to any case format in three simple steps.",
+    "step1_title": "Paste or Type",
+    "step1_desc": "Enter your text in the input box by typing or pasting from any source.",
+    "step2_title": "Pick a Case Format",
+    "step2_desc": "Click any case format such as UPPERCASE, camelCase, or snake_case to transform your text.",
+    "step3_title": "Copy the Result",
+    "step3_desc": "Click Copy Result to copy the converted text to your clipboard.",
+    "tips_title": "Case Convention Tips",
+    "tips_desc": "Choose the right case for the right context.",
+    "tip1_title": "camelCase & PascalCase",
+    "tip1_desc": "Use camelCase for JavaScript and TypeScript variables and functions, and PascalCase for class names, components, and types.",
+    "tip2_title": "snake_case",
+    "tip2_desc": "Use snake_case for Python variables and functions, and for database column and table names.",
+    "tip3_title": "kebab-case",
+    "tip3_desc": "Use kebab-case for URLs, file names, and CSS class names, since hyphens are URL-safe and readable.",
+    "tip4_title": "Title Case",
+    "tip4_desc": "Use Title Case for headlines, article titles, and headings to give them a polished, professional look.",
+    "faq_title": "Frequently Asked Questions"
+  },
+  "page_timestamp_converter": {
+    "meta_title": "Unix Timestamp Converter | SSDown",
+    "meta_description": "Convert between Unix timestamps and human-readable dates instantly. See the current timestamp live, updated every second. Free and private.",
+    "breadcrumb_title": "Timestamp Converter",
+    "faq": [
+      {
+        "question": "What is a Unix timestamp?",
+        "answer": "A Unix timestamp is the number of seconds that have elapsed since the Unix epoch, which is 00:00:00 UTC on January 1, 1970. It is a compact, timezone-independent way to represent a specific point in time and is used extensively across programming languages, databases, and APIs."
+      },
+      {
+        "question": "Why does JavaScript use milliseconds while Unix and most systems use seconds?",
+        "answer": "JavaScript's Date.now() and getTime() return the number of milliseconds since the epoch for higher precision, whereas most Unix tools, databases, and APIs (like the standard time() call) use seconds. This 1000x difference is a common source of bugs, so always confirm which unit an API expects."
+      },
+      {
+        "question": "How do I convert between seconds and milliseconds?",
+        "answer": "To convert seconds to milliseconds, multiply by 1000. To convert milliseconds to seconds, divide by 1000 (and typically floor the result to drop the fractional part). This tool auto-detects the unit based on digit count, treating values with 13 or more digits as milliseconds."
+      },
+      {
+        "question": "What timezone does this tool use for local time?",
+        "answer": "Local time is displayed using your browser's own system timezone, which is detected automatically. The tool also shows the detected timezone name alongside the UTC and ISO 8601 representations so you can compare them directly."
+      },
+      {
+        "question": "Is this tool accurate and private?",
+        "answer": "Yes. All conversions happen locally in your browser using the native JavaScript Date object. Nothing is sent to a server, so your data stays private and results are instant with no network round-trip."
+      }
+    ]
+  },
+  "timestamp_converter": {
+    "title": "Unix Timestamp Converter",
+    "subtitle": "Convert between Unix timestamps and human-readable dates instantly. See the current timestamp live, updated every second.",
+    "current_title": "Current Unix Timestamp",
+    "seconds_label": "Seconds",
+    "milliseconds_label": "Milliseconds",
+    "copy": "Copy",
+    "copied": "copied to clipboard",
+    "copy_failed": "Failed to copy",
+    "ts_to_date_title": "Timestamp to Date",
+    "ts_input_placeholder": "Paste a Unix timestamp (e.g. 1704067200)",
+    "invalid_input": "Please enter a valid numeric timestamp.",
+    "local_label": "Local Time",
+    "utc_label": "UTC",
+    "iso_label": "ISO 8601",
+    "relative_label": "Relative",
+    "ts_empty_hint": "Enter a timestamp above to see the converted date.",
+    "date_to_ts_title": "Date to Timestamp",
+    "now": "Now",
+    "date_empty_hint": "Pick a date and time above to get its Unix timestamp.",
+    "guide_title": "How it Works",
+    "guide_subtitle": "Convert timestamps and dates in three simple steps.",
+    "step1_title": "See the Live Timestamp",
+    "step1_desc": "Watch the current Unix timestamp tick every second in both seconds and milliseconds.",
+    "step2_title": "Timestamp to Date",
+    "step2_desc": "Paste any Unix timestamp to convert it into local, UTC, and ISO 8601 dates.",
+    "step3_title": "Date to Timestamp",
+    "step3_desc": "Pick a date and time to instantly get its Unix timestamp back.",
+    "tips_title": "Timestamp Tips",
+    "tips_desc": "Understand how Unix time works to avoid common pitfalls.",
+    "tip1_title": "Seconds vs Milliseconds",
+    "tip1_desc": "JavaScript's Date.now() returns milliseconds while most other languages and APIs use seconds. Watch out for the 1000x mismatch when passing values around.",
+    "tip2_title": "The Unix Epoch",
+    "tip2_desc": "Unix time counts from January 1, 1970 at 00:00:00 UTC. That moment is timestamp zero, and everything is measured relative to it.",
+    "tip3_title": "Timezone Independent",
+    "tip3_desc": "A timestamp represents the same instant everywhere on Earth. Only its display as a human-readable date depends on the chosen timezone.",
+    "tip4_title": "Everyday Uses",
+    "tip4_desc": "Timestamps are handy for API debugging, log analysis, and cache-busting where you need a unique, monotonic value.",
+    "faq_title": "Frequently Asked Questions"
+  },
+  "page_base64_url_encoder": {
+    "meta_title": "Base64 & URL Encoder/Decoder | SSDown",
+    "meta_description": "Encode or decode Base64 and URL-encoded text instantly in your browser. Free, fast, UTF-8 safe, and fully private.",
+    "breadcrumb_title": "Base64 / URL Encoder",
+    "faq": [
+      {
+        "question": "What is Base64 encoding used for?",
+        "answer": "Base64 encoding converts binary data into an ASCII text string. It's commonly used to embed small images as data URIs, attach files in emails, or safely transmit binary data through channels that only reliably handle text."
+      },
+      {
+        "question": "Is Base64 the same as encryption?",
+        "answer": "No. Base64 is a reversible encoding, not encryption. Anyone can decode a Base64 string instantly, so it provides no security. Never use it to hide passwords, tokens, or other sensitive data."
+      },
+      {
+        "question": "What is URL encoding (percent-encoding) used for?",
+        "answer": "URL encoding converts special characters (spaces, &, =, ?, and non-ASCII characters) into a percent-encoded format so they can be safely included in a URL or query string without breaking its structure."
+      },
+      {
+        "question": "Does this tool support Korean and other Unicode text?",
+        "answer": "Yes. Both the Base64 and URL modes are fully UTF-8 safe, so Korean, Japanese, emoji, and any other Unicode characters are encoded and decoded correctly without corruption."
+      },
+      {
+        "question": "Is my text sent to any server?",
+        "answer": "No. All encoding and decoding happens entirely in your browser using JavaScript. Your text never leaves your device and is never uploaded or stored anywhere."
+      }
+    ]
+  },
+  "base64_url_encoder": {
+    "title": "Base64 & URL Encoder/Decoder",
+    "subtitle": "Encode or decode Base64 and URL-encoded text instantly in your browser. Free, fast, UTF-8 safe, and fully private.",
+    "copied": "Result copied to clipboard!",
+    "copy_failed": "Failed to copy",
+    "mode_base64_encode": "Base64 Encode",
+    "mode_base64_decode": "Base64 Decode",
+    "mode_url_encode": "URL Encode",
+    "mode_url_decode": "URL Decode",
+    "input_label": "Input",
+    "input_placeholder": "Type or paste your text here...",
+    "output_label": "Result",
+    "output_placeholder": "Result appears here...",
+    "swap": "Swap",
+    "clear": "Clear",
+    "copy": "Copy Result",
+    "how_title": "How it Works",
+    "how_desc": "Convert between Base64, URL encoding, and plain text in seconds.",
+    "step1_title": "Choose a Mode",
+    "step1_desc": "Pick Base64 or URL, and whether you want to encode or decode your text.",
+    "step2_title": "Paste Your Text",
+    "step2_desc": "Type or paste your text into the input box. The result is computed live as you type.",
+    "step3_title": "Copy the Result",
+    "step3_desc": "Copy the converted output with one click, or hit Swap to reverse the conversion.",
+    "tips_title": "Tips & Facts",
+    "tips_desc": "Understand what these encodings do and when to use them.",
+    "tip1_title": "Data URIs & Transport",
+    "tip1_desc": "Base64 is commonly used to embed small images as data URIs or to safely transmit binary data as text.",
+    "tip2_title": "Safe Query Strings",
+    "tip2_desc": "URL encoding is needed for special characters in query strings, such as spaces, &, and = signs.",
+    "tip3_title": "Not Encryption",
+    "tip3_desc": "Base64 is NOT encryption. Anyone can decode it, so don't use it to hide sensitive data.",
+    "tip4_title": "Unicode Ready",
+    "tip4_desc": "This tool correctly handles Korean and other non-Latin text thanks to full UTF-8 support.",
+    "faq_title": "Frequently Asked Questions"
+  },
+  "page_qr_code_scanner": {
+    "meta_title": "QR Code Scanner | SSDown",
+    "meta_description": "Scan and decode QR codes from an image or your camera, right in your browser. Free, fast, and private.",
+    "breadcrumb_title": "QR Code Scanner",
+    "faq": [
+      {
+        "question": "Does this work with any type of QR code?",
+        "answer": "Yes. It reads standard QR codes that encode text, URLs, contact details, Wi-Fi credentials, and more. As long as it is a valid QR code, the decoded content will be shown."
+      },
+      {
+        "question": "Is my camera feed uploaded anywhere?",
+        "answer": "No. All decoding happens locally in your browser. Your camera feed and uploaded images are never sent to any server."
+      },
+      {
+        "question": "Why did scanning fail?",
+        "answer": "Scanning can fail if the image is blurry, too dark, or cropped so the QR code is incomplete. It can also fail if the code is not a valid QR code. Try a clearer, well-lit, fully visible image."
+      },
+      {
+        "question": "Does this work on mobile browsers?",
+        "answer": "Yes. Camera scanning works on most modern mobile browsers once you grant camera permission. On iOS and Android, the rear camera is used by default for easy scanning."
+      },
+      {
+        "question": "What image formats are supported for upload?",
+        "answer": "Any format your browser can display as an image works, including JPG, PNG, WebP, GIF, and BMP. The image is decoded entirely on your device."
+      }
+    ]
+  },
+  "qr_code_scanner": {
+    "title": "QR Code Scanner",
+    "subtitle": "Scan and decode QR codes from an image or your camera, right in your browser. Free, fast, and private.",
+    "mode_upload": "Upload Image",
+    "mode_camera": "Scan with Camera",
+    "result_title": "QR Code Decoded",
+    "copy_btn": "Copy",
+    "open_btn": "Open Link",
+    "scan_another": "Scan Another",
+    "decoding": "Decoding...",
+    "drop_zone": "Drag & drop a QR code image here",
+    "drop_hint": "or click to browse. JPG, PNG, WebP",
+    "preview_alt": "Uploaded QR code preview",
+    "no_code": "No QR code found in this image. Try a clearer, well-lit, fully visible image.",
+    "invalid_file": "Please select a valid image file.",
+    "camera_error": "Unable to access the camera. Please grant camera permission and make sure a camera is available.",
+    "camera_idle": "Start your camera to scan a QR code live.",
+    "camera_unsupported": "Camera scanning is not supported in this browser, but you can still upload an image to scan a QR code.",
+    "stop_btn": "Stop",
+    "start_btn": "Start Camera",
+    "recent_title": "Recent Scans",
+    "guide_title": "How it Works",
+    "guide_desc": "Decode any QR code in three simple steps, entirely on your device.",
+    "step1_title": "Upload or Start Camera",
+    "step1_desc": "Upload an image of a QR code, or start your camera to scan one live.",
+    "step2_title": "Instant Decoding",
+    "step2_desc": "The QR code is decoded instantly, right in your browser.",
+    "step3_title": "Copy or Open",
+    "step3_desc": "Copy the decoded result, or open the link if the code contains a URL.",
+    "tips_title": "Scanning Tips",
+    "tips_desc": "Get a clean read every time.",
+    "tip1_title": "Good Lighting",
+    "tip1_desc": "Ensure good lighting and hold the camera steady for reliable live scanning.",
+    "tip2_title": "Clear Images",
+    "tip2_desc": "For uploaded images, make sure the QR code isn't blurry or cropped at the edges.",
+    "tip3_title": "Need to Create One?",
+    "tip3_desc": "This pairs perfectly with our QR Code Generator if you also need to create codes.",
+    "tip4_title": "Fully Private",
+    "tip4_desc": "Your camera video never leaves your device. Decoding happens entirely locally.",
+    "faq_title": "Frequently Asked Questions"
+  },
+  "page_silence_remover": {
+    "meta_title": "Silence Remover - Remove Silence from Audio | SSDown",
+    "meta_description": "Automatically detect and remove silence from your audio files, right in your browser. Free, fast, and private.",
+    "breadcrumb_title": "Silence Remover",
+    "faq": [
+      {
+        "question": "How does silence detection work?",
+        "answer": "FFmpeg analyzes your audio's volume level against the sensitivity threshold you choose and removes any gaps that stay quieter than that threshold for longer than your minimum silence length."
+      },
+      {
+        "question": "Will it accidentally cut off quiet speech?",
+        "answer": "It can if the threshold is too aggressive. If quiet words get clipped, raise the sensitivity value (make it less negative, e.g. from -35 to -30) and use Try Again to re-process with the new setting."
+      },
+      {
+        "question": "What audio formats are supported?",
+        "answer": "MP3, WAV, OGG, and M4A are all supported — the same formats as our Audio Trimmer. The processed result is always exported as a high-quality MP3."
+      },
+      {
+        "question": "Is my file uploaded to a server?",
+        "answer": "No. All processing happens locally in your browser using WebAssembly (FFmpeg compiled to WASM). Your audio never leaves your device."
+      },
+      {
+        "question": "Can I re-process with different settings?",
+        "answer": "Yes. After processing, use the Try Again button to tweak the sensitivity and minimum silence length and re-run on the same file — no need to re-upload."
+      }
+    ]
+  },
+  "silence_remover": {
+    "title": "Silence Remover",
+    "subtitle": "Automatically detect and remove silent gaps from your audio, right in your browser. Fast, free, and private.",
+    "drop_zone": "Drag & drop your audio file here",
+    "supported": "Supported: MP3, WAV, OGG, M4A",
+    "video_note": "Audio files only for now — video support may come later.",
+    "sensitivity_label": "Sensitivity",
+    "sensitivity_aggressive": "Aggressive",
+    "sensitivity_hint": "Lower dB cuts more; higher dB cuts only true silence",
+    "sensitivity_conservative": "Conservative",
+    "min_silence_label": "Minimum Silence Length",
+    "min_silence_hint": "Only gaps at least this long will be removed.",
+    "processing": "Processing...",
+    "loading_engine": "Loading engine...",
+    "remove_btn": "Remove Silence",
+    "result_title": "Silence Removed!",
+    "removed_prefix": "Removed",
+    "removed_suffix": "silence",
+    "download_btn": "Download Audio",
+    "try_again_btn": "Try Again",
+    "reset_btn": "Remove Another File",
+    "guide_title": "How it Works",
+    "guide_desc": "Remove silent gaps from your audio in 3 simple steps.",
+    "step1_title": "Upload your audio file",
+    "step1_desc": "Drag and drop or select the MP3, WAV, OGG, or M4A file you want to clean up.",
+    "step2_title": "Adjust sensitivity and minimum silence length",
+    "step2_desc": "Choose how aggressively silence is detected and how long a gap must be before it gets cut.",
+    "step3_title": "Remove silence and download",
+    "step3_desc": "Process the file, preview the result, and download your trimmed audio instantly.",
+    "tips_title": "Silence Removal Tips",
+    "tips_desc": "Get the cleanest results from your audio.",
+    "tip1_title": "Podcasts & Interviews",
+    "tip1_desc": "Spoken-word recordings usually work great with the default settings — start there before tweaking anything.",
+    "tip2_title": "Music & Ambient Audio",
+    "tip2_desc": "Music or ambient recordings may need a lower (more negative) threshold so quiet passages aren't cut by mistake.",
+    "tip3_title": "Always Preview",
+    "tip3_desc": "Listen to the processed result before downloading, and use Try Again to fine-tune the settings.",
+    "tip4_title": "Shorter Minimum = More Cuts",
+    "tip4_desc": "A shorter minimum silence length catches more small pauses, but too short can make speech feel choppy.",
     "faq_title": "Frequently Asked Questions"
   },
   "page_youtube_thumbnail": {

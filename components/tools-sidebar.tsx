@@ -11,11 +11,11 @@ import {
   Minimize2, Eraser, Palette, FlipHorizontal, Sparkles, Contrast,
   Frame, Columns, LayoutGrid, Circle, FileSearch, Shapes,
   // Video & Audio
-  Music, Film, VolumeX, FileVideo,
+  Music, Film, VolumeX, FileVideo, Waves,
   // Social & Text
   AlignLeft,
   // Utility
-  QrCode, Calculator, Share2, AudioLines,
+  QrCode, Calculator, Share2, AudioLines, KeyRound, Pipette, CaseSensitive, Clock, Binary, ScanLine,
   // File
   FileJson, FileCode, FileSpreadsheet, Split, FileType,
 } from "lucide-react";
@@ -97,6 +97,7 @@ const categoryConfig: Record<string, { tools: ToolItem[]; label: string; dictKey
       { href: "/video-audio/mute-video", icon: VolumeX, key: "mute_video" },
       { href: "/video-audio/gif-to-mp4", icon: FileVideo, key: "gif_to_mp4" },
       { href: "/video-audio/trim-video", icon: Scissors, key: "trim_video" },
+      { href: "/video-audio/silence-remover", icon: Waves, key: "silence_remover" },
     ],
   },
   "social-text": {
@@ -122,6 +123,12 @@ const categoryConfig: Record<string, { tools: ToolItem[]; label: string; dictKey
       { href: "/utility/word-counter", icon: Type, key: "word_counter" },
       { href: "/utility/share-debugger", icon: Share2, key: "share_debugger" },
       { href: "/utility/mp3-splitter", icon: AudioLines, key: "mp3_splitter" },
+      { href: "/utility/password-generator", icon: KeyRound, key: "password_generator" },
+      { href: "/utility/color-converter", icon: Pipette, key: "color_converter" },
+      { href: "/utility/text-case-converter", icon: CaseSensitive, key: "text_case_converter" },
+      { href: "/utility/timestamp-converter", icon: Clock, key: "timestamp_converter" },
+      { href: "/utility/base64-url-encoder", icon: Binary, key: "base64_url_encoder" },
+      { href: "/utility/qr-code-scanner", icon: ScanLine, key: "qr_code_scanner" },
     ],
   },
   file: {
