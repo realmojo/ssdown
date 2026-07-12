@@ -30,7 +30,6 @@ interface ScrapedApp {
   id: string;
   slug: string;
   name: string;
-  version: string;
   platform: PlatformType;
   supported_platforms: PlatformType[];
   developer_name: string;
@@ -46,34 +45,26 @@ interface ScrapedApp {
   // Download
   download_url: string;
   file_size: string;
-  download_count: string | null;
   license: LicenseType;
   price: number | null;
   currency: string | null;
   // Security
   security_status: SecurityStatus;
   security_last_scanned_at: string | null;
-  security_scan_provider: string | null;
   // Rating
   rating_average: number;
   rating_total_count: number;
-  rating_editor_score: number | null;
   // Content
   icon_url: string | null;
-  screenshot_urls: string[];
-  video_url: string | null;
   short_summary: string;
   body_html: string;
   pros: string[];
   cons: string[];
-  features: string[];
-  faq: FaqItem[];
   // Specs
   os_requirements: string | null;
   languages: string[];
   last_updated_date: string | null;
   // Relations
-  related_article_ids: string[];
 }
 
 // ── 정규화 헬퍼 ────────────────────────────────────────────────────────────────
@@ -331,34 +322,26 @@ async function scrapeSoftonic(url: string): Promise<ScrapedApp> {
     // Download
     download_url: url,
     file_size: scraped.fileSize || ldApp?.fileSize || 'N/A',
-    download_count: scraped.downloadCount || null,
     license: normalizeLicense(licenseRaw),
     price: ldApp?.offers?.price === 0 ? 0 : null,
     currency: ldApp?.offers?.priceCurrency ?? null,
     // Security
     security_status: secStatus,
     security_last_scanned_at: new Date().toISOString(),
-    security_scan_provider: null,
     // Rating
     rating_average: Math.min(5, Math.max(0, parseFloat(ratingAvg.toFixed(2)))),
     rating_total_count: ratingCount,
-    rating_editor_score: null,
     // Content
     icon_url: iconUrl,
-    screenshot_urls: screenshots,
-    video_url: null,
     short_summary: summary,
     body_html: bodyHtml,
     pros: prosFromLd.length > 0 ? prosFromLd : scraped.pros,
     cons: consFromLd.length > 0 ? consFromLd : scraped.cons,
-    features: [],
-    faq: scraped.faqItems,
     // Specs
     os_requirements: ldApp?.operatingSystem || scraped.osReq || null,
     languages: scraped.languages,
     last_updated_date: lastUpdated,
     // Relations
-    related_article_ids: scraped.alternatives,
   };
 
   return result;

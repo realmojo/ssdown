@@ -2,14 +2,11 @@ export type LicenseType = 'Free' | 'Trial' | 'Paid' | 'Open Source' | 'Freemium'
 export type PlatformType = 'Windows' | 'Mac' | 'Android' | 'iOS' | 'Web' | 'Linux';
 export type SecurityStatus = 'Safe' | 'Warning' | 'Dangerous' | 'Unknown';
 
-export interface FaqItem {
-  question: string;
-  answer: string;
-}
-
 export interface SeoMetadata {
   title: string;
   description: string;
+  titleKr?: string;
+  descriptionKr?: string;
   keywords: string[];
   ogImage: string;
   structuredData: Record<string, any>;
@@ -19,7 +16,7 @@ export interface AppCoreInfo {
   id: string;
   slug: string;
   name: string;
-  version: string;
+  nameKr?: string;
   platform: PlatformType;
   supportedPlatforms: PlatformType[];
 
@@ -37,7 +34,6 @@ export interface AppCoreInfo {
 export interface DownloadInfo {
   downloadUrl: string;
   fileSize: string;
-  downloadCount?: string;
   license: LicenseType;
   price?: number;
   currency?: string;
@@ -45,30 +41,26 @@ export interface DownloadInfo {
   security: {
     status: SecurityStatus;
     lastScannedAt: Date | string;
-    scanProvider?: string;
   };
 }
 
 export interface RatingInfo {
   average: number;
   totalCount: number;
-  editorScore?: number;
 }
 
 export interface AppContent {
   iconUrl: string;
-  screenshotUrls: string[];
-  videoUrl?: string;
 
   shortSummary: string;
+  shortSummaryKr?: string;
   bodyHtml: string;
   editorReviewHtml: string;
   aiReviewHtml: string;
+  aiReviewHtmlKr?: string;
 
   pros: string[];
   cons: string[];
-  features: string[];
-  faq: FaqItem[];
 }
 
 export interface TechnicalSpecs {

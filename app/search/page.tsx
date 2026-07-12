@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
-import { searchApps } from "@/lib/app-utils";
+import { searchApps, localizeApp } from "@/lib/app-utils";
+import { getLocale } from "@/lib/get-locale";
 import SearchClient from "@/components/client/search-client";
 
 const SITE_URL = "https://ssdown.app";
@@ -46,7 +47,9 @@ export default async function SearchPage({
   const page = Math.max(1, parseInt(params.page ?? "1", 10));
   const offset = (page - 1) * PAGE_SIZE;
 
-  const { apps, total } = await searchApps({ os, license, category, q, limit: PAGE_SIZE, offset });
+  const locale = await getLocale();
+  const { apps: rawApps, total } = await searchApps({ os, license, category, q, limit: PAGE_SIZE, offset });
+  const apps = rawApps.map((a) => localizeApp(a, locale));
 
   return (
     <Suspense>

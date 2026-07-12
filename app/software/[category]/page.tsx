@@ -19,7 +19,8 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { getCategoryBySlug, CATEGORIES } from "@/lib/categories";
-import { getAppsByCategory, getAppsByPlatform } from "@/lib/app-utils";
+import { getAppsByCategory, getAppsByPlatform, localizeApp } from "@/lib/app-utils";
+import { getLocale } from "@/lib/get-locale";
 import type { SoftwareApplication } from "@/types/app";
 
 const PLATFORMS = ["windows", "mac", "android", "iphone"] as const;
@@ -381,7 +382,9 @@ export default async function CategoryPage({
   const isPlatform = PLATFORMS.includes(slug as PlatformSlug);
   if (isPlatform) {
     const label = PLATFORM_LABELS[slug as PlatformSlug];
-    const { apps, total } = await getAppsByPlatform(slug, PAGE_SIZE, offset, categoryFilter);
+    const locale = await getLocale();
+    const { apps: rawApps, total } = await getAppsByPlatform(slug, PAGE_SIZE, offset, categoryFilter);
+    const apps = rawApps.map((a) => localizeApp(a, locale));
     const totalPages = Math.ceil(total / PAGE_SIZE);
 
     const buildPageUrl = (page: number) =>
@@ -448,7 +451,9 @@ export default async function CategoryPage({
   const category = getCategoryBySlug(slug);
   if (!category) notFound();
 
-  const { apps, total } = await getAppsByCategory(slug, PAGE_SIZE, offset);
+  const locale = await getLocale();
+  const { apps: rawApps, total } = await getAppsByCategory(slug, PAGE_SIZE, offset);
+  const apps = rawApps.map((a) => localizeApp(a, locale));
   const totalPages = Math.ceil(total / PAGE_SIZE);
 
   const buildPageUrl = (page: number) =>

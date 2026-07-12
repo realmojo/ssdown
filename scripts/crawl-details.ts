@@ -58,7 +58,6 @@ interface ScrapedApp {
   id: string;
   slug: string;
   name: string;
-  version: string;
   platform: PlatformType;
   supported_platforms: PlatformType[];
   developer_name: string;
@@ -72,30 +71,22 @@ interface ScrapedApp {
   seo_structured_data: Record<string, unknown> | null;
   download_url: string;
   file_size: string;
-  download_count: string | null;
   license: LicenseType;
   price: number | null;
   currency: string | null;
   security_status: SecurityStatus;
   security_last_scanned_at: string | null;
-  security_scan_provider: string | null;
   rating_average: number;
   rating_total_count: number;
-  rating_editor_score: number | null;
   icon_url: string | null;
-  screenshot_urls: string[];
-  video_url: string | null;
   short_summary: string;
   body_html: string;
   editor_review_html: string;
   pros: string[];
   cons: string[];
-  features: string[];
-  faq: FaqItem[];
   os_requirements: string | null;
   languages: string[];
   last_updated_date: string | null;
-  related_article_ids: string[];
 }
 
 interface UrlEntry {
@@ -458,7 +449,6 @@ async function scrapeAppDetail(
     id: nameSlug,
     slug: `/${platformSlug}/${nameSlug}`,
     name: finalName,
-    version: version || ldApp?.softwareVersion || "",
     platform: normalizePlatform(platformRaw),
     supported_platforms: [normalizePlatform(platformRaw)],
     developer_name: finalDevName,
@@ -478,19 +468,14 @@ async function scrapeAppDetail(
     seo_structured_data: ldList.length > 0 ? { items: ldList } : null,
     download_url: officialWebsiteUrl || finalDownloadUrl,
     file_size: fileSize || ldApp?.fileSize || "N/A",
-    download_count: downloadCount || null,
     license: normalizeLicense(licenseText || "free"),
     price: ldApp?.offers?.price === 0 ? 0 : null,
     currency: ldApp?.offers?.priceCurrency ?? null,
     security_status: secStatus,
     security_last_scanned_at: new Date().toISOString(),
-    security_scan_provider: null,
     rating_average: Math.min(5, Math.max(0, parseFloat(ratingAvg.toFixed(2)))),
     rating_total_count: ratingCount,
-    rating_editor_score: null,
     icon_url: iconUrl,
-    screenshot_urls: screenshots,
-    video_url: null,
     short_summary: summary,
     body_html: bodyHtml,
     editor_review_html: editorReviewHtml,
@@ -506,12 +491,9 @@ async function scrapeAppDetail(
         : (ldApp?.review?.negativeNotes?.itemListElement ?? [])
             .map((x: any) => x.item ?? "")
             .filter(Boolean),
-    features: [],
-    faq: faqItems,
     os_requirements: osReq || ldApp?.operatingSystem || null,
     languages,
     last_updated_date: lastUpdatedIso,
-    related_article_ids: [],
   };
 }
 

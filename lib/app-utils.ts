@@ -1,19 +1,15 @@
 import { supabase } from "./supabase";
-import { SoftwareApplication, PlatformType, LicenseType, SecurityStatus, FaqItem } from "@/types/app";
+import { SoftwareApplication, PlatformType, LicenseType, SecurityStatus } from "@/types/app";
 import { getCategoryBySlug } from "./categories";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function transformRow(row: any): SoftwareApplication {
-  const faq: FaqItem[] = Array.isArray(row.faq)
-    ? row.faq.filter((f: FaqItem) => f.question && f.answer)
-    : [];
-
   return {
     core: {
       id: row.id,
       slug: row.slug,
       name: row.name,
-      version: row.version ?? "",
+      nameKr: row.name_kr ?? undefined,
       platform: row.platform as PlatformType,
       supportedPlatforms: (row.supported_platforms ?? []) as PlatformType[],
       developer: {
@@ -28,6 +24,8 @@ function transformRow(row: any): SoftwareApplication {
     seo: {
       title: row.seo_title ?? "",
       description: row.seo_description ?? "",
+      titleKr: row.seo_title_kr ?? undefined,
+      descriptionKr: row.seo_description_kr ?? undefined,
       keywords: row.seo_keywords ?? [],
       ogImage: row.seo_og_image ?? "",
       structuredData: row.seo_structured_data ?? {},
@@ -35,33 +33,28 @@ function transformRow(row: any): SoftwareApplication {
     download: {
       downloadUrl: row.download_url ?? "#",
       fileSize: row.file_size ?? "",
-      downloadCount: row.download_count ?? undefined,
       license: (row.license ?? "Free") as LicenseType,
       price: row.price ?? undefined,
       currency: row.currency ?? undefined,
       security: {
         status: (row.security_status ?? "Unknown") as SecurityStatus,
         lastScannedAt: row.security_last_scanned_at ?? new Date().toISOString(),
-        scanProvider: row.security_scan_provider ?? undefined,
       },
     },
     rating: {
       average: row.rating_average ?? 0,
       totalCount: row.rating_total_count ?? 0,
-      editorScore: row.rating_editor_score ?? undefined,
     },
     content: {
       iconUrl: row.icon_url ?? "",
-      screenshotUrls: row.screenshot_urls ?? [],
-      videoUrl: row.video_url ?? undefined,
       shortSummary: row.short_summary ?? "",
+      shortSummaryKr: row.short_summary_kr ?? undefined,
       bodyHtml: row.body_html ?? "",
       editorReviewHtml: row.editor_review_html ?? "",
       aiReviewHtml: row.ai_review_html ?? "",
+      aiReviewHtmlKr: row.ai_review_html_kr ?? undefined,
       pros: row.pros ?? [],
       cons: row.cons ?? [],
-      features: row.features ?? [],
-      faq,
     },
     specs: {
       osRequirements: row.os_requirements ?? "",
@@ -70,7 +63,7 @@ function transformRow(row: any): SoftwareApplication {
     },
     relations: {
       alternativesAppIds: [],
-      relatedArticlesIds: row.related_article_ids ?? [],
+      relatedArticlesIds: [],
     },
     createdAt: row.created_at ?? new Date().toISOString(),
     updatedAt: row.updated_at ?? new Date().toISOString(),
@@ -88,7 +81,32 @@ export async function getAppById(id: string): Promise<SoftwareApplication | null
   return transformRow(data);
 }
 
-const CARD_COLUMNS = "id,slug,name,platform,category_main,license,rating_average,rating_total_count,icon_url,short_summary,developer_name,download_url";
+const CARD_COLUMNS = "id,slug,name,name_kr,platform,category_main,license,rating_average,rating_total_count,icon_url,short_summary,short_summary_kr,developer_name,download_url";
+
+/**
+ * locale이 'kr'이면 한국어 필드(name_kr, seo_*_kr, short_summary_kr, ai_review_html_kr)가
+ * 존재하는 항목만 해당 값으로 덮어쓴 사본을 반환합니다. 영어(en)는 원본 그대로.
+ */
+export function localizeApp(app: SoftwareApplication, locale: string): SoftwareApplication {
+  if (locale !== "kr") return app;
+  return {
+    ...app,
+    core: {
+      ...app.core,
+      name: app.core.nameKr || app.core.name,
+    },
+    seo: {
+      ...app.seo,
+      title: app.seo.titleKr || app.seo.title,
+      description: app.seo.descriptionKr || app.seo.description,
+    },
+    content: {
+      ...app.content,
+      shortSummary: app.content.shortSummaryKr || app.content.shortSummary,
+      aiReviewHtml: app.content.aiReviewHtmlKr || app.content.aiReviewHtml,
+    },
+  };
+}
 
 export async function getAppsByPlatform(
   platform: string,
@@ -210,7 +228,7 @@ export async function getAlternatives(
   app: SoftwareApplication,
   limit = 12
 ): Promise<SoftwareApplication[]> {
-  const ALT_COLUMNS = "id,slug,name,platform,category_main,license,rating_average,rating_total_count,icon_url,short_summary,developer_name,download_url";
+  const ALT_COLUMNS = "id,slug,name,name_kr,platform,category_main,license,rating_average,rating_total_count,icon_url,short_summary,short_summary_kr,developer_name,download_url";
 
   // 같은 카테고리 + 같은 플랫폼
   const { data: sameCat } = await supabase

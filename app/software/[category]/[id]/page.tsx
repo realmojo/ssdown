@@ -12,13 +12,12 @@ import {
   Monitor,
   TrendingDown,
   TrendingUp,
-  ChevronDown,
   ExternalLink,
   ArrowLeft,
 } from "lucide-react";
-import { getAppById, getAlternatives } from "@/lib/app-utils";
+import { getAppById, getAlternatives, localizeApp } from "@/lib/app-utils";
+import { getLocale } from "@/lib/get-locale";
 import { getCategoryByMain, getCategoryBySlug } from "@/lib/categories";
-import type { SoftwareApplication } from "@/types/app";
 import Adsense from "@/components/Adsense";
 
 const PLATFORM_AD_SLOT: Record<string, string> = {
@@ -36,8 +35,10 @@ export async function generateMetadata({
   params: Promise<{ category: string; id: string }>;
 }): Promise<Metadata> {
   const { category, id } = await params;
-  const app = await getAppById(id);
-  if (!app) return {};
+  const rawApp = await getAppById(id);
+  if (!rawApp) return {};
+  const locale = await getLocale();
+  const app = localizeApp(rawApp, locale);
   const canonical = `https://ssdown.app/software/${category}/${id}`;
   const platformLabel =
     app.core.platform === "iOS" ? "iPhone" : app.core.platform;
@@ -120,52 +121,19 @@ const SECURITY_STYLE: Record<
   Unknown: { icon: "?", color: "text-gray-400", label: "Unknown" },
 };
 
-function RatingBar({ score, max = 5 }: { score: number; max?: number }) {
-  const pct = Math.round((score / max) * 100);
-  return (
-    <div className="flex items-center gap-2">
-      <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-amber-400 rounded-full"
-          style={{ width: `${pct}%` }}
-        />
-      </div>
-      <span className="text-xs font-semibold text-gray-700 w-6 text-right tabular-nums">
-        {score.toFixed(1)}
-      </span>
-    </div>
-  );
-}
-
-function FAQ({ items }: { items: { question: string; answer: string }[] }) {
-  return (
-    <div className="divide-y divide-gray-100">
-      {items.map((item, i) => (
-        <details key={i} className="group py-4">
-          <summary className="flex items-center justify-between cursor-pointer list-none gap-3">
-            <span className="text-sm font-semibold text-gray-900 leading-snug">
-              {item.question}
-            </span>
-            <ChevronDown className="w-4 h-4 text-gray-400 shrink-0 group-open:rotate-180 transition-transform" />
-          </summary>
-          <p className="mt-3 text-sm text-gray-600 leading-relaxed">
-            {item.answer}
-          </p>
-        </details>
-      ))}
-    </div>
-  );
-}
-
 export default async function AppDetailPage({
   params,
 }: {
   params: Promise<{ category: string; id: string }>;
 }) {
   const { category: categorySlug, id } = await params;
-  const app = await getAppById(id);
-  if (!app) notFound();
-  const alternatives = await getAlternatives(app, 4);
+  const rawApp = await getAppById(id);
+  if (!rawApp) notFound();
+  const locale = await getLocale();
+  const app = localizeApp(rawApp, locale);
+  const alternatives = (await getAlternatives(app, 4)).map((a) =>
+    localizeApp(a, locale),
+  );
 
   const category =
     getCategoryBySlug(categorySlug) ??
@@ -180,7 +148,6 @@ export default async function AppDetailPage({
     url: canonicalUrl,
     applicationCategory: app.core.category.main,
     operatingSystem: app.core.platform,
-    ...(app.core.version && { softwareVersion: app.core.version }),
     ...(app.download.fileSize && { fileSize: app.download.fileSize }),
     ...(app.content.iconUrl && { image: app.content.iconUrl }),
     ...(app.specs.lastUpdatedDate && {
@@ -217,12 +184,6 @@ export default async function AppDetailPage({
       app.download.downloadUrl !== "#" && {
         downloadUrl: app.download.downloadUrl,
       }),
-    ...(app.content.screenshotUrls.length > 0 && {
-      screenshot: app.content.screenshotUrls.slice(0, 5).map((src) => ({
-        "@type": "ImageObject",
-        url: src,
-      })),
-    }),
   };
 
   const breadcrumbSchema = {
@@ -260,26 +221,11 @@ export default async function AppDetailPage({
     ],
   };
 
-  const faqSchema =
-    app.content.faq.length > 0
-      ? {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: app.content.faq.map((f) => ({
-            "@type": "Question",
-            name: f.question,
-            acceptedAnswer: { "@type": "Answer", text: f.answer },
-          })),
-        }
-      : null;
-
   const licStyle = LICENSE_STYLE[app.download.license] ?? LICENSE_STYLE.Free;
   const secStyle =
     SECURITY_STYLE[app.download.security.status] ?? SECURITY_STYLE.Unknown;
-  const hasScreenshots = app.content.screenshotUrls.length > 0;
   const hasPros = app.content.pros.length > 0;
   const hasCons = app.content.cons.length > 0;
-  const hasFaq = app.content.faq.length > 0;
   const reviewHtml =
     app.content.aiReviewHtml ||
     app.content.editorReviewHtml ||
@@ -296,12 +242,6 @@ export default async function AppDetailPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      {faqSchema && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-        />
-      )}
 
       {/* ── HERO ─────────────────────────────────────────────────── */}
       <div className="bg-slate-900 relative overflow-hidden">
@@ -371,11 +311,6 @@ export default async function AppDetailPage({
                 <span className="text-xs text-slate-400 bg-slate-800 px-2.5 py-0.5 rounded-full">
                   {app.core.platform}
                 </span>
-                {app.core.version && (
-                  <span className="text-xs text-slate-500">
-                    v{app.core.version}
-                  </span>
-                )}
               </div>
 
               <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight leading-none mb-2">
@@ -463,15 +398,6 @@ export default async function AppDetailPage({
                   value: secStyle.label,
                   color: secStyle.color,
                 },
-                ...(app.download.downloadCount
-                  ? [
-                      {
-                        icon: Download,
-                        label: "Downloads",
-                        value: app.download.downloadCount,
-                      },
-                    ]
-                  : []),
                 ...(app.specs.lastUpdatedDate
                   ? [
                       {
@@ -521,31 +447,6 @@ export default async function AppDetailPage({
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
           {/* ── LEFT COLUMN ──────────────────────────────────────── */}
           <div className="space-y-5">
-            {/* Screenshots */}
-            {hasScreenshots && (
-              <section>
-                <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-                  Screenshots
-                </h2>
-                <div className="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory">
-                  {app.content.screenshotUrls.map((src, i) => (
-                    <div
-                      key={i}
-                      className="shrink-0 snap-start w-72 h-44 rounded-xl overflow-hidden bg-gray-200 ring-1 ring-gray-200 shadow-sm"
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={src}
-                        alt={`${app.core.name} screenshot ${i + 1}`}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-
             {/* Pros / Cons */}
             {(hasPros || hasCons) && (
               <section>
@@ -622,15 +523,6 @@ export default async function AppDetailPage({
               </section>
             )}
 
-            {/* FAQ */}
-            {hasFaq && (
-              <section className="bg-white rounded-2xl border border-gray-100 p-6">
-                <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">
-                  FAQ
-                </h2>
-                <FAQ items={app.content.faq} />
-              </section>
-            )}
           </div>
 
           {/* ── RIGHT COLUMN ─────────────────────────────────────── */}
@@ -657,7 +549,6 @@ export default async function AppDetailPage({
 
               <div className="space-y-2.5 text-xs">
                 {[
-                  ["Version", app.core.version || "—"],
                   ["File Size", app.download.fileSize || "—"],
                   ["License", licStyle.label],
                   ["Platform", app.core.platform],
@@ -758,14 +649,6 @@ export default async function AppDetailPage({
                     </div>
                   ))}
                 </div>
-                {app.rating.editorScore && (
-                  <div className="mt-4 pt-4 border-t border-gray-50">
-                    <div className="text-[11px] text-gray-400 mb-1.5">
-                      Editor Score
-                    </div>
-                    <RatingBar score={app.rating.editorScore} />
-                  </div>
-                )}
               </div>
             )}
 
