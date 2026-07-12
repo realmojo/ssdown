@@ -1,4 +1,4 @@
-import { QrCode, Calculator, ArrowRight, Type, Share2, AudioLines, KeyRound, Pipette, CaseSensitive, Clock, Binary, ScanLine } from "lucide-react";
+import { QrCode, Calculator, ArrowRight, Type, Share2, AudioLines, KeyRound, Pipette, CaseSensitive, Clock, Binary, ScanLine, Braces, GitCompare, Fingerprint, AlignLeft } from "lucide-react";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
@@ -49,6 +49,10 @@ const toolMeta = [
   { href: "/utility/timestamp-converter", icon: Clock, gradient: "from-orange-500 to-amber-500", bgLight: "bg-orange-100 dark:bg-orange-900/30", iconColor: "text-orange-600" },
   { href: "/utility/base64-url-encoder", icon: Binary, gradient: "from-cyan-500 to-sky-500", bgLight: "bg-cyan-100 dark:bg-cyan-900/30", iconColor: "text-cyan-600" },
   { href: "/utility/qr-code-scanner", icon: ScanLine, gradient: "from-purple-500 to-violet-500", bgLight: "bg-purple-100 dark:bg-purple-900/30", iconColor: "text-purple-600" },
+  { href: "/utility/json-formatter", icon: Braces, gradient: "from-amber-500 to-yellow-500", bgLight: "bg-amber-100 dark:bg-amber-900/30", iconColor: "text-amber-600" },
+  { href: "/utility/diff-checker", icon: GitCompare, gradient: "from-green-500 to-emerald-500", bgLight: "bg-green-100 dark:bg-green-900/30", iconColor: "text-green-600" },
+  { href: "/utility/uuid-generator", icon: Fingerprint, gradient: "from-blue-500 to-indigo-500", bgLight: "bg-blue-100 dark:bg-blue-900/30", iconColor: "text-blue-600" },
+  { href: "/utility/lorem-ipsum-generator", icon: AlignLeft, gradient: "from-pink-500 to-rose-500", bgLight: "bg-pink-100 dark:bg-pink-900/30", iconColor: "text-pink-600" },
 ];
 
 export default async function UtilityToolsPage() {

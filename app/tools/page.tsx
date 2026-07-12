@@ -62,7 +62,7 @@ const categoryMeta = [
     gradient: "from-indigo-500 to-purple-500",
     bgLight: "bg-indigo-100 dark:bg-indigo-900/30",
     iconColor: "text-indigo-500",
-    count: 7,
+    count: 11,
   },
   {
     href: "/tools/social-text",
@@ -78,7 +78,7 @@ const categoryMeta = [
     gradient: "from-violet-500 to-purple-500",
     bgLight: "bg-violet-100 dark:bg-violet-900/30",
     iconColor: "text-violet-500",
-    count: 4,
+    count: 15,
   },
   {
     href: "/tools/pdf",
@@ -86,7 +86,7 @@ const categoryMeta = [
     gradient: "from-red-500 to-rose-500",
     bgLight: "bg-red-100 dark:bg-red-900/30",
     iconColor: "text-red-500",
-    count: 18,
+    count: 19,
   },
   {
     href: "/tools/file",

@@ -16,6 +16,7 @@ import {
   AlignLeft,
   // Utility
   QrCode, Calculator, Share2, AudioLines, KeyRound, Pipette, CaseSensitive, Clock, Binary, ScanLine,
+  Braces, GitCompare, Fingerprint, RefreshCw,
   // File
   FileJson, FileCode, FileSpreadsheet, Split, FileType,
 } from "lucide-react";
@@ -52,6 +53,7 @@ const categoryConfig: Record<string, { tools: ToolItem[]; label: string; dictKey
       { href: "/pdf/pdf-to-png", icon: FileImage, key: "pdf_to_png" },
       { href: "/pdf/pdf-editor", icon: Edit3, key: "pdf_editor" },
       { href: "/pdf/esign-pdf", icon: PenTool, key: "esign_pdf" },
+      { href: "/pdf/compress-pdf", icon: Minimize2, key: "compress_pdf" },
     ],
   },
   image: {
@@ -98,6 +100,9 @@ const categoryConfig: Record<string, { tools: ToolItem[]; label: string; dictKey
       { href: "/video-audio/gif-to-mp4", icon: FileVideo, key: "gif_to_mp4" },
       { href: "/video-audio/trim-video", icon: Scissors, key: "trim_video" },
       { href: "/video-audio/silence-remover", icon: Waves, key: "silence_remover" },
+      { href: "/video-audio/video-converter", icon: RefreshCw, key: "video_converter" },
+      { href: "/video-audio/video-compressor", icon: Minimize2, key: "video_compressor" },
+      { href: "/video-audio/audio-converter", icon: AudioLines, key: "audio_converter" },
     ],
   },
   "social-text": {
@@ -129,6 +134,10 @@ const categoryConfig: Record<string, { tools: ToolItem[]; label: string; dictKey
       { href: "/utility/timestamp-converter", icon: Clock, key: "timestamp_converter" },
       { href: "/utility/base64-url-encoder", icon: Binary, key: "base64_url_encoder" },
       { href: "/utility/qr-code-scanner", icon: ScanLine, key: "qr_code_scanner" },
+      { href: "/utility/json-formatter", icon: Braces, key: "json_formatter" },
+      { href: "/utility/diff-checker", icon: GitCompare, key: "diff_checker" },
+      { href: "/utility/uuid-generator", icon: Fingerprint, key: "uuid_generator" },
+      { href: "/utility/lorem-ipsum-generator", icon: AlignLeft, key: "lorem_ipsum_generator" },
     ],
   },
   file: {

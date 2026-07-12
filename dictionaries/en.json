@@ -1402,6 +1402,10 @@
       {
         "title": "eSign PDF",
         "description": "Add electronic signatures to your PDF documents."
+      },
+      {
+        "title": "Compress PDF",
+        "description": "Reduce PDF file size right in your browser with adjustable quality presets."
       }
     ]
   },
@@ -1470,6 +1474,22 @@
       {
         "title": "QR Code Scanner",
         "description": "Scan and decode QR codes from an image or your camera."
+      },
+      {
+        "title": "JSON Formatter",
+        "description": "Format, minify, and validate JSON with instant error highlighting."
+      },
+      {
+        "title": "Diff Checker",
+        "description": "Compare two texts and highlight added and removed lines."
+      },
+      {
+        "title": "UUID Generator",
+        "description": "Generate UUID v4 and v7 identifiers in bulk."
+      },
+      {
+        "title": "Lorem Ipsum Generator",
+        "description": "Generate placeholder paragraphs, sentences, and words."
       }
     ]
   },
@@ -1510,6 +1530,18 @@
       {
         "title": "Silence Remover",
         "description": "Automatically detect and remove silent gaps from your audio."
+      },
+      {
+        "title": "Video Converter",
+        "description": "Convert videos between MP4, WebM, MOV, and AVI formats in your browser."
+      },
+      {
+        "title": "Video Compressor",
+        "description": "Compress video files to reduce size without leaving your browser."
+      },
+      {
+        "title": "Audio Converter",
+        "description": "Convert audio files between MP3, WAV, OGG, M4A, and FLAC formats."
       }
     ]
   },

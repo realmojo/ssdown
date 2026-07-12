@@ -1,4 +1,4 @@
-import { FilePlus2, RotateCw, Trash2, Lock, Unlock, FileText, Scissors, ArrowUpDown, Crop, Hash, Droplets, Type, FilePlus, Image, ImageIcon, FileImage, Edit3, PenTool, ArrowRight } from "lucide-react";
+import { FilePlus2, RotateCw, Trash2, Lock, Unlock, FileText, Scissors, ArrowUpDown, Crop, Hash, Droplets, Type, FilePlus, Image, ImageIcon, FileImage, Edit3, PenTool, Minimize2, ArrowRight } from "lucide-react";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
@@ -56,6 +56,7 @@ const toolMeta = [
   { href: "/pdf/pdf-to-png", icon: FileImage, gradient: "from-red-500 to-rose-500", bgLight: "bg-red-100 dark:bg-red-900/30", iconColor: "text-red-500" },
   { href: "/pdf/pdf-editor", icon: Edit3, gradient: "from-red-500 to-rose-500", bgLight: "bg-red-100 dark:bg-red-900/30", iconColor: "text-red-500" },
   { href: "/pdf/esign-pdf", icon: PenTool, gradient: "from-red-500 to-rose-500", bgLight: "bg-red-100 dark:bg-red-900/30", iconColor: "text-red-500" },
+  { href: "/pdf/compress-pdf", icon: Minimize2, gradient: "from-red-500 to-rose-500", bgLight: "bg-red-100 dark:bg-red-900/30", iconColor: "text-red-500" },
 ];
 
 export default async function PdfToolsPage() {

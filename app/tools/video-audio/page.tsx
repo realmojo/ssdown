@@ -1,4 +1,4 @@
-import { Music, ImageIcon, Film, Scissors, ArrowRight, VolumeX, FileVideo, Waves } from "lucide-react";
+import { Music, ImageIcon, Film, Scissors, ArrowRight, VolumeX, FileVideo, Waves, RefreshCw, Minimize2, AudioLines } from "lucide-react";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
@@ -46,6 +46,9 @@ const toolMeta = [
   { href: "/video-audio/gif-to-mp4", icon: FileVideo, gradient: "from-emerald-500 to-green-500", bgLight: "bg-emerald-100 dark:bg-emerald-900/30", iconColor: "text-emerald-500" },
   { href: "/video-audio/trim-video", icon: Scissors, gradient: "from-amber-500 to-yellow-500", bgLight: "bg-amber-100 dark:bg-amber-900/30", iconColor: "text-amber-500" },
   { href: "/video-audio/silence-remover", icon: Waves, gradient: "from-lime-500 to-green-500", bgLight: "bg-lime-100 dark:bg-lime-900/30", iconColor: "text-lime-600" },
+  { href: "/video-audio/video-converter", icon: RefreshCw, gradient: "from-blue-500 to-cyan-500", bgLight: "bg-blue-100 dark:bg-blue-900/30", iconColor: "text-blue-500" },
+  { href: "/video-audio/video-compressor", icon: Minimize2, gradient: "from-teal-500 to-emerald-500", bgLight: "bg-teal-100 dark:bg-teal-900/30", iconColor: "text-teal-500" },
+  { href: "/video-audio/audio-converter", icon: AudioLines, gradient: "from-fuchsia-500 to-pink-500", bgLight: "bg-fuchsia-100 dark:bg-fuchsia-900/30", iconColor: "text-fuchsia-500" },
 ];
 
 export default async function VideoAudioToolsPage() {

@@ -52,6 +52,9 @@ const STATIC: Entry[] = [
   { url: `${BASE}/video-audio/gif-to-mp4`,      lastmod: "2026-02-13", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/video-audio/trim-video`,      lastmod: "2026-02-13", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/video-audio/silence-remover`, lastmod: "2026-07-10", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/video-audio/video-converter`, lastmod: "2026-07-11", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/video-audio/video-compressor`, lastmod: "2026-07-11", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/video-audio/audio-converter`, lastmod: "2026-07-11", changefreq: "monthly", priority: 0.8 },
   // Social & Text
   { url: `${BASE}/social-text/hashtag-generator`,     lastmod: "2026-01-01", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/social-text/instagram-line-break`,  lastmod: "2026-02-11", changefreq: "monthly", priority: 0.8 },
@@ -67,6 +70,10 @@ const STATIC: Entry[] = [
   { url: `${BASE}/utility/timestamp-converter`, lastmod: "2026-07-10", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/utility/base64-url-encoder`,  lastmod: "2026-07-10", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/utility/qr-code-scanner`,     lastmod: "2026-07-10", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/utility/json-formatter`,      lastmod: "2026-07-11", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/utility/diff-checker`,        lastmod: "2026-07-11", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/utility/uuid-generator`,      lastmod: "2026-07-11", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/utility/lorem-ipsum-generator`, lastmod: "2026-07-11", changefreq: "monthly", priority: 0.8 },
   // PDF
   { url: `${BASE}/pdf/merge-pdf`,       lastmod: "2026-02-12", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/pdf/rotate-pdf`,      lastmod: "2026-02-12", changefreq: "monthly", priority: 0.8 },
@@ -86,6 +93,7 @@ const STATIC: Entry[] = [
   { url: `${BASE}/pdf/pdf-to-png`,      lastmod: "2026-02-12", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/pdf/pdf-editor`,      lastmod: "2026-02-12", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/pdf/esign-pdf`,       lastmod: "2026-02-12", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/pdf/compress-pdf`,    lastmod: "2026-07-11", changefreq: "monthly", priority: 0.8 },
   // File
   { url: `${BASE}/file/json-to-xml`,    lastmod: "2026-02-13", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/file/xml-to-json`,    lastmod: "2026-02-13", changefreq: "monthly", priority: 0.8 },
