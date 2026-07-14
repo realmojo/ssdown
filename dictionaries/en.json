@@ -1423,18 +1423,10 @@
   },
   "page_tools_utility": {
     "meta_title": "Free Utility Tools | SSDown",
-    "meta_description": "Free utility tools for creators. YouTube thumbnail downloader, preview editor, QR codes, and aspect ratio calculator.",
+    "meta_description": "Free utility tools for creators. QR codes, aspect ratio calculator, word counter, and Open Graph debugger.",
     "heading": "Utility Tools",
     "subtitle": "Essential utility tools for content creators. QR codes, calculators, and more.",
     "tools": [
-      {
-        "title": "YT Thumbnail Downloader",
-        "description": "Download YouTube thumbnails in high quality HD, 4K."
-      },
-      {
-        "title": "YT Preview Editor",
-        "description": "Edit and preview your YouTube video metadata and thumbnails."
-      },
       {
         "title": "QR Code Generator",
         "description": "Create custom QR codes for any link in seconds."
@@ -1446,6 +1438,37 @@
       {
         "title": "Word Counter",
         "description": "Count words, characters, sentences, and paragraphs in real-time."
+      },
+      {
+        "title": "Open Graph Debugger",
+        "description": "Preview and validate how your link looks when shared on social media."
+      }
+    ]
+  },
+  "page_og_debugger": {
+    "meta_title": "Open Graph Debugger - Preview Link Share Cards | SSDown",
+    "meta_description": "Free online Open Graph debugger. Preview how your link looks on Facebook, X, LinkedIn, and KakaoTalk, and validate og:image, og:title, and twitter:card tags.",
+    "breadcrumb_title": "Open Graph Debugger",
+    "faq": [
+      {
+        "question": "What is an Open Graph debugger?",
+        "answer": "It's a tool that fetches a URL the same way social media crawlers do, reads its Open Graph (og:*) and Twitter Card (twitter:*) meta tags, and shows you exactly how the link preview card will look when shared on platforms like Facebook, X, LinkedIn, and KakaoTalk."
+      },
+      {
+        "question": "Why does my link show the wrong image or no image at all?",
+        "answer": "Most often the page is missing an og:image tag, the image URL is broken or blocked, or the site only injects Open Graph tags with client-side JavaScript, which crawlers can't execute. Add a static og:image meta tag with an absolute URL to fix it."
+      },
+      {
+        "question": "Why does the preview look different from what I see when I share the link myself?",
+        "answer": "Facebook, X, and other platforms cache the scraped Open Graph data. If you changed your tags after the link was already shared, you may need to use that platform's own cache-refresh tool (e.g. Facebook Sharing Debugger's 'Scrape Again') to force it to re-fetch."
+      },
+      {
+        "question": "Does this tool store or share the URLs I check?",
+        "answer": "No. We fetch the page on the server only to read its meta tags for your analysis — nothing is stored or shared."
+      },
+      {
+        "question": "Why is my page fetched with a special user agent?",
+        "answer": "Many sites render different content for real visitors than for crawlers. We send a social-crawler user agent (like Facebook's) so you see the same Open Graph tags that Facebook, X, and other platforms actually see."
       }
     ]
   },
@@ -4383,6 +4406,47 @@
     "tip3_desc": "Use the statistics to meet word limits, improve readability, and refine your writing.",
     "faq_title": "FAQ",
     "faq_desc": "Get accurate text statistics in seconds."
+  },
+  "og_debugger": {
+    "title": "Open Graph Debugger",
+    "subtitle": "Preview how any link will look when shared on Facebook, X, LinkedIn, and KakaoTalk. Inspect Open Graph and Twitter Card tags instantly.",
+    "input_placeholder": "https://mindpang.com/worldcup/wc-football-star",
+    "input_hint": "We fetch the page server-side using a social-crawler user agent, just like Facebook and X do.",
+    "analyze_btn": "Analyze",
+    "status_good": "Looks Good",
+    "status_warning": "Needs Improvement",
+    "status_critical": "Critical Issues",
+    "checks_title": "Checks",
+    "no_issues": "No issues found — this link is ready to share.",
+    "previews_title": "Share Previews",
+    "no_image": "No image",
+    "no_title": "No title",
+    "redirected": "Redirected",
+    "tags_title": "Detected Tags",
+    "copy_all": "Copy all",
+    "copied": "Copied to clipboard",
+    "col_property": "Property",
+    "col_content": "Content",
+    "no_tags": "No meta tags found",
+    "error_generic": "Could not analyze this URL",
+    "guide_title": "How It Works",
+    "step1_title": "Paste a URL",
+    "step1_desc": "Enter any public page URL you want to check.",
+    "step2_title": "We Fetch It",
+    "step2_desc": "Our server requests the page using a social-crawler user agent, just like Facebook or X would.",
+    "step3_title": "Review Results",
+    "step3_desc": "See exactly how the link preview will render, plus a full list of detected meta tags and warnings.",
+    "tips_title": "Open Graph Tips",
+    "tips_desc": "Make sure your links always look their best when shared.",
+    "tip1_title": "Use a 1200×630 Image",
+    "tip1_desc": "This size matches the 1.91:1 ratio most platforms expect, so your og:image never gets cropped oddly.",
+    "tip2_title": "Set og:image:width/height",
+    "tip2_desc": "Some crawlers, including Facebook, skip images without explicit width and height meta tags.",
+    "tip3_title": "Keep Titles Under 60 Chars",
+    "tip3_desc": "Longer titles get truncated in feed previews, cutting off your message.",
+    "tip4_title": "Add twitter:card",
+    "tip4_desc": "Without it, X falls back to generic Open Graph tags and may render a smaller preview.",
+    "faq_title": "FAQ"
   },
   "douyin": {
     "seo_title": "Douyin Video Downloader (抖音) — No Watermark | SSDown",

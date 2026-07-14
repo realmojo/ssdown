@@ -1,4 +1,4 @@
-import { QrCode, Calculator, ArrowRight, Type } from "lucide-react";
+import { QrCode, Calculator, ArrowRight, Type, Share2 } from "lucide-react";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
@@ -41,6 +41,7 @@ const toolMeta = [
   { href: "/utility/qr-code-generator", icon: QrCode, gradient: "from-blue-600 to-cyan-600", bgLight: "bg-blue-100 dark:bg-blue-900/30", iconColor: "text-blue-600" },
   { href: "/utility/aspect-ratio-calculator", icon: Calculator, gradient: "from-violet-500 to-purple-500", bgLight: "bg-violet-100 dark:bg-violet-900/30", iconColor: "text-violet-500" },
   { href: "/utility/word-counter", icon: Type, gradient: "from-emerald-500 to-green-500", bgLight: "bg-emerald-100 dark:bg-emerald-900/30", iconColor: "text-emerald-600" },
+  { href: "/utility/og-debugger", icon: Share2, gradient: "from-fuchsia-500 to-pink-500", bgLight: "bg-fuchsia-100 dark:bg-fuchsia-900/30", iconColor: "text-fuchsia-600" },
 ];
 
 export default async function UtilityToolsPage() {
