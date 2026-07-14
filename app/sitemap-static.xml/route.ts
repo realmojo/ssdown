@@ -62,7 +62,7 @@ const STATIC: Entry[] = [
   { url: `${BASE}/utility/qr-code-generator`,   lastmod: "2026-02-11", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/utility/aspect-ratio-calculator`, lastmod: "2026-02-11", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/utility/word-counter`,        lastmod: "2026-02-13", changefreq: "monthly", priority: 0.8 },
-  { url: `${BASE}/utility/share-debugger`,      lastmod: "2026-07-03", changefreq: "monthly", priority: 0.8 },
+  { url: `${BASE}/utility/og-debugger`,         lastmod: "2026-07-14", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/utility/mp3-splitter`,        lastmod: "2026-07-10", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/utility/password-generator`,  lastmod: "2026-07-10", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/utility/color-converter`,     lastmod: "2026-07-10", changefreq: "monthly", priority: 0.8 },

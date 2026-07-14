@@ -236,7 +236,7 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                   <a href="/utility/qr-code-generator" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">QR Code Generator</a>
                   <a href="/utility/aspect-ratio-calculator" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Aspect Ratio Calculator</a>
                   <a href="/utility/word-counter" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Word Counter</a>
-                  <a href="/utility/share-debugger" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Share Debugger</a>
+                  <a href="/utility/og-debugger" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">OG Debugger</a>
                   <a href="/utility/mp3-splitter" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">MP3 Splitter</a>
                   <a href="/utility/password-generator" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Password Generator</a>
                   <a href="/utility/color-converter" className="block text-sm py-0.5 text-muted-foreground hover:text-primary transition-colors">Color Converter</a>
@@ -472,7 +472,7 @@ export function SiteHeader({ dict, locale }: SiteHeaderProps) {
                         <a href="/utility/qr-code-generator" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>QR Code Generator</a>
                         <a href="/utility/aspect-ratio-calculator" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Aspect Ratio Calculator</a>
                         <a href="/utility/word-counter" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Word Counter</a>
-                        <a href="/utility/share-debugger" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Share Debugger</a>
+                        <a href="/utility/og-debugger" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>OG Debugger</a>
                         <a href="/utility/mp3-splitter" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>MP3 Splitter</a>
                         <a href="/utility/password-generator" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Password Generator</a>
                         <a href="/utility/color-converter" className="text-sm hover:text-primary transition-colors py-0.5 text-muted-foreground" onClick={() => setIsOpen(false)}>Color Converter</a>
