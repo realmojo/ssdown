@@ -7,6 +7,7 @@ import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CookieConsent } from "@/components/cookie-consent";
+import { Toaster } from "sonner";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -172,6 +173,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <SiteFooter dict={dict.nav} />
             <CookieConsent />
           </div>
+          <Toaster position="bottom-center" richColors />
         </ThemeProvider>
       </body>
     </html>

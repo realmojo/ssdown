@@ -37,6 +37,34 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.sftcdn.net",
       },
+      {
+        protocol: "https",
+        hostname: "t1.kakaocdn.net",
+      },
+      {
+        protocol: "https",
+        hostname: "www.line.me",
+      },
+      {
+        protocol: "https",
+        hostname: "shared-whale.pstatic.net",
+      },
+      {
+        protocol: "https",
+        hostname: "ssl.pstatic.net",
+      },
+      {
+        protocol: "https",
+        hostname: "www.estsecurity.com",
+      },
+      {
+        protocol: "https",
+        hostname: "image.ahnlab.com",
+      },
+      {
+        protocol: "https",
+        hostname: "xdn.altools.co.kr",
+      },
     ],
     unoptimized: false,
   },

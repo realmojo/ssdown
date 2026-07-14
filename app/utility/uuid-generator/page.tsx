@@ -4,45 +4,14 @@ import { getLocale } from "@/lib/get-locale";
 import { UuidGeneratorClient } from "@/components/client/uuid-generator-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
-const FALLBACK_FAQ = [
-  {
-    question: "Are these UUIDs generated privately?",
-    answer:
-      "Yes. Every UUID is generated locally in your browser using the cryptographically secure Web Crypto API. Nothing is sent to a server, logged, or stored — the values exist only on your device.",
-  },
-  {
-    question: "What is the difference between UUID v4 and UUID v7?",
-    answer:
-      "UUID v4 is fully random, which makes each value unpredictable but unordered. UUID v7 embeds a Unix millisecond timestamp in its most significant bits, so v7 values are time-ordered and sort chronologically — a big advantage as database primary keys and indexes.",
-  },
-  {
-    question: "Are these UUIDs guaranteed to be unique?",
-    answer:
-      "For all practical purposes, yes. A version 4 UUID has 122 random bits, giving roughly 5.3 x 10^36 possible values, so the chance of a collision is negligible. Version 7 adds a timestamp on top of random bits, making collisions even less likely.",
-  },
-  {
-    question: "Can I generate UUIDs in bulk?",
-    answer:
-      "Yes. You can generate between 1 and 1000 UUIDs at once, copy them all with a single click, or download the entire list as a .txt file.",
-  },
-  {
-    question: "What are the uppercase and no-hyphens options for?",
-    answer:
-      "Some systems expect UUIDs without hyphens (a plain 32-character hex string) or in uppercase. These formatting options let you match the exact format your database, API, or application requires.",
-  },
-];
-
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const dict = await getDictionary(locale);
-  const pageDict = (dict as Record<string, any>)?.page_uuid_generator;
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/utility/uuid-generator`;
 
-  const title = pageDict?.meta_title || "Free UUID Generator | SSDown";
+  const title = "UUID Generator - Generate UUID v4 & v7 Online | SSDown";
   const description =
-    pageDict?.meta_description ||
-    "Generate random UUID v4 and time-ordered UUID v7 identifiers instantly in your browser. Free, secure, and 100% private.";
+    "Free online UUID generator. Create random UUID v4 and time-ordered UUID v7 identifiers in bulk, with uppercase and no-hyphen options.";
 
   return {
     title,
@@ -50,8 +19,8 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical,
       languages: {
-        en: canonical,
-        ko: canonical,
+        "en": canonical,
+        "ko": canonical,
         "x-default": canonical,
       },
     },
@@ -62,40 +31,43 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "SSDown",
       locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
-      images: [
-        {
-          url: "https://ssdown.app/logo.png",
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: ["https://ssdown.app/logo.png"],
-    },
+    twitter: { card: "summary_large_image", title, description, images: ["https://ssdown.app/logo.png"] },
   };
 }
+
+const faq = [
+  {
+    question: "What is the difference between UUID v4 and UUID v7?",
+    answer:
+      "UUID v4 is fully random, offering strong uniqueness with no ordering. UUID v7 embeds a Unix millisecond timestamp in its leading bits, so identifiers are time-ordered while still random enough to avoid collisions. Use v4 for opaque keys and v7 when you want database-friendly, sortable primary keys.",
+  },
+  {
+    question: "Are these UUIDs safe to use as database primary keys?",
+    answer:
+      "Yes. Both versions are 128-bit identifiers with an extremely low collision probability. UUID v7 is especially recommended for primary keys because its time-ordered layout reduces index fragmentation and improves insert performance compared to random v4 values.",
+  },
+  {
+    question: "Is my data private when generating UUIDs here?",
+    answer:
+      "Absolutely. Every UUID is generated entirely in your browser using the built-in Web Crypto API. Nothing is sent to a server, logged, or stored. Close the tab and the generated values are gone.",
+  },
+  {
+    question: "How many UUIDs can I generate at once?",
+    answer:
+      "You can generate between 1 and 100 UUIDs per batch. Adjust the count field, choose your version and formatting options, then click Generate to produce the full list, which you can copy individually or all at once.",
+  },
+];
 
 export default async function UuidGeneratorPage() {
   const locale = await getLocale();
   const dict = await getDictionary(locale);
-  const pageDict = (dict as Record<string, any>)?.page_uuid_generator;
-
-  const homeLabel = dict?.breadcrumb?.home || "Home";
-  const toolsLabel = dict?.breadcrumb?.tools || "Tools";
-  const utilityLabel = dict?.breadcrumb?.utility || "Utility";
-  const breadcrumbLabel = pageDict?.breadcrumb_title || "UUID Generator";
-  const faqItems: { question: string; answer: string }[] =
-    pageDict?.faq || FALLBACK_FAQ;
 
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqItems.map((item) => ({
+    mainEntity: faq.map((item) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: {
@@ -109,30 +81,10 @@ export default async function UuidGeneratorPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: homeLabel,
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: toolsLabel,
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: utilityLabel,
-        item: "https://ssdown.app/tools/utility",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: breadcrumbLabel,
-        item: "https://ssdown.app/utility/uuid-generator",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.utility, item: "https://ssdown.app/tools/utility" },
+      { "@type": "ListItem", position: 4, name: "UUID Generator", item: "https://ssdown.app/utility/uuid-generator" },
     ],
   };
 
@@ -141,38 +93,36 @@ export default async function UuidGeneratorPage() {
     "@type": "SoftwareApplication",
     name: "UUID Generator",
     url: "https://ssdown.app/utility/uuid-generator",
-    applicationCategory: "DeveloperApplication",
+    applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description:
-      "Free online UUID generator. Create random v4 and time-ordered v7 UUIDs locally in your browser.",
+    description: "Free online UUID generator. Fast, secure, and browser-based.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to generate a UUID",
-    description:
-      "Use our free online UUID generator to create v4 and v7 unique identifiers in your browser.",
+    name: "How to generate UUIDs online",
+    description: "Use our free online UUID generator to create v4 and v7 identifiers securely in your browser.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Pick a version",
-        text: "Choose UUID v4 for random identifiers or v7 for time-ordered ones.",
+        name: "Choose a version",
+        text: "Select UUID v4 for fully random values or UUID v7 for time-ordered identifiers.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Set the quantity and format",
-        text: "Choose how many to generate and optional uppercase or no-hyphen formatting.",
+        name: "Set count and options",
+        text: "Pick how many UUIDs to generate and toggle uppercase or hyphen-free formatting.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Copy or download",
-        text: "Copy a single UUID, copy them all, or download the list as a .txt file.",
+        name: "Generate and copy",
+        text: "Click Generate, then copy any single UUID or the whole list with one click.",
       },
     ],
   };
@@ -198,11 +148,11 @@ export default async function UuidGeneratorPage() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
-            { label: homeLabel, href: "/" },
-            { label: toolsLabel, href: "/tools" },
-            { label: utilityLabel, href: "/tools/utility" },
+            { label: dict.breadcrumb.home, href: "/" },
+            { label: dict.breadcrumb.tools, href: "/tools" },
+            { label: dict.breadcrumb.utility, href: "/tools/utility" },
             {
-              label: breadcrumbLabel,
+              label: "UUID Generator",
               href: "/utility/uuid-generator",
               isCurrent: true,
             },

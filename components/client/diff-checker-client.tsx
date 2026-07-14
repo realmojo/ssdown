@@ -2,19 +2,18 @@
 
 import { useState, useMemo, useCallback } from "react";
 import {
-  GitCompare,
+  Diff,
+  ArrowRight,
   Trash2,
-  Columns2,
-  Rows3,
+  FileText,
+  ArrowLeftRight,
+  GitCompareArrows,
+  Lightbulb,
   Plus,
   Minus,
-  Lightbulb,
-  HelpCircle,
-  FileText,
-  ArrowRight,
 } from "lucide-react";
+import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Accordion,
   AccordionContent,
@@ -23,243 +22,153 @@ import {
 } from "@/components/ui/accordion";
 import Adsense from "@/components/Adsense";
 import { ToolsSidebar } from "@/components/tools-sidebar";
-import { cn } from "@/lib/utils";
 
-interface FaqItem {
-  question: string;
-  answer: string;
-}
+type DiffType = "added" | "removed" | "unchanged";
 
-const FALLBACK_FAQ: FaqItem[] = [
-  {
-    question: "Is my text uploaded anywhere when I compare it?",
-    answer:
-      "No. The comparison runs entirely in your browser using JavaScript. Neither the original nor the changed text ever leaves your device, so your data stays completely private.",
-  },
-  {
-    question: "What's the difference between side-by-side and unified view?",
-    answer:
-      "Side-by-side view shows the original and changed text in two parallel columns, making it easy to scan line-by-line. Unified view stacks the changes in a single column with added and removed lines interleaved, similar to a Git diff.",
-  },
-  {
-    question: "What does 'ignore whitespace' do?",
-    answer:
-      "When enabled, lines that differ only by leading, trailing, or repeated spaces and tabs are treated as identical. This is helpful when indentation or formatting changed but the actual content did not.",
-  },
-  {
-    question: "How is the diff calculated?",
-    answer:
-      "The tool uses a line-based longest common subsequence (LCS) algorithm to find the smallest set of additions and removals that turn the original text into the changed text — the same core approach used by tools like Git and diff.",
-  },
-  {
-    question: "Can I compare code, JSON, or logs?",
-    answer:
-      "Yes. The diff checker is line-based and content-agnostic, so it works well for source code, configuration files, JSON, CSV, logs, or any plain text you paste in.",
-  },
-];
-
-const SAMPLE_ORIGINAL = `function greet(name) {
-  console.log("Hello " + name);
-  return true;
-}`;
-
-const SAMPLE_CHANGED = `function greet(name) {
-  console.log(\`Hello \${name}!\`);
-  return name.length > 0;
-}`;
-
-type DiffType = "unchanged" | "added" | "removed";
-type ViewMode = "split" | "unified";
-
-interface DiffOp {
+interface DiffRow {
   type: DiffType;
   text: string;
+  originalLine: number | null;
+  changedLine: number | null;
 }
 
-interface CompareOptions {
+interface DiffOptions {
   ignoreWhitespace: boolean;
   ignoreCase: boolean;
 }
 
-function normalizeLine(line: string, options: CompareOptions): string {
+function normalizeLine(line: string, options: DiffOptions): string {
   let result = line;
-  if (options.ignoreWhitespace) result = result.trim().replace(/\s+/g, " ");
   if (options.ignoreCase) result = result.toLowerCase();
+  if (options.ignoreWhitespace) result = result.replace(/\s+/g, "");
   return result;
 }
 
-/**
- * Line-based longest common subsequence diff. Builds an LCS length table and
- * backtracks to emit the minimal sequence of removed/added/unchanged lines.
- */
+// Line-based diff using an LCS dynamic-programming table.
 function computeDiff(
   original: string,
   changed: string,
-  options: CompareOptions,
-): DiffOp[] {
-  const a = original.split("\n");
-  const b = changed.split("\n");
-  const normA = a.map((line) => normalizeLine(line, options));
-  const normB = b.map((line) => normalizeLine(line, options));
+  options: DiffOptions
+): DiffRow[] {
+  const originalLines = original.length ? original.split("\n") : [];
+  const changedLines = changed.length ? changed.split("\n") : [];
+
+  const a = originalLines.map((line) => normalizeLine(line, options));
+  const b = changedLines.map((line) => normalizeLine(line, options));
   const n = a.length;
   const m = b.length;
 
-  const table: number[][] = Array.from({ length: n + 1 }, () =>
-    new Array<number>(m + 1).fill(0),
+  // dp[i][j] = LCS length of a[i:] and b[j:]
+  const dp: number[][] = Array.from({ length: n + 1 }, () =>
+    new Array<number>(m + 1).fill(0)
   );
   for (let i = n - 1; i >= 0; i--) {
     for (let j = m - 1; j >= 0; j--) {
-      table[i][j] =
-        normA[i] === normB[j]
-          ? table[i + 1][j + 1] + 1
-          : Math.max(table[i + 1][j], table[i][j + 1]);
+      dp[i][j] =
+        a[i] === b[j]
+          ? dp[i + 1][j + 1] + 1
+          : Math.max(dp[i + 1][j], dp[i][j + 1]);
     }
   }
 
-  const ops: DiffOp[] = [];
+  const rows: DiffRow[] = [];
   let i = 0;
   let j = 0;
   while (i < n && j < m) {
-    if (normA[i] === normB[j]) {
-      ops.push({ type: "unchanged", text: a[i] });
+    if (a[i] === b[j]) {
+      rows.push({
+        type: "unchanged",
+        text: originalLines[i],
+        originalLine: i + 1,
+        changedLine: j + 1,
+      });
       i++;
       j++;
-    } else if (table[i + 1][j] >= table[i][j + 1]) {
-      ops.push({ type: "removed", text: a[i] });
+    } else if (dp[i + 1][j] >= dp[i][j + 1]) {
+      rows.push({
+        type: "removed",
+        text: originalLines[i],
+        originalLine: i + 1,
+        changedLine: null,
+      });
       i++;
     } else {
-      ops.push({ type: "added", text: b[j] });
+      rows.push({
+        type: "added",
+        text: changedLines[j],
+        originalLine: null,
+        changedLine: j + 1,
+      });
       j++;
     }
   }
-  while (i < n) ops.push({ type: "removed", text: a[i++] });
-  while (j < m) ops.push({ type: "added", text: b[j++] });
-  return ops;
-}
-
-interface SplitRow {
-  left: { num: number; text: string } | null;
-  right: { num: number; text: string } | null;
-  leftType: DiffType | "empty";
-  rightType: DiffType | "empty";
-}
-
-function toSplitRows(ops: DiffOp[]): SplitRow[] {
-  const rows: SplitRow[] = [];
-  let leftNum = 0;
-  let rightNum = 0;
-  let i = 0;
-  while (i < ops.length) {
-    if (ops[i].type === "unchanged") {
-      leftNum++;
-      rightNum++;
-      rows.push({
-        left: { num: leftNum, text: ops[i].text },
-        right: { num: rightNum, text: ops[i].text },
-        leftType: "unchanged",
-        rightType: "unchanged",
-      });
-      i++;
-      continue;
-    }
-    const removed: DiffOp[] = [];
-    const added: DiffOp[] = [];
-    while (i < ops.length && ops[i].type !== "unchanged") {
-      if (ops[i].type === "removed") removed.push(ops[i]);
-      else added.push(ops[i]);
-      i++;
-    }
-    const max = Math.max(removed.length, added.length);
-    for (let k = 0; k < max; k++) {
-      const left = removed[k] ? { num: ++leftNum, text: removed[k].text } : null;
-      const right = added[k] ? { num: ++rightNum, text: added[k].text } : null;
-      rows.push({
-        left,
-        right,
-        leftType: left ? "removed" : "empty",
-        rightType: right ? "added" : "empty",
-      });
-    }
+  while (i < n) {
+    rows.push({
+      type: "removed",
+      text: originalLines[i],
+      originalLine: i + 1,
+      changedLine: null,
+    });
+    i++;
   }
+  while (j < m) {
+    rows.push({
+      type: "added",
+      text: changedLines[j],
+      originalLine: null,
+      changedLine: j + 1,
+    });
+    j++;
+  }
+
   return rows;
 }
 
-interface UnifiedRow {
-  type: DiffType;
-  leftNum: number | null;
-  rightNum: number | null;
-  text: string;
-}
+const SAMPLE_ORIGINAL = `The quick brown fox jumps over the lazy dog.
+Typography is the art of arranging type.
+Good writing is clear thinking made visible.
+This line will be removed.
+Version 1.0 of the document.`;
 
-function toUnifiedRows(ops: DiffOp[]): UnifiedRow[] {
-  const rows: UnifiedRow[] = [];
-  let leftNum = 0;
-  let rightNum = 0;
-  for (const op of ops) {
-    if (op.type === "unchanged") {
-      leftNum++;
-      rightNum++;
-      rows.push({ type: op.type, leftNum, rightNum, text: op.text });
-    } else if (op.type === "removed") {
-      leftNum++;
-      rows.push({ type: op.type, leftNum, rightNum: null, text: op.text });
-    } else {
-      rightNum++;
-      rows.push({ type: op.type, leftNum: null, rightNum, text: op.text });
-    }
-  }
-  return rows;
-}
-
-const CELL_BG: Record<DiffType | "empty", string> = {
-  unchanged: "",
-  added: "bg-green-100 dark:bg-green-900/30",
-  removed: "bg-red-100 dark:bg-red-900/30",
-  empty: "bg-gray-50 dark:bg-gray-900/40",
-};
-
-function LineNumber({ value }: { value: number | null }) {
-  return (
-    <span className="select-none inline-block w-10 shrink-0 pr-3 text-right text-xs text-muted-foreground tabular-nums">
-      {value ?? ""}
-    </span>
-  );
-}
+const SAMPLE_CHANGED = `The quick brown fox jumps over the lazy dog.
+Typography is the art and craft of arranging type.
+Good writing is clear thinking made visible.
+Version 2.0 of the document.
+A brand new closing line was added.`;
 
 export function DiffCheckerClient({ dict }: { dict?: any }) {
-  const t = dict?.diff_checker || {};
-  const faqItems: FaqItem[] = dict?.page_diff_checker?.faq || FALLBACK_FAQ;
-
   const [original, setOriginal] = useState("");
   const [changed, setChanged] = useState("");
-  const [view, setView] = useState<ViewMode>("split");
   const [ignoreWhitespace, setIgnoreWhitespace] = useState(false);
   const [ignoreCase, setIgnoreCase] = useState(false);
 
-  const ops = useMemo(
-    () =>
-      computeDiff(original, changed, { ignoreWhitespace, ignoreCase }),
-    [original, changed, ignoreWhitespace, ignoreCase],
+  const rows = useMemo(
+    () => computeDiff(original, changed, { ignoreWhitespace, ignoreCase }),
+    [original, changed, ignoreWhitespace, ignoreCase]
   );
 
-  const counts = useMemo(() => {
-    let added = 0;
-    let removed = 0;
-    for (const op of ops) {
-      if (op.type === "added") added++;
-      else if (op.type === "removed") removed++;
+  const summary = useMemo(() => {
+    let additions = 0;
+    let deletions = 0;
+    for (const row of rows) {
+      if (row.type === "added") additions++;
+      else if (row.type === "removed") deletions++;
     }
-    return { added, removed };
-  }, [ops]);
-
-  const splitRows = useMemo(() => toSplitRows(ops), [ops]);
-  const unifiedRows = useMemo(() => toUnifiedRows(ops), [ops]);
+    return { additions, deletions };
+  }, [rows]);
 
   const hasInput = original.length > 0 || changed.length > 0;
+
+  const handleSwap = useCallback(() => {
+    setOriginal(changed);
+    setChanged(original);
+    toast.success("Texts swapped");
+  }, [original, changed]);
 
   const handleClear = useCallback(() => {
     setOriginal("");
     setChanged("");
+    toast.success("Cleared");
   }, []);
 
   const handleSample = useCallback(() => {
@@ -271,210 +180,161 @@ export function DiffCheckerClient({ dict }: { dict?: any }) {
     <div className="container mx-auto px-4 py-8 min-h-[50vh]">
       <div className="flex gap-8">
         <div className="flex-1 min-w-0 flex flex-col items-center">
-          <div className="flex flex-col items-center justify-center w-full max-w-6xl mb-12">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-sky-100 dark:bg-sky-900/30 mb-6">
-              <GitCompare className="w-10 h-10 text-sky-600 dark:text-sky-400" />
+          <div className="flex flex-col items-center justify-center w-full max-w-5xl mb-12">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-purple-100 to-violet-100 dark:from-purple-900/30 dark:to-violet-900/30 mb-6">
+              <Diff className="w-10 h-10 text-purple-600 dark:text-purple-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              {t.title || "Diff Checker"}
+              Diff Checker
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
-              {t.subtitle ||
-                "Compare two texts and instantly highlight added and removed lines — privately in your browser."}
+              Compare two texts and instantly highlight added and removed lines
+              side by side.
             </p>
 
             <Adsense slotId="7759160077" />
 
-            {/* Inputs */}
-            <div className="w-full grid md:grid-cols-2 gap-6 items-start">
-              <Card className="border-sky-100 dark:border-sky-900/50 shadow-sm">
-                <CardHeader className="flex flex-row items-center justify-between pb-3">
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <FileText className="w-5 h-5 text-sky-500" />
-                    {t.original_label || "Original"}
+            {/* Options */}
+            <div className="w-full flex flex-wrap items-center justify-center gap-4 mb-6">
+              <label className="inline-flex items-center gap-2 cursor-pointer select-none text-sm font-medium">
+                <input
+                  type="checkbox"
+                  checked={ignoreWhitespace}
+                  onChange={(e) => setIgnoreWhitespace(e.target.checked)}
+                  className="w-4 h-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500/50 accent-purple-600"
+                />
+                Ignore whitespace
+              </label>
+              <label className="inline-flex items-center gap-2 cursor-pointer select-none text-sm font-medium">
+                <input
+                  type="checkbox"
+                  checked={ignoreCase}
+                  onChange={(e) => setIgnoreCase(e.target.checked)}
+                  className="w-4 h-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500/50 accent-purple-600"
+                />
+                Ignore case
+              </label>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleSample}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:border-purple-300 dark:hover:border-purple-700 transition-colors"
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  Sample
+                </button>
+                <button
+                  onClick={handleSwap}
+                  disabled={!hasInput}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:border-purple-300 dark:hover:border-purple-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  <ArrowLeftRight className="w-3.5 h-3.5" />
+                  Swap
+                </button>
+                <button
+                  onClick={handleClear}
+                  disabled={!hasInput}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-300 dark:hover:border-red-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  Clear
+                </button>
+              </div>
+            </div>
+
+            {/* Input Textareas */}
+            <div className="w-full grid md:grid-cols-2 gap-4 mb-8">
+              <Card className="border-purple-100 dark:border-purple-900/50 shadow-sm">
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Minus className="w-4 h-4 text-red-500" />
+                    Original
                   </CardTitle>
-                  <button
-                    onClick={handleSample}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-sky-50 dark:hover:bg-sky-900/20 hover:border-sky-300 dark:hover:border-sky-700 transition-colors"
-                  >
-                    {t.sample || "Sample"}
-                  </button>
                 </CardHeader>
                 <CardContent>
                   <textarea
                     value={original}
                     onChange={(e) => setOriginal(e.target.value)}
-                    placeholder={
-                      t.original_placeholder || "Paste the original text..."
-                    }
-                    spellCheck={false}
-                    className="w-full min-h-[220px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 font-mono text-sm leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-colors placeholder:text-muted-foreground"
+                    placeholder="Paste the original text here..."
+                    className="w-full min-h-[240px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 font-mono text-sm leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-colors placeholder:text-muted-foreground"
                   />
                 </CardContent>
               </Card>
-
-              <Card className="border-sky-100 dark:border-sky-900/50 shadow-sm">
-                <CardHeader className="flex flex-row items-center justify-between pb-3">
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <FileText className="w-5 h-5 text-sky-500" />
-                    {t.changed_label || "Changed"}
+              <Card className="border-purple-100 dark:border-purple-900/50 shadow-sm">
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Plus className="w-4 h-4 text-green-500" />
+                    Changed
                   </CardTitle>
-                  <button
-                    onClick={handleClear}
-                    disabled={!hasInput}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-300 dark:hover:border-red-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                    {t.clear || "Clear"}
-                  </button>
                 </CardHeader>
                 <CardContent>
                   <textarea
                     value={changed}
                     onChange={(e) => setChanged(e.target.value)}
-                    placeholder={
-                      t.changed_placeholder || "Paste the changed text..."
-                    }
-                    spellCheck={false}
-                    className="w-full min-h-[220px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 font-mono text-sm leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-colors placeholder:text-muted-foreground"
+                    placeholder="Paste the changed text here..."
+                    className="w-full min-h-[240px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 font-mono text-sm leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-colors placeholder:text-muted-foreground"
                   />
                 </CardContent>
               </Card>
             </div>
 
-            {/* Toolbar */}
-            <div className="w-full flex flex-wrap items-center gap-4 mt-6 mb-4">
-              <div className="inline-flex rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-                <button
-                  onClick={() => setView("split")}
-                  className={cn(
-                    "inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors",
-                    view === "split"
-                      ? "bg-sky-500 text-white"
-                      : "hover:bg-sky-50 dark:hover:bg-sky-900/20",
-                  )}
-                >
-                  <Columns2 className="w-4 h-4" />
-                  {t.split_view || "Side by side"}
-                </button>
-                <button
-                  onClick={() => setView("unified")}
-                  className={cn(
-                    "inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors",
-                    view === "unified"
-                      ? "bg-sky-500 text-white"
-                      : "hover:bg-sky-50 dark:hover:bg-sky-900/20",
-                  )}
-                >
-                  <Rows3 className="w-4 h-4" />
-                  {t.unified_view || "Unified"}
-                </button>
-              </div>
-
-              <label className="flex items-center gap-2 cursor-pointer">
-                <Checkbox
-                  checked={ignoreWhitespace}
-                  onCheckedChange={(checked) =>
-                    setIgnoreWhitespace(checked === true)
-                  }
-                  className="data-[state=checked]:bg-sky-500 data-[state=checked]:border-sky-500"
-                />
-                <span className="text-sm">
-                  {t.ignore_whitespace || "Ignore whitespace"}
-                </span>
-              </label>
-              <label className="flex items-center gap-2 cursor-pointer">
-                <Checkbox
-                  checked={ignoreCase}
-                  onCheckedChange={(checked) => setIgnoreCase(checked === true)}
-                  className="data-[state=checked]:bg-sky-500 data-[state=checked]:border-sky-500"
-                />
-                <span className="text-sm">
-                  {t.ignore_case || "Ignore case"}
-                </span>
-              </label>
-
-              {hasInput && (
-                <div className="flex items-center gap-4 ml-auto text-sm">
-                  <span className="inline-flex items-center gap-1 text-green-600 dark:text-green-400 font-medium">
-                    <Plus className="w-4 h-4" />
-                    {counts.added} {t.added || "added"}
+            {/* Result */}
+            <Card className="w-full border-purple-100 dark:border-purple-900/50 shadow-sm">
+              <CardHeader className="flex flex-row items-center justify-between pb-3">
+                <CardTitle className="flex items-center gap-2">
+                  <GitCompareArrows className="w-5 h-5 text-purple-500" />
+                  Differences
+                </CardTitle>
+                <div className="flex items-center gap-3 text-sm font-medium">
+                  <span className="text-green-600 dark:text-green-400">
+                    +{summary.additions} additions
                   </span>
-                  <span className="inline-flex items-center gap-1 text-red-600 dark:text-red-400 font-medium">
-                    <Minus className="w-4 h-4" />
-                    {counts.removed} {t.removed || "removed"}
+                  <span className="text-red-600 dark:text-red-400">
+                    -{summary.deletions} deletions
                   </span>
                 </div>
-              )}
-            </div>
-
-            {/* Diff output */}
-            <Card className="w-full border-sky-100 dark:border-sky-900/50 shadow-sm">
-              <CardContent className="p-0">
-                {!hasInput ? (
-                  <div className="p-10 text-center text-muted-foreground text-sm">
-                    {t.empty_hint ||
-                      "Paste text into both boxes to see the differences here."}
-                  </div>
-                ) : view === "split" ? (
-                  <div className="overflow-x-auto">
-                    <div className="min-w-[640px] font-mono text-sm">
-                      {splitRows.map((row, idx) => (
-                        <div
-                          key={idx}
-                          className="grid grid-cols-2 border-b border-gray-100 dark:border-gray-800 last:border-0"
-                        >
-                          <div
-                            className={cn(
-                              "flex items-start px-2 py-1 border-r border-gray-100 dark:border-gray-800",
-                              CELL_BG[row.leftType],
-                            )}
-                          >
-                            <LineNumber value={row.left?.num ?? null} />
-                            <span className="whitespace-pre-wrap break-words">
-                              {row.left?.text}
-                            </span>
-                          </div>
-                          <div
-                            className={cn(
-                              "flex items-start px-2 py-1",
-                              CELL_BG[row.rightType],
-                            )}
-                          >
-                            <LineNumber value={row.right?.num ?? null} />
-                            <span className="whitespace-pre-wrap break-words">
-                              {row.right?.text}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+              </CardHeader>
+              <CardContent>
+                {rows.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center py-16 text-center text-muted-foreground">
+                    <GitCompareArrows className="w-10 h-10 mb-3 opacity-40" />
+                    <p>Enter text in both fields to see the differences.</p>
                   </div>
                 ) : (
-                  <div className="overflow-x-auto">
-                    <div className="min-w-[420px] font-mono text-sm">
-                      {unifiedRows.map((row, idx) => (
-                        <div
-                          key={idx}
-                          className={cn(
-                            "flex items-start px-2 py-1 border-b border-gray-100 dark:border-gray-800 last:border-0",
-                            CELL_BG[row.type],
-                          )}
-                        >
-                          <LineNumber value={row.leftNum} />
-                          <LineNumber value={row.rightNum} />
-                          <span className="select-none inline-block w-4 shrink-0 text-muted-foreground">
-                            {row.type === "added"
-                              ? "+"
-                              : row.type === "removed"
-                                ? "-"
-                                : " "}
-                          </span>
-                          <span className="whitespace-pre-wrap break-words">
-                            {row.text}
-                          </span>
-                        </div>
-                      ))}
+                  <div className="w-full overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div className="min-w-full font-mono text-sm">
+                      {rows.map((row, idx) => {
+                        const rowClass =
+                          row.type === "added"
+                            ? "bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300"
+                            : row.type === "removed"
+                              ? "bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300"
+                              : "bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300";
+                        const sign =
+                          row.type === "added"
+                            ? "+"
+                            : row.type === "removed"
+                              ? "-"
+                              : " ";
+                        return (
+                          <div
+                            key={idx}
+                            className={`flex items-start ${rowClass}`}
+                          >
+                            <span className="shrink-0 w-10 px-2 py-1 text-right text-xs text-muted-foreground select-none border-r border-gray-200 dark:border-gray-700">
+                              {row.originalLine ?? ""}
+                            </span>
+                            <span className="shrink-0 w-10 px-2 py-1 text-right text-xs text-muted-foreground select-none border-r border-gray-200 dark:border-gray-700">
+                              {row.changedLine ?? ""}
+                            </span>
+                            <span className="shrink-0 w-6 px-1 py-1 text-center select-none">
+                              {sign}
+                            </span>
+                            <span className="flex-1 px-2 py-1 whitespace-pre-wrap break-words">
+                              {row.text || " "}
+                            </span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 )}
@@ -484,45 +344,42 @@ export function DiffCheckerClient({ dict }: { dict?: any }) {
 
           {/* Guide, Tips, FAQ */}
           <div className="w-full max-w-5xl mx-auto mt-16 px-4 space-y-16">
+            {/* How to Use */}
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  {t.guide_title || "How it Works"}
+                  How to Use
                 </h2>
                 <p className="text-muted-foreground">
-                  {t.guide_desc ||
-                    "Spot every change between two texts in three simple steps."}
+                  Spot every change between two texts in seconds.
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
                   {
-                    title: t.step1_title || "Paste the original",
-                    desc:
-                      t.step1_desc ||
-                      "Add the first version of your text or code into the Original box.",
+                    step: 1,
+                    title: "Paste Both Texts",
+                    desc: "Enter the original version on the left and the changed version on the right.",
                     icon: FileText,
                   },
                   {
-                    title: t.step2_title || "Paste the changed version",
-                    desc:
-                      t.step2_desc ||
-                      "Add the updated version into the Changed box to compare against.",
+                    step: 2,
+                    title: "Compare Lines",
+                    desc: "The tool aligns both texts line by line and highlights every added and removed line.",
                     icon: ArrowRight,
                   },
                   {
-                    title: t.step3_title || "Review the highlights",
-                    desc:
-                      t.step3_desc ||
-                      "Added lines appear in green and removed lines in red, in split or unified view.",
-                    icon: GitCompare,
+                    step: 3,
+                    title: "Review Changes",
+                    desc: "Read added lines in green, removed lines in red, and check the summary of edits.",
+                    icon: GitCompareArrows,
                   },
-                ].map((step, idx) => (
+                ].map((step) => (
                   <div
-                    key={idx}
+                    key={step.step}
                     className="flex flex-col items-center text-center p-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm"
                   >
-                    <div className="w-12 h-12 rounded-full bg-sky-100 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 flex items-center justify-center mb-4">
                       <step.icon className="w-6 h-6" />
                     </div>
                     <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
@@ -532,53 +389,43 @@ export function DiffCheckerClient({ dict }: { dict?: any }) {
               </div>
             </section>
 
-            <section className="bg-gradient-to-br from-sky-50 to-blue-50 dark:from-sky-900/20 dark:to-blue-900/20 rounded-3xl p-8 md:p-12">
+            {/* Tips */}
+            <section className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 rounded-3xl p-8 md:p-12">
               <div className="flex flex-col md:flex-row gap-12 items-center">
                 <div className="md:w-1/3 text-center md:text-left">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-yellow-500">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-purple-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">
-                    {t.tips_title || "Diff Tips"}
-                  </h2>
+                  <h2 className="text-3xl font-bold mb-4">Diff Tips</h2>
                   <p className="text-muted-foreground">
-                    {t.tips_desc ||
-                      "Get cleaner comparisons with these tips."}
+                    Get cleaner, more meaningful comparisons.
                   </p>
                 </div>
 
                 <div className="md:w-2/3 grid sm:grid-cols-2 gap-4">
                   {[
                     {
-                      title: t.tip1_title || "Ignore whitespace for reformats",
-                      desc:
-                        t.tip1_desc ||
-                        "If only indentation or spacing changed, enable Ignore whitespace so the diff focuses on real content changes.",
+                      title: "Ignore Whitespace",
+                      desc: "Enable 'Ignore whitespace' when re-indented or reformatted code makes lines look different even though the content is the same.",
                     },
                     {
-                      title: t.tip2_title || "Use unified view for reviews",
-                      desc:
-                        t.tip2_desc ||
-                        "Unified view mirrors the Git diff format many developers already read in pull requests and commit history.",
+                      title: "Ignore Case",
+                      desc: "Turn on 'Ignore case' to focus on real content changes when only capitalization differs between the two versions.",
                     },
                     {
-                      title: t.tip3_title || "Split view for translations",
-                      desc:
-                        t.tip3_desc ||
-                        "Side-by-side view is ideal when comparing two full documents, drafts, or translations line by line.",
+                      title: "Swap to Reverse",
+                      desc: "Use the Swap button to flip original and changed, which is handy for viewing a change as an undo or reversed patch.",
                     },
                     {
-                      title: t.tip4_title || "Ignore case for prose",
-                      desc:
-                        t.tip4_desc ||
-                        "When capitalization is not meaningful, enable Ignore case to avoid flagging purely cosmetic differences.",
+                      title: "Line-Based Comparison",
+                      desc: "This tool compares whole lines. Keep one sentence or statement per line for the most precise and readable results.",
                     },
                   ].map((tip, idx) => (
                     <div
                       key={idx}
                       className="bg-white dark:bg-gray-800 p-5 rounded-xl border border-white/50 shadow-sm"
                     >
-                      <h3 className="font-semibold text-sky-600 dark:text-sky-400 mb-2">
+                      <h3 className="font-semibold text-purple-600 dark:text-purple-400 mb-2">
                         {tip.title}
                       </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
@@ -590,20 +437,33 @@ export function DiffCheckerClient({ dict }: { dict?: any }) {
               </div>
             </section>
 
+            {/* FAQ */}
             <section className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-sky-100 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 mb-4">
-                  <HelpCircle className="w-6 h-6" />
-                </div>
-                <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  {t.faq_title || "Frequently Asked Questions"}
-                </h2>
+                <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>
               </div>
               <Accordion type="single" collapsible className="w-full">
-                {faqItems.map((faq, idx) => (
+                {[
+                  {
+                    q: "How does the diff checker work?",
+                    a: "Paste your original text on the left and the changed text on the right, then click Compare. The tool aligns the two texts line by line using a longest-common-subsequence algorithm and highlights every added, removed, and unchanged line.",
+                  },
+                  {
+                    q: "Is my text private and secure?",
+                    a: "Yes. All comparison happens entirely in your browser. Your text is never uploaded to any server or stored anywhere. Close the tab and your data is gone.",
+                  },
+                  {
+                    q: "What do the colors mean?",
+                    a: "Green lines with a plus sign were added in the changed text, red lines with a minus sign were removed from the original, and neutral lines are unchanged between the two versions.",
+                  },
+                  {
+                    q: "Can I ignore whitespace or letter case?",
+                    a: "Yes. Enable the 'Ignore whitespace' option to treat lines that differ only in spacing as identical, and enable 'Ignore case' to treat uppercase and lowercase letters as the same when comparing.",
+                  },
+                ].map((faq, idx) => (
                   <AccordionItem key={idx} value={`item-${idx + 1}`}>
-                    <AccordionTrigger>{faq.question}</AccordionTrigger>
-                    <AccordionContent>{faq.answer}</AccordionContent>
+                    <AccordionTrigger>{faq.q}</AccordionTrigger>
+                    <AccordionContent>{faq.a}</AccordionContent>
                   </AccordionItem>
                 ))}
               </Accordion>

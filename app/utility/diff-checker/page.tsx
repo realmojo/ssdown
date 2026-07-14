@@ -4,45 +4,14 @@ import { getLocale } from "@/lib/get-locale";
 import { DiffCheckerClient } from "@/components/client/diff-checker-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
-const FALLBACK_FAQ = [
-  {
-    question: "Is my text uploaded anywhere when I compare it?",
-    answer:
-      "No. The comparison runs entirely in your browser using JavaScript. Neither the original nor the changed text ever leaves your device, so your data stays completely private.",
-  },
-  {
-    question: "What's the difference between side-by-side and unified view?",
-    answer:
-      "Side-by-side view shows the original and changed text in two parallel columns, making it easy to scan line-by-line. Unified view stacks the changes in a single column with added and removed lines interleaved, similar to a Git diff.",
-  },
-  {
-    question: "What does 'ignore whitespace' do?",
-    answer:
-      "When enabled, lines that differ only by leading, trailing, or repeated spaces and tabs are treated as identical. This is helpful when indentation or formatting changed but the actual content did not.",
-  },
-  {
-    question: "How is the diff calculated?",
-    answer:
-      "The tool uses a line-based longest common subsequence (LCS) algorithm to find the smallest set of additions and removals that turn the original text into the changed text — the same core approach used by tools like Git and diff.",
-  },
-  {
-    question: "Can I compare code, JSON, or logs?",
-    answer:
-      "Yes. The diff checker is line-based and content-agnostic, so it works well for source code, configuration files, JSON, CSV, logs, or any plain text you paste in.",
-  },
-];
-
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const dict = await getDictionary(locale);
-  const pageDict = (dict as Record<string, any>)?.page_diff_checker;
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/utility/diff-checker`;
 
-  const title = pageDict?.meta_title || "Free Diff Checker | SSDown";
+  const title = "Diff Checker - Compare Text & Find Differences | SSDown";
   const description =
-    pageDict?.meta_description ||
-    "Compare two texts and highlight the differences instantly in your browser. Free, secure, and 100% private.";
+    "Free online diff checker. Compare two blocks of text and highlight added, removed, and changed lines. Private, browser-based, and instant.";
 
   return {
     title,
@@ -50,8 +19,8 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical,
       languages: {
-        en: canonical,
-        ko: canonical,
+        "en": canonical,
+        "ko": canonical,
         "x-default": canonical,
       },
     },
@@ -62,40 +31,43 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "SSDown",
       locale: locale === "kr" ? "ko_KR" : "en_US",
       type: "website",
-      images: [
-        {
-          url: "https://ssdown.app/logo.png",
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: ["https://ssdown.app/logo.png"],
-    },
+    twitter: { card: "summary_large_image", title, description, images: ["https://ssdown.app/logo.png"] },
   };
 }
 
 export default async function DiffCheckerPage() {
   const locale = await getLocale();
   const dict = await getDictionary(locale);
-  const pageDict = (dict as Record<string, any>)?.page_diff_checker;
 
-  const homeLabel = dict?.breadcrumb?.home || "Home";
-  const toolsLabel = dict?.breadcrumb?.tools || "Tools";
-  const utilityLabel = dict?.breadcrumb?.utility || "Utility";
-  const breadcrumbLabel = pageDict?.breadcrumb_title || "Diff Checker";
-  const faqItems: { question: string; answer: string }[] =
-    pageDict?.faq || FALLBACK_FAQ;
+  const faq = [
+    {
+      question: "How does the diff checker work?",
+      answer:
+        "Paste your original text on the left and the changed text on the right, then click Compare. The tool aligns the two texts line by line using a longest-common-subsequence algorithm and highlights every added, removed, and unchanged line.",
+    },
+    {
+      question: "Is my text private and secure?",
+      answer:
+        "Yes. All comparison happens entirely in your browser. Your text is never uploaded to any server or stored anywhere. Close the tab and your data is gone.",
+    },
+    {
+      question: "What do the colors mean?",
+      answer:
+        "Green lines with a plus sign were added in the changed text, red lines with a minus sign were removed from the original, and neutral lines are unchanged between the two versions.",
+    },
+    {
+      question: "Can I ignore whitespace or letter case?",
+      answer:
+        "Yes. Enable the 'Ignore whitespace' option to treat lines that differ only in spacing as identical, and enable 'Ignore case' to treat uppercase and lowercase letters as the same when comparing.",
+    },
+  ];
 
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqItems.map((item) => ({
+    mainEntity: faq.map((item) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: {
@@ -109,30 +81,10 @@ export default async function DiffCheckerPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: homeLabel,
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: toolsLabel,
-        item: "https://ssdown.app/tools",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: utilityLabel,
-        item: "https://ssdown.app/tools/utility",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: breadcrumbLabel,
-        item: "https://ssdown.app/utility/diff-checker",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.utility, item: "https://ssdown.app/tools/utility" },
+      { "@type": "ListItem", position: 4, name: "Diff Checker", item: "https://ssdown.app/utility/diff-checker" },
     ],
   };
 
@@ -141,38 +93,36 @@ export default async function DiffCheckerPage() {
     "@type": "SoftwareApplication",
     name: "Diff Checker",
     url: "https://ssdown.app/utility/diff-checker",
-    applicationCategory: "DeveloperApplication",
+    applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description:
-      "Free online diff checker. Compare two texts and highlight added and removed lines locally in your browser.",
+    description: "Free online diff checker tool. Fast, secure, and browser-based.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to compare two texts",
-    description:
-      "Use our free online diff checker to compare two texts and highlight the differences in your browser.",
+    name: "How to use Diff Checker Online",
+    description: "Use our free online diff checker to compare two texts securely in your browser.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Paste the original text",
-        text: "Paste or type the original version into the left input.",
+        name: "Paste your texts",
+        text: "Enter the original text on the left and the changed text on the right.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Paste the changed text",
-        text: "Paste or type the updated version into the right input.",
+        name: "Compare",
+        text: "Click Compare to align both texts line by line and highlight the differences.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Review the differences",
-        text: "Added and removed lines are highlighted instantly in side-by-side or unified view.",
+        name: "Review the result",
+        text: "See added lines in green, removed lines in red, and a summary of the changes.",
       },
     ],
   };
@@ -198,11 +148,11 @@ export default async function DiffCheckerPage() {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
-            { label: homeLabel, href: "/" },
-            { label: toolsLabel, href: "/tools" },
-            { label: utilityLabel, href: "/tools/utility" },
+            { label: dict.breadcrumb.home, href: "/" },
+            { label: dict.breadcrumb.tools, href: "/tools" },
+            { label: dict.breadcrumb.utility, href: "/tools/utility" },
             {
-              label: breadcrumbLabel,
+              label: "Diff Checker",
               href: "/utility/diff-checker",
               isCurrent: true,
             },

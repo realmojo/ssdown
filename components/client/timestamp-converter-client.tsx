@@ -5,10 +5,13 @@ import {
   Clock,
   Copy,
   ArrowRight,
-  CalendarClock,
-  Hourglass,
+  Calendar,
+  Hash,
   Lightbulb,
+  AlertCircle,
+  Timer,
 } from "lucide-react";
+import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Accordion,
@@ -16,422 +19,326 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { toast } from "sonner";
 import Adsense from "@/components/Adsense";
 import { ToolsSidebar } from "@/components/tools-sidebar";
 
-const FALLBACK_FAQ = [
-  {
-    question: "What is a Unix timestamp?",
-    answer:
-      "A Unix timestamp is the number of seconds that have elapsed since the Unix epoch, which is 00:00:00 UTC on January 1, 1970. It is a compact, timezone-independent way to represent a specific point in time and is used extensively across programming languages, databases, and APIs.",
-  },
-  {
-    question:
-      "Why does JavaScript use milliseconds while Unix and most systems use seconds?",
-    answer:
-      "JavaScript's Date.now() and getTime() return the number of milliseconds since the epoch for higher precision, whereas most Unix tools, databases, and APIs (like the standard time() call) use seconds. This 1000x difference is a common source of bugs, so always confirm which unit an API expects.",
-  },
-  {
-    question: "How do I convert between seconds and milliseconds?",
-    answer:
-      "To convert seconds to milliseconds, multiply by 1000. To convert milliseconds to seconds, divide by 1000 (and typically floor the result to drop the fractional part). This tool auto-detects the unit based on digit count, treating values with 13 or more digits as milliseconds.",
-  },
-  {
-    question: "What timezone does this tool use for local time?",
-    answer:
-      "Local time is displayed using your browser's own system timezone, which is detected automatically. The tool also shows the detected timezone name alongside the UTC and ISO 8601 representations so you can compare them directly.",
-  },
-  {
-    question: "Is this tool accurate and private?",
-    answer:
-      "Yes. All conversions happen locally in your browser using the native JavaScript Date object. Nothing is sent to a server, so your data stays private and results are instant with no network round-trip.",
-  },
-];
+type TimestampUnit = "seconds" | "milliseconds";
 
-interface ParsedTimestamp {
-  date: Date;
+interface DateBreakdown {
   local: string;
   utc: string;
   iso: string;
   relative: string;
-  timezone: string;
 }
 
-const RELATIVE_UNITS: { limit: number; divisor: number; unit: string }[] = [
-  { limit: 60, divisor: 1, unit: "second" },
-  { limit: 3600, divisor: 60, unit: "minute" },
-  { limit: 86400, divisor: 3600, unit: "hour" },
-  { limit: 2592000, divisor: 86400, unit: "day" },
-  { limit: 31536000, divisor: 2592000, unit: "month" },
-  { limit: Infinity, divisor: 31536000, unit: "year" },
+const RELATIVE_UNITS: { unit: Intl.RelativeTimeFormatUnit; ms: number }[] = [
+  { unit: "year", ms: 1000 * 60 * 60 * 24 * 365 },
+  { unit: "month", ms: 1000 * 60 * 60 * 24 * 30 },
+  { unit: "day", ms: 1000 * 60 * 60 * 24 },
+  { unit: "hour", ms: 1000 * 60 * 60 },
+  { unit: "minute", ms: 1000 * 60 },
+  { unit: "second", ms: 1000 },
 ];
 
-function formatRelative(targetMs: number): string {
-  const diffSeconds = Math.round((targetMs - Date.now()) / 1000);
-  const absSeconds = Math.abs(diffSeconds);
+function formatRelative(targetMs: number, nowMs: number): string {
+  const diff = targetMs - nowMs;
+  const abs = Math.abs(diff);
+  const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
 
-  if (absSeconds < 5) return "just now";
-
-  for (const { limit, divisor, unit } of RELATIVE_UNITS) {
-    if (absSeconds < limit) {
-      const value = Math.floor(absSeconds / divisor);
-      const plural = value === 1 ? unit : `${unit}s`;
-      return diffSeconds < 0
-        ? `${value} ${plural} ago`
-        : `in ${value} ${plural}`;
+  for (const { unit, ms } of RELATIVE_UNITS) {
+    if (abs >= ms || unit === "second") {
+      return rtf.format(Math.round(diff / ms), unit);
     }
   }
-  return "just now";
+  return "now";
 }
 
-function parseTimestamp(raw: string): ParsedTimestamp | null {
-  const trimmed = raw.trim();
-  if (!trimmed) return null;
-  if (!/^\d+$/.test(trimmed)) return null;
-
-  // >= 13 digits => milliseconds, otherwise seconds
-  const ms = trimmed.length >= 13 ? Number(trimmed) : Number(trimmed) * 1000;
-  const date = new Date(ms);
-  if (Number.isNaN(date.getTime())) return null;
-
+function toBreakdown(date: Date, nowMs: number): DateBreakdown {
   return {
-    date,
-    local: date.toLocaleString(),
+    local: date.toLocaleString("en-US", {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      timeZoneName: "short",
+    }),
     utc: date.toUTCString(),
     iso: date.toISOString(),
-    relative: formatRelative(ms),
-    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    relative: formatRelative(date.getTime(), nowMs),
   };
 }
 
-function toLocalDatetimeInput(date: Date): string {
-  const pad = (n: number) => String(n).padStart(2, "0");
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
-    date.getDate()
-  )}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+function toDatetimeLocalValue(date: Date): string {
+  const offset = date.getTimezoneOffset() * 60000;
+  return new Date(date.getTime() - offset).toISOString().slice(0, 16);
 }
 
-export function TimestampConverterClient({
-  dict,
-}: {
-  dict?: any;
-}) {
-  const t = useMemo(() => dict?.timestamp_converter || {}, [dict]);
-  const faqItems: { question: string; answer: string }[] =
-    dict?.page_timestamp_converter?.faq || FALLBACK_FAQ;
-
+export function TimestampConverterClient({ dict }: { dict?: any }) {
   const [nowMs, setNowMs] = useState<number | null>(null);
   const [tsInput, setTsInput] = useState("");
+  const [unit, setUnit] = useState<TimestampUnit>("seconds");
   const [dateInput, setDateInput] = useState("");
 
+  // Initialize clock in effect to avoid hydration mismatch.
   useEffect(() => {
-    const update = () => setNowMs(Date.now());
-    const timeoutId = setTimeout(update, 0);
-    const interval = setInterval(update, 1000);
-    return () => {
-      clearTimeout(timeoutId);
-      clearInterval(interval);
-    };
+    setNowMs(Date.now());
+    setDateInput(toDatetimeLocalValue(new Date()));
+    const id = setInterval(() => setNowMs(Date.now()), 1000);
+    return () => clearInterval(id);
   }, []);
 
-  const parsed = useMemo(() => parseTimestamp(tsInput), [tsInput]);
-  const isInvalidInput = tsInput.trim().length > 0 && parsed === null;
-
-  const dateToTimestamp = useMemo(() => {
-    if (!dateInput) return null;
-    const date = new Date(dateInput);
-    if (Number.isNaN(date.getTime())) return null;
-    return { seconds: Math.floor(date.getTime() / 1000), ms: date.getTime() };
-  }, [dateInput]);
-
-  const copyValue = useCallback(async (value: string, label: string) => {
+  const handleCopy = useCallback(async (value: string, label: string) => {
     try {
       await navigator.clipboard.writeText(value);
-      toast.success(`${label} ${t.copied || "copied to clipboard"}`);
+      toast.success(`${label} copied to clipboard`);
     } catch {
-      toast.error(t.copy_failed || "Failed to copy");
+      toast.error("Failed to copy");
     }
-  }, [t]);
-
-  const useCurrentDate = useCallback(() => {
-    setDateInput(toLocalDatetimeInput(new Date()));
   }, []);
 
-  const currentSeconds = nowMs !== null ? Math.floor(nowMs / 1000) : null;
+  const tsResult = useMemo<
+    { ok: true; data: DateBreakdown } | { ok: false; error: string } | null
+  >(() => {
+    if (!tsInput.trim()) return null;
+    if (!/^-?\d+$/.test(tsInput.trim())) {
+      return { ok: false, error: "Enter a valid integer timestamp." };
+    }
+    const raw = Number(tsInput.trim());
+    const ms = unit === "seconds" ? raw * 1000 : raw;
+    const date = new Date(ms);
+    if (Number.isNaN(date.getTime())) {
+      return { ok: false, error: "This timestamp is out of range." };
+    }
+    return { ok: true, data: toBreakdown(date, nowMs ?? Date.now()) };
+  }, [tsInput, unit, nowMs]);
 
-  const howSteps = [
-    {
-      step: 1,
-      title: t.step1_title || "See the Live Timestamp",
-      desc:
-        t.step1_desc ||
-        "Watch the current Unix timestamp tick every second in both seconds and milliseconds.",
-      icon: Clock,
-    },
-    {
-      step: 2,
-      title: t.step2_title || "Timestamp to Date",
-      desc:
-        t.step2_desc ||
-        "Paste any Unix timestamp to convert it into local, UTC, and ISO 8601 dates.",
-      icon: ArrowRight,
-    },
-    {
-      step: 3,
-      title: t.step3_title || "Date to Timestamp",
-      desc:
-        t.step3_desc ||
-        "Pick a date and time to instantly get its Unix timestamp back.",
-      icon: CalendarClock,
-    },
-  ];
+  const dateResult = useMemo<
+    { ok: true; seconds: number; ms: number } | { ok: false; error: string } | null
+  >(() => {
+    if (!dateInput) return null;
+    const date = new Date(dateInput);
+    if (Number.isNaN(date.getTime())) {
+      return { ok: false, error: "Select a valid date and time." };
+    }
+    return {
+      ok: true,
+      seconds: Math.floor(date.getTime() / 1000),
+      ms: date.getTime(),
+    };
+  }, [dateInput]);
 
-  const tips = [
-    {
-      title: t.tip1_title || "Seconds vs Milliseconds",
-      desc:
-        t.tip1_desc ||
-        "JavaScript's Date.now() returns milliseconds while most other languages and APIs use seconds. Watch out for the 1000x mismatch when passing values around.",
-    },
-    {
-      title: t.tip2_title || "The Unix Epoch",
-      desc:
-        t.tip2_desc ||
-        "Unix time counts from January 1, 1970 at 00:00:00 UTC. That moment is timestamp zero, and everything is measured relative to it.",
-    },
-    {
-      title: t.tip3_title || "Timezone Independent",
-      desc:
-        t.tip3_desc ||
-        "A timestamp represents the same instant everywhere on Earth. Only its display as a human-readable date depends on the chosen timezone.",
-    },
-    {
-      title: t.tip4_title || "Everyday Uses",
-      desc:
-        t.tip4_desc ||
-        "Timestamps are handy for API debugging, log analysis, and cache-busting where you need a unique, monotonic value.",
-    },
-  ];
+  const liveSeconds = nowMs !== null ? Math.floor(nowMs / 1000) : null;
+  const liveMs = nowMs;
 
   return (
     <div className="container mx-auto px-4 py-8 min-h-[50vh]">
       <div className="flex gap-8">
         <div className="flex-1 min-w-0 flex flex-col items-center">
-          <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-orange-100 dark:bg-orange-900/30 mb-6">
-              <Clock className="w-10 h-10 text-orange-600 dark:text-orange-400" />
+          <div className="flex flex-col items-center justify-center w-full max-w-5xl mb-12">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-indigo-100 to-violet-100 dark:from-indigo-900/30 dark:to-violet-900/30 mb-6">
+              <Clock className="w-10 h-10 text-indigo-600 dark:text-indigo-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              {t.title || "Unix Timestamp Converter"}
+              Timestamp Converter
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
-              {t.subtitle ||
-                "Convert between Unix timestamps and human-readable dates instantly. See the current timestamp live, updated every second."}
+              Convert Unix timestamps to human dates and back, with a live clock.
+              Supports seconds and milliseconds.
             </p>
 
             <Adsense slotId="7759160077" />
 
-            {/* Section 1: Live current timestamp */}
-            <Card className="w-full border-orange-100 dark:border-orange-900/50 shadow-sm mb-8">
-              <CardHeader>
+            {/* Live Clock */}
+            <Card className="w-full border-indigo-100 dark:border-indigo-900/50 shadow-sm mb-6">
+              <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2">
-                  <Hourglass className="w-5 h-5 text-orange-500" />
-                  {t.current_title || "Current Unix Timestamp"}
+                  <Timer className="w-5 h-5 text-indigo-500" />
+                  Current Unix Time
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="flex flex-col items-center p-5 rounded-xl border border-orange-100 dark:border-orange-900/50 bg-orange-50/50 dark:bg-orange-900/10">
-                    <span className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
-                      {t.seconds_label || "Seconds"}
-                    </span>
-                    <span className="text-2xl md:text-3xl font-bold font-mono text-orange-600 dark:text-orange-400 tabular-nums">
-                      {currentSeconds !== null ? currentSeconds : "—"}
-                    </span>
+                  <div className="flex items-center justify-between p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-indigo-50/60 dark:bg-indigo-900/20">
+                    <div className="min-w-0">
+                      <span className="block text-xs text-muted-foreground mb-1">
+                        Seconds
+                      </span>
+                      <span className="block text-2xl font-bold font-mono tabular-nums text-indigo-700 dark:text-indigo-300">
+                        {liveSeconds ?? "—"}
+                      </span>
+                    </div>
                     <button
                       onClick={() =>
-                        currentSeconds !== null &&
-                        copyValue(
-                          String(currentSeconds),
-                          t.seconds_label || "Seconds"
-                        )
+                        liveSeconds !== null &&
+                        handleCopy(String(liveSeconds), "Timestamp (s)")
                       }
-                      disabled={currentSeconds === null}
-                      className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:border-orange-300 dark:hover:border-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                      disabled={liveSeconds === null}
+                      className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors disabled:opacity-40"
+                      aria-label="Copy seconds"
                     >
-                      <Copy className="w-3.5 h-3.5" />
-                      {t.copy || "Copy"}
+                      <Copy className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                     </button>
                   </div>
-                  <div className="flex flex-col items-center p-5 rounded-xl border border-orange-100 dark:border-orange-900/50 bg-orange-50/50 dark:bg-orange-900/10">
-                    <span className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
-                      {t.milliseconds_label || "Milliseconds"}
-                    </span>
-                    <span className="text-2xl md:text-3xl font-bold font-mono text-amber-600 dark:text-amber-400 tabular-nums">
-                      {nowMs !== null ? nowMs : "—"}
-                    </span>
+                  <div className="flex items-center justify-between p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-violet-50/60 dark:bg-violet-900/20">
+                    <div className="min-w-0">
+                      <span className="block text-xs text-muted-foreground mb-1">
+                        Milliseconds
+                      </span>
+                      <span className="block text-2xl font-bold font-mono tabular-nums text-violet-700 dark:text-violet-300">
+                        {liveMs ?? "—"}
+                      </span>
+                    </div>
                     <button
                       onClick={() =>
-                        nowMs !== null &&
-                        copyValue(
-                          String(nowMs),
-                          t.milliseconds_label || "Milliseconds"
-                        )
+                        liveMs !== null &&
+                        handleCopy(String(liveMs), "Timestamp (ms)")
                       }
-                      disabled={nowMs === null}
-                      className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:border-orange-300 dark:hover:border-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                      disabled={liveMs === null}
+                      className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-violet-100 dark:hover:bg-violet-900/40 hover:border-violet-300 dark:hover:border-violet-700 transition-colors disabled:opacity-40"
+                      aria-label="Copy milliseconds"
                     >
-                      <Copy className="w-3.5 h-3.5" />
-                      {t.copy || "Copy"}
+                      <Copy className="w-4 h-4 text-violet-600 dark:text-violet-400" />
                     </button>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Section 2: Timestamp -> Date */}
-            <Card className="w-full border-orange-100 dark:border-orange-900/50 shadow-sm mb-8">
-              <CardHeader>
+            {/* Timestamp -> Date */}
+            <Card className="w-full border-indigo-100 dark:border-indigo-900/50 shadow-sm mb-6">
+              <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2">
-                  <ArrowRight className="w-5 h-5 text-orange-500" />
-                  {t.ts_to_date_title || "Timestamp to Date"}
+                  <Hash className="w-5 h-5 text-indigo-500" />
+                  Timestamp to Date
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  value={tsInput}
-                  onChange={(e) =>
-                    setTsInput(e.target.value.replace(/[^\d]/g, ""))
-                  }
-                  placeholder={
-                    t.ts_input_placeholder ||
-                    "Paste a Unix timestamp (e.g. 1704067200)"
-                  }
-                  className={`w-full p-4 rounded-xl border bg-white dark:bg-gray-900 text-base font-mono focus:outline-none focus:ring-2 transition-colors placeholder:font-sans placeholder:text-muted-foreground ${
-                    isInvalidInput
-                      ? "border-red-400 focus:ring-red-500/40 focus:border-red-500"
-                      : "border-gray-200 dark:border-gray-700 focus:ring-orange-500/50 focus:border-orange-500"
-                  }`}
-                />
-                {isInvalidInput && (
-                  <p className="mt-2 text-sm text-red-500">
-                    {t.invalid_input ||
-                      "Please enter a valid numeric timestamp."}
-                  </p>
+              <CardContent className="space-y-4">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={tsInput}
+                    onChange={(e) => setTsInput(e.target.value)}
+                    placeholder="e.g. 1710000000"
+                    className="flex-1 min-w-0 px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 font-mono text-base focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-colors placeholder:text-muted-foreground"
+                  />
+                  <div className="inline-flex rounded-xl border border-gray-200 dark:border-gray-700 p-1 bg-gray-50 dark:bg-gray-800 shrink-0">
+                    {(["seconds", "milliseconds"] as const).map((u) => (
+                      <button
+                        key={u}
+                        onClick={() => setUnit(u)}
+                        className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
+                          unit === u
+                            ? "bg-indigo-600 text-white shadow-sm"
+                            : "text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        {u === "seconds" ? "Seconds" : "Milliseconds"}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {tsResult && !tsResult.ok && (
+                  <div className="flex items-center gap-2 text-sm text-red-600 dark:text-red-400">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    {tsResult.error}
+                  </div>
                 )}
 
-                {parsed ? (
-                  <div className="mt-5 space-y-3">
-                    {[
-                      {
-                        label: t.local_label || "Local Time",
-                        value: `${parsed.local} (${parsed.timezone})`,
-                      },
-                      { label: t.utc_label || "UTC", value: parsed.utc },
-                      { label: t.iso_label || "ISO 8601", value: parsed.iso },
-                      {
-                        label: t.relative_label || "Relative",
-                        value: parsed.relative,
-                      },
-                    ].map((row) => (
+                {tsResult && tsResult.ok && (
+                  <div className="grid gap-2">
+                    {(
+                      [
+                        { label: "Local", value: tsResult.data.local },
+                        { label: "UTC", value: tsResult.data.utc },
+                        { label: "ISO 8601", value: tsResult.data.iso },
+                        { label: "Relative", value: tsResult.data.relative },
+                      ] as const
+                    ).map((row) => (
                       <div
                         key={row.label}
-                        className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 p-3 rounded-lg bg-muted/40 border border-gray-100 dark:border-gray-800"
+                        className="flex items-center justify-between gap-3 p-3 rounded-lg border border-gray-100 dark:border-gray-800 bg-gray-50/60 dark:bg-gray-800/40"
                       >
-                        <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground sm:w-28 shrink-0">
-                          {row.label}
-                        </span>
-                        <span className="text-sm font-mono break-all">
-                          {row.value}
-                        </span>
+                        <div className="min-w-0">
+                          <span className="block text-xs text-muted-foreground">
+                            {row.label}
+                          </span>
+                          <span className="block text-sm font-medium break-all">
+                            {row.value}
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => handleCopy(row.value, row.label)}
+                          className="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
+                          aria-label={`Copy ${row.label}`}
+                        >
+                          <Copy className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+                        </button>
                       </div>
                     ))}
                   </div>
-                ) : (
-                  !isInvalidInput && (
-                    <p className="mt-4 text-sm text-muted-foreground">
-                      {t.ts_empty_hint ||
-                        "Enter a timestamp above to see the converted date."}
-                    </p>
-                  )
                 )}
               </CardContent>
             </Card>
 
-            {/* Section 3: Date -> Timestamp */}
-            <Card className="w-full border-orange-100 dark:border-orange-900/50 shadow-sm">
-              <CardHeader className="flex flex-row items-center justify-between pb-3">
+            {/* Date -> Timestamp */}
+            <Card className="w-full border-indigo-100 dark:border-indigo-900/50 shadow-sm">
+              <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2">
-                  <CalendarClock className="w-5 h-5 text-orange-500" />
-                  {t.date_to_ts_title || "Date to Timestamp"}
+                  <Calendar className="w-5 h-5 text-indigo-500" />
+                  Date to Timestamp
                 </CardTitle>
-                <button
-                  onClick={useCurrentDate}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:border-orange-300 dark:hover:border-orange-700 transition-colors"
-                >
-                  <Clock className="w-3.5 h-3.5" />
-                  {t.now || "Now"}
-                </button>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-4">
                 <input
                   type="datetime-local"
                   value={dateInput}
+                  step={1}
                   onChange={(e) => setDateInput(e.target.value)}
-                  className="w-full p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-base focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-colors"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-base focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-colors"
                 />
 
-                {dateToTimestamp ? (
-                  <div className="mt-5 grid sm:grid-cols-2 gap-4">
-                    <div className="flex flex-col items-center p-5 rounded-xl border border-orange-100 dark:border-orange-900/50 bg-orange-50/50 dark:bg-orange-900/10">
-                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
-                        {t.seconds_label || "Seconds"}
-                      </span>
-                      <span className="text-xl md:text-2xl font-bold font-mono text-orange-600 dark:text-orange-400 tabular-nums break-all text-center">
-                        {dateToTimestamp.seconds}
-                      </span>
-                      <button
-                        onClick={() =>
-                          copyValue(
-                            String(dateToTimestamp.seconds),
-                            t.seconds_label || "Seconds"
-                          )
-                        }
-                        className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:border-orange-300 dark:hover:border-orange-700 transition-colors"
-                      >
-                        <Copy className="w-3.5 h-3.5" />
-                        {t.copy || "Copy"}
-                      </button>
-                    </div>
-                    <div className="flex flex-col items-center p-5 rounded-xl border border-orange-100 dark:border-orange-900/50 bg-orange-50/50 dark:bg-orange-900/10">
-                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
-                        {t.milliseconds_label || "Milliseconds"}
-                      </span>
-                      <span className="text-xl md:text-2xl font-bold font-mono text-amber-600 dark:text-amber-400 tabular-nums break-all text-center">
-                        {dateToTimestamp.ms}
-                      </span>
-                      <button
-                        onClick={() =>
-                          copyValue(
-                            String(dateToTimestamp.ms),
-                            t.milliseconds_label || "Milliseconds"
-                          )
-                        }
-                        className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:border-orange-300 dark:hover:border-orange-700 transition-colors"
-                      >
-                        <Copy className="w-3.5 h-3.5" />
-                        {t.copy || "Copy"}
-                      </button>
-                    </div>
+                {dateResult && !dateResult.ok && (
+                  <div className="flex items-center gap-2 text-sm text-red-600 dark:text-red-400">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    {dateResult.error}
                   </div>
-                ) : (
-                  <p className="mt-4 text-sm text-muted-foreground">
-                    {t.date_empty_hint ||
-                      "Pick a date and time above to get its Unix timestamp."}
-                  </p>
+                )}
+
+                {dateResult && dateResult.ok && (
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {(
+                      [
+                        { label: "Unix (seconds)", value: String(dateResult.seconds) },
+                        { label: "Unix (milliseconds)", value: String(dateResult.ms) },
+                      ] as const
+                    ).map((row) => (
+                      <div
+                        key={row.label}
+                        className="flex items-center justify-between gap-3 p-3 rounded-lg border border-gray-100 dark:border-gray-800 bg-gray-50/60 dark:bg-gray-800/40"
+                      >
+                        <div className="min-w-0">
+                          <span className="block text-xs text-muted-foreground">
+                            {row.label}
+                          </span>
+                          <span className="block text-sm font-mono font-medium break-all">
+                            {row.value}
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => handleCopy(row.value, row.label)}
+                          className="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
+                          aria-label={`Copy ${row.label}`}
+                        >
+                          <Copy className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
                 )}
               </CardContent>
             </Card>
@@ -439,24 +346,42 @@ export function TimestampConverterClient({
 
           {/* Guide, Tips, FAQ */}
           <div className="w-full max-w-5xl mx-auto mt-16 px-4 space-y-16">
-            {/* How it Works */}
+            {/* How to Use */}
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  {t.guide_title || "How it Works"}
+                  How to Use
                 </h2>
                 <p className="text-muted-foreground">
-                  {t.guide_subtitle ||
-                    "Convert timestamps and dates in three simple steps."}
+                  Convert between epoch time and human dates in seconds.
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
-                {howSteps.map((step) => (
+                {[
+                  {
+                    step: 1,
+                    title: "Enter a Value",
+                    desc: "Type a Unix timestamp, or pick a date and time with the date picker.",
+                    icon: Hash,
+                  },
+                  {
+                    step: 2,
+                    title: "See the Result",
+                    desc: "Instantly view local time, UTC, ISO 8601, relative time, and Unix seconds and milliseconds.",
+                    icon: ArrowRight,
+                  },
+                  {
+                    step: 3,
+                    title: "Copy Instantly",
+                    desc: "Click any copy button to send the value straight to your clipboard.",
+                    icon: Copy,
+                  },
+                ].map((step) => (
                   <div
                     key={step.step}
                     className="flex flex-col items-center text-center p-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm"
                   >
-                    <div className="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 flex items-center justify-center mb-4">
                       <step.icon className="w-6 h-6" />
                     </div>
                     <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
@@ -467,28 +392,42 @@ export function TimestampConverterClient({
             </section>
 
             {/* Tips */}
-            <section className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 rounded-3xl p-8 md:p-12">
+            <section className="bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-indigo-900/20 dark:to-violet-900/20 rounded-3xl p-8 md:p-12">
               <div className="flex flex-col md:flex-row gap-12 items-center">
                 <div className="md:w-1/3 text-center md:text-left">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-yellow-500">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-indigo-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">
-                    {t.tips_title || "Timestamp Tips"}
-                  </h2>
+                  <h2 className="text-3xl font-bold mb-4">Epoch Time Tips</h2>
                   <p className="text-muted-foreground">
-                    {t.tips_desc ||
-                      "Understand how Unix time works to avoid common pitfalls."}
+                    Work confidently with Unix timestamps.
                   </p>
                 </div>
 
                 <div className="md:w-2/3 grid sm:grid-cols-2 gap-4">
-                  {tips.map((tip, idx) => (
+                  {[
+                    {
+                      title: "Seconds vs Milliseconds",
+                      desc: "A 10-digit number is usually seconds; a 13-digit number is milliseconds. JavaScript's Date.now() returns milliseconds, while most databases store seconds.",
+                    },
+                    {
+                      title: "The Epoch",
+                      desc: "Unix time starts at 00:00:00 UTC on January 1, 1970. A timestamp of 0 is exactly that moment, and negative timestamps represent dates before it.",
+                    },
+                    {
+                      title: "Always Store in UTC",
+                      desc: "Epoch time is time-zone independent. Store timestamps in UTC and only convert to local time for display to avoid off-by-hours bugs.",
+                    },
+                    {
+                      title: "The Year 2038 Problem",
+                      desc: "Systems storing timestamps as signed 32-bit integers overflow on January 19, 2038. Modern systems use 64-bit integers to avoid this limit.",
+                    },
+                  ].map((tip, idx) => (
                     <div
                       key={idx}
                       className="bg-white dark:bg-gray-800 p-5 rounded-xl border border-white/50 shadow-sm"
                     >
-                      <h3 className="font-semibold text-orange-600 dark:text-orange-400 mb-2">
+                      <h3 className="font-semibold text-indigo-600 dark:text-indigo-400 mb-2">
                         {tip.title}
                       </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
@@ -503,15 +442,30 @@ export function TimestampConverterClient({
             {/* FAQ */}
             <section className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  {t.faq_title || "FAQ"}
-                </h2>
+                <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>
               </div>
               <Accordion type="single" collapsible className="w-full">
-                {faqItems.map((faq, idx) => (
+                {[
+                  {
+                    q: "What is a Unix timestamp?",
+                    a: "A Unix timestamp (also called epoch time) is the number of seconds that have elapsed since 00:00:00 UTC on January 1, 1970, not counting leap seconds. It is a standard way to represent a point in time across systems and programming languages.",
+                  },
+                  {
+                    q: "What is the difference between seconds and milliseconds?",
+                    a: "Unix timestamps are commonly stored in seconds (10 digits for current dates), but many systems such as JavaScript use milliseconds (13 digits). Our converter lets you toggle between the two so you can work with either format correctly.",
+                  },
+                  {
+                    q: "Does this converter use my local time zone or UTC?",
+                    a: "Both. The tool shows the converted date in your browser's local time zone, in UTC, and in ISO 8601 format, so you can compare them side by side without any manual offset calculation.",
+                  },
+                  {
+                    q: "Is my data private and secure?",
+                    a: "Yes. All conversions happen entirely in your browser using JavaScript. No timestamps or dates are ever sent to a server or stored anywhere, so your data stays completely private.",
+                  },
+                ].map((faq, idx) => (
                   <AccordionItem key={idx} value={`item-${idx + 1}`}>
-                    <AccordionTrigger>{faq.question}</AccordionTrigger>
-                    <AccordionContent>{faq.answer}</AccordionContent>
+                    <AccordionTrigger>{faq.q}</AccordionTrigger>
+                    <AccordionContent>{faq.a}</AccordionContent>
                   </AccordionItem>
                 ))}
               </Accordion>

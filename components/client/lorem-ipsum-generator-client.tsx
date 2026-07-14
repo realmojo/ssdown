@@ -1,369 +1,340 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
-  Text,
+  Pilcrow,
+  Lightbulb,
+  ArrowRight,
+  Trash2,
   Copy,
   RefreshCw,
-  Code2,
-  Lightbulb,
-  HelpCircle,
   Settings2,
-  MousePointerClick,
 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { toast } from "sonner";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { toast } from "sonner";
 import Adsense from "@/components/Adsense";
 import { ToolsSidebar } from "@/components/tools-sidebar";
 
-interface FaqItem {
-  question: string;
-  answer: string;
-}
+type Unit = "paragraphs" | "sentences" | "words";
 
-const FALLBACK_FAQ: FaqItem[] = [
-  {
-    question: "What is Lorem Ipsum?",
-    answer:
-      "Lorem Ipsum is placeholder text derived from a passage of classical Latin literature. Designers and developers use it to fill layouts with realistic-looking text so they can focus on visual design without being distracted by readable content.",
-  },
-  {
-    question: "Why use placeholder text instead of real content?",
-    answer:
-      "Placeholder text lets you evaluate typography, spacing, and layout before the final copy is ready. Because Lorem Ipsum has a natural distribution of word lengths, it looks like real prose without drawing the reader's attention to the words themselves.",
-  },
-  {
-    question: "Is the generated text private?",
-    answer:
-      "Yes. Everything is generated locally in your browser using JavaScript. No text is sent to a server, and nothing you generate is logged or stored anywhere.",
-  },
-  {
-    question: "Can I generate words, sentences, or paragraphs?",
-    answer:
-      "Yes. You can choose to generate a specific number of words, sentences, or paragraphs, and optionally wrap paragraphs in HTML <p> tags for pasting directly into markup.",
-  },
-  {
-    question: 'What does "start with Lorem ipsum dolor sit amet" do?',
-    answer:
-      "When enabled, the output begins with the traditional opening phrase 'Lorem ipsum dolor sit amet' before continuing with randomized words, matching the classic placeholder text convention.",
-  },
-];
-
-const WORD_BANK = [
+const LOREM_WORDS = [
   "lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
-  "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et",
-  "dolore", "magna", "aliqua", "enim", "ad", "minim", "veniam", "quis",
-  "nostrud", "exercitation", "ullamco", "laboris", "nisi", "aliquip", "ex", "ea",
-  "commodo", "consequat", "duis", "aute", "irure", "in", "reprehenderit",
-  "voluptate", "velit", "esse", "cillum", "eu", "fugiat", "nulla", "pariatur",
-  "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
-  "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est",
-  "laborum", "perspiciatis", "unde", "omnis", "iste", "natus", "error",
-  "accusantium", "doloremque", "laudantium", "totam", "rem", "aperiam",
-  "eaque", "quae", "ab", "illo", "inventore", "veritatis", "quasi", "architecto",
-  "beatae", "vitae", "dicta", "explicabo", "nemo", "ipsam", "quia", "voluptas",
+  "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",
+  "magna", "aliqua", "enim", "ad", "minim", "veniam", "quis", "nostrud",
+  "exercitation", "ullamco", "laboris", "nisi", "aliquip", "ex", "ea", "commodo",
+  "consequat", "duis", "aute", "irure", "in", "reprehenderit", "voluptate",
+  "velit", "esse", "cillum", "eu", "fugiat", "nulla", "pariatur", "excepteur",
+  "sint", "occaecat", "cupidatat", "non", "proident", "sunt", "culpa", "qui",
+  "officia", "deserunt", "mollit", "anim", "id", "est", "laborum",
 ];
 
-const OPENER = "lorem ipsum dolor sit amet consectetur adipiscing elit";
-
-type GenType = "paragraphs" | "sentences" | "words";
+const CLASSIC_OPENING = ["lorem", "ipsum", "dolor", "sit", "amet"];
 
 function randomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function randomWord(): string {
-  return WORD_BANK[randomInt(0, WORD_BANK.length - 1)];
+function pickWord(): string {
+  return LOREM_WORDS[randomInt(0, LOREM_WORDS.length - 1)];
 }
 
-function capitalize(text: string): string {
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
-
-function makeSentence(opener?: string): string {
-  const length = randomInt(8, 16);
+function buildSentence(seed?: string[]): string {
+  const length = randomInt(5, 15);
   const words: string[] = [];
-  if (opener) words.push(...opener.split(" "));
-  while (words.length < length) words.push(randomWord());
-  return capitalize(words.join(" ")) + ".";
+
+  for (let i = 0; i < length; i += 1) {
+    words.push(seed && seed[i] ? seed[i] : pickWord());
+  }
+
+  // Occasionally insert a comma somewhere in the middle.
+  if (length > 6 && Math.random() < 0.5) {
+    const commaIndex = randomInt(2, length - 3);
+    words[commaIndex] = `${words[commaIndex]},`;
+  }
+
+  const sentence = words.join(" ");
+  return `${sentence.charAt(0).toUpperCase()}${sentence.slice(1)}.`;
 }
 
-function makeParagraph(opener?: string): string {
-  const sentenceCount = randomInt(3, 6);
+function buildParagraph(startClassic: boolean): string {
+  const count = randomInt(3, 6);
   const sentences: string[] = [];
-  for (let i = 0; i < sentenceCount; i++) {
-    sentences.push(makeSentence(i === 0 ? opener : undefined));
+
+  for (let i = 0; i < count; i += 1) {
+    const seed = startClassic && i === 0 ? CLASSIC_OPENING : undefined;
+    sentences.push(buildSentence(seed));
   }
+
   return sentences.join(" ");
 }
 
-/** Build the raw text blocks (paragraphs, sentences, or a single words block). */
-function generateBlocks(
-  type: GenType,
-  count: number,
-  startWithLorem: boolean,
-): string[] {
-  const safeCount = Math.max(1, count);
-  if (type === "words") {
+interface GenerateOptions {
+  unit: Unit;
+  count: number;
+  startClassic: boolean;
+  wrapTags: boolean;
+}
+
+function generateLorem({ unit, count, startClassic, wrapTags }: GenerateOptions): string {
+  const safeCount = Math.min(100, Math.max(1, count));
+
+  if (unit === "words") {
     const words: string[] = [];
-    if (startWithLorem) words.push(...OPENER.split(" "));
-    while (words.length < safeCount) words.push(randomWord());
-    return [capitalize(words.slice(0, safeCount).join(" ")) + "."];
-  }
-  if (type === "sentences") {
-    const sentences: string[] = [];
-    for (let i = 0; i < safeCount; i++) {
-      sentences.push(makeSentence(i === 0 && startWithLorem ? OPENER : undefined));
+    for (let i = 0; i < safeCount; i += 1) {
+      words.push(startClassic && i < CLASSIC_OPENING.length ? CLASSIC_OPENING[i] : pickWord());
     }
-    return [sentences.join(" ")];
+    const text = words.join(" ");
+    return `${text.charAt(0).toUpperCase()}${text.slice(1)}.`;
   }
+
+  if (unit === "sentences") {
+    const sentences: string[] = [];
+    for (let i = 0; i < safeCount; i += 1) {
+      sentences.push(buildSentence(startClassic && i === 0 ? CLASSIC_OPENING : undefined));
+    }
+    return sentences.join(" ");
+  }
+
   const paragraphs: string[] = [];
-  for (let i = 0; i < safeCount; i++) {
-    paragraphs.push(makeParagraph(i === 0 && startWithLorem ? OPENER : undefined));
+  for (let i = 0; i < safeCount; i += 1) {
+    const paragraph = buildParagraph(startClassic && i === 0);
+    paragraphs.push(wrapTags ? `<p>${paragraph}</p>` : paragraph);
   }
-  return paragraphs;
+  return paragraphs.join("\n\n");
 }
 
 function countWords(text: string): number {
-  if (!text.trim()) return 0;
-  return text.trim().split(/\s+/).filter(Boolean).length;
+  const trimmed = text.trim();
+  if (!trimmed) return 0;
+  return trimmed.split(/\s+/).filter((w) => w.length > 0).length;
 }
 
 export function LoremIpsumGeneratorClient({ dict }: { dict?: any }) {
-  const t = dict?.lorem_ipsum_generator || {};
-  const faqItems: FaqItem[] =
-    dict?.page_lorem_ipsum_generator?.faq || FALLBACK_FAQ;
-
-  const [type, setType] = useState<GenType>("paragraphs");
+  const [unit, setUnit] = useState<Unit>("paragraphs");
   const [count, setCount] = useState(3);
-  const [startWithLorem, setStartWithLorem] = useState(true);
-  const [htmlOutput, setHtmlOutput] = useState(false);
-  const [blocks, setBlocks] = useState<string[]>([]);
+  const [startClassic, setStartClassic] = useState(true);
+  const [wrapTags, setWrapTags] = useState(false);
+  const [output, setOutput] = useState("");
 
-  const generate = useCallback(() => {
-    setBlocks(generateBlocks(type, count, startWithLorem));
-  }, [type, count, startWithLorem]);
+  const handleGenerate = useCallback(() => {
+    setOutput(generateLorem({ unit, count, startClassic, wrapTags }));
+  }, [unit, count, startClassic, wrapTags]);
 
-  // Regenerate whenever options change (client-only, so no hydration mismatch
-  // from Math.random). Runs on mount to show an initial sample.
+  // Generate an initial sample after mount to avoid SSR/client hydration mismatch.
   useEffect(() => {
-    setBlocks(generateBlocks(type, count, startWithLorem));
-  }, [type, count, startWithLorem]);
-
-  const output = useMemo(() => {
-    if (!blocks.length) return "";
-    if (htmlOutput) return blocks.map((b) => `<p>${b}</p>`).join("\n");
-    return blocks.join("\n\n");
-  }, [blocks, htmlOutput]);
-
-  const plainText = useMemo(() => blocks.join(" "), [blocks]);
-  const wordCount = useMemo(() => countWords(plainText), [plainText]);
-  const charCount = output.length;
+    setOutput(generateLorem({ unit: "paragraphs", count: 3, startClassic: true, wrapTags: false }));
+  }, []);
 
   const handleCopy = useCallback(async () => {
     if (!output) return;
     try {
       await navigator.clipboard.writeText(output);
-      toast.success(t.copied || "Copied to clipboard!");
+      toast.success("Copied to clipboard");
     } catch {
-      toast.error(t.copy_failed || "Failed to copy");
+      toast.error("Failed to copy");
     }
-  }, [output, t.copied, t.copy_failed]);
+  }, [output]);
+
+  const handleClear = useCallback(() => {
+    setOutput("");
+  }, []);
+
+  const wordCount = countWords(output);
+  const charCount = output.length;
+  const wrapDisabled = unit !== "paragraphs";
 
   return (
     <div className="container mx-auto px-4 py-8 min-h-[50vh]">
       <div className="flex gap-8">
         <div className="flex-1 min-w-0 flex flex-col items-center">
-          <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-amber-100 dark:bg-amber-900/30 mb-6">
-              <Text className="w-10 h-10 text-amber-600 dark:text-amber-400" />
+          <div className="flex flex-col items-center justify-center w-full max-w-5xl mb-12">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-fuchsia-100 to-pink-100 dark:from-fuchsia-900/30 dark:to-pink-900/30 mb-6">
+              <Pilcrow className="w-10 h-10 text-fuchsia-600 dark:text-fuchsia-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              {t.title || "Lorem Ipsum Generator"}
+              Lorem Ipsum Generator
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
-              {t.subtitle ||
-                "Generate placeholder text by paragraphs, sentences, or words — instantly and privately in your browser."}
+              Generate placeholder paragraphs, sentences, and words for your designs and mockups.
             </p>
 
             <Adsense slotId="7759160077" />
 
-            <Card className="w-full border-amber-100 dark:border-amber-900/50 shadow-sm">
-              <CardContent className="pt-6 space-y-6">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium block mb-2">
-                      {t.type_label || "Generate"}
-                    </label>
-                    <Select
-                      value={type}
-                      onValueChange={(val) => setType(val as GenType)}
+            {/* Options */}
+            <Card className="w-full border-fuchsia-100 dark:border-fuchsia-900/50 shadow-sm mb-6">
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2">
+                  <Settings2 className="w-5 h-5 text-fuchsia-500" />
+                  Options
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-col sm:flex-row gap-4 mb-4">
+                  <div className="flex-1">
+                    <label
+                      htmlFor="lorem-unit"
+                      className="block text-sm font-medium mb-1.5 text-muted-foreground"
                     >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="paragraphs">
-                          {t.type_paragraphs || "Paragraphs"}
-                        </SelectItem>
-                        <SelectItem value="sentences">
-                          {t.type_sentences || "Sentences"}
-                        </SelectItem>
-                        <SelectItem value="words">
-                          {t.type_words || "Words"}
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
+                      Type
+                    </label>
+                    <select
+                      id="lorem-unit"
+                      value={unit}
+                      onChange={(e) => setUnit(e.target.value as Unit)}
+                      className="w-full h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-500/50 focus:border-fuchsia-500 transition-colors"
+                    >
+                      <option value="paragraphs">Paragraphs</option>
+                      <option value="sentences">Sentences</option>
+                      <option value="words">Words</option>
+                    </select>
                   </div>
-                  <div>
-                    <label className="text-sm font-medium block mb-2">
-                      {t.count_label || "How many?"}
+                  <div className="flex-1">
+                    <label
+                      htmlFor="lorem-count"
+                      className="block text-sm font-medium mb-1.5 text-muted-foreground"
+                    >
+                      Count (1–100)
                     </label>
                     <input
+                      id="lorem-count"
                       type="number"
                       min={1}
-                      max={500}
+                      max={100}
                       value={count}
                       onChange={(e) => {
-                        const val = parseInt(e.target.value, 10);
-                        setCount(
-                          Number.isNaN(val) ? 1 : Math.min(500, Math.max(1, val)),
-                        );
+                        const next = Number(e.target.value);
+                        setCount(Number.isNaN(next) ? 1 : Math.min(100, Math.max(1, next)));
                       }}
-                      className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                      className="w-full h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-500/50 focus:border-fuchsia-500 transition-colors"
                     />
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-3">
-                  <label className="flex items-center gap-3 p-3 rounded-xl border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-amber-300 dark:hover:border-amber-700 transition-colors">
-                    <Checkbox
-                      checked={startWithLorem}
-                      onCheckedChange={(checked) =>
-                        setStartWithLorem(checked === true)
-                      }
-                      className="data-[state=checked]:bg-amber-500 data-[state=checked]:border-amber-500"
+                <div className="flex flex-col gap-3">
+                  <label className="inline-flex items-center gap-2.5 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={startClassic}
+                      onChange={(e) => setStartClassic(e.target.checked)}
+                      className="w-4 h-4 rounded border-gray-300 text-fuchsia-600 focus:ring-fuchsia-500/50 accent-fuchsia-600"
                     />
                     <span className="text-sm">
-                      {t.start_with_lorem ||
-                        'Start with "Lorem ipsum dolor sit amet"'}
+                      Start with &quot;Lorem ipsum dolor sit amet…&quot;
                     </span>
                   </label>
-                  <label className="flex items-center gap-3 p-3 rounded-xl border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-amber-300 dark:hover:border-amber-700 transition-colors">
-                    <Checkbox
-                      checked={htmlOutput}
-                      onCheckedChange={(checked) =>
-                        setHtmlOutput(checked === true)
-                      }
-                      className="data-[state=checked]:bg-amber-500 data-[state=checked]:border-amber-500"
+                  <label
+                    className={`inline-flex items-center gap-2.5 select-none ${
+                      wrapDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={wrapTags && !wrapDisabled}
+                      disabled={wrapDisabled}
+                      onChange={(e) => setWrapTags(e.target.checked)}
+                      className="w-4 h-4 rounded border-gray-300 text-fuchsia-600 focus:ring-fuchsia-500/50 accent-fuchsia-600 disabled:cursor-not-allowed"
                     />
-                    <span className="text-sm inline-flex items-center gap-1.5">
-                      <Code2 className="w-4 h-4" />
-                      {t.html_output || "Wrap in HTML <p> tags"}
+                    <span className="text-sm">
+                      Wrap paragraphs in &lt;p&gt; tags
                     </span>
                   </label>
                 </div>
 
-                <button
-                  onClick={generate}
-                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium text-white bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-90 transition-opacity"
-                >
-                  <RefreshCw className="w-4 h-4" />
-                  {t.generate || "Generate"}
-                </button>
-
-                {/* Output */}
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="text-sm font-medium">
-                      {t.output_label || "Result"}
-                    </label>
-                    <button
-                      onClick={handleCopy}
-                      disabled={!output}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg text-white bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
-                    >
-                      <Copy className="w-3.5 h-3.5" />
-                      {t.copy || "Copy"}
-                    </button>
-                  </div>
-                  <textarea
-                    value={output}
-                    readOnly
-                    placeholder={
-                      t.output_placeholder ||
-                      "Generated placeholder text will appear here..."
-                    }
-                    className="w-full min-h-[280px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-muted/30 text-base leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-colors placeholder:text-muted-foreground"
-                  />
-                  <div className="mt-3 flex items-center gap-4 text-sm text-muted-foreground">
-                    <span>
-                      {wordCount} {t.words || "words"}
-                    </span>
-                    <span>
-                      {charCount} {t.characters || "characters"}
-                    </span>
-                  </div>
+                <div className="flex flex-wrap items-center gap-2 mt-5">
+                  <button
+                    onClick={handleGenerate}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg bg-fuchsia-600 text-white hover:bg-fuchsia-700 transition-colors"
+                  >
+                    <RefreshCw className="w-4 h-4" />
+                    {output ? "Regenerate" : "Generate"}
+                  </button>
+                  <button
+                    onClick={handleCopy}
+                    disabled={!output}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-fuchsia-50 dark:hover:bg-fuchsia-900/20 hover:border-fuchsia-300 dark:hover:border-fuchsia-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  >
+                    <Copy className="w-4 h-4" />
+                    Copy
+                  </button>
+                  <button
+                    onClick={handleClear}
+                    disabled={!output}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-300 dark:hover:border-red-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    Clear
+                  </button>
                 </div>
+              </CardContent>
+            </Card>
+
+            {/* Output */}
+            <Card className="w-full border-fuchsia-100 dark:border-fuchsia-900/50 shadow-sm">
+              <CardHeader className="flex flex-row items-center justify-between pb-3">
+                <CardTitle className="flex items-center gap-2">
+                  <Pilcrow className="w-5 h-5 text-fuchsia-500" />
+                  Generated Text
+                </CardTitle>
+                <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                  <span>{wordCount} words</span>
+                  <span>{charCount} characters</span>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <textarea
+                  value={output}
+                  readOnly
+                  placeholder="Your placeholder text will appear here..."
+                  className="w-full min-h-[300px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-base leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-fuchsia-500/50 focus:border-fuchsia-500 transition-colors placeholder:text-muted-foreground"
+                />
               </CardContent>
             </Card>
           </div>
 
           {/* Guide, Tips, FAQ */}
           <div className="w-full max-w-5xl mx-auto mt-16 px-4 space-y-16">
+            {/* How to Use */}
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  {t.guide_title || "How it Works"}
+                  How to Use
                 </h2>
                 <p className="text-muted-foreground">
-                  {t.guide_desc ||
-                    "Create placeholder text in three simple steps."}
+                  Create placeholder text in seconds.
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
                   {
-                    title: t.step1_title || "Choose the type",
-                    desc:
-                      t.step1_desc ||
-                      "Pick whether to generate paragraphs, sentences, or individual words.",
+                    step: 1,
+                    title: "Choose Options",
+                    desc: "Pick paragraphs, sentences, or words, and set how many you need for your layout.",
                     icon: Settings2,
                   },
                   {
-                    title: t.step2_title || "Set the amount",
-                    desc:
-                      t.step2_desc ||
-                      "Enter how much text you need and toggle HTML output if you want <p> tags.",
-                    icon: MousePointerClick,
+                    step: 2,
+                    title: "Generate",
+                    desc: "Click Generate to instantly produce Lorem Ipsum placeholder text in your browser.",
+                    icon: ArrowRight,
                   },
                   {
-                    title: t.step3_title || "Copy the text",
-                    desc:
-                      t.step3_desc ||
-                      "Click Copy to grab the placeholder text and paste it into your design or code.",
+                    step: 3,
+                    title: "Copy & Paste",
+                    desc: "Copy the result and drop it into your design, mockup, or HTML markup.",
                     icon: Copy,
                   },
-                ].map((step, idx) => (
+                ].map((step) => (
                   <div
-                    key={idx}
+                    key={step.step}
                     className="flex flex-col items-center text-center p-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm"
                   >
-                    <div className="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 rounded-full bg-fuchsia-100 dark:bg-fuchsia-900/30 text-fuchsia-600 flex items-center justify-center mb-4">
                       <step.icon className="w-6 h-6" />
                     </div>
                     <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
@@ -373,53 +344,43 @@ export function LoremIpsumGeneratorClient({ dict }: { dict?: any }) {
               </div>
             </section>
 
-            <section className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-3xl p-8 md:p-12">
+            {/* Tips */}
+            <section className="bg-gradient-to-br from-fuchsia-50 to-pink-50 dark:from-fuchsia-900/20 dark:to-pink-900/20 rounded-3xl p-8 md:p-12">
               <div className="flex flex-col md:flex-row gap-12 items-center">
                 <div className="md:w-1/3 text-center md:text-left">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-yellow-500">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-fuchsia-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">
-                    {t.tips_title || "Placeholder Tips"}
-                  </h2>
+                  <h2 className="text-3xl font-bold mb-4">Placeholder Tips</h2>
                   <p className="text-muted-foreground">
-                    {t.tips_desc ||
-                      "Get the most out of placeholder text with these tips."}
+                    Make the most of your placeholder text.
                   </p>
                 </div>
 
                 <div className="md:w-2/3 grid sm:grid-cols-2 gap-4">
                   {[
                     {
-                      title: t.tip1_title || "Match the real content length",
-                      desc:
-                        t.tip1_desc ||
-                        "Generate roughly the amount of text the final copy will use so your layout reflects real-world spacing.",
+                      title: "Match Real Length",
+                      desc: "Generate roughly the amount of text your final copy will use so your layout reflects real-world content density.",
                     },
                     {
-                      title: t.tip2_title || "Use HTML output for markup",
-                      desc:
-                        t.tip2_desc ||
-                        "Enable the HTML option to get paragraphs wrapped in <p> tags you can paste straight into templates.",
+                      title: "Use HTML Tags",
+                      desc: "Enable the <p> tag option to paste structured, markup-ready paragraphs directly into your HTML or CMS.",
                     },
                     {
-                      title: t.tip3_title || "Words for labels and buttons",
-                      desc:
-                        t.tip3_desc ||
-                        "Generate just a few words when you need placeholder labels, tags, or button text rather than full paragraphs.",
+                      title: "Keep It Neutral",
+                      desc: "Lorem Ipsum's meaningless Latin keeps stakeholders focused on design instead of reading and reacting to copy.",
                     },
                     {
-                      title: t.tip4_title || "Replace before you ship",
-                      desc:
-                        t.tip4_desc ||
-                        "Placeholder text is for design only — always swap it for real content before publishing to avoid embarrassing leftovers.",
+                      title: "Swap Before Launch",
+                      desc: "Placeholder text is for mockups only. Always replace it with real content before publishing to avoid embarrassing leaks.",
                     },
                   ].map((tip, idx) => (
                     <div
                       key={idx}
                       className="bg-white dark:bg-gray-800 p-5 rounded-xl border border-white/50 shadow-sm"
                     >
-                      <h3 className="font-semibold text-amber-600 dark:text-amber-400 mb-2">
+                      <h3 className="font-semibold text-fuchsia-600 dark:text-fuchsia-400 mb-2">
                         {tip.title}
                       </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
@@ -431,20 +392,33 @@ export function LoremIpsumGeneratorClient({ dict }: { dict?: any }) {
               </div>
             </section>
 
+            {/* FAQ */}
             <section className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 mb-4">
-                  <HelpCircle className="w-6 h-6" />
-                </div>
-                <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  {t.faq_title || "Frequently Asked Questions"}
-                </h2>
+                <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>
               </div>
               <Accordion type="single" collapsible className="w-full">
-                {faqItems.map((faq, idx) => (
+                {[
+                  {
+                    q: "What is Lorem Ipsum?",
+                    a: "Lorem Ipsum is placeholder text derived from a Latin passage by Cicero. It has been the industry-standard dummy text since the 1500s, used to fill layouts and mockups so designers can focus on visual structure without the distraction of readable content.",
+                  },
+                  {
+                    q: "How do I use this Lorem Ipsum generator?",
+                    a: "Choose whether you want paragraphs, sentences, or words, set how many you need, then click Generate. Toggle the options to start with the classic 'Lorem ipsum dolor sit amet' opening or to wrap each paragraph in HTML <p> tags, and copy the result with one click.",
+                  },
+                  {
+                    q: "Is this Lorem Ipsum generator free and private?",
+                    a: "Yes. The tool is completely free with no signup required, and all text is generated locally in your browser. Nothing you generate is ever sent to a server or stored anywhere.",
+                  },
+                  {
+                    q: "Can I generate HTML-ready placeholder text?",
+                    a: "Absolutely. Enable the 'Wrap paragraphs in <p> tags' option and each paragraph will be wrapped in a <p> element, ready to paste straight into your HTML markup or CMS.",
+                  },
+                ].map((faq, idx) => (
                   <AccordionItem key={idx} value={`item-${idx + 1}`}>
-                    <AccordionTrigger>{faq.question}</AccordionTrigger>
-                    <AccordionContent>{faq.answer}</AccordionContent>
+                    <AccordionTrigger>{faq.q}</AccordionTrigger>
+                    <AccordionContent>{faq.a}</AccordionContent>
                   </AccordionItem>
                 ))}
               </Accordion>

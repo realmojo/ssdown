@@ -1,446 +1,289 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useCallback } from "react";
 import {
   Braces,
-  Copy,
-  Download,
-  Trash2,
   Sparkles,
   Minimize2,
   CheckCircle2,
-  AlertCircle,
+  XCircle,
+  Copy,
+  Download,
+  Trash2,
+  FileJson,
   Lightbulb,
-  HelpCircle,
   ArrowRight,
+  Wand2,
 } from "lucide-react";
+import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { toast } from "sonner";
 import Adsense from "@/components/Adsense";
 import { ToolsSidebar } from "@/components/tools-sidebar";
 
-interface FaqItem {
-  question: string;
-  answer: string;
-}
+type IndentOption = "2" | "4" | "tab";
 
-const FALLBACK_FAQ: FaqItem[] = [
-  {
-    question: "Is my JSON data uploaded to a server?",
-    answer:
-      "No. All formatting, minifying, and validation happens locally in your browser using JavaScript. Your JSON never leaves your device — it is never uploaded, logged, or stored anywhere.",
-  },
-  {
-    question: "What's the difference between Format and Minify?",
-    answer:
-      "Format (also called beautify or pretty-print) adds indentation and line breaks to make JSON human-readable. Minify strips all unnecessary whitespace to produce the smallest possible output, which is ideal for transmitting data or reducing file size.",
-  },
-  {
-    question: "How does validation report errors?",
-    answer:
-      "When your JSON is invalid, the tool shows the parser's error message along with the exact line and column where the problem occurs, so you can jump straight to the issue and fix it.",
-  },
-  {
-    question: "What does the 'sort keys' option do?",
-    answer:
-      "Sort keys recursively reorders every object's properties alphabetically. This is useful for producing deterministic output, making diffs cleaner, or comparing two JSON documents that contain the same data in a different order.",
-  },
-  {
-    question: "Is there a size limit for JSON?",
-    answer:
-      "There is no fixed limit. Because everything runs in your browser, you can format very large JSON documents, though extremely large files may be constrained by your device's available memory.",
-  },
+type Status =
+  | { type: "idle" }
+  | { type: "success"; message: string }
+  | { type: "error"; message: string };
+
+const INDENT_OPTIONS: { value: IndentOption; label: string }[] = [
+  { value: "2", label: "2 Spaces" },
+  { value: "4", label: "4 Spaces" },
+  { value: "tab", label: "Tab" },
 ];
 
-const SAMPLE_JSON =
-  '{"name":"SSDown","type":"utility","tags":["json","formatter"],"nested":{"active":true,"count":42},"empty":null}';
+const SAMPLE_JSON = `{
+  "name": "SSDown",
+  "type": "utility",
+  "version": 1.4,
+  "active": true,
+  "tags": ["json", "formatter", "validator"],
+  "author": {
+    "name": "SSDown Team",
+    "url": "https://ssdown.app"
+  },
+  "features": [
+    { "id": 1, "title": "Beautify" },
+    { "id": 2, "title": "Minify" },
+    { "id": 3, "title": "Validate" }
+  ]
+}`;
 
-type IndentType = "2" | "4" | "tab";
-
-interface ParseError {
-  message: string;
-  line: number;
-  column: number;
+function getIndent(option: IndentOption): string | number {
+  if (option === "tab") return "\t";
+  return option === "4" ? 4 : 2;
 }
 
-/** Compute 1-based line/column from a character offset into the source text. */
-function positionToLineCol(text: string, position: number): {
-  line: number;
-  column: number;
-} {
-  const clamped = Math.max(0, Math.min(position, text.length));
-  const upto = text.slice(0, clamped);
-  const lines = upto.split("\n");
-  return { line: lines.length, column: lines[lines.length - 1].length + 1 };
-}
+function getErrorMessage(error: unknown, source: string): string {
+  const raw = error instanceof Error ? error.message : "Invalid JSON.";
+  const match = raw.match(/position (\d+)/i);
+  if (!match) return raw;
 
-/** Extract a character position from a native JSON.parse error message. */
-function extractPosition(message: string): number | null {
-  const match = message.match(/position (\d+)/i);
-  return match ? parseInt(match[1], 10) : null;
-}
+  const position = Number(match[1]);
+  if (!Number.isFinite(position)) return raw;
 
-function parseJson(
-  text: string,
-): { ok: true; value: unknown } | { ok: false; error: ParseError } {
-  try {
-    return { ok: true, value: JSON.parse(text) };
-  } catch (err) {
-    const message = err instanceof Error ? err.message : "Invalid JSON";
-    const position = extractPosition(message);
-    const { line, column } =
-      position !== null
-        ? positionToLineCol(text, position)
-        : { line: 0, column: 0 };
-    return { ok: false, error: { message, line, column } };
-  }
-}
-
-/** Recursively sort object keys alphabetically for deterministic output. */
-function sortKeysDeep(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(sortKeysDeep);
-  if (value && typeof value === "object") {
-    return Object.keys(value as Record<string, unknown>)
-      .sort()
-      .reduce<Record<string, unknown>>((acc, key) => {
-        acc[key] = sortKeysDeep((value as Record<string, unknown>)[key]);
-        return acc;
-      }, {});
-  }
-  return value;
-}
-
-function indentValue(indent: IndentType): string | number {
-  if (indent === "tab") return "\t";
-  return parseInt(indent, 10);
-}
-
-function countKeys(value: unknown): number {
-  if (Array.isArray(value)) {
-    return value.reduce<number>((acc, item) => acc + countKeys(item), 0);
-  }
-  if (value && typeof value === "object") {
-    const obj = value as Record<string, unknown>;
-    return Object.keys(obj).reduce<number>(
-      (acc, key) => acc + 1 + countKeys(obj[key]),
-      0,
-    );
-  }
-  return 0;
-}
-
-function maxDepth(value: unknown): number {
-  if (Array.isArray(value)) {
-    return 1 + value.reduce<number>((acc, item) => Math.max(acc, maxDepth(item)), 0);
-  }
-  if (value && typeof value === "object") {
-    const obj = value as Record<string, unknown>;
-    return (
-      1 +
-      Object.values(obj).reduce<number>(
-        (acc, item) => Math.max(acc, maxDepth(item)),
-        0,
-      )
-    );
-  }
-  return 0;
-}
-
-function formatBytes(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
-}
-
-interface Stats {
-  keys: number;
-  depth: number;
-  size: string;
+  const upToError = source.slice(0, position);
+  const line = upToError.split("\n").length;
+  const column = position - upToError.lastIndexOf("\n");
+  return `${raw} (line ${line}, column ${column})`;
 }
 
 export function JsonFormatterClient({ dict }: { dict?: any }) {
-  const t = dict?.json_formatter || {};
-  const faqItems: FaqItem[] = dict?.page_json_formatter?.faq || FALLBACK_FAQ;
-
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
-  const [indent, setIndent] = useState<IndentType>("2");
-  const [sortKeys, setSortKeys] = useState(false);
-  const [error, setError] = useState<ParseError | null>(null);
-  const [valid, setValid] = useState<boolean | null>(null);
-  const [stats, setStats] = useState<Stats | null>(null);
+  const [indent, setIndent] = useState<IndentOption>("2");
+  const [status, setStatus] = useState<Status>({ type: "idle" });
 
-  const runProcess = useCallback(
-    (mode: "format" | "minify") => {
+  const transform = useCallback(
+    (mode: "beautify" | "minify" | "validate") => {
       if (!input.trim()) {
-        setError(null);
-        setValid(null);
         setOutput("");
-        setStats(null);
+        setStatus({ type: "error", message: "Please enter some JSON first." });
         return;
       }
-      const parsed = parseJson(input);
-      if (!parsed.ok) {
-        setError(parsed.error);
-        setValid(false);
+
+      try {
+        const parsed: unknown = JSON.parse(input);
+        if (mode === "beautify") {
+          setOutput(JSON.stringify(parsed, null, getIndent(indent)));
+        } else if (mode === "minify") {
+          setOutput(JSON.stringify(parsed));
+        } else {
+          setOutput(JSON.stringify(parsed, null, getIndent(indent)));
+        }
+        setStatus({ type: "success", message: "Valid JSON" });
+      } catch (error: unknown) {
         setOutput("");
-        setStats(null);
-        return;
+        setStatus({ type: "error", message: getErrorMessage(error, input) });
       }
-      const value = sortKeys ? sortKeysDeep(parsed.value) : parsed.value;
-      const result =
-        mode === "minify"
-          ? JSON.stringify(value)
-          : JSON.stringify(value, null, indentValue(indent));
-      setOutput(result);
-      setError(null);
-      setValid(true);
-      setStats({
-        keys: countKeys(parsed.value),
-        depth: maxDepth(parsed.value),
-        size: formatBytes(new Blob([result]).size),
-      });
     },
-    [input, indent, sortKeys],
+    [input, indent]
   );
-
-  const handleValidate = useCallback(() => {
-    if (!input.trim()) {
-      setError(null);
-      setValid(null);
-      setStats(null);
-      return;
-    }
-    const parsed = parseJson(input);
-    if (!parsed.ok) {
-      setError(parsed.error);
-      setValid(false);
-      setStats(null);
-      return;
-    }
-    setError(null);
-    setValid(true);
-    setStats({
-      keys: countKeys(parsed.value),
-      depth: maxDepth(parsed.value),
-      size: formatBytes(new Blob([input]).size),
-    });
-    toast.success(t.valid_toast || "Valid JSON");
-  }, [input, t.valid_toast]);
-
-  const handleClear = useCallback(() => {
-    setInput("");
-    setOutput("");
-    setError(null);
-    setValid(null);
-    setStats(null);
-  }, []);
-
-  const handleSample = useCallback(() => {
-    setInput(SAMPLE_JSON);
-    setError(null);
-    setValid(null);
-    setOutput("");
-    setStats(null);
-  }, []);
 
   const handleCopy = useCallback(async () => {
     if (!output) return;
     try {
       await navigator.clipboard.writeText(output);
-      toast.success(t.copied || "Result copied to clipboard!");
+      toast.success("Output copied to clipboard");
     } catch {
-      toast.error(t.copy_failed || "Failed to copy");
+      toast.error("Failed to copy output");
     }
-  }, [output, t.copied, t.copy_failed]);
+  }, [output]);
 
   const handleDownload = useCallback(() => {
     if (!output) return;
     const blob = new Blob([output], { type: "application/json" });
     const url = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    anchor.href = url;
-    anchor.download = "formatted.json";
-    anchor.click();
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "formatted.json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
     URL.revokeObjectURL(url);
+    toast.success("Downloaded formatted.json");
   }, [output]);
 
-  const errorLabel = useMemo(() => {
-    if (!error) return "";
-    if (error.line > 0) {
-      return `${t.error_at || "Error at line"} ${error.line}, ${
-        t.column || "column"
-      } ${error.column}: ${error.message}`;
-    }
-    return error.message;
-  }, [error, t.error_at, t.column]);
+  const handleSample = useCallback(() => {
+    setInput(SAMPLE_JSON);
+    setOutput("");
+    setStatus({ type: "idle" });
+  }, []);
+
+  const handleClear = useCallback(() => {
+    setInput("");
+    setOutput("");
+    setStatus({ type: "idle" });
+  }, []);
 
   return (
     <div className="container mx-auto px-4 py-8 min-h-[50vh]">
       <div className="flex gap-8">
         <div className="flex-1 min-w-0 flex flex-col items-center">
           <div className="flex flex-col items-center justify-center w-full max-w-5xl mb-12">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-100 dark:bg-emerald-900/30 mb-6">
-              <Braces className="w-10 h-10 text-emerald-600 dark:text-emerald-400" />
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-yellow-100 to-amber-100 dark:from-yellow-900/30 dark:to-amber-900/30 mb-6">
+              <Braces className="w-10 h-10 text-amber-600 dark:text-amber-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              {t.title || "JSON Formatter & Validator"}
+              JSON Formatter
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
-              {t.subtitle ||
-                "Beautify, minify, and validate JSON instantly — privately in your browser. Nothing is ever sent to a server."}
+              Beautify, minify, and validate JSON with clear error messages and
+              one-click copy.
             </p>
 
             <Adsense slotId="7759160077" />
 
-            {/* Controls */}
-            <div className="w-full flex flex-wrap items-center gap-3 mb-4">
-              <button
-                onClick={() => runProcess("format")}
-                disabled={!input.trim()}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
-              >
-                <Sparkles className="w-4 h-4" />
-                {t.format || "Format"}
-              </button>
-              <button
-                onClick={() => runProcess("minify")}
-                disabled={!input.trim()}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border border-gray-200 dark:border-gray-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-              >
-                <Minimize2 className="w-4 h-4" />
-                {t.minify || "Minify"}
-              </button>
-              <button
-                onClick={handleValidate}
-                disabled={!input.trim()}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border border-gray-200 dark:border-gray-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-              >
-                <CheckCircle2 className="w-4 h-4" />
-                {t.validate || "Validate"}
-              </button>
-
-              <div className="flex items-center gap-2 ml-auto">
-                <span className="text-sm text-muted-foreground">
-                  {t.indent || "Indent"}
-                </span>
-                <Select
-                  value={indent}
-                  onValueChange={(val) => setIndent(val as IndentType)}
-                >
-                  <SelectTrigger className="w-28 h-9">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="2">{t.spaces_2 || "2 spaces"}</SelectItem>
-                    <SelectItem value="4">{t.spaces_4 || "4 spaces"}</SelectItem>
-                    <SelectItem value="tab">{t.tab || "Tab"}</SelectItem>
-                  </SelectContent>
-                </Select>
+            {/* Toolbar */}
+            <div className="w-full flex flex-wrap items-center gap-3 mb-4 mt-4">
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">Indent:</span>
+                <div className="inline-flex rounded-lg border border-gray-200 dark:border-gray-700 p-0.5">
+                  {INDENT_OPTIONS.map((option) => (
+                    <button
+                      key={option.value}
+                      onClick={() => setIndent(option.value)}
+                      className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
+                        indent === option.value
+                          ? "bg-amber-500 text-white"
+                          : "text-muted-foreground hover:bg-amber-50 dark:hover:bg-amber-900/20"
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              <label className="flex items-center gap-2 cursor-pointer">
-                <Checkbox
-                  checked={sortKeys}
-                  onCheckedChange={(checked) => setSortKeys(checked === true)}
-                  className="data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500"
-                />
-                <span className="text-sm">{t.sort_keys || "Sort keys"}</span>
-              </label>
+              <div className="flex flex-wrap items-center gap-2 sm:ml-auto">
+                <button
+                  onClick={() => transform("beautify")}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg bg-amber-500 text-white hover:bg-amber-600 transition-colors"
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  Beautify
+                </button>
+                <button
+                  onClick={() => transform("minify")}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:border-amber-300 dark:hover:border-amber-700 transition-colors"
+                >
+                  <Minimize2 className="w-3.5 h-3.5" />
+                  Minify
+                </button>
+                <button
+                  onClick={() => transform("validate")}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:border-amber-300 dark:hover:border-amber-700 transition-colors"
+                >
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  Validate
+                </button>
+              </div>
             </div>
 
-            {/* Status banner */}
-            {valid === true && !error && (
-              <div className="w-full mb-4 flex items-center gap-2 p-3 rounded-xl border border-green-200 dark:border-green-900/50 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 text-sm">
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
-                <span>{t.valid_message || "Valid JSON"}</span>
-              </div>
-            )}
-            {error && (
-              <div className="w-full mb-4 flex items-start gap-2 p-3 rounded-xl border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 text-sm">
-                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                <span className="break-words">{errorLabel}</span>
+            {/* Status */}
+            {status.type !== "idle" && (
+              <div
+                className={`w-full mb-4 flex items-start gap-2 rounded-lg border px-4 py-3 text-sm ${
+                  status.type === "success"
+                    ? "border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400"
+                    : "border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400"
+                }`}
+              >
+                {status.type === "success" ? (
+                  <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" />
+                ) : (
+                  <XCircle className="w-4 h-4 mt-0.5 shrink-0" />
+                )}
+                <span className="font-medium break-words">{status.message}</span>
               </div>
             )}
 
-            {/* Input + Output panes */}
-            <div className="w-full grid md:grid-cols-2 gap-6 items-start">
-              <Card className="border-emerald-100 dark:border-emerald-900/50 shadow-sm">
+            {/* Input + Output */}
+            <div className="w-full grid lg:grid-cols-2 gap-4">
+              <Card className="w-full border-amber-100 dark:border-amber-900/50 shadow-sm">
                 <CardHeader className="flex flex-row items-center justify-between pb-3">
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <Braces className="w-5 h-5 text-emerald-500" />
-                    {t.input_label || "Input JSON"}
+                  <CardTitle className="flex items-center gap-2">
+                    <Braces className="w-5 h-5 text-amber-500" />
+                    Input
                   </CardTitle>
                   <div className="flex items-center gap-2">
                     <button
                       onClick={handleSample}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:border-amber-300 dark:hover:border-amber-700 transition-colors"
                     >
-                      {t.sample || "Sample"}
+                      <FileJson className="w-3.5 h-3.5" />
+                      Sample
                     </button>
                     <button
                       onClick={handleClear}
-                      disabled={!input}
+                      disabled={!input && !output}
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-300 dark:hover:border-red-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
-                      {t.clear || "Clear"}
+                      Clear
                     </button>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <textarea
                     value={input}
-                    onChange={(e) => {
-                      setInput(e.target.value);
-                      setError(null);
-                      setValid(null);
-                    }}
-                    placeholder={
-                      t.input_placeholder || "Paste or type your JSON here..."
-                    }
+                    onChange={(e) => setInput(e.target.value)}
                     spellCheck={false}
-                    className="w-full min-h-[320px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 font-mono text-sm leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-colors placeholder:text-muted-foreground"
+                    placeholder='{ "hello": "world" }'
+                    className="w-full min-h-[360px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 font-mono text-sm leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-colors placeholder:text-muted-foreground"
                   />
                 </CardContent>
               </Card>
 
-              <Card className="border-emerald-100 dark:border-emerald-900/50 shadow-sm">
+              <Card className="w-full border-amber-100 dark:border-amber-900/50 shadow-sm">
                 <CardHeader className="flex flex-row items-center justify-between pb-3">
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                    {t.output_label || "Result"}
+                  <CardTitle className="flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-amber-500" />
+                    Output
                   </CardTitle>
                   <div className="flex items-center gap-2">
                     <button
                       onClick={handleCopy}
                       disabled={!output}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:border-amber-300 dark:hover:border-amber-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       <Copy className="w-3.5 h-3.5" />
-                      {t.copy || "Copy"}
+                      Copy
                     </button>
                     <button
                       onClick={handleDownload}
                       disabled={!output}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:border-amber-300 dark:hover:border-amber-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       <Download className="w-3.5 h-3.5" />
-                      {t.download || "Download"}
+                      Download
                     </button>
                   </div>
                 </CardHeader>
@@ -448,24 +291,10 @@ export function JsonFormatterClient({ dict }: { dict?: any }) {
                   <textarea
                     value={output}
                     readOnly
-                    placeholder={
-                      t.output_placeholder ||
-                      "Formatted JSON will appear here..."
-                    }
                     spellCheck={false}
-                    className="w-full min-h-[320px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-muted/30 font-mono text-sm leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-colors placeholder:text-muted-foreground"
+                    placeholder="Formatted JSON will appear here..."
+                    className="w-full min-h-[360px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/60 font-mono text-sm leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-colors placeholder:text-muted-foreground"
                   />
-                  {stats && (
-                    <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                      <span>
-                        {stats.keys} {t.keys || "keys"}
-                      </span>
-                      <span>
-                        {t.depth || "depth"} {stats.depth}
-                      </span>
-                      <span>{stats.size}</span>
-                    </div>
-                  )}
                 </CardContent>
               </Card>
             </div>
@@ -473,45 +302,42 @@ export function JsonFormatterClient({ dict }: { dict?: any }) {
 
           {/* Guide, Tips, FAQ */}
           <div className="w-full max-w-5xl mx-auto mt-16 px-4 space-y-16">
+            {/* How to Use */}
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  {t.guide_title || "How it Works"}
+                  How to Use
                 </h2>
                 <p className="text-muted-foreground">
-                  {t.guide_desc ||
-                    "Clean up and validate your JSON in three simple steps."}
+                  Clean up and validate your JSON in seconds.
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
                   {
-                    title: t.step1_title || "Paste your JSON",
-                    desc:
-                      t.step1_desc ||
-                      "Type or paste any JSON into the input box — valid or messy, it's fine.",
+                    step: 1,
+                    title: "Paste Your JSON",
+                    desc: "Type or paste raw JSON into the input area. Load the sample to see how it works.",
                     icon: Braces,
                   },
                   {
-                    title: t.step2_title || "Choose an action",
-                    desc:
-                      t.step2_desc ||
-                      "Format to beautify, Minify to compress, or Validate to check for errors.",
+                    step: 2,
+                    title: "Choose an Action",
+                    desc: "Pick an indent size, then Beautify to format, Minify to compress, or Validate to check syntax.",
                     icon: ArrowRight,
                   },
                   {
-                    title: t.step3_title || "Copy or download",
-                    desc:
-                      t.step3_desc ||
-                      "Copy the result to your clipboard or download it as a .json file.",
-                    icon: Download,
+                    step: 3,
+                    title: "Copy or Download",
+                    desc: "Copy the result to your clipboard or download it as a .json file for reuse.",
+                    icon: Wand2,
                   },
-                ].map((step, idx) => (
+                ].map((step) => (
                   <div
-                    key={idx}
+                    key={step.step}
                     className="flex flex-col items-center text-center p-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm"
                   >
-                    <div className="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 flex items-center justify-center mb-4">
                       <step.icon className="w-6 h-6" />
                     </div>
                     <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
@@ -521,53 +347,43 @@ export function JsonFormatterClient({ dict }: { dict?: any }) {
               </div>
             </section>
 
-            <section className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-3xl p-8 md:p-12">
+            {/* Tips */}
+            <section className="bg-gradient-to-br from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-3xl p-8 md:p-12">
               <div className="flex flex-col md:flex-row gap-12 items-center">
                 <div className="md:w-1/3 text-center md:text-left">
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-yellow-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">
-                    {t.tips_title || "JSON Tips"}
-                  </h2>
+                  <h2 className="text-3xl font-bold mb-4">JSON Tips</h2>
                   <p className="text-muted-foreground">
-                    {t.tips_desc ||
-                      "Work with JSON more effectively with these tips."}
+                    Work with JSON like a pro.
                   </p>
                 </div>
 
                 <div className="md:w-2/3 grid sm:grid-cols-2 gap-4">
                   {[
                     {
-                      title: t.tip1_title || "Format before reviewing",
-                      desc:
-                        t.tip1_desc ||
-                        "Beautified JSON with consistent indentation is far easier to read, review, and debug than a single compressed line.",
+                      title: "Beautify for Reading",
+                      desc: "Use 2-space indentation for compact readability or 4 spaces for extra clarity when debugging deeply nested structures.",
                     },
                     {
-                      title: t.tip2_title || "Minify for production",
-                      desc:
-                        t.tip2_desc ||
-                        "Strip whitespace before sending JSON over the network or storing it to reduce payload size and improve performance.",
+                      title: "Minify for Production",
+                      desc: "Strip whitespace before shipping JSON in API responses or config bundles to reduce payload size and speed up transfers.",
                     },
                     {
-                      title: t.tip3_title || "Sort keys for clean diffs",
-                      desc:
-                        t.tip3_desc ||
-                        "Alphabetically sorting keys makes two JSON documents easier to compare and produces smaller, clearer version-control diffs.",
+                      title: "Watch Your Commas",
+                      desc: "Trailing commas and single quotes are the most common causes of invalid JSON. The validator points to the exact line and column.",
                     },
                     {
-                      title: t.tip4_title || "Watch for trailing commas",
-                      desc:
-                        t.tip4_desc ||
-                        "Unlike JavaScript objects, JSON does not allow trailing commas. The validator points you to the exact line and column when one slips in.",
+                      title: "Keys Need Quotes",
+                      desc: "Unlike JavaScript objects, every JSON key must be wrapped in double quotes. Booleans and null must be lowercase.",
                     },
                   ].map((tip, idx) => (
                     <div
                       key={idx}
                       className="bg-white dark:bg-gray-800 p-5 rounded-xl border border-white/50 shadow-sm"
                     >
-                      <h3 className="font-semibold text-emerald-600 dark:text-emerald-400 mb-2">
+                      <h3 className="font-semibold text-amber-600 dark:text-amber-400 mb-2">
                         {tip.title}
                       </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
@@ -579,20 +395,33 @@ export function JsonFormatterClient({ dict }: { dict?: any }) {
               </div>
             </section>
 
+            {/* FAQ */}
             <section className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 mb-4">
-                  <HelpCircle className="w-6 h-6" />
-                </div>
-                <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  {t.faq_title || "Frequently Asked Questions"}
-                </h2>
+                <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>
               </div>
               <Accordion type="single" collapsible className="w-full">
-                {faqItems.map((faq, idx) => (
+                {[
+                  {
+                    q: "How do I format or beautify JSON?",
+                    a: "Paste your JSON into the input area, choose an indentation size (2 spaces, 4 spaces, or Tab), and click Beautify. The tool parses your JSON and re-prints it with clean, consistent indentation so it is easy to read.",
+                  },
+                  {
+                    q: "How do I minify JSON?",
+                    a: "Click the Minify button to remove all unnecessary whitespace and line breaks. This produces the smallest valid representation of your JSON, which is ideal for reducing payload size in APIs and config files.",
+                  },
+                  {
+                    q: "What happens when my JSON is invalid?",
+                    a: "If the input cannot be parsed, the tool shows a red error message describing what went wrong. When possible, it also points to the line and column of the problem so you can locate and fix the syntax error quickly.",
+                  },
+                  {
+                    q: "Is my JSON data private and secure?",
+                    a: "Yes. All parsing, formatting, and validation happen entirely in your browser using JavaScript. Your JSON is never uploaded to any server or stored anywhere. Close the tab and your data is gone.",
+                  },
+                ].map((item, idx) => (
                   <AccordionItem key={idx} value={`item-${idx + 1}`}>
-                    <AccordionTrigger>{faq.question}</AccordionTrigger>
-                    <AccordionContent>{faq.answer}</AccordionContent>
+                    <AccordionTrigger>{item.q}</AccordionTrigger>
+                    <AccordionContent>{item.a}</AccordionContent>
                   </AccordionItem>
                 ))}
               </Accordion>

@@ -1,17 +1,17 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
-import { TextCaseConverterClient } from "@/components/client/text-case-converter-client";
+import { OgDebuggerClient } from "@/components/client/og-debugger-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
+  const dict = await getDictionary(locale);
   const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/utility/text-case-converter`;
+  const canonical = `${baseUrl}/utility/og-debugger`;
 
-  const title = "Text Case Converter - Change Text Case Online | SSDown";
-  const description =
-    "Free online text case converter. Convert text to uppercase, lowercase, title case, sentence case, camelCase, snake_case, kebab-case and more.";
+  const title = dict.page_og_debugger.meta_title;
+  const description = dict.page_og_debugger.meta_description;
 
   return {
     title,
@@ -37,37 +37,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function TextCaseConverterPage() {
+export default async function OgDebuggerPage() {
   const locale = await getLocale();
   const dict = await getDictionary(locale);
-
-  const faq = [
-    {
-      question: "What is a text case converter?",
-      answer:
-        "A text case converter is a free online tool that instantly transforms your text into different letter cases such as UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and kebab-case. Just type or paste your text and copy the result you need.",
-    },
-    {
-      question: "Is my text private and secure?",
-      answer:
-        "Yes. All conversions happen entirely in your browser using JavaScript. Your text is never uploaded to a server or stored anywhere. Close the tab and your text is gone.",
-    },
-    {
-      question: "What is the difference between camelCase, PascalCase, and snake_case?",
-      answer:
-        "camelCase joins words with the first word lowercase and each following word capitalized (myVariableName). PascalCase capitalizes every word (MyVariableName). snake_case joins words with underscores in lowercase (my_variable_name). These are commonly used naming conventions in programming.",
-    },
-    {
-      question: "Is there a character limit?",
-      answer:
-        "No. There is no limit. You can paste text of any length and every conversion updates in real-time as you type, all processed locally in your browser.",
-    },
-  ];
 
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faq.map((item) => ({
+    mainEntity: dict.page_og_debugger.faq.map((item: { question: string; answer: string }) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: {
@@ -84,45 +61,45 @@ export default async function TextCaseConverterPage() {
       { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
       { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
       { "@type": "ListItem", position: 3, name: dict.breadcrumb.utility, item: "https://ssdown.app/tools/utility" },
-      { "@type": "ListItem", position: 4, name: "Text Case Converter", item: "https://ssdown.app/utility/text-case-converter" },
+      { "@type": "ListItem", position: 4, name: dict.page_og_debugger.breadcrumb_title, item: "https://ssdown.app/utility/og-debugger" },
     ],
   };
 
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Text Case Converter",
-    url: "https://ssdown.app/utility/text-case-converter",
+    name: "Open Graph Debugger",
+    url: "https://ssdown.app/utility/og-debugger",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
     browserRequirements: "Requires JavaScript. Works in all modern browsers.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Free online text case converter tool. Fast, secure, and browser-based.",
+    description: "Free online Open Graph debugger tool. Preview and validate social share cards instantly.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Text Case Converter Online",
-    description: "Convert text between different letter cases instantly in your browser.",
+    name: "How to use Open Graph Debugger Online",
+    description: "Paste a URL to inspect its Open Graph and Twitter Card tags and preview how it looks when shared.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Enter your text",
-        text: "Type or paste your text into the input area.",
+        name: "Paste a URL",
+        text: "Enter any public page URL you want to check.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Choose a case",
-        text: "See every converted case update live as you type.",
+        name: "Analyze",
+        text: "We fetch the page using a social-crawler user agent and parse its meta tags.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Copy the result",
-        text: "Click the copy button next to the case you need.",
+        name: "Review results",
+        text: "See share previews for Facebook, X, LinkedIn, KakaoTalk, plus a full tag list and warnings.",
       },
     ],
   };
@@ -152,14 +129,14 @@ export default async function TextCaseConverterPage() {
             { label: dict.breadcrumb.tools, href: "/tools" },
             { label: dict.breadcrumb.utility, href: "/tools/utility" },
             {
-              label: "Text Case Converter",
-              href: "/utility/text-case-converter",
+              label: dict.page_og_debugger.breadcrumb_title,
+              href: "/utility/og-debugger",
               isCurrent: true,
             },
           ]}
         />
       </div>
-      <TextCaseConverterClient dict={dict} />
+      <OgDebuggerClient dict={dict} />
     </>
   );
 }
