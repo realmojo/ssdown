@@ -1,4 +1,7 @@
-import { QrCode, Calculator, ArrowRight, Type, Share2 } from "lucide-react";
+import {
+  QrCode, Calculator, ArrowRight, Type, Share2,
+  Scissors, KeyRound, Palette, CaseSensitive, Clock, Binary, ScanLine, Braces, Diff, Fingerprint, Pilcrow,
+} from "lucide-react";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
@@ -42,6 +45,17 @@ const toolMeta = [
   { href: "/utility/aspect-ratio-calculator", icon: Calculator, gradient: "from-violet-500 to-purple-500", bgLight: "bg-violet-100 dark:bg-violet-900/30", iconColor: "text-violet-500" },
   { href: "/utility/word-counter", icon: Type, gradient: "from-emerald-500 to-green-500", bgLight: "bg-emerald-100 dark:bg-emerald-900/30", iconColor: "text-emerald-600" },
   { href: "/utility/og-debugger", icon: Share2, gradient: "from-fuchsia-500 to-pink-500", bgLight: "bg-fuchsia-100 dark:bg-fuchsia-900/30", iconColor: "text-fuchsia-600" },
+  { href: "/utility/mp3-splitter", icon: Scissors, gradient: "from-rose-500 to-red-500", bgLight: "bg-rose-100 dark:bg-rose-900/30", iconColor: "text-rose-600" },
+  { href: "/utility/password-generator", icon: KeyRound, gradient: "from-slate-600 to-gray-600", bgLight: "bg-slate-100 dark:bg-slate-900/30", iconColor: "text-slate-600" },
+  { href: "/utility/color-converter", icon: Palette, gradient: "from-orange-500 to-amber-500", bgLight: "bg-orange-100 dark:bg-orange-900/30", iconColor: "text-orange-600" },
+  { href: "/utility/text-case-converter", icon: CaseSensitive, gradient: "from-teal-500 to-cyan-500", bgLight: "bg-teal-100 dark:bg-teal-900/30", iconColor: "text-teal-600" },
+  { href: "/utility/timestamp-converter", icon: Clock, gradient: "from-indigo-500 to-blue-500", bgLight: "bg-indigo-100 dark:bg-indigo-900/30", iconColor: "text-indigo-600" },
+  { href: "/utility/base64-url-encoder", icon: Binary, gradient: "from-lime-500 to-green-500", bgLight: "bg-lime-100 dark:bg-lime-900/30", iconColor: "text-lime-600" },
+  { href: "/utility/qr-code-scanner", icon: ScanLine, gradient: "from-sky-500 to-blue-500", bgLight: "bg-sky-100 dark:bg-sky-900/30", iconColor: "text-sky-600" },
+  { href: "/utility/json-formatter", icon: Braces, gradient: "from-yellow-500 to-amber-500", bgLight: "bg-yellow-100 dark:bg-yellow-900/30", iconColor: "text-yellow-600" },
+  { href: "/utility/diff-checker", icon: Diff, gradient: "from-purple-500 to-violet-500", bgLight: "bg-purple-100 dark:bg-purple-900/30", iconColor: "text-purple-600" },
+  { href: "/utility/uuid-generator", icon: Fingerprint, gradient: "from-emerald-500 to-teal-500", bgLight: "bg-emerald-100 dark:bg-emerald-900/30", iconColor: "text-emerald-600" },
+  { href: "/utility/lorem-ipsum-generator", icon: Pilcrow, gradient: "from-fuchsia-500 to-purple-500", bgLight: "bg-fuchsia-100 dark:bg-fuchsia-900/30", iconColor: "text-fuchsia-600" },
 ];
 
 export default async function UtilityToolsPage() {

@@ -16,6 +16,7 @@ import {
   AlignLeft,
   // Utility
   QrCode, Calculator, Share2,
+  KeyRound, CaseSensitive, Clock, Binary, ScanLine, Braces, Diff, Fingerprint, Pilcrow,
   // File
   FileJson, FileCode, FileSpreadsheet, Split, FileType,
 } from "lucide-react";
@@ -121,6 +122,17 @@ const categoryConfig: Record<string, { tools: ToolItem[]; label: string; dictKey
       { href: "/utility/aspect-ratio-calculator", icon: Calculator, key: "aspect_ratio_calculator" },
       { href: "/utility/word-counter", icon: Type, key: "word_counter" },
       { href: "/utility/og-debugger", icon: Share2, key: "og_debugger" },
+      { href: "/utility/mp3-splitter", icon: Scissors, key: "mp3_splitter" },
+      { href: "/utility/password-generator", icon: KeyRound, key: "password_generator" },
+      { href: "/utility/color-converter", icon: Palette, key: "color_converter" },
+      { href: "/utility/text-case-converter", icon: CaseSensitive, key: "text_case_converter" },
+      { href: "/utility/timestamp-converter", icon: Clock, key: "timestamp_converter" },
+      { href: "/utility/base64-url-encoder", icon: Binary, key: "base64_url_encoder" },
+      { href: "/utility/qr-code-scanner", icon: ScanLine, key: "qr_code_scanner" },
+      { href: "/utility/json-formatter", icon: Braces, key: "json_formatter" },
+      { href: "/utility/diff-checker", icon: Diff, key: "diff_checker" },
+      { href: "/utility/uuid-generator", icon: Fingerprint, key: "uuid_generator" },
+      { href: "/utility/lorem-ipsum-generator", icon: Pilcrow, key: "lorem_ipsum_generator" },
     ],
   },
   file: {

@@ -1442,6 +1442,50 @@
       {
         "title": "Open Graph Debugger",
         "description": "Preview and validate how your link looks when shared on social media."
+      },
+      {
+        "title": "MP3 Splitter",
+        "description": "Split an MP3 file into multiple parts right in your browser."
+      },
+      {
+        "title": "Password Generator",
+        "description": "Instantly generate strong, random, secure passwords in your browser."
+      },
+      {
+        "title": "Color Converter",
+        "description": "Convert colors between HEX, RGB, and HSL formats in real time."
+      },
+      {
+        "title": "Text Case Converter",
+        "description": "Convert text between uppercase, lowercase, title case, and more."
+      },
+      {
+        "title": "Timestamp Converter",
+        "description": "Convert between Unix timestamps and dates with a live clock."
+      },
+      {
+        "title": "Base64 / URL Encoder",
+        "description": "Encode and decode Base64 and URL text instantly and securely."
+      },
+      {
+        "title": "QR Code Scanner",
+        "description": "Scan and decode QR codes from an image or your camera."
+      },
+      {
+        "title": "JSON Formatter",
+        "description": "Beautify, minify, and validate JSON with error highlighting."
+      },
+      {
+        "title": "Diff Checker",
+        "description": "Compare two texts and highlight added and removed lines."
+      },
+      {
+        "title": "UUID Generator",
+        "description": "Generate UUID v4 and v7 identifiers in bulk."
+      },
+      {
+        "title": "Lorem Ipsum Generator",
+        "description": "Generate placeholder paragraphs, sentences, and words."
       }
     ]
   },
