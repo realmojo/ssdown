@@ -4596,5 +4596,73 @@
     "faq_4_a": "Some videos can't be downloaded — including age-restricted, members-only, region-locked, private, or 'made for kids' videos. YouTube may also temporarily rate-limit automated requests, in which case trying again a little later usually works.",
     "faq_5_q": "Is it free, and do you store my videos?",
     "faq_5_a": "Yes, SSDown is completely free with no signup. We do not store your videos — files are streamed directly from YouTube's servers to your device."
+  },
+  "page_silence_remover": {
+    "meta_title": "Silence Remover - Remove Silence from Audio | SSDown",
+    "meta_description": "Automatically detect and remove silence from your audio files, right in your browser. Free, fast, and private.",
+    "breadcrumb_title": "Silence Remover",
+    "faq": [
+      {
+        "question": "How does silence detection work?",
+        "answer": "FFmpeg analyzes your audio's volume level against the sensitivity threshold you choose and removes any gaps that stay quieter than that threshold for longer than your minimum silence length."
+      },
+      {
+        "question": "Will it accidentally cut off quiet speech?",
+        "answer": "It can if the threshold is too aggressive. If quiet words get clipped, raise the sensitivity value (make it less negative, e.g. from -35 to -30) and use Try Again to re-process with the new setting."
+      },
+      {
+        "question": "What audio formats are supported?",
+        "answer": "MP3, WAV, OGG, and M4A are all supported — the same formats as our Audio Trimmer. The processed result is always exported as a high-quality MP3."
+      },
+      {
+        "question": "Is my file uploaded to a server?",
+        "answer": "No. All processing happens locally in your browser using WebAssembly (FFmpeg compiled to WASM). Your audio never leaves your device."
+      },
+      {
+        "question": "Can I re-process with different settings?",
+        "answer": "Yes. After processing, use the Try Again button to tweak the sensitivity and minimum silence length and re-run on the same file — no need to re-upload."
+      }
+    ]
+  },
+  "silence_remover": {
+    "title": "Silence Remover",
+    "subtitle": "Automatically detect and remove silent gaps from your audio, right in your browser. Fast, free, and private.",
+    "drop_zone": "Drag & drop your audio file here",
+    "supported": "Supported: MP3, WAV, OGG, M4A",
+    "video_note": "Audio files only for now — video support may come later.",
+    "sensitivity_label": "Sensitivity",
+    "sensitivity_aggressive": "Aggressive",
+    "sensitivity_hint": "Lower dB cuts more; higher dB cuts only true silence",
+    "sensitivity_conservative": "Conservative",
+    "min_silence_label": "Minimum Silence Length",
+    "min_silence_hint": "Only gaps at least this long will be removed.",
+    "processing": "Processing...",
+    "loading_engine": "Loading engine...",
+    "remove_btn": "Remove Silence",
+    "result_title": "Silence Removed!",
+    "removed_prefix": "Removed",
+    "removed_suffix": "silence",
+    "download_btn": "Download Audio",
+    "try_again_btn": "Try Again",
+    "reset_btn": "Remove Another File",
+    "guide_title": "How it Works",
+    "guide_desc": "Remove silent gaps from your audio in 3 simple steps.",
+    "step1_title": "Upload your audio file",
+    "step1_desc": "Drag and drop or select the MP3, WAV, OGG, or M4A file you want to clean up.",
+    "step2_title": "Adjust sensitivity and minimum silence length",
+    "step2_desc": "Choose how aggressively silence is detected and how long a gap must be before it gets cut.",
+    "step3_title": "Remove silence and download",
+    "step3_desc": "Process the file, preview the result, and download your trimmed audio instantly.",
+    "tips_title": "Silence Removal Tips",
+    "tips_desc": "Get the cleanest results from your audio.",
+    "tip1_title": "Podcasts & Interviews",
+    "tip1_desc": "Spoken-word recordings usually work great with the default settings — start there before tweaking anything.",
+    "tip2_title": "Music & Ambient Audio",
+    "tip2_desc": "Music or ambient recordings may need a lower (more negative) threshold so quiet passages aren't cut by mistake.",
+    "tip3_title": "Always Preview",
+    "tip3_desc": "Listen to the processed result before downloading, and use Try Again to fine-tune the settings.",
+    "tip4_title": "Shorter Minimum = More Cuts",
+    "tip4_desc": "A shorter minimum silence length catches more small pauses, but too short can make speech feel choppy.",
+    "faq_title": "Frequently Asked Questions"
   }
 }
