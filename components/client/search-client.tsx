@@ -30,10 +30,10 @@ const CATEGORY_OPTIONS = [
 const PAGE_SIZE = 24;
 
 function buildAppHref(app: SoftwareApplication): string {
+  if (app.core.slug) return `/software${app.core.slug}`;
   const platform =
     app.core.platform.toLowerCase() === "ios" ? "iphone" : app.core.platform.toLowerCase();
-  const id = app.core.id.toLowerCase();
-  return `/software/${platform}/${id}`;
+  return `/software/${platform}/${app.core.id.toLowerCase()}`;
 }
 
 function RatingStars({ rating }: { rating: number }) {

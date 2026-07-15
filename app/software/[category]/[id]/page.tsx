@@ -39,7 +39,7 @@ export async function generateMetadata({
   if (!rawApp) return {};
   const locale = await getLocale();
   const app = localizeApp(rawApp, locale);
-  const canonical = `https://ssdown.app/software/${category}/${id}`;
+  const canonical = `https://ssdown.app/software${app.core.slug || `/${category}/${id}`}`;
   const platformLabel =
     app.core.platform === "iOS" ? "iPhone" : app.core.platform;
   const licenseLabel =
@@ -138,7 +138,7 @@ export default async function AppDetailPage({
   const category =
     getCategoryBySlug(categorySlug) ??
     getCategoryByMain(app.core.category.main);
-  const canonicalUrl = `https://ssdown.app/software/${category?.slug ?? categorySlug}/${id}`;
+  const canonicalUrl = `https://ssdown.app/software${app.core.slug || `/${category?.slug ?? categorySlug}/${id}`}`;
 
   const softwareSchema = {
     "@context": "https://schema.org",
@@ -673,7 +673,7 @@ export default async function AppDetailPage({
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
               {alternatives.map((alt) => {
                 const altCat = getCategoryByMain(alt.core.category.main);
-                const altHref = `/software/${altCat?.slug ?? "utilities"}/${alt.core.id}`;
+                const altHref = `/software${alt.core.slug || `/${altCat?.slug ?? "utilities"}/${alt.core.id}`}`;
                 return (
                   <a
                     key={alt.core.id}

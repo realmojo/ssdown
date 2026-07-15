@@ -37,13 +37,13 @@ export async function GET() {
   ];
 
   const BATCH = 1000;
-  const allApps: { id: string; category_main: string; last_updated_date: string }[] = [];
+  const allApps: { id: string; slug: string; category_main: string; last_updated_date: string }[] = [];
   let from = 0;
 
   while (true) {
     const { data, error } = await supabase
       .from("software_applications")
-      .select("id, category_main, last_updated_date")
+      .select("id, slug, category_main, last_updated_date")
       .not("ai_review_html", "is", null)
       .neq("ai_review_html", "")
       .order("last_updated_date", { ascending: false })
@@ -60,9 +60,10 @@ export async function GET() {
   const appEntries: Entry[] = (apps ?? [])
     .map((app) => {
       const cat = getCategoryByMain(app.category_main ?? "");
-      if (!cat) return null;
+      const path = app.slug || (cat ? `/${cat.slug}/${app.id}` : null);
+      if (!path) return null;
       return {
-        url: `${BASE}/software/${cat.slug}/${app.id}`,
+        url: `${BASE}/software${path}`,
         lastmod: app.last_updated_date
           ? new Date(app.last_updated_date).toISOString().split("T")[0]
           : today,

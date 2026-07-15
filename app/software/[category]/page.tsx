@@ -169,14 +169,12 @@ function RatingStars({ rating }: { rating: number }) {
 }
 
 function buildAppHref(app: SoftwareApplication): string {
+  if (app.core.slug) return `/software${app.core.slug}`;
   const platform =
     app.core.platform.toLowerCase() === "ios"
       ? "iphone"
       : app.core.platform.toLowerCase();
-  const id = app.core.id.toLowerCase();
-  const prefixPattern = new RegExp(`^${platform}-?`);
-  const slug = id.replace(prefixPattern, "") || id;
-  return `/software/${platform}/${slug}`;
+  return `/software/${platform}/${app.core.id.toLowerCase()}`;
 }
 
 function AppGrid({ apps }: { apps: SoftwareApplication[] }) {
@@ -276,7 +274,7 @@ function CategoryJsonLd({
         "@type": "ListItem",
         position: i + 1,
         name: app.core.name,
-        url: `${SITE_URL}/software/${app.core.platform.toLowerCase() === "ios" ? "iphone" : app.core.platform.toLowerCase()}/${app.core.id.toLowerCase()}`,
+        url: `${SITE_URL}/software${app.core.slug || `/${app.core.platform.toLowerCase() === "ios" ? "iphone" : app.core.platform.toLowerCase()}/${app.core.id.toLowerCase()}`}`,
         ...(app.content.iconUrl && { image: app.content.iconUrl }),
       })),
     },
