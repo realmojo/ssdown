@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as cheerio from "cheerio";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 // 사설/루프백 대역 차단 (SSRF 방지)
 function isPrivateHostname(hostname: string): boolean {
