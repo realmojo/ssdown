@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { HomeClient } from "@/components/client/home-client";
+import { buildAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "SSDown - Free Online Tools for Everyday Tasks",
@@ -38,9 +39,7 @@ export const metadata: Metadata = {
       "Free online tools for image editing, PDF management, video conversion, and file transformation.",
     images: ["https://ssdown.app/logo.png"],
   },
-  alternates: {
-    canonical: "https://ssdown.app",
-  },
+  alternates: buildAlternates(""),
 };
 
 export default function Home() {

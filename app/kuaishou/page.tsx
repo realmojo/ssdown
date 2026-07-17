@@ -2,6 +2,7 @@ import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
 import { KuaishouClient } from "@/components/client/kuaishou-client";
 import { Metadata } from "next";
+import { languagesForUrl } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -63,10 +64,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     alternates: {
       canonical,
-      languages: {
-        "en-US": `${baseUrl}/kuaishou`,
-        "ko-KR": `${baseUrl}/kuaishou`,
-      },
+      languages: languagesForUrl(canonical),
     },
   };
 }

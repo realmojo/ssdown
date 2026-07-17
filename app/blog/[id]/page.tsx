@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { PostContent } from "@/components/PostContent";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Calendar, Clock, User } from "lucide-react";
+import { languagesForUrl } from "@/lib/seo";
 import Adsense from "@/components/Adsense";
 
 export async function generateMetadata({
@@ -61,11 +62,7 @@ export async function generateMetadata({
     },
     alternates: {
       canonical,
-      languages: {
-        "en": canonical,
-        "ko": canonical,
-        "x-default": canonical,
-      },
+      languages: languagesForUrl(canonical),
     },
   };
 }

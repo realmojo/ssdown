@@ -2,6 +2,7 @@ import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
 import { DouyinClient } from "@/components/client/douyin-client";
 import { Metadata } from "next";
+import { languagesForUrl } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -62,10 +63,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     alternates: {
       canonical,
-      languages: {
-        "en-US": `${baseUrl}/douyin`,
-        "ko-KR": `${baseUrl}/douyin`,
-      },
+      languages: languagesForUrl(canonical),
     },
   };
 }

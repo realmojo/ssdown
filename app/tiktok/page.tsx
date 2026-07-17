@@ -3,6 +3,7 @@ import { getLocale } from "@/lib/get-locale";
 import { TikTokClient } from "@/components/client/tiktok-client";
 
 import { Metadata } from "next";
+import { languagesForUrl } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -47,6 +48,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     alternates: {
       canonical: canonical,
+      languages: languagesForUrl(canonical),
     },
   };
 }

@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { CATEGORIES } from "@/lib/categories";
+import { buildAlternates } from "@/lib/seo";
 
 export const revalidate = 3600;
 
@@ -28,7 +29,7 @@ export const metadata = {
     "Browse and download free software by category — games, browsers, security, productivity, utilities, and more for Windows, Mac, Android, and iOS.",
   keywords: "free software download, software categories, best free apps, windows software, mac software, android apps",
   robots: { index: true, follow: true },
-  alternates: { canonical: "https://ssdown.app/software" },
+  alternates: buildAlternates("/software"),
   openGraph: {
     title: "Free Software Downloads by Category | SSDown",
     description: "Browse and download free software by category — games, browsers, security, productivity, utilities, and more.",

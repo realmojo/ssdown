@@ -21,6 +21,7 @@ import type { LucideIcon } from "lucide-react";
 import { getCategoryBySlug, CATEGORIES } from "@/lib/categories";
 import { getAppsByCategory, getAppsByPlatform, localizeApp } from "@/lib/app-utils";
 import { getLocale } from "@/lib/get-locale";
+import { languagesForUrl } from "@/lib/seo";
 import type { SoftwareApplication } from "@/types/app";
 
 const PLATFORMS = ["windows", "mac", "android", "iphone"] as const;
@@ -104,6 +105,7 @@ export async function generateMetadata({
       robots: { index: true, follow: true },
       alternates: {
         canonical: page > 1 ? `${canonical}?page=${page}` : canonical,
+        languages: languagesForUrl(page > 1 ? `${canonical}?page=${page}` : canonical),
         ...(page > 1 && { prev: page === 2 ? canonical : `${canonical}?page=${page - 1}` }),
       },
       openGraph: { title, description, url: canonical, siteName: SITE_NAME, type: "website", images: [OG_IMAGE] },
@@ -125,6 +127,7 @@ export async function generateMetadata({
     robots: { index: true, follow: true },
     alternates: {
       canonical: page > 1 ? `${canonical}?page=${page}` : canonical,
+      languages: languagesForUrl(page > 1 ? `${canonical}?page=${page}` : canonical),
       ...(page > 1 && { prev: page === 2 ? canonical : `${canonical}?page=${page - 1}` }),
     },
     openGraph: { title, description, url: canonical, siteName: SITE_NAME, type: "website", images: [OG_IMAGE] },

@@ -18,6 +18,7 @@ import {
 import { getAppById, getAlternatives, localizeApp } from "@/lib/app-utils";
 import { getLocale } from "@/lib/get-locale";
 import { getCategoryByMain, getCategoryBySlug } from "@/lib/categories";
+import { buildAlternates } from "@/lib/seo";
 import Adsense from "@/components/Adsense";
 
 const PLATFORM_AD_SLOT: Record<string, string> = {
@@ -39,7 +40,7 @@ export async function generateMetadata({
   if (!rawApp) return {};
   const locale = await getLocale();
   const app = localizeApp(rawApp, locale);
-  const canonical = `https://ssdown.app/software${app.core.slug || `/${category}/${id}`}`;
+  const canonicalPath = `/software${app.core.slug || `/${category}/${id}`}`;
   const platformLabel =
     app.core.platform === "iOS" ? "iPhone" : app.core.platform;
   const licenseLabel =
@@ -69,11 +70,11 @@ export async function generateMetadata({
     description: defaultDesc,
     keywords,
     robots: { index: true, follow: true },
-    alternates: { canonical },
+    alternates: buildAlternates(canonicalPath),
     openGraph: {
       title: defaultTitle,
       description: defaultDesc,
-      url: canonical,
+      url: `https://ssdown.app${canonicalPath}`,
       siteName: "SSDown",
       type: "website",
       images: app.content.iconUrl

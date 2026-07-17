@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
+import { buildAlternates } from "@/lib/seo";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CookieConsent } from "@/components/cookie-consent";
 import { Toaster } from "sonner";
@@ -90,17 +91,11 @@ export async function generateMetadata(): Promise<Metadata> {
       shortcut: "/favicon.ico",
       apple: "/apple-icon.png",
     },
-    alternates: {
-      canonical: baseUrl,
-      languages: {
-        en: baseUrl,
-        ko: baseUrl,
-        "x-default": baseUrl,
-      },
+    alternates: buildAlternates("", {
       types: {
         "application/rss+xml": `${baseUrl}/rss.xml`,
       },
-    },
+    }),
     other: {
       "application-name": "SSDown",
       "mobile-web-app-capable": "yes",

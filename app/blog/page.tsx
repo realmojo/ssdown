@@ -5,6 +5,7 @@ import { BookOpen } from "lucide-react";
 import { Post } from "@/lib/blog-utils";
 import { Key } from "react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { languagesForUrl } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     alternates: {
       canonical,
+      languages: languagesForUrl(canonical),
     },
   };
 }
