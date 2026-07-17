@@ -1,13 +1,14 @@
 "use client";
 
 import { Globe } from "lucide-react";
+import { usePathname } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LOCALE_COOKIE_NAME, type Locale } from "@/lib/i18n-utils";
+import { type Locale } from "@/lib/i18n-utils";
 
 interface LanguageSwitcherProps {
   locale: Locale;
@@ -18,18 +19,20 @@ const LANGUAGES: { value: Locale; label: string; flag: string }[] = [
   { value: "kr", label: "한국어", flag: "KR" },
 ];
 
-function setLocaleCookie(locale: Locale) {
-  const maxAge = 60 * 60 * 24 * 365; // 1 year
-  document.cookie = `${LOCALE_COOKIE_NAME}=${locale};path=/;max-age=${maxAge};samesite=lax`;
+/** Rewrite the current path to the target locale's URL (Korean under /kr). */
+function localeHref(pathname: string, target: Locale): string {
+  const stripped = pathname.replace(/^\/kr(?=\/|$)/, "") || "/";
+  if (target === "kr") return stripped === "/" ? "/kr" : `/kr${stripped}`;
+  return stripped;
 }
 
 export function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
+  const pathname = usePathname();
   const currentLang = LANGUAGES.find((l) => l.value === locale) ?? LANGUAGES[0];
 
   const handleSelect = (newLocale: Locale) => {
     if (newLocale === locale) return;
-    setLocaleCookie(newLocale);
-    window.location.reload();
+    window.location.assign(localeHref(pathname, newLocale));
   };
 
   return (

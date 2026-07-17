@@ -5,13 +5,15 @@ import { BookOpen } from "lucide-react";
 import { Post } from "@/lib/blog-utils";
 import { Key } from "react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { languagesForUrl } from "@/lib/seo";
+import { buildAlternates } from "@/lib/seo";
+import { getLocale } from "@/lib/get-locale";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/blog`;
+  const locale = await getLocale();
 
   const title = "Blog & Tutorials";
   const description =
@@ -42,10 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       images: ["https://ssdown.app/logo.png"],
     },
-    alternates: {
-      canonical,
-      languages: languagesForUrl(canonical),
-    },
+    alternates: buildAlternates("/blog", locale),
   };
 }
 

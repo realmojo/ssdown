@@ -92,6 +92,8 @@ export async function generateMetadata({
   const { category: slug } = await params;
   const { page: pageParam } = await searchParams;
   const page = Math.max(1, parseInt(pageParam ?? "1", 10));
+  const locale = await getLocale();
+  const krPrefix = locale === "kr" ? "/kr" : "";
 
   if (PLATFORMS.includes(slug as PlatformSlug)) {
     const label = PLATFORM_LABELS[slug as PlatformSlug];
@@ -104,9 +106,9 @@ export async function generateMetadata({
       keywords: `${label} software download, free ${label} apps, best ${label} programs, ${label} applications`,
       robots: { index: true, follow: true },
       alternates: {
-        canonical: page > 1 ? `${canonical}?page=${page}` : canonical,
+        canonical: page > 1 ? `${SITE_URL}${krPrefix}/software/${slug}?page=${page}` : `${SITE_URL}${krPrefix}/software/${slug}`,
         languages: languagesForUrl(page > 1 ? `${canonical}?page=${page}` : canonical),
-        ...(page > 1 && { prev: page === 2 ? canonical : `${canonical}?page=${page - 1}` }),
+        ...(page > 1 && { prev: page === 2 ? `${SITE_URL}${krPrefix}/software/${slug}` : `${SITE_URL}${krPrefix}/software/${slug}?page=${page - 1}` }),
       },
       openGraph: { title, description, url: canonical, siteName: SITE_NAME, type: "website", images: [OG_IMAGE] },
       twitter: { card: "summary_large_image", title, description, images: [OG_IMAGE.url] },
@@ -126,9 +128,9 @@ export async function generateMetadata({
     keywords: `${category.nameEn} software download, free ${category.nameEn} apps, best ${category.nameEn} programs`,
     robots: { index: true, follow: true },
     alternates: {
-      canonical: page > 1 ? `${canonical}?page=${page}` : canonical,
+      canonical: page > 1 ? `${SITE_URL}${krPrefix}/software/${slug}?page=${page}` : `${SITE_URL}${krPrefix}/software/${slug}`,
       languages: languagesForUrl(page > 1 ? `${canonical}?page=${page}` : canonical),
-      ...(page > 1 && { prev: page === 2 ? canonical : `${canonical}?page=${page - 1}` }),
+      ...(page > 1 && { prev: page === 2 ? `${SITE_URL}${krPrefix}/software/${slug}` : `${SITE_URL}${krPrefix}/software/${slug}?page=${page - 1}` }),
     },
     openGraph: { title, description, url: canonical, siteName: SITE_NAME, type: "website", images: [OG_IMAGE] },
     twitter: { card: "summary_large_image", title, description, images: [OG_IMAGE.url] },

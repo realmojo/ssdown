@@ -91,7 +91,7 @@ export async function generateMetadata(): Promise<Metadata> {
       shortcut: "/favicon.ico",
       apple: "/apple-icon.png",
     },
-    alternates: buildAlternates("", {
+    alternates: buildAlternates("", locale, {
       types: {
         "application/rss+xml": `${baseUrl}/rss.xml`,
       },

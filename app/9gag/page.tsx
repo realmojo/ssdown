@@ -3,7 +3,7 @@ import { getLocale } from "@/lib/get-locale";
 import { NineGagClient } from "@/components/client/ninegag-client";
 
 import { Metadata } from "next";
-import { languagesForUrl } from "@/lib/seo";
+import { buildAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -44,10 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: ninegagDict?.subtitle || "9GAG video content tool.",
       images: ["https://ssdown.app/ssdown-9gag-og.png"],
     },
-    alternates: {
-      canonical: canonical,
-      languages: languagesForUrl(canonical),
-    },
+    alternates: buildAlternates(new URL(canonical).pathname, locale),
   };
 }
 

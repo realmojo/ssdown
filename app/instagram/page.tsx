@@ -2,7 +2,7 @@ import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
 import { InstagramClient } from "@/components/client/instagram-client";
 import { Metadata } from "next";
-import { languagesForUrl } from "@/lib/seo";
+import { buildAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -45,10 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
         dict.instagram?.subtitle || "Instagram content management tool.",
       images: ["https://ssdown.app/ssdown-instagram-og.png"],
     },
-    alternates: {
-      canonical: canonical,
-      languages: languagesForUrl(canonical),
-    },
+    alternates: buildAlternates(new URL(canonical).pathname, locale),
   };
 }
 

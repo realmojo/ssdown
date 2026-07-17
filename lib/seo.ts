@@ -1,20 +1,36 @@
 import type { Metadata } from "next";
+import type { Locale } from "@/lib/i18n-utils";
 
 export const SITE_URL = "https://ssdown.app";
 
 /**
- * Whether Korean pages under /kr/* exist yet. Flip to `true` once the
- * localized URL tree is live so that the `ko` hreflang starts pointing at
- * real Korean URLs instead of 404s.
+ * Whether Korean pages under /kr/* are served (via the middleware rewrite).
+ * When true, the `ko` hreflang is emitted and Korean pages self-canonicalize
+ * to their /kr URL.
  */
-const KR_PAGES_LIVE = false;
+export const KR_PAGES_LIVE = true;
+
+function enPath(path: string): string {
+  return path === "/" ? "" : path;
+}
+
+/** Absolute English + Korean URLs for a given root-relative path. */
+export function localizedUrls(path: string): { en: string; ko: string } {
+  const p = enPath(path);
+  return { en: `${SITE_URL}${p}`, ko: `${SITE_URL}/kr${p}` };
+}
 
 /**
- * hreflang map for an English URL. English lives at the given URL; Korean
- * (when live) lives at the same path prefixed with `/kr`.
- *
- * @param enUrl Absolute English URL (e.g. https://ssdown.app/software/mac/foo).
+ * Add the `/kr` prefix to a root-relative path when the locale is Korean.
+ * Use for building locale-aware internal links.
  */
+export function localizedPath(path: string, locale: Locale): string {
+  if (locale !== "kr") return path;
+  const p = enPath(path);
+  return `/kr${p}` || "/kr";
+}
+
+/** hreflang map: English at the root URL, Korean under /kr (when live). */
 export function languagesForUrl(enUrl: string): Record<string, string> {
   const languages: Record<string, string> = {
     en: enUrl,
@@ -28,21 +44,30 @@ export function languagesForUrl(enUrl: string): Record<string, string> {
 }
 
 /**
- * Build the `alternates` block for a page: a self-referencing canonical plus
- * hreflang annotations.
+ * Build the `alternates` block for a page: a locale-aware self-referencing
+ * canonical plus hreflang annotations. English pages canonicalize to the root
+ * URL; Korean pages canonicalize to their /kr URL.
  *
- * @param path Pathname beginning with "/" (use "" for the homepage).
- * @param extra Additional alternates to merge (e.g. RSS `types`).
+ * @param path   Pathname beginning with "/" (use "" for the homepage).
+ * @param locale Current request locale.
+ * @param extra  Additional alternates to merge (e.g. RSS `types`).
  */
 export function buildAlternates(
   path: string,
+  locale: Locale = "en",
   extra?: Metadata["alternates"],
 ): Metadata["alternates"] {
-  const normalized = path === "/" ? "" : path;
-  const enUrl = `${SITE_URL}${normalized}`;
+  const { en, ko } = localizedUrls(path);
+  const languages: Record<string, string> = {
+    en,
+    "x-default": en,
+  };
+  if (KR_PAGES_LIVE) {
+    languages.ko = ko;
+  }
   return {
-    canonical: enUrl,
-    languages: languagesForUrl(enUrl),
+    canonical: locale === "kr" ? ko : en,
+    languages,
     ...extra,
   };
 }

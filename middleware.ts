@@ -2,10 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { lambdaProxy } from "./lambda/index";
 import {
-  LOCALE_COOKIE_NAME,
   LOCALE_HEADER_NAME,
-  detectLocaleFromHeaders,
-  getLocaleFromCookieString,
   type Locale,
 } from "@/lib/i18n-utils";
 
@@ -17,40 +14,29 @@ export async function middleware(request: NextRequest) {
       return lambdaResponse;
     }
 
-    // --- Locale detection ---
-    const cookieHeader = request.headers.get("cookie");
-    const cookieLocale = getLocaleFromCookieString(cookieHeader);
-    const needsCookie = !cookieLocale;
+    // --- URL-based locale ---
+    // English lives at the root; Korean lives under /kr/*. The prefix (not a
+    // cookie or geo header) decides the locale so each language has a stable,
+    // crawlable URL. /kr/* is rewritten onto the underlying route with the
+    // locale forwarded to server components via a request header.
+    const { pathname } = request.nextUrl;
+    const isKr = pathname === "/kr" || pathname.startsWith("/kr/");
+    const locale: Locale = isKr ? "kr" : "en";
 
-    const locale: Locale = cookieLocale ?? detectLocaleFromHeaders(request.headers);
-
-    // Forward locale to server components via request header
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set(LOCALE_HEADER_NAME, locale);
 
-    const response = NextResponse.next({
-      request: { headers: requestHeaders },
-    });
-
-    // Set cookie if not already present (1 year expiry)
-    if (needsCookie) {
-      response.cookies.set(LOCALE_COOKIE_NAME, locale, {
-        path: "/",
-        maxAge: 60 * 60 * 24 * 365,
-        sameSite: "lax",
-        secure: process.env.NODE_ENV === "production",
+    if (isKr) {
+      const url = request.nextUrl.clone();
+      url.pathname = pathname.slice(3) || "/";
+      return NextResponse.rewrite(url, {
+        request: { headers: requestHeaders },
       });
     }
 
-    // Help CDN vary caching by cookie, but skip for search engine bots so
-    // their cached HTML is not fragmented by locale-cookie state.
-    const userAgent = request.headers.get("user-agent") ?? "";
-    const isSearchBot = /Googlebot|Bingbot|Naverbot|Yeti|DuckDuckBot|Slurp|facebookexternalhit|Twitterbot|LinkedInBot/i.test(userAgent);
-    if (!isSearchBot) {
-      response.headers.set("Vary", "Cookie");
-    }
-
-    return response;
+    return NextResponse.next({
+      request: { headers: requestHeaders },
+    });
   } catch (error) {
     console.error("Middleware error:", error);
     return NextResponse.next();

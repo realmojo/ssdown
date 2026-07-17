@@ -115,13 +115,26 @@ const STATIC: Entry[] = [
 ];
 
 function buildXml(entries: Entry[]): string {
+  // Emit each URL for English (root) and Korean (/kr) with xhtml:link hreflang
+  // alternates cross-referencing both.
   const rows = entries
-    .map(
-      (e) =>
-        `  <url>\n    <loc>${e.url}</loc>\n    <lastmod>${e.lastmod}</lastmod>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority.toFixed(1)}</priority>\n  </url>`
-    )
+    .map((e) => {
+      const path = e.url === BASE ? "" : e.url.slice(BASE.length);
+      const en = `${BASE}${path}`;
+      const ko = `${BASE}/kr${path}`;
+      const alts =
+        `    <xhtml:link rel="alternate" hreflang="en" href="${en}"/>\n` +
+        `    <xhtml:link rel="alternate" hreflang="ko" href="${ko}"/>\n` +
+        `    <xhtml:link rel="alternate" hreflang="x-default" href="${en}"/>\n`;
+      return [en, ko]
+        .map(
+          (loc) =>
+            `  <url>\n    <loc>${loc}</loc>\n${alts}    <lastmod>${e.lastmod}</lastmod>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority.toFixed(1)}</priority>\n  </url>`
+        )
+        .join("\n");
+    })
     .join("\n");
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${rows}\n</urlset>`;
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${rows}\n</urlset>`;
 }
 
 export async function GET() {

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { PostContent } from "@/components/PostContent";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Calendar, Clock, User } from "lucide-react";
-import { languagesForUrl } from "@/lib/seo";
+import { buildAlternates } from "@/lib/seo";
 import Adsense from "@/components/Adsense";
 
 export async function generateMetadata({
@@ -24,6 +24,8 @@ export async function generateMetadata({
 
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/blog/${id}`;
+  const { getLocale } = await import("@/lib/get-locale");
+  const locale = await getLocale();
 
   const title = String(post.title);
   const excerpt = String(post.excerpt);
@@ -60,10 +62,7 @@ export async function generateMetadata({
         post.image.startsWith("http") ? post.image : `${baseUrl}${post.image}`,
       ],
     },
-    alternates: {
-      canonical,
-      languages: languagesForUrl(canonical),
-    },
+    alternates: buildAlternates(`/blog/${id}`, locale),
   };
 }
 

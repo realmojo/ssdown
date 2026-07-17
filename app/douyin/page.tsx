@@ -2,7 +2,7 @@ import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
 import { DouyinClient } from "@/components/client/douyin-client";
 import { Metadata } from "next";
-import { languagesForUrl } from "@/lib/seo";
+import { buildAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -61,10 +61,7 @@ export async function generateMetadata(): Promise<Metadata> {
         "Download Douyin videos without watermark. Save MP4 and MP3 instantly.",
       images: ["https://ssdown.app/ssdown-douyin-og.png"],
     },
-    alternates: {
-      canonical,
-      languages: languagesForUrl(canonical),
-    },
+    alternates: buildAlternates(new URL(canonical).pathname, locale),
   };
 }
 

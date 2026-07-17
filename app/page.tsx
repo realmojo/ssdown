@@ -1,8 +1,11 @@
 import { Metadata } from "next";
 import { HomeClient } from "@/components/client/home-client";
 import { buildAlternates } from "@/lib/seo";
+import { getLocale } from "@/lib/get-locale";
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  return {
   title: "SSDown - Free Online Tools for Everyday Tasks",
   description:
     "Free online tools for image editing, PDF management, video conversion, and file transformation. Fast, secure, and browser-based.",
@@ -39,8 +42,9 @@ export const metadata: Metadata = {
       "Free online tools for image editing, PDF management, video conversion, and file transformation.",
     images: ["https://ssdown.app/logo.png"],
   },
-  alternates: buildAlternates(""),
-};
+  alternates: buildAlternates("", locale),
+  };
+}
 
 export default function Home() {
   const websiteJsonLd = {

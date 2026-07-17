@@ -5,31 +5,44 @@ export const revalidate = 3600;
 
 const BASE = "https://ssdown.app";
 
-type Entry = { url: string; lastmod: string; changefreq: string; priority: number };
+type Entry = { path: string; lastmod: string; changefreq: string; priority: number };
 
 function buildXml(entries: Entry[]): string {
+  // Each path is emitted as an English (root) and a Korean (/kr) URL, with
+  // xhtml:link hreflang alternates cross-referencing both, per Google's i18n
+  // sitemap format.
   const rows = entries
-    .map(
-      (e) =>
-        `  <url>\n    <loc>${e.url}</loc>\n    <lastmod>${e.lastmod}</lastmod>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority.toFixed(1)}</priority>\n  </url>`
-    )
+    .map((e) => {
+      const en = `${BASE}${e.path}`;
+      const ko = `${BASE}/kr${e.path}`;
+      const alts =
+        `    <xhtml:link rel="alternate" hreflang="en" href="${en}"/>\n` +
+        `    <xhtml:link rel="alternate" hreflang="ko" href="${ko}"/>\n` +
+        `    <xhtml:link rel="alternate" hreflang="x-default" href="${en}"/>\n`;
+      return [en, ko]
+        .map(
+          (loc) =>
+            `  <url>\n    <loc>${loc}</loc>\n${alts}    <lastmod>${e.lastmod}</lastmod>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority.toFixed(1)}</priority>\n  </url>`
+        )
+        .join("\n");
+    })
     .join("\n");
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${rows}\n</urlset>`;
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${rows}\n</urlset>`;
 }
 
 export async function GET() {
   const today = new Date().toISOString().split("T")[0];
 
   const categoryEntries: Entry[] = [
-    { url: `${BASE}/software`, lastmod: "2026-03-17", changefreq: "daily",   priority: 0.9 },
+    { path: `/software`, lastmod: "2026-03-17", changefreq: "daily",   priority: 0.9 },
     ...CATEGORIES.map((cat) => ({
-      url: `${BASE}/software/${cat.slug}`,
+      path: `/software/${cat.slug}`,
       lastmod: "2026-03-17",
       changefreq: "weekly",
       priority: 0.7,
     })),
     ...["windows", "mac", "android", "iphone"].map((platform) => ({
-      url: `${BASE}/software/${platform}`,
+      path: `/software/${platform}`,
       lastmod: "2026-03-17",
       changefreq: "weekly" as const,
       priority: 0.8,
@@ -60,10 +73,10 @@ export async function GET() {
   const appEntries: Entry[] = (apps ?? [])
     .map((app) => {
       const cat = getCategoryByMain(app.category_main ?? "");
-      const path = app.slug || (cat ? `/${cat.slug}/${app.id}` : null);
-      if (!path) return null;
+      const slugPath = app.slug || (cat ? `/${cat.slug}/${app.id}` : null);
+      if (!slugPath) return null;
       return {
-        url: `${BASE}/software${path}`,
+        path: `/software${slugPath}`,
         lastmod: app.last_updated_date
           ? new Date(app.last_updated_date).toISOString().split("T")[0]
           : today,

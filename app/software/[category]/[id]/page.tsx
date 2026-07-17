@@ -70,7 +70,7 @@ export async function generateMetadata({
     description: defaultDesc,
     keywords,
     robots: { index: true, follow: true },
-    alternates: buildAlternates(canonicalPath),
+    alternates: buildAlternates(canonicalPath, locale),
     openGraph: {
       title: defaultTitle,
       description: defaultDesc,
@@ -139,7 +139,8 @@ export default async function AppDetailPage({
   const category =
     getCategoryBySlug(categorySlug) ??
     getCategoryByMain(app.core.category.main);
-  const canonicalUrl = `https://ssdown.app/software${app.core.slug || `/${category?.slug ?? categorySlug}/${id}`}`;
+  const canonicalPath = `/software${app.core.slug || `/${category?.slug ?? categorySlug}/${id}`}`;
+  const canonicalUrl = `https://ssdown.app${locale === "kr" ? "/kr" : ""}${canonicalPath}`;
 
   const softwareSchema = {
     "@context": "https://schema.org",

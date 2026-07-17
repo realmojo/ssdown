@@ -18,18 +18,22 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { CATEGORIES } from "@/lib/categories";
 import { buildAlternates } from "@/lib/seo";
+import { getLocale } from "@/lib/get-locale";
+import type { Metadata } from "next";
 
 export const revalidate = 3600;
 
 const OG_IMAGE = { url: "https://ssdown.app/logo.png", width: 1200, height: 630 };
 
-export const metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  return {
   title: "Free Software Downloads by Category | SSDown",
   description:
     "Browse and download free software by category — games, browsers, security, productivity, utilities, and more for Windows, Mac, Android, and iOS.",
   keywords: "free software download, software categories, best free apps, windows software, mac software, android apps",
   robots: { index: true, follow: true },
-  alternates: buildAlternates("/software"),
+  alternates: buildAlternates("/software", locale),
   openGraph: {
     title: "Free Software Downloads by Category | SSDown",
     description: "Browse and download free software by category — games, browsers, security, productivity, utilities, and more.",
@@ -44,7 +48,8 @@ export const metadata = {
     description: "Browse and download free software by category — games, browsers, security, productivity, utilities, and more.",
     images: [OG_IMAGE.url],
   },
-};
+  };
+}
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Gamepad2,

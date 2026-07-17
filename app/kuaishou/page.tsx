@@ -2,7 +2,7 @@ import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
 import { KuaishouClient } from "@/components/client/kuaishou-client";
 import { Metadata } from "next";
-import { languagesForUrl } from "@/lib/seo";
+import { buildAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -62,10 +62,7 @@ export async function generateMetadata(): Promise<Metadata> {
         "Download Kuaishou videos without watermark. Save MP4 and MP3 instantly.",
       images: ["https://ssdown.app/ssdown-kuaishou-og.png"],
     },
-    alternates: {
-      canonical,
-      languages: languagesForUrl(canonical),
-    },
+    alternates: buildAlternates(new URL(canonical).pathname, locale),
   };
 }
 
