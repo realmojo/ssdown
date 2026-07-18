@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import { searchApps, localizeApp } from "@/lib/app-utils";
 import { getLocale } from "@/lib/get-locale";
+import { buildAlternates } from "@/lib/seo";
 import SearchClient from "@/components/client/search-client";
 
 const SITE_URL = "https://ssdown.app";
@@ -24,11 +25,12 @@ export async function generateMetadata({
     ? `${parts.join(" ")} Software Download - ${SITE_NAME}`
     : `Software Search & Filter - ${SITE_NAME}`;
   const description = `Search and filter ${parts.length ? parts.join(", ") + " " : ""}software apps. Find the best apps by platform, license type, and category.`;
+  const locale = await getLocale();
 
   return {
     title,
     description,
-    alternates: { canonical: `${SITE_URL}/search` },
+    alternates: buildAlternates("/search", locale),
     openGraph: { title, description, url: `${SITE_URL}/search`, siteName: SITE_NAME, type: "website" },
     twitter: { card: "summary_large_image", title, description },
   };

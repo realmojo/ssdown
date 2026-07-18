@@ -1,9 +1,12 @@
 import { ContactClient } from "@/components/client/contact-client";
 import { Metadata } from "next";
+import { getLocale } from "@/lib/get-locale";
+import { buildAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/contact`;
+  const locale = await getLocale();
 
   return {
     title: "Contact SSDown - Support & Help",
@@ -18,9 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: "en_US",
       type: "website",
     },
-    alternates: {
-      canonical: canonical,
-    },
+    alternates: buildAlternates(new URL(canonical).pathname, locale),
   };
 }
 

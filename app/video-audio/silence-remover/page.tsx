@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
+import { buildAlternates } from "@/lib/seo";
 import { SilenceRemoverClient } from "@/components/client/silence-remover-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
@@ -48,14 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: {
-      canonical,
-      languages: {
-        "en": canonical,
-        "ko": canonical,
-        "x-default": canonical,
-      },
-    },
+    alternates: buildAlternates(new URL(canonical).pathname, locale),
     openGraph: {
       title,
       description,

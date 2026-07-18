@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
+import { buildAlternates } from "@/lib/seo";
 import { PasswordGeneratorClient } from "@/components/client/password-generator-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
@@ -42,14 +43,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: {
-      canonical: CANONICAL,
-      languages: {
-        "en": CANONICAL,
-        "ko": CANONICAL,
-        "x-default": CANONICAL,
-      },
-    },
+    alternates: buildAlternates(new URL(CANONICAL).pathname, locale),
     openGraph: {
       title,
       description,

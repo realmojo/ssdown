@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getLocale } from "@/lib/get-locale";
+import { buildAlternates } from "@/lib/seo";
 import {
   ImageIcon,
   Film,
@@ -36,14 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
     },
-    alternates: {
-      canonical,
-      languages: {
-        "en": canonical,
-        "ko": canonical,
-        "x-default": canonical,
-      },
-    },
+    alternates: buildAlternates(new URL(canonical).pathname, locale),
   };
 }
 

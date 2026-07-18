@@ -1,8 +1,11 @@
 import { Metadata } from "next";
+import { getLocale } from "@/lib/get-locale";
+import { buildAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/privacy`;
+  const locale = await getLocale();
 
   return {
     title: "Privacy Policy - SSDown",
@@ -17,9 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: "en_US",
       type: "website",
     },
-    alternates: {
-      canonical: canonical,
-    },
+    alternates: buildAlternates(new URL(canonical).pathname, locale),
   };
 }
 
