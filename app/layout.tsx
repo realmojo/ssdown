@@ -8,6 +8,7 @@ import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CookieConsent } from "@/components/cookie-consent";
+import { LocaleLinkInterceptor } from "@/components/locale-link-interceptor";
 import { Toaster } from "sonner";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -167,6 +168,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <main className="flex-1">{props.children}</main>
             <SiteFooter dict={dict.nav} />
             <CookieConsent />
+            <LocaleLinkInterceptor />
           </div>
           <Toaster position="bottom-center" richColors />
         </ThemeProvider>
