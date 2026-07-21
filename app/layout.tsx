@@ -115,6 +115,16 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang={locale === "kr" ? "ko" : "en"} suppressHydrationWarning>
       <head>
+        {/* Warm up connections to third-party origins to cut LCP latency */}
+        <link
+          rel="preconnect"
+          href="https://pagead2.googlesyndication.com"
+          crossOrigin="anonymous"
+        />
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://wcs.naver.net" />
+
         <Script
           strategy="lazyOnload"
           async
@@ -141,18 +151,15 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           `,
           }}
         />
+        {/* Naver analytics is non-critical — defer to idle so it doesn't block
+            first render/interactivity (was beforeInteractive). Loaded via an
+            inline string script so no function prop is passed from this Server
+            Component. */}
         <Script
-          strategy="beforeInteractive"
           id="naver-analytics"
-          src="//wcs.naver.net/wcslog.js"
-        />
-        <Script
-          strategy="beforeInteractive"
-          id="naver-analytics-init"
-          type="text/javascript"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
-            __html:
-              'if(!wcs_add) var wcs_add = {}; wcs_add["wa"] = "159353d1b5eedb0"; if(window.wcs) {wcs_do();}',
+            __html: `(function(){var s=document.createElement('script');s.src='https://wcs.naver.net/wcslog.js';s.async=true;s.onload=function(){if(!window.wcs_add)window.wcs_add={};window.wcs_add['wa']='159353d1b5eedb0';if(window.wcs)wcs_do();};document.head.appendChild(s);})();`,
           }}
         />
       </head>
