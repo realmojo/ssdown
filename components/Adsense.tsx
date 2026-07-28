@@ -12,18 +12,8 @@ type AdsenseProps = {
   format?: "auto" | "horizontal" | "vertical" | "rectangle";
 };
 
-// Reserve vertical space per format so the async-loaded ad expands into
-// pre-allocated height instead of pushing content down (avoids layout shift).
-const MIN_HEIGHT: Record<NonNullable<AdsenseProps["format"]>, number> = {
-  horizontal: 100,
-  rectangle: 250,
-  vertical: 250,
-  auto: 280,
-};
-
 export default function Adsense({ slotId, format = "auto" }: AdsenseProps) {
   const isDev = process.env.NODE_ENV === "development";
-  const minHeight = MIN_HEIGHT[format];
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
@@ -39,18 +29,19 @@ export default function Adsense({ slotId, format = "auto" }: AdsenseProps) {
   if (isDev) {
     return (
       <div
-        className="adsense-dev text-white bg-gray-800 w-full flex items-center justify-center text-xs text-gray-400"
-        style={{ minHeight }}
+        className="adsense-dev text-white bg-gray-800 w-full flex items-center justify-center text-xs text-gray-400 py-4"
+        style={{ height: "auto" }}
       >
         AD {slotId}
       </div>
     );
   }
 
+  // 높이를 고정하지 않고 애드센스가 결정한 크기에 맡긴다.
   return (
     <ins
       className="adsbygoogle"
-      style={{ display: "block", width: "100%", minHeight }}
+      style={{ display: "block", width: "100%", height: "auto" }}
       data-ad-client="ca-pub-9130836798889522"
       data-ad-slot={slotId}
       data-ad-format={format}

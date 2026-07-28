@@ -163,7 +163,8 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
-          enableSystem
+          forcedTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           <div className="relative flex min-h-screen flex-col">

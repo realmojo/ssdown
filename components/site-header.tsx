@@ -4,7 +4,6 @@ import { useState } from "react";
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/mode-toggle";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -273,10 +272,6 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
 
         <div className="ml-auto flex items-center gap-2">
           <PaypalDonateButton className="hidden md:flex mr-2" />
-          {/* PC Theme Toggle */}
-          <div className="hidden md:block">
-            <ModeToggle />
-          </div>
 
           {/* Mobile Navigation Sidebar */}
           <div className="md:hidden">
@@ -512,11 +507,6 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                       <PaypalDonateButton className="w-full justify-center" />
                     </div>
 
-                    {/* Settings - Theme Switcher */}
-                    <div className="flex items-center justify-between py-4 border-t">
-                      <span className="text-sm font-medium">테마 설정</span>
-                      <ModeToggle />
-                    </div>
                   </div>
                 </div>
               </SheetContent>
