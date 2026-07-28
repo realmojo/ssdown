@@ -64,7 +64,7 @@ const XDownloaderClient = ({
       const response = await fetch(proxyUrl);
 
       if (!response.ok) {
-        throw new Error(`Failed to fetch video: ${response.statusText}`);
+        throw new Error(`영상을 가져오지 못했습니다: ${response.statusText}`);
       }
 
       // Blob으로 변환
@@ -147,7 +147,7 @@ const XDownloaderClient = ({
                 </>
               ) : (
                 <>
-                  <span className="font-medium">Download</span>
+                  <span className="font-medium">다운로드</span>
                   <Download className="w-4 h-4" />
                 </>
               )}

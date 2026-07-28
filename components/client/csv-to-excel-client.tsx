@@ -36,10 +36,10 @@ export function CsvToExcelClient({ dict }: { dict?: any }) {
     try {
       const wb = XLSX.read(csvInput, { type: "string", raw: true });
       XLSX.writeFile(wb, "converted_data.xlsx");
-      toast.success("Excel file downloaded");
+      toast.success("엑셀 파일을 내려받았습니다");
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_err) {
-      setError("Error creating Excel file. Please check your CSV format.");
+      setError("엑셀 파일을 만들지 못했습니다. CSV 형식을 확인해 주세요.");
     }
   };
 
@@ -99,7 +99,7 @@ export function CsvToExcelClient({ dict }: { dict?: any }) {
               <div className="flex justify-between items-center mb-2">
                 <label className="font-medium flex items-center gap-2">
                   <FileText className="w-4 h-4 text-muted-foreground" />
-                  CSV Input
+                  CSV 입력
                 </label>
                 <Button
                   variant="ghost"
@@ -115,7 +115,7 @@ export function CsvToExcelClient({ dict }: { dict?: any }) {
                 {isDragging && (
                   <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-lg border-2 border-dashed border-green-500">
                     <p className="text-lg font-medium text-green-600 dark:text-green-400">
-                      Drop CSV file here
+                      여기에 CSV 파일을 끌어다 놓으세요
                     </p>
                   </div>
                 )}
@@ -188,10 +188,10 @@ export function CsvToExcelClient({ dict }: { dict?: any }) {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Frequently Asked Questions
+              자주 묻는 질문
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about our CSV to Excel converter.
+              CSV → 엑셀 변환기에 대해 자주 묻는 질문입니다.
             </p>
           </div>
 
@@ -203,7 +203,7 @@ export function CsvToExcelClient({ dict }: { dict?: any }) {
                   a: "No, CSV is a plain text format. The generated Excel file will contain raw data.",
                 },
                 {
-                  q: "Can I open the file in Google Sheets?",
+                  q: "구글 스프레드시트에서 열 수 있나요?",
                   a: "Yes, the .xlsx file generated is compatible with Microsoft Excel, Google Sheets, and LibreOffice.",
                 },
               ].map((item, idx) => (

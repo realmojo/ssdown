@@ -101,7 +101,7 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error("Failed to copy:", err);
+      console.error("복사하지 못했습니다:", err);
     }
   };
 
@@ -294,7 +294,7 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
 
                   {selectedHashtags.length === 0 && (
                     <p className="text-sm text-center text-muted-foreground py-4">
-                      Click hashtags to add them here
+                      해시태그를 클릭하면 여기에 추가됩니다
                     </p>
                   )}
                 </CardContent>
@@ -372,7 +372,7 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
               </div>
             </section>
 
-            {/* Tips & Best Practices */}
+            {/* 활용 팁 */}
             <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
               <div className="text-center mb-10">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">

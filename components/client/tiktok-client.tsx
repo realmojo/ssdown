@@ -82,11 +82,11 @@ export function TikTokClient({ dict }: TikTokClientProps) {
           </div>
           <h2 className="text-3xl font-bold tracking-tight mb-4">
             {dict?.tiktok?.guide_title ||
-              "How to Download TikTok Videos Without Watermark"}
+              "틱톡 영상 워터마크 없이 내려받는 방법"}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             {dict?.tiktok?.guide_desc ||
-              "Download TikTok videos in high quality without the annoying watermark overlay."}
+              "거슬리는 워터마크 없이 틱톡 영상을 고화질로 내려받으세요."}
           </p>
         </div>
 
@@ -94,26 +94,26 @@ export function TikTokClient({ dict }: TikTokClientProps) {
           {[
             {
               step: 1,
-              title: dict?.tiktok?.step1_title || "Open TikTok Video",
+              title: dict?.tiktok?.step1_title || "틱톡 영상 열기",
               desc:
                 dict?.tiktok?.step1_desc ||
-                "Open the TikTok app or website and find the video you want to download. Tap on the 'Share' button below the video.",
+                "틱톡 앱이나 웹사이트에서 내려받을 영상을 찾은 뒤 영상 아래의 '공유' 버튼을 누르세요.",
               icon: Eye,
             },
             {
               step: 2,
-              title: dict?.tiktok?.step2_title || "Copy Video Link",
+              title: dict?.tiktok?.step2_title || "영상 링크 복사",
               desc:
                 dict?.tiktok?.step2_desc ||
-                "Select 'Copy link' from the share menu. The TikTok video URL will be copied to your clipboard automatically.",
+                "공유 메뉴에서 '링크 복사'를 선택하세요. 틱톡 영상 주소가 클립보드에 자동으로 복사됩니다.",
               icon: Share2,
             },
             {
               step: 3,
-              title: dict?.tiktok?.step3_title || "Download Without Watermark",
+              title: dict?.tiktok?.step3_title || "워터마크 없이 다운로드",
               desc:
                 dict?.tiktok?.step3_desc ||
-                "Paste the link into SSDown, click 'Download', and get your video in MP4 format without any watermark. You can also extract just the audio as MP3.",
+                "링크를 SSDown에 붙여넣고 '다운로드'를 누르면 워터마크 없는 MP4 영상을 받을 수 있습니다. 오디오만 MP3로 추출할 수도 있습니다.",
               icon: Download,
             },
           ].map((step) => (
@@ -139,49 +139,49 @@ export function TikTokClient({ dict }: TikTokClientProps) {
         </div>
       </section>
 
-      {/* Tips & Best Practices */}
+      {/* 활용 팁 */}
       <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
             <Lightbulb className="w-8 h-8 text-yellow-500" />
           </div>
           <h2 className="text-3xl font-bold tracking-tight mb-4">
-            {dict?.tiktok?.tips_title || "TikTok Download Tips"}
+            {dict?.tiktok?.tips_title || "틱톡 다운로드 팁"}
           </h2>
           <p className="text-muted-foreground">
             {dict?.tiktok?.tips_desc ||
-              "Maximize your TikTok downloading experience with these helpful tips."}
+              "틱톡 다운로드를 200% 활용하는 팁입니다."}
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           {[
             {
-              title: dict?.tiktok?.tip1_title || "No Watermark Guarantee",
+              title: dict?.tiktok?.tip1_title || "워터마크 없음 보장",
               desc:
                 dict?.tiktok?.tip1_desc ||
-                "SSDown removes the TikTok watermark automatically, giving you clean, professional-looking videos perfect for reposting or editing.",
+                "SSDown이 틱톡 워터마크를 자동으로 제거해, 다시 올리거나 편집하기 좋은 깔끔한 영상을 제공합니다.",
               icon: CheckCircle2,
             },
             {
-              title: dict?.tiktok?.tip2_title || "Extract Audio as MP3",
+              title: dict?.tiktok?.tip2_title || "오디오를 MP3로 추출",
               desc:
                 dict?.tiktok?.tip2_desc ||
-                "Love a TikTok sound? Download just the audio track as an MP3 file to use in your own videos or music library.",
+                "마음에 드는 틱톡 사운드가 있나요? 오디오만 MP3로 내려받아 직접 만드는 영상이나 음악 보관함에 활용하세요.",
               icon: Music,
             },
             {
-              title: dict?.tiktok?.tip3_title || "High Quality Downloads",
+              title: dict?.tiktok?.tip3_title || "고화질 다운로드",
               desc:
                 dict?.tiktok?.tip3_desc ||
-                "Get videos in their original quality, up to 1080p HD resolution. No compression, no quality loss.",
+                "최대 1080p HD 해상도의 원본 화질 그대로 받으세요. 추가 압축도, 화질 손실도 없습니다.",
               icon: CheckCircle2,
             },
             {
-              title: dict?.tiktok?.tip4_title || "Respect Creators",
+              title: dict?.tiktok?.tip4_title || "창작자 존중",
               desc:
                 dict?.tiktok?.tip4_desc ||
-                "Always credit the original creator when reposting TikTok videos. Support creators by following and engaging with their content.",
+                "틱톡 영상을 다시 올릴 때는 언제나 원작자를 밝혀 주세요. 팔로우하고 소통하며 창작자를 응원해 주세요.",
               icon: Heart,
             },
           ].map((tip, idx) => (
@@ -208,39 +208,39 @@ export function TikTokClient({ dict }: TikTokClientProps) {
             <Info className="w-8 h-8 text-green-500" />
           </div>
           <h2 className="text-3xl font-bold tracking-tight mb-4">
-            {dict?.tiktok?.features_title || "TikTok Download Features"}
+            {dict?.tiktok?.features_title || "틱톡 다운로드 기능"}
           </h2>
           <p className="text-muted-foreground">
             {dict?.tiktok?.features_desc ||
-              "Everything you need to download TikTok content."}
+              "틱톡 콘텐츠를 내려받는 데 필요한 모든 기능입니다."}
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             {
-              title: dict?.tiktok?.feature1_title || "Watermark-Free Videos",
+              title: dict?.tiktok?.feature1_title || "워터마크 없는 영상",
               desc:
                 dict?.tiktok?.feature1_desc ||
-                "Download TikTok videos without the platform watermark for clean, professional content.",
+                "플랫폼 워터마크 없이 틱톡 영상을 내려받아 깔끔한 콘텐츠로 활용하세요.",
             },
             {
-              title: dict?.tiktok?.feature2_title || "MP4 & MP3 Formats",
+              title: dict?.tiktok?.feature2_title || "MP4 & MP3 형식",
               desc:
                 dict?.tiktok?.feature2_desc ||
-                "Choose between downloading the full video (MP4) or extracting just the audio (MP3).",
+                "영상 전체(MP4)를 내려받거나 오디오만(MP3) 추출하는 것 중에서 고르세요.",
             },
             {
-              title: dict?.tiktok?.feature3_title || "HD Quality",
+              title: dict?.tiktok?.feature3_title || "HD 화질",
               desc:
                 dict?.tiktok?.feature3_desc ||
-                "Get videos in high definition up to 1080p, preserving the original quality from TikTok.",
+                "틱톡의 원본 화질을 유지한 채 최대 1080p 고화질로 받으세요.",
             },
             {
-              title: dict?.tiktok?.feature4_title || "Fast Downloads",
+              title: dict?.tiktok?.feature4_title || "빠른 다운로드",
               desc:
                 dict?.tiktok?.feature4_desc ||
-                "Optimized servers ensure quick downloads without long waiting times or queues.",
+                "최적화된 서버로 긴 대기나 순번 없이 빠르게 내려받을 수 있습니다.",
             },
           ].map((feature, idx) => (
             <Card key={idx} className="text-center">
@@ -284,46 +284,27 @@ export function TikTokClient({ dict }: TikTokClientProps) {
       {/* TikTok Platform Deep Dive */}
       <section className="bg-white dark:bg-gray-950 rounded-2xl border p-8 md:p-12">
         <h2 className="text-3xl font-bold tracking-tight mb-6">
-          Understanding TikTok Video Downloads
+          틱톡 영상 다운로드 이해하기
         </h2>
         <div className="prose prose-slate dark:prose-invert max-w-none space-y-6 text-muted-foreground">
           <p>
-            TikTok has become the world's most popular short-form video platform, with over
-            a billion active users creating and sharing content daily. Understanding how TikTok
-            handles video content can help you make the most of your downloading experience.
+            틱톡은 10억 명이 넘는 사용자가 매일 콘텐츠를 만들고 공유하는 세계에서 가장 인기 있는 숏폼 영상 플랫폼이 되었습니다. 틱톡이 영상 콘텐츠를 다루는 방식을 알아두면 다운로드를 훨씬 잘 활용할 수 있습니다.
           </p>
-          <h3 className="text-xl font-semibold text-foreground">How TikTok Watermarks Work</h3>
+          <h3 className="text-xl font-semibold text-foreground">틱톡 워터마크의 원리</h3>
           <p>
-            TikTok adds a dynamic watermark overlay to videos when viewed or downloaded through
-            the official app. This watermark typically shows the creator's username and the TikTok
-            logo. The watermark is not embedded in the original video file — it's added as an
-            overlay layer during playback and export. SSDown accesses the original video stream
-            before the watermark is applied, allowing you to download the clean version.
+            틱톡은 공식 앱에서 영상을 보거나 저장할 때 움직이는 워터마크를 덧씌웁니다. 보통 창작자의 사용자명과 틱톡 로고가 표시됩니다. 이 워터마크는 원본 영상 파일에 새겨진 것이 아니라 재생과 내보내기 과정에서 얹히는 레이어입니다. SSDown은 워터마크가 적용되기 전의 원본 영상 스트림에 접근하므로 깨끗한 영상을 내려받을 수 있습니다.
           </p>
-          <h3 className="text-xl font-semibold text-foreground">TikTok Video Quality and Formats</h3>
+          <h3 className="text-xl font-semibold text-foreground">틱톡 영상 화질과 형식</h3>
           <p>
-            TikTok videos are typically uploaded in vertical format (9:16 aspect ratio) with
-            resolutions up to 1080x1920 pixels. The platform uses H.264 video codec with AAC
-            audio, wrapped in an MP4 container. When downloading, SSDown preserves the original
-            resolution and quality without any re-encoding or compression, ensuring you get
-            the exact same quality as the creator uploaded.
+            틱톡 영상은 보통 세로 형식(9:16 비율)에 최대 1080x1920 픽셀 해상도로 업로드됩니다. 플랫폼은 H.264 영상 코덱과 AAC 오디오를 MP4 컨테이너에 담아 사용합니다. SSDown은 다운로드 시 재인코딩이나 압축 없이 원본 해상도와 화질을 그대로 유지하므로, 창작자가 올린 것과 완전히 같은 화질을 받게 됩니다.
           </p>
-          <h3 className="text-xl font-semibold text-foreground">Audio Extraction from TikTok</h3>
+          <h3 className="text-xl font-semibold text-foreground">오디오 추출 from TikTok</h3>
           <p>
-            One unique feature of TikTok is its vast library of trending sounds and music.
-            SSDown allows you to extract just the audio track from any TikTok video as an MP3
-            file. This is useful for content creators who want to identify songs, musicians who
-            want to study trending audio patterns, or anyone who simply enjoys a particular
-            sound clip. Note that extracted audio is subject to the same copyright considerations
-            as the full video.
+            틱톡의 독특한 점 하나는 방대한 유행 음원 라이브러리입니다. SSDown을 이용하면 틱톡 영상에서 오디오만 MP3 파일로 추출할 수 있습니다. 곡을 찾으려는 창작자, 유행하는 음원 흐름을 살펴보려는 음악가, 특정 사운드가 마음에 든 분 모두에게 유용합니다. 다만 추출한 오디오에도 영상 전체와 동일한 저작권 문제가 적용된다는 점을 유의하세요.
           </p>
-          <h3 className="text-xl font-semibold text-foreground">Responsible TikTok Content Use</h3>
+          <h3 className="text-xl font-semibold text-foreground">틱톡 콘텐츠의 올바른 이용</h3>
           <p>
-            TikTok creators invest significant time and creativity into their content. When
-            downloading TikTok videos, always consider the creator's intent. If you plan to
-            share or reference the content, credit the original creator by mentioning their
-            username. Never re-upload content claiming it as your own, and avoid using downloaded
-            content for commercial purposes without explicit permission from the creator.
+            틱톡 창작자들은 콘텐츠에 많은 시간과 창의력을 쏟습니다. 틱톡 영상을 내려받을 때는 언제나 창작자의 의도를 고려하세요. 콘텐츠를 공유하거나 인용할 계획이라면 사용자명을 언급해 원작자를 밝혀 주세요. 남의 콘텐츠를 자기 것처럼 다시 올리지 말고, 창작자의 명시적 허락 없이 상업적으로 이용하지 마세요.
           </p>
         </div>
       </section>
@@ -369,7 +350,7 @@ export function TikTokClient({ dict }: TikTokClientProps) {
       placeholder={dict?.tiktok?.placeholder || "Paste TikTok link here..."}
       apiEndpoint="/api/tiktok"
       downloadEndpoint="/api/tiktok/download"
-      noVideoError="No video found in this TikTok. Make sure it contains a video."
+      noVideoError="이 틱톡 게시물에서 영상을 찾지 못했습니다. 영상이 포함되어 있는지 확인해 주세요."
       formatQuality={(bitrate) =>
         typeof bitrate === "string" ? bitrate : `${bitrate}p`
       }

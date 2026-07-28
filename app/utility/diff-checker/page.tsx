@@ -1,29 +1,27 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { DiffCheckerClient } from "@/components/client/diff-checker-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/utility/diff-checker`;
 
-  const title = "Diff Checker - Compare Text & Find Differences | SSDown";
+  const title = "텍스트 비교기 - 두 글의 차이 찾기 | SSDown";
   const description =
     "Free online diff checker. Compare two blocks of text and highlight added, removed, and changed lines. Private, browser-based, and instant.";
 
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,27 +30,26 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function DiffCheckerPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faq = [
     {
-      question: "How does the diff checker work?",
+      question: "텍스트 비교기는 어떻게 동작하나요?",
       answer:
         "Paste your original text on the left and the changed text on the right, then click Compare. The tool aligns the two texts line by line using a longest-common-subsequence algorithm and highlights every added, removed, and unchanged line.",
     },
     {
-      question: "Is my text private and secure?",
+      question: "제 텍스트는 안전한가요?",
       answer:
         "Yes. All comparison happens entirely in your browser. Your text is never uploaded to any server or stored anywhere. Close the tab and your data is gone.",
     },
     {
-      question: "What do the colors mean?",
+      question: "색상은 무엇을 뜻하나요?",
       answer:
         "Green lines with a plus sign were added in the changed text, red lines with a minus sign were removed from the original, and neutral lines are unchanged between the two versions.",
     },
     {
-      question: "Can I ignore whitespace or letter case?",
+      question: "공백이나 대소문자를 무시할 수 있나요?",
       answer:
         "Yes. Enable the 'Ignore whitespace' option to treat lines that differ only in spacing as identical, and enable 'Ignore case' to treat uppercase and lowercase letters as the same when comparing.",
     },
@@ -78,18 +75,18 @@ export default async function DiffCheckerPage() {
       { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
       { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
       { "@type": "ListItem", position: 3, name: dict.breadcrumb.utility, item: "https://ssdown.app/tools/utility" },
-      { "@type": "ListItem", position: 4, name: "Diff Checker", item: "https://ssdown.app/utility/diff-checker" },
+      { "@type": "ListItem", position: 4, name: "텍스트 비교기", item: "https://ssdown.app/utility/diff-checker" },
     ],
   };
 
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Diff Checker",
+    name: "텍스트 비교기",
     url: "https://ssdown.app/utility/diff-checker",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     description: "Free online diff checker tool. Fast, secure, and browser-based.",
   };
@@ -97,7 +94,7 @@ export default async function DiffCheckerPage() {
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Diff Checker Online",
+    name: "How to use 텍스트 비교기 Online",
     description: "Use our free online diff checker to compare two texts securely in your browser.",
     step: [
       {
@@ -146,7 +143,7 @@ export default async function DiffCheckerPage() {
             { label: dict.breadcrumb.tools, href: "/tools" },
             { label: dict.breadcrumb.utility, href: "/tools/utility" },
             {
-              label: "Diff Checker",
+              label: "텍스트 비교기",
               href: "/utility/diff-checker",
               isCurrent: true,
             },

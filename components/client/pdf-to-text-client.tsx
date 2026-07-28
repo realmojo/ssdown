@@ -129,7 +129,7 @@ export function PdfToTextClient({ dict }: { dict?: any }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      setError("Failed to copy text to clipboard.");
+      setError("텍스트를 클립보드에 복사하지 못했습니다.");
     }
   };
 
@@ -199,10 +199,10 @@ export function PdfToTextClient({ dict }: { dict?: any }) {
                 <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
                   {dict?.pdf_to_text?.drop_zone ||
-                    "Drag & drop a PDF file here"}
+                    "여기에 PDF 파일을 끌어다 놓으세요"}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Only PDF files accepted. Max 50MB per file.
+                  PDF 파일만 올릴 수 있습니다. 파일당 최대 50MB입니다.
                 </p>
               </div>
             )}
@@ -266,7 +266,7 @@ export function PdfToTextClient({ dict }: { dict?: any }) {
                     className="bg-red-600 hover:bg-red-700 text-white shadow-lg min-w-[180px]"
                   >
                     <Download className="w-5 h-5 mr-2" />
-                    Download as .txt
+                    .txt로 다운로드
                   </Button>
                 </div>
               </div>
@@ -289,10 +289,10 @@ export function PdfToTextClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.pdf_to_text?.step1_title || "Upload PDF",
+                    title: dict?.pdf_to_text?.step1_title || "PDF 업로드",
                     desc:
                       dict?.pdf_to_text?.step1_desc ||
-                      "Drag and drop or click to select a PDF file from your device.",
+                      "PDF 파일을 끌어다 놓거나 클릭해서 선택하세요.",
                     icon: Upload,
                   },
                   {
@@ -305,7 +305,7 @@ export function PdfToTextClient({ dict }: { dict?: any }) {
                   },
                   {
                     step: 3,
-                    title: dict?.pdf_to_text?.step3_title || "Copy or Download",
+                    title: dict?.pdf_to_text?.step3_title || "복사 또는 다운로드",
                     desc:
                       dict?.pdf_to_text?.step3_desc ||
                       "Copy the text to your clipboard or download it as a .txt file.",

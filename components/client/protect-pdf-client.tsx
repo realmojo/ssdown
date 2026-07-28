@@ -105,11 +105,11 @@ export function ProtectPdfClient({ dict }: { dict?: any }) {
     if (!pdfFile) return;
 
     if (password.length < 1) {
-      setError("Please enter a password.");
+      setError("비밀번호를 입력해 주세요.");
       return;
     }
     if (password !== confirmPassword) {
-      setError("Passwords do not match. Please check and try again.");
+      setError("비밀번호가 일치하지 않습니다. 확인 후 다시 시도해 주세요.");
       return;
     }
 
@@ -211,10 +211,10 @@ export function ProtectPdfClient({ dict }: { dict?: any }) {
                 <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
                   {dict?.protect_pdf?.drop_zone ||
-                    "Drag & drop a PDF file here"}
+                    "여기에 PDF 파일을 끌어다 놓으세요"}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Only PDF files accepted. Max 50MB per file.
+                  PDF 파일만 올릴 수 있습니다. 파일당 최대 50MB입니다.
                 </p>
               </div>
             )}
@@ -241,7 +241,7 @@ export function ProtectPdfClient({ dict }: { dict?: any }) {
                 <div className="p-6 bg-muted/30 rounded-lg border border-muted space-y-4">
                   <div className="flex items-center gap-2 mb-2">
                     <KeyRound className="w-5 h-5 text-red-600 dark:text-red-400" />
-                    <h3 className="font-semibold">Set Password</h3>
+                    <h3 className="font-semibold">비밀번호 설정</h3>
                   </div>
                   <div className="space-y-3">
                     <div>
@@ -254,7 +254,7 @@ export function ProtectPdfClient({ dict }: { dict?: any }) {
                       <Input
                         id="password"
                         type="password"
-                        placeholder="Enter password"
+                        placeholder="비밀번호 입력"
                         value={password}
                         onChange={(e) => {
                           setPassword(e.target.value);
@@ -267,12 +267,12 @@ export function ProtectPdfClient({ dict }: { dict?: any }) {
                         htmlFor="confirm-password"
                         className="text-sm font-medium mb-1 block"
                       >
-                        Confirm Password
+                        비밀번호 확인
                       </label>
                       <Input
                         id="confirm-password"
                         type="password"
-                        placeholder="Confirm password"
+                        placeholder="비밀번호 확인"
                         value={confirmPassword}
                         onChange={(e) => {
                           setConfirmPassword(e.target.value);
@@ -284,7 +284,7 @@ export function ProtectPdfClient({ dict }: { dict?: any }) {
                       confirmPassword.length > 0 &&
                       !passwordsMatch && (
                         <p className="text-sm text-red-500">
-                          Passwords do not match.
+                          비밀번호가 일치하지 않습니다.
                         </p>
                       )}
                   </div>
@@ -358,10 +358,10 @@ export function ProtectPdfClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.protect_pdf?.step1_title || "Upload PDF",
+                    title: dict?.protect_pdf?.step1_title || "PDF 업로드",
                     desc:
                       dict?.protect_pdf?.step1_desc ||
-                      "Drag and drop or click to select a PDF file from your device.",
+                      "PDF 파일을 끌어다 놓거나 클릭해서 선택하세요.",
                     icon: Upload,
                   },
                   {
@@ -434,7 +434,7 @@ export function ProtectPdfClient({ dict }: { dict?: any }) {
                   },
                   {
                     title:
-                      dict?.protect_pdf?.tip3_title || "Instant Processing",
+                      dict?.protect_pdf?.tip3_title || "즉시 처리",
                     desc:
                       dict?.protect_pdf?.tip3_desc ||
                       "Password protection is applied instantly. No waiting for server-side processing.",

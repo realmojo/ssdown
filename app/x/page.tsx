@@ -1,13 +1,11 @@
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { XClient } from "@/components/client/x-client";
 
 import { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/x`;
@@ -19,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
       dict.x?.seo_description || "X (Twitter) video content management tool.",
     keywords: dict.x?.seo_keywords
       ? dict.x.seo_keywords.split(", ")
-      : ["x video tool", "twitter video tool"],
+      : ["X 영상 다운로드", "트위터 영상 다운로드"],
     openGraph: {
       title: dict.x?.seo_title || "X (Twitter) Video Tool",
       description:
@@ -31,10 +29,10 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "https://ssdown.app/ssdown-x-og.png",
           width: 1200,
           height: 630,
-          alt: "SSDown - X Video Tool",
+          alt: "SSDown - X 영상 도구",
         },
       ],
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
     },
     twitter: {
@@ -43,13 +41,12 @@ export async function generateMetadata(): Promise<Metadata> {
       description: dict.x?.subtitle || "X (Twitter) video content tool.",
       images: ["https://ssdown.app/ssdown-x-og.png"],
     },
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
   };
 }
 
 export default async function TwitterPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",

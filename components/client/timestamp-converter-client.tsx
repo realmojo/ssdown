@@ -93,9 +93,9 @@ export function TimestampConverterClient({ dict }: { dict?: any }) {
   const handleCopy = useCallback(async (value: string, label: string) => {
     try {
       await navigator.clipboard.writeText(value);
-      toast.success(`${label} copied to clipboard`);
+      toast.success(`${label}을(를) 클립보드에 복사했습니다`);
     } catch {
-      toast.error("Failed to copy");
+      toast.error("복사하지 못했습니다");
     }
   }, []);
 
@@ -104,13 +104,13 @@ export function TimestampConverterClient({ dict }: { dict?: any }) {
   >(() => {
     if (!tsInput.trim()) return null;
     if (!/^-?\d+$/.test(tsInput.trim())) {
-      return { ok: false, error: "Enter a valid integer timestamp." };
+      return { ok: false, error: "올바른 정수 타임스탬프를 입력해 주세요." };
     }
     const raw = Number(tsInput.trim());
     const ms = unit === "seconds" ? raw * 1000 : raw;
     const date = new Date(ms);
     if (Number.isNaN(date.getTime())) {
-      return { ok: false, error: "This timestamp is out of range." };
+      return { ok: false, error: "타임스탬프가 유효 범위를 벗어났습니다." };
     }
     return { ok: true, data: toBreakdown(date, nowMs ?? Date.now()) };
   }, [tsInput, unit, nowMs]);
@@ -121,7 +121,7 @@ export function TimestampConverterClient({ dict }: { dict?: any }) {
     if (!dateInput) return null;
     const date = new Date(dateInput);
     if (Number.isNaN(date.getTime())) {
-      return { ok: false, error: "Select a valid date and time." };
+      return { ok: false, error: "올바른 날짜와 시각을 선택해 주세요." };
     }
     return {
       ok: true,
@@ -142,11 +142,10 @@ export function TimestampConverterClient({ dict }: { dict?: any }) {
               <Clock className="w-10 h-10 text-indigo-600 dark:text-indigo-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              Timestamp Converter
+              타임스탬프 변환기
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
-              Convert Unix timestamps to human dates and back, with a live clock.
-              Supports seconds and milliseconds.
+              유닉스 타임스탬프를 사람이 읽는 날짜로, 또는 그 반대로 변환합니다. 실시간 시계를 제공하며 초와 밀리초를 모두 지원합니다.
             </p>
 
             <Adsense slotId="7759160077" />
@@ -156,7 +155,7 @@ export function TimestampConverterClient({ dict }: { dict?: any }) {
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2">
                   <Timer className="w-5 h-5 text-indigo-500" />
-                  Current Unix Time
+                  현재 유닉스 시간
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -177,7 +176,7 @@ export function TimestampConverterClient({ dict }: { dict?: any }) {
                       }
                       disabled={liveSeconds === null}
                       className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors disabled:opacity-40"
-                      aria-label="Copy seconds"
+                      aria-label="초 단위 복사"
                     >
                       <Copy className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                     </button>
@@ -198,7 +197,7 @@ export function TimestampConverterClient({ dict }: { dict?: any }) {
                       }
                       disabled={liveMs === null}
                       className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-violet-100 dark:hover:bg-violet-900/40 hover:border-violet-300 dark:hover:border-violet-700 transition-colors disabled:opacity-40"
-                      aria-label="Copy milliseconds"
+                      aria-label="밀리초 단위 복사"
                     >
                       <Copy className="w-4 h-4 text-violet-600 dark:text-violet-400" />
                     </button>
@@ -212,7 +211,7 @@ export function TimestampConverterClient({ dict }: { dict?: any }) {
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2">
                   <Hash className="w-5 h-5 text-indigo-500" />
-                  Timestamp to Date
+                  타임스탬프 → 날짜
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -274,7 +273,7 @@ export function TimestampConverterClient({ dict }: { dict?: any }) {
                         <button
                           onClick={() => handleCopy(row.value, row.label)}
                           className="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
-                          aria-label={`Copy ${row.label}`}
+                          aria-label={`${row.label} 복사`}
                         >
                           <Copy className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
                         </button>
@@ -290,7 +289,7 @@ export function TimestampConverterClient({ dict }: { dict?: any }) {
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2">
                   <Calendar className="w-5 h-5 text-indigo-500" />
-                  Date to Timestamp
+                  날짜 → 타임스탬프
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -332,7 +331,7 @@ export function TimestampConverterClient({ dict }: { dict?: any }) {
                         <button
                           onClick={() => handleCopy(row.value, row.label)}
                           className="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
-                          aria-label={`Copy ${row.label}`}
+                          aria-label={`${row.label} 복사`}
                         >
                           <Copy className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
                         </button>
@@ -350,30 +349,30 @@ export function TimestampConverterClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  How to Use
+                  이용 방법
                 </h2>
                 <p className="text-muted-foreground">
-                  Convert between epoch time and human dates in seconds.
+                  에포크 시간과 사람이 읽는 날짜를 몇 초 만에 변환하세요.
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
                   {
                     step: 1,
-                    title: "Enter a Value",
-                    desc: "Type a Unix timestamp, or pick a date and time with the date picker.",
+                    title: "값 입력",
+                    desc: "유닉스 타임스탬프를 입력하거나 날짜 선택기로 날짜와 시각을 고르세요.",
                     icon: Hash,
                   },
                   {
                     step: 2,
-                    title: "See the Result",
-                    desc: "Instantly view local time, UTC, ISO 8601, relative time, and Unix seconds and milliseconds.",
+                    title: "결과 확인",
+                    desc: "현지 시각, UTC, ISO 8601, 상대 시간, 유닉스 초·밀리초를 즉시 확인할 수 있습니다.",
                     icon: ArrowRight,
                   },
                   {
                     step: 3,
-                    title: "Copy Instantly",
-                    desc: "Click any copy button to send the value straight to your clipboard.",
+                    title: "즉시 복사",
+                    desc: "복사 버튼을 누르면 값이 바로 클립보드에 담깁니다.",
                     icon: Copy,
                   },
                 ].map((step) => (
@@ -398,29 +397,29 @@ export function TimestampConverterClient({ dict }: { dict?: any }) {
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-indigo-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">Epoch Time Tips</h2>
+                  <h2 className="text-3xl font-bold mb-4">에포크 시간 팁</h2>
                   <p className="text-muted-foreground">
-                    Work confidently with Unix timestamps.
+                    유닉스 타임스탬프를 정확하게 다루는 방법입니다.
                   </p>
                 </div>
 
                 <div className="md:w-2/3 grid sm:grid-cols-2 gap-4">
                   {[
                     {
-                      title: "Seconds vs Milliseconds",
-                      desc: "A 10-digit number is usually seconds; a 13-digit number is milliseconds. JavaScript's Date.now() returns milliseconds, while most databases store seconds.",
+                      title: "초와 밀리초의 차이",
+                      desc: "10자리 숫자는 보통 초, 13자리 숫자는 밀리초입니다. 자바스크립트의 Date.now()는 밀리초를 반환하는 반면 대부분의 데이터베이스는 초 단위로 저장합니다.",
                     },
                     {
-                      title: "The Epoch",
-                      desc: "Unix time starts at 00:00:00 UTC on January 1, 1970. A timestamp of 0 is exactly that moment, and negative timestamps represent dates before it.",
+                      title: "에포크 기준 시각",
+                      desc: "유닉스 시간은 1970년 1월 1일 00:00:00 UTC부터 시작합니다. 타임스탬프 0이 바로 그 시점이며, 음수는 그 이전 날짜를 뜻합니다.",
                     },
                     {
-                      title: "Always Store in UTC",
-                      desc: "Epoch time is time-zone independent. Store timestamps in UTC and only convert to local time for display to avoid off-by-hours bugs.",
+                      title: "저장은 항상 UTC로",
+                      desc: "에포크 시간은 시간대와 무관합니다. 타임스탬프는 UTC로 저장하고 표시할 때만 현지 시각으로 바꾸면 시간이 어긋나는 오류를 피할 수 있습니다.",
                     },
                     {
-                      title: "The Year 2038 Problem",
-                      desc: "Systems storing timestamps as signed 32-bit integers overflow on January 19, 2038. Modern systems use 64-bit integers to avoid this limit.",
+                      title: "2038년 문제",
+                      desc: "타임스탬프를 부호 있는 32비트 정수로 저장하는 시스템은 2038년 1월 19일에 값이 넘칩니다. 최신 시스템은 이를 피하려 64비트 정수를 씁니다.",
                     },
                   ].map((tip, idx) => (
                     <div
@@ -442,24 +441,24 @@ export function TimestampConverterClient({ dict }: { dict?: any }) {
             {/* FAQ */}
             <section className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>
+                <h2 className="text-2xl font-bold tracking-tight mb-4">자주 묻는 질문</h2>
               </div>
               <Accordion type="single" collapsible className="w-full">
                 {[
                   {
-                    q: "What is a Unix timestamp?",
+                    q: "유닉스 타임스탬프가 무엇인가요?",
                     a: "A Unix timestamp (also called epoch time) is the number of seconds that have elapsed since 00:00:00 UTC on January 1, 1970, not counting leap seconds. It is a standard way to represent a point in time across systems and programming languages.",
                   },
                   {
-                    q: "What is the difference between seconds and milliseconds?",
+                    q: "초와 밀리초는 무엇이 다른가요?",
                     a: "Unix timestamps are commonly stored in seconds (10 digits for current dates), but many systems such as JavaScript use milliseconds (13 digits). Our converter lets you toggle between the two so you can work with either format correctly.",
                   },
                   {
-                    q: "Does this converter use my local time zone or UTC?",
+                    q: "이 변환기는 현지 시간대를 쓰나요, UTC를 쓰나요?",
                     a: "Both. The tool shows the converted date in your browser's local time zone, in UTC, and in ISO 8601 format, so you can compare them side by side without any manual offset calculation.",
                   },
                   {
-                    q: "Is my data private and secure?",
+                    q: "제 데이터는 안전한가요?",
                     a: "Yes. All conversions happen entirely in your browser using JavaScript. No timestamps or dates are ever sent to a server or stored anywhere, so your data stays completely private.",
                   },
                 ].map((faq, idx) => (

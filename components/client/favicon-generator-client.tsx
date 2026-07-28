@@ -329,7 +329,7 @@ export function FaviconGeneratorClient({ dict }: { dict?: any }) {
                 "Supported: PNG, JPG, JPEG, WEBP"}
             </p>
             <p className="text-xs text-muted-foreground mt-2">
-              Max file size: 10MB
+              최대 파일 크기: 10MB
             </p>
             <button
               type="button"
@@ -344,7 +344,7 @@ export function FaviconGeneratorClient({ dict }: { dict?: any }) {
               }}
               className="mt-4 text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
             >
-              Or try with a sample image
+              샘플 이미지로 먼저 써보기
             </button>
           </div>
         ) : (
@@ -355,7 +355,7 @@ export function FaviconGeneratorClient({ dict }: { dict?: any }) {
                   <div className="w-24 h-24 rounded-lg border-2 border-indigo-200 dark:border-indigo-800 overflow-hidden flex items-center justify-center bg-white dark:bg-gray-800">
                     <img
                       src={imagePreview}
-                      alt="Preview"
+                      alt="미리보기"
                       className="max-w-full max-h-full object-contain"
                     />
                   </div>
@@ -370,7 +370,7 @@ export function FaviconGeneratorClient({ dict }: { dict?: any }) {
                     onClick={handleReset}
                     disabled={status === "generating"}
                   >
-                    Change Image
+                    이미지 변경
                   </Button>
                 </div>
 
@@ -487,7 +487,7 @@ export function FaviconGeneratorClient({ dict }: { dict?: any }) {
             {[
               {
                 step: 1,
-                title: dict?.favicon_generator?.step1_title || "Upload Image",
+                title: dict?.favicon_generator?.step1_title || "이미지 업로드",
                 desc:
                   dict?.favicon_generator?.step1_desc ||
                   "Upload any image file (PNG, JPG, or WebP). We'll automatically convert it to a favicon.",

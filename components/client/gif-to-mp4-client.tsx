@@ -37,9 +37,9 @@ const FPS_OPTIONS = [
 ];
 
 const QUALITY_OPTIONS = [
-  { label: "Low (Smaller file)", value: 28 },
+  { label: "낮음 (용량 작음)", value: 28 },
   { label: "Medium (Balanced)", value: 23 },
-  { label: "High (Best quality)", value: 18 },
+  { label: "높음 (최고 화질)", value: 18 },
 ];
 
 export function GifToMp4Client({ dict }: { dict?: any }) {
@@ -98,7 +98,7 @@ export function GifToMp4Client({ dict }: { dict?: any }) {
     try {
       if (!loaded) await loadFFmpeg();
       const ffmpeg = ffmpegRef.current;
-      if (!ffmpeg) throw new Error("Converter not loaded");
+      if (!ffmpeg) throw new Error("변환기가 아직 준비되지 않았습니다");
 
       const { fetchFile } = await import("@ffmpeg/util");
       await ffmpeg.writeFile("input.gif", await fetchFile(file));
@@ -126,7 +126,7 @@ export function GifToMp4Client({ dict }: { dict?: any }) {
       const message =
         err instanceof Error
           ? err.message
-          : "Conversion failed. Please try again.";
+          : "변환하지 못했습니다. 다시 시도해 주세요.";
       setError(message);
     } finally {
       setConverting(false);
@@ -142,7 +142,7 @@ export function GifToMp4Client({ dict }: { dict?: any }) {
 
   const processFile = (selectedFile: File) => {
     if (!selectedFile.type.startsWith("image/gif")) {
-      setError("Please select a GIF file.");
+      setError("GIF 파일을 선택해 주세요.");
       return;
     }
     setFile(selectedFile);
@@ -213,7 +213,7 @@ export function GifToMp4Client({ dict }: { dict?: any }) {
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
               {dict?.gif_to_mp4?.subtitle ||
-                "Convert animated GIF files to MP4 video format directly in your browser. Smaller file size, better quality."}
+                "Convert animated GIF files to MP4 video format directly in your browser. 용량 작음 size, better quality."}
             </p>
 
             <Adsense slotId="7759160077" />
@@ -286,7 +286,7 @@ export function GifToMp4Client({ dict }: { dict?: any }) {
                     <div className="flex justify-center">
                       <img
                         src={previewUrl}
-                        alt="GIF preview"
+                        alt="GIF 미리보기"
                         className="max-h-64 rounded-lg border"
                       />
                     </div>
@@ -295,7 +295,7 @@ export function GifToMp4Client({ dict }: { dict?: any }) {
                   {/* Settings */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label>Frame Rate (FPS)</Label>
+                      <Label>프레임 수 (FPS)</Label>
                       <div className="flex flex-wrap gap-2">
                         {FPS_OPTIONS.map((opt) => (
                           <button
@@ -313,7 +313,7 @@ export function GifToMp4Client({ dict }: { dict?: any }) {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label>Quality</Label>
+                      <Label>화질</Label>
                       <div className="flex flex-wrap gap-2">
                         {QUALITY_OPTIONS.map((opt) => (
                           <button
@@ -372,7 +372,7 @@ export function GifToMp4Client({ dict }: { dict?: any }) {
                   />
                 </div>
                 <p className="text-center text-sm text-muted-foreground mt-2">
-                  {progress}% {dict?.gif_to_mp4?.complete || "complete"}
+                  {progress}% {dict?.gif_to_mp4?.complete || "완료"}
                 </p>
               </div>
             )}
@@ -465,7 +465,7 @@ export function GifToMp4Client({ dict }: { dict?: any }) {
                     title: dict?.gif_to_mp4?.step3_title || "Download MP4",
                     desc:
                       dict?.gif_to_mp4?.step3_desc ||
-                      "Click Convert and download the resulting MP4 file. Enjoy a much smaller file size with the same visual quality.",
+                      "Click 변환 후 다운로드 the resulting MP4 file. Enjoy a much smaller file size with the same visual quality.",
                     icon: Download,
                   },
                 ].map((step) => (
@@ -491,7 +491,7 @@ export function GifToMp4Client({ dict }: { dict?: any }) {
               </div>
             </section>
 
-            {/* Tips & Best Practices */}
+            {/* 활용 팁 */}
             <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
               <div className="text-center mb-10">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
@@ -565,7 +565,7 @@ export function GifToMp4Client({ dict }: { dict?: any }) {
                   {dict?.gif_to_mp4?.faq_title || "GIF to MP4 FAQ"}
                 </h2>
                 <p className="text-muted-foreground">
-                  Common questions about converting GIF to MP4 video.
+                  GIF를 MP4 영상으로 변환하는 것에 대해 자주 묻는 질문입니다.
                 </p>
               </div>
 
@@ -596,7 +596,7 @@ export function GifToMp4Client({ dict }: { dict?: any }) {
                   </AccordionTrigger>
                   <AccordionContent className="whitespace-pre-line text-muted-foreground">
                     {dict?.gif_to_mp4?.faq_3_a ||
-                      "For most use cases, Medium quality (CRF 23) offers the best balance between file size and visual quality. Use High quality (CRF 18) for professional content where quality is critical, and Low quality (CRF 28) for maximum file size reduction."}
+                      "For most use cases, Medium quality (CRF 23) offers the best balance between file size and visual quality. Use 고화질 (CRF 18) for professional content where quality is critical, and Low quality (CRF 28) for maximum file size reduction."}
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-4">
@@ -610,7 +610,7 @@ export function GifToMp4Client({ dict }: { dict?: any }) {
                 </AccordionItem>
                 <AccordionItem value="item-5">
                   <AccordionTrigger className="text-left">
-                    {dict?.gif_to_mp4?.faq_5_q || "Is there a file size limit?"}
+                    {dict?.gif_to_mp4?.faq_5_q || "파일 용량 제한이 있나요?"}
                   </AccordionTrigger>
                   <AccordionContent className="whitespace-pre-line text-muted-foreground">
                     {dict?.gif_to_mp4?.faq_5_a ||

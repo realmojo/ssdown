@@ -252,7 +252,7 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
                 "Supported: PNG, JPG, JPEG, WEBP"}
             </p>
             <p className="text-xs text-muted-foreground mt-2">
-              Max file size: 10MB
+              최대 파일 크기: 10MB
             </p>
             <button
               type="button"
@@ -267,7 +267,7 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
               }}
               className="mt-4 text-sm text-green-600 dark:text-green-400 hover:underline"
             >
-              Or try with a sample image
+              샘플 이미지로 먼저 써보기
             </button>
           </div>
         ) : (
@@ -282,7 +282,7 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
                       disabled={isProcessing}
                     >
                       <Upload className="w-4 h-4 mr-2" />
-                      Add More
+                      더 추가
                     </Button>
                     <input
                       ref={fileInputRef}
@@ -326,7 +326,7 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
                     </label>
                     {quality < 70 && (
                       <span className="text-xs text-amber-600 dark:text-amber-400">
-                        Lower quality may show artifacts
+                        품질을 낮추면 화질 저하가 보일 수 있습니다
                       </span>
                     )}
                   </div>
@@ -340,12 +340,11 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
                     className="w-full"
                   />
                   <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>Smaller file</span>
-                    <span>Best quality</span>
+                    <span>용량 작음</span>
+                    <span>최고 화질</span>
                   </div>
                   <p className="text-xs text-muted-foreground mt-2">
-                    Note: PNG compression is lossless and limited. For better
-                    compression, consider converting to WebP or JPEG.
+                    참고: PNG는 무손실 압축이라 줄일 수 있는 용량에 한계가 있습니다. 용량을 더 줄이려면 WebP나 JPEG로 변환해 보세요.
                   </p>
                 </div>
               </CardContent>
@@ -382,7 +381,7 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
                     {img.status === "error" && (
                       <div className="absolute inset-0 bg-red-500/10 flex items-center justify-center backdrop-blur-[1px]">
                         <div className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-medium">
-                          Error
+                          오류
                         </div>
                       </div>
                     )}
@@ -457,7 +456,7 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
             {[
               {
                 step: 1,
-                title: dict?.image_compressor?.step1_title || "Upload Images",
+                title: dict?.image_compressor?.step1_title || "이미지 업로드s",
                 desc:
                   dict?.image_compressor?.step1_desc ||
                   "Upload the PNG, JPG, or WebP images you want to compress.",
@@ -474,7 +473,7 @@ export function ImageCompressorClient({ dict }: { dict?: any }) {
               {
                 step: 3,
                 title:
-                  dict?.image_compressor?.step3_title || "Compress & Download",
+                  dict?.image_compressor?.step3_title || "압축 후 다운로드",
                 desc:
                   dict?.image_compressor?.step3_desc ||
                   "Click 'Compress Images' and download your optimized files instantly.",

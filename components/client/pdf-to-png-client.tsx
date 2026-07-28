@@ -130,7 +130,7 @@ export function PdfToPngClient({ dict }: { dict?: any }) {
         const blob = await new Promise<Blob>((resolve, reject) => {
           canvas.toBlob((b) => {
             if (b) resolve(b);
-            else reject(new Error("Canvas to blob failed"));
+            else reject(new Error("캔버스를 파일로 변환하지 못했습니다"));
           }, "image/png");
         });
 
@@ -230,10 +230,10 @@ export function PdfToPngClient({ dict }: { dict?: any }) {
                 />
                 <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
-                  {dict?.pdf_to_png?.drop_zone || "Drag & drop a PDF file here"}
+                  {dict?.pdf_to_png?.drop_zone || "여기에 PDF 파일을 끌어다 놓으세요"}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Only PDF files accepted. Max 50MB per file.
+                  PDF 파일만 올릴 수 있습니다. 파일당 최대 50MB입니다.
                 </p>
               </div>
             )}
@@ -258,7 +258,7 @@ export function PdfToPngClient({ dict }: { dict?: any }) {
                 </div>
 
                 <div className="flex items-center gap-4 p-4 bg-muted/30 rounded-lg border border-muted">
-                  <span className="text-sm font-medium">Scale:</span>
+                  <span className="text-sm font-medium">배율:</span>
                   {[1, 2, 3].map((s) => (
                     <Button
                       key={s}
@@ -275,7 +275,7 @@ export function PdfToPngClient({ dict }: { dict?: any }) {
                     </Button>
                   ))}
                   <span className="text-xs text-muted-foreground ml-2">
-                    Higher scale = better quality, larger files
+                    배율이 높을수록 화질은 좋아지고 용량은 커집니다
                   </span>
                 </div>
 
@@ -343,7 +343,7 @@ export function PdfToPngClient({ dict }: { dict?: any }) {
                     >
                       <img
                         src={p.url}
-                        alt={`Page ${p.pageNumber}`}
+                        alt={`${p.pageNumber}쪽`}
                         className="w-full h-auto"
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center">
@@ -382,10 +382,10 @@ export function PdfToPngClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.pdf_to_png?.step1_title || "Upload PDF",
+                    title: dict?.pdf_to_png?.step1_title || "PDF 업로드",
                     desc:
                       dict?.pdf_to_png?.step1_desc ||
-                      "Drag and drop or click to select a PDF file from your device.",
+                      "PDF 파일을 끌어다 놓거나 클릭해서 선택하세요.",
                     icon: Upload,
                   },
                   {
@@ -459,7 +459,7 @@ export function PdfToPngClient({ dict }: { dict?: any }) {
                   },
                   {
                     title:
-                      dict?.pdf_to_png?.tip3_title || "Transparent Backgrounds",
+                      dict?.pdf_to_png?.tip3_title || "투명 배경s",
                     desc:
                       dict?.pdf_to_png?.tip3_desc ||
                       "PNG supports transparency. Pages with transparent elements will be preserved accurately.",

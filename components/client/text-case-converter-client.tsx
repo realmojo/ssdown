@@ -117,15 +117,15 @@ interface CaseConversion {
 const CONVERSIONS: CaseConversion[] = [
   { key: "uppercase", label: "UPPERCASE", transform: toUpperCase },
   { key: "lowercase", label: "lowercase", transform: toLowerCase },
-  { key: "title", label: "Title Case", transform: toTitleCase },
-  { key: "sentence", label: "Sentence case", transform: toSentenceCase },
+  { key: "title", label: "단어 첫 글자 대문자", transform: toTitleCase },
+  { key: "sentence", label: "문장 첫 글자 대문자", transform: toSentenceCase },
   { key: "camel", label: "camelCase", transform: toCamelCase },
   { key: "pascal", label: "PascalCase", transform: toPascalCase },
   { key: "snake", label: "snake_case", transform: toSnakeCase },
   { key: "kebab", label: "kebab-case", transform: toKebabCase },
   { key: "constant", label: "CONSTANT_CASE", transform: toConstantCase },
-  { key: "alternating", label: "alternating case", transform: toAlternatingCase },
-  { key: "inverse", label: "InVeRsE case", transform: toInverseCase },
+  { key: "alternating", label: "대소문자 번갈아", transform: toAlternatingCase },
+  { key: "inverse", label: "대소문자 반전", transform: toInverseCase },
 ];
 
 const SAMPLE_TEXT =
@@ -133,15 +133,15 @@ const SAMPLE_TEXT =
 
 const FAQ_ITEMS = [
   {
-    q: "What is a text case converter?",
-    a: "A text case converter is a free online tool that instantly transforms your text into different letter cases such as UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and kebab-case. Just type or paste your text and copy the result you need.",
+    q: "대소문자 변환기가 무엇인가요?",
+    a: "A text case converter is a free online tool that instantly transforms your text into different letter cases such as UPPERCASE, lowercase, 단어 첫 글자 대문자, 문장 첫 글자 대문자, camelCase, snake_case, and kebab-case. Just type or paste your text and copy the result you need.",
   },
   {
-    q: "Is my text private and secure?",
+    q: "제 텍스트는 안전한가요?",
     a: "Yes. All conversions happen entirely in your browser using JavaScript. Your text is never uploaded to a server or stored anywhere. Close the tab and your text is gone.",
   },
   {
-    q: "What is the difference between camelCase, PascalCase, and snake_case?",
+    q: "camelCase, PascalCase, snake_case는 무엇이 다른가요?",
     a: "camelCase joins words with the first word lowercase and each following word capitalized (myVariableName). PascalCase capitalizes every word (MyVariableName). snake_case joins words with underscores in lowercase (my_variable_name). These are commonly used naming conventions in programming.",
   },
   {
@@ -180,16 +180,16 @@ export function TextCaseConverterClient({ dict }: { dict?: any }) {
 
   const handleCopy = useCallback(async (key: string, value: string) => {
     if (!value) {
-      toast.error("Nothing to copy yet.");
+      toast.error("아직 복사할 내용이 없습니다.");
       return;
     }
     try {
       await navigator.clipboard.writeText(value);
       setCopiedKey(key);
-      toast.success("Copied to clipboard!");
+      toast.success("클립보드에 복사했습니다!");
       window.setTimeout(() => setCopiedKey(null), 1500);
     } catch {
-      toast.error("Failed to copy. Please try again.");
+      toast.error("복사하지 못했습니다. 다시 시도해 주세요.");
     }
   }, []);
 
@@ -202,10 +202,10 @@ export function TextCaseConverterClient({ dict }: { dict?: any }) {
               <CaseSensitive className="w-10 h-10 text-teal-600 dark:text-teal-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              Text Case Converter
+              대소문자 변환기
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
-              Convert text between UPPERCASE, lowercase, Title Case, camelCase,
+              Convert text between UPPERCASE, lowercase, 단어 첫 글자 대문자, camelCase,
               snake_case and more, instantly.
             </p>
 
@@ -216,7 +216,7 @@ export function TextCaseConverterClient({ dict }: { dict?: any }) {
               <CardHeader className="flex flex-row items-center justify-between pb-3">
                 <CardTitle className="flex items-center gap-2">
                   <Type className="w-5 h-5 text-teal-500" />
-                  Your Text
+                  입력한 텍스트
                   <span className="text-sm font-normal text-muted-foreground">
                     {charCount} chars &middot; {wordCount} words
                   </span>
@@ -243,7 +243,7 @@ export function TextCaseConverterClient({ dict }: { dict?: any }) {
                 <textarea
                   value={text}
                   onChange={(e) => setText(e.target.value)}
-                  placeholder="Type or paste your text here..."
+                  placeholder="여기에 텍스트를 입력하거나 붙여넣으세요…"
                   className="w-full min-h-[180px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-base leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-colors placeholder:text-muted-foreground"
                 />
               </CardContent>
@@ -262,7 +262,7 @@ export function TextCaseConverterClient({ dict }: { dict?: any }) {
                     </span>
                     <button
                       onClick={() => handleCopy(result.key, result.value)}
-                      aria-label={`Copy ${result.label}`}
+                      aria-label={`${result.label} 복사`}
                       className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-md border border-teal-200 dark:border-teal-800 text-teal-700 dark:text-teal-300 hover:bg-teal-100 dark:hover:bg-teal-900/30 transition-colors"
                     >
                       {copiedKey === result.key ? (
@@ -276,7 +276,7 @@ export function TextCaseConverterClient({ dict }: { dict?: any }) {
                   <p className="text-sm text-gray-700 dark:text-gray-200 break-words min-h-[1.25rem] whitespace-pre-wrap">
                     {result.value || (
                       <span className="text-muted-foreground italic">
-                        Result will appear here
+                        결과가 여기에 표시됩니다
                       </span>
                     )}
                   </p>
@@ -291,30 +291,30 @@ export function TextCaseConverterClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  How to Use
+                  이용 방법
                 </h2>
                 <p className="text-muted-foreground">
-                  Change your text case in three simple steps.
+                  세 단계면 텍스트의 대소문자를 바꿀 수 있습니다.
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
                   {
                     step: 1,
-                    title: "Enter Your Text",
-                    desc: "Type directly or paste content from any source into the input box.",
+                    title: "텍스트 입력",
+                    desc: "입력창에 직접 입력하거나 어디서든 내용을 붙여넣으세요.",
                     icon: Type,
                   },
                   {
                     step: 2,
-                    title: "See Every Case",
-                    desc: "All conversions update live, from UPPERCASE to camelCase and snake_case.",
+                    title: "모든 변환 결과 보기",
+                    desc: "대문자부터 camelCase, snake_case까지 모든 변환 결과가 실시간으로 갱신됩니다.",
                     icon: ArrowRight,
                   },
                   {
                     step: 3,
                     title: "Copy & Use",
-                    desc: "Click the copy button next to the case you need and paste it anywhere.",
+                    desc: "필요한 표기 옆의 복사 버튼을 눌러 어디든 붙여넣으세요.",
                     icon: ClipboardCheck,
                   },
                 ].map((item) => (
@@ -339,29 +339,29 @@ export function TextCaseConverterClient({ dict }: { dict?: any }) {
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-teal-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">Handy Tips</h2>
+                  <h2 className="text-3xl font-bold mb-4">유용한 팁</h2>
                   <p className="text-muted-foreground">
-                    Pick the right case for the right job.
+                    상황에 맞는 표기 방식을 고르는 방법입니다.
                   </p>
                 </div>
 
                 <div className="md:w-2/3 grid sm:grid-cols-2 gap-4">
                   {[
                     {
-                      title: "Code Naming Conventions",
-                      desc: "Use camelCase for JavaScript variables, PascalCase for classes and React components, and snake_case for Python and database columns.",
+                      title: "코드 작명 규칙",
+                      desc: "자바스크립트 변수에는 camelCase, 클래스와 리액트 컴포넌트에는 PascalCase, 파이썬과 데이터베이스 열에는 snake_case를 쓰세요.",
                     },
                     {
-                      title: "Clean Up SHOUTY Text",
-                      desc: "Accidentally typed with Caps Lock on? Paste it here and grab the Sentence case or lowercase version in one click.",
+                      title: "전부 대문자인 글 정리하기",
+                      desc: "Accidentally typed with Caps Lock on? Paste it here and grab the 문장 첫 글자 대문자 or lowercase version in one click.",
                     },
                     {
                       title: "Headlines & Titles",
-                      desc: "Title Case makes headings look polished for blog posts, articles, and slide decks.",
+                      desc: "단어 첫 글자 대문자 makes headings look polished for blog posts, articles, and slide decks.",
                     },
                     {
                       title: "URLs & Slugs",
-                      desc: "kebab-case is the standard for readable, SEO-friendly URL slugs and CSS class names.",
+                      desc: "kebab-case는 읽기 쉽고 검색에 유리한 URL 주소와 CSS 클래스 이름의 표준입니다.",
                     },
                   ].map((tip, idx) => (
                     <div
@@ -383,7 +383,7 @@ export function TextCaseConverterClient({ dict }: { dict?: any }) {
             {/* FAQ */}
             <section className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>
+                <h2 className="text-2xl font-bold tracking-tight mb-4">자주 묻는 질문</h2>
               </div>
               <Accordion type="single" collapsible className="w-full">
                 {FAQ_ITEMS.map((faq, idx) => (

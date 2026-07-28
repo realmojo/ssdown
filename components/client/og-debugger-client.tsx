@@ -116,12 +116,12 @@ export function OgDebuggerClient({ dict }: { dict?: any }) {
       const data: OgDebuggerResult = await res.json();
       setResult(data);
       if (data.error) {
-        toast.error(data.message || d?.error_generic || "Could not analyze this URL");
+        toast.error(data.message || d?.error_generic || "이 주소를 분석하지 못했습니다");
       }
     } catch (err) {
       console.error(err);
-      setResult({ error: "network_error", message: "Network error" });
-      toast.error(d?.error_generic || "Could not analyze this URL");
+      setResult({ error: "network_error", message: "네트워크 오류" });
+      toast.error(d?.error_generic || "이 주소를 분석하지 못했습니다");
     } finally {
       setLoading(false);
     }
@@ -176,7 +176,7 @@ export function OgDebuggerClient({ dict }: { dict?: any }) {
       .map((t) => `<meta ${t.attr}="${t.key}" content="${t.content}" />`)
       .join("\n");
     navigator.clipboard.writeText(text);
-    toast.success(d?.copied || "Copied to clipboard");
+    toast.success(d?.copied || "클립보드에 복사했습니다");
   };
 
   return (
@@ -238,7 +238,7 @@ export function OgDebuggerClient({ dict }: { dict?: any }) {
                   <Alert variant="destructive">
                     <CircleX className="h-4 w-4" />
                     <AlertDescription>
-                      {result.message || d?.error_generic || "Could not analyze this URL"}
+                      {result.message || d?.error_generic || "이 주소를 분석하지 못했습니다"}
                     </AlertDescription>
                   </Alert>
                 ) : (

@@ -186,7 +186,7 @@ export function CompressPdfClient({ dict }: { dict?: any }) {
         canvas.width = Math.max(1, Math.floor(renderViewport.width));
         canvas.height = Math.max(1, Math.floor(renderViewport.height));
         const ctx = canvas.getContext("2d");
-        if (!ctx) throw new Error("Canvas context unavailable");
+        if (!ctx) throw new Error("캔버스를 사용할 수 없습니다");
 
         // JPEG has no alpha channel — paint a white background first.
         ctx.fillStyle = "#ffffff";
@@ -228,7 +228,7 @@ export function CompressPdfClient({ dict }: { dict?: any }) {
         setProgress(Math.round((i / pdf.numPages) * 100));
       }
 
-      if (!doc) throw new Error("No pages rendered");
+      if (!doc) throw new Error("표시할 페이지가 없습니다");
 
       const blob = doc.output("blob");
       const url = URL.createObjectURL(blob);
@@ -286,11 +286,11 @@ export function CompressPdfClient({ dict }: { dict?: any }) {
               <Minimize2 className="w-10 h-10 text-red-600 dark:text-red-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              {dict?.compress_pdf?.title || "Compress PDF"}
+              {dict?.compress_pdf?.title || "PDF 압축"}
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
               {dict?.compress_pdf?.subtitle ||
-                "Reduce your PDF file size with adjustable quality presets. See exactly how much you save before downloading. 100% private — processed in your browser."}
+                "품질 설정을 조절해 PDF 용량을 줄이세요. 내려받기 전에 얼마나 줄었는지 정확히 확인할 수 있습니다. 100% 비공개로 브라우저에서 처리됩니다."}
             </p>
 
             <Adsense slotId="7759160077" />
@@ -319,10 +319,10 @@ export function CompressPdfClient({ dict }: { dict?: any }) {
                 <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
                   {dict?.compress_pdf?.drop_zone ||
-                    "Drag & drop a PDF file here"}
+                    "여기에 PDF 파일을 끌어다 놓으세요"}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Only PDF files accepted. Max 50MB per file.
+                  PDF 파일만 올릴 수 있습니다. 파일당 최대 50MB입니다.
                 </p>
               </div>
             )}
@@ -355,7 +355,7 @@ export function CompressPdfClient({ dict }: { dict?: any }) {
                 </div>
 
                 <div className="p-4 bg-muted/30 rounded-lg border border-muted space-y-3">
-                  <span className="text-sm font-medium">Compression quality</span>
+                  <span className="text-sm font-medium">압축 품질</span>
                   <div className="grid grid-cols-3 gap-2">
                     {QUALITY_PRESETS.map((preset) => (
                       <button
@@ -387,8 +387,7 @@ export function CompressPdfClient({ dict }: { dict?: any }) {
                 <div className="flex items-start gap-2 p-3 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-200 text-xs">
                   <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
                   <span>
-                    Compressed pages become images, so text will no longer be
-                    selectable or searchable.
+                    압축된 페이지는 이미지로 바뀌므로 글자를 선택하거나 검색할 수 없게 됩니다.
                   </span>
                 </div>
 
@@ -407,7 +406,7 @@ export function CompressPdfClient({ dict }: { dict?: any }) {
                     ) : (
                       <>
                         <Minimize2 className="w-5 h-5 mr-2" />
-                        {dict?.compress_pdf?.action_btn || "Compress PDF"}
+                        {dict?.compress_pdf?.action_btn || "PDF 압축"}
                       </>
                     )}
                   </Button>
@@ -468,8 +467,7 @@ export function CompressPdfClient({ dict }: { dict?: any }) {
 
                 {!isSmaller && (
                   <p className="text-center text-sm text-muted-foreground">
-                    This PDF is already well optimized. Try the Low preset for a
-                    smaller file, or keep your original.
+                    이 PDF는 이미 충분히 최적화되어 있습니다. 용량을 더 줄이려면 '낮음' 설정을 쓰거나 원본을 그대로 두세요.
                   </p>
                 )}
 
@@ -481,11 +479,11 @@ export function CompressPdfClient({ dict }: { dict?: any }) {
                   >
                     <Download className="w-5 h-5 mr-2" />
                     {dict?.compress_pdf?.download_btn ||
-                      "Download Compressed PDF"}
+                      "압축된 PDF 다운로드"}
                   </Button>
                   <Button variant="outline" size="sm" onClick={handleReset}>
                     <RotateCcw className="w-4 h-4 mr-2" />
-                    {dict?.compress_pdf?.another_btn || "Compress Another"}
+                    {dict?.compress_pdf?.another_btn || "다른 파일 압축"}
                   </Button>
                 </div>
               </div>
@@ -497,39 +495,39 @@ export function CompressPdfClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold tracking-tight mb-4">
-                  {dict?.compress_pdf?.guide_title || "How to Compress a PDF"}
+                  {dict?.compress_pdf?.guide_title || "PDF 압축 방법"}
                 </h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
                   {dict?.compress_pdf?.guide_desc ||
-                    "Reduce your PDF file size in 3 simple steps."}
+                    "세 단계면 PDF 용량을 줄일 수 있습니다."}
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
                   {
                     step: 1,
-                    title: dict?.compress_pdf?.step1_title || "Upload PDF",
+                    title: dict?.compress_pdf?.step1_title || "PDF 업로드",
                     desc:
                       dict?.compress_pdf?.step1_desc ||
-                      "Drag and drop or click to select a PDF file from your device.",
+                      "PDF 파일을 끌어다 놓거나 클릭해서 선택하세요.",
                     icon: Upload,
                   },
                   {
                     step: 2,
                     title:
-                      dict?.compress_pdf?.step2_title || "Choose Quality",
+                      dict?.compress_pdf?.step2_title || "품질 선택",
                     desc:
                       dict?.compress_pdf?.step2_desc ||
-                      "Pick High, Medium, or Low. Lower quality means a smaller file size.",
+                      "높음, 보통, 낮음 중에서 고르세요. 품질이 낮을수록 용량이 작아집니다.",
                     icon: Gauge,
                   },
                   {
                     step: 3,
                     title:
-                      dict?.compress_pdf?.step3_title || "Compress & Download",
+                      dict?.compress_pdf?.step3_title || "압축 후 다운로드",
                     desc:
                       dict?.compress_pdf?.step3_desc ||
-                      "Run the compression, review your savings, and download the smaller PDF.",
+                      "압축을 실행해 줄어든 용량을 확인하고 작아진 PDF를 내려받으세요.",
                     icon: FileDown,
                   },
                 ].map((s) => (
@@ -561,44 +559,44 @@ export function CompressPdfClient({ dict }: { dict?: any }) {
                   <Lightbulb className="w-8 h-8 text-yellow-500" />
                 </div>
                 <h2 className="text-3xl font-bold tracking-tight mb-4">
-                  {dict?.compress_pdf?.tips_title || "PDF Compression Tips"}
+                  {dict?.compress_pdf?.tips_title || "PDF 압축 팁"}
                 </h2>
                 <p className="text-muted-foreground">
                   {dict?.compress_pdf?.tips_desc ||
-                    "Get the best balance of quality and file size."}
+                    "화질과 용량의 균형을 맞추는 방법입니다."}
                 </p>
               </div>
               <div className="grid md:grid-cols-2 gap-6">
                 {[
                   {
-                    title: dict?.compress_pdf?.tip1_title || "100% Private",
+                    title: dict?.compress_pdf?.tip1_title || "100% 비공개",
                     desc:
                       dict?.compress_pdf?.tip1_desc ||
-                      "All compression happens in your browser using pdf.js and jsPDF. Your files never leave your device.",
+                      "모든 압축은 pdf.js와 jsPDF를 이용해 브라우저 안에서 이뤄집니다. 파일이 기기를 벗어나지 않습니다.",
                     icon: Shield,
                   },
                   {
                     title:
-                      dict?.compress_pdf?.tip2_title || "Text Becomes Images",
+                      dict?.compress_pdf?.tip2_title || "글자가 이미지로 바뀝니다",
                     desc:
                       dict?.compress_pdf?.tip2_desc ||
-                      "Every page is rebuilt as an image, so text can no longer be selected, searched, or copied. Keep the original if you need selectable text.",
+                      "모든 페이지가 이미지로 다시 만들어지므로 글자를 선택하거나 검색하거나 복사할 수 없게 됩니다. 글자 선택이 필요하면 원본을 보관하세요.",
                     icon: AlertTriangle,
                   },
                   {
                     title:
-                      dict?.compress_pdf?.tip3_title || "Pick the Right Preset",
+                      dict?.compress_pdf?.tip3_title || "알맞은 설정 고르기",
                     desc:
                       dict?.compress_pdf?.tip3_desc ||
-                      "Medium suits most documents. Use High for print clarity and Low for the smallest web-friendly files.",
+                      "대부분의 문서에는 보통이 적당합니다. 인쇄용 선명도가 필요하면 높음을, 웹 공유용으로 가장 작은 파일이 필요하면 낮음을 쓰세요.",
                     icon: Gauge,
                   },
                   {
                     title:
-                      dict?.compress_pdf?.tip4_title || "Best on Scanned PDFs",
+                      dict?.compress_pdf?.tip4_title || "스캔한 PDF에 특히 효과적",
                     desc:
                       dict?.compress_pdf?.tip4_desc ||
-                      "Image-heavy or scanned PDFs shrink the most. Files that are already optimized may not get much smaller.",
+                      "이미지가 많거나 스캔한 PDF일수록 많이 줄어듭니다. 이미 최적화된 파일은 크게 줄지 않을 수 있습니다.",
                     icon: Zap,
                   },
                 ].map((tip, idx) => (
@@ -623,11 +621,11 @@ export function CompressPdfClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold tracking-tight mb-4">
-                  {dict?.compress_pdf?.faq_title || "Compress PDF FAQ"}
+                  {dict?.compress_pdf?.faq_title || "PDF 압축 FAQ"}
                 </h2>
                 <p className="text-muted-foreground text-center max-w-2xl mx-auto">
                   {dict?.compress_pdf?.faq_desc ||
-                    "Common questions about compressing PDF files."}
+                    "PDF 압축에 대해 자주 묻는 질문입니다."}
                 </p>
               </div>
               <div className="max-w-3xl mx-auto">
@@ -635,51 +633,51 @@ export function CompressPdfClient({ dict }: { dict?: any }) {
                   <AccordionItem value="faq-1">
                     <AccordionTrigger>
                       {dict?.compress_pdf?.faq_1_q ||
-                        "How does the PDF compression work?"}
+                        "PDF 압축은 어떤 방식으로 이뤄지나요?"}
                     </AccordionTrigger>
                     <AccordionContent>
                       {dict?.compress_pdf?.faq_1_a ||
-                        "Each page is rendered to an image in your browser, re-encoded as a JPEG at the quality you choose, and rebuilt into a new PDF that keeps the original page dimensions. Lower presets use a lower resolution and stronger compression, so the file gets smaller."}
+                        "각 페이지를 브라우저에서 이미지로 렌더링한 뒤 선택한 품질로 JPEG로 다시 인코딩하고, 원래 페이지 크기를 유지한 새 PDF로 다시 만듭니다. 낮은 설정일수록 해상도가 낮고 압축이 강해져 파일이 작아집니다."}
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="faq-2">
                     <AccordionTrigger>
                       {dict?.compress_pdf?.faq_2_q ||
-                        "Will the text still be selectable?"}
+                        "글자를 계속 선택할 수 있나요?"}
                     </AccordionTrigger>
                     <AccordionContent>
                       {dict?.compress_pdf?.faq_2_a ||
-                        "No. Because every page is converted to an image, the pages become pictures — text can no longer be selected, searched, or copied. If you need selectable text, keep the original or use the High preset for the best visual fidelity."}
+                        "아니요. 모든 페이지가 이미지로 변환되므로 글자를 선택하거나 검색하거나 복사할 수 없습니다. 글자 선택이 필요하면 원본을 보관하시거나, 화질을 최대한 유지하려면 높음 설정을 사용하세요."}
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="faq-3">
                     <AccordionTrigger>
                       {dict?.compress_pdf?.faq_3_q ||
-                        "Which quality preset should I choose?"}
+                        "어떤 품질 설정을 고르는 게 좋나요?"}
                     </AccordionTrigger>
                     <AccordionContent>
                       {dict?.compress_pdf?.faq_3_a ||
-                        "Use High (~150 DPI) for the smallest size while keeping print-friendly clarity, Medium (~110 DPI) for a good on-screen balance, and Low (~72 DPI) for the smallest files for quick web sharing."}
+                        "인쇄용 선명도를 유지하면서 용량을 줄이려면 높음(약 150 DPI), 화면으로 보기에 균형이 좋은 보통(약 110 DPI), 웹 공유용으로 가장 작은 파일은 낮음(약 72 DPI)을 사용하세요."}
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="faq-4">
                     <AccordionTrigger>
                       {dict?.compress_pdf?.faq_4_q ||
-                        "Are my files uploaded to a server?"}
+                        "제 파일이 서버에 업로드되나요?"}
                     </AccordionTrigger>
                     <AccordionContent>
                       {dict?.compress_pdf?.faq_4_a ||
-                        "No. All compression happens entirely in your browser using pdf.js and jsPDF. Your PDF never leaves your device and is never uploaded anywhere."}
+                        "아니요. 모든 압축은 pdf.js와 jsPDF를 이용해 전적으로 브라우저 안에서 이뤄집니다. PDF가 기기를 벗어나지 않으며 어디에도 업로드되지 않습니다."}
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="faq-5">
                     <AccordionTrigger>
                       {dict?.compress_pdf?.faq_5_q ||
-                        "Can I compress password-protected PDFs?"}
+                        "비밀번호가 걸린 PDF도 압축할 수 있나요?"}
                     </AccordionTrigger>
                     <AccordionContent>
                       {dict?.compress_pdf?.faq_5_a ||
-                        "Encrypted or password-protected PDFs usually cannot be read in the browser and will show an error. Remove the password with your PDF reader first, then compress the unlocked file."}
+                        "암호화되었거나 비밀번호가 걸린 PDF는 대개 브라우저에서 읽을 수 없어 오류가 표시됩니다. PDF 뷰어에서 먼저 비밀번호를 해제한 뒤 압축해 주세요."}
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>

@@ -99,7 +99,7 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
             },
             {
               step: 2,
-              title: dict?.dailymotion?.step2_title || "Copy Link",
+              title: dict?.dailymotion?.step2_title || "링크 복사",
               desc:
                 dict?.dailymotion?.step2_desc ||
                 "Copy the Dailymotion video URL. It should look like 'https://www.dailymotion.com/video/xxxxx' or 'https://dai.ly/xxxxx'.",
@@ -136,7 +136,7 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
         </div>
       </section>
 
-      {/* Tips & Best Practices */}
+      {/* 활용 팁 */}
       <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
@@ -154,7 +154,7 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
         <div className="grid md:grid-cols-2 gap-6">
           {[
             {
-              title: dict?.dailymotion?.tip1_title || "Public Videos Only",
+              title: dict?.dailymotion?.tip1_title || "공개 영상만 가능",
               desc:
                 dict?.dailymotion?.tip1_desc ||
                 "SSDown can only download public Dailymotion videos. Private or age-restricted content may not be accessible.",
@@ -175,7 +175,7 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
               icon: Share2,
             },
             {
-              title: dict?.dailymotion?.tip4_title || "Respect Copyright",
+              title: dict?.dailymotion?.tip4_title || "저작권 존중",
               desc:
                 dict?.dailymotion?.tip4_desc ||
                 "Always respect creators' copyright. Only download content for personal use and give proper credit when sharing.",
@@ -223,13 +223,13 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
                 "Download Dailymotion videos in HD quality with full audio support.",
             },
             {
-              title: dict?.dailymotion?.feature2_title || "Multiple Qualities",
+              title: dict?.dailymotion?.feature2_title || "여러 화질 지원",
               desc:
                 dict?.dailymotion?.feature2_desc ||
                 "Choose from multiple quality options available for each video.",
             },
             {
-              title: dict?.dailymotion?.feature3_title || "Fast Downloads",
+              title: dict?.dailymotion?.feature3_title || "빠른 다운로드",
               desc:
                 dict?.dailymotion?.feature3_desc ||
                 "Download videos quickly with our optimized servers.",
@@ -286,7 +286,7 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
       <div className="grid gap-6 sm:grid-cols-2 w-full pt-12 text-left">
         <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
           <p className="font-semibold text-lg mb-2">
-            {dict?.dailymotion?.feature_1_title || "HD Quality Videos"}
+            {dict?.dailymotion?.feature_1_title || "HD 화질 Videos"}
           </p>
           <p className="text-muted-foreground text-sm">
             {dict?.dailymotion?.feature_1_desc ||
@@ -315,14 +315,14 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
       title={dict?.dailymotion?.title || "Dailymotion Saver"}
       subtitle={
         dict?.dailymotion?.subtitle ||
-        "Download Dailymotion videos instantly. High quality, no watermark."
+        "Download Dailymotion videos instantly. 고화질, no watermark."
       }
       placeholder={
         dict?.dailymotion?.placeholder || "Paste Dailymotion URL here..."
       }
       apiEndpoint="/api/dailymotion"
       downloadEndpoint="/api/dailymotion/download"
-      noVideoError="No video found. Make sure the URL is valid."
+      noVideoError="영상을 찾지 못했습니다. URL이 올바른지 확인해 주세요."
       statsConfig={statsConfig}
       thumbnailAspect="aspect-video"
       thumbnailHeight="h-64"

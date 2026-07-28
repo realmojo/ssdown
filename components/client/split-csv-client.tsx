@@ -96,7 +96,7 @@ export function SplitCsvClient({ dict }: { dict?: any }) {
       const text = await file.text();
       const data = parseCSV(text);
 
-      if (data.length < 2) throw new Error("CSV requires a header and data.");
+      if (data.length < 2) throw new Error("CSV에는 머리글과 데이터가 필요합니다.");
 
       const header = data[0];
       const rows = data.slice(1);
@@ -134,10 +134,10 @@ export function SplitCsvClient({ dict }: { dict?: any }) {
       link.click();
       URL.revokeObjectURL(url);
 
-      toast.success("Split successful! Downloading ZIP...");
+      toast.success("분할이 완료됐습니다! ZIP 파일을 내려받는 중…");
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_err) {
-      toast.error("Error splitting CSV.");
+      toast.error("CSV를 분할하지 못했습니다.");
     } finally {
       setIsProcessing(false);
     }
@@ -199,10 +199,10 @@ export function SplitCsvClient({ dict }: { dict?: any }) {
             >
               <FileSpreadsheet className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
               <p className="text-lg font-medium mb-2">
-                Click to upload or Drag & Drop CSV file
+                클릭해서 올리거나 CSV 파일을 끌어다 놓으세요
               </p>
               <p className="text-sm text-muted-foreground">
-                Supports .csv files
+                .csv 파일을 지원합니다
               </p>
               <input
                 ref={fileInputRef}
@@ -242,7 +242,7 @@ export function SplitCsvClient({ dict }: { dict?: any }) {
                           : ""
                       }
                     >
-                      Split by Rows
+                      행 기준 분할
                     </Button>
                     <Button
                       variant={splitMode === "files" ? "default" : "outline"}
@@ -256,7 +256,7 @@ export function SplitCsvClient({ dict }: { dict?: any }) {
                           : ""
                       }
                     >
-                      Split into Files
+                      파일로 나누기
                     </Button>
                   </div>
 

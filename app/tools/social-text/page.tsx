@@ -1,13 +1,11 @@
 import { Hash, AlignLeft, ArrowRight } from "lucide-react";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/tools/social-text`;
 
@@ -22,12 +20,12 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description, images: ["https://ssdown.app/logo.png"] },
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
   };
 }
 
@@ -37,8 +35,7 @@ const toolMeta = [
 ];
 
 export default async function SocialTextToolsPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const tools = toolMeta.map((meta, i) => ({
     ...meta,

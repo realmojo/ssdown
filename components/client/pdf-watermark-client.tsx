@@ -220,10 +220,10 @@ export function PdfWatermarkClient({ dict }: { dict?: any }) {
                 <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
                   {dict?.pdf_watermark?.drop_zone ||
-                    "Drag & drop a PDF file here"}
+                    "여기에 PDF 파일을 끌어다 놓으세요"}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Only PDF files accepted. Max 50MB per file.
+                  PDF 파일만 올릴 수 있습니다. 파일당 최대 50MB입니다.
                 </p>
               </div>
             )}
@@ -251,7 +251,7 @@ export function PdfWatermarkClient({ dict }: { dict?: any }) {
                 <div className="p-6 bg-muted/30 rounded-lg border border-muted space-y-5">
                   <div>
                     <label className="text-xs text-muted-foreground mb-1 block">
-                      Watermark Text
+                      워터마크 문구
                     </label>
                     <Input
                       value={watermarkText}
@@ -260,7 +260,7 @@ export function PdfWatermarkClient({ dict }: { dict?: any }) {
                         setResultUrl(null);
                         setResultSize(null);
                       }}
-                      placeholder="Enter watermark text"
+                      placeholder="워터마크 문구를 입력하세요"
                       maxLength={100}
                     />
                   </div>
@@ -268,7 +268,7 @@ export function PdfWatermarkClient({ dict }: { dict?: any }) {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="text-xs text-muted-foreground mb-1 block">
-                        Font Size (12-120)
+                        글자 크기 (12~120)
                       </label>
                       <Input
                         type="number"
@@ -323,8 +323,8 @@ export function PdfWatermarkClient({ dict }: { dict?: any }) {
                       }}
                     />
                     <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                      <span>Light (0.05)</span>
-                      <span>Opaque (1.0)</span>
+                      <span>연하게 (0.05)</span>
+                      <span>진하게 (1.0)</span>
                     </div>
                   </div>
                 </div>
@@ -398,10 +398,10 @@ export function PdfWatermarkClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.pdf_watermark?.step1_title || "Upload PDF",
+                    title: dict?.pdf_watermark?.step1_title || "PDF 업로드",
                     desc:
                       dict?.pdf_watermark?.step1_desc ||
-                      "Drag and drop or click to select a PDF file from your device.",
+                      "PDF 파일을 끌어다 놓거나 클릭해서 선택하세요.",
                     icon: Upload,
                   },
                   {
@@ -462,7 +462,7 @@ export function PdfWatermarkClient({ dict }: { dict?: any }) {
                     title: dict?.pdf_watermark?.tip1_title || "100% Private",
                     desc:
                       dict?.pdf_watermark?.tip1_desc ||
-                      "All processing happens in your browser using pdf-lib. Your files never leave your device.",
+                      "모든 처리는 pdf-lib를 이용해 브라우저 안에서 이뤄집니다. 파일이 기기를 벗어나지 않습니다.",
                     icon: Shield,
                   },
                   {
@@ -482,7 +482,7 @@ export function PdfWatermarkClient({ dict }: { dict?: any }) {
                   },
                   {
                     title:
-                      dict?.pdf_watermark?.tip4_title || "Original Preserved",
+                      dict?.pdf_watermark?.tip4_title || "원본 보존",
                     desc:
                       dict?.pdf_watermark?.tip4_desc ||
                       "Your original PDF file remains untouched. Only a new watermarked file is created for download.",

@@ -1,41 +1,39 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { VideoConverterClient } from "@/components/client/video-converter-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 const FALLBACK_FAQ: { question: string; answer: string }[] = [
   {
-    question: "Which video formats can I convert between?",
+    question: "어떤 영상 형식끼리 변환할 수 있나요?",
     answer:
-      "You can convert MP4, MOV, WebM, AVI, and MKV inputs into MP4 (H.264), WebM (VP8), MOV, or AVI. MP4 is the most widely compatible choice for phones, browsers, and social media.",
+      "MP4, MOV, WebM, AVI, MKV를 입력받아 MP4(H.264), WebM(VP8), MOV, AVI로 변환할 수 있습니다. 휴대폰, 브라우저, 소셜 미디어에서 가장 널리 호환되는 것은 MP4입니다.",
   },
   {
-    question: "Why is conversion slow for big files?",
+    question: "큰 파일은 왜 변환이 느린가요?",
     answer:
-      "Everything runs locally in your browser using FFmpeg compiled to WebAssembly, which is single-threaded. For a smooth experience keep clips under about 100MB — larger or longer videos can take several minutes.",
+      "모든 처리가 웹어셈블리로 빌드한 FFmpeg로 브라우저 안에서 이뤄지는데, 이는 단일 스레드로 동작합니다. 원활하게 쓰시려면 100MB 이하 영상을 권장하며, 더 크거나 긴 영상은 몇 분이 걸릴 수 있습니다.",
   },
   {
-    question: "Is my video uploaded to a server?",
+    question: "제 영상이 서버에 업로드되나요?",
     answer:
-      "No. All processing happens on your device using WebAssembly. Your video never leaves your browser, so it stays completely private.",
+      "아니요. 모든 처리가 웹어셈블리로 기기 안에서 이뤄집니다. 영상이 브라우저를 벗어나지 않아 완전히 비공개로 유지됩니다.",
   },
   {
-    question: "Why is MOV to MP4 almost instant sometimes?",
+    question: "MOV → MP4 변환이 가끔 거의 즉시 끝나는 이유는 무엇인가요?",
     answer:
-      "When the source already uses compatible codecs (H.264 video and AAC audio), we simply repackage the file into the new container without re-encoding. If the codecs are incompatible, we automatically fall back to a full re-encode.",
+      "원본이 이미 호환되는 코덱(H.264 영상, AAC 오디오)을 쓰고 있으면 재인코딩 없이 새 컨테이너로 다시 담기만 합니다. 코덱이 호환되지 않으면 자동으로 전체 재인코딩으로 전환됩니다.",
   },
   {
-    question: "What is the difference between MP4 and WebM?",
+    question: "MP4와 WebM은 무엇이 다른가요?",
     answer:
-      "MP4 (H.264 + AAC) plays virtually everywhere. WebM (VP8) is an open, royalty-free format optimized for the web. Choose MP4 for maximum compatibility and WebM when you specifically need an open format.",
+      "MP4(H.264 + AAC)는 사실상 어디서나 재생됩니다. WebM(VP8)은 웹에 최적화된 개방형 무료 형식입니다. 호환성이 중요하면 MP4를, 개방형 형식이 꼭 필요하면 WebM을 고르세요.",
   },
 ];
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   // Dict keys for this tool are added separately; access defensively.
   const page = (dict as Record<string, any>)?.page_video_converter;
   const baseUrl = "https://ssdown.app";
@@ -43,21 +41,21 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const title =
     page?.meta_title ||
-    "Video Converter - Convert MP4, WebM, MOV, AVI Online | SSDown";
+    "영상 변환기 - MP4, WebM, MOV, AVI 온라인 변환 | SSDown";
   const description =
     page?.meta_description ||
-    "Convert videos between MP4, WebM, MOV, and AVI right in your browser. Free, fast, and private — no uploads.";
+    "브라우저에서 바로 MP4, WebM, MOV, AVI를 서로 변환하세요. 무료이고 빠르며 업로드 없이 비공개로 처리됩니다.";
 
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -66,14 +64,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function VideoConverterPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const homeLabel = dict?.breadcrumb?.home || "Home";
   const toolsLabel = dict?.breadcrumb?.tools || "Tools";
   const videoAudioLabel = dict?.breadcrumb?.video_audio || "Video & Audio";
   const page = (dict as Record<string, any>)?.page_video_converter;
-  const breadcrumbLabel = page?.breadcrumb_title || "Video Converter";
+  const breadcrumbLabel = page?.breadcrumb_title || "영상 변환기";
   const faqItems: { question: string; answer: string }[] =
     page?.faq || FALLBACK_FAQ;
 
@@ -104,40 +101,40 @@ export default async function VideoConverterPage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Video Converter",
+    name: "영상 변환기",
     url: "https://ssdown.app/video-audio/video-converter",
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     description:
-      "Free online video converter. Convert between MP4, WebM, MOV, and AVI directly in your browser. Fast, secure, and private.",
+      "무료 온라인 영상 변환기. 브라우저에서 바로 MP4, WebM, MOV, AVI를 서로 변환하세요. 빠르고 안전하며 비공개로 처리됩니다.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to Convert a Video Online",
+    name: "온라인 영상 변환 방법",
     description:
-      "Use our free online video converter to change a video's format securely in your browser.",
+      "무료 온라인 영상 변환기로 브라우저에서 안전하게 영상 형식을 바꾸세요.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Upload your video file",
-        text: "Select or drag and drop your MP4, MOV, WebM, AVI, or MKV file into the tool area.",
+        name: "영상 파일 올리기",
+        text: "MP4, MOV, WebM, AVI, MKV 파일을 선택하거나 도구 영역으로 끌어다 놓으세요.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Choose an output format",
-        text: "Pick MP4, WebM, MOV, or AVI as your target format.",
+        name: "출력 형식 선택",
+        text: "변환할 형식으로 MP4, WebM, MOV, AVI 중 하나를 고르세요.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Convert and download",
-        text: "Run the conversion, preview the result, and download your new file instantly.",
+        name: "변환 후 다운로드",
+        text: "변환을 실행해 결과를 미리 본 뒤 새 파일을 바로 내려받으세요.",
       },
     ],
   };

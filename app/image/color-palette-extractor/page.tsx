@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { ColorPaletteExtractorClient } from "@/components/client/color-palette-extractor-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/color-palette-extractor`;
 
@@ -17,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ColorPaletteExtractorPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -62,38 +59,38 @@ export default async function ColorPaletteExtractorPage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Color Palette Extractor",
+    name: "컬러 팔레트 추출기",
     url: "https://ssdown.app/image/color-palette-extractor",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Extract dominant colors and create a beautiful palette from any image.",
+    description: "어떤 이미지에서든 주요 색상을 뽑아 아름다운 팔레트를 만들어 줍니다.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Color Palette Extractor Online",
-    description: "Extract dominant colors and create a beautiful palette from any image.",
+    name: "컬러 팔레트 추출기 사용 방법",
+    description: "어떤 이미지에서든 주요 색상을 뽑아 아름다운 팔레트를 만들어 줍니다.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Upload an image",
-        text: "Choose an image you want to extract colors from.",
+        name: "이미지 업로드",
+        text: "컬러를 추출하려는 이미지를 선택하세요.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Analyze colors",
-        text: "Wait a second while we analyze the dominant colors and hex codes.",
+        name: "색상 개수 조절",
+        text: "슬라이더를 이용해 3개에서 12개 사이의 주요 색상을 선택하세요.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Copy hex codes",
-        text: "Copy the color codes or download the palette as an image.",
+        name: "복사 및 저장",
+        text: "개별 색상 코드를 복사하거나 전체 팔레트를 이미지로 저장하세요.",
       }
     ],
   };
@@ -141,12 +138,12 @@ export default async function ColorPaletteExtractorPage() {
           className="flex items-center justify-between gap-4 bg-gradient-to-r from-violet-50 to-pink-50 dark:from-violet-950/30 dark:to-pink-950/30 border border-violet-200 dark:border-violet-800 rounded-2xl p-5 hover:shadow-md transition-all group"
         >
           <div>
-            <p className="text-xs font-semibold text-violet-500 uppercase tracking-wider mb-1">Try Also</p>
+            <p className="text-xs font-semibold text-violet-500 uppercase tracking-wider mb-1">이런 도구도 있어요</p>
             <h3 className="font-bold text-gray-900 dark:text-white text-lg group-hover:text-violet-600 transition-colors">
-              Mood Palette — AI Color Palette Generator
+              무드 팔레트 — AI 색상 팔레트 생성기
             </h3>
             <p className="text-sm text-gray-500 mt-0.5">
-              Generate beautiful color palettes from mood, keywords, or images. Free online tool.
+              분위기, 키워드, 이미지로 아름다운 색상 팔레트를 만들어 보세요. 무료 온라인 도구입니다.
             </p>
           </div>
           <span className="shrink-0 text-2xl">🎨</span>

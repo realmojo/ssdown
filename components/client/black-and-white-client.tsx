@@ -211,7 +211,7 @@ export function BlackAndWhiteClient({ dict }: { dict?: any }) {
               }}
               className="mt-4 text-sm text-gray-600 dark:text-gray-400 hover:underline"
             >
-              Or try with a sample image
+              샘플 이미지로 먼저 써보기
             </button>
           </div>
         ) : (
@@ -223,7 +223,7 @@ export function BlackAndWhiteClient({ dict }: { dict?: any }) {
                   <div className="flex items-center gap-3">
                     <Button variant="outline" size="sm" onClick={handleReset}>
                       <RotateCcw className="w-4 h-4 mr-2" />
-                      New Image
+                      새 이미지
                     </Button>
                     <span
                       className="text-sm text-muted-foreground truncate max-w-[200px]"
@@ -247,14 +247,14 @@ export function BlackAndWhiteClient({ dict }: { dict?: any }) {
                 {convertedUrl ? (
                   <img
                     src={convertedUrl}
-                    alt="Black and white result"
+                    alt="흑백 변환 결과"
                     className="max-w-full max-h-[60vh] block rounded-lg shadow-md"
                     draggable={false}
                   />
                 ) : (
                   <img
                     src={imageSrc}
-                    alt="Original"
+                    alt="원본"
                     className="max-w-full max-h-[60vh] block rounded-lg shadow-md"
                     draggable={false}
                   />
@@ -271,7 +271,7 @@ export function BlackAndWhiteClient({ dict }: { dict?: any }) {
                   className="bg-green-600 hover:bg-green-700 text-white shadow-lg min-w-[180px]"
                 >
                   <Download className="w-5 h-5 mr-2" />
-                  Download
+                  다운로드
                 </Button>
               </div>
             )}
@@ -298,7 +298,7 @@ export function BlackAndWhiteClient({ dict }: { dict?: any }) {
             {[
               {
                 step: 1,
-                title: dict?.black_and_white?.step1_title || "Upload Image",
+                title: dict?.black_and_white?.step1_title || "이미지 업로드",
                 desc:
                   dict?.black_and_white?.step1_desc ||
                   "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
@@ -314,7 +314,7 @@ export function BlackAndWhiteClient({ dict }: { dict?: any }) {
               },
               {
                 step: 3,
-                title: dict?.black_and_white?.step3_title || "Download Result",
+                title: dict?.black_and_white?.step3_title || "결과 다운로드",
                 desc:
                   dict?.black_and_white?.step3_desc ||
                   "Click 'Download' to save your black & white image to your device.",
@@ -352,29 +352,29 @@ export function BlackAndWhiteClient({ dict }: { dict?: any }) {
               {dict?.black_and_white?.tips_title || "Black & White Tips"}
             </h2>
             <p className="text-muted-foreground">
-              Get the best results when converting images to black & white.
+              이미지를 흑백으로 바꿀 때 가장 좋은 결과를 얻는 방법입니다.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Luminance Preservation",
-                desc: "We use the ITU-R BT.601 formula (0.299R + 0.587G + 0.114B) to produce natural-looking grayscale that matches human perception.",
+                title: "밝기 정보 보존",
+                desc: "사람의 시각에 맞는 자연스러운 흑백을 만들기 위해 ITU-R BT.601 공식(0.299R + 0.587G + 0.114B)을 사용합니다.",
                 icon: Shield,
               },
               {
-                title: "High-Contrast Subjects",
-                desc: "Images with strong contrast between light and dark areas tend to look most dramatic in black & white.",
+                title: "대비가 강한 피사체",
+                desc: "밝은 부분과 어두운 부분의 대비가 강한 이미지일수록 흑백으로 바꿨을 때 극적으로 보입니다.",
                 icon: Contrast,
               },
               {
-                title: "Portrait Photography",
-                desc: "Black & white conversion can add a timeless, classic feel to portrait photos and emphasize textures and expressions.",
+                title: "인물 사진",
+                desc: "흑백 변환은 인물 사진에 고전적인 분위기를 더하고 질감과 표정을 돋보이게 합니다.",
                 icon: Zap,
               },
               {
-                title: "Original Preserved",
-                desc: "Your original image stays untouched. Download the converted version separately and keep both.",
+                title: "원본 보존",
+                desc: "원본 이미지는 그대로 남습니다. 변환본을 따로 내려받아 둘 다 보관하세요.",
                 icon: Layers,
               },
             ].map((tip, idx) => (
@@ -399,7 +399,7 @@ export function BlackAndWhiteClient({ dict }: { dict?: any }) {
               {dict?.black_and_white?.faq_title || "Black & White FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about converting images to black & white.
+              이미지 흑백 변환에 대해 자주 묻는 질문입니다.
             </p>
           </div>
           <div className="max-w-3xl mx-auto">
@@ -446,7 +446,7 @@ export function BlackAndWhiteClient({ dict }: { dict?: any }) {
               <AccordionItem value="faq-5">
                 <AccordionTrigger>
                   {dict?.black_and_white?.faq_5_q ||
-                    "What image formats are supported?"}
+                    "어떤 이미지 형식을 지원하나요?"}
                 </AccordionTrigger>
                 <AccordionContent>
                   {dict?.black_and_white?.faq_5_a ||

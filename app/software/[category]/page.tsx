@@ -20,8 +20,6 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { getCategoryBySlug, CATEGORIES } from "@/lib/categories";
 import { getAppsByCategory, getAppsByPlatform, localizeApp } from "@/lib/app-utils";
-import { getLocale } from "@/lib/get-locale";
-import { languagesForUrl } from "@/lib/seo";
 import type { SoftwareApplication } from "@/types/app";
 
 const PLATFORMS = ["windows", "mac", "android", "iphone"] as const;
@@ -92,13 +90,11 @@ export async function generateMetadata({
   const { category: slug } = await params;
   const { page: pageParam } = await searchParams;
   const page = Math.max(1, parseInt(pageParam ?? "1", 10));
-  const locale = await getLocale();
-  const krPrefix = locale === "kr" ? "/kr" : "";
 
   if (PLATFORMS.includes(slug as PlatformSlug)) {
     const label = PLATFORM_LABELS[slug as PlatformSlug];
-    const title = `Best Free ${label} Software & Apps | ${SITE_NAME}`;
-    const description = `Download the best free ${label} software and apps. Browse top-rated ${label} applications for productivity, games, security, and more.`;
+    const title = `${label} 무료 소프트웨어·앱 추천 | ${SITE_NAME}`;
+    const description = `${label}용 무료 소프트웨어와 앱을 내려받으세요. 생산성, 게임, 보안 등 평점 높은 ${label} 프로그램을 둘러볼 수 있습니다.`;
     const canonical = `${SITE_URL}/software/${slug}`;
     return {
       title,
@@ -106,9 +102,8 @@ export async function generateMetadata({
       keywords: `${label} software download, free ${label} apps, best ${label} programs, ${label} applications`,
       robots: { index: true, follow: true },
       alternates: {
-        canonical: page > 1 ? `${SITE_URL}${krPrefix}/software/${slug}?page=${page}` : `${SITE_URL}${krPrefix}/software/${slug}`,
-        languages: languagesForUrl(page > 1 ? `${canonical}?page=${page}` : canonical),
-        ...(page > 1 && { prev: page === 2 ? `${SITE_URL}${krPrefix}/software/${slug}` : `${SITE_URL}${krPrefix}/software/${slug}?page=${page - 1}` }),
+        canonical: page > 1 ? `${SITE_URL}/software/${slug}?page=${page}` : `${SITE_URL}/software/${slug}`,
+        ...(page > 1 && { prev: page === 2 ? `${SITE_URL}/software/${slug}` : `${SITE_URL}/software/${slug}?page=${page - 1}` }),
       },
       openGraph: { title, description, url: canonical, siteName: SITE_NAME, type: "website", images: [OG_IMAGE] },
       twitter: { card: "summary_large_image", title, description, images: [OG_IMAGE.url] },
@@ -118,19 +113,18 @@ export async function generateMetadata({
   const category = getCategoryBySlug(slug);
   if (!category) return {};
 
-  const title = `Best Free ${category.nameEn} Software & Apps | ${SITE_NAME}`;
-  const description = `Download the best free ${category.nameEn} software and apps. Find top-rated ${category.nameEn} applications for Windows, Mac, Android, and iOS.`;
+  const title = `${category.name} 무료 소프트웨어·앱 추천 | ${SITE_NAME}`;
+  const description = `${category.name} 무료 소프트웨어와 앱을 내려받으세요. 윈도우, 맥, 안드로이드, iOS용 평점 높은 ${category.name} 프로그램을 찾아보세요.`;
   const canonical = `${SITE_URL}/software/${slug}`;
 
   return {
     title,
     description,
-    keywords: `${category.nameEn} software download, free ${category.nameEn} apps, best ${category.nameEn} programs`,
+    keywords: `${category.name} software download, free ${category.name} apps, best ${category.name} programs`,
     robots: { index: true, follow: true },
     alternates: {
-      canonical: page > 1 ? `${SITE_URL}${krPrefix}/software/${slug}?page=${page}` : `${SITE_URL}${krPrefix}/software/${slug}`,
-      languages: languagesForUrl(page > 1 ? `${canonical}?page=${page}` : canonical),
-      ...(page > 1 && { prev: page === 2 ? `${SITE_URL}${krPrefix}/software/${slug}` : `${SITE_URL}${krPrefix}/software/${slug}?page=${page - 1}` }),
+      canonical: page > 1 ? `${SITE_URL}/software/${slug}?page=${page}` : `${SITE_URL}/software/${slug}`,
+      ...(page > 1 && { prev: page === 2 ? `${SITE_URL}/software/${slug}` : `${SITE_URL}/software/${slug}?page=${page - 1}` }),
     },
     openGraph: { title, description, url: canonical, siteName: SITE_NAME, type: "website", images: [OG_IMAGE] },
     twitter: { card: "summary_large_image", title, description, images: [OG_IMAGE.url] },
@@ -186,7 +180,7 @@ function AppGrid({ apps }: { apps: SoftwareApplication[] }) {
   if (apps.length === 0) {
     return (
       <div className="text-center py-20">
-        <p className="text-gray-400 text-lg">No apps found</p>
+        <p className="text-gray-400 text-lg">앱을 찾지 못했습니다</p>
       </div>
     );
   }
@@ -385,9 +379,8 @@ export default async function CategoryPage({
   const isPlatform = PLATFORMS.includes(slug as PlatformSlug);
   if (isPlatform) {
     const label = PLATFORM_LABELS[slug as PlatformSlug];
-    const locale = await getLocale();
     const { apps: rawApps, total } = await getAppsByPlatform(slug, PAGE_SIZE, offset, categoryFilter);
-    const apps = rawApps.map((a) => localizeApp(a, locale));
+    const apps = rawApps.map((a) => localizeApp(a));
     const totalPages = Math.ceil(total / PAGE_SIZE);
 
     const buildPageUrl = (page: number) =>
@@ -454,9 +447,8 @@ export default async function CategoryPage({
   const category = getCategoryBySlug(slug);
   if (!category) notFound();
 
-  const locale = await getLocale();
   const { apps: rawApps, total } = await getAppsByCategory(slug, PAGE_SIZE, offset);
-  const apps = rawApps.map((a) => localizeApp(a, locale));
+  const apps = rawApps.map((a) => localizeApp(a));
   const totalPages = Math.ceil(total / PAGE_SIZE);
 
   const buildPageUrl = (page: number) =>
@@ -464,7 +456,7 @@ export default async function CategoryPage({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <CategoryJsonLd label={category.nameEn} slug={slug} apps={apps} />
+      <CategoryJsonLd label={category.name} slug={slug} apps={apps} />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
@@ -476,7 +468,7 @@ export default async function CategoryPage({
           </div>
           <div>
             <h1 className="text-3xl font-extrabold text-gray-900">
-              {category.nameEn}
+              {category.name}
             </h1>
             <p className="text-sm text-gray-500 mt-1">
               {total > 0 ? `${total.toLocaleString()} apps` : ""}

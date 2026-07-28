@@ -18,7 +18,6 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { CATEGORIES } from "@/lib/categories";
 import { buildAlternates } from "@/lib/seo";
-import { getLocale } from "@/lib/get-locale";
 import type { Metadata } from "next";
 
 export const revalidate = 3600;
@@ -26,17 +25,16 @@ export const revalidate = 3600;
 const OG_IMAGE = { url: "https://ssdown.app/logo.png", width: 1200, height: 630 };
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
   return {
-  title: "Free Software Downloads by Category | SSDown",
+  title: "카테고리별 무료 소프트웨어 다운로드 | SSDown",
   description:
-    "Browse and download free software by category — games, browsers, security, productivity, utilities, and more for Windows, Mac, Android, and iOS.",
-  keywords: "free software download, software categories, best free apps, windows software, mac software, android apps",
+    "카테고리별로 무료 소프트웨어를 찾아 내려받으세요. 윈도우, 맥, 안드로이드, iOS용 게임, 브라우저, 보안, 생산성, 유틸리티 등을 제공합니다.",
+  keywords: "무료 소프트웨어 다운로드, 소프트웨어 카테고리, 무료 앱 추천, 윈도우 프로그램, 맥 프로그램, 안드로이드 앱",
   robots: { index: true, follow: true },
-  alternates: buildAlternates("/software", locale),
+  alternates: buildAlternates("/software"),
   openGraph: {
-    title: "Free Software Downloads by Category | SSDown",
-    description: "Browse and download free software by category — games, browsers, security, productivity, utilities, and more.",
+    title: "카테고리별 무료 소프트웨어 다운로드 | SSDown",
+    description: "카테고리별로 무료 소프트웨어를 찾아 내려받으세요. 게임, 브라우저, 보안, 생산성, 유틸리티 등을 제공합니다.",
     url: "https://ssdown.app/software",
     siteName: "SSDown",
     type: "website",
@@ -44,8 +42,8 @@ export async function generateMetadata(): Promise<Metadata> {
   },
   twitter: {
     card: "summary_large_image" as const,
-    title: "Free Software Downloads by Category | SSDown",
-    description: "Browse and download free software by category — games, browsers, security, productivity, utilities, and more.",
+    title: "카테고리별 무료 소프트웨어 다운로드 | SSDown",
+    description: "카테고리별로 무료 소프트웨어를 찾아 내려받으세요. 게임, 브라우저, 보안, 생산성, 유틸리티 등을 제공합니다.",
     images: [OG_IMAGE.url],
   },
   };
@@ -88,7 +86,7 @@ export default function SoftwareCategoriesPage() {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       name: "Free Software Downloads by Category",
-      description: "Browse and download free software by category — games, browsers, security, productivity, utilities, and more for Windows, Mac, Android, and iOS.",
+      description: "카테고리별로 무료 소프트웨어를 찾아 내려받으세요. 윈도우, 맥, 안드로이드, iOS용 게임, 브라우저, 보안, 생산성, 유틸리티 등을 제공합니다.",
       url: "https://ssdown.app/software",
       publisher: {
         "@type": "Organization",
@@ -115,26 +113,26 @@ export default function SoftwareCategoriesPage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-1.5 text-xs text-gray-400 mb-6">
-          <a href="/" className="hover:text-gray-600 transition-colors">Home</a>
+          <a href="/" className="hover:text-gray-600 transition-colors">홈</a>
           <ChevronRight className="w-3 h-3" />
-          <span className="text-gray-600">Software</span>
+          <span className="text-gray-600">소프트웨어</span>
         </nav>
 
         <h1 className="text-3xl font-extrabold text-gray-900 mb-2">
-          Free Software Downloads
+          무료 소프트웨어 다운로드
         </h1>
         <p className="text-gray-500 text-sm mb-8">
-          Browse top-rated free software and apps by category or platform.
+          카테고리나 플랫폼별로 평점 높은 무료 소프트웨어와 앱을 둘러보세요.
         </p>
 
         {/* Browse by Platform */}
-        <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Browse by Platform</h2>
+        <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">플랫폼별로 찾기</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
           {[
-            { slug: "windows", label: "Windows", desc: "PC & Desktop" },
-            { slug: "mac",     label: "Mac",     desc: "macOS Apps" },
-            { slug: "android", label: "Android", desc: "Android Apps" },
-            { slug: "iphone",  label: "iPhone",  desc: "iOS Apps" },
+            { slug: "windows", label: "Windows", desc: "PC·데스크톱" },
+            { slug: "mac",     label: "Mac",     desc: "macOS 앱" },
+            { slug: "android", label: "Android", desc: "안드로이드 앱" },
+            { slug: "iphone",  label: "iPhone",  desc: "iOS 앱" },
           ].map(({ slug, label, desc }) => (
             <a
               key={slug}
@@ -149,7 +147,7 @@ export default function SoftwareCategoriesPage() {
         </div>
 
         {/* Browse by Category */}
-        <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Browse by Category</h2>
+        <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">카테고리별로 찾기</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {CATEGORIES.map((category) => (
             <a
@@ -161,7 +159,7 @@ export default function SoftwareCategoriesPage() {
                 <CategoryIcon name={category.icon} />
               </div>
               <span className="flex-1 font-medium text-gray-800 text-sm">
-                {category.nameEn}
+                {category.name}
               </span>
               <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors" />
             </a>

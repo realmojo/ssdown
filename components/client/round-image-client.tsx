@@ -230,7 +230,7 @@ export function RoundImageClient({ dict }: { dict?: any }) {
               }}
               className="mt-4 text-sm text-teal-600 dark:text-cyan-400 hover:underline"
             >
-              Or try with a sample image
+              샘플 이미지로 먼저 써보기
             </button>
           </div>
         ) : (
@@ -242,7 +242,7 @@ export function RoundImageClient({ dict }: { dict?: any }) {
                   <div className="flex items-center gap-3">
                     <Button variant="outline" size="sm" onClick={handleReset}>
                       <RotateCcw className="w-4 h-4 mr-2" />
-                      New Image
+                      새 이미지
                     </Button>
                     <span
                       className="text-sm text-muted-foreground truncate max-w-[200px]"
@@ -255,7 +255,7 @@ export function RoundImageClient({ dict }: { dict?: any }) {
 
                 {/* Output Size */}
                 <div className="space-y-3 mb-6">
-                  <label className="text-sm font-medium">Output Size</label>
+                  <label className="text-sm font-medium">출력 크기</label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                     {(["original", "200", "400", "800"] as OutputSize[]).map(
                       (size) => (
@@ -277,7 +277,7 @@ export function RoundImageClient({ dict }: { dict?: any }) {
 
                 {/* Background Color */}
                 <div className="space-y-3">
-                  <label className="text-sm font-medium">Background</label>
+                  <label className="text-sm font-medium">배경</label>
                   <div className="flex flex-wrap items-center gap-2">
                     <button
                       onClick={() => setBackgroundColor("transparent")}
@@ -337,14 +337,14 @@ export function RoundImageClient({ dict }: { dict?: any }) {
                 {previewUrl ? (
                   <img
                     src={previewUrl}
-                    alt="Round result"
+                    alt="원형 변환 결과"
                     className="max-w-full max-h-[60vh] block"
                     draggable={false}
                   />
                 ) : (
                   <img
                     src={imageSrc}
-                    alt="Original"
+                    alt="원본"
                     className="max-w-full max-h-[60vh] block rounded-lg shadow-md"
                     draggable={false}
                   />
@@ -387,7 +387,7 @@ export function RoundImageClient({ dict }: { dict?: any }) {
             {[
               {
                 step: 1,
-                title: dict?.round_image?.step1_title || "Upload Image",
+                title: dict?.round_image?.step1_title || "이미지 업로드",
                 desc:
                   dict?.round_image?.step1_desc ||
                   "Upload any PNG, JPG, WebP, GIF, or BMP image from your device.",
@@ -403,7 +403,7 @@ export function RoundImageClient({ dict }: { dict?: any }) {
               },
               {
                 step: 3,
-                title: dict?.round_image?.step3_title || "Download Result",
+                title: dict?.round_image?.step3_title || "결과 다운로드",
                 desc:
                   dict?.round_image?.step3_desc ||
                   "Click 'Download PNG' to save your circular image with transparency.",
@@ -441,30 +441,29 @@ export function RoundImageClient({ dict }: { dict?: any }) {
               {dict?.round_image?.tips_title || "Round Image Tips"}
             </h2>
             <p className="text-muted-foreground">
-              Get the best results when creating circular profile pictures and
-              avatars.
+              원형 프로필 사진을 만들 때 가장 좋은 결과를 얻는 방법입니다.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Center Your Subject",
-                desc: "The tool crops to the center of your image. Position important elements in the middle before uploading for best results.",
+                title: "피사체를 가운데로",
+                desc: "이미지의 가운데를 기준으로 잘립니다. 중요한 요소를 가운데에 두고 올리면 결과가 좋습니다.",
                 icon: Circle,
               },
               {
-                title: "Use Square Images",
-                desc: "Square images work best. Rectangular images will be center-cropped to a square before rounding.",
+                title: "정사각형 이미지 사용",
+                desc: "정사각형 이미지가 가장 잘 맞습니다. 직사각형 이미지는 가운데를 기준으로 정사각형으로 잘린 뒤 둥글게 처리됩니다.",
                 icon: ImageIcon,
               },
               {
-                title: "Transparent Background",
-                desc: "Transparent background is perfect for overlaying on websites, designs, or colored backgrounds. White/black backgrounds are great for printing.",
+                title: "투명 배경",
+                desc: "투명 배경은 웹사이트나 디자인, 색 있는 배경 위에 얹기 좋습니다. 인쇄용으로는 흰색이나 검은색 배경이 적합합니다.",
                 icon: CheckCircle2,
               },
               {
-                title: "High Resolution",
-                desc: "Use high-resolution images for crisp results. Choose 'Original' size to preserve maximum quality, or select a specific size for web optimization.",
+                title: "고해상도",
+                desc: "선명한 결과를 얻으려면 고해상도 이미지를 쓰세요. 화질을 최대한 유지하려면 '원본' 크기를, 웹 최적화가 필요하면 원하는 크기를 고르세요.",
                 icon: Shield,
               },
             ].map((tip, idx) => (
@@ -489,7 +488,7 @@ export function RoundImageClient({ dict }: { dict?: any }) {
               {dict?.round_image?.faq_title || "Round Image Maker FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about creating circular images.
+              원형 이미지 만들기에 대해 자주 묻는 질문입니다.
             </p>
           </div>
           <div className="max-w-3xl mx-auto">
@@ -535,7 +534,7 @@ export function RoundImageClient({ dict }: { dict?: any }) {
               <AccordionItem value="faq-5">
                 <AccordionTrigger>
                   {dict?.round_image?.faq_5_q ||
-                    "What image formats are supported?"}
+                    "어떤 이미지 형식을 지원하나요?"}
                 </AccordionTrigger>
                 <AccordionContent>
                   {dict?.round_image?.faq_5_a ||

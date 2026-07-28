@@ -64,10 +64,10 @@ export function KuaishouClient({ dict }: KuaishouClientProps) {
             <BookOpen className="w-8 h-8 text-orange-500" />
           </div>
           <h2 className="text-3xl font-bold tracking-tight mb-4">
-            How to Download Kuaishou Videos Without Watermark
+            콰이쇼우 영상 워터마크 없이 내려받는 방법
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Save Kuaishou (快手) videos in high quality — no watermark, no app required.
+            콰이쇼우(快手) 영상을 고화질로 저장하세요. 워터마크도, 앱 설치도 필요 없습니다.
           </p>
         </div>
 
@@ -75,20 +75,20 @@ export function KuaishouClient({ dict }: KuaishouClientProps) {
           {[
             {
               step: 1,
-              title: "Open Kuaishou Video",
-              desc: "Open the Kuaishou app and find the video you want to download. Tap the Share (分享) button on the right side of the video.",
+              title: "콰이쇼우 영상 열기",
+              desc: "콰이쇼우 앱에서 내려받을 영상을 찾은 뒤 영상 오른쪽의 공유(分享) 버튼을 누르세요.",
               icon: Eye,
             },
             {
               step: 2,
-              title: "Copy Video Link",
-              desc: "Tap '复制链接' (Copy link) from the share menu. The Kuaishou video URL will be copied to your clipboard.",
+              title: "영상 링크 복사",
+              desc: "공유 메뉴에서 '复制链接'(링크 복사)를 누르세요. 콰이쇼우 영상 주소가 클립보드에 복사됩니다.",
               icon: Share2,
             },
             {
               step: 3,
-              title: "Download Without Watermark",
-              desc: "Paste the link into SSDown above, click Download, and save your Kuaishou video as MP4 without any watermark overlay.",
+              title: "워터마크 없이 다운로드",
+              desc: "위 SSDown 입력창에 링크를 붙여넣고 다운로드를 누르면 워터마크 없는 MP4로 저장됩니다.",
               icon: Download,
             },
           ].map((step) => (
@@ -115,9 +115,9 @@ export function KuaishouClient({ dict }: KuaishouClientProps) {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
             <Lightbulb className="w-8 h-8 text-yellow-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">Kuaishou Download Tips</h2>
+          <h2 className="text-3xl font-bold tracking-tight mb-4">콰이쇼우 다운로드 팁</h2>
           <p className="text-muted-foreground">
-            Get the most out of downloading Kuaishou content.
+            콰이쇼우 콘텐츠를 더 잘 활용하는 방법입니다.
           </p>
         </div>
 
@@ -129,18 +129,18 @@ export function KuaishouClient({ dict }: KuaishouClientProps) {
               icon: CheckCircle2,
             },
             {
-              title: "Audio Extraction",
-              desc: "Extract the audio track from any Kuaishou video as an MP3 file — perfect for trending sounds and background music.",
+              title: "오디오 추출",
+              desc: "콰이쇼우 영상의 오디오만 MP3로 추출하세요. 유행하는 사운드나 배경음악에 안성맞춤입니다.",
               icon: Music,
             },
             {
-              title: "Original Quality",
-              desc: "Videos are downloaded in their original resolution without re-encoding or compression.",
+              title: "원본 화질",
+              desc: "재인코딩이나 압축 없이 원본 해상도 그대로 내려받습니다.",
               icon: CheckCircle2,
             },
             {
-              title: "Respect Creators",
-              desc: "Always credit the original Kuaishou creator (快手号) when sharing downloaded content. Support creators by following them.",
+              title: "창작자 존중",
+              desc: "내려받은 콘텐츠를 공유할 때는 원작자의 콰이쇼우 계정(快手号)을 꼭 밝혀 주세요. 팔로우로 창작자를 응원해 주세요.",
               icon: Heart,
             },
           ].map((tip, idx) => (
@@ -163,27 +163,27 @@ export function KuaishouClient({ dict }: KuaishouClientProps) {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
             <Info className="w-8 h-8 text-green-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">Kuaishou Download Features</h2>
-          <p className="text-muted-foreground">Everything you need to save Kuaishou content.</p>
+          <h2 className="text-3xl font-bold tracking-tight mb-4">콰이쇼우 다운로드 기능</h2>
+          <p className="text-muted-foreground">콰이쇼우 콘텐츠를 저장하는 데 필요한 모든 기능입니다.</p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             {
               title: "Watermark-Free",
-              desc: "Download Kuaishou videos without the platform watermark for clean, professional content.",
+              desc: "플랫폼 워터마크 없이 콰이쇼우 영상을 내려받아 깔끔한 콘텐츠로 활용하세요.",
             },
             {
               title: "MP4 & MP3",
-              desc: "Save the full video as MP4 or extract just the audio as MP3.",
+              desc: "영상 전체를 MP4로 저장하거나 오디오만 MP3로 추출하세요.",
             },
             {
-              title: "HD Quality",
-              desc: "Preserve the original video resolution — no quality loss.",
+              title: "HD 화질",
+              desc: "원본 해상도를 그대로 유지해 화질 손실이 없습니다.",
             },
             {
-              title: "No Login Required",
-              desc: "No account or app installation needed. Just paste and download.",
+              title: "로그인 불필요",
+              desc: "계정도 앱 설치도 필요 없습니다. 붙여넣고 내려받기만 하면 됩니다.",
             },
           ].map((feature, idx) => (
             <Card key={idx} className="text-center">
@@ -199,32 +199,32 @@ export function KuaishouClient({ dict }: KuaishouClientProps) {
       {/* FAQ */}
       <section>
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold tracking-tight mb-4">Kuaishou FAQ</h2>
+          <h2 className="text-3xl font-bold tracking-tight mb-4">콰이쇼우 자주 묻는 질문</h2>
           <p className="text-muted-foreground">
-            Common questions about downloading Kuaishou videos.
+            콰이쇼우 영상 다운로드에 대해 자주 묻는 질문입니다.
           </p>
         </div>
 
         <Accordion type="single" collapsible className="w-full">
           {[
             {
-              q: "What is Kuaishou (快手)?",
+              q: "콰이쇼우(快手)가 무엇인가요?",
               a: "Kuaishou is one of China's leading short-form video platforms with over 700 million registered users. Developed by Kuaishou Technology, it competes directly with Douyin (TikTok) in the Chinese market. The app is known for its authentic, grassroots content from everyday users.",
             },
             {
-              q: "Can I download Kuaishou videos without a watermark?",
+              q: "콰이쇼우 영상을 워터마크 없이 내려받을 수 있나요?",
               a: "Yes. SSDown fetches the original video stream directly from Kuaishou servers before the watermark overlay is applied, so you get a clean MP4 file without any Kuaishou branding.",
             },
             {
-              q: "What URL formats are supported?",
+              q: "어떤 주소 형식을 지원하나요?",
               a: "SSDown supports standard Kuaishou URLs (kuaishou.com/video/...) as well as short share links (v.kuaishou.com/...) and gifshow.com URLs generated by the Kuaishou app's share feature.",
             },
             {
-              q: "Can I download private Kuaishou videos?",
+              q: "비공개 콰이쇼우 영상도 내려받을 수 있나요?",
               a: "No. SSDown can only download publicly accessible Kuaishou videos. Private or friend-only content cannot be fetched.",
             },
             {
-              q: "Is downloading Kuaishou videos legal?",
+              q: "콰이쇼우 영상 다운로드는 합법인가요?",
               a: "Downloading videos for personal use is generally acceptable. However, redistributing, re-uploading, or using content commercially without the creator's permission may violate copyright law. Always respect the original creator.",
             },
           ].map((item, i) => (
@@ -239,29 +239,19 @@ export function KuaishouClient({ dict }: KuaishouClientProps) {
       {/* Deep Dive */}
       <section className="bg-white dark:bg-gray-950 rounded-2xl border p-8 md:p-12">
         <h2 className="text-3xl font-bold tracking-tight mb-6">
-          Understanding Kuaishou Video Downloads
+          콰이쇼우 영상 다운로드 이해하기
         </h2>
         <div className="prose prose-slate dark:prose-invert max-w-none space-y-6 text-muted-foreground">
           <p>
-            Kuaishou (快手) is China's second-largest short-form video platform with over
-            700 million registered users. Founded in 2011, it predates Douyin (TikTok)
-            and is known for its focus on authentic content from ordinary users rather
-            than polished influencer productions.
+            콰이쇼우(快手)는 등록 사용자 7억 명이 넘는 중국 2위 숏폼 영상 플랫폼입니다. 2011년에 시작해 더우인(틱톡)보다 역사가 길며, 잘 다듬어진 인플루언서 콘텐츠보다 평범한 사용자들의 진솔한 일상에 집중하는 것으로 알려져 있습니다.
           </p>
-          <h3 className="text-xl font-semibold text-foreground">How Kuaishou Watermarks Work</h3>
+          <h3 className="text-xl font-semibold text-foreground">콰이쇼우 워터마크의 원리</h3>
           <p>
-            Like other short-video platforms, Kuaishou adds a dynamic username watermark
-            when you save videos through the official app. This overlay is applied
-            client-side during export — the underlying video file stored on Kuaishou
-            servers is watermark-free. SSDown accesses the original video stream directly,
-            so you always get the clean version.
+            다른 숏폼 플랫폼과 마찬가지로 콰이쇼우도 공식 앱에서 영상을 저장하면 사용자명이 움직이는 워터마크를 넣습니다. 이 워터마크는 내보내기 과정에서 기기 쪽에서 덧씌워지는 것이라, 콰이쇼우 서버에 저장된 원본 영상 파일에는 없습니다. SSDown은 원본 영상 스트림에 직접 접근하므로 언제나 깨끗한 영상을 받을 수 있습니다.
           </p>
-          <h3 className="text-xl font-semibold text-foreground">Kuaishou vs Douyin</h3>
+          <h3 className="text-xl font-semibold text-foreground">콰이쇼우와 더우인의 차이</h3>
           <p>
-            While Douyin (TikTok) is known for its algorithm-driven viral content,
-            Kuaishou focuses on social connections and authentic everyday life content.
-            Kuaishou has a stronger user base in China's lower-tier cities and rural areas,
-            making it a unique window into Chinese culture beyond major metropolitan centers.
+            더우인(틱톡)이 알고리즘 기반의 바이럴 콘텐츠로 유명하다면, 콰이쇼우는 사람 사이의 관계와 진솔한 일상에 초점을 둡니다. 중소도시와 농촌 지역에 사용자 기반이 두터워, 대도시 너머의 중국 문화를 들여다볼 수 있는 독특한 창구이기도 합니다.
           </p>
         </div>
       </section>
@@ -271,15 +261,15 @@ export function KuaishouClient({ dict }: KuaishouClientProps) {
   const emptyState = (
     <div className="grid gap-6 sm:grid-cols-2 w-full pt-12 text-left">
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
-        <p className="font-semibold text-lg mb-2">No Watermark</p>
+        <p className="font-semibold text-lg mb-2">워터마크 없음</p>
         <p className="text-muted-foreground text-sm">
-          Download Kuaishou (快手) videos without the platform watermark overlay.
+          콰이쇼우(快手) 영상을 플랫폼 워터마크 없이 내려받으세요.
         </p>
       </div>
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
         <p className="font-semibold text-lg mb-2">MP4 & MP3</p>
         <p className="text-muted-foreground text-sm">
-          Save the full video or extract just the audio track as MP3.
+          영상 전체를 저장하거나 오디오만 MP3로 추출할 수 있습니다.
         </p>
       </div>
     </div>
@@ -291,12 +281,12 @@ export function KuaishouClient({ dict }: KuaishouClientProps) {
       dict={dict}
       theme={theme}
       icon={KuaishouIcon}
-      title="Kuaishou Saver (快手)"
-      subtitle="Download Kuaishou videos without watermark. Save MP4 videos and MP3 audio instantly."
-      placeholder="Paste Kuaishou link here... (e.g. https://www.kuaishou.com/video/...)"
+      title="콰이쇼우 다운로더 (快手)"
+      subtitle="콰이쇼우 영상을 워터마크 없이 내려받으세요. MP4 영상과 MP3 음원을 바로 저장할 수 있습니다."
+      placeholder="콰이쇼우 링크를 붙여넣으세요… (예: https://www.kuaishou.com/video/...)"
       apiEndpoint="/api/kuaishou"
       downloadEndpoint="/api/kuaishou/download"
-      noVideoError="No video found. Make sure the Kuaishou video is public."
+      noVideoError="영상을 찾지 못했습니다. 콰이쇼우 영상이 공개 상태인지 확인해 주세요."
       formatQuality={(bitrate) =>
         typeof bitrate === "string" ? bitrate : `${bitrate}p`
       }

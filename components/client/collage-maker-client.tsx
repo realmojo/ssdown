@@ -359,14 +359,13 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
             <>
               <Upload className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
               <p className="text-lg font-medium mb-2">
-                {dict?.collage_maker?.drop_zone || "Drag & drop images here"}
+                {dict?.collage_maker?.drop_zone || "여기에 이미지를 끌어다 놓으세요"}
               </p>
               <p className="text-sm text-muted-foreground">
-                Upload multiple images for your collage. Supported: PNG, JPG,
-                WebP, GIF, BMP
+                콜라주에 넣을 이미지를 여러 장 올리세요. 지원 형식: PNG, JPG, WebP, GIF, BMP
               </p>
               <p className="text-xs text-muted-foreground mt-2">
-                Max 20MB per file
+                파일당 최대 20MB
               </p>
               <button
                 type="button"
@@ -376,13 +375,13 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                 }}
                 className="mt-4 text-sm text-fuchsia-600 dark:text-fuchsia-400 hover:underline"
               >
-                Or try with sample images
+                샘플 이미지로 먼저 써보기
               </button>
             </>
           ) : (
             <div className="flex items-center justify-center gap-2">
               <Plus className="w-5 h-5 text-fuchsia-600" />
-              <span className="text-sm font-medium">Add more images</span>
+              <span className="text-sm font-medium">이미지 더 추가</span>
             </div>
           )}
         </div>
@@ -431,7 +430,7 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                           removeImage(img.id);
                         }}
                         className="absolute -top-2 -right-2 p-1 bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity"
-                        title="Remove"
+                        title="제거"
                       >
                         <X className="w-3 h-3" />
                       </button>
@@ -444,7 +443,7 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
             {/* Template Selection */}
             <Card className="border-fuchsia-200 dark:border-fuchsia-900/50">
               <CardHeader>
-                <CardTitle className="text-lg">Choose Template</CardTitle>
+                <CardTitle className="text-lg">템플릿 선택</CardTitle>
               </CardHeader>
               <CardContent className="p-4">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -488,13 +487,13 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
             {/* Customization */}
             <Card className="border-fuchsia-200 dark:border-fuchsia-900/50">
               <CardHeader>
-                <CardTitle className="text-lg">Customize Style</CardTitle>
+                <CardTitle className="text-lg">스타일 조절</CardTitle>
               </CardHeader>
               <CardContent className="p-6 space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium">Gap</label>
+                      <label className="text-sm font-medium">간격</label>
                       <span className="text-sm text-muted-foreground">
                         {gap}px
                       </span>
@@ -511,7 +510,7 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium">
-                      Background Color
+                      배경색
                     </label>
                     <div className="flex items-center gap-2">
                       <input
@@ -537,7 +536,7 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <label className="text-sm font-medium">
-                        Corner Radius
+                        모서리 둥글기
                       </label>
                       <span className="text-sm text-muted-foreground">
                         {cornerRadius}px
@@ -560,7 +559,7 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
             {/* Interactive Preview */}
             <Card className="border-fuchsia-200 dark:border-fuchsia-900/50">
               <CardHeader>
-                <CardTitle className="text-lg">Preview</CardTitle>
+                <CardTitle className="text-lg">미리보기</CardTitle>
               </CardHeader>
               <CardContent className="p-6">
                 <div className="relative w-full max-w-xl mx-auto">
@@ -568,7 +567,7 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                     {previewUrl && (
                       <img
                         src={previewUrl}
-                        alt="Collage preview"
+                        alt="콜라주 미리보기"
                         className="absolute inset-0 w-full h-full object-contain"
                       />
                     )}
@@ -613,7 +612,7 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
                                 clearSlot(idx);
                               }}
                               className="absolute top-1 right-1 p-1 bg-red-500 rounded-full text-white opacity-0 hover:opacity-100 transition-opacity"
-                              title="Clear slot"
+                              title="칸 비우기"
                             >
                               <X className="w-3 h-3" />
                             </button>
@@ -626,7 +625,7 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
 
                 {!hasAllSlotsAssigned && (
                   <p className="text-center text-sm text-muted-foreground mt-4">
-                    Click a slot, then click an image to assign it
+                    칸을 누른 뒤 이미지를 클릭하면 배치됩니다
                   </p>
                 )}
               </CardContent>
@@ -667,7 +666,7 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
             {[
               {
                 step: 1,
-                title: dict?.collage_maker?.step1_title || "Upload Images",
+                title: dict?.collage_maker?.step1_title || "이미지 업로드s",
                 desc:
                   dict?.collage_maker?.step1_desc ||
                   "Upload multiple images by dragging & dropping or clicking to browse. You can add as many images as you need.",
@@ -729,29 +728,29 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
               {dict?.collage_maker?.tips_title || "Collage Tips"}
             </h2>
             <p className="text-muted-foreground">
-              Get the best results when creating photo collages.
+              사진 콜라주를 만들 때 가장 좋은 결과를 얻는 방법입니다.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Cover-Fit for Each Slot",
-                desc: "Images are automatically scaled to fill each slot using cover-fit. The image will be centered and cropped to fit perfectly.",
+                title: "칸에 꽉 채우기",
+                desc: "이미지가 각 칸을 꽉 채우도록 자동 조정됩니다. 가운데를 기준으로 잘려 딱 맞게 배치됩니다.",
                 icon: Layers,
               },
               {
-                title: "Gap Creates Breathing Room",
-                desc: "Use the gap slider (0-50px) to add spacing between images. The background color fills the gap area for a clean look.",
+                title: "간격으로 여백 주기",
+                desc: "간격 슬라이더(0~50px)로 이미지 사이 여백을 조절하세요. 배경색이 그 여백을 채워 깔끔해 보입니다.",
                 icon: Zap,
               },
               {
-                title: "Corner Radius for Style",
-                desc: "Apply corner radius (0-40px) to round the edges of each image slot. Great for modern, soft-edged collages.",
+                title: "모서리 둥글기로 분위기 내기",
+                desc: "모서리 둥글기(0~40px)를 적용하면 각 칸의 모서리가 둥글어집니다. 부드럽고 세련된 콜라주에 잘 어울립니다.",
                 icon: Shield,
               },
               {
-                title: "Click to Reassign",
-                desc: "Already assigned an image to a slot? Click the slot again to select a different image, or click the X to clear it.",
+                title: "클릭해서 다시 배치",
+                desc: "이미 이미지를 배치한 칸인가요? 칸을 다시 눌러 다른 이미지를 고르거나 X를 눌러 비울 수 있습니다.",
                 icon: MousePointerClick,
               },
             ].map((tip, idx) => (
@@ -776,7 +775,7 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
               {dict?.collage_maker?.faq_title || "Collage Maker FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about creating photo collages.
+              사진 콜라주 만들기에 대해 자주 묻는 질문입니다.
             </p>
           </div>
           <div className="max-w-3xl mx-auto">
@@ -822,7 +821,7 @@ export function CollageMakerClient({ dict }: { dict?: any }) {
               </AccordionItem>
               <AccordionItem value="faq-5">
                 <AccordionTrigger>
-                  {dict?.collage_maker?.faq_5_q || "What format is the output?"}
+                  {dict?.collage_maker?.faq_5_q || "결과물은 어떤 형식인가요?"}
                 </AccordionTrigger>
                 <AccordionContent>
                   {dict?.collage_maker?.faq_5_a ||

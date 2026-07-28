@@ -441,7 +441,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
               }}
               className="mt-4 text-sm text-purple-600 dark:text-purple-400 hover:underline"
             >
-              Or try with a sample image
+              샘플 이미지로 먼저 써보기
             </button>
           </div>
         ) : (
@@ -456,7 +456,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
                     disabled={isProcessing}
                   >
                     <Upload className="w-4 h-4 mr-2" />
-                    Add More
+                    더 추가
                   </Button>
                   <input
                     ref={fileInputRef}
@@ -473,7 +473,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
 
                 <div className="flex items-center gap-4 w-full md:w-auto">
                   <span className="whitespace-nowrap font-medium">
-                    Convert to:
+                    변환할 형식:
                   </span>
                   <Select
                     value={targetFormat}
@@ -481,7 +481,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
                     disabled={isProcessing}
                   >
                     <SelectTrigger className="w-[120px]">
-                      <SelectValue placeholder="Format" />
+                      <SelectValue placeholder="형식" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="webp">WebP</SelectItem>
@@ -520,12 +520,10 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
                   <AlertCircle className="w-5 h-5 text-yellow-600 dark:text-yellow-500 flex-shrink-0 mt-0.5" />
                   <div className="text-sm">
                     <p className="font-medium text-yellow-900 dark:text-yellow-100 mb-1">
-                      AVIF not supported
+                      AVIF를 지원하지 않습니다
                     </p>
                     <p className="text-yellow-700 dark:text-yellow-200">
-                      Your browser doesn't support AVIF format. Please use a
-                      modern browser like Chrome 85+, Firefox 93+, or Safari
-                      16+, or choose a different format.
+                      이 브라우저는 AVIF 형식을 지원하지 않습니다. Chrome 85 이상, Firefox 93 이상, Safari 16 이상 최신 브라우저를 사용하시거나 다른 형식을 골라 주세요.
                     </p>
                   </div>
                 </CardContent>
@@ -565,7 +563,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
                     {img.status === "error" && (
                       <div className="absolute inset-0 bg-red-500/10 flex items-center justify-center backdrop-blur-[1px]">
                         <div className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-medium">
-                          Error
+                          오류
                         </div>
                       </div>
                     )}
@@ -627,7 +625,7 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
             {[
               {
                 step: 1,
-                title: dict?.image_converter?.step1_title || "Upload Images",
+                title: dict?.image_converter?.step1_title || "이미지 업로드s",
                 desc:
                   dict?.image_converter?.step1_desc ||
                   "Upload PNG, JPG, WebP, SVG, GIF, or HEIC images you want to convert.",
@@ -719,23 +717,23 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
                 icon: Zap,
               },
               {
-                title: "AVIF Compression",
-                desc: "AVIF offers up to 50% smaller files than JPEG at similar quality. Ideal for bandwidth-sensitive sites, but check browser support first.",
+                title: "AVIF 압축",
+                desc: "AVIF는 비슷한 화질에서 JPEG보다 최대 50% 작습니다. 데이터 사용량이 중요한 사이트에 적합하지만 브라우저 지원을 먼저 확인하세요.",
                 icon: Zap,
               },
               {
-                title: "SVG to Raster",
-                desc: "Convert vector SVG files to PNG to use them in contexts that don't support SVG, like email or certain social platforms.",
+                title: "SVG를 비트맵으로",
+                desc: "이메일이나 일부 소셜 플랫폼처럼 SVG를 지원하지 않는 곳에서 쓰려면 벡터 SVG 파일을 PNG로 변환하세요.",
                 icon: FileImage,
               },
               {
-                title: "iPhone HEIC Photos",
-                desc: "iPhones save photos in HEIC format by default. Convert them to JPG or PNG for universal sharing and compatibility.",
+                title: "아이폰 HEIC 사진",
+                desc: "아이폰은 기본적으로 HEIC 형식으로 사진을 저장합니다. 어디서나 공유하고 열 수 있도록 JPG나 PNG로 변환하세요.",
                 icon: ImageIcon,
               },
               {
-                title: "GIF for Compatibility",
-                desc: "Convert static images to GIF when a platform specifically requires it, or extract the first frame from a GIF animation as a JPG.",
+                title: "호환성을 위한 GIF",
+                desc: "플랫폼이 GIF를 요구할 때 정지 이미지를 GIF로 바꾸거나, GIF 애니메이션의 첫 프레임을 JPG로 추출할 수 있습니다.",
                 icon: Layers,
               },
             ].map((tip, idx) => (
@@ -789,23 +787,23 @@ export function ImageConverterClient({ dict }: { dict?: any }) {
                     "WebP is a modern image format developed by Google that provides superior lossless and lossy compression for images on the web, resulting in smaller file sizes with comparable quality.",
                 },
                 {
-                  q: "What is AVIF and which browsers support it?",
+                  q: "AVIF가 무엇이고 어떤 브라우저가 지원하나요?",
                   a: "AVIF (AV1 Image File Format) is a next-generation image format based on the AV1 video codec. It offers up to 50% better compression than JPEG and 20% better than WebP at similar quality. Supported in Chrome 85+, Firefox 93+, and Safari 16+. If your browser doesn't support AVIF, a warning will be shown.",
                 },
                 {
-                  q: "How does SVG to PNG conversion work?",
+                  q: "SVG → PNG 변환은 어떻게 이뤄지나요?",
                   a: "When you convert SVG to PNG, the converter renders the vector SVG image at its native resolution onto a canvas element, then exports it as a high-quality PNG file. This preserves all visual details while converting from a scalable vector format to a raster bitmap.",
                 },
                 {
-                  q: "Can I convert GIF to JPG?",
+                  q: "GIF를 JPG로 바꿀 수 있나요?",
                   a: "Yes. The converter extracts the first frame from your GIF animation and saves it as a static JPG image. This is useful when you need a still preview of an animated GIF for thumbnails, social media, or email.",
                 },
                 {
-                  q: "How do I create a GIF from JPG or PNG?",
+                  q: "JPG나 PNG로 GIF를 만들려면 어떻게 하나요?",
                   a: "Upload your JPG or PNG image and select GIF as the output format. The converter creates a single-frame GIF from your static image using the gifshot library. This is helpful when you need GIF format for specific platforms or applications.",
                 },
                 {
-                  q: "How do I convert HEIC photos from my iPhone?",
+                  q: "아이폰의 HEIC 사진은 어떻게 변환하나요?",
                   a: "iPhones and iPads save photos in HEIC (High Efficiency Image Coding) format by default. Simply upload your .heic or .heif files and choose JPG, PNG, or WebP as the output. The conversion uses the heic2any library and runs entirely in your browser, keeping your photos private.",
                 },
               ].map((faq, idx) => (

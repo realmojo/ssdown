@@ -129,7 +129,7 @@ export function ExcelToXmlClient({ dict }: { dict?: any }) {
   const handleCopy = () => {
     if (!xmlOutput) return;
     navigator.clipboard.writeText(xmlOutput);
-    toast.success("XML copied to clipboard");
+    toast.success("XML을 클립보드에 복사했습니다");
   };
 
   const handleClear = () => {
@@ -175,10 +175,10 @@ export function ExcelToXmlClient({ dict }: { dict?: any }) {
             >
               <FileSpreadsheet className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
               <p className="text-lg font-medium mb-2">
-                Click to upload or Drag & Drop Excel file
+                클릭해서 올리거나 엑셀 파일을 끌어다 놓으세요
               </p>
               <p className="text-sm text-muted-foreground">
-                Supports .xlsx and .xls
+                .xlsx와 .xls를 지원합니다
               </p>
               <input
                 ref={fileInputRef}
@@ -192,17 +192,17 @@ export function ExcelToXmlClient({ dict }: { dict?: any }) {
             <div className="flex items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm mb-4 border">
               <FileSpreadsheet className="w-8 h-8 text-purple-600" />
               <div className="flex-1">
-                <p className="font-medium">File uploaded</p>
+                <p className="font-medium">파일 업로드 완료</p>
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-sm text-muted-foreground">
-                    Select Sheet:
+                    시트 선택:
                   </span>
                   <Select
                     value={selectedSheet}
                     onValueChange={handleSheetChange}
                   >
                     <SelectTrigger className="w-[180px] h-8">
-                      <SelectValue placeholder="Select sheet" />
+                      <SelectValue placeholder="시트 선택" />
                     </SelectTrigger>
                     <SelectContent>
                       {sheets.map((sheet) => (
@@ -231,7 +231,7 @@ export function ExcelToXmlClient({ dict }: { dict?: any }) {
                 <div className="flex justify-between items-center mb-2">
                   <label className="font-medium flex items-center gap-2">
                     <FileCode className="w-4 h-4 text-muted-foreground" />
-                    XML Output
+                    XML 출력
                   </label>
                   <Button
                     variant="ghost"
@@ -261,22 +261,22 @@ export function ExcelToXmlClient({ dict }: { dict?: any }) {
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Format Information
+              형식 안내
             </h2>
             <p className="text-muted-foreground">
-              Understanding the output structure.
+              결과물의 구조를 설명합니다.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Row Based",
+                title: "행 기준",
                 desc: "Each row in your Excel sheet becomes a <row> element in the XML output.",
               },
               {
-                title: "Column Tags",
-                desc: "Column headers become tag names. Special characters in headers are replaced with underscores.",
+                title: "열 태그",
+                desc: "열 머리글이 태그 이름이 됩니다. 머리글의 특수문자는 밑줄로 바뀝니다.",
               },
             ].map((tip, idx) => (
               <div
@@ -297,10 +297,10 @@ export function ExcelToXmlClient({ dict }: { dict?: any }) {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Frequently Asked Questions
+              자주 묻는 질문
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about Excel to XML conversion.
+              엑셀 → XML 변환에 대해 자주 묻는 질문입니다.
             </p>
           </div>
 
@@ -312,7 +312,7 @@ export function ExcelToXmlClient({ dict }: { dict?: any }) {
                   a: "We support files up to 10MB to ensure smooth browser performance.",
                 },
                 {
-                  q: "Can I use custom root tag?",
+                  q: "루트 태그를 직접 지정할 수 있나요?",
                   a: "The default is <root>, but you can find and replace it in the output easily.",
                 },
               ].map((item, idx) => (

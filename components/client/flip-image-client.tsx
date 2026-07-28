@@ -213,7 +213,7 @@ export function FlipImageClient({ dict }: { dict?: any }) {
               }}
               className="mt-4 text-sm text-sky-600 dark:text-sky-400 hover:underline"
             >
-              Or try with a sample image
+              샘플 이미지로 먼저 써보기
             </button>
           </div>
         ) : (
@@ -225,7 +225,7 @@ export function FlipImageClient({ dict }: { dict?: any }) {
                   <div className="flex items-center gap-3">
                     <Button variant="outline" size="sm" onClick={handleReset}>
                       <RotateCcw className="w-4 h-4 mr-2" />
-                      New Image
+                      새 이미지
                     </Button>
                     <span
                       className="text-sm text-muted-foreground truncate max-w-[200px]"
@@ -249,7 +249,7 @@ export function FlipImageClient({ dict }: { dict?: any }) {
                 <img
                   ref={imageRef}
                   src={flippedUrl || imageSrc}
-                  alt="Image to flip"
+                  alt="뒤집을 이미지"
                   onLoad={onImageLoad}
                   className="max-w-full max-h-[60vh] block rounded-lg shadow-md"
                   draggable={false}
@@ -265,7 +265,7 @@ export function FlipImageClient({ dict }: { dict?: any }) {
                 className="bg-sky-600 hover:bg-sky-700 text-white shadow-lg min-w-[180px]"
               >
                 <FlipHorizontal className="w-5 h-5 mr-2" />
-                Flip Horizontal
+                좌우 뒤집기
               </Button>
               <Button
                 size="lg"
@@ -273,7 +273,7 @@ export function FlipImageClient({ dict }: { dict?: any }) {
                 className="bg-teal-600 hover:bg-teal-700 text-white shadow-lg min-w-[180px]"
               >
                 <FlipVertical className="w-5 h-5 mr-2" />
-                Flip Vertical
+                상하 뒤집기
               </Button>
             </div>
 
@@ -286,7 +286,7 @@ export function FlipImageClient({ dict }: { dict?: any }) {
                   className="bg-green-600 hover:bg-green-700 text-white shadow-lg min-w-[180px]"
                 >
                   <Download className="w-5 h-5 mr-2" />
-                  Download
+                  다운로드
                 </Button>
               </div>
             )}
@@ -320,7 +320,7 @@ export function FlipImageClient({ dict }: { dict?: any }) {
             {[
               {
                 step: 1,
-                title: dict?.flip_image?.step1_title || "Upload Image",
+                title: dict?.flip_image?.step1_title || "이미지 업로드",
                 desc:
                   dict?.flip_image?.step1_desc ||
                   "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
@@ -336,7 +336,7 @@ export function FlipImageClient({ dict }: { dict?: any }) {
               },
               {
                 step: 3,
-                title: dict?.flip_image?.step3_title || "Download Result",
+                title: dict?.flip_image?.step3_title || "결과 다운로드",
                 desc:
                   dict?.flip_image?.step3_desc ||
                   "Click 'Download' to save your flipped image to your device.",
@@ -374,29 +374,29 @@ export function FlipImageClient({ dict }: { dict?: any }) {
               {dict?.flip_image?.tips_title || "Flipping Tips"}
             </h2>
             <p className="text-muted-foreground">
-              Get the best results when flipping your images.
+              이미지를 뒤집을 때 가장 좋은 결과를 얻는 방법입니다.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Horizontal vs Vertical",
-                desc: "Horizontal flip mirrors your image left-to-right (like a mirror). Vertical flip turns it upside down.",
+                title: "좌우 뒤집기와 상하 뒤집기",
+                desc: "좌우 뒤집기는 거울에 비친 것처럼 좌우를 바꾸고, 상하 뒤집기는 위아래를 뒤집습니다.",
                 icon: FlipHorizontal,
               },
               {
-                title: "Original Quality",
-                desc: "The flipped image maintains the same resolution and quality as the original. No compression applied.",
+                title: "원본 화질",
+                desc: "뒤집힌 이미지는 원본과 같은 해상도와 화질을 유지하며 추가 압축이 적용되지 않습니다.",
                 icon: Zap,
               },
               {
                 title: "100% Private",
-                desc: "All flipping happens in your browser using Canvas API. Your images never leave your device.",
+                desc: "모든 뒤집기는 Canvas API를 이용해 브라우저 안에서 이뤄집니다. 이미지가 기기를 벗어나지 않습니다.",
                 icon: Layers,
               },
               {
-                title: "Transparency Preserved",
-                desc: "PNG images with transparent backgrounds will maintain their transparency after flipping.",
+                title: "투명도 보존",
+                desc: "투명 배경의 PNG 이미지는 뒤집은 뒤에도 투명도가 유지됩니다.",
                 icon: FileImage,
               },
             ].map((tip, idx) => (
@@ -421,7 +421,7 @@ export function FlipImageClient({ dict }: { dict?: any }) {
               {dict?.flip_image?.faq_title || "Image Flipping FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about flipping images online.
+              온라인 이미지 뒤집기에 대해 자주 묻는 질문입니다.
             </p>
           </div>
           <div className="max-w-3xl mx-auto">
@@ -468,7 +468,7 @@ export function FlipImageClient({ dict }: { dict?: any }) {
               <AccordionItem value="faq-5">
                 <AccordionTrigger>
                   {dict?.flip_image?.faq_5_q ||
-                    "What image formats are supported?"}
+                    "어떤 이미지 형식을 지원하나요?"}
                 </AccordionTrigger>
                 <AccordionContent>
                   {dict?.flip_image?.faq_5_a ||

@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { searchApps, localizeApp } from "@/lib/app-utils";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import SearchClient from "@/components/client/search-client";
 
@@ -23,14 +22,13 @@ export async function generateMetadata({
 
   const title = parts.length
     ? `${parts.join(" ")} Software Download - ${SITE_NAME}`
-    : `Software Search & Filter - ${SITE_NAME}`;
+    : `소프트웨어 검색 및 필터 - ${SITE_NAME}`;
   const description = `Search and filter ${parts.length ? parts.join(", ") + " " : ""}software apps. Find the best apps by platform, license type, and category.`;
-  const locale = await getLocale();
 
   return {
     title,
     description,
-    alternates: buildAlternates("/search", locale),
+    alternates: buildAlternates("/search"),
     openGraph: { title, description, url: `${SITE_URL}/search`, siteName: SITE_NAME, type: "website" },
     twitter: { card: "summary_large_image", title, description },
   };
@@ -49,9 +47,8 @@ export default async function SearchPage({
   const page = Math.max(1, parseInt(params.page ?? "1", 10));
   const offset = (page - 1) * PAGE_SIZE;
 
-  const locale = await getLocale();
   const { apps: rawApps, total } = await searchApps({ os, license, category, q, limit: PAGE_SIZE, offset });
-  const apps = rawApps.map((a) => localizeApp(a, locale));
+  const apps = rawApps.map((a) => localizeApp(a));
 
   return (
     <Suspense>

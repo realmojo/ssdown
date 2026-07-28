@@ -1,30 +1,28 @@
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { DailymotionClient } from "@/components/client/dailymotion-client";
 import { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/dailymotion`;
 
   return {
     robots: { index: true, follow: true },
-    title: dict.dailymotion?.seo_title || "Dailymotion Video Tool",
+    title: dict.dailymotion?.seo_title || "데일리모션 영상 도구",
     description:
       dict.dailymotion?.seo_description ||
-      "Dailymotion video content management tool.",
+      "데일리모션 영상 콘텐츠 관리 도구입니다.",
     keywords: dict.dailymotion?.seo_keywords
       ? dict.dailymotion.seo_keywords.split(", ")
-      : ["dailymotion video tool", "dailymotion content tool"],
+      : ["데일리모션 영상 다운로드", "데일리모션 콘텐츠 저장"],
     openGraph: {
-      title: dict.dailymotion?.seo_title || "Dailymotion Video Tool",
+      title: dict.dailymotion?.seo_title || "데일리모션 영상 도구",
       description:
         dict.dailymotion?.seo_description ||
-        "Dailymotion video content management tool.",
+        "데일리모션 영상 콘텐츠 관리 도구입니다.",
       url: canonical,
       siteName: "SSDown",
       images: [
@@ -32,26 +30,25 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "https://ssdown.app/ssdown-dailymotion-og.png",
           width: 1200,
           height: 630,
-          alt: "SSDown - Dailymotion Video Tool",
+          alt: "SSDown - 데일리모션 영상 도구",
         },
       ],
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: dict.dailymotion?.title || "Dailymotion Video Tool",
+      title: dict.dailymotion?.title || "데일리모션 영상 도구",
       description:
-        dict.dailymotion?.subtitle || "Dailymotion video content tool.",
+        dict.dailymotion?.subtitle || "데일리모션 영상 콘텐츠 도구입니다.",
       images: ["https://ssdown.app/ssdown-dailymotion-og.png"],
     },
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
   };
 }
 
 export default async function DailymotionPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -78,11 +75,11 @@ export default async function DailymotionPage() {
   const softwareAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Dailymotion Video Downloader",
+    name: "데일리모션 영상 다운로더",
     url: "https://ssdown.app/dailymotion",
     description:
       dict.dailymotion?.seo_description ||
-      "Dailymotion video content management tool.",
+      "데일리모션 영상 콘텐츠 관리 도구입니다.",
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -93,7 +90,7 @@ export default async function DailymotionPage() {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
-      { "@type": "ListItem", position: 2, name: "Dailymotion Video Downloader", item: "https://ssdown.app/dailymotion" },
+      { "@type": "ListItem", position: 2, name: "데일리모션 영상 다운로더", item: "https://ssdown.app/dailymotion" },
     ],
   };
 

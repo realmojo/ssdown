@@ -1045,7 +1045,7 @@ export function IconToPngClient({ dict }: { dict?: any }) {
         {!fontsLoaded ? (
           <div className="flex items-center gap-3 text-muted-foreground">
             <div className="w-5 h-5 border-2 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
-            <span>Loading fonts...</span>
+            <span>글꼴을 불러오는 중…</span>
           </div>
         ) : (
           <div className="w-full space-y-8 animate-in fade-in slide-in-from-bottom-4">
@@ -1053,7 +1053,7 @@ export function IconToPngClient({ dict }: { dict?: any }) {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
               <input
                 type="text"
-                placeholder="Search icons..."
+                placeholder="아이콘 검색…"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-12 pr-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:border-gray-700"
@@ -1100,7 +1100,7 @@ export function IconToPngClient({ dict }: { dict?: any }) {
               <div className="grid md:grid-cols-2 gap-8">
                 <Card className="border-orange-100 dark:border-orange-900/50">
                   <CardHeader>
-                    <CardTitle className="text-lg">Customize Icon</CardTitle>
+                    <CardTitle className="text-lg">아이콘 설정</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div>
@@ -1126,7 +1126,7 @@ export function IconToPngClient({ dict }: { dict?: any }) {
 
                     <div>
                       <label className="text-sm font-medium mb-3 block">
-                        Icon Color
+                        아이콘 색상
                       </label>
                       <div className="flex gap-2 mb-2">
                         {COLOR_PRESETS.map((preset) => (
@@ -1154,7 +1154,7 @@ export function IconToPngClient({ dict }: { dict?: any }) {
                     <div>
                       <div className="flex items-center justify-between mb-3">
                         <label className="text-sm font-medium">
-                          Background
+                          배경
                         </label>
                         <button
                           onClick={() => setBgTransparent(!bgTransparent)}
@@ -1197,7 +1197,7 @@ export function IconToPngClient({ dict }: { dict?: any }) {
 
                 <Card className="border-orange-100 dark:border-orange-900/50">
                   <CardHeader>
-                    <CardTitle className="text-lg">Preview</CardTitle>
+                    <CardTitle className="text-lg">미리보기</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div
@@ -1211,7 +1211,7 @@ export function IconToPngClient({ dict }: { dict?: any }) {
                       {previewUrl && (
                         <img
                           src={previewUrl}
-                          alt="Preview"
+                          alt="미리보기"
                           className="max-w-full"
                           style={{ imageRendering: "crisp-edges" }}
                         />
@@ -1222,7 +1222,7 @@ export function IconToPngClient({ dict }: { dict?: any }) {
                       className="w-full bg-orange-600 hover:bg-orange-700 text-white"
                     >
                       <Download className="w-4 h-4 mr-2" />
-                      Download PNG
+                      PNG 다운로드
                     </Button>
                   </CardContent>
                 </Card>
@@ -1320,7 +1320,7 @@ export function IconToPngClient({ dict }: { dict?: any }) {
               },
               {
                 title:
-                  dict?.icon_to_png?.tip2_title || "Transparent Background",
+                  dict?.icon_to_png?.tip2_title || "투명 배경",
                 desc:
                   dict?.icon_to_png?.tip2_desc ||
                   "Enable transparent background for versatile icons that work on any background color or pattern.",
@@ -1359,11 +1359,11 @@ export function IconToPngClient({ dict }: { dict?: any }) {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              {dict?.qna_icon_to_png?.title || "Icon to PNG FAQ"}
+              {dict?.qna_icon_to_png?.title || "아이콘 → PNG 자주 묻는 질문"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
               {dict?.qna_icon_to_png?.desc ||
-                "Common questions about converting icons to PNG."}
+                "아이콘을 PNG로 변환하는 것에 대해 자주 묻는 질문입니다."}
             </p>
           </div>
 

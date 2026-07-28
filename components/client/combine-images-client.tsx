@@ -259,14 +259,13 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
             <>
               <FileImage className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
               <p className="text-lg font-medium mb-2">
-                {dict?.combine_images?.drop_zone || "Drag & drop images here"}
+                {dict?.combine_images?.drop_zone || "여기에 이미지를 끌어다 놓으세요"}
               </p>
               <p className="text-sm text-muted-foreground">
-                Upload 2 or more images to combine. Supported: PNG, JPG, WebP,
-                GIF, BMP
+                합칠 이미지를 2장 이상 올리세요. 지원 형식: PNG, JPG, WebP, GIF, BMP
               </p>
               <p className="text-xs text-muted-foreground mt-2">
-                Max 20MB per file
+                파일당 최대 20MB
               </p>
               <button
                 type="button"
@@ -276,13 +275,13 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                 }}
                 className="mt-4 text-sm text-lime-600 dark:text-lime-400 hover:underline"
               >
-                Or try with sample images
+                샘플 이미지로 먼저 써보기
               </button>
             </>
           ) : (
             <div className="flex items-center justify-center gap-2">
               <Plus className="w-5 h-5 text-lime-600" />
-              <span className="text-sm font-medium">Add more images</span>
+              <span className="text-sm font-medium">이미지 더 추가</span>
             </div>
           )}
         </div>
@@ -299,7 +298,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                   </span>
                   <Button variant="outline" size="sm" onClick={handleReset}>
                     <RotateCcw className="w-4 h-4 mr-2" />
-                    Clear All
+                    전체 지우기
                   </Button>
                 </div>
                 <div className="flex flex-wrap gap-3">
@@ -315,7 +314,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                           <button
                             onClick={() => moveImage(idx, -1)}
                             className="p-1 bg-white/80 rounded text-xs"
-                            title="Move left"
+                            title="왼쪽으로 이동"
                           >
                             <GripVertical className="w-3 h-3" />
                           </button>
@@ -323,7 +322,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                         <button
                           onClick={() => removeImage(img.id)}
                           className="p-1 bg-red-500 rounded text-white"
-                          title="Remove"
+                          title="제거"
                         >
                           <X className="w-3 h-3" />
                         </button>
@@ -343,7 +342,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                 {/* Direction */}
                 <div className="space-y-2">
                   <label className="text-sm font-medium">
-                    Layout Direction
+                    배치 방향
                   </label>
                   <div className="flex gap-2">
                     <button
@@ -355,7 +354,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                       }`}
                     >
                       <Columns className="w-4 h-4" />
-                      Side by Side
+                      가로로 나란히
                     </button>
                     <button
                       onClick={() => setDirection("vertical")}
@@ -375,7 +374,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium">Gap</label>
+                      <label className="text-sm font-medium">간격</label>
                       <span className="text-sm text-muted-foreground">
                         {gap}px
                       </span>
@@ -392,7 +391,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium">
-                      Background Color
+                      배경색
                     </label>
                     <div className="flex items-center gap-2">
                       <input
@@ -431,7 +430,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                 <div className="w-full flex items-center justify-center bg-muted/30 rounded-xl overflow-hidden p-8">
                   <img
                     src={previewUrl}
-                    alt="Combined result"
+                    alt="합쳐진 결과"
                     className="max-w-full max-h-[60vh] block rounded-lg shadow-md"
                     draggable={false}
                   />
@@ -444,7 +443,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
                     className="bg-green-600 hover:bg-green-700 text-white shadow-lg min-w-[180px]"
                   >
                     <Download className="w-5 h-5 mr-2" />
-                    Download
+                    다운로드
                   </Button>
                 </div>
               </>
@@ -452,7 +451,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
 
             {images.length === 1 && (
               <p className="text-center text-sm text-muted-foreground">
-                Add at least one more image to combine.
+                합치려면 이미지를 하나 이상 더 추가하세요.
               </p>
             )}
           </div>
@@ -476,7 +475,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
             {[
               {
                 step: 1,
-                title: dict?.combine_images?.step1_title || "Upload Images",
+                title: dict?.combine_images?.step1_title || "이미지 업로드s",
                 desc:
                   dict?.combine_images?.step1_desc ||
                   "Upload 2 or more images. Drag & drop or click to browse. You can add more images after uploading.",
@@ -492,7 +491,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
               },
               {
                 step: 3,
-                title: dict?.combine_images?.step3_title || "Download Result",
+                title: dict?.combine_images?.step3_title || "결과 다운로드",
                 desc:
                   dict?.combine_images?.step3_desc ||
                   "Click 'Download' to save the combined image as PNG.",
@@ -530,29 +529,29 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
               {dict?.combine_images?.tips_title || "Combine Tips"}
             </h2>
             <p className="text-muted-foreground">
-              Get the best results when combining images.
+              이미지를 합칠 때 가장 좋은 결과를 얻는 방법입니다.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Auto-Scale to Match",
-                desc: "Images are automatically scaled so their heights match (horizontal) or widths match (vertical), creating a seamless result.",
+                title: "크기 자동 맞춤",
+                desc: "가로 배치에서는 높이가, 세로 배치에서는 너비가 같아지도록 자동 조정되어 이음매 없이 자연스럽게 이어집니다.",
                 icon: Layers,
               },
               {
-                title: "Reorder Images",
-                desc: "Hover over a thumbnail and use the grip button to change the order. Images are combined left-to-right or top-to-bottom.",
+                title: "이미지 순서 변경",
+                desc: "썸네일에 마우스를 올려 손잡이 버튼으로 순서를 바꾸세요. 이미지는 왼쪽에서 오른쪽 또는 위에서 아래로 합쳐집니다.",
                 icon: GripVertical,
               },
               {
-                title: "Add Gap for Spacing",
-                desc: "Use the gap slider to add space between images. The background color fills the gap area.",
+                title: "간격 넣기",
+                desc: "간격 슬라이더로 이미지 사이 여백을 조절하세요. 배경색이 그 여백을 채웁니다.",
                 icon: Zap,
               },
               {
-                title: "Before & After Comparison",
-                desc: "Perfect for creating side-by-side before/after comparisons, photo collages, or panoramic-style layouts.",
+                title: "처리 전후 비교",
+                desc: "전후 비교 이미지, 사진 콜라주, 파노라마 형태의 배치를 만들 때 특히 유용합니다.",
                 icon: Shield,
               },
             ].map((tip, idx) => (
@@ -577,7 +576,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
               {dict?.combine_images?.faq_title || "Image Combiner FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about combining images.
+              이미지 합치기에 대해 자주 묻는 질문입니다.
             </p>
           </div>
           <div className="max-w-3xl mx-auto">
@@ -624,7 +623,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
               <AccordionItem value="faq-5">
                 <AccordionTrigger>
                   {dict?.combine_images?.faq_5_q ||
-                    "What format is the output?"}
+                    "결과물은 어떤 형식인가요?"}
                 </AccordionTrigger>
                 <AccordionContent>
                   {dict?.combine_images?.faq_5_a ||

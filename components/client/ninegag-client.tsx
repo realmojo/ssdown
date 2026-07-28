@@ -89,7 +89,7 @@ export function NineGagClient({ dict }: NineGagClientProps) {
           {[
             {
               step: 1,
-              title: dict?.["9gag"]?.step1_title || "Find the Video",
+              title: dict?.["9gag"]?.step1_title || "영상 찾기",
               desc:
                 dict?.["9gag"]?.step1_desc ||
                 "Navigate to 9GAG and find the video post you want to download. You can browse trending posts, search for specific content, or explore different categories.",
@@ -97,7 +97,7 @@ export function NineGagClient({ dict }: NineGagClientProps) {
             },
             {
               step: 2,
-              title: dict?.["9gag"]?.step2_title || "Copy the Link",
+              title: dict?.["9gag"]?.step2_title || "링크 복사",
               desc:
                 dict?.["9gag"]?.step2_desc ||
                 "Click on the 'Share' button or copy the URL from your browser's address bar. The link will be copied to your clipboard automatically.",
@@ -105,10 +105,10 @@ export function NineGagClient({ dict }: NineGagClientProps) {
             },
             {
               step: 3,
-              title: dict?.["9gag"]?.step3_title || "Paste & Download",
+              title: dict?.["9gag"]?.step3_title || "붙여넣고 다운로드",
               desc:
                 dict?.["9gag"]?.step3_desc ||
-                "Paste the copied link into the input box above, click 'Download', and choose your preferred video quality. The video will be saved to your device instantly.",
+                "복사한 링크를 위 입력창에 붙여넣고 '다운로드'를 누른 뒤 원하는 화질을 고르세요. 영상이 기기에 바로 저장됩니다.",
               icon: Download,
             },
           ].map((step) => (
@@ -134,14 +134,14 @@ export function NineGagClient({ dict }: NineGagClientProps) {
         </div>
       </section>
 
-      {/* Tips & Best Practices */}
+      {/* 활용 팁 */}
       <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
             <Lightbulb className="w-8 h-8 text-yellow-500" />
           </div>
           <h2 className="text-3xl font-bold tracking-tight mb-4">
-            {dict?.["9gag"]?.tips_title || "Tips & Best Practices"}
+            {dict?.["9gag"]?.tips_title || "활용 팁"}
           </h2>
           <p className="text-muted-foreground">
             {dict?.["9gag"]?.tips_desc ||
@@ -152,10 +152,10 @@ export function NineGagClient({ dict }: NineGagClientProps) {
         <div className="grid md:grid-cols-2 gap-6">
           {[
             {
-              title: dict?.["9gag"]?.tip1_title || "Choose the Right Quality",
+              title: dict?.["9gag"]?.tip1_title || "알맞은 화질 고르기",
               desc:
                 dict?.["9gag"]?.tip1_desc ||
-                "Select the highest available quality for the best viewing experience. Higher quality videos take longer to download but offer superior visual clarity.",
+                "가장 좋은 화질로 보려면 제공되는 최고 화질을 고르세요. 화질이 높을수록 내려받는 데 오래 걸리지만 훨씬 선명합니다.",
               icon: CheckCircle2,
             },
             {
@@ -166,17 +166,17 @@ export function NineGagClient({ dict }: NineGagClientProps) {
               icon: CheckCircle2,
             },
             {
-              title: dict?.["9gag"]?.tip3_title || "Check Video Availability",
+              title: dict?.["9gag"]?.tip3_title || "영상 포함 여부 확인",
               desc:
                 dict?.["9gag"]?.tip3_desc ||
                 "Make sure the post actually contains a video. Some posts may only have images or text, which cannot be downloaded as video files.",
               icon: CheckCircle2,
             },
             {
-              title: dict?.["9gag"]?.tip4_title || "Respect Copyright",
+              title: dict?.["9gag"]?.tip4_title || "저작권 존중",
               desc:
                 dict?.["9gag"]?.tip4_desc ||
-                "Only download videos for personal use. Do not redistribute or use downloaded content for commercial purposes without permission from the creator.",
+                "개인적인 용도로만 내려받으세요. 창작자의 허락 없이 재배포하거나 상업적으로 이용하지 마세요.",
               icon: CheckCircle2,
             },
           ].map((tip, idx) => (
@@ -215,25 +215,25 @@ export function NineGagClient({ dict }: NineGagClientProps) {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             {
-              title: dict?.["9gag"]?.feature1_title || "Regular Videos",
+              title: dict?.["9gag"]?.feature1_title || "일반 영상",
               desc:
                 dict?.["9gag"]?.feature1_desc ||
                 "Download standard video posts in MP4 format with original quality preserved.",
             },
             {
-              title: dict?.["9gag"]?.feature2_title || "Animated GIFs",
+              title: dict?.["9gag"]?.feature2_title || "움직이는 GIF",
               desc:
                 dict?.["9gag"]?.feature2_desc ||
-                "Convert and download animated GIFs from 9GAG as MP4 video files.",
+                "변환 후 다운로드 animated GIFs from 9GAG as MP4 video files.",
             },
             {
-              title: dict?.["9gag"]?.feature3_title || "Multiple Qualities",
+              title: dict?.["9gag"]?.feature3_title || "여러 화질 지원",
               desc:
                 dict?.["9gag"]?.feature3_desc ||
                 "Choose from available video qualities including HD and Full HD when available.",
             },
             {
-              title: dict?.["9gag"]?.feature4_title || "Video Metadata",
+              title: dict?.["9gag"]?.feature4_title || "영상 정보",
               desc:
                 dict?.["9gag"]?.feature4_desc ||
                 "View video statistics including views, likes, and comments before downloading.",
@@ -253,7 +253,7 @@ export function NineGagClient({ dict }: NineGagClientProps) {
       <section>
         <div className="text-center mb-10">
           <h2 className="text-3xl font-bold tracking-tight mb-4">
-            {dict?.qna?.title || "Frequently Asked Questions"}
+            {dict?.qna?.title || "자주 묻는 질문"}
           </h2>
           <p className="text-muted-foreground">
             {dict?.qna?.desc ||
@@ -283,7 +283,7 @@ export function NineGagClient({ dict }: NineGagClientProps) {
     <div className="grid gap-6 sm:grid-cols-3 w-full pt-12 text-left">
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
         <p className="font-semibold text-lg mb-2">
-          {dict?.common?.copy_link || "Copy Link"}
+          {dict?.common?.copy_link || "링크 복사"}
         </p>
         <p className="text-muted-foreground text-sm">
           {dict?.["9gag"]?.desc_copy ||
@@ -291,7 +291,7 @@ export function NineGagClient({ dict }: NineGagClientProps) {
         </p>
       </div>
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
-        <p className="font-semibold text-lg mb-2">Paste URL</p>
+        <p className="font-semibold text-lg mb-2">주소 붙여넣기</p>
         <p className="text-muted-foreground text-sm">
           {dict?.["9gag"]?.desc_paste ||
             "Paste the link into the input box above and hit download."}
@@ -330,12 +330,12 @@ export function NineGagClient({ dict }: NineGagClientProps) {
       title={dict?.["9gag"]?.title || "9GAG Saver"}
       subtitle={
         dict?.["9gag"]?.subtitle ||
-        "Save 9GAG videos and GIFs in MP4 format. High quality, free, and unlimited."
+        "Save 9GAG videos and GIFs in MP4 format. 고화질, free, and unlimited."
       }
       placeholder={dict?.["9gag"]?.placeholder || "Paste 9GAG link here..."}
       apiEndpoint="/api/9gag"
       downloadEndpoint="/api/9gag/download"
-      noVideoError="No video found in this post. Make sure it contains a video."
+      noVideoError="이 게시물에서 영상을 찾지 못했습니다. 영상이 포함되어 있는지 확인해 주세요."
       formatContent={(content) => content}
       statsConfig={statsConfig}
       emptyState={emptyState}

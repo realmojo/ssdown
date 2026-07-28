@@ -19,14 +19,14 @@ export function SiteFooter({ dict }: SiteFooterProps) {
               </span>
             </a>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-              Free online tools for image editing, PDF management, video conversion, and more. Fast, free, and secure.
+              이미지 편집, PDF 관리, 영상 변환 등을 위한 무료 온라인 도구. 빠르고 무료이며 안전합니다.
             </p>
           </div>
 
           {/* Tools Column */}
           <div className="space-y-4">
             <h3 className="font-semibold text-foreground tracking-tight">
-              Tools
+              도구
             </h3>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
               <li>
@@ -35,7 +35,7 @@ export function SiteFooter({ dict }: SiteFooterProps) {
                   href="/tools/image"
                   className="hover:text-primary transition-colors"
                 >
-                  Image Tools
+                  이미지 도구
                 </a>
               </li>
               <li>
@@ -43,18 +43,14 @@ export function SiteFooter({ dict }: SiteFooterProps) {
                   target="_self"
                   href="/tools/video-audio"
                   className="hover:text-primary transition-colors"
-                >
-                  Video &amp; Audio
-                </a>
+                >영상 & 오디오</a>
               </li>
               <li>
                 <a
                   target="_self"
                   href="/tools/social-text"
                   className="hover:text-primary transition-colors"
-                >
-                  Social &amp; Text
-                </a>
+                >소셜 & 텍스트</a>
               </li>
               <li>
                 <a
@@ -62,7 +58,7 @@ export function SiteFooter({ dict }: SiteFooterProps) {
                   href="/tools/utility"
                   className="hover:text-primary transition-colors"
                 >
-                  Utility
+                  유틸리티
                 </a>
               </li>
               <li>
@@ -71,7 +67,7 @@ export function SiteFooter({ dict }: SiteFooterProps) {
                   href="/tools"
                   className="hover:text-primary transition-colors"
                 >
-                  All Tools
+                  전체 도구
                 </a>
               </li>
             </ul>
@@ -79,9 +75,7 @@ export function SiteFooter({ dict }: SiteFooterProps) {
 
           {/* Company Column */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-foreground tracking-tight">
-              Company
-            </h3>
+            <h3 className="font-semibold text-foreground tracking-tight">회사</h3>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
               <li>
                 <a
@@ -89,7 +83,7 @@ export function SiteFooter({ dict }: SiteFooterProps) {
                   href="/about"
                   className="hover:text-primary transition-colors"
                 >
-                  {dict?.about?.nav || dict?.nav?.about || "About Us"}
+                  {dict?.about?.nav || dict?.nav?.about || "소개"}
                 </a>
               </li>
               <li>
@@ -98,7 +92,7 @@ export function SiteFooter({ dict }: SiteFooterProps) {
                   href="/contact"
                   className="hover:text-primary transition-colors"
                 >
-                  {dict?.contact?.nav || dict?.nav?.contact || "Contact"}
+                  {dict?.contact?.nav || dict?.nav?.contact || "문의하기"}
                 </a>
               </li>
             </ul>
@@ -107,7 +101,7 @@ export function SiteFooter({ dict }: SiteFooterProps) {
           {/* Related Sites Column */}
           <div className="space-y-4">
             <h3 className="font-semibold text-foreground tracking-tight">
-              Related Sites
+              관련 사이트
             </h3>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
               <li>
@@ -117,7 +111,7 @@ export function SiteFooter({ dict }: SiteFooterProps) {
                   rel="noopener"
                   className="hover:text-primary transition-colors"
                 >
-                  Mood Palette
+                  무드 팔레트
                 </a>
               </li>
             </ul>
@@ -125,9 +119,7 @@ export function SiteFooter({ dict }: SiteFooterProps) {
 
           {/* Legal Column */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-foreground tracking-tight">
-              Legal
-            </h3>
+            <h3 className="font-semibold text-foreground tracking-tight">법적 고지</h3>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
               <li>
                 <a
@@ -135,7 +127,7 @@ export function SiteFooter({ dict }: SiteFooterProps) {
                   href="/privacy"
                   className="hover:text-primary transition-colors"
                 >
-                  {dict?.privacy || "Privacy Policy"}
+                  {dict?.privacy || "개인정보처리방침"}
                 </a>
               </li>
               <li>
@@ -144,7 +136,7 @@ export function SiteFooter({ dict }: SiteFooterProps) {
                   href="/terms"
                   className="hover:text-primary transition-colors"
                 >
-                  {dict?.terms || "Terms of Service"}
+                  {dict?.terms || "이용약관"}
                 </a>
               </li>
             </ul>
@@ -153,7 +145,7 @@ export function SiteFooter({ dict }: SiteFooterProps) {
 
         {/* Bottom Section */}
         <div className="mt-12 pt-8 border-t flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <p>© {currentYear} SSDown. All rights reserved.</p>
+          <p>© {currentYear} SSDown. 모든 권리 보유.</p>
         </div>
       </div>
     </footer>

@@ -85,7 +85,7 @@ export function VideoToGifClient({ dict }: { dict?: any }) {
     try {
       if (!loaded) await loadFFmpeg();
       const ffmpeg = ffmpegRef.current;
-      if (!ffmpeg) throw new Error("Converter not loaded");
+      if (!ffmpeg) throw new Error("변환기가 아직 준비되지 않았습니다");
 
       const { fetchFile } = await import("@ffmpeg/util");
       const ext = file.name.split(".").pop() || "mp4";
@@ -118,7 +118,7 @@ export function VideoToGifClient({ dict }: { dict?: any }) {
       setFileName(`${baseName}.gif`);
     } catch (err: any) {
       console.error("Conversion error:", err);
-      setError(err.message || "Conversion failed. Please try a shorter video.");
+      setError(err.message || "변환하지 못했습니다. 더 짧은 영상으로 시도해 주세요.");
     } finally {
       setConverting(false);
     }
@@ -260,14 +260,14 @@ export function VideoToGifClient({ dict }: { dict?: any }) {
                         setOutputUrl(null);
                         setError(null);
                       } catch {
-                        setError("Failed to load test video");
+                        setError("테스트 영상을 불러오지 못했습니다");
                       } finally {
                         setLoading(false);
                       }
                     }}
                     className="text-xs text-muted-foreground hover:text-pink-600 dark:hover:text-pink-400"
                   >
-                    Try with sample video
+                    샘플 영상으로 먼저 써보기
                   </Button>
                 </div>
               </div>
@@ -367,7 +367,7 @@ export function VideoToGifClient({ dict }: { dict?: any }) {
                           <CheckCircle2 className="w-6 h-6" />
                         </div>
                         <h3 className="text-xl font-bold text-green-700 dark:text-green-400">
-                          GIF Ready!
+                          GIF가 준비됐습니다!
                         </h3>
                       </div>
 
@@ -375,7 +375,7 @@ export function VideoToGifClient({ dict }: { dict?: any }) {
                       <div className="relative rounded-lg overflow-hidden border border-gray-200 shadow-sm max-w-full">
                         <img
                           src={outputUrl}
-                          alt="Generated GIF"
+                          alt="생성된 GIF"
                           className="max-h-[300px] w-auto object-contain"
                         />
                       </div>
@@ -393,7 +393,7 @@ export function VideoToGifClient({ dict }: { dict?: any }) {
                           variant="outline"
                           className="flex-1 h-12"
                         >
-                          Convert Another
+                          다른 파일 변환
                         </Button>
                       </div>
                     </div>

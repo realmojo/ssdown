@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { CombineImagesClient } from "@/components/client/combine-images-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/combine-images`;
 
@@ -17,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function CombineImagesPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -62,38 +59,38 @@ export default async function CombineImagesPage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Combine Images",
+    name: "이미지 합치기",
     url: "https://ssdown.app/image/combine-images",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Merge multiple images side-by-side or vertically into one file.",
+    description: "여러 이미지를 가로나 세로로 이어 붙여 하나의 파일로 만듭니다.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Combine Images Online",
-    description: "Merge multiple images side-by-side or vertically into one file.",
+    name: "이미지 합치기 사용 방법",
+    description: "여러 이미지를 가로나 세로로 이어 붙여 하나의 파일로 만듭니다.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Upload images",
-        text: "Select two or more images you want to join together.",
+        name: "이미지 업로드",
+        text: "합칠 이미지 파일들을 업로드하세요.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Choose orientation",
-        text: "Select whether to combine them horizontally or vertically.",
+        name: "배치 설정",
+        text: "가로 또는 세로 배치를 선택하고 순서를 변경하세요.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Download result",
-        text: "Save the merged image to your device.",
+        name: "결과 내려받기",
+        text: "합쳐진 이미지를 기기에 저장하세요.",
       }
     ],
   };

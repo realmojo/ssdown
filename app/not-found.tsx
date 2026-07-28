@@ -5,7 +5,7 @@ export default function NotFound() {
     <div className="min-h-[70vh] bg-gray-50 flex items-center">
       <div className="max-w-3xl mx-auto w-full px-4 sm:px-6 lg:px-8">
         <div className="bg-white border border-gray-200 rounded-2xl p-8 sm:p-12 text-center shadow-sm">
-          <p className="text-xs font-semibold tracking-[0.2em] text-gray-400">ERROR 404</p>
+          <p className="text-xs font-semibold tracking-[0.2em] text-gray-400">오류 404</p>
           <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold text-gray-900">
             페이지를 찾을 수 없어요
           </h1>

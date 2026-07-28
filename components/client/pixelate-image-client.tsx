@@ -228,7 +228,7 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
               }}
               className="mt-4 text-sm text-violet-600 dark:text-violet-400 hover:underline"
             >
-              Or try with a sample image
+              샘플 이미지로 먼저 써보기
             </button>
           </div>
         ) : (
@@ -240,7 +240,7 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
                   <div className="flex items-center gap-3">
                     <Button variant="outline" size="sm" onClick={handleReset}>
                       <RotateCcw className="w-4 h-4 mr-2" />
-                      New Image
+                      새 이미지
                     </Button>
                     <span
                       className="text-sm text-muted-foreground truncate max-w-[200px]"
@@ -259,7 +259,7 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
                 {/* Pixel Size Slider */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium">Pixel Size</label>
+                    <label className="text-sm font-medium">픽셀 크기</label>
                     <span className="text-sm text-muted-foreground">
                       {pixelSize}px
                     </span>
@@ -274,8 +274,8 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
                     className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-violet-600"
                   />
                   <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>5px (subtle)</span>
-                    <span>50px (strong)</span>
+                    <span>5px (약하게)</span>
+                    <span>50px (강하게)</span>
                   </div>
                 </div>
               </CardContent>
@@ -287,21 +287,21 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
                 <img
                   ref={imageRef}
                   src={imageSrc}
-                  alt="Image to pixelate"
+                  alt="모자이크할 이미지"
                   onLoad={onImageLoad}
                   className="hidden"
                 />
                 {pixelatedUrl ? (
                   <img
                     src={pixelatedUrl}
-                    alt="Pixelated result"
+                    alt="모자이크 결과"
                     className="max-w-full max-h-[60vh] block rounded-lg shadow-md"
                     draggable={false}
                   />
                 ) : (
                   <img
                     src={imageSrc}
-                    alt="Original"
+                    alt="원본"
                     className="max-w-full max-h-[60vh] block rounded-lg shadow-md"
                     draggable={false}
                   />
@@ -318,7 +318,7 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
                   className="bg-green-600 hover:bg-green-700 text-white shadow-lg min-w-[180px]"
                 >
                   <Download className="w-5 h-5 mr-2" />
-                  Download
+                  다운로드
                 </Button>
               </div>
             )}
@@ -344,7 +344,7 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
             {[
               {
                 step: 1,
-                title: dict?.pixelate_image?.step1_title || "Upload Image",
+                title: dict?.pixelate_image?.step1_title || "이미지 업로드",
                 desc:
                   dict?.pixelate_image?.step1_desc ||
                   "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
@@ -360,7 +360,7 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
               },
               {
                 step: 3,
-                title: dict?.pixelate_image?.step3_title || "Download Result",
+                title: dict?.pixelate_image?.step3_title || "결과 다운로드",
                 desc:
                   dict?.pixelate_image?.step3_desc ||
                   "Click 'Download' to save your pixelated image to your device.",
@@ -398,29 +398,29 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
               {dict?.pixelate_image?.tips_title || "Pixelation Tips"}
             </h2>
             <p className="text-muted-foreground">
-              Get the best results when pixelating your images.
+              이미지를 모자이크 처리할 때 가장 좋은 결과를 얻는 방법입니다.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Privacy Protection",
-                desc: "Use higher pixel values to hide sensitive information like faces, license plates, or personal details.",
+                title: "개인정보 보호",
+                desc: "픽셀 크기를 키우면 얼굴, 차량 번호판, 개인정보 같은 민감한 부분을 가릴 수 있습니다.",
                 icon: Shield,
               },
               {
-                title: "Artistic Effect",
-                desc: "Lower values create a subtle retro look. Experiment with different pixel sizes for unique visual styles.",
+                title: "예술적 효과",
+                desc: "값을 낮추면 은은한 레트로 느낌이 납니다. 여러 크기를 시도해 원하는 분위기를 찾아보세요.",
                 icon: Sparkles,
               },
               {
-                title: "Face Blur",
-                desc: "Useful for blurring faces in screenshots or photos before sharing on social media.",
+                title: "얼굴 가리기",
+                desc: "소셜 미디어에 올리기 전 화면 캡처나 사진 속 얼굴을 가릴 때 유용합니다.",
                 icon: Zap,
               },
               {
-                title: "Quality Preserved",
-                desc: "Original image dimensions are maintained. The pixelation is purely a visual effect.",
+                title: "화질 보존",
+                desc: "원본 이미지 크기는 그대로 유지되며, 모자이크는 시각적 효과일 뿐입니다.",
                 icon: Layers,
               },
             ].map((tip, idx) => (
@@ -445,7 +445,7 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
               {dict?.pixelate_image?.faq_title || "Image Pixelation FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about pixelating images online.
+              온라인 모자이크 처리에 대해 자주 묻는 질문입니다.
             </p>
           </div>
           <div className="max-w-3xl mx-auto">
@@ -492,7 +492,7 @@ export function PixelateImageClient({ dict }: { dict?: any }) {
               <AccordionItem value="faq-5">
                 <AccordionTrigger>
                   {dict?.pixelate_image?.faq_5_q ||
-                    "What image formats are supported?"}
+                    "어떤 이미지 형식을 지원하나요?"}
                 </AccordionTrigger>
                 <AccordionContent>
                   {dict?.pixelate_image?.faq_5_a ||

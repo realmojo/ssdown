@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { InstagramLineBreakClient } from "@/components/client/instagram-line-break-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/social-text/instagram-line-break`;
 
@@ -17,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function InstagramLineBreakPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -62,38 +59,38 @@ export default async function InstagramLineBreakPage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Instagram Line Break",
+    name: "인스타그램 줄바꿈",
     url: "https://ssdown.app/social-text/instagram-line-break",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Free online instagram line break tool. Fast, secure, and browser-based.",
+    description: "무료 온라인 인스타그램 줄바꿈 도구입니다. 빠르고 안전하며 브라우저에서 바로 실행됩니다.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Instagram Line Break Online",
-    description: "Use our free online instagram line break tool to process your files securely in your browser.",
+    name: "인스타그램 줄바꿈 사용 방법",
+    description: "무료 온라인 인스타그램 줄바꿈 도구로 브라우저에서 안전하게 파일을 처리하세요.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Upload your file",
-        text: "Select or drag and drop your file into the tool area.",
+        name: "파일 올리기",
+        text: "파일을 선택하거나 도구 영역으로 끌어다 놓으세요.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Process your file",
-        text: "Follow the on-screen instructions to process or convert your file.",
+        name: "파일 처리하기",
+        text: "화면 안내에 따라 파일을 처리하거나 변환하세요.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Download result",
-        text: "Save the processed file to your device instantly.",
+        name: "결과 내려받기",
+        text: "처리된 파일을 기기에 바로 저장하세요.",
       },
     ],
   };

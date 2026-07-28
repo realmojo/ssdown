@@ -249,10 +249,10 @@ export function RotatePdfClient({ dict }: { dict?: any }) {
                 />
                 <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
-                  {dict?.rotate_pdf?.drop_zone || "Drag & drop a PDF file here"}
+                  {dict?.rotate_pdf?.drop_zone || "여기에 PDF 파일을 끌어다 놓으세요"}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Only PDF files accepted. Max 50MB per file.
+                  PDF 파일만 올릴 수 있습니다. 파일당 최대 50MB입니다.
                 </p>
               </div>
             )}
@@ -281,7 +281,7 @@ export function RotatePdfClient({ dict }: { dict?: any }) {
                 {/* Global rotation controls */}
                 <div className="flex items-center justify-center gap-3 p-4 bg-muted/30 rounded-lg border border-muted">
                   <span className="text-sm font-medium mr-2">
-                    Rotate All Pages:
+                    모든 페이지 회전:
                   </span>
                   <Button
                     variant="outline"
@@ -334,7 +334,7 @@ export function RotatePdfClient({ dict }: { dict?: any }) {
                           size="icon"
                           className="h-8 w-8"
                           onClick={() => rotatePage(pr.pageIndex, 90)}
-                          title="Rotate 90° CW"
+                          title="시계 방향 90° 회전"
                         >
                           <RotateCw className="w-4 h-4" />
                         </Button>
@@ -343,7 +343,7 @@ export function RotatePdfClient({ dict }: { dict?: any }) {
                           size="icon"
                           className="h-8 w-8"
                           onClick={() => rotatePage(pr.pageIndex, 180)}
-                          title="Rotate 180°"
+                          title="180° 회전"
                         >
                           <RefreshCw className="w-4 h-4" />
                         </Button>
@@ -352,7 +352,7 @@ export function RotatePdfClient({ dict }: { dict?: any }) {
                           size="icon"
                           className="h-8 w-8"
                           onClick={() => rotatePage(pr.pageIndex, -90)}
-                          title="Rotate 90° CCW"
+                          title="반시계 방향 90° 회전"
                         >
                           <RotateCcw className="w-4 h-4" />
                         </Button>
@@ -378,7 +378,7 @@ export function RotatePdfClient({ dict }: { dict?: any }) {
                       ) : (
                         <>
                           <RotateCw className="w-5 h-5 mr-2" />
-                          Apply Rotation
+                          회전 적용
                         </>
                       )}
                     </Button>
@@ -432,10 +432,10 @@ export function RotatePdfClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.rotate_pdf?.step1_title || "Upload PDF",
+                    title: dict?.rotate_pdf?.step1_title || "PDF 업로드",
                     desc:
                       dict?.rotate_pdf?.step1_desc ||
-                      "Drag and drop or click to select a PDF file from your device.",
+                      "PDF 파일을 끌어다 놓거나 클릭해서 선택하세요.",
                     icon: Upload,
                   },
                   {
@@ -486,29 +486,29 @@ export function RotatePdfClient({ dict }: { dict?: any }) {
                   {dict?.rotate_pdf?.tips_title || "PDF Rotation Tips"}
                 </h2>
                 <p className="text-muted-foreground">
-                  Get the best results when rotating PDF pages.
+                  PDF 페이지를 회전할 때 가장 좋은 결과를 얻는 방법입니다.
                 </p>
               </div>
               <div className="grid md:grid-cols-2 gap-6">
                 {[
                   {
                     title: "100% Private",
-                    desc: "All processing happens in your browser using pdf-lib. Your files never leave your device.",
+                    desc: "모든 처리는 pdf-lib를 이용해 브라우저 안에서 이뤄집니다. 파일이 기기를 벗어나지 않습니다.",
                     icon: Shield,
                   },
                   {
-                    title: "Per-Page Control",
-                    desc: "Rotate individual pages or all pages at once. Perfect for scanned documents with mixed orientations.",
+                    title: "페이지별 조절",
+                    desc: "페이지를 하나씩 또는 전체를 한 번에 회전할 수 있습니다. 방향이 뒤섞인 스캔 문서에 특히 유용합니다.",
                     icon: Eye,
                   },
                   {
-                    title: "Instant Processing",
-                    desc: "Rotation is applied instantly without re-encoding. Your PDF quality remains unchanged.",
+                    title: "즉시 처리",
+                    desc: "재인코딩 없이 회전이 즉시 적용되어 PDF 화질이 그대로 유지됩니다.",
                     icon: Zap,
                   },
                   {
-                    title: "Original Preserved",
-                    desc: "Your original PDF file remains untouched. Only a new rotated file is created for download.",
+                    title: "원본 보존",
+                    desc: "원본 PDF는 그대로 남습니다. 회전된 새 파일만 만들어져 내려받게 됩니다.",
                     icon: FileText,
                   },
                 ].map((tip, idx) => (
@@ -535,7 +535,7 @@ export function RotatePdfClient({ dict }: { dict?: any }) {
                   {dict?.rotate_pdf?.faq_title || "Rotate PDF FAQ"}
                 </h2>
                 <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-                  Common questions about rotating PDF pages.
+                  PDF 페이지 회전에 대해 자주 묻는 질문입니다.
                 </p>
               </div>
               <div className="max-w-3xl mx-auto">

@@ -95,7 +95,7 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
 
   const processFile = (selectedFile: File) => {
     if (!selectedFile.type.startsWith("audio/")) {
-      setError("Please upload a valid audio file.");
+      setError("올바른 오디오 파일을 올려 주세요.");
       return;
     }
 
@@ -432,7 +432,7 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
         "-c:a",
         "libmp3lame",
         "-q:a",
-        "2", // High quality variable bitrate
+        "2", // 고화질 variable bitrate
         outputName,
       ]);
 
@@ -447,7 +447,7 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
       await ffmpeg.deleteFile(outputName);
     } catch (err) {
       console.error(err);
-      setError("Failed to trim audio. Please try again.");
+      setError("오디오를 자르지 못했습니다. 다시 시도해 주세요.");
     } finally {
       setIsProcessing(false);
     }
@@ -582,7 +582,7 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
                         <div className="flex items-center justify-center h-full">
                           <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
                           <span className="ml-2 text-sm text-muted-foreground">
-                            Loading waveform...
+                            파형을 불러오는 중…
                           </span>
                         </div>
                       )}
@@ -617,7 +617,7 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
                     </div>
                     <div className="w-px h-8 bg-blue-200 dark:bg-blue-800" />
                     <div className="flex-1 text-center">
-                      <p className="text-xs text-muted-foreground mb-1">End</p>
+                      <p className="text-xs text-muted-foreground mb-1">끝</p>
                       <p className="text-sm font-mono font-semibold text-blue-600 dark:text-blue-400">
                         {formatTime(range[1])}
                       </p>
@@ -627,7 +627,7 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
                   {/* Exact Inputs */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label>Start Time (sec)</Label>
+                      <Label>시작 시간 (초)</Label>
                       <Input
                         type="number"
                         step="0.1"
@@ -644,7 +644,7 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label>End Time (sec)</Label>
+                      <Label>종료 시간 (초)</Label>
                       <Input
                         type="number"
                         step="0.1"
@@ -696,7 +696,7 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-green-800 dark:text-green-300">
-                          Ready to Download!
+                          다운로드 준비 완료!
                         </h3>
                         <p className="text-sm text-muted-foreground mt-1">
                           New Duration: {formatTime(range[1] - range[0])}
@@ -722,7 +722,7 @@ export function AudioTrimmerClient({ dict }: { dict?: any }) {
                         className="flex-1"
                       >
                         <RotateCcw className="mr-2 h-4 w-4" />
-                        Trim Another
+                        다른 파일 자르기
                       </Button>
                     </div>
                   </CardContent>

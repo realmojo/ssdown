@@ -74,8 +74,8 @@ export function InstagramLineBreakClient({ dict }: { dict?: any }) {
         setTimeout(() => setIsCopied(false), 2000);
       }
     } catch (err) {
-      console.error("Failed to copy", err);
-      toast.error("Failed to copy");
+      console.error("복사하지 못했습니다", err);
+      toast.error("복사하지 못했습니다");
     }
   };
 
@@ -109,7 +109,7 @@ export function InstagramLineBreakClient({ dict }: { dict?: any }) {
               <Card className="border-pink-100 dark:border-pink-900/50 shadow-sm">
                 <CardHeader>
                   <CardTitle className="flex justify-between items-center text-lg">
-                    <span>Input</span>
+                    <span>입력</span>
                     <Button
                       variant="ghost"
                       size="sm"
@@ -139,7 +139,7 @@ export function InstagramLineBreakClient({ dict }: { dict?: any }) {
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-orange-500" />
                 <CardHeader>
                   <CardTitle className="flex justify-between items-center text-lg">
-                    <span>Preview</span>
+                    <span>미리보기</span>
                     {isCopied && (
                       <span className="text-sm font-medium text-green-600 flex items-center animate-in fade-in">
                         <CheckCircle2 className="w-3.5 h-3.5 mr-1" />
@@ -152,7 +152,7 @@ export function InstagramLineBreakClient({ dict }: { dict?: any }) {
                   <div className="flex-grow bg-muted/30 rounded-md p-4 whitespace-pre-wrap font-sans text-base border border-dashed border-muted-foreground/20">
                     {convertedText || (
                       <span className="text-muted-foreground italic">
-                        Your formatted text will appear here...
+                        변환된 텍스트가 여기에 표시됩니다…
                       </span>
                     )}
                   </div>

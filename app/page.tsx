@@ -1,27 +1,25 @@
 import { Metadata } from "next";
 import { HomeClient } from "@/components/client/home-client";
 import { buildAlternates } from "@/lib/seo";
-import { getLocale } from "@/lib/get-locale";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
   return {
-  title: "SSDown - Free Online Tools for Everyday Tasks",
+  title: "SSDown - 일상에 필요한 무료 온라인 도구",
   description:
-    "Free online tools for image editing, PDF management, video conversion, and file transformation. Fast, secure, and browser-based.",
+    "이미지 편집, PDF 관리, 영상 변환, 파일 형식 변환을 위한 무료 온라인 도구. 빠르고 안전하며 브라우저에서 바로 실행됩니다.",
   keywords: [
-    "free online tools",
-    "image compressor",
-    "PDF tools",
-    "video converter",
-    "file converter",
-    "browser-based tools",
-    "online image editor",
+    "무료 온라인 도구",
+    "이미지 압축",
+    "PDF 도구",
+    "영상 변환",
+    "파일 변환",
+    "브라우저 기반 도구",
+    "온라인 이미지 편집",
   ],
   openGraph: {
-    title: "SSDown - Free Online Tools",
+    title: "SSDown - 무료 온라인 도구",
     description:
-      "Free online tools for image editing, PDF management, video conversion, and file transformation. Fast, secure, and browser-based.",
+      "이미지 편집, PDF 관리, 영상 변환, 파일 형식 변환을 위한 무료 온라인 도구. 빠르고 안전하며 브라우저에서 바로 실행됩니다.",
     url: "https://ssdown.app",
     siteName: "SSDown",
     images: [
@@ -29,20 +27,20 @@ export async function generateMetadata(): Promise<Metadata> {
         url: "https://ssdown.app/logo.png",
         width: 1200,
         height: 630,
-        alt: "SSDown - Free Online Tools",
+        alt: "SSDown - 무료 온라인 도구",
       },
     ],
-    locale: "en_US",
+    locale: "ko_KR",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "SSDown - Free Online Tools",
+    title: "SSDown - 무료 온라인 도구",
     description:
-      "Free online tools for image editing, PDF management, video conversion, and file transformation.",
+      "이미지 편집, PDF 관리, 영상 변환, 파일 형식 변환을 위한 무료 온라인 도구입니다.",
     images: ["https://ssdown.app/logo.png"],
   },
-  alternates: buildAlternates("", locale),
+  alternates: buildAlternates(""),
   };
 }
 
@@ -50,23 +48,23 @@ export default function Home() {
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "SSDown - Free Online Tools",
+    name: "SSDown - 무료 온라인 도구",
     url: "https://ssdown.app",
     description:
-      "Free online tools for image editing, PDF management, video conversion, and file transformation. Fast, secure, and browser-based.",
+      "이미지 편집, PDF 관리, 영상 변환, 파일 형식 변환을 위한 무료 온라인 도구. 빠르고 안전하며 브라우저에서 바로 실행됩니다.",
     about: {
       "@type": "Thing",
-      name: "Online Tools Platform",
+      name: "온라인 도구 플랫폼",
       description:
-        "A comprehensive suite of free browser-based tools for image editing, PDF management, video and audio conversion, and file format transformation.",
+        "이미지 편집, PDF 관리, 영상·오디오 변환, 파일 형식 변환을 아우르는 무료 브라우저 기반 도구 모음입니다.",
     },
     audience: {
       "@type": "Audience",
       audienceType:
-        "Content Creators, Designers, Developers, Students, Professionals",
+        "콘텐츠 창작자, 디자이너, 개발자, 학생, 실무자",
     },
     keywords:
-      "free online tools, image compressor, PDF tools, video converter, file converter, browser-based tools",
+      "무료 온라인 도구, 이미지 압축, PDF 도구, 영상 변환, 파일 변환, 브라우저 기반 도구",
   };
 
   const organizationJsonLd = {
@@ -76,7 +74,7 @@ export default function Home() {
     url: "https://ssdown.app",
     logo: "https://ssdown.app/logo.png",
     description:
-      "Free online tools for image editing, PDF management, video conversion, and file transformation. Fast, secure, and browser-based.",
+      "이미지 편집, PDF 관리, 영상 변환, 파일 형식 변환을 위한 무료 온라인 도구. 빠르고 안전하며 브라우저에서 바로 실행됩니다.",
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer support",

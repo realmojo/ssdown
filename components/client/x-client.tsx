@@ -80,11 +80,11 @@ export function XClient({ dict }: XClientProps) {
             <BookOpen className="w-8 h-8 text-blue-500" />
           </div>
           <h2 className="text-3xl font-bold tracking-tight mb-4">
-            {dict?.x?.guide_title || "How to Download X (Twitter) Videos"}
+            {dict?.x?.guide_title || "X(트위터) 영상 다운로드 방법"}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             {dict?.x?.guide_desc ||
-              "Follow these simple steps to download any video from X (Twitter) in high quality."}
+              "아래 단계만 따라 하면 X(트위터)의 어떤 영상이든 고화질로 내려받을 수 있습니다."}
           </p>
         </div>
 
@@ -92,26 +92,26 @@ export function XClient({ dict }: XClientProps) {
           {[
             {
               step: 1,
-              title: dict?.x?.step1_title || "Find the Video",
+              title: dict?.x?.step1_title || "영상 찾기",
               desc:
                 dict?.x?.step1_desc ||
-                "Navigate to X (Twitter) and find the tweet containing the video you want to download. You can search for specific users, hashtags, or browse your timeline.",
+                "X(트위터)에서 내려받을 영상이 담긴 게시물을 찾으세요. 사용자나 해시태그를 검색하거나 타임라인을 둘러봐도 됩니다.",
               icon: Eye,
             },
             {
               step: 2,
-              title: dict?.x?.step2_title || "Copy the Link",
+              title: dict?.x?.step2_title || "링크 복사",
               desc:
                 dict?.x?.step2_desc ||
-                "Click on the 'Share' button (or the three dots menu) on the tweet and select 'Copy link'. The URL will be copied to your clipboard automatically.",
+                "게시물의 '공유' 버튼(또는 점 세 개 메뉴)을 누르고 '링크 복사'를 선택하세요. 주소가 클립보드에 자동으로 복사됩니다.",
               icon: MessageCircle,
             },
             {
               step: 3,
-              title: dict?.x?.step3_title || "Paste & Download",
+              title: dict?.x?.step3_title || "붙여넣고 다운로드",
               desc:
                 dict?.x?.step3_desc ||
-                "Paste the copied link into the input box above, click 'Download', and choose your preferred video quality. The video will be saved to your device instantly.",
+                "복사한 링크를 위 입력창에 붙여넣고 '다운로드'를 누른 뒤 원하는 화질을 고르세요. 영상이 기기에 바로 저장됩니다.",
               icon: Download,
             },
           ].map((step) => (
@@ -137,49 +137,49 @@ export function XClient({ dict }: XClientProps) {
         </div>
       </section>
 
-      {/* Tips & Best Practices */}
+      {/* 활용 팁 */}
       <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
             <Lightbulb className="w-8 h-8 text-yellow-500" />
           </div>
           <h2 className="text-3xl font-bold tracking-tight mb-4">
-            {dict?.x?.tips_title || "Tips & Best Practices"}
+            {dict?.x?.tips_title || "활용 팁"}
           </h2>
           <p className="text-muted-foreground">
             {dict?.x?.tips_desc ||
-              "Get the most out of X video downloads with these helpful tips."}
+              "X 영상 다운로드를 더 잘 활용하는 팁입니다."}
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           {[
             {
-              title: dict?.x?.tip1_title || "Choose the Right Quality",
+              title: dict?.x?.tip1_title || "알맞은 화질 고르기",
               desc:
                 dict?.x?.tip1_desc ||
-                "Select the highest available quality for the best viewing experience. Higher quality videos take longer to download but offer superior visual clarity.",
+                "가장 좋은 화질로 보려면 제공되는 최고 화질을 고르세요. 화질이 높을수록 내려받는 데 오래 걸리지만 훨씬 선명합니다.",
               icon: CheckCircle2,
             },
             {
-              title: dict?.x?.tip2_title || "Download GIFs Too",
+              title: dict?.x?.tip2_title || "GIF도 다운로드",
               desc:
                 dict?.x?.tip2_desc ||
-                "SSDown supports downloading animated GIFs from X. Just paste the tweet link containing a GIF and download it as an MP4 video file.",
+                "SSDown은 X의 움직이는 GIF 다운로드도 지원합니다. GIF가 담긴 게시물 링크를 붙여넣으면 MP4 영상 파일로 내려받을 수 있습니다.",
               icon: CheckCircle2,
             },
             {
-              title: dict?.x?.tip3_title || "Check Video Availability",
+              title: dict?.x?.tip3_title || "영상 포함 여부 확인",
               desc:
                 dict?.x?.tip3_desc ||
-                "Make sure the tweet actually contains a video. Some tweets may only have images or text, which cannot be downloaded as video files.",
+                "게시물에 실제로 영상이 있는지 확인하세요. 이미지나 글만 있는 게시물은 영상 파일로 내려받을 수 없습니다.",
               icon: CheckCircle2,
             },
             {
-              title: dict?.x?.tip4_title || "Respect Copyright",
+              title: dict?.x?.tip4_title || "저작권 존중",
               desc:
                 dict?.x?.tip4_desc ||
-                "Only download videos for personal use. Do not redistribute or use downloaded content for commercial purposes without permission from the creator.",
+                "개인적인 용도로만 내려받으세요. 창작자의 허락 없이 재배포하거나 상업적으로 이용하지 마세요.",
               icon: CheckCircle2,
             },
           ].map((tip, idx) => (
@@ -206,39 +206,39 @@ export function XClient({ dict }: XClientProps) {
             <Info className="w-8 h-8 text-green-500" />
           </div>
           <h2 className="text-3xl font-bold tracking-tight mb-4">
-            {dict?.x?.features_title || "What You Can Download from X"}
+            {dict?.x?.features_title || "X에서 내려받을 수 있는 것"}
           </h2>
           <p className="text-muted-foreground">
             {dict?.x?.features_desc ||
-              "SSDown supports various types of media from X (Twitter)."}
+              "SSDown은 X(트위터)의 다양한 미디어를 지원합니다."}
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             {
-              title: dict?.x?.feature1_title || "Regular Videos",
+              title: dict?.x?.feature1_title || "일반 영상",
               desc:
                 dict?.x?.feature1_desc ||
-                "Download standard video tweets in MP4 format with original quality preserved.",
+                "일반 영상 게시물을 원본 화질 그대로 MP4로 내려받으세요.",
             },
             {
-              title: dict?.x?.feature2_title || "Animated GIFs",
+              title: dict?.x?.feature2_title || "움직이는 GIF",
               desc:
                 dict?.x?.feature2_desc ||
-                "Convert and download animated GIFs from tweets as MP4 video files.",
+                "변환 후 다운로드 animated GIFs from tweets as MP4 video files.",
             },
             {
-              title: dict?.x?.feature3_title || "Multiple Qualities",
+              title: dict?.x?.feature3_title || "여러 화질 지원",
               desc:
                 dict?.x?.feature3_desc ||
-                "Choose from available video qualities including HD, Full HD, and 4K when available.",
+                "HD, 풀HD, 제공되는 경우 4K까지 원하는 화질을 고르세요.",
             },
             {
-              title: dict?.x?.feature4_title || "Video Metadata",
+              title: dict?.x?.feature4_title || "영상 정보",
               desc:
                 dict?.x?.feature4_desc ||
-                "View video statistics including views, likes, retweets, and replies before downloading.",
+                "내려받기 전에 조회수, 좋아요, 리트윗, 답글 등 영상 정보를 확인하세요.",
             },
           ].map((feature, idx) => (
             <Card key={idx} className="text-center">
@@ -257,7 +257,7 @@ export function XClient({ dict }: XClientProps) {
       <section>
         <div className="text-center mb-10">
           <h2 className="text-3xl font-bold tracking-tight mb-4">
-            {dict?.qna?.title || "Frequently Asked Questions"}
+            {dict?.qna?.title || "자주 묻는 질문"}
           </h2>
           <p className="text-muted-foreground">
             {dict?.qna?.desc ||
@@ -282,38 +282,23 @@ export function XClient({ dict }: XClientProps) {
       {/* X/Twitter Platform Deep Dive */}
       <section className="bg-white dark:bg-gray-950 rounded-2xl border p-8 md:p-12">
         <h2 className="text-3xl font-bold tracking-tight mb-6">
-          Understanding X (Twitter) Video Content
+          X(트위터) 영상 콘텐츠 이해하기
         </h2>
         <div className="prose prose-slate dark:prose-invert max-w-none space-y-6 text-muted-foreground">
           <p>
-            X (formerly Twitter) has evolved significantly as a video-sharing platform.
-            Originally limited to short clips, X now supports videos up to 2 hours and 20
-            minutes for premium users, making it a versatile platform for everything from
-            breaking news clips to long-form content and live broadcasts.
+            X(옛 트위터)는 영상 공유 플랫폼으로 크게 발전했습니다. 처음에는 짧은 클립만 올릴 수 있었지만, 지금은 프리미엄 사용자의 경우 최대 2시간 20분 길이의 영상을 지원해 속보 영상부터 긴 콘텐츠와 라이브 방송까지 폭넓게 다룰 수 있습니다.
           </p>
-          <h3 className="text-xl font-semibold text-foreground">Video Formats on X</h3>
+          <h3 className="text-xl font-semibold text-foreground">X의 영상 형식</h3>
           <p>
-            X supports multiple video formats including MP4 (H.264) and MOV. When you upload
-            a video, X automatically transcodes it into multiple quality levels — typically
-            ranging from 360p to 1080p or higher. SSDown detects all available quality levels
-            and lets you choose the one that best suits your needs, whether you want a smaller
-            file for mobile viewing or the highest quality for archiving.
+            X는 MP4(H.264)와 MOV 등 여러 영상 형식을 지원합니다. 영상을 올리면 X는 이를 여러 화질로 자동 변환하는데, 보통 360p에서 1080p 이상까지입니다. SSDown은 사용할 수 있는 모든 화질을 찾아내 원하는 것을 고를 수 있게 해 줍니다. 모바일 시청용으로 용량이 작은 파일이 필요하든, 보관용으로 최고 화질이 필요하든 선택하실 수 있습니다.
           </p>
-          <h3 className="text-xl font-semibold text-foreground">GIFs and Animated Content</h3>
+          <h3 className="text-xl font-semibold text-foreground">GIF와 움직이는 콘텐츠</h3>
           <p>
-            What appears as "GIFs" on X are actually short looping MP4 videos. X converts
-            uploaded GIF files to MP4 format for efficiency. When you download a GIF from X
-            using SSDown, you'll receive an MP4 file that plays seamlessly on any device.
-            This is actually better than the original GIF format, as MP4 files are smaller
-            and higher quality.
+            X에서 "GIF"로 보이는 것은 사실 짧게 반복되는 MP4 영상입니다. X는 효율을 위해 업로드된 GIF 파일을 MP4 형식으로 변환합니다. SSDown으로 X의 GIF를 내려받으면 어떤 기기에서도 매끄럽게 재생되는 MP4 파일을 받게 됩니다. MP4가 용량은 작고 화질은 좋기 때문에 원래 GIF 형식보다 오히려 낫습니다.
           </p>
-          <h3 className="text-xl font-semibold text-foreground">Content Policies to Know</h3>
+          <h3 className="text-xl font-semibold text-foreground">알아둘 콘텐츠 정책</h3>
           <p>
-            X's Terms of Service grant users a limited license to view content on the platform.
-            Downloading for personal reference, offline viewing, or educational purposes is
-            generally acceptable. However, re-uploading someone else's content without credit,
-            using it commercially, or distributing it without permission may violate both X's
-            policies and copyright law. Always respect the original creator's rights.
+            X의 이용약관은 플랫폼에서 콘텐츠를 볼 수 있는 제한적인 권한을 이용자에게 부여합니다. 개인적인 참고, 오프라인 시청, 교육 목적의 다운로드는 일반적으로 문제되지 않습니다. 다만 출처 없이 남의 콘텐츠를 다시 올리거나 상업적으로 이용하거나 허락 없이 배포하면 X의 정책과 저작권법을 모두 위반할 수 있습니다. 언제나 원작자의 권리를 존중해 주세요.
           </p>
         </div>
       </section>
@@ -326,7 +311,7 @@ export function XClient({ dict }: XClientProps) {
     <div className="grid gap-6 sm:grid-cols-3 w-full pt-12 text-left">
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
         <p className="font-semibold text-lg mb-2">
-          {dict?.common?.copy_link || "Copy Link"}
+          {dict?.common?.copy_link || "링크 복사"}
         </p>
         <p className="text-muted-foreground text-sm">
           {dict?.x?.desc_copy ||
@@ -334,7 +319,7 @@ export function XClient({ dict }: XClientProps) {
         </p>
       </div>
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
-        <p className="font-semibold text-lg mb-2">Paste URL</p>
+        <p className="font-semibold text-lg mb-2">주소 붙여넣기</p>
         <p className="text-muted-foreground text-sm">
           {dict?.x?.desc_paste ||
             "Paste the link into the input box above and hit download."}
@@ -361,12 +346,12 @@ export function XClient({ dict }: XClientProps) {
       title={dict?.x?.title || "X (Twitter) Saver"}
       subtitle={
         dict?.x?.subtitle ||
-        "Save X (Twitter) videos and GIFs in MP4 format. High quality, free, and unlimited."
+        "Save X (Twitter) videos and GIFs in MP4 format. 고화질, free, and unlimited."
       }
       placeholder={dict?.x?.placeholder || "Paste X (Twitter) link here..."}
       apiEndpoint="/api/x"
       downloadEndpoint="/api/x/download"
-      noVideoError="No video found in this tweet. Make sure it contains a video."
+      noVideoError="이 트윗에서 영상을 찾지 못했습니다. 영상이 포함되어 있는지 확인해 주세요."
       formatContent={(content) => content.replace(/https:\/\/t\.co\/\w+/g, "")}
       statsConfig={statsConfig}
       emptyState={emptyState}

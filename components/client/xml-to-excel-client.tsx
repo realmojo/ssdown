@@ -39,7 +39,7 @@ export function XmlToExcelClient({ dict }: { dict?: any }) {
 
       const parserError = xmlDoc.querySelector("parsererror");
       if (parserError) {
-        throw new Error("Invalid XML format");
+        throw new Error("올바르지 않은 XML 형식입니다");
       }
 
       const root = xmlDoc.documentElement;
@@ -47,7 +47,7 @@ export function XmlToExcelClient({ dict }: { dict?: any }) {
       const children = Array.from(root.children);
 
       if (children.length === 0) {
-        throw new Error("XML has no child elements (rows) to convert.");
+        throw new Error("변환할 하위 요소(행)가 XML에 없습니다.");
       }
       rows = children;
 
@@ -70,14 +70,14 @@ export function XmlToExcelClient({ dict }: { dict?: any }) {
       });
 
       if (data.length === 0) {
-        throw new Error("No data found to convert.");
+        throw new Error("변환할 데이터를 찾지 못했습니다.");
       }
 
       const ws = XLSX.utils.json_to_sheet(data);
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
       XLSX.writeFile(wb, "converted_xml.xlsx");
-      toast.success("Excel file downloaded");
+      toast.success("엑셀 파일을 내려받았습니다");
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_err) {
       setError(
@@ -142,7 +142,7 @@ export function XmlToExcelClient({ dict }: { dict?: any }) {
               <div className="flex justify-between items-center mb-2">
                 <label className="font-medium flex items-center gap-2">
                   <FileCode className="w-4 h-4 text-muted-foreground" />
-                  XML Input
+                  XML 입력
                 </label>
                 <Button
                   variant="ghost"
@@ -158,13 +158,13 @@ export function XmlToExcelClient({ dict }: { dict?: any }) {
                 {isDragging && (
                   <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-lg border-2 border-dashed border-blue-500">
                     <p className="text-lg font-medium text-blue-600 dark:text-blue-400">
-                      Drop XML file here
+                      여기에 XML 파일을 끌어다 놓으세요
                     </p>
                   </div>
                 )}
                 <Textarea
                   placeholder={
-                    '<catalog>\n  <book id="bk101">\n    <author>Gambardella, Matthew</author>\n    <title>XML Developer\'s Guide</title>\n    <price>44.95</price>\n  </book>\n  ...\n</catalog>'
+                    '<catalog>\n  <book id="bk101">\n    <author>김지훈</author>\n    <title>XML 개발자 가이드</title>\n    <price>44.95</price>\n  </book>\n  ...\n</catalog>'
                   }
                   className="flex-1 font-mono text-sm resize-none whitespace-pre"
                   value={xmlInput}
@@ -231,10 +231,10 @@ export function XmlToExcelClient({ dict }: { dict?: any }) {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Frequently Asked Questions
+              자주 묻는 질문
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about XML to Excel conversion.
+              XML → 엑셀 변환에 대해 자주 묻는 질문입니다.
             </p>
           </div>
 
@@ -242,7 +242,7 @@ export function XmlToExcelClient({ dict }: { dict?: any }) {
             <Accordion type="single" collapsible className="w-full">
               {[
                 {
-                  q: "What if my XML is deeply nested?",
+                  q: "XML이 깊게 중첩되어 있으면 어떻게 되나요?",
                   a: "Deeply nested structures might not display correctly in a flat Excel sheet. We recommend flattening your data structure if possible.",
                 },
                 {

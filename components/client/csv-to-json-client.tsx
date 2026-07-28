@@ -96,7 +96,7 @@ export function CsvToJsonClient({ dict }: { dict?: any }) {
       const data = parseCSV(csvInput.trim());
 
       if (data.length < 2) {
-        throw new Error("CSV requires at least a header row and one data row.");
+        throw new Error("CSV에는 머리글 행과 데이터 행이 최소 하나씩 있어야 합니다.");
       }
 
       const headers = data[0];
@@ -118,7 +118,7 @@ export function CsvToJsonClient({ dict }: { dict?: any }) {
       setJsonOutput(JSON.stringify(filteredResult, null, 2));
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_err) {
-      setError("Error parsing CSV. Please check formatting.");
+      setError("CSV를 해석하지 못했습니다. 형식을 확인해 주세요.");
       setJsonOutput("");
     }
   };
@@ -126,7 +126,7 @@ export function CsvToJsonClient({ dict }: { dict?: any }) {
   const handleCopy = () => {
     if (!jsonOutput) return;
     navigator.clipboard.writeText(jsonOutput);
-    toast.success("JSON copied to clipboard");
+    toast.success("JSON을 클립보드에 복사했습니다");
   };
 
   const handleClear = () => {
@@ -186,7 +186,7 @@ export function CsvToJsonClient({ dict }: { dict?: any }) {
               <div className="flex justify-between items-center mb-2">
                 <label className="font-medium flex items-center gap-2">
                   <FileSpreadsheet className="w-4 h-4 text-muted-foreground" />
-                  CSV Input
+                  CSV 입력
                 </label>
                 <Button
                   variant="ghost"
@@ -202,7 +202,7 @@ export function CsvToJsonClient({ dict }: { dict?: any }) {
                 {isDragging && (
                   <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-lg border-2 border-dashed border-green-500">
                     <p className="text-lg font-medium text-green-600 dark:text-green-400">
-                      Drop CSV file here
+                      여기에 CSV 파일을 끌어다 놓으세요
                     </p>
                   </div>
                 )}
@@ -224,7 +224,7 @@ export function CsvToJsonClient({ dict }: { dict?: any }) {
               <div className="flex justify-between items-center mb-2">
                 <label className="font-medium flex items-center gap-2">
                   <FileJson className="w-4 h-4 text-muted-foreground" />
-                  JSON Output
+                  JSON 출력
                 </label>
                 <Button
                   variant="ghost"
@@ -254,7 +254,7 @@ export function CsvToJsonClient({ dict }: { dict?: any }) {
             className="bg-green-600 hover:bg-green-700 text-white min-w-[200px]"
           >
             <ArrowRightLeft className="w-4 h-4 mr-2" />
-            Convert CSV to JSON
+            CSV를 JSON으로 변환
           </Button>
         </div>
       </div>
@@ -281,7 +281,7 @@ export function CsvToJsonClient({ dict }: { dict?: any }) {
               },
               {
                 title: "Quotes",
-                desc: 'Strings containing commas must be wrapped in double quotes. Example: "New York, NY".',
+                desc: '쉼표가 들어간 값은 큰따옴표로 감싸야 합니다. 예: "서울, 대한민국".',
               },
             ].map((tip, idx) => (
               <div
@@ -302,10 +302,10 @@ export function CsvToJsonClient({ dict }: { dict?: any }) {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Frequently Asked Questions
+              자주 묻는 질문
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about our CSV to JSON converter.
+              CSV → JSON 변환기에 대해 자주 묻는 질문입니다.
             </p>
           </div>
 
@@ -313,7 +313,7 @@ export function CsvToJsonClient({ dict }: { dict?: any }) {
             <Accordion type="single" collapsible className="w-full">
               {[
                 {
-                  q: "Can I use semicolons as separators?",
+                  q: "세미콜론을 구분자로 쓸 수 있나요?",
                   a: "Currently the tool is optimized for comma-separated values (CSV). Semicolons might be treated as part of the text.",
                 },
                 {

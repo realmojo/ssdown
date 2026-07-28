@@ -35,9 +35,9 @@ export function SplitExcelClient({ dict }: { dict?: any }) {
       const arrayBuffer = await file.arrayBuffer();
       const wb = XLSX.read(arrayBuffer, { type: "array" });
 
-      if (wb.SheetNames.length === 0) throw new Error("Excel file is empty.");
+      if (wb.SheetNames.length === 0) throw new Error("엑셀 파일이 비어 있습니다.");
       if (wb.SheetNames.length === 1) {
-        toast.info("Workbook only has 1 sheet. Nothing to split.");
+        toast.info("통합 문서에 시트가 하나뿐이라 분할할 것이 없습니다.");
         setIsProcessing(false);
         return;
       }
@@ -60,10 +60,10 @@ export function SplitExcelClient({ dict }: { dict?: any }) {
       link.click();
       URL.revokeObjectURL(url);
 
-      toast.success("Workbook split by sheets! Downloading ZIP...");
+      toast.success("시트별로 분할했습니다! ZIP 파일을 내려받는 중…");
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_err) {
-      toast.error("Error splitting Excel file.");
+      toast.error("엑셀 파일을 분할하지 못했습니다.");
     } finally {
       setIsProcessing(false);
     }
@@ -125,7 +125,7 @@ export function SplitExcelClient({ dict }: { dict?: any }) {
             >
               <FileSpreadsheet className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
               <p className="text-lg font-medium mb-2">
-                Click to upload or Drag & Drop Excel file
+                클릭해서 올리거나 엑셀 파일을 끌어다 놓으세요
               </p>
               <p className="text-sm text-muted-foreground">
                 Supports .xlsx, .xls

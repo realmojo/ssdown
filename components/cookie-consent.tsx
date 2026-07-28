@@ -40,7 +40,7 @@ export function CookieConsent() {
           </div>
           <div className="space-y-1 text-center md:text-left">
             <h3 className="font-semibold text-foreground">
-              We value your privacy
+              개인정보를 소중히 다룹니다
             </h3>
             <p className="text-sm text-muted-foreground max-w-2xl">
               We use necessary cookies to ensure our website functions
@@ -52,7 +52,7 @@ export function CookieConsent() {
                 className="underline underline-offset-4 hover:text-indigo-600 dark:hover:text-indigo-400"
                 target="_blank"
               >
-                Privacy Policy
+                개인정보처리방침
               </a>
               .
             </p>
@@ -64,13 +64,13 @@ export function CookieConsent() {
             className="flex-1 md:flex-none"
             onClick={accept}
           >
-            Accept Only Essential
+            필수만 허용
           </Button>
           <Button
             className="flex-1 md:flex-none bg-indigo-600 hover:bg-indigo-700"
             onClick={accept}
           >
-            Accept All
+            전체 허용
           </Button>
         </div>
       </div>

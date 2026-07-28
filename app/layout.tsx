@@ -4,16 +4,13 @@ import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CookieConsent } from "@/components/cookie-consent";
-import { LocaleLinkInterceptor } from "@/components/locale-link-interceptor";
 import { Toaster } from "sonner";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const baseUrl = "https://ssdown.app";
 
@@ -21,20 +18,20 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(baseUrl),
     title: {
       default:
-        dict.home?.title || "SSDown - Free Online Tools for Everyday Tasks",
+        dict.home?.title || "SSDown - 일상에 필요한 무료 온라인 도구",
       template: "%s | SSDown",
     },
     description:
       dict.home?.subtitle ||
-      "Free online tools for image editing, PDF management, video conversion, and file transformation. Fast, secure, and browser-based.",
+      "이미지 편집, PDF 관리, 영상 변환, 파일 형식 변환을 위한 무료 온라인 도구. 빠르고 안전하며 브라우저에서 바로 실행됩니다.",
     keywords: [
-      "free online tools",
-      "image compressor",
-      "PDF tools",
-      "video converter",
-      "file converter",
-      "browser-based tools",
-      "online image editor",
+      "무료 온라인 도구",
+      "이미지 압축",
+      "PDF 도구",
+      "영상 변환",
+      "파일 변환",
+      "브라우저 기반 도구",
+      "온라인 이미지 편집",
       "free PDF editor",
       "ssdown",
     ],
@@ -60,29 +57,29 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     openGraph: {
       type: "website",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       url: baseUrl,
       title:
-        dict.home?.title || "SSDown - Free Online Tools for Everyday Tasks",
+        dict.home?.title || "SSDown - 일상에 필요한 무료 온라인 도구",
       description:
         dict.home?.subtitle ||
-        "Free online tools for image editing, PDF management, video conversion, and file transformation. Fast, secure, and browser-based.",
+        "이미지 편집, PDF 관리, 영상 변환, 파일 형식 변환을 위한 무료 온라인 도구. 빠르고 안전하며 브라우저에서 바로 실행됩니다.",
       siteName: "SSDown",
       images: [
         {
           url: "https://ssdown.app/logo.png",
           width: 1200,
           height: 630,
-          alt: "SSDown - Free Online Tools",
+          alt: "SSDown - 무료 온라인 도구",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: dict.home?.title || "SSDown - Free Online Tools",
+      title: dict.home?.title || "SSDown - 무료 온라인 도구",
       description:
         dict.home?.subtitle ||
-        "Free online tools for image editing, PDF management, video conversion, and file transformation.",
+        "이미지 편집, PDF 관리, 영상 변환, 파일 형식 변환을 위한 무료 온라인 도구입니다.",
       images: ["https://ssdown.app/logo.png"],
       creator: "@ssdown",
       site: "@ssdown",
@@ -92,7 +89,7 @@ export async function generateMetadata(): Promise<Metadata> {
       shortcut: "/favicon.ico",
       apple: "/apple-icon.png",
     },
-    alternates: buildAlternates("", locale, {
+    alternates: buildAlternates("", {
       types: {
         "application/rss+xml": `${baseUrl}/rss.xml`,
       },
@@ -109,11 +106,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   return (
-    <html lang={locale === "kr" ? "ko" : "en"} suppressHydrationWarning>
+    <html lang="ko" suppressHydrationWarning>
       <head>
         {/* Warm up connections to third-party origins to cut LCP latency */}
         <link
@@ -171,11 +167,10 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           disableTransitionOnChange
         >
           <div className="relative flex min-h-screen flex-col">
-            <SiteHeader dict={dict.nav} locale={locale} />
+            <SiteHeader dict={dict.nav} />
             <main className="flex-1">{props.children}</main>
             <SiteFooter dict={dict.nav} />
             <CookieConsent />
-            <LocaleLinkInterceptor />
           </div>
           <Toaster position="bottom-center" richColors />
         </ThemeProvider>

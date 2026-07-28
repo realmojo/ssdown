@@ -253,10 +253,10 @@ export function RearrangePdfClient({ dict }: { dict?: any }) {
                 <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
                   {dict?.rearrange_pdf?.drop_zone ||
-                    "Drag & drop a PDF file here"}
+                    "여기에 PDF 파일을 끌어다 놓으세요"}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Only PDF files accepted. Max 50MB per file.
+                  PDF 파일만 올릴 수 있습니다. 파일당 최대 50MB입니다.
                 </p>
               </div>
             )}
@@ -310,7 +310,7 @@ export function RearrangePdfClient({ dict }: { dict?: any }) {
                           className="h-8 w-8"
                           onClick={() => moveToTop(idx)}
                           disabled={idx === 0}
-                          title="Move to top"
+                          title="맨 위로 이동"
                         >
                           <ChevronUp className="w-4 h-4" />
                           <ChevronUp className="w-4 h-4 -mt-3" />
@@ -321,7 +321,7 @@ export function RearrangePdfClient({ dict }: { dict?: any }) {
                           className="h-8 w-8"
                           onClick={() => movePage(idx, -1)}
                           disabled={idx === 0}
-                          title="Move up"
+                          title="위로 이동"
                         >
                           <ChevronUp className="w-4 h-4" />
                         </Button>
@@ -331,7 +331,7 @@ export function RearrangePdfClient({ dict }: { dict?: any }) {
                           className="h-8 w-8"
                           onClick={() => movePage(idx, 1)}
                           disabled={idx === pages.length - 1}
-                          title="Move down"
+                          title="아래로 이동"
                         >
                           <ChevronDown className="w-4 h-4" />
                         </Button>
@@ -341,7 +341,7 @@ export function RearrangePdfClient({ dict }: { dict?: any }) {
                           className="h-8 w-8"
                           onClick={() => moveToBottom(idx)}
                           disabled={idx === pages.length - 1}
-                          title="Move to bottom"
+                          title="맨 아래로 이동"
                         >
                           <ChevronDown className="w-4 h-4" />
                           <ChevronDown className="w-4 h-4 -mt-3" />
@@ -367,7 +367,7 @@ export function RearrangePdfClient({ dict }: { dict?: any }) {
                       ) : (
                         <>
                           <ArrowUpDown className="w-5 h-5 mr-2" />
-                          Apply New Order
+                          새 순서 적용
                         </>
                       )}
                     </Button>
@@ -376,7 +376,7 @@ export function RearrangePdfClient({ dict }: { dict?: any }) {
 
                 {!hasOrderChanged && !resultUrl && (
                   <p className="text-center text-sm text-muted-foreground">
-                    Move pages to change the order, then click apply.
+                    페이지를 옮겨 순서를 바꾼 뒤 적용을 누르세요.
                   </p>
                 )}
 
@@ -426,10 +426,10 @@ export function RearrangePdfClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.rearrange_pdf?.step1_title || "Upload PDF",
+                    title: dict?.rearrange_pdf?.step1_title || "PDF 업로드",
                     desc:
                       dict?.rearrange_pdf?.step1_desc ||
-                      "Drag and drop or click to select a PDF file from your device.",
+                      "PDF 파일을 끌어다 놓거나 클릭해서 선택하세요.",
                     icon: Upload,
                   },
                   {
@@ -491,7 +491,7 @@ export function RearrangePdfClient({ dict }: { dict?: any }) {
                     title: dict?.rearrange_pdf?.tip1_title || "100% Private",
                     desc:
                       dict?.rearrange_pdf?.tip1_desc ||
-                      "All processing happens in your browser using pdf-lib. Your files never leave your device.",
+                      "모든 처리는 pdf-lib를 이용해 브라우저 안에서 이뤄집니다. 파일이 기기를 벗어나지 않습니다.",
                     icon: Shield,
                   },
                   {
@@ -511,7 +511,7 @@ export function RearrangePdfClient({ dict }: { dict?: any }) {
                   },
                   {
                     title:
-                      dict?.rearrange_pdf?.tip4_title || "Original Preserved",
+                      dict?.rearrange_pdf?.tip4_title || "원본 보존",
                     desc:
                       dict?.rearrange_pdf?.tip4_desc ||
                       "Your original PDF file remains untouched. Only a new rearranged file is created for download.",

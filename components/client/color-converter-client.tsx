@@ -178,7 +178,7 @@ export function ColorConverterClient({ dict }: { dict?: any }) {
   const handleCopy = useCallback((label: string, value: string) => {
     navigator.clipboard.writeText(value).then(
       () => toast.success(`${label} copied: ${value}`),
-      () => toast.error("Failed to copy to clipboard"),
+      () => toast.error("클립보드에 복사하지 못했습니다"),
     );
   }, []);
 
@@ -197,11 +197,11 @@ export function ColorConverterClient({ dict }: { dict?: any }) {
               <Palette className="w-10 h-10 text-orange-600 dark:text-orange-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              {dict?.color_converter?.title || "Color Converter"}
+              {dict?.color_converter?.title || "색상 변환기"}
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
               {dict?.color_converter?.subtitle ||
-                "Convert colors between HEX, RGB, and HSL in real time, with a live preview and one-click copy."}
+                "HEX, RGB, HSL 색상을 실시간으로 변환하고 미리보기와 한 번의 클릭 복사를 제공합니다."}
             </p>
 
             <Adsense slotId="7759160077" />
@@ -213,13 +213,13 @@ export function ColorConverterClient({ dict }: { dict?: any }) {
                 <div
                   className="w-full h-56 md:h-64 transition-colors duration-150"
                   style={{ backgroundColor: canonicalHex }}
-                  aria-label="Color preview"
+                  aria-label="색상 미리보기"
                 />
                 <CardContent className="pt-6">
                   <label className="flex items-center justify-between gap-4 cursor-pointer">
                     <span className="flex items-center gap-2 font-medium">
                       <Pipette className="w-5 h-5 text-orange-500" />
-                      Color Picker
+                      색상 선택기
                     </span>
                     <input
                       type="color"
@@ -323,7 +323,7 @@ export function ColorConverterClient({ dict }: { dict?: any }) {
                   </div>
                   <button
                     onClick={() => handleCopy(row.label, row.value)}
-                    aria-label={`Copy ${row.label} value`}
+                    aria-label={`${row.label} 값 복사`}
                     className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-orange-100 dark:hover:bg-orange-900/30 hover:border-orange-300 dark:hover:border-orange-700 transition-colors"
                   >
                     <Copy className="w-4 h-4" />
@@ -339,30 +339,30 @@ export function ColorConverterClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  How to Use
+                  이용 방법
                 </h2>
                 <p className="text-muted-foreground">
-                  Convert between color formats in three simple steps.
+                  세 단계면 색상 형식을 서로 변환할 수 있습니다.
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
                   {
                     step: 1,
-                    title: "Pick or Enter",
-                    desc: "Use the color picker, or type a value directly into the HEX, RGB, or HSL fields.",
+                    title: "고르거나 직접 입력",
+                    desc: "색상 선택기를 쓰거나 HEX, RGB, HSL 칸에 값을 직접 입력하세요.",
                     icon: Pipette,
                   },
                   {
                     step: 2,
-                    title: "See Every Format",
-                    desc: "All representations update live alongside a large, accurate color preview.",
+                    title: "모든 형식 한눈에 보기",
+                    desc: "모든 표기가 실시간으로 갱신되며 큼직하고 정확한 색상 미리보기가 함께 표시됩니다.",
                     icon: Eye,
                   },
                   {
                     step: 3,
                     title: "Copy & Use",
-                    desc: "Click the copy button next to any format to grab the CSS-ready string instantly.",
+                    desc: "각 형식 옆의 복사 버튼을 누르면 CSS에 바로 쓸 수 있는 문자열이 복사됩니다.",
                     icon: ArrowRight,
                   },
                 ].map((step) => (
@@ -387,29 +387,29 @@ export function ColorConverterClient({ dict }: { dict?: any }) {
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-yellow-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">Color Tips</h2>
+                  <h2 className="text-3xl font-bold mb-4">색상 팁</h2>
                   <p className="text-muted-foreground">
-                    Get the most out of every color format.
+                    각 색상 형식을 더 잘 활용하는 방법입니다.
                   </p>
                 </div>
 
                 <div className="md:w-2/3 grid sm:grid-cols-2 gap-4">
                   {[
                     {
-                      title: "Use HSL to Adjust",
-                      desc: "HSL makes it easy to lighten, darken, or desaturate a color: just tweak the L or S value without touching the hue.",
+                      title: "HSL로 색 조절하기",
+                      desc: "HSL을 쓰면 색조는 그대로 두고 L이나 S 값만 조절해 색을 밝게, 어둡게, 또는 채도를 낮게 만들기 쉽습니다.",
                     },
                     {
-                      title: "Shorthand HEX",
-                      desc: "Codes like #f80 expand to #ff8800. Shorthand only works when each channel has a repeated digit.",
+                      title: "축약형 HEX",
+                      desc: "#f80 같은 코드는 #ff8800으로 확장됩니다. 축약형은 각 채널의 숫자가 반복될 때만 쓸 수 있습니다.",
                     },
                     {
-                      title: "Consistent Branding",
-                      desc: "Store brand colors as HEX for design tools, but keep RGB handy for canvas, gradients, and opacity overlays.",
+                      title: "일관된 브랜드 색상",
+                      desc: "디자인 도구용으로는 브랜드 색상을 HEX로 보관하되, 캔버스·그라데이션·투명도 작업을 위해 RGB도 함께 알아 두세요.",
                     },
                     {
-                      title: "Check Contrast",
-                      desc: "Aim for enough lightness difference between text and background so your UI stays readable and accessible.",
+                      title: "명암 대비 확인",
+                      desc: "글자와 배경의 밝기 차이를 충분히 두어야 화면이 읽기 쉽고 접근성이 좋아집니다.",
                     },
                   ].map((tip, idx) => (
                     <div
@@ -431,24 +431,24 @@ export function ColorConverterClient({ dict }: { dict?: any }) {
             {/* FAQ */}
             <section className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>
+                <h2 className="text-2xl font-bold tracking-tight mb-4">자주 묻는 질문</h2>
               </div>
               <Accordion type="single" collapsible className="w-full">
                 {[
                   {
-                    q: "How do I convert a HEX color to RGB?",
+                    q: "HEX 색상을 RGB로 어떻게 변환하나요?",
                     a: "Paste or type your HEX value (for example #ff8800) into the HEX field. The converter instantly updates the RGB and HSL fields, showing the equivalent values and a live preview.",
                   },
                   {
-                    q: "What is the difference between HEX, RGB, and HSL?",
+                    q: "HEX, RGB, HSL은 무엇이 다른가요?",
                     a: "HEX is a hexadecimal notation for red, green, and blue channels used in CSS. RGB expresses the same channels as decimal numbers from 0 to 255. HSL describes a color by hue, saturation, and lightness, which is often more intuitive for adjusting colors.",
                   },
                   {
-                    q: "Does this tool support 3-digit shorthand HEX codes?",
-                    a: "Yes. Shorthand HEX values like #f80 are automatically expanded to their full six-digit form (#ff8800) before conversion, so both formats work seamlessly.",
+                    q: "3자리 축약형 HEX 코드도 지원하나요?",
+                    a: "Yes. 축약형 HEX values like #f80 are automatically expanded to their full six-digit form (#ff8800) before conversion, so both formats work seamlessly.",
                   },
                   {
-                    q: "Is my color data sent to a server?",
+                    q: "제 색상 데이터가 서버로 전송되나요?",
                     a: "No. All conversions happen entirely in your browser using JavaScript. Nothing is uploaded or stored, so your work stays completely private.",
                   },
                 ].map((item, idx) => (

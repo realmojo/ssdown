@@ -1,30 +1,28 @@
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { InstagramClient } from "@/components/client/instagram-client";
 import { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/instagram`;
 
   return {
     robots: { index: true, follow: true },
-    title: dict.instagram?.seo_title || "Instagram Content Tool",
+    title: dict.instagram?.seo_title || "인스타그램 콘텐츠 도구",
     description:
       dict.instagram?.seo_description ||
-      "Instagram content management tool.",
+      "인스타그램 콘텐츠 관리 도구입니다.",
     keywords: dict.instagram?.seo_keywords
       ? dict.instagram.seo_keywords.split(", ")
-      : ["instagram content tool", "instagram media tool"],
+      : ["인스타그램 콘텐츠 저장", "인스타그램 미디어 다운로드"],
     openGraph: {
-      title: dict.instagram?.seo_title || "Instagram Content Tool",
+      title: dict.instagram?.seo_title || "인스타그램 콘텐츠 도구",
       description:
         dict.instagram?.seo_description ||
-        "Instagram content management tool.",
+        "인스타그램 콘텐츠 관리 도구입니다.",
       url: canonical,
       siteName: "SSDown",
       images: [
@@ -32,26 +30,25 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "https://ssdown.app/ssdown-instagram-og.png",
           width: 1200,
           height: 630,
-          alt: "SSDown - Instagram Content Tool",
+          alt: "SSDown - 인스타그램 콘텐츠 도구",
         },
       ],
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: dict.instagram?.title || "Instagram Content Tool",
+      title: dict.instagram?.title || "인스타그램 콘텐츠 도구",
       description:
-        dict.instagram?.subtitle || "Instagram content management tool.",
+        dict.instagram?.subtitle || "인스타그램 콘텐츠 관리 도구입니다.",
       images: ["https://ssdown.app/ssdown-instagram-og.png"],
     },
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
   };
 }
 
 export default async function InstagramPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -78,11 +75,11 @@ export default async function InstagramPage() {
   const softwareAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Instagram Video Downloader",
+    name: "인스타그램 영상 다운로더",
     url: "https://ssdown.app/instagram",
     description:
       dict.instagram?.seo_description ||
-      "Instagram content management tool.",
+      "인스타그램 콘텐츠 관리 도구입니다.",
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -93,7 +90,7 @@ export default async function InstagramPage() {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
-      { "@type": "ListItem", position: 2, name: "Instagram Video Downloader", item: "https://ssdown.app/instagram" },
+      { "@type": "ListItem", position: 2, name: "인스타그램 영상 다운로더", item: "https://ssdown.app/instagram" },
     ],
   };
 

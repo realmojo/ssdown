@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { PixelateImageClient } from "@/components/client/pixelate-image-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/pixelate-image`;
 
@@ -17,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function PixelateImagePage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -62,38 +59,38 @@ export default async function PixelateImagePage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Pixelate Image",
+    name: "모자이크 효과",
     url: "https://ssdown.app/image/pixelate-image",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Pixelate or blur specific regions of an image to protect privacy.",
+    description: "개인정보 보호를 위해 이미지의 특정 영역을 모자이크하거나 흐리게 만듭니다.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Pixelate Image Online",
-    description: "Pixelate or blur specific regions of an image to protect privacy.",
+    name: "모자이크 효과 사용 방법",
+    description: "개인정보 보호를 위해 이미지의 특정 영역을 모자이크하거나 흐리게 만듭니다.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Upload image",
-        text: "Choose the image you want to pixelate.",
+        name: "이미지 업로드",
+        text: "기기에서 PNG, JPG, WebP, GIF 또는 BMP 이미지를 업로드하세요.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Adjust pixel size",
-        text: "Use the slider to set the intensity of the pixelation effect.",
+        name: "픽셀 크기 조정",
+        text: "슬라이더로 픽셀화 강도를 조절하세요. 높은 값일수록 더 많이 픽셀화됩니다.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Download image",
-        text: "Save the pixelated image to your device.",
+        name: "결과 다운로드",
+        text: "'다운로드'를 클릭하여 픽셀화된 이미지를 기기에 저장하세요.",
       }
     ],
   };

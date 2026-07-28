@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { AddBorderToImageClient } from "@/components/client/add-border-to-image-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/add-border-to-image`;
 
@@ -17,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AddBorderToImagePage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -62,38 +59,38 @@ export default async function AddBorderToImagePage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Add Border to Image",
+    name: "이미지 테두리 넣기",
     url: "https://ssdown.app/image/add-border-to-image",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Add stylish borders and frames to your photos online.",
+    description: "온라인에서 사진에 감각적인 테두리와 액자를 넣어 보세요.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Add Border to Image Online",
-    description: "Add stylish borders and frames to your photos online.",
+    name: "이미지에 테두리 추가 사용 방법",
+    description: "온라인에서 사진에 감각적인 테두리와 액자를 넣어 보세요.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Upload image",
-        text: "Select the photo you want to frame.",
+        name: "이미지 업로드",
+        text: "기기에서 이미지를 업로드하세요.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Select border",
-        text: "Choose border thickness, color, and style.",
+        name: "테두리 설정",
+        text: "테두리 색상, 두께, 스타일을 선택하세요.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Download image",
-        text: "Save the framed photo to your device.",
+        name: "결과 다운로드",
+        text: "'다운로드'를 클릭하여 테두리가 추가된 이미지를 저장하세요.",
       }
     ],
   };

@@ -1,13 +1,11 @@
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { TikTokClient } from "@/components/client/tiktok-client";
 
 import { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/tiktok`;
@@ -20,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "TikTok video content management tool.",
     keywords: dict.tiktok?.seo_keywords
       ? dict.tiktok.seo_keywords.split(", ")
-      : ["tiktok video tool", "tiktok content tool"],
+      : ["틱톡 영상 다운로드", "틱톡 콘텐츠 저장"],
     openGraph: {
       title: dict.tiktok?.seo_title || "TikTok Video Tool",
       description:
@@ -33,10 +31,10 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "https://ssdown.app/ssdown-tiktok-og.png",
           width: 1200,
           height: 630,
-          alt: "SSDown - TikTok Video Tool",
+          alt: "SSDown - 틱톡 영상 도구",
         },
       ],
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
     },
     twitter: {
@@ -46,13 +44,12 @@ export async function generateMetadata(): Promise<Metadata> {
         dict.tiktok?.subtitle || "TikTok video content management tool.",
       images: ["https://ssdown.app/ssdown-tiktok-og.png"],
     },
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
   };
 }
 
 export default async function TikTokPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const jsonLd = {
     "@context": "https://schema.org",

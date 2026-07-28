@@ -1,13 +1,11 @@
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { NineGagClient } from "@/components/client/ninegag-client";
 
 import { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const ninegagDict = (dict as any)["9gag"];
 
   const baseUrl = "https://ssdown.app";
@@ -32,10 +30,10 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "https://ssdown.app/ssdown-9gag-og.png",
           width: 1200,
           height: 630,
-          alt: "SSDown - 9GAG Video Tool",
+          alt: "SSDown - 9GAG 영상 도구",
         },
       ],
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
     },
     twitter: {
@@ -44,13 +42,12 @@ export async function generateMetadata(): Promise<Metadata> {
       description: ninegagDict?.subtitle || "9GAG video content tool.",
       images: ["https://ssdown.app/ssdown-9gag-og.png"],
     },
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
   };
 }
 
 export default async function NineGagPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const ninegagDict = (dict as any)["9gag"];
 
   const jsonLd = {

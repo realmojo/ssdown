@@ -97,7 +97,7 @@ export function XmlToJsonClient({ dict }: { dict?: any }) {
 
       const parserError = xmlDoc.querySelector("parsererror");
       if (parserError) {
-        throw new Error("Invalid XML format");
+        throw new Error("올바르지 않은 XML 형식입니다");
       }
 
       const json = xmlToJson(xmlDoc);
@@ -122,7 +122,7 @@ export function XmlToJsonClient({ dict }: { dict?: any }) {
       setJsonOutput(JSON.stringify(finalJson, null, 2));
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_err) {
-      setError("Invalid XML format. Please check your input.");
+      setError("올바르지 않은 XML 형식입니다. 입력 내용을 확인해 주세요.");
       setJsonOutput("");
     }
   };
@@ -130,7 +130,7 @@ export function XmlToJsonClient({ dict }: { dict?: any }) {
   const handleCopy = () => {
     if (!jsonOutput) return;
     navigator.clipboard.writeText(jsonOutput);
-    toast.success("JSON copied to clipboard");
+    toast.success("JSON을 클립보드에 복사했습니다");
   };
 
   const handleClear = () => {
@@ -190,7 +190,7 @@ export function XmlToJsonClient({ dict }: { dict?: any }) {
               <div className="flex justify-between items-center mb-2">
                 <label className="font-medium flex items-center gap-2">
                   <FileCode className="w-4 h-4 text-muted-foreground" />
-                  XML Input
+                  XML 입력
                 </label>
                 <Button
                   variant="ghost"
@@ -206,12 +206,12 @@ export function XmlToJsonClient({ dict }: { dict?: any }) {
                 {isDragging && (
                   <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-lg border-2 border-dashed border-blue-500">
                     <p className="text-lg font-medium text-blue-600 dark:text-blue-400">
-                      Drop XML file here
+                      여기에 XML 파일을 끌어다 놓으세요
                     </p>
                   </div>
                 )}
                 <Textarea
-                  placeholder="<root><name>John</name><age>30</age></root>"
+                  placeholder="<root><name>홍길동</name><age>30</age></root>"
                   className="flex-1 font-mono text-sm resize-none"
                   value={xmlInput}
                   onChange={(e) => setXmlInput(e.target.value)}
@@ -226,7 +226,7 @@ export function XmlToJsonClient({ dict }: { dict?: any }) {
               <div className="flex justify-between items-center mb-2">
                 <label className="font-medium flex items-center gap-2">
                   <FileJson className="w-4 h-4 text-muted-foreground" />
-                  JSON Output
+                  JSON 출력
                 </label>
                 <Button
                   variant="ghost"
@@ -256,7 +256,7 @@ export function XmlToJsonClient({ dict }: { dict?: any }) {
             className="bg-blue-600 hover:bg-blue-700 text-white min-w-[200px]"
           >
             <ArrowRightLeft className="w-4 h-4 mr-2" />
-            Convert XML to JSON
+            XML을 JSON으로 변환
           </Button>
         </div>
       </div>
@@ -304,10 +304,10 @@ export function XmlToJsonClient({ dict }: { dict?: any }) {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Frequently Asked Questions
+              자주 묻는 질문
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about our XML to JSON converter.
+              XML → JSON 변환기에 대해 자주 묻는 질문입니다.
             </p>
           </div>
 
@@ -315,11 +315,11 @@ export function XmlToJsonClient({ dict }: { dict?: any }) {
             <Accordion type="single" collapsible className="w-full">
               {[
                 {
-                  q: "Does it support CDATA?",
+                  q: "CDATA도 지원하나요?",
                   a: "Yes, CDATA sections are typically extracted as text content.",
                 },
                 {
-                  q: "How are attributes handled?",
+                  q: "속성은 어떻게 처리되나요?",
                   a: "They are usually stored in a special property like @attributes to differentiate them from child elements.",
                 },
               ].map((item, idx) => (

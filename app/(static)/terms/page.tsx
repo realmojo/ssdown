@@ -1,1174 +1,801 @@
 import { Metadata } from "next";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/terms`;
-  const locale = await getLocale();
 
   return {
-    title: "Terms and Conditions - SSDown",
+    title: "이용약관 - SSDown",
     description:
-      "Read SSDown's terms and conditions of use. Understand the rules and guidelines for using our online tools and services.",
+      "SSDown 서비스 이용약관입니다. 온라인 도구와 서비스 이용에 적용되는 규칙과 안내를 확인하세요.",
     openGraph: {
-      title: "Terms and Conditions - SSDown",
+      title: "이용약관 - SSDown",
       description:
-        "Read SSDown's terms and conditions of use. Understand the rules and guidelines for using our online tools and services.",
+        "SSDown 서비스 이용약관입니다. 온라인 도구와 서비스 이용에 적용되는 규칙과 안내를 확인하세요.",
       url: canonical,
       siteName: "SSDown",
-      locale: "en_US",
+      locale: "ko_KR",
       type: "website",
     },
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
   };
 }
 
 export default async function TermsPage() {
   return (
     <div className="container py-12 md:py-24 max-w-4xl">
-      <h1 className="text-3xl font-bold mb-8">Terms and Conditions of Use</h1>
+      <h1 className="text-3xl font-bold mb-8">서비스 이용약관</h1>
 
       <div className="prose prose-slate dark:prose-invert max-w-none space-y-8 text-muted-foreground">
         <section>
           <p>
-            Unless otherwise specified, the terms of use detailed in this
-            section apply generally when using this Application.
+            달리 명시하지 않는 한, 본 절에 기재된 이용 조건은 본 애플리케이션 이용 시 일반적으로 적용됩니다.
           </p>
           <p>
-            Single or additional conditions of use or access may apply in
-            specific scenarios and in such cases are additionally indicated
-            within this document.
+            특정 상황에서는 개별적이거나 추가적인 이용·접근 조건이 적용될 수 있으며, 그러한 경우 본 문서에 별도로 표시됩니다.
           </p>
           <p>
-            There are no restrictions for Users in terms of being Consumers or
-            Business Users;
+            이용자가 소비자인지 사업자인지에 따른 제한은 없습니다;
           </p>
           <p>
-            By using this Application, Users confirm to meet the following
-            requirements:
+            본 애플리케이션을 이용함으로써 이용자는 다음 요건을 충족함을 확인합니다:
           </p>
           <ul className="list-disc list-inside ml-4 space-y-1">
-            <li>Users must be recognized as adult by applicable law;</li>
+            <li>이용자는 관련 법령상 성인으로 인정되어야 합니다;</li>
             <li>
-              Users aren&rsquo;t located in a country that is subject to a U.S.
-              Government embargo, or that has been designated by the U.S.
-              Government as a &ldquo;terrorist-supporting&rdquo; country;
+              이용자는 미국 정부의 금수 조치 대상국이거나 미국 정부가 "테러 지원국"으로 지정한 국가에 있지 않아야 합니다;
             </li>
             <li>
-              Users aren&rsquo;t listed on any U.S. Government list of
-              prohibited or restricted parties;
+              이용자는 미국 정부의 금지 또는 제한 대상자 명단에 등재되어 있지 않아야 합니다;
             </li>
           </ul>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Conditions for account registration
+            계정 등록 조건
           </h2>
           <p>
-            Registration of User accounts on this Application is subject to the
-            conditions outlined below. By registering, Users agree to meet such
-            conditions.
+            본 애플리케이션의 이용자 계정 등록에는 아래 조건이 적용됩니다. 등록함으로써 이용자는 해당 조건을 충족하는 데 동의합니다.
           </p>
           <ul className="list-disc list-inside ml-4 space-y-1">
             <li>
-              Accounts registered by bots or any other automated methods are not
-              permitted.
+              봇이나 그 밖의 자동화된 수단으로 등록한 계정은 허용되지 않습니다.
             </li>
             <li>
-              Unless otherwise specified, each User must register only one
-              account.
+              달리 명시하지 않는 한, 이용자는 계정을 하나만 등록해야 합니다.
             </li>
             <li>
-              Unless explicitly permitted, a User account may not be shared with
-              other persons.
+              명시적으로 허용된 경우를 제외하고, 이용자 계정을 타인과 공유할 수 없습니다.
             </li>
           </ul>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Account registration
+            계정 등록
           </h2>
           <p>
-            To use the Service Users may register or create a User account,
-            providing all required data or information in a complete and
-            truthful manner.
+            서비스를 이용하기 위해 이용자는 필요한 모든 자료와 정보를 빠짐없이 사실대로 제공하여 계정을 등록하거나 생성할 수 있습니다.
           </p>
           <p>
-            Users may also use the Service without registering or creating a
-            User account, however, this may cause limited availability of
-            certain features or functions.
+            이용자는 계정을 등록하거나 생성하지 않고도 서비스를 이용할 수 있으나, 이 경우 일부 기능의 이용이 제한될 수 있습니다.
           </p>
           <p>
-            Users are responsible for keeping their login credentials
-            confidential and safe. For this reason, Users are also required to
-            choose passwords that meet the highest standards of strength
-            permitted by this Application.
+            이용자는 로그인 정보를 비밀로 안전하게 관리할 책임이 있습니다. 이에 따라 이용자는 본 애플리케이션이 허용하는 가장 높은 수준의 강도를 갖춘 비밀번호를 선택해야 합니다.
           </p>
           <p>
-            By registering, Users agree to be fully responsible for all
-            activities that occur under their username and password.
+            등록함으로써 이용자는 자신의 아이디와 비밀번호로 이뤄지는 모든 활동에 대해 전적인 책임을 진다는 데 동의합니다.
           </p>
           <p>
-            Users are required to immediately and unambiguously inform the Owner
-            via the contact details indicated in this document, if they think
-            their personal information, including but not limited to User
-            accounts, access credentials or personal data, have been violated,
-            unduly disclosed or stolen.
+            이용자는 계정, 접속 정보, 개인정보 등 자신의 정보가 침해되거나 부당하게 공개 또는 도용되었다고 판단되는 경우, 본 문서에 기재된 연락처를 통해 즉시 명확하게 운영자에게 알려야 합니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Account termination
+            계정 해지
           </h2>
           <p>
-            Users can terminate their account and stop using the Service at any
-            time by doing the following:
+            이용자는 다음 방법으로 언제든지 계정을 해지하고 서비스 이용을 중단할 수 있습니다:
           </p>
           <ul className="list-disc list-inside ml-4 space-y-1">
             <li>
-              By directly contacting the Owner at the contact details provided
-              in this document.
+              본 문서에 기재된 연락처로 운영자에게 직접 연락하는 방법.
             </li>
           </ul>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Account suspension and deletion
+            계정 정지 및 삭제
           </h2>
           <p>
-            The Owner reserves the right, at its sole discretion, to suspend or
-            delete at any time and without notice, User accounts which it deems
-            inappropriate, offensive or in violation of these Terms.
+            운영자는 부적절하거나 불쾌감을 주거나 본 약관을 위반한다고 판단되는 이용자 계정을 자체 판단에 따라 언제든지 사전 통지 없이 정지하거나 삭제할 권리를 보유합니다.
           </p>
           <p>
-            The suspension or deletion of User accounts shall not entitle Users
-            to any claims for compensation, damages or reimbursement.
+            계정의 정지 또는 삭제를 이유로 이용자가 보상, 손해배상, 환급을 청구할 권리는 발생하지 않습니다.
           </p>
           <p>
-            The suspension or deletion of accounts due to causes attributable to
-            the User does not exempt the User from paying any applicable fees or
-            prices.
+            이용자의 귀책 사유로 계정이 정지되거나 삭제되더라도 이용자는 해당 요금이나 대금의 지급 의무를 면제받지 않습니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Content on this Application
+            본 애플리케이션의 콘텐츠
           </h2>
           <p>
-            Unless where otherwise specified or clearly recognizable, all
-            content available on this Application is owned or provided by the
-            Owner or its licensors.
+            달리 명시되거나 명백히 식별되는 경우를 제외하고, 본 애플리케이션의 모든 콘텐츠는 운영자 또는 그 라이선스 제공자가 소유하거나 제공하는 것입니다.
           </p>
           <p>
-            The Owner undertakes its utmost effort to ensure that the content
-            provided on this Application infringes no applicable legal
-            provisions or third-party rights. However, it may not always be
-            possible to achieve such a result.
+            운영자는 본 애플리케이션에서 제공되는 콘텐츠가 관련 법령이나 제3자의 권리를 침해하지 않도록 최선을 다합니다. 다만 언제나 그러한 결과를 보장할 수 있는 것은 아닙니다.
           </p>
           <p>
-            In such cases, without prejudice to any legal prerogatives of Users
-            to enforce their rights, Users are kindly asked to preferably report
-            related complaints using the contact details provided in this
-            document.
+            그러한 경우 이용자의 권리 행사에 관한 법적 권한을 침해하지 않는 범위에서, 본 문서에 기재된 연락처를 통해 관련 사항을 신고해 주시기를 요청드립니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Rights regarding content on this Application - All rights reserved
+            본 애플리케이션 콘텐츠에 관한 권리 – 모든 권리 보유
           </h2>
           <p>
-            The Owner holds and reserves all intellectual property rights for
-            any such content.
+            운영자는 해당 콘텐츠에 관한 모든 지식재산권을 보유합니다.
           </p>
           <p>
-            Users may not therefore use such content in any way that is not
-            necessary or implicit in the proper use of the Service.
+            따라서 이용자는 서비스의 정상적인 이용에 필요하거나 그에 내포된 범위를 벗어나 해당 콘텐츠를 사용할 수 없습니다.
           </p>
           <p>
-            In particular, but without limitation, Users may not copy, download,
-            share (beyond the limits set forth below), modify, translate,
-            transform, publish, transmit, sell, sublicense, edit,
-            transfer/assign to third parties or create derivative works from the
-            content available on this Application, nor allow any third party to
-            do so through the User or their device, even without the
-            User&rsquo;s knowledge.
+            특히 이용자는 본 애플리케이션의 콘텐츠를 복제, 다운로드, (아래 정한 범위를 넘는) 공유, 수정, 번역, 변형, 공표, 전송, 판매, 재실시, 편집, 제3자에게 양도하거나 이를 이용한 2차적 저작물을 작성할 수 없으며, 이용자 자신이나 그 기기를 통해 제3자가 이를 하도록 허용할 수도 없습니다(이용자가 인지하지 못한 경우에도 마찬가지입니다).
           </p>
           <p>
-            Where explicitly stated on this Application, the User may download,
-            copy and/or share some content available through this Application
-            for its sole personal and non-commercial use and provided that the
-            copyright attributions and all the other attributions requested by
-            the Owner are correctly implemented.
+            본 애플리케이션에 명시적으로 표시된 경우에 한하여, 이용자는 저작권 표시 및 운영자가 요구하는 그 밖의 표시를 올바르게 이행하는 조건으로 개인적·비상업적 용도에 한해 일부 콘텐츠를 다운로드, 복제, 공유할 수 있습니다.
           </p>
           <p>
-            Any applicable statutory limitation or exception to copyright shall
-            stay unaffected.
+            저작권에 관한 법령상의 제한이나 예외는 그대로 유효합니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Content provided by Users
+            이용자가 제공한 콘텐츠
           </h2>
           <p>
-            The Owner allows Users to upload, share or provide their own content
-            to this Application.
+            운영자는 이용자가 자신의 콘텐츠를 본 애플리케이션에 업로드·공유·제공할 수 있도록 허용합니다.
           </p>
           <p>
-            By providing content to this Application, Users confirm that they
-            are legally allowed to do so and that they are not infringing any
-            statutory provisions and/or third-party rights.
+            본 애플리케이션에 콘텐츠를 제공함으로써 이용자는 그렇게 할 법적 권한이 있으며 법령이나 제3자의 권리를 침해하지 않음을 확인합니다.
           </p>
           <p>
-            Further insights regarding acceptable content can be found inside
-            the section of these Terms which detail the acceptable uses.
+            허용되는 콘텐츠에 관한 자세한 내용은 본 약관의 허용 이용 관련 조항에서 확인하실 수 있습니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Rights regarding content provided by Users
+            이용자 제공 콘텐츠에 관한 권리
           </h2>
           <p>
-            Users acknowledge and accept that by providing their own content on
-            this Application they grant the Owner a non-exclusive, fully paid-up
-            and royalty-free license to process such content solely for the
-            operation and maintenance of this Application as contractually
-            required.
+            이용자는 본 애플리케이션에 콘텐츠를 제공함으로써, 계약상 필요한 범위에서 본 애플리케이션의 운영과 유지만을 위해 해당 콘텐츠를 처리할 수 있는 비독점적·대가 완납·무상 라이선스를 운영자에게 부여함을 인정하고 동의합니다.
           </p>
           <p>
-            To the extent permitted by applicable law, Users waive any moral
-            rights in connection with content they provide to this Application.
+            관련 법령이 허용하는 범위에서, 이용자는 본 애플리케이션에 제공한 콘텐츠와 관련된 저작인격권을 행사하지 않습니다.
           </p>
           <p>
-            Users acknowledge, accept and confirm that all content they provide
-            through this Application is provided subject to the same general
-            conditions set forth for content on this Application.
+            이용자는 본 애플리케이션을 통해 제공하는 모든 콘텐츠가 본 애플리케이션의 콘텐츠에 적용되는 일반 조건을 동일하게 따른다는 점을 인정하고 동의하며 확인합니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Liability for provided content
+            제공된 콘텐츠에 대한 책임
           </h2>
           <p>
-            Users are solely liable for any content they upload, post, share, or
-            provide through this Application. Users acknowledge and accept that
-            the Owner does not filter or moderate such content.
+            이용자는 본 애플리케이션을 통해 업로드·게시·공유·제공한 콘텐츠에 대해 단독으로 책임을 집니다. 이용자는 운영자가 해당 콘텐츠를 선별하거나 검열하지 않는다는 점을 인정하고 동의합니다.
           </p>
           <p>
-            However, the Owner reserves the right to remove, delete, block or
-            rectify such content at its own discretion and to, without prior
-            notice, deny the uploading User access to this Application:
+            다만 운영자는 자체 판단에 따라 해당 콘텐츠를 삭제·차단·수정하고, 사전 통지 없이 업로드한 이용자의 접근을 거부할 권리를 다음의 경우에 보유합니다:
           </p>
           <ul className="list-disc list-inside ml-4 space-y-1">
-            <li>if any complaint based on such content is received;</li>
+            <li>해당 콘텐츠에 대한 신고가 접수된 경우;</li>
             <li>
-              if a notice of infringement of intellectual property rights is
-              received;
+              지식재산권 침해 신고가 접수된 경우;
             </li>
-            <li>upon order of a public authority; or</li>
+            <li>공공기관의 명령이 있는 경우; 또는</li>
             <li>
-              where the Owner is made aware that the content, while being
-              accessible via this Application, may represent a risk for Users,
-              third parties and/or the availability of the Service.
+              해당 콘텐츠가 본 애플리케이션을 통해 접근 가능한 상태에서 이용자, 제3자 또는 서비스의 이용 가능성에 위험이 될 수 있음을 운영자가 알게 된 경우.
             </li>
           </ul>
           <p>
-            The removal, deletion, blocking or rectification of content shall
-            not entitle Users that have provided such content or that are liable
-            for it, to any claims for compensation, damages or reimbursement.
+            콘텐츠의 삭제·차단·수정을 이유로 해당 콘텐츠를 제공했거나 그에 책임이 있는 이용자가 보상, 손해배상, 환급을 청구할 권리는 발생하지 않습니다.
           </p>
           <p>
-            Users agree to hold the Owner harmless from and against any claim
-            asserted and/or damage suffered due to content they provided to or
-            provided through this Application.
+            이용자는 본 애플리케이션에 또는 이를 통해 제공한 콘텐츠로 인해 제기된 청구나 발생한 손해로부터 운영자를 면책하는 데 동의합니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Removal of content from parts of this Application available through
-            the App Store
+            앱스토어를 통해 제공되는 부분의 콘텐츠 삭제
           </h2>
           <p>
-            If the reported content is deemed objectionable, it will be removed
-            within 24 hours and the User who provided the content will be barred
-            from using the Service.
+            신고된 콘텐츠가 부적절하다고 판단되는 경우 24시간 이내에 삭제되며, 해당 콘텐츠를 제공한 이용자는 서비스 이용이 금지됩니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Access to provided content
+            제공된 콘텐츠에 대한 접근
           </h2>
           <p>
-            Content that Users provide to this Application is made available
-            according to the criteria outlined within this section.
+            이용자가 본 애플리케이션에 제공한 콘텐츠는 본 절에 기재된 기준에 따라 공개됩니다.
           </p>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
-            Publicly available content
+            공개 콘텐츠
           </h3>
           <p>
-            Content meant for public availability shall be automatically made
-            public on this Application upon upload or, at the sole discretion of
-            the Owner, at a later stage.
+            공개를 목적으로 한 콘텐츠는 업로드 즉시 또는 운영자의 판단에 따라 이후 시점에 본 애플리케이션에서 자동으로 공개됩니다.
           </p>
           <p>
-            No personal data, identifier or any other information related to
-            Users, except for a pseudonym of their choice (such as a nickname or
-            avatar) shall appear in connection with the published content,
-            unless Users decide otherwise on their own initiative.
+            이용자가 스스로 달리 정하지 않는 한, 공개된 콘텐츠와 관련하여 이용자가 선택한 가명(닉네임이나 아바타 등)을 제외한 어떠한 개인정보나 식별자, 그 밖의 정보도 표시되지 않습니다.
           </p>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
-            Private content
+            비공개 콘텐츠
           </h3>
           <p>
-            Private content provided by Users shall stay private and will not be
-            shared with any third parties or accessed by the Owner without the
-            User&rsquo;s explicit consent.
+            이용자가 제공한 비공개 콘텐츠는 비공개로 유지되며, 이용자의 명시적 동의 없이는 제3자와 공유되거나 운영자가 열람하지 않습니다.
           </p>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
-            Content for determined audiences
+            특정 대상 공개 콘텐츠
           </h3>
           <p>
-            Content meant to be made available to specific audiences may only be
-            shared with such third parties as determined by Users.
+            특정 대상에게만 공개하기로 한 콘텐츠는 이용자가 지정한 제3자에게만 공유됩니다.
           </p>
           <p>
-            No personal data, identifier or any other information related to
-            Users, except for a pseudonym of their choice (such as a nickname or
-            avatar) shall appear in connection with the content, unless Users
-            decide otherwise on their own initiative.
+            이용자가 스스로 달리 정하지 않는 한, 해당 콘텐츠와 관련하여 이용자가 선택한 가명(닉네임이나 아바타 등)을 제외한 어떠한 개인정보나 식별자, 그 밖의 정보도 표시되지 않습니다.
           </p>
           <p>
-            Users may (and are encouraged to) check on this Application to find
-            details of who can access the content they provide.
+            이용자는 자신이 제공한 콘텐츠에 누가 접근할 수 있는지 본 애플리케이션에서 확인할 수 있으며, 확인하시기를 권장합니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Access to external resources
+            외부 자원에 대한 접근
           </h2>
           <p>
-            Through this Application Users may have access to external resources
-            provided by third parties. Users acknowledge and accept that the
-            Owner has no control over such resources and is therefore not
-            responsible for their content and availability.
+            이용자는 본 애플리케이션을 통해 제3자가 제공하는 외부 자원에 접근할 수 있습니다. 이용자는 운영자가 그러한 자원을 통제할 수 없으며 따라서 그 내용과 이용 가능성에 대해 책임지지 않는다는 점을 인정하고 동의합니다.
           </p>
           <p>
-            Conditions applicable to any resources provided by third parties,
-            including those applicable to any possible grant of rights in
-            content, result from each such third parties&rsquo; terms and
-            conditions or, in the absence of those, applicable statutory law.
+            제3자가 제공하는 자원에 적용되는 조건은, 콘텐츠에 관한 권리 부여에 적용되는 조건을 포함하여, 각 제3자의 약관 또는 그러한 약관이 없는 경우 관련 법령에 따릅니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            How to file a takedown notice (called a &ldquo;DMCA notice&rdquo;)
+            게시 중단 요청("DMCA 통지") 제출 방법
           </h2>
           <p>
-            If copyright holders or their agents believe that any content on
-            this Application infringes upon their copyrights, they may submit a
-            notification pursuant to the Digital Millennium Copyright Act
-            (&quot;DMCA&quot;) by providing the Owner&rsquo;s Copyright Agent
-            with the following information in writing (see 17 U.S.C 512(c)(3)
-            for further detail):
+            저작권자 또는 그 대리인이 본 애플리케이션의 콘텐츠가 자신의 저작권을 침해한다고 판단하는 경우, 디지털 밀레니엄 저작권법("DMCA")에 따라 다음 정보를 서면으로 운영자의 저작권 담당자에게 제출하여 통지할 수 있습니다(자세한 내용은 17 U.S.C 512(c)(3) 참조):
           </p>
           <ul className="list-disc list-inside ml-4 space-y-1">
             <li>
-              A physical or electronic signature of a person authorized to act
-              on behalf of the holder of an exclusive right that is allegedly
-              infringed;
+              침해되었다고 주장되는 배타적 권리의 보유자를 대리할 권한이 있는 자의 자필 또는 전자 서명;
             </li>
             <li>
-              Identification of the copyrighted work claimed to have been
-              infringed, or, if multiple copyrighted works at a single online
-              site are covered by a single notification, a representative list
-              of such works at that site;
+              침해되었다고 주장되는 저작물의 특정, 또는 하나의 온라인 사이트에 있는 다수의 저작물을 하나의 통지로 다루는 경우 해당 사이트의 대표 저작물 목록;
             </li>
             <li>
-              Identification of the material that is claimed to be infringing or
-              to be the subject of infringing activity and that is to be removed
-              or access to which is to be disabled and information reasonably
-              sufficient to permit the Owner to locate the material;
+              침해하고 있다고 주장되거나 침해 행위의 대상이 되어 삭제 또는 접근 차단이 필요한 자료의 특정, 그리고 운영자가 해당 자료를 찾을 수 있을 만큼 충분한 정보;
             </li>
             <li>
-              Information reasonably sufficient to permit the Owner to contact
-              the notifying party, such as an address, telephone number, and, if
-              available, an electronic mail;
+              주소, 전화번호, 가능한 경우 이메일 등 운영자가 통지인에게 연락할 수 있을 만큼 충분한 정보;
             </li>
             <li>
-              A statement that the notifying party has a good faith belief that
-              use of the material in the manner complained of is not authorized
-              by the copyright owner, its agent, or the law; and
+              문제 삼는 방식의 자료 이용이 저작권자, 그 대리인 또는 법률에 의해 허용되지 않는다고 통지인이 선의로 믿고 있다는 진술; 그리고
             </li>
             <li>
-              A statement that the information in the notification is accurate,
-              and under penalty of perjury, that the notifying party is
-              authorized to act on behalf of the owner of an exclusive right
-              that is allegedly infringed.
+              통지의 내용이 정확하며, 위증 시 처벌을 감수하고 통지인이 침해되었다고 주장되는 배타적 권리 보유자를 대리할 권한이 있다는 진술.
             </li>
           </ul>
           <p>
-            Failure to comply with all of the requirements outlined above may
-            result in invalidity of the DMCA notice.
+            위 요건을 모두 갖추지 못한 경우 DMCA 통지가 무효로 처리될 수 있습니다.
           </p>
           <p>
-            Copyright infringement notifications may be addressed to the
-            Owner&rsquo;s Copyright Agent at the contact details specified in
-            this document.
+            저작권 침해 통지는 본 문서에 기재된 연락처의 운영자 저작권 담당자에게 보내실 수 있습니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Acceptable use
+            허용되는 이용
           </h2>
           <p>
-            This Application and the Service may only be used within the scope
-            of what they are provided for, under these Terms and applicable law.
+            본 애플리케이션과 서비스는 본 약관과 관련 법령에 따라 제공 목적의 범위 안에서만 이용할 수 있습니다.
           </p>
           <p>
-            Users are solely responsible for making sure that their use of this
-            Application and/or the Service violates no applicable law,
-            regulations or third-party rights.
+            본 애플리케이션 및 서비스의 이용이 관련 법령이나 제3자의 권리를 침해하지 않도록 할 책임은 전적으로 이용자에게 있습니다.
           </p>
           <p>
-            Therefore, the Owner reserves the right to take any appropriate
-            measure to protect its legitimate interests including by denying
-            Users access to this Application or the Service, terminating
-            contracts, reporting any misconduct performed through this
-            Application or the Service to the competent authorities – such as
-            judicial or administrative authorities - whenever Users engage or
-            are suspected to engage in any of the following activities:
+            따라서 운영자는 이용자가 다음 행위를 하거나 그러한 의심이 있는 경우, 본 애플리케이션 또는 서비스에 대한 접근 거부, 계약 해지, 사법·행정 기관 등 관계 당국에 대한 신고 등 정당한 이익을 보호하기 위한 적절한 조치를 취할 권리를 보유합니다:
           </p>
           <ul className="list-disc list-inside ml-4 space-y-1">
-            <li>violate laws, regulations and/or these Terms;</li>
-            <li>infringe any third-party rights;</li>
-            <li>considerably impair the Owner&rsquo;s legitimate interests;</li>
-            <li>offend the Owner or any third party.</li>
+            <li>법령 및/또는 본 약관을 위반하는 경우;</li>
+            <li>제3자의 권리를 침해하는 경우;</li>
+            <li>운영자의 정당한 이익을 상당히 침해하는 경우;</li>
+            <li>운영자 또는 제3자에게 피해를 주는 경우.</li>
           </ul>
         </section>
 
         <section className="border-l-4 border-red-500 pl-6 bg-red-50 dark:bg-red-900/10 p-6 rounded-r-lg">
           <h2 className="text-xl font-semibold text-red-700 dark:text-red-400 mb-4">
-            ⚠️ Prohibited Uses
+            ⚠️ 금지되는 이용
           </h2>
           <p className="font-semibold text-red-800 dark:text-red-300 mb-3">
-            Users are STRICTLY PROHIBITED from engaging in the following
-            activities:
+            이용자는 다음 행위를 절대 해서는 안 됩니다:
           </p>
           <ul className="list-disc list-inside ml-4 space-y-2 text-red-900 dark:text-red-200">
             <li>
               <strong>
-                Downloading copyrighted content without explicit permission
+                명시적 허락 없이 저작권 보호 콘텐츠를 내려받는 행위
               </strong>{" "}
-              from the content owner or rights holder
+              콘텐츠 소유자 또는 권리자로부터
             </li>
             <li>
-              <strong>Violating any platform's Terms of Service</strong>,
-              including but not limited to X (Twitter), TikTok, Instagram,
-              Facebook, YouTube, or any other social media platform
+              <strong>각 플랫폼의 이용약관을 위반하는 행위</strong> — X(트위터), 틱톡, 인스타그램, 페이스북, 유튜브를 비롯한 모든 소셜 미디어 플랫폼을 포함합니다
             </li>
             <li>
-              <strong>Redistributing downloaded content</strong> through any
-              means, including re-uploading, sharing in group chats, posting on
-              forums, or any form of mass distribution
+              <strong>내려받은 콘텐츠를 재배포하는 행위</strong>  — 재업로드, 단체 대화방 공유, 커뮤니티 게시 등 모든 형태의 대량 유포를 포함합니다
             </li>
             <li>
-              <strong>Using downloaded content for commercial purposes</strong>,
-              including monetization, advertising, or any profit-generating
-              activity
+              <strong>내려받은 콘텐츠를 상업적으로 이용하는 행위</strong> — 수익화, 광고 등 이익을 창출하는 모든 활동을 포함합니다
             </li>
             <li>
-              <strong>Removing watermarks or attribution</strong> from creator
-              content, or otherwise obscuring the original creator's identity
+              <strong>워터마크나 출처 표시를 제거하는 행위</strong>  — 창작자 콘텐츠에서 이를 제거하거나 원작자의 신원을 알아볼 수 없게 만드는 행위
             </li>
             <li>
-              <strong>Using automated tools or bots</strong> to systematically
-              download large volumes of content
+              <strong>자동화 도구나 봇을 사용하는 행위</strong>  — 대량의 콘텐츠를 조직적으로 내려받는 행위
             </li>
             <li>
-              <strong>Circumventing any technical protection measures</strong>{" "}
-              implemented by content platforms
+              <strong>기술적 보호 조치를 우회하는 행위</strong>{" "}
+              콘텐츠 플랫폼이 적용한
             </li>
           </ul>
           <p className="mt-4 font-semibold text-red-800 dark:text-red-300">
-            Violation of these prohibitions may result in immediate termination
-            of access, legal action, and cooperation with law enforcement.
+            이러한 금지 사항을 위반하면 즉시 이용이 중단될 수 있으며, 법적 조치와 수사기관 협조가 이뤄질 수 있습니다.
           </p>
         </section>
 
         <section className="border-l-4 border-amber-500 pl-6 bg-amber-50 dark:bg-amber-900/10 p-6 rounded-r-lg">
           <h2 className="text-xl font-semibold text-amber-700 dark:text-amber-400 mb-4">
-            User Responsibility and Legal Acknowledgment
+            이용자의 책임과 법적 확인 사항
           </h2>
           <p className="mb-3">
-            By using SSDown, you explicitly acknowledge and agree to the
-            following:
+            SSDown을 이용함으로써 귀하는 다음 사항을 명시적으로 인정하고 이에 동의합니다:
           </p>
           <ul className="list-disc list-inside ml-4 space-y-2">
             <li>
-              <strong>Sole Responsibility</strong>: You are solely and
-              exclusively responsible for ensuring that your use of this Service
-              complies with all applicable laws, regulations, and third-party
-              rights in your jurisdiction.
+              <strong>이용자 책임</strong>: 본 서비스의 이용이 귀하가 속한 관할 지역의 모든 법령과 제3자의 권리를 준수하도록 할 책임은 오직 귀하에게 있습니다.
             </li>
             <li>
-              <strong>No Liability for Misuse</strong>: SSDown is not liable for
-              any misuse of the information, tools, or services provided. We
-              provide technical information for educational purposes only.
+              <strong>오용에 대한 책임 없음</strong>: SSDown은 제공된 정보나 도구, 서비스의 오용에 대해 책임지지 않습니다. 저희는 교육 목적으로만 기술 정보를 제공합니다.
             </li>
             <li>
-              <strong>Severe Legal Penalties</strong>: Violation of copyright
-              laws may result in severe legal penalties, including but not
-              limited to:
+              <strong>중대한 법적 처벌</strong>: 저작권법 위반은 다음을 포함한 중대한 법적 처벌로 이어질 수 있습니다:
               <ul className="list-circle list-inside ml-6 mt-2 space-y-1">
                 <li>
-                  Civil damages ranging from $750 to $150,000 per infringed work
-                  (US law)
+                  침해 저작물 1건당 750달러에서 15만 달러에 이르는 민사상 손해배상 (미국법 기준)
                 </li>
                 <li>
-                  Criminal prosecution with penalties up to 5 years imprisonment
-                  and $250,000 in fines
+                  최대 5년의 징역과 25만 달러의 벌금이 부과될 수 있는 형사 처벌
                 </li>
-                <li>Permanent account termination on platforms</li>
-                <li>Legal fees and court costs</li>
+                <li>플랫폼 계정의 영구 정지</li>
+                <li>변호사 비용 및 소송 비용</li>
               </ul>
             </li>
             <li>
-              <strong>Permission Requirement</strong>: You will obtain all
-              necessary permissions from content creators and rights holders
-              before downloading, archiving, or using any content accessed
-              through this Service.
+              <strong>권한 확보 의무</strong>: 귀하는 본 서비스를 통해 접근한 콘텐츠를 내려받거나 보관하거나 이용하기 전에 창작자와 권리자로부터 필요한 모든 허락을 받아야 합니다.
             </li>
             <li>
-              <strong>Platform Terms Compliance</strong>: You acknowledge that
-              even if local law permits certain copying, you must still comply
-              with the Terms of Service of the originating platform (e.g.,
-              TikTok, Instagram, X).
+              <strong>플랫폼 약관 준수</strong>: 귀하는 현지 법률이 일정한 복제를 허용하더라도 원 출처 플랫폼(예: 틱톡, 인스타그램, X)의 이용약관을 여전히 준수해야 함을 인정합니다.
             </li>
             <li>
-              <strong>Educational Purpose</strong>: This Service is provided for
-              educational and informational purposes to help users understand
-              video technology, digital archiving ethics, and copyright
-              compliance.
+              <strong>교육 목적</strong>: 본 서비스는 영상 기술, 디지털 보관 윤리, 저작권 준수에 대한 이해를 돕기 위한 교육·정보 제공 목적으로 제공됩니다.
             </li>
           </ul>
         </section>
 
         <section className="border-l-4 border-blue-500 pl-6 bg-blue-50 dark:bg-blue-900/10 p-6 rounded-r-lg">
           <h2 className="text-xl font-semibold text-blue-700 dark:text-blue-400 mb-4">
-            Copyright Compliance and Rights Holder Support
+            저작권 준수와 권리자 지원
           </h2>
           <p className="mb-3">
-            SSDown actively supports copyright holders and takes intellectual
-            property rights seriously:
+            SSDown은 저작권자를 적극적으로 지원하며 지식재산권을 중요하게 다룹니다:
           </p>
           <ul className="list-disc list-inside ml-4 space-y-2">
             <li>
-              <strong>Rapid DMCA Response</strong>: We respond to valid DMCA
-              takedown requests within 24 hours of receipt. Copyright holders
-              may submit notices using the process outlined in the "How to file
-              a takedown notice" section.
+              <strong>신속한 DMCA 대응</strong>: 유효한 DMCA 게시 중단 요청에는 접수 후 24시간 이내에 대응합니다. 저작권자는 "게시 중단 요청 제출 방법" 절에 안내된 절차에 따라 통지할 수 있습니다.
             </li>
             <li>
-              <strong>Usage Logging</strong>: We maintain logs of Service usage
-              for legal compliance purposes and to assist in identifying
-              potential abuse patterns.
+              <strong>이용 기록 보관</strong>: 법적 준수와 오남용 패턴 파악을 위해 서비스 이용 기록을 보관합니다.
             </li>
             <li>
-              <strong>Law Enforcement Cooperation</strong>: We cooperate fully
-              with law enforcement agencies and rights holders in investigating
-              potential copyright infringement or other illegal activities.
+              <strong>수사기관 협조</strong>: 저작권 침해나 그 밖의 불법 행위에 대한 조사에서 수사기관 및 권리자에게 전적으로 협조합니다.
             </li>
             <li>
-              <strong>Access Termination</strong>: We reserve the right to
-              immediately and permanently terminate access for users who:
+              <strong>이용 제한</strong>: 다음에 해당하는 이용자의 접근을 즉시 영구적으로 차단할 권리를 보유합니다:
               <ul className="list-circle list-inside ml-6 mt-2 space-y-1">
-                <li>Repeatedly violate copyright laws</li>
-                <li>Receive multiple DMCA notices</li>
-                <li>Engage in commercial piracy or mass distribution</li>
-                <li>Circumvent technical protection measures</li>
-                <li>Violate platform Terms of Service systematically</li>
+                <li>저작권법을 반복적으로 위반하는 경우</li>
+                <li>DMCA 통지를 여러 차례 받은 경우</li>
+                <li>상업적 불법 복제나 대량 유포에 관여하는 경우</li>
+                <li>기술적 보호 조치를 우회하는 경우</li>
+                <li>플랫폼 이용약관을 조직적으로 위반하는 경우</li>
               </ul>
             </li>
             <li>
-              <strong>Proactive Monitoring</strong>: While we do not pre-screen
-              all user activity, we reserve the right to monitor usage patterns
-              and investigate suspicious behavior.
+              <strong>사전 모니터링</strong>: 모든 이용 행위를 사전에 검열하지는 않지만, 이용 패턴을 관찰하고 의심스러운 행위를 조사할 권리를 보유합니다.
             </li>
             <li>
-              <strong>Rights Holder Contact</strong>: Copyright holders or their
-              authorized agents may contact us at the email address provided in
-              this document to report infringement or request information.
+              <strong>권리자 연락 창구</strong>: 저작권자 또는 그 대리인은 본 문서에 기재된 이메일로 연락하여 침해를 신고하거나 정보를 요청할 수 있습니다.
             </li>
           </ul>
           <p className="mt-4 font-semibold text-blue-800 dark:text-blue-300">
-            SSDown is a technology education platform. We do not encourage,
-            endorse, or facilitate copyright infringement. Users who misuse this
-            Service do so at their own legal and financial risk.
+            SSDown은 기술 교육 플랫폼입니다. 저희는 저작권 침해를 권장하거나 지지하거나 돕지 않습니다. 본 서비스를 오용하는 이용자는 그에 따른 법적·금전적 위험을 스스로 부담합니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Purchase via app store
+            앱스토어를 통한 구매
           </h2>
           <p>
-            This Application or specific Products available for sale on this
-            Application must be purchased via a third-party app store. To access
-            such purchases, Users must follow the instructions provided on the
-            relevant online store (such as &quot;Apple App Store&quot; or
-            &quot;Google Play&quot;), which may vary depending on the particular
-            device in use.
+            본 애플리케이션 또는 본 애플리케이션에서 판매되는 특정 상품은 제3자 앱스토어를 통해 구매해야 합니다. 구매를 위해 이용자는 사용 기기에 따라 달라질 수 있는 해당 온라인 스토어(예: "Apple App Store" 또는 "Google Play")의 안내를 따라야 합니다.
           </p>
           <p>
-            Unless otherwise specified, purchases done via third-party online
-            stores are also subject to such third-parties&rsquo; terms and
-            conditions, which, in case of any inconsistency or conflict, shall
-            always prevail upon these Terms.
+            달리 명시하지 않는 한, 제3자 온라인 스토어를 통한 구매에는 해당 제3자의 약관도 적용되며, 내용이 서로 다르거나 충돌하는 경우 언제나 그 약관이 본 약관에 우선합니다.
           </p>
           <p>
-            Users purchasing through such third-party online stores must
-            therefore read such terms and conditions of sale carefully and
-            accept them.
+            따라서 제3자 온라인 스토어를 통해 구매하는 이용자는 해당 판매 약관을 주의 깊게 읽고 동의해야 합니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Contract duration
+            계약 기간
           </h2>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
             Subscriptions
           </h3>
           <p>
-            Subscriptions allow Users to receive a Product continuously or
-            regularly over a determined period of time.
+            구독은 정해진 기간 동안 이용자가 상품을 지속적으로 또는 정기적으로 제공받는 것을 말합니다.
           </p>
           <p>
-            Paid subscriptions begin on the day the payment is received by the
-            Owner.
+            유료 구독은 운영자가 대금을 수령한 날부터 시작됩니다.
           </p>
           <p>
-            In order to maintain subscriptions, Users must pay the required
-            recurring fee in a timely manner. Failure to do so may cause service
-            interruptions.
+            구독을 유지하려면 이용자는 정기 요금을 기한 내에 납부해야 합니다. 그렇지 않을 경우 서비스가 중단될 수 있습니다.
           </p>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
-            Subscriptions handled via Apple ID
+            Apple ID를 통한 구독
           </h3>
           <p>
-            Users may subscribe to a Product using the Apple ID associated with
-            their Apple App Store account by using the relevant process on this
-            Application. When doing so, Users acknowledge and accept that
+            이용자는 본 애플리케이션의 해당 절차를 통해 Apple App Store 계정에 연결된 Apple ID로 상품을 구독할 수 있습니다. 이 경우 이용자는 다음을 인정하고 동의합니다
           </p>
           <ul className="list-disc list-inside ml-4 space-y-1">
-            <li>any payment due shall be charged to their Apple ID account;</li>
+            <li>지급해야 할 대금은 이용자의 Apple ID 계정으로 청구됩니다;</li>
             <li>
-              subscriptions are automatically renewed for the same duration
-              unless the User cancels at least 24 hours before the current
-              period expires;
+              이용자가 현재 기간 만료 최소 24시간 전에 해지하지 않는 한 구독은 동일한 기간으로 자동 갱신됩니다;
             </li>
             <li>
-              any and all fees or payments due for renewal will be charged
-              within 24-hours before the end of the current period;
+              갱신에 따른 모든 요금은 현재 기간 종료 24시간 이내에 청구됩니다;
             </li>
             <li>
-              subscriptions can be managed or cancelled in the Users&rsquo;
-              Apple App Store account settings.
+              구독은 이용자의 Apple App Store 계정 설정에서 관리하거나 해지할 수 있습니다.
             </li>
           </ul>
           <p>
-            The above shall prevail upon any conflicting or diverging provision
-            of these Terms.
+            위 내용은 본 약관의 상충하거나 다른 조항에 우선합니다.
           </p>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
             Termination
           </h3>
           <p>
-            Recurring subscriptions may be terminated at any time by sending a
-            clear and unambiguous termination notice to the Owner using the
-            contact details provided in this document, or — if applicable — by
-            using the corresponding controls inside this Application.
+            정기 구독은 본 문서에 기재된 연락처로 운영자에게 명확한 해지 통지를 보내거나, 해당하는 경우 본 애플리케이션 내의 관련 기능을 이용해 언제든지 해지할 수 있습니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Liability and indemnification
+            책임과 면책
           </h2>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
-            Australian Users
+            호주 이용자
           </h3>
           <h4 className="font-medium text-foreground italic mt-2">
-            Limitation of liability
+            책임의 제한
           </h4>
           <p>
-            Nothing in these Terms excludes, restricts or modifies any
-            guarantee, condition, warranty, right or remedy which the User may
-            have under the Competition and Consumer Act 2010 (Cth) or any
-            similar State and Territory legislation and which cannot be
-            excluded, restricted or modified (non-excludable right). To the
-            fullest extent permitted by law, our liability to the User,
-            including liability for a breach of a non-excludable right and
-            liability which is not otherwise excluded under these Terms of Use,
-            is limited, at the Owner&rsquo;s sole discretion, to the
-            re-performance of the services or the payment of the cost of having
-            the services supplied again.
+            본 약관의 어떤 내용도 2010년 경쟁 및 소비자법(Cth) 또는 이에 준하는 주·준주 법률에 따라 이용자가 가지며 배제·제한·변경할 수 없는 보증, 조건, 권리 또는 구제수단(배제 불가 권리)을 배제하거나 제한하거나 변경하지 않습니다. 법이 허용하는 최대 범위에서, 배제 불가 권리의 위반에 대한 책임과 본 약관에서 달리 배제되지 않은 책임을 포함한 이용자에 대한 저희의 책임은 운영자의 판단에 따라 서비스의 재이행 또는 서비스를 다시 제공받는 데 드는 비용의 지급으로 제한됩니다.
           </p>
 
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
-            US Users
+            미국 이용자
           </h3>
           <h4 className="font-medium text-foreground italic mt-2">
-            Disclaimer of Warranties
+            보증의 부인
           </h4>
           <p className="uppercase">
-            This Application is provided strictly on an &ldquo;as is&rdquo; and
-            &ldquo;as available&rdquo; basis. Use of the Service is at
-            Users&rsquo; own risk. To the maximum extent permitted by applicable
-            law, the Owner expressly disclaims all conditions, representations,
-            and warranties — whether express, implied, statutory or otherwise,
-            including, but not limited to, any implied warranty of
-            merchantability, fitness for a particular purpose, or
-            non-infringement of third-party rights. No advice or information,
-            whether oral or written, obtained by user from owner or through the
-            Service will create any warranty not expressly stated herein.
+            본 애플리케이션은 "있는 그대로", "이용 가능한 상태로" 제공됩니다. 서비스 이용에 따른 위험은 이용자가 부담합니다. 관련 법령이 허용하는 최대 범위에서, 운영자는 상품성, 특정 목적에의 적합성, 제3자 권리 비침해에 관한 묵시적 보증을 포함하여 명시적·묵시적·법정 여부를 불문한 모든 조건과 진술, 보증을 명시적으로 부인합니다. 이용자가 운영자로부터 또는 서비스를 통해 얻은 어떠한 구두 또는 서면 조언이나 정보도 본 약관에 명시되지 않은 보증을 발생시키지 않습니다.
           </p>
           <p>
-            Without limiting the foregoing, the Owner, its subsidiaries,
-            affiliates, licensors, officers, directors, agents, co-branders,
-            partners, suppliers and employees do not warrant that the content is
-            accurate, reliable or correct; that the Service will meet
-            Users&rsquo; requirements; that the Service will be available at any
-            particular time or location, uninterrupted or secure; that any
-            defects or errors will be corrected; or that the Service is free of
-            viruses or other harmful components. Any content downloaded or
-            otherwise obtained through the use of the Service is downloaded at
-            users own risk and users shall be solely responsible for any damage
-            to Users&rsquo; computer system or mobile device or loss of data
-            that results from such download or Users&rsquo; use of the Service.
+            앞선 내용을 제한하지 않는 범위에서, 운영자와 그 자회사, 계열사, 라이선스 제공자, 임원, 이사, 대리인, 공동 브랜드 사업자, 파트너, 공급업체 및 임직원은 콘텐츠가 정확하거나 신뢰할 수 있거나 올바르다는 점, 서비스가 이용자의 요구를 충족한다는 점, 서비스가 특정 시점이나 장소에서 중단 없이 안전하게 제공된다는 점, 결함이나 오류가 시정된다는 점, 서비스에 바이러스나 유해 요소가 없다는 점을 보증하지 않습니다. 서비스 이용을 통해 내려받거나 취득한 콘텐츠는 이용자의 책임으로 내려받는 것이며, 그러한 다운로드나 서비스 이용으로 이용자의 컴퓨터 시스템 또는 모바일 기기에 발생한 손상이나 데이터 손실에 대한 책임은 전적으로 이용자에게 있습니다.
           </p>
           <p>
-            The Owner does not warrant, endorse, guarantee, or assume
-            responsibility for any product or service advertised or offered by a
-            third party through the Service or any hyperlinked website or
-            service, and the Owner shall not be a party to or in any way monitor
-            any transaction between Users and third-party providers of products
-            or services.
+            운영자는 서비스나 연결된 웹사이트를 통해 제3자가 광고하거나 제공하는 어떠한 상품이나 서비스도 보증하거나 추천하거나 책임지지 않으며, 이용자와 제3자 공급자 사이의 거래에 당사자가 되거나 이를 관리하지 않습니다.
           </p>
           <p>
-            The Service may become inaccessible or it may not function properly
-            with Users&rsquo; web browser, mobile device, and/or operating
-            system. The owner cannot be held liable for any perceived or actual
-            damages arising from Service content, operation, or use of this
-            Service.
+            서비스는 이용할 수 없게 되거나 이용자의 웹 브라우저, 모바일 기기, 운영체제에서 제대로 작동하지 않을 수 있습니다. 운영자는 서비스의 콘텐츠, 운영, 이용으로 인해 발생한 것으로 여겨지거나 실제로 발생한 손해에 대해 책임지지 않습니다.
           </p>
           <p>
-            Federal law, some states, and other jurisdictions, do not allow the
-            exclusion and limitations of certain implied warranties. The above
-            exclusions may not apply to Users. This Agreement gives Users
-            specific legal rights, and Users may also have other rights which
-            vary from state to state. The disclaimers and exclusions under this
-            agreement shall not apply to the extent prohibited by applicable
-            law.
+            연방법과 일부 주 및 그 밖의 관할 지역에서는 특정 묵시적 보증의 배제와 제한을 허용하지 않습니다. 따라서 위 배제 조항이 이용자에게 적용되지 않을 수 있습니다. 본 계약은 이용자에게 구체적인 법적 권리를 부여하며, 이용자는 지역에 따라 다른 권리를 추가로 가질 수도 있습니다. 본 계약의 부인 및 배제 조항은 관련 법령이 금지하는 범위에서는 적용되지 않습니다.
           </p>
 
           <h4 className="font-medium text-foreground italic mt-2">
-            Limitations of liability
+            책임의 제한
           </h4>
           <p>
-            To the maximum extent permitted by applicable law, in no event shall
-            the Owner, and its subsidiaries, affiliates, officers, directors,
-            agents, co-branders, partners, suppliers and employees be liable for
+            관련 법령이 허용하는 최대 범위에서, 운영자와 그 자회사, 계열사, 임원, 이사, 대리인, 공동 브랜드 사업자, 파트너, 공급업체 및 임직원은 다음에 대해 어떠한 경우에도 책임지지 않습니다
           </p>
           <ul className="list-disc list-inside ml-4 space-y-1">
             <li>
-              any indirect, punitive, incidental, special, consequential or
-              exemplary damages, including without limitation damages for loss
-              of profits, goodwill, use, data or other intangible losses,
-              arising out of or relating to the use of, or inability to use, the
-              Service; and
+              서비스의 이용 또는 이용 불능으로 인해 발생한 간접적·징벌적·부수적·특별·결과적 손해, 이익 손실, 영업권 손실, 이용 손실, 데이터 손실 등 무형의 손해; 그리고
             </li>
             <li>
-              any damage, loss or injury resulting from hacking, tampering or
-              other unauthorized access or use of the Service or User account or
-              the information contained therein;
+              해킹, 변조 등 서비스나 이용자 계정 또는 그 안의 정보에 대한 무단 접근이나 이용으로 발생한 손해, 손실, 피해;
             </li>
-            <li>any errors, mistakes, or inaccuracies of content;</li>
+            <li>콘텐츠의 오류, 착오, 부정확성;</li>
             <li>
-              personal injury or property damage, of any nature whatsoever,
-              resulting from User access to or use of the Service;
+              이용자의 서비스 접근이나 이용으로 발생한 모든 종류의 신체 상해나 재산 손해;
             </li>
             <li>
-              any unauthorized access to or use of the Owner&rsquo;s secure
-              servers and/or any and all personal information stored therein;
+              운영자의 보안 서버 또는 그 안에 저장된 개인정보에 대한 무단 접근이나 이용;
             </li>
             <li>
-              any interruption or cessation of transmission to or from the
-              Service;
+              서비스와의 송수신 중단이나 정지;
             </li>
             <li>
-              any bugs, viruses, trojan horses, or the like that may be
-              transmitted to or through the Service;
+              서비스에 또는 서비스를 통해 전송될 수 있는 버그, 바이러스, 트로이 목마 등;
             </li>
             <li>
-              any errors or omissions in any content or for any loss or damage
-              incurred as a result of the use of any content posted, emailed,
-              transmitted, or otherwise made available through the Service;
-              and/or
+              콘텐츠의 오류나 누락, 또는 서비스를 통해 게시·전송·제공된 콘텐츠의 이용으로 발생한 손실이나 손해; 및/또는
             </li>
             <li>
-              the defamatory, offensive, or illegal conduct of any User or third
-              party. In no event shall the Owner, and its subsidiaries,
-              affiliates, officers, directors, agents, co-branders, partners,
-              suppliers and employees be liable for any claims, proceedings,
-              liabilities, obligations, damages, losses or costs in an amount
-              exceeding the amount paid by User to the Owner hereunder in the
-              preceding 12 months, or the period of duration of this agreement
-              between the Owner and User, whichever is shorter.
+              이용자나 제3자의 명예훼손적·모욕적·불법적 행위. 어떠한 경우에도 운영자와 그 자회사, 계열사, 임원, 이사, 대리인, 공동 브랜드 사업자, 파트너, 공급업체 및 임직원은 이용자가 직전 12개월 동안 또는 운영자와 이용자 사이의 계약 기간(둘 중 짧은 기간) 동안 운영자에게 지급한 금액을 초과하는 청구, 소송, 책임, 의무, 손해, 손실, 비용에 대해 책임지지 않습니다.
             </li>
           </ul>
           <p>
-            This limitation of liability section shall apply to the fullest
-            extent permitted by law in the applicable jurisdiction whether the
-            alleged liability is based on contract, tort, negligence, strict
-            liability, or any other basis, even if company has been advised of
-            the possibility of such damage.
+            본 책임 제한 조항은 주장되는 책임이 계약, 불법행위, 과실, 무과실책임 등 어떤 근거에 기초하든, 그리고 회사가 그러한 손해의 가능성을 고지받았더라도 해당 관할 지역의 법이 허용하는 최대 범위에서 적용됩니다.
           </p>
           <p>
-            Some jurisdictions do not allow the exclusion or limitation of
-            incidental or consequential damages, therefore the above limitations
-            or exclusions may not apply to User. The terms give User specific
-            legal rights, and User may also have other rights which vary from
-            jurisdiction to jurisdiction. The disclaimers, exclusions, and
-            limitations of liability under the terms shall not apply to the
-            extent prohibited by applicable law.
+            일부 관할 지역에서는 부수적 또는 결과적 손해의 배제나 제한을 허용하지 않으므로 위 제한이나 배제가 이용자에게 적용되지 않을 수 있습니다. 본 약관은 이용자에게 구체적인 법적 권리를 부여하며, 이용자는 관할 지역에 따라 다른 권리를 추가로 가질 수도 있습니다. 본 약관의 부인, 배제, 책임 제한 조항은 관련 법령이 금지하는 범위에서는 적용되지 않습니다.
           </p>
 
           <h4 className="font-medium text-foreground italic mt-2">
             Indemnification
           </h4>
           <p>
-            The User agrees to defend, indemnify and hold the Owner and its
-            subsidiaries, affiliates, officers, directors, agents, co-branders,
-            partners, suppliers and employees harmless from and against any and
-            all claims or demands, damages, obligations, losses, liabilities,
-            costs or debt, and expenses, including, but not limited to, legal
-            fees and expenses, arising from
+            이용자는 다음으로 인해 발생하는 모든 청구, 손해, 의무, 손실, 책임, 비용 및 변호사 비용을 포함한 제반 경비로부터 운영자와 그 자회사, 계열사, 임원, 이사, 대리인, 공동 브랜드 사업자, 파트너, 공급업체 및 임직원을 방어하고 면책하며 손해를 입지 않도록 하는 데 동의합니다
           </p>
           <ul className="list-disc list-inside ml-4 space-y-1">
             <li>
-              User&rsquo;s use of and access to the Service, including any data
-              or content transmitted or received by User;
+              이용자의 서비스 이용과 접근(이용자가 송수신한 데이터나 콘텐츠 포함);
             </li>
             <li>
-              User&rsquo;s violation of these terms, including, but not limited
-              to, User&rsquo;s breach of any of the representations and
-              warranties set forth in these terms;
+              이용자의 본 약관 위반(본 약관에 규정된 진술 및 보증의 위반을 포함);
             </li>
             <li>
-              User&rsquo;s violation of any third-party rights, including, but
-              not limited to, any right of privacy or intellectual property
-              rights;
+              이용자의 제3자 권리 침해(사생활 권리나 지식재산권을 포함);
             </li>
             <li>
-              User&rsquo;s violation of any statutory law, rule, or regulation;
+              이용자의 법령, 규칙, 규정 위반;
             </li>
             <li>
-              any content that is submitted from User&rsquo;s account, including
-              third party access with User&rsquo;s unique username, password or
-              other security measure, if applicable, including, but not limited
-              to, misleading, false, or inaccurate information;
+              이용자의 계정에서 제출된 콘텐츠(해당하는 경우 이용자의 아이디, 비밀번호 등 보안 수단을 이용한 제3자의 접근을 포함하며, 오해를 부르거나 허위이거나 부정확한 정보를 포함);
             </li>
-            <li>User&rsquo;s wilful misconduct; or</li>
+            <li>이용자의 고의적 위법 행위; 또는</li>
             <li>
-              statutory provision by User or its affiliates, officers,
-              directors, agents, co-branders, partners, suppliers and employees
-              to the extent allowed by applicable law.
+              관련 법령이 허용하는 범위에서 이용자 또는 그 계열사, 임원, 이사, 대리인, 공동 브랜드 사업자, 파트너, 공급업체 및 임직원에 관한 법령상의 규정.
             </li>
           </ul>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Common provisions
+            일반 조항
           </h2>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
             No Waiver
           </h3>
           <p>
-            The Owner&rsquo;s failure to assert any right or provision under
-            these Terms shall not constitute a waiver of any such right or
-            provision. No waiver shall be considered a further or continuing
-            waiver of such term or any other term.
+            운영자가 본 약관상의 권리나 조항을 행사하지 않더라도 이는 해당 권리나 조항의 포기로 간주되지 않습니다. 어떠한 포기도 해당 조항이나 다른 조항의 추가적·계속적 포기로 해석되지 않습니다.
           </p>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
-            Service interruption
+            서비스 중단
           </h3>
           <p>
-            To ensure the best possible service level, the Owner reserves the
-            right to interrupt the Service for maintenance, system updates or
-            any other changes, informing the Users appropriately.
+            최상의 서비스 수준을 유지하기 위해 운영자는 유지보수, 시스템 업데이트 등의 사유로 이용자에게 적절히 알린 뒤 서비스를 중단할 권리를 보유합니다.
           </p>
           <p>
-            Within the limits of law, the Owner may also decide to suspend or
-            terminate the Service altogether. If the Service is terminated, the
-            Owner will cooperate with Users to enable them to withdraw Personal
-            Data or information in accordance with applicable law.
+            법이 정한 범위에서 운영자는 서비스를 전면 중단하거나 종료할 수 있습니다. 서비스가 종료되는 경우 운영자는 관련 법령에 따라 이용자가 개인정보나 자료를 회수할 수 있도록 협조합니다.
           </p>
           <p>
-            Additionally, the Service might not be available due to reasons
-            outside the Owner&rsquo;s reasonable control, such as &ldquo;force
-            majeure&rdquo; (eg. labor actions, infrastructural breakdowns or
-            blackouts etc).
+            또한 파업, 기반 시설 장애, 정전 등 "불가항력"과 같이 운영자가 합리적으로 통제할 수 없는 사유로 서비스를 이용하지 못할 수 있습니다.
           </p>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
-            Service reselling
+            서비스 재판매
           </h3>
           <p>
-            Users may not reproduce, duplicate, copy, sell, resell or exploit
-            any portion of this Application and of its Service without the
-            Owner&rsquo;s express prior written permission, granted either
-            directly or through a legitimate reselling programme.
+            이용자는 운영자가 직접 또는 정당한 재판매 프로그램을 통해 명시적으로 사전 서면 허가를 하지 않는 한, 본 애플리케이션과 서비스의 어떤 부분도 복제, 판매, 재판매하거나 영리적으로 이용할 수 없습니다.
           </p>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
-            Privacy policy
+            개인정보처리방침
           </h3>
           <p>
-            To learn more about the use of their Personal Data, Users may refer
-            to the privacy policy of this Application.
+            개인정보의 이용에 관한 자세한 내용은 본 애플리케이션의 개인정보처리방침을 참고하시기 바랍니다.
           </p>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
-            Intellectual property rights
+            지식재산권
           </h3>
           <p>
-            Without prejudice to any more specific provision of these Terms, any
-            intellectual property rights, such as copyrights, trademark rights,
-            patent rights and design rights related to this Application are the
-            exclusive property of the Owner or its licensors and are subject to
-            the protection granted by applicable laws or international treaties
-            relating to intellectual property.
+            본 약관의 보다 구체적인 조항을 침해하지 않는 범위에서, 본 애플리케이션과 관련된 저작권, 상표권, 특허권, 디자인권 등 모든 지식재산권은 운영자 또는 그 라이선스 제공자의 배타적 재산이며 관련 법령이나 지식재산 관련 국제 조약의 보호를 받습니다.
           </p>
           <p>
-            All trademarks — nominal or figurative — and all other marks, trade
-            names, service marks, word marks, illustrations, images, or logos
-            appearing in connection with this Application are, and remain, the
-            exclusive property of the Owner or its licensors and are subject to
-            the protection granted by applicable laws or international treaties
-            related to intellectual property.
+            본 애플리케이션과 관련하여 표시되는 문자 및 도형 상표를 비롯한 모든 표장, 상호, 서비스표, 워드마크, 삽화, 이미지, 로고는 운영자 또는 그 라이선스 제공자의 배타적 재산이며 관련 법령이나 지식재산 관련 국제 조약의 보호를 받습니다.
           </p>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
-            Changes to these Terms
+            약관의 변경
           </h3>
           <p>
-            The Owner reserves the right to amend or otherwise modify these
-            Terms at any time. In such cases, the Owner will appropriately
-            inform the User of these changes.
+            운영자는 언제든지 본 약관을 개정하거나 변경할 권리를 보유합니다. 그러한 경우 운영자는 변경 사항을 이용자에게 적절히 알립니다.
           </p>
           <p>
-            Such changes will only affect the relationship with the User for the
-            future.
+            그러한 변경은 장래에 한하여 이용자와의 관계에 영향을 미칩니다.
           </p>
           <p>
-            The continued use of the Service will signify the User&rsquo;s
-            acceptance of the revised Terms. If Users do not wish to be bound by
-            the changes, they must stop using the Service. Failure to accept the
-            revised Terms, may entitle either party to terminate the Agreement.
+            서비스를 계속 이용하는 것은 개정된 약관에 동의하는 것으로 봅니다. 변경 사항에 구속되기를 원하지 않는 이용자는 서비스 이용을 중단해야 합니다. 개정 약관에 동의하지 않는 경우 양 당사자는 계약을 해지할 수 있습니다.
           </p>
           <p>
-            The applicable previous version will govern the relationship prior
-            to the User&rsquo;s acceptance. The User can obtain any previous
-            version from the Owner.
+            이용자가 동의하기 전까지의 관계에는 종전 버전이 적용됩니다. 이용자는 운영자에게 종전 버전을 요청할 수 있습니다.
           </p>
           <p>
-            If required by applicable law, the Owner will specify the date by
-            which the modified Terms will enter into force.
+            관련 법령이 요구하는 경우, 운영자는 개정 약관의 시행일을 명시합니다.
           </p>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
-            Assignment of contract
+            계약의 양도
           </h3>
           <p>
-            The Owner reserves the right to transfer, assign, dispose of by
-            novation, or subcontract any or all rights or obligations under
-            these Terms, taking the User&rsquo;s legitimate interests into
-            account. Provisions regarding changes of these Terms will apply
-            accordingly.
+            운영자는 이용자의 정당한 이익을 고려하여 본 약관상의 권리나 의무의 전부 또는 일부를 이전, 양도, 경개, 재위탁할 권리를 보유합니다. 이 경우 약관 변경에 관한 조항이 준용됩니다.
           </p>
           <p>
-            Users may not assign or transfer their rights or obligations under
-            these Terms in any way, without the written permission of the Owner.
+            이용자는 운영자의 서면 허가 없이는 본 약관상의 권리나 의무를 어떤 방식으로도 양도하거나 이전할 수 없습니다.
           </p>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
             Contacts
           </h3>
           <p>
-            All communications relating to the use of this Application must be
-            sent using the contact information stated in this document.
+            본 애플리케이션 이용에 관한 모든 연락은 본 문서에 기재된 연락처를 통해 이뤄져야 합니다.
           </p>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
             Severability
           </h3>
           <p>
-            Should any provision of these Terms be deemed or become invalid or
-            unenforceable under applicable law, the invalidity or
-            unenforceability of such provision shall not affect the validity of
-            the remaining provisions, which shall remain in full force and
-            effect.
+            본 약관의 어느 조항이 관련 법령상 무효이거나 집행할 수 없게 되더라도, 그 무효 또는 집행 불능은 나머지 조항의 효력에 영향을 미치지 않으며 나머지 조항은 계속 유효합니다.
           </p>
-          <h4 className="font-medium text-foreground italic mt-2">US Users</h4>
+          <h4 className="font-medium text-foreground italic mt-2">미국 이용자</h4>
           <p>
-            Any such invalid or unenforceable provision will be interpreted,
-            construed and reformed to the extent reasonably required to render
-            it valid, enforceable and consistent with its original intent. These
-            Terms constitute the entire Agreement between Users and the Owner
-            with respect to the subject matter hereof, and supersede all other
-            communications, including but not limited to all prior agreements,
-            between the parties with respect to such subject matter. These Terms
-            will be enforced to the fullest extent permitted by law.
+            그러한 무효 또는 집행 불능 조항은 유효하고 집행 가능하며 본래 취지에 부합하도록 합리적으로 필요한 범위에서 해석되고 수정됩니다. 본 약관은 그 대상 사항에 관한 이용자와 운영자 사이의 완전한 합의를 구성하며, 해당 사항에 관한 종전의 모든 합의를 포함한 다른 모든 의사 교환을 대체합니다. 본 약관은 법이 허용하는 최대 범위에서 집행됩니다.
           </p>
-          <h4 className="font-medium text-foreground italic mt-2">EU Users</h4>
+          <h4 className="font-medium text-foreground italic mt-2">EU 이용자</h4>
           <p>
-            Should any provision of these Terms be or be deemed void, invalid or
-            unenforceable, the parties shall do their best to find, in an
-            amicable way, an agreement on valid and enforceable provisions
-            thereby substituting the void, invalid or unenforceable parts.
+            본 약관의 어느 조항이 무효이거나 집행할 수 없는 경우, 양 당사자는 원만한 방식으로 해당 부분을 대체할 유효하고 집행 가능한 조항에 합의하도록 최선을 다합니다.
           </p>
           <p>
-            In case of failure to do so, the void, invalid or unenforceable
-            provisions shall be replaced by the applicable statutory provisions,
-            if so permitted or stated under the applicable law.
+            그러한 합의에 이르지 못한 경우, 관련 법령이 허용하거나 규정하는 바에 따라 무효이거나 집행할 수 없는 조항은 해당 법령의 규정으로 대체됩니다.
           </p>
           <p>
-            Without prejudice to the above, the nullity, invalidity or the
-            impossibility to enforce a particular provision of these Terms shall
-            not nullify the entire Agreement, unless the severed provisions are
-            essential to the Agreement, or of such importance that the parties
-            would not have entered into the contract if they had known that the
-            provision would not be valid, or in cases where the remaining
-            provisions would translate into an unacceptable hardship on any of
-            the parties.
+            위 내용을 침해하지 않는 범위에서, 본 약관의 특정 조항이 무효이거나 집행할 수 없더라도 계약 전체가 무효가 되지는 않습니다. 다만 분리된 조항이 계약에 본질적이거나, 그 조항이 유효하지 않음을 알았다면 당사자들이 계약을 체결하지 않았을 만큼 중요한 경우, 또는 나머지 조항만으로는 어느 한쪽 당사자에게 감내하기 어려운 부담이 되는 경우에는 그러하지 않습니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Governing law
+            준거법
           </h2>
           <p>
-            These Terms are governed by the law of the place where the Owner is
-            based, as disclosed in the relevant section of this document,
-            without regard to conflict of laws principles.
+            본 약관은 본 문서의 해당 절에 기재된 운영자의 소재지 법률에 따르며, 국제사법 원칙은 적용되지 않습니다.
           </p>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
-            Exception for European Consumers
+            유럽 소비자에 대한 예외
           </h3>
           <p>
-            However, regardless of the above, if the User qualifies as a
-            European Consumer and has their habitual residence in a country
-            where the law provides for a higher consumer protection standard,
-            such higher standards shall prevail.
+            다만 위 내용에도 불구하고, 이용자가 유럽 소비자에 해당하고 더 높은 수준의 소비자 보호를 규정한 국가에 상거소를 두고 있는 경우에는 그 높은 기준이 우선합니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Venue of jurisdiction
+            관할 법원
           </h2>
           <p>
-            The exclusive competence to decide on any controversy resulting from
-            or connected to these Terms lies with the courts of the place where
-            the Owner is based, as displayed in the relevant section of this
-            document.
+            본 약관에서 비롯되거나 이와 관련된 분쟁에 대한 전속 관할은 본 문서의 해당 절에 표시된 운영자 소재지의 법원에 있습니다.
           </p>
           <h3 className="text-lg font-medium text-foreground mt-4 mb-2">
-            Exception for European Consumers
+            유럽 소비자에 대한 예외
           </h3>
           <p>
-            The above does not apply to any Users that qualify as European
-            Consumers, nor to Consumers based in Switzerland, Norway or Iceland.
+            위 내용은 유럽 소비자에 해당하는 이용자와 스위스, 노르웨이, 아이슬란드에 거주하는 소비자에게는 적용되지 않습니다.
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">
-            Definitions and legal references
+            정의 및 법적 근거
           </h2>
           <dl className="space-y-4">
             <div>
               <dt className="font-medium text-foreground">
-                This Application (or this Application)
+                본 애플리케이션
               </dt>
-              <dd>The property that enables the provision of the Service.</dd>
+              <dd>서비스 제공을 가능하게 하는 자산을 말합니다.</dd>
             </div>
             <div>
-              <dt className="font-medium text-foreground">Agreement</dt>
+              <dt className="font-medium text-foreground">계약</dt>
               <dd>
-                Any legally binding or contractual relationship between the
-                Owner and the User, governed by these Terms.
+                본 약관의 적용을 받는 운영자와 이용자 사이의 법적 구속력 있는 계약 관계를 말합니다.
               </dd>
             </div>
             <div>
-              <dt className="font-medium text-foreground">Business User</dt>
-              <dd>Any User that does not qualify as a Consumer.</dd>
+              <dt className="font-medium text-foreground">사업자 이용자</dt>
+              <dd>소비자에 해당하지 않는 모든 이용자를 말합니다.</dd>
             </div>
             <div>
               <dt className="font-medium text-foreground">
                 European (or Europe)
               </dt>
               <dd>
-                Applies where a User is physically present or has their
-                registered offices within the EU, regardless of nationality.
+                국적과 관계없이 이용자가 EU 역내에 실제로 있거나 등록 사무소를 둔 경우에 적용됩니다.
               </dd>
             </div>
             <div>
               <dt className="font-medium text-foreground">Owner (or We)</dt>
               <dd>
-                Indicates the natural person(s) or legal entity that provides
-                this Application and/or the Service to Users.
+                이용자에게 본 애플리케이션 및 서비스를 제공하는 자연인 또는 법인을 말합니다.
               </dd>
             </div>
             <div>
-              <dt className="font-medium text-foreground">Service</dt>
+              <dt className="font-medium text-foreground">서비스</dt>
               <dd>
-                The service provided by this Application as described in these
-                Terms and on this Application.
+                본 약관과 본 애플리케이션에 기재된 대로 본 애플리케이션이 제공하는 서비스를 말합니다.
               </dd>
             </div>
             <div>
-              <dt className="font-medium text-foreground">Terms</dt>
+              <dt className="font-medium text-foreground">약관</dt>
               <dd>
-                All provisions applicable to the use of this Application and/or
-                the Service as described in this document, including any other
-                related documents or agreements, and as updated from time to
-                time.
+                본 문서에 기재된, 관련 문서나 합의를 포함하여 수시로 갱신되는 본 애플리케이션 및 서비스 이용에 적용되는 모든 조항을 말합니다.
               </dd>
             </div>
             <div>
               <dt className="font-medium text-foreground">User (or You)</dt>
               <dd>
-                Indicates any natural person or legal entity using this
-                Application.
+                본 애플리케이션을 이용하는 자연인 또는 법인을 말합니다.
               </dd>
             </div>
             <div>
-              <dt className="font-medium text-foreground">Consumer</dt>
+              <dt className="font-medium text-foreground">소비자</dt>
               <dd>
-                Any User qualifying as a natural person who accesses goods or
-                services for personal use, or more generally, acts for purposes
-                outside their trade, business, craft or profession.
+                개인적 용도로 상품이나 서비스를 이용하거나, 보다 일반적으로 자신의 거래·사업·직업 외의 목적으로 행위하는 자연인 이용자를 말합니다.
               </dd>
             </div>
           </dl>

@@ -380,10 +380,10 @@ export function EsignPdfClient({ dict }: { dict?: any }) {
                 />
                 <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
-                  {dict?.esign_pdf?.drop_zone || "Drag & drop a PDF file here"}
+                  {dict?.esign_pdf?.drop_zone || "여기에 PDF 파일을 끌어다 놓으세요"}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Only PDF files accepted. Max 50MB per file.
+                  PDF 파일만 올릴 수 있습니다. 파일당 최대 50MB입니다.
                 </p>
               </div>
             )}
@@ -414,7 +414,7 @@ export function EsignPdfClient({ dict }: { dict?: any }) {
                 <div className="space-y-4 p-6 bg-muted/30 rounded-lg border border-muted">
                   <h2 className="text-lg font-semibold flex items-center gap-2">
                     <PenTool className="w-5 h-5 text-red-600 dark:text-red-400" />
-                    Draw Your Signature
+                    서명 그리기
                   </h2>
 
                   {/* Canvas */}
@@ -490,13 +490,13 @@ export function EsignPdfClient({ dict }: { dict?: any }) {
                 <div className="space-y-4 p-6 bg-muted/30 rounded-lg border border-muted">
                   <h2 className="text-lg font-semibold flex items-center gap-2">
                     <FileText className="w-5 h-5 text-red-600 dark:text-red-400" />
-                    Signature Placement
+                    서명 위치
                   </h2>
 
                   <div className="grid sm:grid-cols-3 gap-4">
                     {/* Page selection */}
                     <div className="space-y-2">
-                      <label className="text-sm font-medium">Page</label>
+                      <label className="text-sm font-medium">페이지</label>
                       <Select
                         value={String(selectedPage)}
                         onValueChange={(v) => {
@@ -520,7 +520,7 @@ export function EsignPdfClient({ dict }: { dict?: any }) {
 
                     {/* Position preset */}
                     <div className="space-y-2">
-                      <label className="text-sm font-medium">Position</label>
+                      <label className="text-sm font-medium">위치</label>
                       <Select
                         value={position}
                         onValueChange={(v) => {
@@ -585,7 +585,7 @@ export function EsignPdfClient({ dict }: { dict?: any }) {
                       ) : (
                         <>
                           <PenTool className="w-5 h-5 mr-2" />
-                          Apply Signature
+                          서명 적용
                         </>
                       )}
                     </Button>
@@ -594,7 +594,7 @@ export function EsignPdfClient({ dict }: { dict?: any }) {
 
                 {!hasSignature && (
                   <p className="text-center text-sm text-muted-foreground">
-                    Draw your signature above to continue.
+                    계속하려면 위에 서명을 그려 주세요.
                   </p>
                 )}
 
@@ -634,10 +634,10 @@ export function EsignPdfClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.esign_pdf?.step1_title || "Upload PDF",
+                    title: dict?.esign_pdf?.step1_title || "PDF 업로드",
                     desc:
                       dict?.esign_pdf?.step1_desc ||
-                      "Drag and drop or click to select a PDF file from your device.",
+                      "PDF 파일을 끌어다 놓거나 클릭해서 선택하세요.",
                     icon: Upload,
                   },
                   {
@@ -688,29 +688,29 @@ export function EsignPdfClient({ dict }: { dict?: any }) {
                   {dict?.esign_pdf?.tips_title || "eSign PDF Tips"}
                 </h2>
                 <p className="text-muted-foreground">
-                  Get the best results when signing PDF documents.
+                  PDF 문서에 서명할 때 가장 좋은 결과를 얻는 방법입니다.
                 </p>
               </div>
               <div className="grid md:grid-cols-2 gap-6">
                 {[
                   {
                     title: "100% Private",
-                    desc: "All processing happens in your browser using pdf-lib. Your files and signature never leave your device.",
+                    desc: "모든 처리는 pdf-lib를 이용해 브라우저 안에서 이뤄집니다. 파일과 서명이 기기를 벗어나지 않습니다.",
                     icon: Shield,
                   },
                   {
-                    title: "Touch Support",
-                    desc: "Works on phones and tablets. Draw your signature naturally with your finger or stylus on touch devices.",
+                    title: "터치 지원",
+                    desc: "휴대폰과 태블릿에서도 동작합니다. 터치 기기에서는 손가락이나 스타일러스로 자연스럽게 서명하세요.",
                     icon: PenTool,
                   },
                   {
-                    title: "Any Page",
-                    desc: "Place your signature on any page of the PDF. Choose from 6 position presets for precise placement.",
+                    title: "원하는 페이지",
+                    desc: "PDF의 원하는 페이지에 서명을 넣으세요. 6가지 위치 설정으로 정확하게 배치할 수 있습니다.",
                     icon: FileText,
                   },
                   {
-                    title: "Original Preserved",
-                    desc: "Your original PDF remains untouched. A new signed copy is created for download.",
+                    title: "원본 보존",
+                    desc: "원본 PDF는 그대로 남습니다. 서명된 새 사본이 만들어져 내려받게 됩니다.",
                     icon: Zap,
                   },
                 ].map((tip, idx) => (
@@ -737,7 +737,7 @@ export function EsignPdfClient({ dict }: { dict?: any }) {
                   {dict?.esign_pdf?.faq_title || "eSign PDF FAQ"}
                 </h2>
                 <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-                  Common questions about electronically signing PDFs.
+                  PDF 전자 서명에 대해 자주 묻는 질문입니다.
                 </p>
               </div>
               <div className="max-w-3xl mx-auto">

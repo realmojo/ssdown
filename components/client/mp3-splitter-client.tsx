@@ -46,20 +46,20 @@ interface ResultSegment {
 
 const FAQ_ITEMS = [
   {
-    q: "How does the MP3 splitter work?",
-    a: "Upload an MP3 file, choose how you want to split it (equal parts, by duration, or at custom timestamps), and click Split. Everything runs inside your browser using WebAssembly, so your file never leaves your device.",
+    q: "MP3 분할기는 어떻게 동작하나요?",
+    a: "MP3 파일을 올리고 분할 방식(균등 분할, 길이 기준, 지정 시점)을 고른 뒤 분할을 누르세요. 모든 처리가 웹어셈블리로 브라우저 안에서 이뤄지므로 파일이 기기를 벗어나지 않습니다.",
   },
   {
-    q: "Is my audio file uploaded to a server?",
-    a: "No. All processing happens locally in your browser. Your MP3 is never uploaded, stored, or sent to any server, which keeps your files completely private.",
+    q: "제 오디오 파일이 서버에 업로드되나요?",
+    a: "아니요. 모든 처리가 브라우저 안에서 이뤄집니다. MP3가 업로드되거나 저장되거나 서버로 전송되지 않아 파일이 완전히 비공개로 유지됩니다.",
   },
   {
-    q: "Will splitting reduce the audio quality?",
-    a: "No. The splitter uses stream copy, which cuts the file without re-encoding. Each segment keeps the exact same bitrate and quality as the original MP3.",
+    q: "분할하면 음질이 떨어지나요?",
+    a: "아니요. 스트림 복사 방식으로 재인코딩 없이 잘라내므로, 각 구간이 원본 MP3와 완전히 같은 비트레이트와 음질을 유지합니다.",
   },
   {
-    q: "Can I download all the segments at once?",
-    a: "Yes. After splitting, you can download each part individually or use the Download all (ZIP) button to bundle every segment into a single ZIP archive.",
+    q: "나뉜 파일을 한 번에 받을 수 있나요?",
+    a: "네. 분할 후 각 파일을 하나씩 받거나, 전체 다운로드(ZIP) 버튼으로 모든 구간을 ZIP 파일 하나로 묶어 받을 수 있습니다.",
   },
 ];
 
@@ -218,7 +218,7 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
   const processFile = useCallback(
     (selectedFile: File) => {
       if (!selectedFile.type.startsWith("audio/")) {
-        toast.error("Please upload a valid audio file (MP3 recommended).");
+        toast.error("올바른 오디오 파일을 올려 주세요 (MP3 권장).");
         return;
       }
       clearResults();
@@ -300,11 +300,11 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
     );
 
     if (segments.length === 0) {
-      toast.error("No valid segments to create. Check your split settings.");
+      toast.error("만들 수 있는 구간이 없습니다. 분할 설정을 확인해 주세요.");
       return;
     }
     if (segments.length > 100) {
-      toast.error("Too many segments (max 100). Adjust your settings.");
+      toast.error("구간이 너무 많습니다 (최대 100개). 설정을 조정해 주세요.");
       return;
     }
 
@@ -352,7 +352,7 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
       toast.success(`Created ${produced.length} segment(s).`);
     } catch (err) {
       console.error(err);
-      toast.error("Failed to split the MP3. Please try a different file.");
+      toast.error("MP3를 분할하지 못했습니다. 다른 파일로 시도해 주세요.");
     } finally {
       setIsProcessing(false);
     }
@@ -377,7 +377,7 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
       URL.revokeObjectURL(url);
     } catch (err) {
       console.error(err);
-      toast.error("Failed to build the ZIP archive.");
+      toast.error("ZIP 파일을 만들지 못했습니다.");
     }
   };
 
@@ -390,11 +390,10 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
               <Scissors className="w-10 h-10 text-rose-600 dark:text-rose-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              MP3 Splitter
+              MP3 분할기
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
-              Split an MP3 into multiple parts right in your browser. Fast,
-              private, and free — no upload to any server.
+              브라우저에서 바로 MP3를 여러 개로 나눠 보세요. 빠르고 안전하며 무료이고, 서버에 올리지 않습니다.
             </p>
 
             <Adsense slotId="7759160077" />
@@ -428,10 +427,10 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
                 />
                 <Music className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
-                  Drag &amp; drop your MP3 file here
+                  여기에 MP3 파일을 끌어다 놓으세요
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  or click to browse — MP3 recommended
+                  또는 클릭해서 선택하세요 — MP3 권장
                 </p>
               </div>
             )}
@@ -465,7 +464,7 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {(
                       [
-                        { key: "equal", label: "Equal parts" },
+                        { key: "equal", label: "균등 분할" },
                         { key: "duration", label: "By duration" },
                         { key: "custom", label: "Timestamps" },
                       ] as const
@@ -488,7 +487,7 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
                   {/* Mode-specific inputs */}
                   {mode === "equal" && (
                     <div className="space-y-2">
-                      <Label htmlFor="num-parts">Number of parts</Label>
+                      <Label htmlFor="num-parts">분할 개수</Label>
                       <Input
                         id="num-parts"
                         type="number"
@@ -511,7 +510,7 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
 
                   {mode === "duration" && (
                     <div className="space-y-2">
-                      <Label htmlFor="seg-seconds">Seconds per segment</Label>
+                      <Label htmlFor="seg-seconds">구간당 초</Label>
                       <Input
                         id="seg-seconds"
                         type="number"
@@ -533,7 +532,7 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
 
                   {mode === "custom" && (
                     <div className="space-y-3">
-                      <Label>Cut points (mm:ss)</Label>
+                      <Label>자를 지점 (분:초)</Label>
                       <div className="space-y-2">
                         {timestamps.map((ts, idx) => (
                           <div key={idx} className="flex items-center gap-2">
@@ -550,7 +549,7 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
                               variant="ghost"
                               size="icon"
                               onClick={() => removeTimestamp(idx)}
-                              aria-label="Remove cut point"
+                              aria-label="지점 삭제"
                             >
                               <Trash2 className="w-4 h-4" />
                             </Button>
@@ -564,7 +563,7 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
                         className="gap-1.5"
                       >
                         <Plus className="w-4 h-4" />
-                        Add cut point
+                        자를 지점 추가
                       </Button>
                     </div>
                   )}
@@ -583,12 +582,12 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
                     ) : !ffmpegLoaded ? (
                       <>
                         <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                        Loading engine…
+                        엔진을 불러오는 중…
                       </>
                     ) : (
                       <>
                         <Scissors className="mr-2 h-5 w-5" />
-                        Split MP3
+                        MP3 분할
                       </>
                     )}
                   </Button>
@@ -610,7 +609,7 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
                       className="bg-rose-600 hover:bg-rose-700 text-white"
                     >
                       <Download className="mr-2 h-4 w-4" />
-                      Download all (ZIP)
+                      전체 다운로드 (ZIP)
                     </Button>
                   </CardHeader>
                   <CardContent className="space-y-2">
@@ -633,7 +632,7 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
                         <a href={seg.url} download={seg.name}>
                           <Button variant="outline" size="sm">
                             <Download className="mr-1.5 h-4 w-4" />
-                            Download
+                            다운로드
                           </Button>
                         </a>
                       </div>
@@ -650,30 +649,30 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  How to Use
+                  이용 방법
                 </h2>
                 <p className="text-muted-foreground">
-                  Split your MP3 into parts in a few clicks.
+                  몇 번의 클릭으로 MP3를 나눠 보세요.
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
                   {
                     step: 1,
-                    title: "Upload MP3",
-                    desc: "Drag and drop or select the MP3 file you want to split. It stays on your device.",
+                    title: "MP3 업로드",
+                    desc: "나눌 MP3 파일을 끌어다 놓거나 선택하세요. 파일은 기기에 그대로 있습니다.",
                     icon: Upload,
                   },
                   {
                     step: 2,
-                    title: "Choose Split Mode",
-                    desc: "Split into equal parts, fixed-length segments, or at your own custom timestamps.",
+                    title: "분할 방식 선택",
+                    desc: "균등 분할, 정해진 길이, 직접 지정한 시점 중에서 고르세요.",
                     icon: ArrowRight,
                   },
                   {
                     step: 3,
-                    title: "Download Parts",
-                    desc: "Grab each segment individually or download everything at once as a ZIP archive.",
+                    title: "분할 파일 다운로드",
+                    desc: "각 구간을 하나씩 받거나 전체를 ZIP으로 한 번에 내려받으세요.",
                     icon: Download,
                   },
                 ].map((step) => (
@@ -698,29 +697,29 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-yellow-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">Splitting Tips</h2>
+                  <h2 className="text-3xl font-bold mb-4">분할 팁</h2>
                   <p className="text-muted-foreground">
-                    Get the most out of the MP3 splitter.
+                    MP3 분할기를 더 잘 활용하는 방법입니다.
                   </p>
                 </div>
 
                 <div className="md:w-2/3 grid sm:grid-cols-2 gap-4">
                   {[
                     {
-                      title: "Lossless Cuts",
-                      desc: "Segments are created with stream copy, so there is no re-encoding and zero quality loss from the original file.",
+                      title: "무손실 자르기",
+                      desc: "구간은 스트림 복사로 만들어지므로 재인코딩이 없고 원본 대비 음질 손실이 전혀 없습니다.",
                     },
                     {
-                      title: "Split Long Recordings",
-                      desc: "Use 'By duration' to break long podcasts, lectures, or DJ sets into evenly sized, easy-to-navigate chunks.",
+                      title: "긴 녹음 나누기",
+                      desc: "긴 팟캐스트나 강의, DJ 세트를 고르게 나누어 찾기 쉽게 만들려면 '길이 기준'을 사용하세요.",
                     },
                     {
-                      title: "Precise Timestamps",
-                      desc: "Choose 'Timestamps' and enter cut points in mm:ss to slice out exact chapters, songs, or highlights.",
+                      title: "정확한 시간 지정",
+                      desc: "'지정 시점'을 고르고 분:초 형식으로 자를 지점을 입력하면 원하는 챕터나 곡, 하이라이트만 정확히 잘라낼 수 있습니다.",
                     },
                     {
-                      title: "Everything Stays Private",
-                      desc: "All processing runs in your browser with WebAssembly. Your audio is never uploaded to a server.",
+                      title: "모든 처리는 비공개",
+                      desc: "모든 처리가 웹어셈블리로 브라우저 안에서 이뤄집니다. 오디오가 서버로 업로드되지 않습니다.",
                     },
                   ].map((tip, idx) => (
                     <div
@@ -742,7 +741,7 @@ export function Mp3SplitterClient({ dict }: { dict?: any }) {
             {/* FAQ */}
             <section className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>
+                <h2 className="text-2xl font-bold tracking-tight mb-4">자주 묻는 질문</h2>
               </div>
               <Accordion type="single" collapsible className="w-full">
                 {FAQ_ITEMS.map((faq, idx) => (

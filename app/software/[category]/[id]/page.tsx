@@ -15,8 +15,12 @@ import {
   ExternalLink,
   ArrowLeft,
 } from "lucide-react";
-import { getAppById, getAlternatives, localizeApp } from "@/lib/app-utils";
-import { getLocale } from "@/lib/get-locale";
+import {
+  getAppById,
+  getAlternatives,
+  localizeApp,
+  hasKoreanContent,
+} from "@/lib/app-utils";
 import { getCategoryByMain, getCategoryBySlug } from "@/lib/categories";
 import { buildAlternates } from "@/lib/seo";
 import Adsense from "@/components/Adsense";
@@ -26,6 +30,14 @@ const PLATFORM_AD_SLOT: Record<string, string> = {
   Mac: "4754512774",
   Android: "5471730473",
   iOS: "1235772885",
+};
+
+const LICENSE_LABEL_KR: Record<string, string> = {
+  Free: "무료",
+  Freemium: "부분 무료",
+  "Open Source": "오픈소스",
+  Trial: "체험판",
+  Paid: "유료",
 };
 
 export const revalidate = 3600;
@@ -38,39 +50,38 @@ export async function generateMetadata({
   const { category, id } = await params;
   const rawApp = await getAppById(id);
   if (!rawApp) return {};
-  const locale = await getLocale();
-  const app = localizeApp(rawApp, locale);
+  const app = localizeApp(rawApp);
   const canonicalPath = `/software${app.core.slug || `/${category}/${id}`}`;
   const platformLabel =
     app.core.platform === "iOS" ? "iPhone" : app.core.platform;
-  const licenseLabel =
-    app.download.license === "Free" || app.download.license === "Open Source"
-      ? "Free"
-      : app.download.license;
+  const licenseLabel = LICENSE_LABEL_KR[app.download.license] ?? "무료";
   const defaultTitle =
     app.seo.title ||
-    `Download ${app.core.name} for ${platformLabel} — ${licenseLabel} | SSDown`;
+    `${app.core.name} ${platformLabel}용 다운로드 — ${licenseLabel} | SSDown`;
   const defaultDesc =
     app.seo.description ||
-    `Download ${app.core.name} for ${platformLabel} for free. ${app.content.shortSummary}`.trim();
+    `${app.core.name} ${platformLabel} 버전을 무료로 다운로드하세요. ${app.content.shortSummary}`.trim();
   const keywords = [
-    `${app.core.name} download`,
-    `${app.core.name} for ${platformLabel}`,
-    `free ${app.core.name}`,
-    `${app.core.name} ${licenseLabel.toLowerCase()}`,
-    `${app.core.category.main} software`,
-    `best ${platformLabel} ${app.core.category.main}`,
+    `${app.core.name} 다운로드`,
+    `${app.core.name} ${platformLabel}`,
+    `${app.core.name} 무료`,
+    `${app.core.name} ${licenseLabel}`,
+    `${app.core.category.main} 소프트웨어`,
+    `${platformLabel} ${app.core.category.main} 추천`,
     ...(app.seo.keywords ?? []),
   ]
     .filter(Boolean)
     .join(", ");
 
+  // 한국어 본문이 없는 앱은 영문이 노출되므로 색인에서 제외한다.
+  const indexable = hasKoreanContent(rawApp);
+
   return {
     title: defaultTitle,
     description: defaultDesc,
     keywords,
-    robots: { index: true, follow: true },
-    alternates: buildAlternates(canonicalPath, locale),
+    robots: { index: indexable, follow: true },
+    alternates: buildAlternates(canonicalPath),
     openGraph: {
       title: defaultTitle,
       description: defaultDesc,
@@ -101,25 +112,25 @@ const LICENSE_STYLE: Record<
   string,
   { bg: string; text: string; label: string }
 > = {
-  Free: { bg: "bg-emerald-500", text: "text-white", label: "Free" },
-  Freemium: { bg: "bg-teal-500", text: "text-white", label: "Freemium" },
+  Free: { bg: "bg-emerald-500", text: "text-white", label: "무료" },
+  Freemium: { bg: "bg-teal-500", text: "text-white", label: "부분 무료" },
   "Open Source": {
     bg: "bg-blue-500",
     text: "text-white",
-    label: "Open Source",
+    label: "오픈소스",
   },
-  Trial: { bg: "bg-amber-500", text: "text-white", label: "Trial" },
-  Paid: { bg: "bg-rose-500", text: "text-white", label: "Paid" },
+  Trial: { bg: "bg-amber-500", text: "text-white", label: "체험판" },
+  Paid: { bg: "bg-rose-500", text: "text-white", label: "유료" },
 };
 
 const SECURITY_STYLE: Record<
   string,
   { icon: string; color: string; label: string }
 > = {
-  Safe: { icon: "✓", color: "text-emerald-600", label: "Safe" },
-  Warning: { icon: "!", color: "text-amber-600", label: "Warning" },
-  Dangerous: { icon: "✗", color: "text-rose-600", label: "Dangerous" },
-  Unknown: { icon: "?", color: "text-gray-400", label: "Unknown" },
+  Safe: { icon: "✓", color: "text-emerald-600", label: "안전" },
+  Warning: { icon: "!", color: "text-amber-600", label: "주의" },
+  Dangerous: { icon: "✗", color: "text-rose-600", label: "위험" },
+  Unknown: { icon: "?", color: "text-gray-400", label: "미확인" },
 };
 
 export default async function AppDetailPage({
@@ -130,17 +141,16 @@ export default async function AppDetailPage({
   const { category: categorySlug, id } = await params;
   const rawApp = await getAppById(id);
   if (!rawApp) notFound();
-  const locale = await getLocale();
-  const app = localizeApp(rawApp, locale);
+  const app = localizeApp(rawApp);
   const alternatives = (await getAlternatives(app, 4)).map((a) =>
-    localizeApp(a, locale),
+    localizeApp(a),
   );
 
   const category =
     getCategoryBySlug(categorySlug) ??
     getCategoryByMain(app.core.category.main);
   const canonicalPath = `/software${app.core.slug || `/${category?.slug ?? categorySlug}/${id}`}`;
-  const canonicalUrl = `https://ssdown.app${locale === "kr" ? "/kr" : ""}${canonicalPath}`;
+  const canonicalUrl = `https://ssdown.app${canonicalPath}`;
 
   const softwareSchema = {
     "@context": "https://schema.org",
@@ -195,13 +205,13 @@ export default async function AppDetailPage({
       {
         "@type": "ListItem",
         position: 1,
-        name: "Home",
+        name: "홈",
         item: "https://ssdown.app",
       },
       {
         "@type": "ListItem",
         position: 2,
-        name: "Software",
+        name: "소프트웨어",
         item: "https://ssdown.app/software",
       },
       ...(category
@@ -209,7 +219,7 @@ export default async function AppDetailPage({
             {
               "@type": "ListItem",
               position: 3,
-              name: category.nameEn,
+              name: category.name,
               item: `https://ssdown.app/software/${category.slug}`,
             },
           ]
@@ -257,14 +267,14 @@ export default async function AppDetailPage({
           {/* breadcrumb */}
           <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-7">
             <a href="/" className="hover:text-slate-200 transition-colors">
-              Home
+              홈
             </a>
             <ChevronRight className="w-3 h-3" />
             <a
               href="/software"
               className="hover:text-slate-200 transition-colors"
             >
-              Software
+              소프트웨어
             </a>
             {category && (
               <>
@@ -273,7 +283,7 @@ export default async function AppDetailPage({
                   href={`/software/${category.slug}`}
                   className="hover:text-slate-200 transition-colors"
                 >
-                  {category.nameEn}
+                  {category.name}
                 </a>
               </>
             )}
@@ -322,7 +332,7 @@ export default async function AppDetailPage({
               {app.core.developer.name &&
                 app.core.developer.name !== "Unknown" && (
                   <p className="text-sm text-slate-400 mb-3">
-                    by{" "}
+                    제작{" "}
                     {app.core.developer.websiteUrl ? (
                       <a
                         href={app.core.developer.websiteUrl}
@@ -367,7 +377,7 @@ export default async function AppDetailPage({
                   </span>
                   {app.rating.totalCount > 0 && (
                     <span className="text-slate-500 text-xs">
-                      ({app.rating.totalCount.toLocaleString()} reviews)
+                      ({app.rating.totalCount.toLocaleString()}개 평가)
                     </span>
                   )}
                 </div>
@@ -389,14 +399,14 @@ export default async function AppDetailPage({
               {[
                 {
                   icon: HardDrive,
-                  label: "File Size",
+                  label: "파일 크기",
                   value: app.download.fileSize || "—",
                 },
-                { icon: Tag, label: "License", value: licStyle.label },
-                { icon: Monitor, label: "Platform", value: app.core.platform },
+                { icon: Tag, label: "라이선스", value: licStyle.label },
+                { icon: Monitor, label: "플랫폼", value: app.core.platform },
                 {
                   icon: ShieldCheck,
-                  label: "Security",
+                  label: "보안",
                   value: secStyle.label,
                   color: secStyle.color,
                 },
@@ -404,10 +414,10 @@ export default async function AppDetailPage({
                   ? [
                       {
                         icon: Calendar,
-                        label: "Updated",
+                        label: "업데이트",
                         value: new Date(
                           app.specs.lastUpdatedDate,
-                        ).toLocaleDateString("en-US", {
+                        ).toLocaleDateString("ko-KR", {
                           year: "numeric",
                           month: "short",
                         }),
@@ -453,7 +463,7 @@ export default async function AppDetailPage({
             {(hasPros || hasCons) && (
               <section>
                 <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-                  Pros &amp; Cons
+                  장점 & 단점
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {hasPros && (
@@ -463,7 +473,7 @@ export default async function AppDetailPage({
                           <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
                         </span>
                         <span className="text-sm font-bold text-gray-900">
-                          Pros
+                          장점
                         </span>
                       </div>
                       <ul className="space-y-2">
@@ -485,7 +495,7 @@ export default async function AppDetailPage({
                           <TrendingDown className="w-3.5 h-3.5 text-rose-600" />
                         </span>
                         <span className="text-sm font-bold text-gray-900">
-                          Cons
+                          단점
                         </span>
                       </div>
                       <ul className="space-y-2">
@@ -513,7 +523,7 @@ export default async function AppDetailPage({
             {reviewHtml && (
               <section className="bg-white rounded-2xl border border-gray-100 p-6">
                 <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
-                  Review
+                  리뷰
                 </h2>
                 <div
                   className="prose prose-sm prose-gray max-w-none
@@ -538,29 +548,29 @@ export default async function AppDetailPage({
                 className="flex items-center justify-center gap-2 w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-colors text-sm mb-4"
               >
                 <Download className="w-4 h-4" />
-                Download
+                다운로드
               </a>
 
               {/* Security badge */}
               <div className="flex items-center gap-2 justify-center text-xs mb-4">
                 <ShieldCheck className={`w-3.5 h-3.5 ${secStyle.color}`} />
                 <span className={`font-medium ${secStyle.color}`}>
-                  Virus Scanned · {secStyle.label}
+                  바이러스 검사 완료 · {secStyle.label}
                 </span>
               </div>
 
               <div className="space-y-2.5 text-xs">
                 {[
-                  ["File Size", app.download.fileSize || "—"],
-                  ["License", licStyle.label],
-                  ["Platform", app.core.platform],
+                  ["파일 크기", app.download.fileSize || "—"],
+                  ["라이선스", licStyle.label],
+                  ["플랫폼", app.core.platform],
                   ...(app.specs.osRequirements
-                    ? [["OS Requirements", app.specs.osRequirements]]
+                    ? [["운영체제 요구사항", app.specs.osRequirements]]
                     : []),
                   ...(app.specs.languages?.length
                     ? [
                         [
-                          "Languages",
+                          "지원 언어",
                           app.specs.languages.slice(0, 3).join(", "),
                         ],
                       ]
@@ -568,10 +578,10 @@ export default async function AppDetailPage({
                   ...(app.specs.lastUpdatedDate
                     ? [
                         [
-                          "Updated",
+                          "업데이트",
                           new Date(
                             app.specs.lastUpdatedDate,
-                          ).toLocaleDateString("en-US"),
+                          ).toLocaleDateString("ko-KR"),
                         ],
                       ]
                     : []),
@@ -593,7 +603,7 @@ export default async function AppDetailPage({
                   className="mt-4 flex items-center justify-center gap-1.5 w-full text-xs text-gray-500 hover:text-blue-600 transition-colors py-2 border border-gray-100 rounded-lg"
                 >
                   <Globe className="w-3.5 h-3.5" />
-                  Official Website
+                  공식 홈페이지
                 </a>
               )}
             </div>
@@ -605,7 +615,7 @@ export default async function AppDetailPage({
             {app.rating.average > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-5">
                 <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
-                  Ratings
+                  평점
                 </h3>
                 <div className="flex items-end gap-3 mb-4">
                   <span className="text-5xl font-black text-gray-900 leading-none">
@@ -626,7 +636,7 @@ export default async function AppDetailPage({
                     </div>
                     {app.rating.totalCount > 0 && (
                       <p className="text-[11px] text-gray-400">
-                        {app.rating.totalCount.toLocaleString()} reviews
+                        {app.rating.totalCount.toLocaleString()}개 평가
                       </p>
                     )}
                   </div>
@@ -660,7 +670,7 @@ export default async function AppDetailPage({
                 className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-blue-600 transition-colors mt-2"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
-                View all {category.nameEn}
+                {category.name} 전체 보기
               </a>
             )}
           </div>
@@ -670,7 +680,7 @@ export default async function AppDetailPage({
         {alternatives.length > 0 && (
           <section className="mt-8">
             <h2 className="text-base font-bold text-gray-900 mb-4">
-              Similar Apps &amp; Alternatives
+              비슷한 앱 & 대체 프로그램
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
               {alternatives.map((alt) => {

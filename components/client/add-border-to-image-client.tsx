@@ -280,7 +280,7 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
           <Frame className="w-10 h-10 text-rose-600 dark:text-rose-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          {dict?.add_border_to_image?.title || "Add Border to Image"}
+          {dict?.add_border_to_image?.title || "이미지 테두리 넣기"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.add_border_to_image?.subtitle ||
@@ -329,7 +329,7 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
               }}
               className="mt-4 text-sm text-rose-600 dark:text-rose-400 hover:underline"
             >
-              Or try with a sample image
+              샘플 이미지로 먼저 써보기
             </button>
           </div>
         ) : (
@@ -342,7 +342,7 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
                   <div className="flex items-center gap-3">
                     <Button variant="outline" size="sm" onClick={handleReset}>
                       <RotateCcw className="w-4 h-4 mr-2" />
-                      New Image
+                      새 이미지
                     </Button>
                     <span
                       className="text-sm text-muted-foreground truncate max-w-[200px]"
@@ -360,7 +360,7 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
 
                 {/* Border Style */}
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Border Style</label>
+                  <label className="text-sm font-medium">테두리 스타일</label>
                   <div className="flex flex-wrap gap-2">
                     {BORDER_STYLES.map((s) => (
                       <button
@@ -381,7 +381,7 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
                 {/* Border Width */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium">Border Width</label>
+                    <label className="text-sm font-medium">테두리 두께</label>
                     <span className="text-sm text-muted-foreground">
                       {borderWidth}px
                     </span>
@@ -396,15 +396,15 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
                     className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-rose-600"
                   />
                   <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>5px (thin)</span>
-                    <span>100px (thick)</span>
+                    <span>5px (얇게)</span>
+                    <span>100px (두껍게)</span>
                   </div>
                 </div>
 
                 {/* Border Color */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Border Color</label>
+                    <label className="text-sm font-medium">테두리 색상</label>
                     <div className="flex items-center gap-3">
                       <input
                         type="color"
@@ -440,7 +440,7 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <label className="text-sm font-medium">
-                          Corner Radius
+                          모서리 둥글기
                         </label>
                         <span className="text-sm text-muted-foreground">
                           {cornerRadius}px
@@ -469,14 +469,14 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
                 {previewUrl ? (
                   <img
                     src={previewUrl}
-                    alt="Image with border"
+                    alt="테두리가 들어간 이미지"
                     className="max-w-full max-h-[60vh] block rounded-lg shadow-md"
                     draggable={false}
                   />
                 ) : (
                   <img
                     src={imageSrc}
-                    alt="Original"
+                    alt="원본"
                     className="max-w-full max-h-[60vh] block rounded-lg shadow-md"
                     draggable={false}
                   />
@@ -493,7 +493,7 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
                   className="bg-green-600 hover:bg-green-700 text-white shadow-lg min-w-[180px]"
                 >
                   <Download className="w-5 h-5 mr-2" />
-                  Download
+                  다운로드
                 </Button>
               </div>
             )}
@@ -509,7 +509,7 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
               {dict?.add_border_to_image?.guide_title ||
-                "How to Add Border to Images"}
+                "How to 이미지 테두리 넣기s"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               {dict?.add_border_to_image?.guide_desc ||
@@ -520,7 +520,7 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
             {[
               {
                 step: 1,
-                title: dict?.add_border_to_image?.step1_title || "Upload Image",
+                title: dict?.add_border_to_image?.step1_title || "이미지 업로드",
                 desc:
                   dict?.add_border_to_image?.step1_desc ||
                   "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
@@ -538,7 +538,7 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
               {
                 step: 3,
                 title:
-                  dict?.add_border_to_image?.step3_title || "Download Result",
+                  dict?.add_border_to_image?.step3_title || "결과 다운로드",
                 desc:
                   dict?.add_border_to_image?.step3_desc ||
                   "Click 'Download' to save your bordered image to your device.",
@@ -576,29 +576,29 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
               {dict?.add_border_to_image?.tips_title || "Border Tips"}
             </h2>
             <p className="text-muted-foreground">
-              Get the best results when adding borders to your images.
+              이미지에 테두리를 넣을 때 가장 좋은 결과를 얻는 방법입니다.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "White Border for Instagram",
-                desc: "A white border gives your photos a clean, gallery-like look — perfect for Instagram feeds. Try 20-40px width.",
+                title: "인스타그램용 흰 테두리",
+                desc: "흰 테두리를 넣으면 갤러리에 걸린 듯 깔끔해져 인스타그램 피드에 잘 어울립니다. 20~40px 두께를 권합니다.",
                 icon: Shield,
               },
               {
-                title: "Shadow for Depth",
-                desc: "The shadow style adds a subtle drop shadow, making your image look like it's floating — great for presentations.",
+                title: "입체감을 주는 그림자",
+                desc: "그림자 스타일은 은은한 그림자를 더해 이미지가 떠 있는 듯한 느낌을 줍니다. 발표 자료에 잘 어울립니다.",
                 icon: Layers,
               },
               {
-                title: "Rounded Corners",
-                desc: "Use the rounded style with corner radius to give your images a modern, app-like appearance.",
+                title: "둥근 모서리",
+                desc: "둥근 모서리 스타일을 쓰면 앱처럼 세련된 느낌을 낼 수 있습니다.",
                 icon: Frame,
               },
               {
-                title: "Original Preserved",
-                desc: "Your original image stays untouched. The border is added to a copy, and you download only the result.",
+                title: "원본 보존",
+                desc: "원본 이미지는 그대로 남습니다. 테두리는 사본에 적용되며 결과물만 내려받게 됩니다.",
                 icon: Zap,
               },
             ].map((tip, idx) => (
@@ -623,7 +623,7 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
               {dict?.add_border_to_image?.faq_title || "Image Border FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about adding borders to images.
+              이미지 테두리 넣기에 대해 자주 묻는 질문입니다.
             </p>
           </div>
           <div className="max-w-3xl mx-auto">
@@ -670,7 +670,7 @@ export function AddBorderToImageClient({ dict }: { dict?: any }) {
               <AccordionItem value="faq-5">
                 <AccordionTrigger>
                   {dict?.add_border_to_image?.faq_5_q ||
-                    "What image formats are supported?"}
+                    "어떤 이미지 형식을 지원하나요?"}
                 </AccordionTrigger>
                 <AccordionContent>
                   {dict?.add_border_to_image?.faq_5_a ||

@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { BlurImageClient } from "@/components/client/blur-image-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/blur-image`;
 
@@ -17,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function BlurImagePage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -62,38 +59,38 @@ export default async function BlurImagePage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Blur Image",
+    name: "이미지 블러",
     url: "https://ssdown.app/image/blur-image",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Apply blur, Gaussian blur, or motion blur effects to your images.",
+    description: "이미지에 일반 블러, 가우시안 블러, 모션 블러 효과를 적용해 보세요.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Blur Image Online",
-    description: "Apply blur, Gaussian blur, or motion blur effects to your images.",
+    name: "이미지 블러 사용 방법",
+    description: "이미지에 일반 블러, 가우시안 블러, 모션 블러 효과를 적용해 보세요.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Upload image",
-        text: "Select the photo you want to blur.",
+        name: "이미지 업로드",
+        text: "기기에서 PNG, JPG, WebP, GIF 또는 BMP 이미지를 업로드하세요.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Adjust intensity",
-        text: "Use the slider to control the strength of the blur effect.",
+        name: "블러 강도 조절",
+        text: "슬라이더로 블러 강도를 조절하세요. 높은 값일수록 더 흐려집니다.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Download image",
-        text: "Save the blurred image to your device.",
+        name: "결과 다운로드",
+        text: "'다운로드'를 클릭하여 블러 처리된 이미지를 기기에 저장하세요.",
       }
     ],
   };

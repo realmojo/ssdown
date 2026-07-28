@@ -80,7 +80,7 @@ export function MuteVideoClient({ dict }: { dict?: any }) {
     try {
       if (!loaded) await loadFFmpeg();
       const ffmpeg = ffmpegRef.current;
-      if (!ffmpeg) throw new Error("Converter not loaded");
+      if (!ffmpeg) throw new Error("변환기가 아직 준비되지 않았습니다");
 
       const { fetchFile } = await import("@ffmpeg/util");
       const ext = file.name.split(".").pop() || "mp4";
@@ -413,7 +413,7 @@ export function MuteVideoClient({ dict }: { dict?: any }) {
               </div>
             </section>
 
-            {/* Tips & Best Practices */}
+            {/* 활용 팁 */}
             <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
               <div className="text-center mb-10">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
@@ -484,7 +484,7 @@ export function MuteVideoClient({ dict }: { dict?: any }) {
                   {dict?.mute_video?.faq_title || "Mute Video FAQ"}
                 </h2>
                 <p className="text-muted-foreground">
-                  Common questions about removing audio from videos.
+                  영상에서 소리를 제거하는 것에 대해 자주 묻는 질문입니다.
                 </p>
               </div>
 
@@ -492,7 +492,7 @@ export function MuteVideoClient({ dict }: { dict?: any }) {
                 <AccordionItem value="item-1">
                   <AccordionTrigger className="text-left">
                     {dict?.mute_video?.faq_1_q ||
-                      "Is my video uploaded to a server?"}
+                      "제 영상이 서버에 업로드되나요?"}
                   </AccordionTrigger>
                   <AccordionContent className="whitespace-pre-line text-muted-foreground">
                     {dict?.mute_video?.faq_1_a ||
@@ -521,7 +521,7 @@ export function MuteVideoClient({ dict }: { dict?: any }) {
                 </AccordionItem>
                 <AccordionItem value="item-4">
                   <AccordionTrigger className="text-left">
-                    {dict?.mute_video?.faq_4_q || "Is there a file size limit?"}
+                    {dict?.mute_video?.faq_4_q || "파일 용량 제한이 있나요?"}
                   </AccordionTrigger>
                   <AccordionContent className="whitespace-pre-line text-muted-foreground">
                     {dict?.mute_video?.faq_4_a ||

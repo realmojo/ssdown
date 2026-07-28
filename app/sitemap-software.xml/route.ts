@@ -8,26 +8,14 @@ const BASE = "https://ssdown.app";
 type Entry = { path: string; lastmod: string; changefreq: string; priority: number };
 
 function buildXml(entries: Entry[]): string {
-  // Each path is emitted as an English (root) and a Korean (/kr) URL, with
-  // xhtml:link hreflang alternates cross-referencing both, per Google's i18n
-  // sitemap format.
+  // Korean-only site: a single root URL per path, no hreflang alternates.
   const rows = entries
-    .map((e) => {
-      const en = `${BASE}${e.path}`;
-      const ko = `${BASE}/kr${e.path}`;
-      const alts =
-        `    <xhtml:link rel="alternate" hreflang="en" href="${en}"/>\n` +
-        `    <xhtml:link rel="alternate" hreflang="ko" href="${ko}"/>\n` +
-        `    <xhtml:link rel="alternate" hreflang="x-default" href="${en}"/>\n`;
-      return [en, ko]
-        .map(
-          (loc) =>
-            `  <url>\n    <loc>${loc}</loc>\n${alts}    <lastmod>${e.lastmod}</lastmod>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority.toFixed(1)}</priority>\n  </url>`
-        )
-        .join("\n");
-    })
+    .map(
+      (e) =>
+        `  <url>\n    <loc>${BASE}${e.path}</loc>\n    <lastmod>${e.lastmod}</lastmod>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority.toFixed(1)}</priority>\n  </url>`
+    )
     .join("\n");
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${rows}\n</urlset>`;
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${rows}\n</urlset>`;
 }
 
 export async function GET() {
@@ -54,11 +42,13 @@ export async function GET() {
   let from = 0;
 
   while (true) {
+    // 한국어 전용 사이트이므로 한국어 본문이 채워진 앱만 사이트맵에 노출한다.
+    // (번역이 없는 앱은 상세 페이지에서도 noindex 처리된다.)
     const { data, error } = await supabase
       .from("software_applications")
       .select("id, slug, category_main, last_updated_date")
-      .not("ai_review_html", "is", null)
-      .neq("ai_review_html", "")
+      .not("ai_review_html_kr", "is", null)
+      .neq("ai_review_html_kr", "")
       .order("last_updated_date", { ascending: false })
       .range(from, from + BATCH - 1);
 

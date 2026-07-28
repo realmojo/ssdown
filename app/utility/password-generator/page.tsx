@@ -1,41 +1,39 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { PasswordGeneratorClient } from "@/components/client/password-generator-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
-const META_TITLE = "Password Generator - Create Strong Secure Passwords | SSDown";
+const META_TITLE = "비밀번호 생성기 - 안전한 비밀번호 만들기 | SSDown";
 const META_DESCRIPTION =
-  "Free online password generator. Create strong, random, secure passwords with custom length and character sets. Runs 100% in your browser.";
-const BREADCRUMB_TITLE = "Password Generator";
+  "무료 온라인 비밀번호 생성기. 길이와 문자 종류를 직접 정해 강력하고 무작위한 안전한 비밀번호를 만드세요. 100% 브라우저에서 실행됩니다.";
+const BREADCRUMB_TITLE = "비밀번호 생성기";
 const CANONICAL = "https://ssdown.app/utility/password-generator";
 
 const faq = [
   {
-    question: "Are the generated passwords secure?",
+    question: "생성된 비밀번호는 안전한가요?",
     answer:
-      "Yes. Passwords are generated using your browser's cryptographically secure random number generator (crypto.getRandomValues). They are never sent to any server, logged, or stored anywhere.",
+      "네. 비밀번호는 브라우저의 암호학적으로 안전한 난수 생성기(crypto.getRandomValues)로 만들어집니다. 어떤 서버로도 전송되지 않고 기록되거나 저장되지도 않습니다.",
   },
   {
-    question: "How long should my password be?",
+    question: "비밀번호는 몇 자가 적당한가요?",
     answer:
-      "For most accounts, use at least 16 characters with a mix of uppercase, lowercase, numbers, and symbols. Longer passwords are exponentially harder to crack, so use the longest length a service allows.",
+      "대부분의 계정에는 대문자, 소문자, 숫자, 기호를 섞어 최소 16자 이상을 쓰세요. 길수록 뚫기가 기하급수적으로 어려워지므로 서비스가 허용하는 최대 길이를 사용하시길 권합니다.",
   },
   {
-    question: "What does 'exclude ambiguous characters' do?",
+    question: "'헷갈리는 문자 제외'는 어떤 기능인가요?",
     answer:
-      "It removes visually similar characters such as 0, O, 1, l, and I from the pool. This makes passwords easier to read and type manually without reducing security in a meaningful way.",
+      "0, O, 1, l, I처럼 눈으로 구분하기 어려운 문자를 제외합니다. 보안을 의미 있게 낮추지 않으면서도 읽고 직접 입력하기 쉬워집니다.",
   },
   {
-    question: "Is my password sent to a server?",
+    question: "제 비밀번호가 서버로 전송되나요?",
     answer:
-      "No. Everything happens entirely in your browser. No password is transmitted, saved, or shared. Close the tab and the generated passwords are gone forever.",
+      "아니요. 모든 과정이 전적으로 브라우저에서 이뤄집니다. 비밀번호는 전송되거나 저장되거나 공유되지 않습니다. 탭을 닫으면 생성된 비밀번호는 완전히 사라집니다.",
   },
 ];
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
 
   const title = META_TITLE;
   const description = META_DESCRIPTION;
@@ -43,13 +41,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(CANONICAL).pathname, locale),
+    alternates: buildAlternates(new URL(CANONICAL).pathname),
     openGraph: {
       title,
       description,
       url: CANONICAL,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -58,8 +56,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function PasswordGeneratorPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -88,38 +85,38 @@ export default async function PasswordGeneratorPage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Password Generator",
+    name: "비밀번호 생성기",
     url: CANONICAL,
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Free online password generator. Fast, secure, and browser-based.",
+    description: "무료 온라인 비밀번호 생성기입니다. 빠르고 안전하며 브라우저에서 바로 실행됩니다.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Password Generator Online",
-    description: "Create strong, random, secure passwords entirely in your browser.",
+    name: "비밀번호 생성기 사용 방법",
+    description: "브라우저에서 강력하고 무작위한 안전한 비밀번호를 만드세요.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
         name: "Choose your options",
-        text: "Set the password length and pick which character sets to include.",
+        text: "비밀번호 길이를 정하고 포함할 문자 종류를 고르세요.",
       },
       {
         "@type": "HowToStep",
         position: 2,
         name: "Generate a password",
-        text: "A secure password is created instantly using your browser's cryptographic randomness.",
+        text: "브라우저의 암호학적 난수를 이용해 안전한 비밀번호가 즉시 만들어집니다.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Copy and use",
-        text: "Copy the password with one click and paste it wherever you need it.",
+        name: "복사해서 사용",
+        text: "한 번의 클릭으로 비밀번호를 복사해 필요한 곳에 붙여넣으세요.",
       },
     ],
   };

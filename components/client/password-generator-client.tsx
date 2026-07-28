@@ -136,7 +136,7 @@ function computeStrength(options: GeneratorOptions, poolSize: number): Strength 
     };
   }
   return {
-    label: "Very Strong",
+    label: "매우 강함",
     percent,
     barColor: "bg-emerald-500",
     textColor: "text-emerald-600 dark:text-emerald-400",
@@ -148,7 +148,7 @@ const CHARSET_OPTIONS: { key: keyof GeneratorOptions; label: string }[] = [
   { key: "lowercase", label: "Lowercase (a-z)" },
   { key: "numbers", label: "Numbers (0-9)" },
   { key: "symbols", label: "Symbols (!@#$)" },
-  { key: "excludeAmbiguous", label: "Exclude ambiguous (0 O 1 l I)" },
+  { key: "excludeAmbiguous", label: "헷갈리는 문자 제외 (0 O 1 l I)" },
 ];
 
 export function PasswordGeneratorClient({ dict }: { dict?: any }) {
@@ -199,10 +199,10 @@ export function PasswordGeneratorClient({ dict }: { dict?: any }) {
     try {
       await navigator.clipboard.writeText(value);
       setCopiedIndex(index);
-      toast.success("Password copied to clipboard");
+      toast.success("비밀번호를 클립보드에 복사했습니다");
       window.setTimeout(() => setCopiedIndex(null), 1500);
     } catch {
-      toast.error("Failed to copy password");
+      toast.error("비밀번호를 복사하지 못했습니다");
     }
   }, []);
 
@@ -212,7 +212,7 @@ export function PasswordGeneratorClient({ dict }: { dict?: any }) {
       await navigator.clipboard.writeText(passwords.join("\n"));
       toast.success(`Copied ${passwords.length} passwords`);
     } catch {
-      toast.error("Failed to copy passwords");
+      toast.error("비밀번호를 복사하지 못했습니다");
     }
   }, [passwords]);
 
@@ -227,11 +227,10 @@ export function PasswordGeneratorClient({ dict }: { dict?: any }) {
               <KeyRound className="w-10 h-10 text-slate-600 dark:text-slate-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              Password Generator
+              비밀번호 생성기
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
-              Generate strong, random, secure passwords instantly. Everything
-              happens in your browser — nothing is sent anywhere.
+              강력하고 무작위한 안전한 비밀번호를 즉시 만들어 줍니다. 모든 과정이 브라우저에서 이뤄지며 어디로도 전송되지 않습니다.
             </p>
 
             <Adsense slotId="7759160077" />
@@ -241,7 +240,7 @@ export function PasswordGeneratorClient({ dict }: { dict?: any }) {
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2">
                   <KeyRound className="w-5 h-5 text-slate-500" />
-                  Your Password
+                  생성된 비밀번호
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -299,7 +298,7 @@ export function PasswordGeneratorClient({ dict }: { dict?: any }) {
                 {/* Length slider */}
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <Label className="text-sm font-medium">Length</Label>
+                    <Label className="text-sm font-medium">길이</Label>
                     <span className="text-sm font-semibold text-slate-600 dark:text-slate-400 tabular-nums">
                       {options.length}
                     </span>
@@ -335,8 +334,7 @@ export function PasswordGeneratorClient({ dict }: { dict?: any }) {
 
                 {!hasCharset && (
                   <p className="text-sm text-red-600 dark:text-red-400">
-                    Please enable at least one character set to generate a
-                    password.
+                    비밀번호를 만들려면 문자 종류를 하나 이상 선택해 주세요.
                   </p>
                 )}
 
@@ -345,7 +343,7 @@ export function PasswordGeneratorClient({ dict }: { dict?: any }) {
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                     <div className="flex items-center gap-3">
                       <Label htmlFor="pw-count" className="text-sm font-medium">
-                        Number of passwords
+                        생성 개수
                       </Label>
                       <input
                         id="pw-count"
@@ -367,7 +365,7 @@ export function PasswordGeneratorClient({ dict }: { dict?: any }) {
                         className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-slate-50 dark:hover:bg-slate-900/30 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
                       >
                         <Copy className="w-4 h-4" />
-                        Copy all
+                        전체 복사
                       </button>
                     )}
                   </div>
@@ -385,7 +383,7 @@ export function PasswordGeneratorClient({ dict }: { dict?: any }) {
                           <button
                             onClick={() => handleCopy(pw, idx)}
                             className="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-md border border-gray-200 dark:border-gray-700 hover:bg-slate-50 dark:hover:bg-slate-900/30 hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
-                            aria-label="Copy password"
+                            aria-label="비밀번호 복사"
                           >
                             {copiedIndex === idx ? (
                               <Check className="w-4 h-4 text-emerald-500" />
@@ -408,30 +406,30 @@ export function PasswordGeneratorClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  How to Use
+                  이용 방법
                 </h2>
                 <p className="text-muted-foreground">
-                  Create a strong password in seconds.
+                  몇 초 만에 강력한 비밀번호를 만들어 보세요.
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
                   {
                     step: 1,
-                    title: "Choose Options",
-                    desc: "Set the length and select which character sets to include — uppercase, lowercase, numbers, and symbols.",
+                    title: "옵션 선택",
+                    desc: "길이를 정하고 포함할 문자 종류(대문자, 소문자, 숫자, 기호)를 고르세요.",
                     icon: Sliders,
                   },
                   {
                     step: 2,
                     title: "Generate",
-                    desc: "A cryptographically secure password is created instantly, right in your browser. Regenerate as many times as you like.",
+                    desc: "암호학적으로 안전한 비밀번호가 브라우저에서 즉시 만들어집니다. 원하는 만큼 다시 생성할 수 있습니다.",
                     icon: RefreshCw,
                   },
                   {
                     step: 3,
                     title: "Copy & Use",
-                    desc: "Copy your new password with one click and paste it wherever you need a strong, unique credential.",
+                    desc: "한 번의 클릭으로 새 비밀번호를 복사해 강력한 인증 정보가 필요한 곳에 붙여넣으세요.",
                     icon: ArrowRight,
                   },
                 ].map((step) => (
@@ -456,9 +454,9 @@ export function PasswordGeneratorClient({ dict }: { dict?: any }) {
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-yellow-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">Password Tips</h2>
+                  <h2 className="text-3xl font-bold mb-4">비밀번호 팁</h2>
                   <p className="text-muted-foreground">
-                    Keep your accounts safe with strong credentials.
+                    강력한 비밀번호로 계정을 안전하게 지키세요.
                   </p>
                 </div>
 
@@ -466,19 +464,19 @@ export function PasswordGeneratorClient({ dict }: { dict?: any }) {
                   {[
                     {
                       title: "Go Long",
-                      desc: "Length beats complexity. Use at least 16 characters — every extra character makes a password exponentially harder to crack.",
+                      desc: "복잡도보다 길이가 중요합니다. 최소 16자 이상 쓰세요. 한 글자 늘어날 때마다 뚫기가 기하급수적으로 어려워집니다.",
                     },
                     {
-                      title: "Never Reuse",
-                      desc: "Use a unique password for every account. If one service is breached, your other accounts stay safe.",
+                      title: "재사용 금지",
+                      desc: "계정마다 서로 다른 비밀번호를 쓰세요. 한 서비스가 뚫려도 다른 계정은 안전합니다.",
                     },
                     {
-                      title: "Use a Manager",
-                      desc: "You don't need to memorize strong passwords. Store them in a reputable password manager and only remember one master password.",
+                      title: "비밀번호 관리자 사용",
+                      desc: "강력한 비밀번호를 외울 필요는 없습니다. 믿을 만한 비밀번호 관리자에 저장하고 마스터 비밀번호 하나만 기억하세요.",
                     },
                     {
                       title: "Enable 2FA",
-                      desc: "Add two-factor authentication wherever possible. Even a strong password is safer with a second layer of protection.",
+                      desc: "가능한 곳에는 2단계 인증을 추가하세요. 강력한 비밀번호도 보호 장치가 하나 더 있으면 훨씬 안전합니다.",
                     },
                   ].map((tip, idx) => (
                     <div
@@ -501,25 +499,25 @@ export function PasswordGeneratorClient({ dict }: { dict?: any }) {
             {/* FAQ */}
             <section className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>
+                <h2 className="text-2xl font-bold tracking-tight mb-4">자주 묻는 질문</h2>
               </div>
               <Accordion type="single" collapsible className="w-full">
                 {[
                   {
-                    q: "Are the generated passwords secure?",
-                    a: "Yes. Passwords are generated using your browser's cryptographically secure random number generator (crypto.getRandomValues). They are never sent to any server, logged, or stored anywhere.",
+                    q: "생성된 비밀번호는 안전한가요?",
+                    a: "네. 비밀번호는 브라우저의 암호학적으로 안전한 난수 생성기(crypto.getRandomValues)로 만들어집니다. 어떤 서버로도 전송되지 않고 기록되거나 저장되지도 않습니다.",
                   },
                   {
-                    q: "How long should my password be?",
-                    a: "For most accounts, use at least 16 characters with a mix of uppercase, lowercase, numbers, and symbols. Longer passwords are exponentially harder to crack, so use the longest length a service allows.",
+                    q: "비밀번호는 몇 자가 적당한가요?",
+                    a: "대부분의 계정에는 대문자, 소문자, 숫자, 기호를 섞어 최소 16자 이상을 쓰세요. 길수록 뚫기가 기하급수적으로 어려워지므로 서비스가 허용하는 최대 길이를 사용하시길 권합니다.",
                   },
                   {
-                    q: "What does 'exclude ambiguous characters' do?",
-                    a: "It removes visually similar characters such as 0, O, 1, l, and I from the pool. This makes passwords easier to read and type manually without reducing security in a meaningful way.",
+                    q: "'헷갈리는 문자 제외'는 어떤 기능인가요?",
+                    a: "0, O, 1, l, I처럼 눈으로 구분하기 어려운 문자를 제외합니다. 보안을 의미 있게 낮추지 않으면서도 읽고 직접 입력하기 쉬워집니다.",
                   },
                   {
-                    q: "Is my password sent to a server?",
-                    a: "No. Everything happens entirely in your browser. No password is transmitted, saved, or shared. Close the tab and the generated passwords are gone forever.",
+                    q: "제 비밀번호가 서버로 전송되나요?",
+                    a: "아니요. 모든 과정이 전적으로 브라우저에서 이뤄집니다. 비밀번호는 전송되거나 저장되거나 공유되지 않습니다. 탭을 닫으면 생성된 비밀번호는 완전히 사라집니다.",
                   },
                 ].map((faq, idx) => (
                   <AccordionItem key={idx} value={`item-${idx + 1}`}>

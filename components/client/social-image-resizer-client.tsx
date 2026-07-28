@@ -276,7 +276,7 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
               }}
               className="mt-4 text-sm text-pink-600 dark:text-pink-400 hover:underline"
             >
-              Or try with a sample image
+              샘플 이미지로 먼저 써보기
             </button>
           </div>
         ) : (
@@ -285,7 +285,7 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
             <div className="flex justify-between items-center mb-6">
               <Button variant="outline" onClick={reset}>
                 <X className="w-4 h-4 mr-2" />
-                Start Over
+                처음부터 다시
               </Button>
               {resizedImages.length > 0 && (
                 <Button
@@ -293,7 +293,7 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
                   className="bg-pink-600 hover:bg-pink-700 text-white"
                 >
                   <Download className="w-4 h-4 mr-2" />
-                  Download All (ZIP)
+                  전체 다운로드 (ZIP)
                 </Button>
               )}
             </div>
@@ -311,7 +311,7 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
                   {originalPreview && (
                     <img
                       src={originalPreview}
-                      alt="Original"
+                      alt="원본"
                       className="max-h-[300px] max-w-full object-contain rounded shadow-sm"
                     />
                   )}
@@ -393,7 +393,7 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
               {
                 step: 1,
                 title:
-                  dict?.social_image_resizer?.step1_title || "Upload Image",
+                  dict?.social_image_resizer?.step1_title || "이미지 업로드",
                 desc:
                   dict?.social_image_resizer?.step1_desc ||
                   "Upload the photo you want to resize.",
@@ -462,7 +462,7 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
               },
               {
                 title:
-                  dict?.social_image_resizer?.tip2_title || "High Resolution",
+                  dict?.social_image_resizer?.tip2_title || "고해상도",
                 desc:
                   dict?.social_image_resizer?.tip2_desc ||
                   "Start with a high-quality image to prevent pixelation on larger screens.",
@@ -473,7 +473,7 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
                   dict?.social_image_resizer?.tip3_title || "Aspect Ratios",
                 desc:
                   dict?.social_image_resizer?.tip3_desc ||
-                  "9:16 for Stories/TikTok, 1:1 for Feed, 16:9 for YouTube.",
+                  "9:16 for 스토리/TikTok, 1:1 for Feed, 16:9 for YouTube.",
                 icon: Layout,
               },
               {

@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { OgDebuggerClient } from "@/components/client/og-debugger-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/utility/og-debugger`;
 
@@ -17,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function OgDebuggerPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -62,11 +59,11 @@ export default async function OgDebuggerPage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Open Graph Debugger",
+    name: "오픈그래프 디버거",
     url: "https://ssdown.app/utility/og-debugger",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     description: "Free online Open Graph debugger tool. Preview and validate social share cards instantly.",
   };
@@ -74,26 +71,26 @@ export default async function OgDebuggerPage() {
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Open Graph Debugger Online",
+    name: "오픈그래프 디버거 사용 방법",
     description: "Paste a URL to inspect its Open Graph and Twitter Card tags and preview how it looks when shared.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Paste a URL",
-        text: "Enter any public page URL you want to check.",
+        name: "URL 입력",
+        text: "확인하고 싶은 공개 페이지의 URL을 입력하세요.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Analyze",
-        text: "We fetch the page using a social-crawler user agent and parse its meta tags.",
+        name: "서버에서 가져오기",
+        text: "Facebook이나 X와 동일한 소셜 크롤러 User-Agent로 페이지를 요청합니다.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Review results",
-        text: "See share previews for Facebook, X, LinkedIn, KakaoTalk, plus a full tag list and warnings.",
+        name: "결과 확인",
+        text: "링크 미리보기가 어떻게 렌더링되는지, 감지된 전체 메타 태그와 경고 목록을 확인하세요.",
       },
     ],
   };

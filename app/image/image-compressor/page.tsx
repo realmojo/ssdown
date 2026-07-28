@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { ImageCompressorClient } from "@/components/client/image-compressor-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/image-compressor`;
 
@@ -17,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ImageCompressorPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -62,40 +59,40 @@ export default async function ImageCompressorPage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Image Compressor",
+    name: "이미지 압축",
     url: "https://ssdown.app/image/image-compressor",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     description:
-      "Free online image compressor. Compress PNG, JPG, and WebP images to reduce file size without losing quality. Batch processing supported.",
+      "무료 온라인 이미지 압축 도구. PNG, JPG, WebP 이미지를 화질 손상 없이 압축해 용량을 줄입니다. 일괄 처리도 지원합니다.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to Compress an Image Online",
+    name: "온라인 이미지 압축 방법",
     description:
-      "Reduce image file size online for free using SSDown Image Compressor.",
+      "SSDown 이미지 압축 도구로 온라인에서 무료로 이미지 용량을 줄이세요.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Upload your image",
-        text: "Click the upload area or drag and drop your PNG, JPG, or WebP image file.",
+        name: "이미지 업로드",
+        text: "압축하려는 사진들을 선택하세요.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Adjust compression quality",
-        text: "Use the quality slider to set the desired compression level. Higher quality preserves more detail; lower quality reduces file size further.",
+        name: "화질 조절",
+        text: "슬라이더로 압축 수준(1-100)을 조절하세요. 숫자가 낮을수록 용량이 작아집니다.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Download compressed image",
-        text: "Click the Download button to save the compressed image to your device.",
+        name: "압축 및 다운로드",
+        text: "버튼을 누르고 최적화된 파일을 다운로드하세요.",
       },
     ],
   };

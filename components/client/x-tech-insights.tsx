@@ -4,27 +4,27 @@ export function XTechInsights() {
   const insights = [
     {
       icon: NetworkIcon,
-      title: "HLS Streaming Architecture",
+      title: "HLS 스트리밍 구조",
       content:
-        "Unlike traditional direct file downloads, X (formerly Twitter) utilizes HTTP Live Streaming (HLS) technology. This adaptive bitrate streaming protocol breaks video content into small sequence files (.ts) managed by a manifest file (.m3u8). This architecture allows the player to switch quality streams dynamically based on the user's bandwidth, but it complicates the saving process for archival purposes since there is no single source file to simply 'save'.",
+        "일반적인 파일 다운로드와 달리 X(옛 트위터)는 HLS(HTTP Live Streaming) 기술을 사용합니다. 이 적응형 비트레이트 스트리밍 방식은 영상을 작은 조각 파일(.ts)로 나누고 매니페스트 파일(.m3u8)로 관리합니다. 덕분에 재생기가 사용자의 네트워크 상황에 따라 화질을 실시간으로 바꿀 수 있지만, 통째로 '저장'할 원본 파일이 하나로 존재하지 않아 보관용으로 내려받기는 까다로워집니다.",
     },
     {
       icon: CodecIcon,
-      title: "Video Compression & Codecs",
+      title: "영상 압축과 코덱",
       content:
-        "X primarily utilizes the H.264/MPEG-4 AVC video compression standard to ensure compatibility across billions of devices. When videos are uploaded, they are re-encoded to optimize bitrate for mobile data consumption. This process, known as transcoding, often results in different quality tiers (720x1280, 480x854, 320x568) generated from a single master file to serve various network conditions.",
+        "X는 수십억 대의 기기에서 재생되도록 주로 H.264/MPEG-4 AVC 영상 압축 표준을 사용합니다. 영상이 업로드되면 모바일 데이터 사용량에 맞춰 비트레이트를 최적화하도록 다시 인코딩됩니다. 트랜스코딩이라 불리는 이 과정에서 하나의 원본으로부터 여러 화질 단계(720x1280, 480x854, 320x568)가 만들어져 다양한 네트워크 환경에 대응합니다.",
     },
     {
       icon: GifIcon,
-      title: "The 'GIF' Illusion",
+      title: "'GIF'라는 착각",
       content:
-        "What appears to be a GIF on X is rarely an actual GIF format file. X converts uploaded GIFs into looping MP4 videos (often without an audio track). This conversion significantly reduces file size—often by 95%—compared to the inefficient GIF89a format. This technical optimization saves immense bandwidth but requires specialized tools to revert or save as a video file properly.",
+        "X에서 GIF처럼 보이는 것은 실제 GIF 파일인 경우가 드뭅니다. X는 업로드된 GIF를 반복 재생되는 MP4 영상(대개 오디오 없음)으로 변환합니다. 이 변환으로 효율이 낮은 GIF89a 형식 대비 용량이 흔히 95%까지 줄어듭니다. 이런 최적화는 대역폭을 크게 아껴 주지만, 되돌리거나 영상 파일로 제대로 저장하려면 전용 도구가 필요합니다.",
     },
     {
       icon: SecurityIcon,
-      title: "Secure Content Delivery",
+      title: "안전한 콘텐츠 전송",
       content:
-        "Content on X is delivered via a global Content Delivery Network (CDN) using signed URLs with time-limited tokens for private content. While public content is generally accessible, the platform employs strict rate-limiting and anti-scraping measures to protect server integrity. Understanding these mechanisms is crucial for distinguishing between temporary service interruptions and content unavailability.",
+        "X의 콘텐츠는 전 세계 CDN을 통해 전달되며, 비공개 콘텐츠에는 유효 시간이 정해진 토큰이 담긴 서명 URL이 쓰입니다. 공개 콘텐츠는 대체로 접근할 수 있지만, 플랫폼은 서버를 보호하기 위해 엄격한 요청 제한과 수집 방지 조치를 적용합니다. 이런 구조를 알아 두면 일시적인 서비스 장애와 콘텐츠 자체의 이용 불가를 구분하는 데 도움이 됩니다.",
     },
   ];
 
@@ -33,15 +33,13 @@ export function XTechInsights() {
       <div className="container px-4 md:px-6 mx-auto max-w-6xl">
         <div className="text-center mb-12">
           <span className="inline-block py-1 px-3 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 text-sm font-semibold mb-4">
-            Technical Deep Dive
+            기술 심층 분석
           </span>
           <h2 className="text-3xl font-bold tracking-tight mb-4">
-            Under the Hood: X Video Technology
+            기술 들여다보기: X 영상 기술
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Understanding the technical infrastructure behind X's video delivery
-            system explains why specialized tools are necessary for efficient
-            content management.
+            X의 영상 전송 시스템이 어떤 구조로 되어 있는지 알면, 콘텐츠를 효율적으로 관리하는 데 왜 전용 도구가 필요한지 이해할 수 있습니다.
           </p>
         </div>
 
@@ -74,15 +72,10 @@ export function XTechInsights() {
             <Shield className="w-6 h-6 text-indigo-600 mt-1 flex-shrink-0" />
             <div className="space-y-2">
               <h4 className="font-semibold text-indigo-900 dark:text-indigo-200">
-                Why This Matters for Content Safety
+                콘텐츠 안전 측면에서 중요한 이유
               </h4>
               <p className="text-sm text-indigo-800/80 dark:text-indigo-300/80 leading-relaxed">
-                Understanding these technical formats is essential for proper
-                digital archiving. Saving a screen recording often results in
-                re-compression artifacts (generation loss). Accessing the source
-                stream via tools like SSDown allows for bit-perfect preservation
-                of the original content quality as served by the platform's CDN,
-                ensuring the integrity of your personal digital archive.
+                제대로 된 디지털 보관을 위해서는 이러한 기술 형식을 이해하는 것이 중요합니다. 화면 녹화로 저장하면 재압축에 따른 화질 손상(세대 손실)이 생기기 쉽습니다. SSDown 같은 도구로 원본 스트림에 접근하면 플랫폼 CDN이 제공하는 원본 화질을 그대로 보존할 수 있어, 개인 디지털 아카이브의 완전성을 지킬 수 있습니다.
               </p>
             </div>
           </div>

@@ -29,7 +29,7 @@ interface ToolItem {
 
 const categoryConfig: Record<string, { tools: ToolItem[]; label: string; dictKey: string; activeColor: string; activeIconColor: string; activeBg: string }> = {
   pdf: {
-    label: "PDF Tools",
+    label: "PDF 도구",
     dictKey: "page_tools_pdf",
     activeColor: "text-red-700 dark:text-red-300",
     activeIconColor: "text-red-600 dark:text-red-400",
@@ -56,7 +56,7 @@ const categoryConfig: Record<string, { tools: ToolItem[]; label: string; dictKey
     ],
   },
   image: {
-    label: "Image Tools",
+    label: "이미지 도구",
     dictKey: "page_tools_image",
     activeColor: "text-green-700 dark:text-green-300",
     activeIconColor: "text-green-600 dark:text-green-400",
@@ -112,7 +112,7 @@ const categoryConfig: Record<string, { tools: ToolItem[]; label: string; dictKey
     ],
   },
   utility: {
-    label: "Utility Tools",
+    label: "유틸리티 도구",
     dictKey: "page_tools_utility",
     activeColor: "text-violet-700 dark:text-violet-300",
     activeIconColor: "text-violet-600 dark:text-violet-400",
@@ -136,7 +136,7 @@ const categoryConfig: Record<string, { tools: ToolItem[]; label: string; dictKey
     ],
   },
   file: {
-    label: "File Tools",
+    label: "파일 도구",
     dictKey: "page_tools_file",
     activeColor: "text-orange-700 dark:text-orange-300",
     activeIconColor: "text-orange-600 dark:text-orange-400",

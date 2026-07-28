@@ -96,7 +96,7 @@ function loadImage(src: string): Promise<HTMLImageElement> {
     const img = new window.Image();
     img.crossOrigin = "anonymous";
     img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+    img.onerror = () => reject(new Error(`이미지를 불러오지 못했습니다: ${src}`));
     img.src = src;
   });
 }
@@ -231,7 +231,7 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
       }
       setResults(processed);
     } catch (err: any) {
-      setError(err.message || "Failed to process images. Please try again.");
+      setError(err.message || "이미지를 처리하지 못했습니다. 다시 시도해 주세요.");
     } finally {
       setProcessing(false);
     }
@@ -308,7 +308,7 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
             <Upload className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
             <p className="text-lg font-medium mb-2">
               {dict?.watermark_remover?.drop_zone ||
-                "Drag & drop images here, or click to browse"}
+                "여기에 이미지를 끌어다 놓으세요, or click to browse"}
             </p>
             <p className="text-sm text-muted-foreground mb-1">
               {dict?.watermark_remover?.supported ||
@@ -333,7 +333,7 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
               }}
               className="mt-4 text-sm text-emerald-600 dark:text-emerald-400 hover:underline"
             >
-              Or try with a sample image
+              샘플 이미지로 먼저 써보기
             </button>
           </div>
         )}
@@ -444,7 +444,7 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
                     variant="outline"
                     className="flex-1"
                   >
-                    Process More Images
+                    이미지 더 처리하기
                   </Button>
                 </div>
               </CardContent>
@@ -468,7 +468,7 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
                         <div className="aspect-video bg-muted/50 rounded-lg overflow-hidden">
                           <img
                             src={result.previewOriginal}
-                            alt="Original"
+                            alt="원본"
                             className="w-full h-full object-contain"
                           />
                         </div>
@@ -480,7 +480,7 @@ export function WatermarkRemoverClient({ dict }: { dict?: any }) {
                         <div className="aspect-video bg-muted/50 rounded-lg overflow-hidden">
                           <img
                             src={result.url}
-                            alt="Cleaned"
+                            alt="처리된 이미지"
                             className="w-full h-full object-contain"
                           />
                         </div>

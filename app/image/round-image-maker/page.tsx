@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { RoundImageClient } from "@/components/client/round-image-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/round-image-maker`;
 
@@ -17,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RoundImageMakerPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -62,38 +59,38 @@ export default async function RoundImageMakerPage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Round Image Maker",
+    name: "원형 이미지",
     url: "https://ssdown.app/image/round-image-maker",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Create circular or rounded-corner images instantly.",
+    description: "원형이나 모서리가 둥근 이미지를 즉시 만들어 줍니다.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Round Image Maker Online",
-    description: "Create circular or rounded-corner images instantly.",
+    name: "원형 이미지 사용 방법",
+    description: "원형이나 모서리가 둥근 이미지를 즉시 만들어 줍니다.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
         name: "Upload image",
-        text: "Select the image you want to make circular.",
+        text: "원형으로 만들 이미지를 선택하세요.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Adjust radius",
-        text: "Set the corner radius or make it a full circle.",
+        name: "둥글기 조절",
+        text: "모서리 둥글기를 설정하거나 완전한 원형으로 만드세요.",
       },
       {
         "@type": "HowToStep",
         position: 3,
         name: "Download image",
-        text: "Save the rounded image as a transparent PNG.",
+        text: "둥글게 만든 이미지를 투명 PNG로 저장하세요.",
       }
     ],
   };

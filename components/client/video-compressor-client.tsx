@@ -27,29 +27,29 @@ type FFmpeg = any;
 
 const FALLBACK_FAQ: { question: string; answer: string }[] = [
   {
-    question: "How much smaller will my video get?",
+    question: "영상 용량이 얼마나 줄어드나요?",
     answer:
-      "It depends on the source. Videos exported from phones or editors are often over-encoded, so Balanced typically saves 40-70%. The Smallest preset also scales the video down to 1280px wide for the biggest reduction.",
+      "원본에 따라 다릅니다. 휴대폰이나 편집 프로그램에서 내보낸 영상은 과하게 인코딩된 경우가 많아 '균형' 설정에서 보통 40~70% 줄어듭니다. '최소 용량' 설정은 가로 1280px로 축소까지 해서 가장 크게 줄여 줍니다.",
   },
   {
-    question: "Will compression hurt the quality?",
+    question: "압축하면 화질이 나빠지나요?",
     answer:
-      "High quality (CRF 23) is visually near-lossless. Balanced (CRF 28) is a great size-to-quality trade-off for sharing. Smallest (CRF 33 + downscale) prioritizes file size and is best for previews or messaging apps.",
+      "고화질 (CRF 23) is visually near-lossless. Balanced (CRF 28) is a great size-to-quality trade-off for sharing. Smallest (CRF 33 + downscale) prioritizes file size and is best for previews or messaging apps.",
   },
   {
-    question: "Why is compression slow for big files?",
+    question: "큰 파일은 왜 압축이 느린가요?",
     answer:
-      "All processing runs locally in your browser with FFmpeg compiled to WebAssembly, which is single-threaded. For a smooth experience keep clips under about 100MB — larger videos can take several minutes.",
+      "모든 처리가 웹어셈블리로 빌드한 FFmpeg로 브라우저 안에서 이뤄지는데, 이는 단일 스레드로 동작합니다. 원활하게 쓰시려면 100MB 이하 영상을 권장하며, 더 큰 영상은 몇 분이 걸릴 수 있습니다.",
   },
   {
-    question: "Is my video uploaded anywhere?",
+    question: "제 영상이 어딘가로 업로드되나요?",
     answer:
-      "No. Compression happens entirely on your device using WebAssembly. Your video never leaves your browser, so it stays private.",
+      "아니요. 압축은 웹어셈블리로 전적으로 기기 안에서 이뤄집니다. 영상이 브라우저를 벗어나지 않아 비공개로 유지됩니다.",
   },
   {
-    question: "What format is the output?",
+    question: "결과물은 어떤 형식인가요?",
     answer:
-      "The compressed file is always an MP4 using H.264 video and AAC audio — the most widely compatible combination for phones, browsers, and social platforms.",
+      "압축된 파일은 언제나 H.264 영상과 AAC 오디오를 쓰는 MP4입니다. 휴대폰, 브라우저, 소셜 플랫폼에서 가장 널리 호환되는 조합입니다.",
   },
 ];
 
@@ -65,7 +65,7 @@ const PRESETS: {
 }[] = [
   {
     value: "high",
-    label: "High quality",
+    label: "고화질",
     hint: "CRF 23 · near-lossless",
     crf: 23,
     scale: false,
@@ -162,7 +162,7 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
     const isVideo =
       selectedFile.type.startsWith("video/") || VIDEO_EXTENSIONS.includes(ext);
     if (!isVideo) {
-      setError("Please upload a valid video file (MP4, MOV, WebM, AVI, MKV).");
+      setError("올바른 영상 파일을 올려 주세요 (MP4, MOV, WebM, AVI, MKV).");
       return;
     }
     setFile(selectedFile);
@@ -246,7 +246,7 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
 
       const outData = (await ffmpeg.readFile(outputName)) as Uint8Array;
       if (!outData || outData.length === 0) {
-        throw new Error("Compression produced an empty file.");
+        throw new Error("압축 결과가 빈 파일입니다.");
       }
 
       const blob = new Blob([new Uint8Array(outData)], { type: "video/mp4" });
@@ -301,11 +301,11 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
               <Minimize2 className="w-10 h-10 text-orange-600 dark:text-orange-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              {t.title || "Video Compressor"}
+              {t.title || "영상 압축"}
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
               {t.subtitle ||
-                "Shrink video file sizes right in your browser without losing much quality. Fast, free, and private — nothing is uploaded."}
+                "화질 손상을 최소화하면서 브라우저에서 바로 영상 용량을 줄이세요. 빠르고 무료이며 아무것도 업로드되지 않습니다."}
             </p>
 
             <Adsense slotId="7759160077" />
@@ -332,14 +332,14 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
                 />
                 <Film className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
-                  {t.drop_zone || "Drag & drop your video file here"}
+                  {t.drop_zone || "여기에 영상 파일을 끌어다 놓으세요"}
                 </p>
                 <p className="text-sm text-muted-foreground">
                   {t.supported || "Supported: MP4, MOV, WebM, AVI, MKV"}
                 </p>
                 <p className="text-xs text-muted-foreground/70 mt-3">
                   {t.size_note ||
-                    "Runs entirely in your browser — for best speed keep clips under ~100MB."}
+                    "전적으로 브라우저에서 실행됩니다. 속도를 위해 100MB 이하 영상을 권장합니다."}
                 </p>
               </div>
             )}
@@ -560,11 +560,11 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold tracking-tight mb-4">
-                  {t.guide_title || "How to Compress a Video"}
+                  {t.guide_title || "영상 압축 방법"}
                 </h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
                   {t.guide_desc ||
-                    "Reduce your video's file size in 3 simple steps."}
+                    "세 단계면 영상 용량을 줄일 수 있습니다."}
                 </p>
               </div>
 
@@ -572,10 +572,10 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: t.step1_title || "Upload your video",
+                    title: t.step1_title || "영상 올리기",
                     desc:
                       t.step1_desc ||
-                      "Drag and drop or select an MP4, MOV, WebM, AVI, or MKV file.",
+                      "MP4, MOV, WebM, AVI, MKV 파일을 끌어다 놓거나 선택하세요.",
                     icon: Upload,
                   },
                   {
@@ -583,7 +583,7 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
                     title: t.step2_title || "Pick a compression level",
                     desc:
                       t.step2_desc ||
-                      "Choose High quality, Balanced, or Smallest depending on your goal.",
+                      "Choose 고화질, Balanced, or Smallest depending on your goal.",
                     icon: Gauge,
                   },
                   {
@@ -591,7 +591,7 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
                     title: t.step3_title || "Compress & download",
                     desc:
                       t.step3_desc ||
-                      "Run it, compare the before/after size, preview, and download.",
+                      "실행해 전후 용량을 비교하고 결과를 미리 본 뒤 내려받으세요.",
                     icon: Download,
                   },
                 ].map((step) => (
@@ -627,38 +627,38 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
                   {t.tips_title || "Compression Tips"}
                 </h2>
                 <p className="text-muted-foreground">
-                  {t.tips_desc || "Get the best size-to-quality balance."}
+                  {t.tips_desc || "용량과 화질의 균형을 맞추는 방법입니다."}
                 </p>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
                 {[
                   {
-                    title: t.tip1_title || "Start with Balanced",
+                    title: t.tip1_title || "'균형'부터 시작하세요",
                     desc:
                       t.tip1_desc ||
-                      "Balanced (CRF 28) usually cuts the size dramatically while keeping the video looking great — a solid default.",
+                      "균형(CRF 28)은 보기 좋은 화질을 유지하면서도 용량을 크게 줄여 주는 무난한 기본값입니다.",
                     icon: Gauge,
                   },
                   {
-                    title: t.tip2_title || "Go Smallest for Sharing",
+                    title: t.tip2_title || "공유용은 '최소 용량'",
                     desc:
                       t.tip2_desc ||
-                      "The Smallest preset also downscales to 1280px wide, ideal for messaging apps and email attachments.",
+                      "'최소 용량' 설정은 가로 1280px로 축소까지 해서 메신저나 이메일 첨부에 적합합니다.",
                     icon: Minimize2,
                   },
                   {
-                    title: t.tip3_title || "Keep Detail with High",
+                    title: t.tip3_title || "디테일이 필요하면 '높음'",
                     desc:
                       t.tip3_desc ||
-                      "Use High quality (CRF 23) when you need near-lossless output and file size is a secondary concern.",
+                      "Use 고화질 (CRF 23) when you need near-lossless output and file size is a secondary concern.",
                     icon: Sparkles,
                   },
                   {
-                    title: t.tip4_title || "Mind the File Size",
+                    title: t.tip4_title || "파일 크기에 유의하세요",
                     desc:
                       t.tip4_desc ||
-                      "Everything runs locally in WebAssembly, so clips under ~100MB compress fastest and most reliably.",
+                      "모든 처리가 웹어셈블리로 기기에서 이뤄지므로 100MB 이하 영상이 가장 빠르고 안정적으로 압축됩니다.",
                     icon: Info,
                   },
                 ].map((tip, idx) => (
@@ -684,7 +684,7 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-3xl font-bold tracking-tight mb-4">
-                  {t.faq_title || "Frequently Asked Questions"}
+                  {t.faq_title || "자주 묻는 질문"}
                 </h2>
               </div>
               <div className="max-w-3xl mx-auto space-y-3">

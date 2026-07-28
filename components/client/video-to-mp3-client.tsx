@@ -80,7 +80,7 @@ export function VideoToMp3Client({ dict }: { dict?: any }) {
     try {
       if (!loaded) await loadFFmpeg();
       const ffmpeg = ffmpegRef.current;
-      if (!ffmpeg) throw new Error("Converter not loaded");
+      if (!ffmpeg) throw new Error("변환기가 아직 준비되지 않았습니다");
 
       const { fetchFile } = await import("@ffmpeg/util");
       const ext = file.name.split(".").pop() || "mp4";
@@ -102,7 +102,7 @@ export function VideoToMp3Client({ dict }: { dict?: any }) {
       const baseName = file.name.replace(/\.[^/.]+$/, "");
       setFileName(`${baseName}.mp3`);
     } catch (err: any) {
-      setError(err.message || "Conversion failed. Please try again.");
+      setError(err.message || "변환하지 못했습니다. 다시 시도해 주세요.");
     } finally {
       setConverting(false);
     }
@@ -312,7 +312,7 @@ export function VideoToMp3Client({ dict }: { dict?: any }) {
                       <CheckCircle2 className="w-8 h-8 text-green-600 dark:text-green-400" />
                       <div>
                         <p className="font-semibold text-lg">
-                          Conversion Complete!
+                          변환이 완료됐습니다!
                         </p>
                         <p className="text-sm text-muted-foreground">
                           {fileName}
@@ -332,7 +332,7 @@ export function VideoToMp3Client({ dict }: { dict?: any }) {
                         variant="outline"
                         className="flex-1"
                       >
-                        Convert Another
+                        다른 파일 변환
                       </Button>
                     </div>
                   </CardContent>
@@ -410,7 +410,7 @@ export function VideoToMp3Client({ dict }: { dict?: any }) {
               </div>
             </section>
 
-            {/* Tips & Best Practices */}
+            {/* 활용 팁 */}
             <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
               <div className="text-center mb-10">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">

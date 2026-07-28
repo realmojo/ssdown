@@ -226,7 +226,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
           <Type className="w-10 h-10 text-amber-600 dark:text-amber-400" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          {dict?.add_text_to_image?.title || "Add Text to Image"}
+          {dict?.add_text_to_image?.title || "텍스트 추가 to Image"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
           {dict?.add_text_to_image?.subtitle ||
@@ -274,7 +274,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
               }}
               className="mt-4 text-sm text-amber-600 dark:text-amber-400 hover:underline"
             >
-              Or try with a sample image
+              샘플 이미지로 먼저 써보기
             </button>
           </div>
         ) : (
@@ -287,7 +287,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                   <div className="flex items-center gap-3">
                     <Button variant="outline" size="sm" onClick={handleReset}>
                       <RotateCcw className="w-4 h-4 mr-2" />
-                      New Image
+                      새 이미지
                     </Button>
                     <span
                       className="text-sm text-muted-foreground truncate max-w-[200px]"
@@ -305,20 +305,20 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
 
                 {/* Text Input */}
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Text</label>
+                  <label className="text-sm font-medium">텍스트</label>
                   <input
                     type="text"
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     className="w-full px-3 py-2 rounded-lg border border-muted bg-background text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
-                    placeholder="Enter your text..."
+                    placeholder="텍스트를 입력하세요…"
                   />
                 </div>
 
                 {/* Font Family & Size */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Font Family</label>
+                    <label className="text-sm font-medium">글꼴</label>
                     <select
                       value={fontFamily}
                       onChange={(e) => setFontFamily(e.target.value)}
@@ -333,7 +333,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium">Font Size</label>
+                      <label className="text-sm font-medium">글자 크기</label>
                       <span className="text-sm text-muted-foreground">
                         {fontSize}px
                       </span>
@@ -353,7 +353,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                 {/* Colors & Style */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Text Color</label>
+                    <label className="text-sm font-medium">글자 색상</label>
                     <input
                       type="color"
                       value={textColor}
@@ -362,7 +362,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Outline Color</label>
+                    <label className="text-sm font-medium">테두리 색상</label>
                     <input
                       type="color"
                       value={strokeColor}
@@ -379,7 +379,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                         onChange={(e) => setIsBold(e.target.checked)}
                         className="accent-amber-600"
                       />
-                      <span className="text-sm font-bold">Bold</span>
+                      <span className="text-sm font-bold">굵게</span>
                     </label>
                     <label className="flex items-center gap-2 cursor-pointer">
                       <input
@@ -388,7 +388,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                         onChange={(e) => setIsItalic(e.target.checked)}
                         className="accent-amber-600"
                       />
-                      <span className="text-sm italic">Italic</span>
+                      <span className="text-sm italic">기울임</span>
                     </label>
                   </div>
                   <div className="flex items-end">
@@ -399,7 +399,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                         onChange={(e) => setStrokeEnabled(e.target.checked)}
                         className="accent-amber-600"
                       />
-                      <span className="text-sm">Outline</span>
+                      <span className="text-sm">외곽선</span>
                     </label>
                   </div>
                 </div>
@@ -409,7 +409,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <label className="text-sm font-medium">
-                        Outline Width
+                        외곽선 두께
                       </label>
                       <span className="text-sm text-muted-foreground">
                         {strokeWidth}px
@@ -429,7 +429,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
 
                 {/* Position */}
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Position</label>
+                  <label className="text-sm font-medium">위치</label>
                   <div className="flex flex-wrap gap-2 mb-3">
                     {POSITION_PRESETS.map((p) => (
                       <button
@@ -451,7 +451,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1">
                       <div className="flex justify-between text-xs text-muted-foreground">
-                        <span>X Position</span>
+                        <span>가로 위치</span>
                         <span>{textX}%</span>
                       </div>
                       <input
@@ -466,7 +466,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                     </div>
                     <div className="space-y-1">
                       <div className="flex justify-between text-xs text-muted-foreground">
-                        <span>Y Position</span>
+                        <span>세로 위치</span>
                         <span>{textY}%</span>
                       </div>
                       <input
@@ -490,14 +490,14 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                 {previewUrl ? (
                   <img
                     src={previewUrl}
-                    alt="Image with text overlay"
+                    alt="글자가 올라간 이미지"
                     className="max-w-full max-h-[60vh] block rounded-lg shadow-md"
                     draggable={false}
                   />
                 ) : (
                   <img
                     src={imageSrc}
-                    alt="Original"
+                    alt="원본"
                     className="max-w-full max-h-[60vh] block rounded-lg shadow-md"
                     draggable={false}
                   />
@@ -514,7 +514,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
                   className="bg-green-600 hover:bg-green-700 text-white shadow-lg min-w-[180px]"
                 >
                   <Download className="w-5 h-5 mr-2" />
-                  Download
+                  다운로드
                 </Button>
               </div>
             )}
@@ -530,7 +530,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
               {dict?.add_text_to_image?.guide_title ||
-                "How to Add Text to Images"}
+                "How to 텍스트 추가 to Images"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               {dict?.add_text_to_image?.guide_desc ||
@@ -541,7 +541,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
             {[
               {
                 step: 1,
-                title: dict?.add_text_to_image?.step1_title || "Upload Image",
+                title: dict?.add_text_to_image?.step1_title || "이미지 업로드",
                 desc:
                   dict?.add_text_to_image?.step1_desc ||
                   "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
@@ -558,7 +558,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
               {
                 step: 3,
                 title:
-                  dict?.add_text_to_image?.step3_title || "Download Result",
+                  dict?.add_text_to_image?.step3_title || "결과 다운로드",
                 desc:
                   dict?.add_text_to_image?.step3_desc ||
                   "Click 'Download' to save your image with the text overlay.",
@@ -596,29 +596,29 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
               {dict?.add_text_to_image?.tips_title || "Text Overlay Tips"}
             </h2>
             <p className="text-muted-foreground">
-              Get the best results when adding text to images.
+              이미지에 글자를 넣을 때 가장 좋은 결과를 얻는 방법입니다.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Use Outline for Readability",
-                desc: "Enable text outline (stroke) to make your text readable on any background. White text with black outline works on both light and dark images.",
+                title: "가독성을 위한 테두리 활용",
+                desc: "글자 외곽선을 켜면 어떤 배경에서도 잘 읽힙니다. 흰 글자에 검은 외곽선은 밝은 이미지와 어두운 이미지 모두에 잘 맞습니다.",
                 icon: Shield,
               },
               {
-                title: "Impact Font for Memes",
-                desc: "For classic meme-style text, use the Impact font with bold enabled, white color, and black outline at the top or bottom of your image.",
+                title: "밈에는 Impact 글꼴",
+                desc: "전형적인 밈 스타일을 원한다면 Impact 글꼴에 굵게, 흰색, 검은 외곽선을 적용해 이미지 위나 아래에 배치하세요.",
                 icon: Type,
               },
               {
-                title: "Scale Awareness",
-                desc: "Font size is automatically scaled relative to your image dimensions, so the text looks proportional regardless of image resolution.",
+                title: "크기 고려하기",
+                desc: "글자 크기가 이미지 크기에 맞춰 자동 조정되므로 해상도와 상관없이 균형 있게 보입니다.",
                 icon: Zap,
               },
               {
-                title: "Original Preserved",
-                desc: "Your original image stays untouched. The text is composited onto a copy, and you download only the result.",
+                title: "원본 보존",
+                desc: "원본 이미지는 그대로 남습니다. 글자는 사본에 얹히며 결과물만 내려받게 됩니다.",
                 icon: Layers,
               },
             ].map((tip, idx) => (
@@ -643,7 +643,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
               {dict?.add_text_to_image?.faq_title || "Text on Image FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about adding text to images.
+              이미지에 글자 넣기에 대해 자주 묻는 질문입니다.
             </p>
           </div>
           <div className="max-w-3xl mx-auto">
@@ -690,7 +690,7 @@ export function AddTextToImageClient({ dict }: { dict?: any }) {
               <AccordionItem value="faq-5">
                 <AccordionTrigger>
                   {dict?.add_text_to_image?.faq_5_q ||
-                    "What image formats are supported?"}
+                    "어떤 이미지 형식을 지원하나요?"}
                 </AccordionTrigger>
                 <AccordionContent>
                   {dict?.add_text_to_image?.faq_5_a ||

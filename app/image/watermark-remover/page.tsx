@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { WatermarkRemoverClient } from "@/components/client/watermark-remover-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/watermark-remover`;
 
@@ -17,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function WatermarkRemoverPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -62,38 +59,38 @@ export default async function WatermarkRemoverPage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Watermark Remover",
+    name: "워터마크 제거기",
     url: "https://ssdown.app/image/watermark-remover",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Remove watermarks and unwanted objects from images automatically.",
+    description: "이미지에서 워터마크와 불필요한 개체를 자동으로 제거합니다.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Watermark Remover Online",
-    description: "Remove watermarks and unwanted objects from images automatically.",
+    name: "워터마크 제거기 사용 방법",
+    description: "이미지에서 워터마크와 불필요한 개체를 자동으로 제거합니다.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Upload watermarked image",
-        text: "Select the image file that has a watermark.",
+        name: "이미지 업로드",
+        text: "파일을 드래그하거나 선택하세요. 한 번에 여러 장도 가능합니다.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Process removal",
-        text: "The AI will automatically detect and remove the watermark.",
+        name: "제거 실행",
+        text: "제거 버튼을 누르세요. 워터마크를 감지하여 자동으로 지워줍니다.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Download clean image",
-        text: "Save the watermark-free image to your device.",
+        name: "다운로드",
+        text: "작업 전후를 비교해보고 깨끗해진 이미지를 PNG로 저장하세요.",
       }
     ],
   };

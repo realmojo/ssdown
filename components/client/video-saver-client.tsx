@@ -205,12 +205,12 @@ export function VideoDownloaderClient({
 
   const handleDownload = async () => {
     if (!termsAccepted) {
-      setError("Please read and accept the terms before proceeding.");
+      setError("진행하기 전에 약관을 읽고 동의해 주세요.");
       return;
     }
 
     if (!url.trim()) {
-      setError(dict?.common?.error_url || "Please enter a valid URL");
+      setError(dict?.common?.error_url || "올바른 주소를 입력해 주세요");
       return;
     }
 
@@ -376,19 +376,18 @@ export function VideoDownloaderClient({
                     className="text-sm text-amber-900 dark:text-amber-200 cursor-pointer select-none"
                   >
                     <strong>
-                      I understand this tool is for educational purposes only.
+                      이 도구가 교육 목적으로만 제공된다는 점을 이해했습니다.
                     </strong>{" "}
-                    I confirm that I have permission from the content owner,
-                    will comply with all copyright laws and platform Terms of
-                    Service, and will use downloaded content for personal,
-                    non-commercial purposes only.
+                    콘텐츠 소유자의 동의를 받았으며, 모든 저작권법과 플랫폼
+                    이용약관을 준수하고, 내려받은 콘텐츠를 개인적·비상업적
+                    용도로만 사용할 것을 확인합니다.
                   </label>
                 </div>
               </div>
               {error && (
                 <Alert variant="destructive" className="mt-4 text-left">
                   <AlertCircle className="h-4 w-4" />
-                  <AlertTitle>Error</AlertTitle>
+                  <AlertTitle>오류</AlertTitle>
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
@@ -415,7 +414,7 @@ export function VideoDownloaderClient({
                           >
                             <Image
                               src={getThumbnailUrl(item.thumbnail)}
-                              alt="Video Thumbnail"
+                              alt="영상 썸네일"
                               fill
                               className="object-cover transition-transform duration-500 group-hover:scale-105"
                               unoptimized
@@ -493,7 +492,7 @@ export function VideoDownloaderClient({
                             {/* Download Buttons */}
                             <div className="space-y-3">
                               <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                                Download Options
+                                다운로드 옵션
                               </p>
                               {renderDownloads ? (
                                 renderDownloads(item, itemIndex)
@@ -550,7 +549,7 @@ export function VideoDownloaderClient({
                                           ) : (
                                             <>
                                               <span className="font-medium">
-                                                Download
+                                                다운로드
                                               </span>
                                               <Download className="w-4 h-4" />
                                             </>

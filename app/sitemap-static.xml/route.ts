@@ -115,26 +115,14 @@ const STATIC: Entry[] = [
 ];
 
 function buildXml(entries: Entry[]): string {
-  // Emit each URL for English (root) and Korean (/kr) with xhtml:link hreflang
-  // alternates cross-referencing both.
+  // Korean-only site: a single root URL per path, no hreflang alternates.
   const rows = entries
-    .map((e) => {
-      const path = e.url === BASE ? "" : e.url.slice(BASE.length);
-      const en = `${BASE}${path}`;
-      const ko = `${BASE}/kr${path}`;
-      const alts =
-        `    <xhtml:link rel="alternate" hreflang="en" href="${en}"/>\n` +
-        `    <xhtml:link rel="alternate" hreflang="ko" href="${ko}"/>\n` +
-        `    <xhtml:link rel="alternate" hreflang="x-default" href="${en}"/>\n`;
-      return [en, ko]
-        .map(
-          (loc) =>
-            `  <url>\n    <loc>${loc}</loc>\n${alts}    <lastmod>${e.lastmod}</lastmod>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority.toFixed(1)}</priority>\n  </url>`
-        )
-        .join("\n");
-    })
+    .map(
+      (e) =>
+        `  <url>\n    <loc>${e.url}</loc>\n    <lastmod>${e.lastmod}</lastmod>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority.toFixed(1)}</priority>\n  </url>`
+    )
     .join("\n");
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${rows}\n</urlset>`;
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${rows}\n</urlset>`;
 }
 
 export async function GET() {
@@ -142,12 +130,18 @@ export async function GET() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const posts: any[] = await getAllSitemapPosts();
 
-  const blogEntries: Entry[] = posts.map((p) => ({
-    url: `${BASE}/blog/${p.id}`,
-    lastmod: new Date(p.updatedAt || p.publishedAt).toISOString().split("T")[0],
-    changefreq: "monthly",
-    priority: 0.7,
-  }));
+  // 블로그 글은 아직 전부 영문이므로 한국어 전용 사이트맵에서 제외한다.
+  // 한국어 본문이 있는 글만 노출 (제목에 한글이 포함된 글을 번역본으로 간주).
+  const blogEntries: Entry[] = posts
+    .filter((p) => /[가-힣]/.test(String(p.title ?? "")))
+    .map((p) => ({
+      url: `${BASE}/blog/${p.id}`,
+      lastmod: new Date(p.updatedAt || p.publishedAt)
+        .toISOString()
+        .split("T")[0],
+      changefreq: "monthly",
+      priority: 0.7,
+    }));
 
   return new Response(buildXml([...STATIC, ...blogEntries]), {
     headers: {

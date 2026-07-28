@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { MergePdfClient } from "@/components/client/merge-pdf-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/pdf/merge-pdf`;
 
@@ -17,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function MergePdfPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -62,38 +59,38 @@ export default async function MergePdfPage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Merge PDF",
+    name: "PDF 합치기",
     url: "https://ssdown.app/pdf/merge-pdf",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Combine multiple PDF files into one document quickly and easily.",
+    description: "여러 PDF 파일을 하나의 문서로 빠르고 간편하게 합칩니다.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Merge PDF Online",
-    description: "Combine multiple PDF files into one document quickly and easily.",
+    name: "PDF 합치기 사용 방법",
+    description: "여러 PDF 파일을 하나의 문서로 빠르고 간편하게 합칩니다.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Select PDF files",
-        text: "Choose multiple PDF documents you want to merge.",
+        name: "PDF 파일 업로드",
+        text: "합칠 PDF 파일들을 드래그 앤 드롭하거나 클릭하여 선택하세요.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Arrange order",
-        text: "Drag and drop files to set the desired sequence.",
+        name: "순서 정렬",
+        text: "파일을 드래그하여 원하는 순서로 변경하세요.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Download merged PDF",
-        text: "Click merge and save the combined file to your device.",
+        name: "합치기 및 다운로드",
+        text: "'PDF 합치기'를 클릭하고 결과를 다운로드하세요.",
       }
     ],
   };

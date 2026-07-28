@@ -36,7 +36,7 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>SSDown Blog — Free Online Tools &amp; Guides</title>
+    <title>SSDown 블로그 — Free Online Tools &amp; Guides</title>
     <link>${BASE}/blog</link>
     <description>Technology guides and tutorials on video downloading, image editing, PDF management, file conversion, and digital security.</description>
     <language>en-us</language>

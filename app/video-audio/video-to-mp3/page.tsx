@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { VideoToMp3Client } from "@/components/client/video-to-mp3-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/video-audio/video-to-mp3`;
 
@@ -17,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function VideoToMp3Page() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -66,7 +63,7 @@ export default async function VideoToMp3Page() {
     url: "https://ssdown.app/video-audio/video-to-mp3",
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     description:
       "Free online video to MP3 converter. Extract audio from MP4, WebM, AVI and other video formats. Fast, private, no upload required.",
@@ -82,20 +79,20 @@ export default async function VideoToMp3Page() {
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Upload your video",
-        text: "Click the upload area or drag and drop your video file (MP4, WebM, AVI, MOV, etc.).",
+        name: "비디오 파일 선택",
+        text: "파일을 드래그하거나 선택하세요. MP4, WebM, MKV 등 다양한 형식을 지원합니다.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Wait for processing",
-        text: "The tool extracts the audio track directly in your browser. No upload to a server is needed.",
+        name: "MP3로 변환",
+        text: "변환 버튼을 누르세요. FFmpeg 기술을 사용하여 브라우저 내에서 직접 변환이 이루어집니다.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Download the MP3",
-        text: "Click Download to save the extracted MP3 audio file to your device.",
+        name: "MP3 다운로드",
+        text: "변환이 완료되면 다운로드 버튼을 눌러 기기에 저장하세요.",
       },
     ],
   };

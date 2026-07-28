@@ -1,29 +1,27 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { JsonFormatterClient } from "@/components/client/json-formatter-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/utility/json-formatter`;
 
-  const title = "JSON Formatter - Beautify, Minify & Validate JSON | SSDown";
+  const title = "JSON 포매터 - 정렬, 압축, 검사 | SSDown";
   const description =
-    "Free online JSON formatter and validator. Beautify, minify, and validate JSON with error highlighting. Runs entirely in your browser.";
+    "무료 온라인 JSON 포매터·검사기. 오류를 짚어 주면서 JSON을 정렬하고 압축하고 검사합니다. 전적으로 브라우저에서 실행됩니다.";
 
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -33,30 +31,29 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const faq = [
   {
-    question: "How do I format or beautify JSON?",
+    question: "JSON을 어떻게 정렬하나요?",
     answer:
-      "Paste your JSON into the input area, choose an indentation size (2 spaces, 4 spaces, or Tab), and click Beautify. The tool parses your JSON and re-prints it with clean, consistent indentation so it is easy to read.",
+      "입력창에 JSON을 붙여넣고 들여쓰기 크기(공백 2칸, 4칸, 탭)를 고른 뒤 정렬을 누르세요. JSON을 해석해 읽기 쉽도록 일관된 들여쓰기로 다시 출력해 줍니다.",
   },
   {
-    question: "How do I minify JSON?",
+    question: "JSON을 어떻게 압축하나요?",
     answer:
-      "Click the Minify button to remove all unnecessary whitespace and line breaks. This produces the smallest valid representation of your JSON, which is ideal for reducing payload size in APIs and config files.",
+      "압축 버튼을 누르면 불필요한 공백과 줄바꿈이 모두 제거됩니다. 유효한 JSON 중 가장 작은 형태가 되어 API 응답이나 설정 파일의 용량을 줄이는 데 적합합니다.",
   },
   {
-    question: "What happens when my JSON is invalid?",
+    question: "JSON이 올바르지 않으면 어떻게 되나요?",
     answer:
-      "If the input cannot be parsed, the tool shows a red error message describing what went wrong. When possible, it also points to the line and column of the problem so you can locate and fix the syntax error quickly.",
+      "입력을 해석할 수 없으면 무엇이 잘못됐는지 설명하는 빨간 오류 메시지가 표시됩니다. 가능한 경우 문제가 있는 줄과 열까지 알려 주어 문법 오류를 빠르게 찾아 고칠 수 있습니다.",
   },
   {
-    question: "Is my JSON data private and secure?",
+    question: "제 JSON 데이터는 안전한가요?",
     answer:
-      "Yes. All parsing, formatting, and validation happen entirely in your browser using JavaScript. Your JSON is never uploaded to any server or stored anywhere. Close the tab and your data is gone.",
+      "네. 해석, 정렬, 검사가 모두 자바스크립트로 전적으로 브라우저 안에서 이뤄집니다. JSON이 서버로 업로드되거나 저장되지 않습니다. 탭을 닫으면 데이터는 사라집니다.",
   },
 ];
 
 export default async function JsonFormatterPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -78,45 +75,45 @@ export default async function JsonFormatterPage() {
       { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
       { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
       { "@type": "ListItem", position: 3, name: dict.breadcrumb.utility, item: "https://ssdown.app/tools/utility" },
-      { "@type": "ListItem", position: 4, name: "JSON Formatter", item: "https://ssdown.app/utility/json-formatter" },
+      { "@type": "ListItem", position: 4, name: "JSON 포매터", item: "https://ssdown.app/utility/json-formatter" },
     ],
   };
 
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "JSON Formatter",
+    name: "JSON 포매터",
     url: "https://ssdown.app/utility/json-formatter",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Free online JSON formatter and validator. Fast, secure, and browser-based.",
+    description: "무료 온라인 JSON 포매터·검사기입니다. 빠르고 안전하며 브라우저에서 바로 실행됩니다.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use JSON Formatter Online",
-    description: "Use our free online JSON formatter to beautify, minify, and validate JSON securely in your browser.",
+    name: "How to use JSON 포매터 Online",
+    description: "무료 온라인 JSON 포매터로 브라우저에서 안전하게 JSON을 정렬하고 압축하고 검사하세요.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Paste your JSON",
-        text: "Type or paste your JSON into the input area.",
+        name: "JSON 붙여넣기",
+        text: "입력창에 JSON을 입력하거나 붙여넣으세요.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Choose an action",
-        text: "Select an indentation size, then click Beautify, Minify, or Validate.",
+        name: "작업 선택",
+        text: "들여쓰기 크기를 고른 뒤 정렬, 압축, 검사 중 하나를 누르세요.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Copy or download",
-        text: "Copy the result to your clipboard or download it as a .json file.",
+        name: "복사 또는 다운로드",
+        text: "결과를 클립보드에 복사하거나 .json 파일로 내려받으세요.",
       },
     ],
   };
@@ -146,7 +143,7 @@ export default async function JsonFormatterPage() {
             { label: dict.breadcrumb.tools, href: "/tools" },
             { label: dict.breadcrumb.utility, href: "/tools/utility" },
             {
-              label: "JSON Formatter",
+              label: "JSON 포매터",
               href: "/utility/json-formatter",
               isCurrent: true,
             },

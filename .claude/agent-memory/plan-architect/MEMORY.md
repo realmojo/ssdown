@@ -1,5 +1,9 @@
 # Plan Architect Memory
 
+## SEO 감사 결과
+
+- [SEO 현황 및 알려진 버그](project_seo_state.md) — 2026-05-15 감사: 색인 차단 6페이지, /app/ URL 버그 15개, 40개 제네릭 HowTo
+
 ## Project Structure Patterns
 
 ### Tool Implementation Pattern

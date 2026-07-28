@@ -99,7 +99,7 @@ export function BilibiliClient({ dict }: BilibiliClientProps) {
             },
             {
               step: 2,
-              title: dict?.bilibili?.step2_title || "Copy Link",
+              title: dict?.bilibili?.step2_title || "링크 복사",
               desc:
                 dict?.bilibili?.step2_desc ||
                 "Copy the Bilibili video URL. It usually looks like 'bilibili.com/video/BV...' or uses a short link.",
@@ -136,7 +136,7 @@ export function BilibiliClient({ dict }: BilibiliClientProps) {
         </div>
       </section>
 
-      {/* Tips & Best Practices */}
+      {/* 활용 팁 */}
       <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
@@ -175,7 +175,7 @@ export function BilibiliClient({ dict }: BilibiliClientProps) {
               icon: Share2,
             },
             {
-              title: dict?.bilibili?.tip4_title || "Respect Copyright",
+              title: dict?.bilibili?.tip4_title || "저작권 존중",
               desc:
                 dict?.bilibili?.tip4_desc ||
                 "Please respect the intellectual property rights of content creators on Bilibili.",
@@ -319,7 +319,7 @@ export function BilibiliClient({ dict }: BilibiliClientProps) {
       placeholder={dict?.bilibili?.placeholder || "Paste Bilibili URL here..."}
       apiEndpoint="/api/bilibili"
       downloadEndpoint="/api/bilibili/download"
-      noVideoError="No video found. Make sure the URL is valid."
+      noVideoError="영상을 찾지 못했습니다. URL이 올바른지 확인해 주세요."
       statsConfig={statsConfig}
       thumbnailAspect="aspect-video"
       thumbnailHeight="h-64"

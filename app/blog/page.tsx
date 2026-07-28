@@ -6,18 +6,16 @@ import { Post } from "@/lib/blog-utils";
 import { Key } from "react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { buildAlternates } from "@/lib/seo";
-import { getLocale } from "@/lib/get-locale";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/blog`;
-  const locale = await getLocale();
 
-  const title = "Blog & Tutorials";
+  const title = "블로그 & 튜토리얼";
   const description =
-    "Tips, tutorials, and guides for getting the most out of SSDown's free online tools. Learn image editing, PDF management, video conversion, and more.";
+    "SSDown 무료 온라인 도구를 200% 활용하는 팁과 튜토리얼, 가이드. 이미지 편집, PDF 관리, 영상 변환 등을 배워 보세요.";
 
   return {
     title: `${title} | SSDown`,
@@ -32,10 +30,10 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "https://ssdown.app/logo.png",
           width: 1200,
           height: 630,
-          alt: "SSDown Blog",
+          alt: "SSDown 블로그",
         },
       ],
-      locale: "en_US",
+      locale: "ko_KR",
       type: "website",
     },
     twitter: {
@@ -44,7 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       images: ["https://ssdown.app/logo.png"],
     },
-    alternates: buildAlternates("/blog", locale),
+    alternates: buildAlternates("/blog"),
   };
 }
 
@@ -77,9 +75,9 @@ export default async function BlogPage(props: {
     general: "General",
   };
 
-  const pageTitle = "Creator Hub";
+  const pageTitle = "크리에이터 허브";
   const pageDescription =
-    "Tips, tutorials, and guides for getting the most out of SSDown's free online tools.";
+    "SSDown 무료 온라인 도구를 200% 활용하는 팁과 튜토리얼, 가이드입니다.";
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
@@ -88,7 +86,7 @@ export default async function BlogPage(props: {
           items={[
             { label: "Home", href: "/" },
             {
-              label: "Creator Hub",
+              label: "크리에이터 허브",
               href: "/blog",
               isCurrent: true,
             },
@@ -157,9 +155,9 @@ export default async function BlogPage(props: {
         ) : (
           <div className="text-center py-20">
             <BookOpen className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <h2 className="text-2xl font-bold mb-2">No Posts Yet</h2>
+            <h2 className="text-2xl font-bold mb-2">아직 등록된 글이 없습니다</h2>
             <p className="text-muted-foreground">
-              New guides and tutorials will be added soon.
+              새로운 가이드와 튜토리얼이 곧 추가됩니다.
             </p>
           </div>
         )}

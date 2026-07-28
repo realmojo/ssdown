@@ -131,10 +131,10 @@ export function UuidGeneratorClient({ dict }: { dict?: any }) {
     try {
       await navigator.clipboard.writeText(value);
       setCopiedIndex(index);
-      toast.success("Copied to clipboard");
+      toast.success("클립보드에 복사했습니다");
       window.setTimeout(() => setCopiedIndex(null), 1500);
     } catch {
-      toast.error("Failed to copy");
+      toast.error("복사하지 못했습니다");
     }
   }, []);
 
@@ -144,7 +144,7 @@ export function UuidGeneratorClient({ dict }: { dict?: any }) {
       await navigator.clipboard.writeText(uuids.join("\n"));
       toast.success(`Copied ${uuids.length} UUIDs`);
     } catch {
-      toast.error("Failed to copy");
+      toast.error("복사하지 못했습니다");
     }
   }, [uuids]);
 
@@ -166,11 +166,10 @@ export function UuidGeneratorClient({ dict }: { dict?: any }) {
               <Fingerprint className="w-10 h-10 text-emerald-600 dark:text-emerald-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              UUID Generator
+              UUID 생성기
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
-              Generate UUID v4 and v7 identifiers in bulk, with copy and
-              formatting options.
+              UUID v4·v7 식별자를 한 번에 여러 개 만들고, 복사와 형식 옵션도 제공합니다.
             </p>
 
             <Adsense slotId="7759160077" />
@@ -234,7 +233,7 @@ export function UuidGeneratorClient({ dict }: { dict?: any }) {
                       onChange={(e) => setUppercase(e.target.checked)}
                       className="w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500/50 accent-emerald-600"
                     />
-                    <span className="text-sm">Uppercase</span>
+                    <span className="text-sm">대문자</span>
                   </label>
                   <label className="inline-flex items-center gap-2 cursor-pointer select-none">
                     <input
@@ -243,7 +242,7 @@ export function UuidGeneratorClient({ dict }: { dict?: any }) {
                       onChange={(e) => setRemoveHyphens(e.target.checked)}
                       className="w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500/50 accent-emerald-600"
                     />
-                    <span className="text-sm">Remove hyphens</span>
+                    <span className="text-sm">하이픈 제거</span>
                   </label>
                 </div>
 
@@ -262,7 +261,7 @@ export function UuidGeneratorClient({ dict }: { dict?: any }) {
                     className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     <CopyCheck className="w-4 h-4" />
-                    Copy all
+                    전체 복사
                   </button>
                 </div>
               </CardContent>
@@ -284,7 +283,7 @@ export function UuidGeneratorClient({ dict }: { dict?: any }) {
               <CardContent>
                 {uuids.length === 0 ? (
                   <div className="text-center py-12 text-muted-foreground text-sm">
-                    Click Generate to create UUIDs.
+                    생성 버튼을 누르면 UUID가 만들어집니다.
                   </div>
                 ) : (
                   <div className="flex flex-col gap-2">
@@ -298,7 +297,7 @@ export function UuidGeneratorClient({ dict }: { dict?: any }) {
                         </code>
                         <button
                           onClick={() => handleCopy(uuid, index)}
-                          aria-label="Copy UUID"
+                          aria-label="UUID 복사"
                           className="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-md border border-gray-200 dark:border-gray-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors"
                         >
                           {copiedIndex === index ? (
@@ -321,30 +320,30 @@ export function UuidGeneratorClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  How to Use
+                  이용 방법
                 </h2>
                 <p className="text-muted-foreground">
-                  Create unique identifiers in seconds.
+                  몇 초 만에 고유 식별자를 만들어 보세요.
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
                   {
                     step: 1,
-                    title: "Choose a Version",
-                    desc: "Pick UUID v4 for fully random identifiers or UUID v7 for time-ordered, sortable ones.",
+                    title: "버전 선택",
+                    desc: "완전 무작위 식별자가 필요하면 UUID v4를, 시간순으로 정렬 가능한 식별자가 필요하면 UUID v7을 고르세요.",
                     icon: Fingerprint,
                   },
                   {
                     step: 2,
-                    title: "Set Count & Format",
-                    desc: "Enter how many UUIDs you need, then toggle uppercase or hyphen-free output.",
+                    title: "개수와 형식 설정",
+                    desc: "필요한 개수를 입력한 뒤 대문자 표기나 하이픈 제거 옵션을 켜고 끄세요.",
                     icon: Settings2,
                   },
                   {
                     step: 3,
                     title: "Generate & Copy",
-                    desc: "Click Generate, then copy a single value or the whole list with one click.",
+                    desc: "생성을 누른 뒤 값 하나 또는 전체 목록을 한 번의 클릭으로 복사하세요.",
                     icon: ArrowRight,
                   },
                 ].map((step) => (
@@ -369,29 +368,29 @@ export function UuidGeneratorClient({ dict }: { dict?: any }) {
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-yellow-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">UUID Tips</h2>
+                  <h2 className="text-3xl font-bold mb-4">UUID 팁</h2>
                   <p className="text-muted-foreground">
-                    Choose the right identifier for the job.
+                    용도에 맞는 식별자를 고르는 방법입니다.
                   </p>
                 </div>
 
                 <div className="md:w-2/3 grid sm:grid-cols-2 gap-4">
                   {[
                     {
-                      title: "Use v7 for Database Keys",
-                      desc: "UUID v7 embeds a timestamp in its leading bits, so rows insert in roughly chronological order. This keeps B-tree indexes compact and speeds up inserts versus random v4.",
+                      title: "데이터베이스 키에는 v7",
+                      desc: "UUID v7은 앞부분에 타임스탬프를 담아 대체로 시간순으로 삽입됩니다. 덕분에 B-트리 인덱스가 조밀하게 유지되고 무작위인 v4보다 삽입이 빠릅니다.",
                     },
                     {
-                      title: "Use v4 for Opaque Tokens",
-                      desc: "When you don't want any information leaked from the identifier, v4's full randomness makes it ideal for session tokens, API keys, and public-facing references.",
+                      title: "노출용 토큰에는 v4",
+                      desc: "식별자에서 어떤 정보도 새어 나가지 않기를 원한다면, 완전히 무작위인 v4가 세션 토큰이나 API 키, 외부에 노출되는 참조 값에 적합합니다.",
                     },
                     {
-                      title: "Formatting Is Cosmetic",
-                      desc: "Uppercase and hyphen removal change appearance only. The same 128-bit value is preserved, so it stays compatible when normalized back to canonical form.",
+                      title: "형식은 표시용일 뿐",
+                      desc: "대문자 표기와 하이픈 제거는 겉모습만 바꿉니다. 동일한 128비트 값이 유지되므로 표준 형태로 되돌리면 그대로 호환됩니다.",
                     },
                     {
-                      title: "Collisions Are Negligible",
-                      desc: "With 122 bits of randomness, the odds of generating a duplicate UUID are astronomically low, making both versions safe for distributed systems.",
+                      title: "중복 가능성은 무시할 수준",
+                      desc: "122비트의 무작위성 덕분에 중복이 생길 확률이 천문학적으로 낮아, 두 버전 모두 분산 시스템에서 안전하게 쓸 수 있습니다.",
                     },
                   ].map((tip, idx) => (
                     <div
@@ -413,25 +412,25 @@ export function UuidGeneratorClient({ dict }: { dict?: any }) {
             {/* FAQ */}
             <section className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>
+                <h2 className="text-2xl font-bold tracking-tight mb-4">자주 묻는 질문</h2>
               </div>
               <Accordion type="single" collapsible className="w-full">
                 {[
                   {
-                    q: "What is the difference between UUID v4 and UUID v7?",
-                    a: "UUID v4 is fully random, offering strong uniqueness with no ordering. UUID v7 embeds a Unix millisecond timestamp in its leading bits, so identifiers are time-ordered while still random enough to avoid collisions. Use v4 for opaque keys and v7 when you want database-friendly, sortable primary keys.",
+                    q: "UUID v4와 v7은 무엇이 다른가요?",
+                    a: "UUID v4는 완전히 무작위라 고유성은 뛰어나지만 순서가 없습니다. UUID v7은 앞부분에 유닉스 밀리초 타임스탬프를 담아 시간순으로 정렬되면서도 충돌을 피할 만큼 무작위성을 유지합니다. 외부에 노출되는 키에는 v4를, 데이터베이스에서 정렬 가능한 기본 키가 필요하면 v7을 사용하세요.",
                   },
                   {
-                    q: "Are these UUIDs safe to use as database primary keys?",
-                    a: "Yes. Both versions are 128-bit identifiers with an extremely low collision probability. UUID v7 is especially recommended for primary keys because its time-ordered layout reduces index fragmentation and improves insert performance compared to random v4 values.",
+                    q: "이 UUID를 데이터베이스 기본 키로 써도 되나요?",
+                    a: "네. 두 버전 모두 128비트 식별자로 충돌 확률이 극히 낮습니다. 특히 UUID v7은 시간순 구조 덕분에 인덱스 단편화가 줄고 무작위인 v4보다 삽입 성능이 좋아 기본 키로 권장됩니다.",
                   },
                   {
-                    q: "Is my data private when generating UUIDs here?",
-                    a: "Absolutely. Every UUID is generated entirely in your browser using the built-in Web Crypto API. Nothing is sent to a server, logged, or stored. Close the tab and the generated values are gone.",
+                    q: "여기서 UUID를 만들 때 제 데이터는 안전한가요?",
+                    a: "물론입니다. 모든 UUID는 브라우저에 내장된 Web Crypto API로 전적으로 브라우저 안에서 만들어집니다. 서버로 전송되거나 기록되거나 저장되지 않습니다. 탭을 닫으면 생성된 값은 사라집니다.",
                   },
                   {
-                    q: "How many UUIDs can I generate at once?",
-                    a: "You can generate between 1 and 100 UUIDs per batch. Adjust the count field, choose your version and formatting options, then click Generate to produce the full list, which you can copy individually or all at once.",
+                    q: "한 번에 몇 개까지 만들 수 있나요?",
+                    a: "한 번에 1개부터 100개까지 만들 수 있습니다. 개수를 조정하고 버전과 형식 옵션을 고른 뒤 생성을 누르면 전체 목록이 만들어지며, 하나씩 또는 전체를 한 번에 복사할 수 있습니다.",
                   },
                 ].map((item, idx) => (
                   <AccordionItem key={idx} value={`item-${idx + 1}`}>

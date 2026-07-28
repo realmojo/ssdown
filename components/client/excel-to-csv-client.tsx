@@ -87,7 +87,7 @@ export function ExcelToCsvClient({ dict }: { dict?: any }) {
   const handleCopy = () => {
     if (!csvOutput) return;
     navigator.clipboard.writeText(csvOutput);
-    toast.success("CSV copied to clipboard");
+    toast.success("CSV를 클립보드에 복사했습니다");
   };
 
   const handleClear = () => {
@@ -150,10 +150,10 @@ export function ExcelToCsvClient({ dict }: { dict?: any }) {
             >
               <FileSpreadsheet className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
               <p className="text-lg font-medium mb-2">
-                Click to upload or Drag & Drop Excel file
+                클릭해서 올리거나 엑셀 파일을 끌어다 놓으세요
               </p>
               <p className="text-sm text-muted-foreground">
-                Supports .xlsx and .xls
+                .xlsx와 .xls를 지원합니다
               </p>
               <input
                 ref={fileInputRef}
@@ -167,17 +167,17 @@ export function ExcelToCsvClient({ dict }: { dict?: any }) {
             <div className="flex items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm mb-4 border">
               <FileSpreadsheet className="w-8 h-8 text-green-600" />
               <div className="flex-1">
-                <p className="font-medium">File uploaded</p>
+                <p className="font-medium">파일 업로드 완료</p>
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-sm text-muted-foreground">
-                    Select Sheet:
+                    시트 선택:
                   </span>
                   <Select
                     value={selectedSheet}
                     onValueChange={handleSheetChange}
                   >
                     <SelectTrigger className="w-[180px] h-8">
-                      <SelectValue placeholder="Select sheet" />
+                      <SelectValue placeholder="시트 선택" />
                     </SelectTrigger>
                     <SelectContent>
                       {sheets.map((sheet) => (
@@ -206,7 +206,7 @@ export function ExcelToCsvClient({ dict }: { dict?: any }) {
                 <div className="flex justify-between items-center mb-2">
                   <label className="font-medium flex items-center gap-2">
                     <FileText className="w-4 h-4 text-muted-foreground" />
-                    CSV Output
+                    CSV 출력
                   </label>
                   <Button
                     variant="ghost"
@@ -272,10 +272,10 @@ export function ExcelToCsvClient({ dict }: { dict?: any }) {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Frequently Asked Questions
+              자주 묻는 질문
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about Excel to CSV conversion.
+              엑셀 → CSV 변환에 대해 자주 묻는 질문입니다.
             </p>
           </div>
 
@@ -283,11 +283,11 @@ export function ExcelToCsvClient({ dict }: { dict?: any }) {
             <Accordion type="single" collapsible className="w-full">
               {[
                 {
-                  q: "Can I download the CSV?",
+                  q: "CSV로 내려받을 수 있나요?",
                   a: "Currently you can copy the text to clipboard. You can save it as a .csv file using your text editor.",
                 },
                 {
-                  q: "Are formulas calculated?",
+                  q: "수식이 계산되나요?",
                   a: "The converter attempts to export the values visible in the sheet, not the formulas themselves.",
                 },
               ].map((item, idx) => (

@@ -111,7 +111,7 @@ export function JsonToXmlClient({ dict }: { dict?: any }) {
       setXmlOutput(xml);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_err) {
-      setError("Invalid JSON format. Please check your input.");
+      setError("올바르지 않은 JSON 형식입니다. 입력 내용을 확인해 주세요.");
       setXmlOutput("");
     }
   };
@@ -119,7 +119,7 @@ export function JsonToXmlClient({ dict }: { dict?: any }) {
   const handleCopy = () => {
     if (!xmlOutput) return;
     navigator.clipboard.writeText(xmlOutput);
-    toast.success("XML copied to clipboard");
+    toast.success("XML을 클립보드에 복사했습니다");
   };
 
   const handleClear = () => {
@@ -163,7 +163,7 @@ export function JsonToXmlClient({ dict }: { dict?: any }) {
           {dict?.json_to_xml?.title || "JSON to XML Converter"}
         </h1>
         <p className="text-muted-foreground text-center max-w-2xl mb-8">
-          {dict?.json_to_xml?.subtitle || "Convert JSON data to XML format instantly. Paste your JSON code, or Drag & Drop a file."}
+          {dict?.json_to_xml?.subtitle || "Convert JSON data to XML format instantly. JSON 붙여넣기 code, or Drag & Drop a file."}
         </p>
 
         <Adsense slotId="7759160077" />
@@ -179,7 +179,7 @@ export function JsonToXmlClient({ dict }: { dict?: any }) {
               <div className="flex justify-between items-center mb-2">
                 <label className="font-medium flex items-center gap-2">
                   <FileJson className="w-4 h-4 text-muted-foreground" />
-                  JSON Input
+                  JSON 입력
                 </label>
                 <Button
                   variant="ghost"
@@ -195,7 +195,7 @@ export function JsonToXmlClient({ dict }: { dict?: any }) {
                 {isDragging && (
                   <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-lg border-2 border-dashed border-orange-500">
                     <p className="text-lg font-medium text-orange-600 dark:text-orange-400">
-                      Drop JSON file here
+                      여기에 JSON 파일을 끌어다 놓으세요
                     </p>
                   </div>
                 )}
@@ -215,7 +215,7 @@ export function JsonToXmlClient({ dict }: { dict?: any }) {
               <div className="flex justify-between items-center mb-2">
                 <label className="font-medium flex items-center gap-2">
                   <FileCode className="w-4 h-4 text-muted-foreground" />
-                  XML Output
+                  XML 출력
                 </label>
                 <Button
                   variant="ghost"
@@ -245,7 +245,7 @@ export function JsonToXmlClient({ dict }: { dict?: any }) {
             className="bg-orange-600 hover:bg-orange-700 text-white min-w-[200px]"
           >
             <ArrowRightLeft className="w-4 h-4 mr-2" />
-            Convert JSON to XML
+            JSON을 XML로 변환
           </Button>
         </div>
       </div>
@@ -267,7 +267,7 @@ export function JsonToXmlClient({ dict }: { dict?: any }) {
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: dict?.json_to_xml?.tip1_title || "Valid JSON",
+                title: dict?.json_to_xml?.tip1_title || "올바른 JSON입니다",
                 desc: dict?.json_to_xml?.tip1_desc || "Ensure keys are quoted using double quotes. Single quotes are not valid JSON.",
               },
               {
@@ -293,10 +293,10 @@ export function JsonToXmlClient({ dict }: { dict?: any }) {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Frequently Asked Questions
+              자주 묻는 질문
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about our JSON to XML converter.
+              JSON → XML 변환기에 대해 자주 묻는 질문입니다.
             </p>
           </div>
 
@@ -304,15 +304,15 @@ export function JsonToXmlClient({ dict }: { dict?: any }) {
             <Accordion type="single" collapsible className="w-full">
               {[
                 {
-                  q: "What is JSON?",
+                  q: "JSON이 무엇인가요?",
                   a: "JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write and easy for machines to parse and generate.",
                 },
                 {
-                  q: "What is XML?",
+                  q: "XML이 무엇인가요?",
                   a: "XML (Extensible Markup Language) is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable.",
                 },
                 {
-                  q: "Why convert JSON to XML?",
+                  q: "JSON을 XML로 바꾸는 이유는 무엇인가요?",
                   a: "While JSON is popular for web APIs, many legacy systems and enterprise applications still require XML. Validating data against a schema (XSD) is also often easier with XML.",
                 },
               ].map((item, idx) => (

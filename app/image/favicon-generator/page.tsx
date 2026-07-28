@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { FaviconGeneratorClient } from "@/components/client/favicon-generator-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/favicon-generator`;
 
@@ -17,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function FaviconGeneratorPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -62,38 +59,38 @@ export default async function FaviconGeneratorPage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Favicon Generator",
+    name: "파비콘 생성기",
     url: "https://ssdown.app/image/favicon-generator",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Generate favicon.ico and multi-size PNG icons from any image.",
+    description: "어떤 이미지로든 favicon.ico와 여러 크기의 PNG 아이콘을 만들어 줍니다.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Favicon Generator Online",
-    description: "Generate favicon.ico and multi-size PNG icons from any image.",
+    name: "파비콘 생성기 사용 방법",
+    description: "어떤 이미지로든 favicon.ico와 여러 크기의 PNG 아이콘을 만들어 줍니다.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Upload logo",
-        text: "Select a square logo or image file.",
+        name: "이미지 업로드",
+        text: "어떤 이미지 파일이든 업로드하면 자동으로 파비콘 규격으로 변환합니다.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Customize icon",
-        text: "Preview how it looks in different sizes.",
+        name: "자동 생성",
+        text: "16x16부터 256x256까지 표준 6개 크기를 한꺼번에 만듭니다.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Download icons",
-        text: "Save the complete favicon package for your website.",
+        name: "다운로드",
+        text: "모든 크기가 포함된 ICO 파일이나 개별 PNG 파일을 저장하세요.",
       }
     ],
   };

@@ -4,27 +4,27 @@ export function InstagramTechInsights() {
   const insights = [
     {
       icon: Image,
-      title: "Cdn Image Optimization",
+      title: "CDN 이미지 최적화",
       content:
-        "Instagram aggressively compresses media to reduce bandwidth. Most images are served as progressive JPEGs or WebP formats, depending on the client. Our extraction tool identifies the highest resolution candidate (often labeled as 'original' in the Graph API response) to ensure you archive the best possible version before the platform apply its aggressive compression for mobile delivery.",
+        "인스타그램은 데이터 사용량을 줄이려고 미디어를 강하게 압축합니다. 대부분의 이미지는 접속 환경에 따라 프로그레시브 JPEG나 WebP로 제공됩니다. SSDown은 가장 높은 해상도의 후보(Graph API 응답에서 흔히 'original'로 표시됨)를 찾아내, 모바일 전송용 압축이 적용되기 전의 최상 버전을 보관할 수 있게 합니다.",
     },
     {
       icon: Clock,
-      title: "Signed URL Expiration",
+      title: "서명 URL 만료",
       content:
-        "Direct links to Instagram media (CDN URLs) contain a security signature (`?_nc_cat=...`) with a timestamp. These links are ephemeral and typically expire within a few hours. This is why you cannot simply 'bookmark' a video link; it must be downloaded or refreshed. SSDown fetches a fresh, valid token at the moment of request to facilitate immediate archiving.",
+        "인스타그램 미디어의 직접 주소(CDN URL)에는 시각 정보가 담긴 보안 서명(`?_nc_cat=...`)이 포함됩니다. 이 링크는 일시적이라 보통 몇 시간 안에 만료됩니다. 영상 링크를 그냥 '즐겨찾기'해 둘 수 없는 이유이며, 내려받거나 새로 발급받아야 합니다. SSDown은 요청 시점에 유효한 토큰을 새로 받아 바로 보관할 수 있게 합니다.",
     },
     {
       icon: Lock,
-      title: "Public vs Private Graph Data",
+      title: "공개 데이터와 비공개 데이터",
       content:
-        "Instagram's data architecture strictly separates public and private endpoints. Public posts are accessible via standard Graph API calls or HTML parsing (Open Graph tags). Private content, however, is gated behind strict session authentication. SSDown respects this privacy architecture and does not attempt to bypass access controls for private accounts.",
+        "인스타그램의 데이터 구조는 공개 영역과 비공개 영역을 엄격히 나눕니다. 공개 게시물은 일반적인 Graph API 호출이나 HTML 파싱(Open Graph 태그)으로 접근할 수 있지만, 비공개 콘텐츠는 엄격한 세션 인증 뒤에 있습니다. SSDown은 이 구조를 존중하며 비공개 계정의 접근 제어를 우회하려 시도하지 않습니다.",
     },
     {
       icon: Globe,
-      title: "Regional Content Delivery",
+      title: "지역별 콘텐츠 전송",
       content:
-        "Instagram utilizes a massive distributed edge network. Sometimes, specific content is geoblocked or served from a specific regional cache. Understanding the difference between a 'broken link' and a 'geoblocked resource' is key for digital troubleshooting. Our servers attempt to resolve these regional discrepancies where possible to provide consistent access.",
+        "인스타그램은 대규모 분산 엣지 네트워크를 사용합니다. 그래서 특정 콘텐츠가 지역 차단되거나 특정 지역 캐시에서 제공되기도 합니다. '끊어진 링크'와 '지역 차단된 자원'을 구분하는 것이 문제 해결의 핵심입니다. SSDown 서버는 가능한 범위에서 이런 지역 차이를 해소해 일관된 접근을 제공하려 합니다.",
     },
   ];
 
@@ -33,14 +33,13 @@ export function InstagramTechInsights() {
       <div className="container px-4 md:px-6 mx-auto max-w-6xl">
         <div className="text-center mb-12">
           <span className="inline-block py-1 px-3 rounded-full bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300 text-sm font-semibold mb-4">
-            Platform Architecture
+            플랫폼 구조
           </span>
           <h2 className="text-3xl font-bold tracking-tight mb-4">
-            Technical Insight: Instagram Media Delivery
+            기술 살펴보기: 인스타그램 미디어 전송
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Explore the mechanisms of how Instagram stores, secures, and
-            delivers visual content to billions of devices.
+            인스타그램이 수십억 대의 기기에 시각 콘텐츠를 저장하고 보호하며 전달하는 방식을 살펴봅니다.
           </p>
         </div>
 
@@ -73,15 +72,14 @@ export function InstagramTechInsights() {
             <Lock className="w-6 h-6 text-purple-600 mt-1 flex-shrink-0" />
             <div className="space-y-2">
               <h4 className="font-semibold text-purple-900 dark:text-purple-200">
-                Privacy First Approach
+                개인정보 우선 원칙
               </h4>
               <p className="text-sm text-purple-800/80 dark:text-purple-300/80 leading-relaxed">
                 We strictly adhere to ethical data access standards. We do not
                 provide tools to view private profiles, download stories
                 anonymously from private accounts, or bypass 2FA security. Our
                 tools are designed solely for interacting with{" "}
-                <strong>publicly available information</strong> that the creator
-                has chosen to share with the world.
+                <strong>공개된 정보</strong> 창작자가 세상에 공개하기로 선택한 것입니다.
               </p>
             </div>
           </div>

@@ -41,7 +41,7 @@ export function XmlToCsvClient({ dict }: { dict?: any }) {
 
       const parserError = xmlDoc.querySelector("parsererror");
       if (parserError) {
-        throw new Error("Invalid XML format");
+        throw new Error("올바르지 않은 XML 형식입니다");
       }
 
       // Finds the first element that has children which are also elements
@@ -54,7 +54,7 @@ export function XmlToCsvClient({ dict }: { dict?: any }) {
 
       const children = Array.from(root.children);
       if (children.length === 0) {
-        throw new Error("XML has no child elements to convert to rows.");
+        throw new Error("행으로 변환할 하위 요소가 XML에 없습니다.");
       }
       rows = children;
 
@@ -77,7 +77,7 @@ export function XmlToCsvClient({ dict }: { dict?: any }) {
         // In this case, use a default header "value"
         const hasText = rows.some((r) => r.textContent?.trim());
         if (hasText) headers.push("value");
-        else throw new Error("No data found in XML elements.");
+        else throw new Error("XML 요소에서 데이터를 찾지 못했습니다.");
       }
 
       // Build CSV
@@ -108,7 +108,7 @@ export function XmlToCsvClient({ dict }: { dict?: any }) {
       setCsvOutput(csv);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_err) {
-      setError("Error parsing XML. Ensure structure is list-based.");
+      setError("XML을 해석하지 못했습니다. 목록 형태의 구조인지 확인해 주세요.");
       setCsvOutput("");
     }
   };
@@ -116,7 +116,7 @@ export function XmlToCsvClient({ dict }: { dict?: any }) {
   const handleCopy = () => {
     if (!csvOutput) return;
     navigator.clipboard.writeText(csvOutput);
-    toast.success("CSV copied to clipboard");
+    toast.success("CSV를 클립보드에 복사했습니다");
   };
 
   const handleClear = () => {
@@ -176,7 +176,7 @@ export function XmlToCsvClient({ dict }: { dict?: any }) {
               <div className="flex justify-between items-center mb-2">
                 <label className="font-medium flex items-center gap-2">
                   <FileCode className="w-4 h-4 text-muted-foreground" />
-                  XML Input
+                  XML 입력
                 </label>
                 <Button
                   variant="ghost"
@@ -192,13 +192,13 @@ export function XmlToCsvClient({ dict }: { dict?: any }) {
                 {isDragging && (
                   <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-lg border-2 border-dashed border-indigo-500">
                     <p className="text-lg font-medium text-indigo-600 dark:text-indigo-400">
-                      Drop XML file here
+                      여기에 XML 파일을 끌어다 놓으세요
                     </p>
                   </div>
                 )}
                 <Textarea
                   placeholder={
-                    '<users>\n  <user id="1">\n    <name>John</name>\n    <email>john@example.com</email>\n  </user>\n  <user id="2">\n    <name>Jane</name>\n    <email>jane@example.com</email>\n  </user>\n</users>'
+                    '<users>\n  <user id="1">\n    <name>홍길동</name>\n    <email>hong@example.com</email>\n  </user>\n  <user id="2">\n    <name>김영희</name>\n    <email>kim@example.com</email>\n  </user>\n</users>'
                   }
                   className="flex-1 font-mono text-sm resize-none whitespace-pre"
                   value={xmlInput}
@@ -214,7 +214,7 @@ export function XmlToCsvClient({ dict }: { dict?: any }) {
               <div className="flex justify-between items-center mb-2">
                 <label className="font-medium flex items-center gap-2">
                   <FileSpreadsheet className="w-4 h-4 text-muted-foreground" />
-                  CSV Output
+                  CSV 출력
                 </label>
                 <Button
                   variant="ghost"
@@ -244,7 +244,7 @@ export function XmlToCsvClient({ dict }: { dict?: any }) {
             className="bg-indigo-600 hover:bg-indigo-700 text-white min-w-[200px]"
           >
             <ArrowRightLeft className="w-4 h-4 mr-2" />
-            Convert XML to CSV
+            XML을 CSV로 변환
           </Button>
         </div>
       </div>
@@ -292,10 +292,10 @@ export function XmlToCsvClient({ dict }: { dict?: any }) {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Frequently Asked Questions
+              자주 묻는 질문
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about our XML to CSV converter.
+              XML → CSV 변환기에 대해 자주 묻는 질문입니다.
             </p>
           </div>
 
@@ -303,11 +303,11 @@ export function XmlToCsvClient({ dict }: { dict?: any }) {
             <Accordion type="single" collapsible className="w-full">
               {[
                 {
-                  q: "Do you support attributes?",
+                  q: "속성도 지원하나요?",
                   a: "Yes, XML attributes are extracted as columns prefixed with '@'.",
                 },
                 {
-                  q: "What about inconsistent columns?",
+                  q: "열 구성이 서로 다르면 어떻게 되나요?",
                   a: "The tool unions all tag names found in all rows to create the header list. If a row is missing a tag, that cell will be empty.",
                 },
               ].map((item, idx) => (

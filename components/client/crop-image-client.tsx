@@ -467,7 +467,7 @@ export function CropImageClient({ dict }: { dict?: any }) {
               }}
               className="mt-4 text-sm text-orange-600 dark:text-orange-400 hover:underline"
             >
-              Or try with a sample image
+              샘플 이미지로 먼저 써보기
             </button>
           </div>
         ) : (
@@ -479,7 +479,7 @@ export function CropImageClient({ dict }: { dict?: any }) {
                   <div className="flex items-center gap-3">
                     <Button variant="outline" size="sm" onClick={handleReset}>
                       <RotateCcw className="w-4 h-4 mr-2" />
-                      New Image
+                      새 이미지
                     </Button>
                     <span
                       className="text-sm text-muted-foreground truncate max-w-[200px]"
@@ -495,7 +495,7 @@ export function CropImageClient({ dict }: { dict?: any }) {
 
                 {/* Aspect Ratio */}
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Aspect Ratio</label>
+                  <label className="text-sm font-medium">화면비</label>
                   <div className="flex flex-wrap gap-2">
                     {ASPECT_RATIOS.map((r) => (
                       <button
@@ -528,7 +528,7 @@ export function CropImageClient({ dict }: { dict?: any }) {
                 <img
                   ref={imageRef}
                   src={imageSrc}
-                  alt="Image to crop"
+                  alt="자를 이미지"
                   onLoad={onImageLoad}
                   className="max-w-full max-h-[70vh] block"
                   draggable={false}
@@ -605,7 +605,7 @@ export function CropImageClient({ dict }: { dict?: any }) {
                   className="bg-green-600 hover:bg-green-700 text-white shadow-lg min-w-[160px] animate-in fade-in slide-in-from-bottom-2"
                 >
                   <Download className="w-5 h-5 mr-2" />
-                  Download
+                  다운로드
                 </Button>
               )}
             </div>
@@ -615,7 +615,7 @@ export function CropImageClient({ dict }: { dict?: any }) {
               <Card className="border-green-100 dark:border-green-900/50">
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center gap-2">
-                    Cropped Result
+                    자른 결과
                     <span className="text-sm font-normal text-muted-foreground">
                       ({croppedSize.width} x {croppedSize.height} px)
                     </span>
@@ -624,7 +624,7 @@ export function CropImageClient({ dict }: { dict?: any }) {
                 <CardContent className="flex justify-center">
                   <img
                     src={croppedUrl}
-                    alt="Cropped result"
+                    alt="자른 결과"
                     className="max-w-full max-h-[400px] rounded-lg shadow-md"
                   />
                 </CardContent>
@@ -652,7 +652,7 @@ export function CropImageClient({ dict }: { dict?: any }) {
             {[
               {
                 step: 1,
-                title: dict?.crop_image?.step1_title || "Upload Image",
+                title: dict?.crop_image?.step1_title || "이미지 업로드",
                 desc:
                   dict?.crop_image?.step1_desc ||
                   "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
@@ -706,29 +706,29 @@ export function CropImageClient({ dict }: { dict?: any }) {
               {dict?.crop_image?.tips_title || "Cropping Tips"}
             </h2>
             <p className="text-muted-foreground">
-              Get the best results when cropping your images.
+              이미지를 자를 때 가장 좋은 결과를 얻는 방법입니다.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Use Aspect Ratios",
-                desc: "Select a preset ratio like 1:1 for profile photos, 16:9 for YouTube thumbnails, or 9:16 for Instagram Stories.",
+                title: "비율 활용하기",
+                desc: "Select a preset ratio like 1:1 for profile photos, 16:9 for YouTube thumbnails, or 9:16 for Instagram 스토리.",
                 icon: Layers,
               },
               {
-                title: "Rule of Thirds",
-                desc: "The grid lines help you align subjects along the thirds for a more balanced composition.",
+                title: "삼분할 구도",
+                desc: "격자선을 따라 피사체를 배치하면 균형 잡힌 구도를 만들 수 있습니다.",
                 icon: Crop,
               },
               {
                 title: "100% Private",
-                desc: "All cropping happens in your browser using Canvas API. Your images never leave your device.",
+                desc: "모든 자르기는 Canvas API를 이용해 브라우저 안에서 이뤄집니다. 이미지가 기기를 벗어나지 않습니다.",
                 icon: Scissors,
               },
               {
-                title: "Original Quality",
-                desc: "The cropped image maintains the same resolution and quality as the original — no compression applied.",
+                title: "원본 화질",
+                desc: "잘린 이미지는 원본과 같은 해상도와 화질을 유지하며 추가 압축이 적용되지 않습니다.",
                 icon: Zap,
               },
             ].map((tip, idx) => (
@@ -753,7 +753,7 @@ export function CropImageClient({ dict }: { dict?: any }) {
               {dict?.crop_image?.faq_title || "Image Cropping FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about cropping images online.
+              온라인 이미지 자르기에 대해 자주 묻는 질문입니다.
             </p>
           </div>
           <div className="max-w-3xl mx-auto">
@@ -771,7 +771,7 @@ export function CropImageClient({ dict }: { dict?: any }) {
               <AccordionItem value="faq-2">
                 <AccordionTrigger>
                   {dict?.crop_image?.faq_2_q ||
-                    "What image formats are supported?"}
+                    "어떤 이미지 형식을 지원하나요?"}
                 </AccordionTrigger>
                 <AccordionContent>
                   {dict?.crop_image?.faq_2_a ||

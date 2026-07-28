@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { CollageMakerClient } from "@/components/client/collage-maker-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/collage-maker`;
 
@@ -17,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function CollageMakerPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -62,38 +59,38 @@ export default async function CollageMakerPage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Photo Collage Maker",
+    name: "콜라주 만들기",
     url: "https://ssdown.app/image/collage-maker",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Create beautiful photo collages from multiple images online for free.",
+    description: "여러 장의 사진으로 멋진 콜라주를 온라인에서 무료로 만들어 보세요.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Photo Collage Maker Online",
-    description: "Create beautiful photo collages from multiple images online for free.",
+    name: "콜라주 만들기 사용 방법",
+    description: "여러 장의 사진으로 멋진 콜라주를 온라인에서 무료로 만들어 보세요.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Select layout",
-        text: "Choose a collage template or layout style.",
+        name: "사진 업로드",
+        text: "콜라주에 사용할 사진들을 업로드하세요.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Upload photos",
-        text: "Add your images to the different sections of the collage.",
+        name: "레이아웃 선택",
+        text: "원하는 레이아웃을 선택하고 사진 순서를 변경하세요.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Download collage",
-        text: "Save your combined photo collage as a single image.",
+        name: "결과 다운로드",
+        text: "'다운로드'를 클릭하여 콜라주를 저장하세요.",
       }
     ],
   };

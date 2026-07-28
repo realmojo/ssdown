@@ -171,7 +171,7 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
 
   const deletePage = (pageIndex: number) => {
     if (pagesInfo.length <= 1) {
-      setError("Cannot delete the last remaining page.");
+      setError("마지막 남은 페이지는 지울 수 없습니다.");
       return;
     }
     setPagesInfo((prev) => prev.filter((p) => p.pageIndex !== pageIndex));
@@ -201,7 +201,7 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
   // Text overlay operations
   const addTextOverlay = () => {
     if (!newText.trim()) {
-      setError("Please enter some text to add.");
+      setError("넣을 텍스트를 입력해 주세요.");
       return;
     }
     setError(null);
@@ -231,11 +231,11 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
     const file = e.target.files[0];
     const validTypes = ["image/jpeg", "image/png", "image/webp"];
     if (!validTypes.includes(file.type)) {
-      setError("Only JPG, PNG, or WebP images are supported.");
+      setError("JPG, PNG, WebP 이미지만 지원합니다.");
       return;
     }
     if (file.size > 10 * 1024 * 1024) {
-      setError("Image must be under 10MB.");
+      setError("이미지는 10MB 이하여야 합니다.");
       return;
     }
 
@@ -343,10 +343,10 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
               ctx?.drawImage(htmlImg, 0, 0);
               canvas.toBlob((blob) => {
                 if (blob) resolve(blob);
-                else reject(new Error("Canvas conversion failed"));
+                else reject(new Error("캔버스 변환에 실패했습니다"));
               }, "image/png");
             };
-            htmlImg.onerror = () => reject(new Error("Image load failed"));
+            htmlImg.onerror = () => reject(new Error("이미지를 불러오지 못했습니다"));
             htmlImg.src = overlay.preview;
           });
           const pngBuffer = await pngBlob.arrayBuffer();
@@ -434,8 +434,8 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
 
   const tabs: { key: TabType; label: string; icon: typeof Pencil }[] = [
     { key: "pages", label: "Pages", icon: Layers },
-    { key: "text", label: "Add Text", icon: Type },
-    { key: "image", label: "Add Image", icon: Image },
+    { key: "text", label: "텍스트 추가", icon: Type },
+    { key: "image", label: "이미지 추가", icon: Image },
   ];
 
   const totalEdits = textOverlays.length + imageOverlays.length;
@@ -475,10 +475,10 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
                 />
                 <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
-                  {dict?.pdf_editor?.drop_zone || "Drag & drop a PDF file here"}
+                  {dict?.pdf_editor?.drop_zone || "여기에 PDF 파일을 끌어다 놓으세요"}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Only PDF files accepted. Max 50MB per file.
+                  PDF 파일만 올릴 수 있습니다. 파일당 최대 50MB입니다.
                 </p>
               </div>
             )}
@@ -551,7 +551,7 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
                             className="h-8 w-8"
                             onClick={() => movePage(idx, -1)}
                             disabled={idx === 0}
-                            title="Move up"
+                            title="위로 이동"
                           >
                             <ChevronUp className="w-4 h-4" />
                           </Button>
@@ -561,7 +561,7 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
                             className="h-8 w-8"
                             onClick={() => movePage(idx, 1)}
                             disabled={idx === pagesInfo.length - 1}
-                            title="Move down"
+                            title="아래로 이동"
                           >
                             <ChevronDown className="w-4 h-4" />
                           </Button>
@@ -570,7 +570,7 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
                             size="icon"
                             className="h-8 w-8"
                             onClick={() => rotatePage(pi.pageIndex, 90)}
-                            title="Rotate 90 CW"
+                            title="시계 방향 90도 회전"
                           >
                             <RotateCw className="w-4 h-4" />
                           </Button>
@@ -579,7 +579,7 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
                             size="icon"
                             className="h-8 w-8 text-red-500 hover:text-red-700 hover:bg-red-100 dark:hover:bg-red-900/30"
                             onClick={() => deletePage(pi.pageIndex)}
-                            title="Delete page"
+                            title="페이지 삭제"
                           >
                             <Trash2 className="w-4 h-4" />
                           </Button>
@@ -589,21 +589,21 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
                   </div>
                 )}
 
-                {/* Add Text tab */}
+                {/* 텍스트 추가 tab */}
                 {activeTab === "text" && (
                   <div className="space-y-4">
                     <div className="p-4 bg-muted/30 rounded-lg border border-muted space-y-3">
                       <textarea
                         value={newText}
                         onChange={(e) => setNewText(e.target.value)}
-                        placeholder="Enter text to add..."
+                        placeholder="넣을 텍스트를 입력하세요…"
                         rows={3}
                         className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 resize-y"
                       />
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         <div>
                           <label className="block text-xs font-medium mb-1">
-                            Page
+                            페이지
                           </label>
                           <select
                             value={newTextPage}
@@ -624,7 +624,7 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
                         </div>
                         <div>
                           <label className="block text-xs font-medium mb-1">
-                            X Position
+                            가로 위치
                           </label>
                           <input
                             type="number"
@@ -638,7 +638,7 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
                         </div>
                         <div>
                           <label className="block text-xs font-medium mb-1">
-                            Y Position
+                            세로 위치
                           </label>
                           <input
                             type="number"
@@ -652,7 +652,7 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
                         </div>
                         <div>
                           <label className="block text-xs font-medium mb-1">
-                            Font Size
+                            글자 크기
                           </label>
                           <input
                             type="number"
@@ -672,7 +672,7 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
                         className="bg-red-600 hover:bg-red-700 text-white"
                       >
                         <Plus className="w-4 h-4 mr-1" />
-                        Add Text
+                        텍스트 추가
                       </Button>
                     </div>
 
@@ -716,14 +716,14 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
                   </div>
                 )}
 
-                {/* Add Image tab */}
+                {/* 이미지 추가 tab */}
                 {activeTab === "image" && (
                   <div className="space-y-4">
                     <div className="p-4 bg-muted/30 rounded-lg border border-muted space-y-3">
                       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
                         <div>
                           <label className="block text-xs font-medium mb-1">
-                            Page
+                            페이지
                           </label>
                           <select
                             value={newImagePage}
@@ -813,7 +813,7 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
                           className="bg-red-600 hover:bg-red-700 text-white"
                         >
                           <Upload className="w-4 h-4 mr-1" />
-                          Upload & Add Image
+                          Upload & 이미지 추가
                         </Button>
                         <span className="text-xs text-muted-foreground ml-2">
                           JPG, PNG, WebP. Max 10MB.
@@ -884,7 +884,7 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
                       ) : (
                         <>
                           <Pencil className="w-5 h-5 mr-2" />
-                          Apply Edits & Save
+                          편집 적용 후 저장
                         </>
                       )}
                     </Button>
@@ -936,10 +936,10 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.pdf_editor?.step1_title || "Upload PDF",
+                    title: dict?.pdf_editor?.step1_title || "PDF 업로드",
                     desc:
                       dict?.pdf_editor?.step1_desc ||
-                      "Drag and drop or click to select a PDF file from your device.",
+                      "PDF 파일을 끌어다 놓거나 클릭해서 선택하세요.",
                     icon: Upload,
                   },
                   {
@@ -1000,7 +1000,7 @@ export function PdfEditorClient({ dict }: { dict?: any }) {
                     title: dict?.pdf_editor?.tip1_title || "100% Private",
                     desc:
                       dict?.pdf_editor?.tip1_desc ||
-                      "All processing happens in your browser using pdf-lib. Your files never leave your device.",
+                      "모든 처리는 pdf-lib를 이용해 브라우저 안에서 이뤄집니다. 파일이 기기를 벗어나지 않습니다.",
                     icon: Shield,
                   },
                   {

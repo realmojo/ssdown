@@ -91,7 +91,7 @@ export function UnlockPdfClient({ dict }: { dict?: any }) {
     if (!pdfFile) return;
 
     if (password.length < 1) {
-      setError("Please enter the PDF password.");
+      setError("PDF 비밀번호를 입력해 주세요.");
       return;
     }
 
@@ -199,10 +199,10 @@ export function UnlockPdfClient({ dict }: { dict?: any }) {
                 />
                 <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
-                  {dict?.unlock_pdf?.drop_zone || "Drag & drop a PDF file here"}
+                  {dict?.unlock_pdf?.drop_zone || "여기에 PDF 파일을 끌어다 놓으세요"}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Only PDF files accepted. Max 50MB per file.
+                  PDF 파일만 올릴 수 있습니다. 파일당 최대 50MB입니다.
                 </p>
               </div>
             )}
@@ -228,7 +228,7 @@ export function UnlockPdfClient({ dict }: { dict?: any }) {
                 <div className="p-6 bg-muted/30 rounded-lg border border-muted space-y-4">
                   <div className="flex items-center gap-2 mb-2">
                     <KeyRound className="w-5 h-5 text-red-600 dark:text-red-400" />
-                    <h3 className="font-semibold">Enter PDF Password</h3>
+                    <h3 className="font-semibold">PDF 비밀번호 입력</h3>
                   </div>
                   <div>
                     <label
@@ -240,7 +240,7 @@ export function UnlockPdfClient({ dict }: { dict?: any }) {
                     <Input
                       id="unlock-password"
                       type="password"
-                      placeholder="Enter the PDF password"
+                      placeholder="PDF 비밀번호를 입력하세요"
                       value={password}
                       onChange={(e) => {
                         setPassword(e.target.value);
@@ -322,7 +322,7 @@ export function UnlockPdfClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.unlock_pdf?.step1_title || "Upload PDF",
+                    title: dict?.unlock_pdf?.step1_title || "PDF 업로드",
                     desc:
                       dict?.unlock_pdf?.step1_desc ||
                       "Drag and drop or click to select a password-protected PDF file.",
@@ -397,14 +397,14 @@ export function UnlockPdfClient({ dict }: { dict?: any }) {
                     icon: KeyRound,
                   },
                   {
-                    title: dict?.unlock_pdf?.tip3_title || "Instant Processing",
+                    title: dict?.unlock_pdf?.tip3_title || "즉시 처리",
                     desc:
                       dict?.unlock_pdf?.tip3_desc ||
                       "Unlocking is processed instantly in your browser. No server uploads or waiting.",
                     icon: Zap,
                   },
                   {
-                    title: dict?.unlock_pdf?.tip4_title || "Original Preserved",
+                    title: dict?.unlock_pdf?.tip4_title || "원본 보존",
                     desc:
                       dict?.unlock_pdf?.tip4_desc ||
                       "Your original encrypted PDF remains untouched. A new unprotected copy is created for download.",
@@ -495,7 +495,7 @@ export function UnlockPdfClient({ dict }: { dict?: any }) {
           </div>
         </div>
 
-        {/* Right: PDF Tools Sidebar */}
+        {/* Right: PDF 도구 Sidebar */}
         <aside className="hidden lg:block w-64 shrink-0">
           <ToolsSidebar category="pdf" dict={dict} />
         </aside>

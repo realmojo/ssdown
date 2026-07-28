@@ -26,29 +26,29 @@ type FFmpeg = any;
 
 const FALLBACK_FAQ: { question: string; answer: string }[] = [
   {
-    question: "Which video formats can I convert between?",
+    question: "어떤 영상 형식끼리 변환할 수 있나요?",
     answer:
-      "You can convert MP4, MOV, WebM, AVI, and MKV inputs into MP4 (H.264), WebM (VP8), MOV, or AVI. MP4 is the most widely compatible choice for phones, browsers, and social media.",
+      "MP4, MOV, WebM, AVI, MKV를 입력받아 MP4(H.264), WebM(VP8), MOV, AVI로 변환할 수 있습니다. 휴대폰, 브라우저, 소셜 미디어에서 가장 널리 호환되는 것은 MP4입니다.",
   },
   {
-    question: "Why is conversion slow for big files?",
+    question: "큰 파일은 왜 변환이 느린가요?",
     answer:
-      "Everything runs locally in your browser using FFmpeg compiled to WebAssembly, which is single-threaded. For a smooth experience keep clips under about 100MB — larger or longer videos can take several minutes.",
+      "모든 처리가 웹어셈블리로 빌드한 FFmpeg로 브라우저 안에서 이뤄지는데, 이는 단일 스레드로 동작합니다. 원활하게 쓰시려면 100MB 이하 영상을 권장하며, 더 크거나 긴 영상은 몇 분이 걸릴 수 있습니다.",
   },
   {
-    question: "Is my video uploaded to a server?",
+    question: "제 영상이 서버에 업로드되나요?",
     answer:
-      "No. All processing happens on your device using WebAssembly. Your video never leaves your browser, so it stays completely private.",
+      "아니요. 모든 처리가 웹어셈블리로 기기 안에서 이뤄집니다. 영상이 브라우저를 벗어나지 않아 완전히 비공개로 유지됩니다.",
   },
   {
-    question: "Why is MOV to MP4 almost instant sometimes?",
+    question: "MOV → MP4 변환이 가끔 거의 즉시 끝나는 이유는 무엇인가요?",
     answer:
-      "When the source already uses compatible codecs (H.264 video and AAC audio), we simply repackage the file into the new container without re-encoding. If the codecs are incompatible, we automatically fall back to a full re-encode.",
+      "원본이 이미 호환되는 코덱(H.264 영상, AAC 오디오)을 쓰고 있으면 재인코딩 없이 새 컨테이너로 다시 담기만 합니다. 코덱이 호환되지 않으면 자동으로 전체 재인코딩으로 전환됩니다.",
   },
   {
-    question: "What is the difference between MP4 and WebM?",
+    question: "MP4와 WebM은 무엇이 다른가요?",
     answer:
-      "MP4 (H.264 + AAC) plays virtually everywhere. WebM (VP8) is an open, royalty-free format optimized for the web. Choose MP4 for maximum compatibility and WebM when you specifically need an open format.",
+      "MP4(H.264 + AAC)는 사실상 어디서나 재생됩니다. WebM(VP8)은 웹에 최적화된 개방형 무료 형식입니다. 호환성이 중요하면 MP4를, 개방형 형식이 꼭 필요하면 WebM을 고르세요.",
   },
 ];
 
@@ -145,7 +145,7 @@ export function VideoConverterClient({ dict }: { dict?: any }) {
     const isVideo =
       selectedFile.type.startsWith("video/") || VIDEO_EXTENSIONS.includes(ext);
     if (!isVideo) {
-      setError("Please upload a valid video file (MP4, MOV, WebM, AVI, MKV).");
+      setError("올바른 영상 파일을 올려 주세요 (MP4, MOV, WebM, AVI, MKV).");
       return;
     }
     setFile(selectedFile);
@@ -270,7 +270,7 @@ export function VideoConverterClient({ dict }: { dict?: any }) {
       }
 
       if (!outData || outData.length === 0) {
-        throw new Error("Conversion produced an empty file.");
+        throw new Error("변환 결과가 빈 파일입니다.");
       }
 
       const blob = new Blob([new Uint8Array(outData)], {
@@ -323,11 +323,11 @@ export function VideoConverterClient({ dict }: { dict?: any }) {
               <RefreshCw className="w-10 h-10 text-violet-600 dark:text-violet-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              {t.title || "Video Converter"}
+              {t.title || "영상 변환기"}
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
               {t.subtitle ||
-                "Convert videos between MP4, WebM, MOV, and AVI right in your browser. Fast, free, and private — nothing is uploaded."}
+                "브라우저에서 바로 MP4, WebM, MOV, AVI를 서로 변환하세요. 빠르고 무료이며 아무것도 업로드되지 않습니다."}
             </p>
 
             <Adsense slotId="7759160077" />
@@ -354,14 +354,14 @@ export function VideoConverterClient({ dict }: { dict?: any }) {
                 />
                 <Film className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
-                  {t.drop_zone || "Drag & drop your video file here"}
+                  {t.drop_zone || "여기에 영상 파일을 끌어다 놓으세요"}
                 </p>
                 <p className="text-sm text-muted-foreground">
                   {t.supported || "Supported: MP4, MOV, WebM, AVI, MKV"}
                 </p>
                 <p className="text-xs text-muted-foreground/70 mt-3">
                   {t.size_note ||
-                    "Runs entirely in your browser — for best speed keep clips under ~100MB."}
+                    "전적으로 브라우저에서 실행됩니다. 속도를 위해 100MB 이하 영상을 권장합니다."}
                 </p>
               </div>
             )}
@@ -544,11 +544,11 @@ export function VideoConverterClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold tracking-tight mb-4">
-                  {t.guide_title || "How to Convert a Video"}
+                  {t.guide_title || "영상 변환 방법"}
                 </h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
                   {t.guide_desc ||
-                    "Change your video's format in 3 simple steps."}
+                    "세 단계면 영상 형식을 바꿀 수 있습니다."}
                 </p>
               </div>
 
@@ -556,10 +556,10 @@ export function VideoConverterClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: t.step1_title || "Upload your video",
+                    title: t.step1_title || "영상 올리기",
                     desc:
                       t.step1_desc ||
-                      "Drag and drop or select an MP4, MOV, WebM, AVI, or MKV file.",
+                      "MP4, MOV, WebM, AVI, MKV 파일을 끌어다 놓거나 선택하세요.",
                     icon: Upload,
                   },
                   {
@@ -567,7 +567,7 @@ export function VideoConverterClient({ dict }: { dict?: any }) {
                     title: t.step2_title || "Choose a format",
                     desc:
                       t.step2_desc ||
-                      "Pick MP4, WebM, MOV, or AVI as your output format.",
+                      "출력 형식으로 MP4, WebM, MOV, AVI 중 하나를 고르세요.",
                     icon: RefreshCw,
                   },
                   {
@@ -575,7 +575,7 @@ export function VideoConverterClient({ dict }: { dict?: any }) {
                     title: t.step3_title || "Convert & download",
                     desc:
                       t.step3_desc ||
-                      "Run the conversion, preview the result, and download instantly.",
+                      "변환을 실행해 결과를 미리 본 뒤 바로 내려받으세요.",
                     icon: Download,
                   },
                 ].map((step) => (
@@ -611,7 +611,7 @@ export function VideoConverterClient({ dict }: { dict?: any }) {
                   {t.tips_title || "Conversion Tips"}
                 </h2>
                 <p className="text-muted-foreground">
-                  {t.tips_desc || "Get the best results from your conversions."}
+                  {t.tips_desc || "변환에서 가장 좋은 결과를 얻는 방법입니다."}
                 </p>
               </div>
 
@@ -621,28 +621,28 @@ export function VideoConverterClient({ dict }: { dict?: any }) {
                     title: t.tip1_title || "MP4 for Compatibility",
                     desc:
                       t.tip1_desc ||
-                      "MP4 (H.264 + AAC) plays on virtually every device, browser, and social platform — a safe default.",
+                      "MP4(H.264 + AAC)는 사실상 모든 기기, 브라우저, 소셜 플랫폼에서 재생되는 안전한 기본값입니다.",
                     icon: Film,
                   },
                   {
                     title: t.tip2_title || "Instant Remux",
                     desc:
                       t.tip2_desc ||
-                      "MOV → MP4 (and similar) can be near-instant because we repackage without re-encoding when the codecs already match.",
+                      "코덱이 이미 맞으면 재인코딩 없이 다시 담기만 하므로 MOV → MP4 같은 변환은 거의 즉시 끝납니다.",
                     icon: Zap,
                   },
                   {
-                    title: t.tip3_title || "Keep Clips Small",
+                    title: t.tip3_title || "영상은 작게 유지하세요",
                     desc:
                       t.tip3_desc ||
-                      "Because everything runs locally in WebAssembly, clips under ~100MB convert fastest and most reliably.",
+                      "모든 처리가 웹어셈블리로 기기에서 이뤄지므로 100MB 이하 영상이 가장 빠르고 안정적으로 변환됩니다.",
                     icon: Info,
                   },
                   {
-                    title: t.tip4_title || "WebM is Open",
+                    title: t.tip4_title || "WebM은 개방형",
                     desc:
                       t.tip4_desc ||
-                      "Choose WebM (VP8) when you specifically need a royalty-free, web-optimized format. Encoding is slower than MP4.",
+                      "로열티가 없고 웹에 최적화된 형식이 꼭 필요할 때 WebM(VP8)을 고르세요. 다만 인코딩은 MP4보다 느립니다.",
                     icon: RefreshCw,
                   },
                 ].map((tip, idx) => (
@@ -668,7 +668,7 @@ export function VideoConverterClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-3xl font-bold tracking-tight mb-4">
-                  {t.faq_title || "Frequently Asked Questions"}
+                  {t.faq_title || "자주 묻는 질문"}
                 </h2>
               </div>
               <div className="max-w-3xl mx-auto space-y-3">

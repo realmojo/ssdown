@@ -27,29 +27,29 @@ type FFmpeg = any;
 
 const FALLBACK_FAQ: { question: string; answer: string }[] = [
   {
-    question: "How does silence detection work?",
+    question: "무음 감지는 어떻게 동작하나요?",
     answer:
-      "FFmpeg analyzes your audio's volume level against the sensitivity threshold you choose and removes any gaps that stay quieter than that threshold for longer than your minimum silence length.",
+      "FFmpeg가 선택한 감도 기준값과 오디오의 음량을 비교해, 그 기준보다 조용한 상태가 설정한 최소 길이 이상 이어지는 구간을 제거합니다.",
   },
   {
-    question: "Will it accidentally cut off quiet speech?",
+    question: "작은 목소리까지 잘려 나가지는 않나요?",
     answer:
-      "It can if the threshold is too aggressive. If quiet words get clipped, raise the sensitivity value (make it less negative, e.g. from -35 to -30) and use Try Again to re-process with the new setting.",
+      "기준값이 너무 공격적이면 그럴 수 있습니다. 작은 목소리가 잘린다면 감도 값을 높여(예: -35에서 -30으로 덜 낮게) 다시 시도로 새 설정으로 재처리해 보세요.",
   },
   {
-    question: "What audio formats are supported?",
+    question: "어떤 오디오 형식을 지원하나요?",
     answer:
-      "MP3, WAV, OGG, and M4A are all supported — the same formats as our Audio Trimmer. The processed result is always exported as a high-quality MP3.",
+      "오디오 자르기 도구와 동일하게 MP3, WAV, OGG, M4A를 모두 지원합니다. 처리 결과는 언제나 고음질 MP3로 저장됩니다.",
   },
   {
-    question: "Is my file uploaded to a server?",
+    question: "제 파일이 서버에 업로드되나요?",
     answer:
-      "No. All processing happens locally in your browser using WebAssembly (FFmpeg compiled to WASM). Your audio never leaves your device.",
+      "아니요. 모든 처리가 웹어셈블리(WASM으로 빌드한 FFmpeg)로 브라우저 안에서 이뤄집니다. 오디오가 기기를 벗어나지 않습니다.",
   },
   {
-    question: "Can I re-process with different settings?",
+    question: "설정을 바꿔 다시 처리할 수 있나요?",
     answer:
-      "Yes. After processing, use the Try Again button to tweak the sensitivity and minimum silence length and re-run on the same file — no need to re-upload.",
+      "네. 처리 후 다시 시도 버튼으로 감도와 최소 무음 길이를 조정해 같은 파일에 다시 적용할 수 있습니다. 파일을 다시 올릴 필요가 없습니다.",
   },
 ];
 
@@ -119,7 +119,7 @@ export function SilenceRemoverClient({ dict }: { dict?: any }) {
 
   const processFile = (selectedFile: File) => {
     if (!selectedFile.type.startsWith("audio/")) {
-      setError("Please upload a valid audio file.");
+      setError("올바른 오디오 파일을 올려 주세요.");
       return;
     }
 
@@ -296,7 +296,7 @@ export function SilenceRemoverClient({ dict }: { dict?: any }) {
       await ffmpeg.deleteFile(outputName);
     } catch (err) {
       console.error(err);
-      setError("Failed to remove silence. Please try again.");
+      setError("무음 구간을 제거하지 못했습니다. 다시 시도해 주세요.");
     } finally {
       setIsProcessing(false);
     }
@@ -344,7 +344,7 @@ export function SilenceRemoverClient({ dict }: { dict?: any }) {
               <Waves className="w-10 h-10 text-lime-700 dark:text-lime-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              {t.title || "Silence Remover"}
+              {t.title || "무음 제거"}
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
               {t.subtitle ||
@@ -432,7 +432,7 @@ export function SilenceRemoverClient({ dict }: { dict?: any }) {
                         <div className="flex items-center justify-center h-full">
                           <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
                           <span className="ml-2 text-sm text-muted-foreground">
-                            Loading waveform...
+                            파형을 불러오는 중…
                           </span>
                         </div>
                       )}
@@ -616,7 +616,7 @@ export function SilenceRemoverClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: t.step1_title || "Upload your audio file",
+                    title: t.step1_title || "오디오 파일 올리기",
                     desc:
                       t.step1_desc ||
                       "Drag and drop or select the MP3, WAV, OGG, or M4A file you want to clean up.",
@@ -626,7 +626,7 @@ export function SilenceRemoverClient({ dict }: { dict?: any }) {
                     step: 2,
                     title:
                       t.step2_title ||
-                      "Adjust sensitivity and minimum silence length",
+                      "감도와 최소 무음 길이 조절",
                     desc:
                       t.step2_desc ||
                       "Choose how aggressively silence is detected and how long a gap must be before it gets cut.",
@@ -634,10 +634,10 @@ export function SilenceRemoverClient({ dict }: { dict?: any }) {
                   },
                   {
                     step: 3,
-                    title: t.step3_title || "Remove silence and download",
+                    title: t.step3_title || "무음 제거 후 다운로드",
                     desc:
                       t.step3_desc ||
-                      "Process the file, preview the result, and download your trimmed audio instantly.",
+                      "파일을 처리하고 결과를 미리 들어본 뒤 정리된 오디오를 바로 내려받으세요.",
                     icon: Download,
                   },
                 ].map((step) => (
@@ -730,7 +730,7 @@ export function SilenceRemoverClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-3xl font-bold tracking-tight mb-4">
-                  {t.faq_title || "Frequently Asked Questions"}
+                  {t.faq_title || "자주 묻는 질문"}
                 </h2>
               </div>
               <div className="max-w-3xl mx-auto space-y-3">

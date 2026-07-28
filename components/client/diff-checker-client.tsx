@@ -162,7 +162,7 @@ export function DiffCheckerClient({ dict }: { dict?: any }) {
   const handleSwap = useCallback(() => {
     setOriginal(changed);
     setChanged(original);
-    toast.success("Texts swapped");
+    toast.success("두 텍스트를 서로 바꿨습니다");
   }, [original, changed]);
 
   const handleClear = useCallback(() => {
@@ -185,11 +185,10 @@ export function DiffCheckerClient({ dict }: { dict?: any }) {
               <Diff className="w-10 h-10 text-purple-600 dark:text-purple-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              Diff Checker
+              텍스트 비교기
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
-              Compare two texts and instantly highlight added and removed lines
-              side by side.
+              두 텍스트를 나란히 놓고 추가·삭제된 줄을 즉시 표시해 줍니다.
             </p>
 
             <Adsense slotId="7759160077" />
@@ -203,7 +202,7 @@ export function DiffCheckerClient({ dict }: { dict?: any }) {
                   onChange={(e) => setIgnoreWhitespace(e.target.checked)}
                   className="w-4 h-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500/50 accent-purple-600"
                 />
-                Ignore whitespace
+                공백 무시
               </label>
               <label className="inline-flex items-center gap-2 cursor-pointer select-none text-sm font-medium">
                 <input
@@ -212,7 +211,7 @@ export function DiffCheckerClient({ dict }: { dict?: any }) {
                   onChange={(e) => setIgnoreCase(e.target.checked)}
                   className="w-4 h-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500/50 accent-purple-600"
                 />
-                Ignore case
+                대소문자 무시
               </label>
               <div className="flex items-center gap-2">
                 <button
@@ -254,7 +253,7 @@ export function DiffCheckerClient({ dict }: { dict?: any }) {
                   <textarea
                     value={original}
                     onChange={(e) => setOriginal(e.target.value)}
-                    placeholder="Paste the original text here..."
+                    placeholder="원본 텍스트를 여기에 붙여넣으세요…"
                     className="w-full min-h-[240px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 font-mono text-sm leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-colors placeholder:text-muted-foreground"
                   />
                 </CardContent>
@@ -270,7 +269,7 @@ export function DiffCheckerClient({ dict }: { dict?: any }) {
                   <textarea
                     value={changed}
                     onChange={(e) => setChanged(e.target.value)}
-                    placeholder="Paste the changed text here..."
+                    placeholder="변경된 텍스트를 여기에 붙여넣으세요…"
                     className="w-full min-h-[240px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 font-mono text-sm leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-colors placeholder:text-muted-foreground"
                   />
                 </CardContent>
@@ -297,7 +296,7 @@ export function DiffCheckerClient({ dict }: { dict?: any }) {
                 {rows.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-16 text-center text-muted-foreground">
                     <GitCompareArrows className="w-10 h-10 mb-3 opacity-40" />
-                    <p>Enter text in both fields to see the differences.</p>
+                    <p>양쪽에 텍스트를 입력하면 차이가 표시됩니다.</p>
                   </div>
                 ) : (
                   <div className="w-full overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700">
@@ -348,30 +347,30 @@ export function DiffCheckerClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  How to Use
+                  이용 방법
                 </h2>
                 <p className="text-muted-foreground">
-                  Spot every change between two texts in seconds.
+                  두 텍스트의 모든 차이를 몇 초 만에 찾아냅니다.
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
                   {
                     step: 1,
-                    title: "Paste Both Texts",
-                    desc: "Enter the original version on the left and the changed version on the right.",
+                    title: "두 텍스트 붙여넣기",
+                    desc: "왼쪽에 원본을, 오른쪽에 변경된 내용을 입력하세요.",
                     icon: FileText,
                   },
                   {
                     step: 2,
-                    title: "Compare Lines",
-                    desc: "The tool aligns both texts line by line and highlights every added and removed line.",
+                    title: "줄 단위 비교",
+                    desc: "두 텍스트를 줄 단위로 맞춰 추가되거나 삭제된 줄을 모두 표시해 줍니다.",
                     icon: ArrowRight,
                   },
                   {
                     step: 3,
-                    title: "Review Changes",
-                    desc: "Read added lines in green, removed lines in red, and check the summary of edits.",
+                    title: "변경 내용 확인",
+                    desc: "추가된 줄은 초록색, 삭제된 줄은 빨간색으로 표시되며 변경 요약도 확인할 수 있습니다.",
                     icon: GitCompareArrows,
                   },
                 ].map((step) => (
@@ -396,29 +395,29 @@ export function DiffCheckerClient({ dict }: { dict?: any }) {
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-purple-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">Diff Tips</h2>
+                  <h2 className="text-3xl font-bold mb-4">비교 팁</h2>
                   <p className="text-muted-foreground">
-                    Get cleaner, more meaningful comparisons.
+                    더 깔끔하고 의미 있는 비교 결과를 얻는 방법입니다.
                   </p>
                 </div>
 
                 <div className="md:w-2/3 grid sm:grid-cols-2 gap-4">
                   {[
                     {
-                      title: "Ignore Whitespace",
-                      desc: "Enable 'Ignore whitespace' when re-indented or reformatted code makes lines look different even though the content is the same.",
+                      title: "공백 무시",
+                      desc: "들여쓰기나 서식만 바뀌어 내용은 같은데 줄이 달라 보일 때는 '공백 무시'를 켜세요.",
                     },
                     {
-                      title: "Ignore Case",
-                      desc: "Turn on 'Ignore case' to focus on real content changes when only capitalization differs between the two versions.",
+                      title: "대소문자 무시",
+                      desc: "대소문자만 다른 경우라면 '대소문자 무시'를 켜서 실제 내용 변화에만 집중하세요.",
                     },
                     {
-                      title: "Swap to Reverse",
-                      desc: "Use the Swap button to flip original and changed, which is handy for viewing a change as an undo or reversed patch.",
+                      title: "위치 바꾸기",
+                      desc: "교체 버튼으로 원본과 변경본을 서로 바꿀 수 있어, 변경 사항을 되돌리는 관점에서 보기에 편리합니다.",
                     },
                     {
-                      title: "Line-Based Comparison",
-                      desc: "This tool compares whole lines. Keep one sentence or statement per line for the most precise and readable results.",
+                      title: "줄 단위 비교 방식",
+                      desc: "이 도구는 줄 단위로 비교합니다. 한 줄에 한 문장씩 두면 가장 정확하고 읽기 좋은 결과가 나옵니다.",
                     },
                   ].map((tip, idx) => (
                     <div
@@ -440,24 +439,24 @@ export function DiffCheckerClient({ dict }: { dict?: any }) {
             {/* FAQ */}
             <section className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>
+                <h2 className="text-2xl font-bold tracking-tight mb-4">자주 묻는 질문</h2>
               </div>
               <Accordion type="single" collapsible className="w-full">
                 {[
                   {
-                    q: "How does the diff checker work?",
+                    q: "텍스트 비교기는 어떻게 동작하나요?",
                     a: "Paste your original text on the left and the changed text on the right, then click Compare. The tool aligns the two texts line by line using a longest-common-subsequence algorithm and highlights every added, removed, and unchanged line.",
                   },
                   {
-                    q: "Is my text private and secure?",
+                    q: "제 텍스트는 안전한가요?",
                     a: "Yes. All comparison happens entirely in your browser. Your text is never uploaded to any server or stored anywhere. Close the tab and your data is gone.",
                   },
                   {
-                    q: "What do the colors mean?",
+                    q: "색상은 무엇을 뜻하나요?",
                     a: "Green lines with a plus sign were added in the changed text, red lines with a minus sign were removed from the original, and neutral lines are unchanged between the two versions.",
                   },
                   {
-                    q: "Can I ignore whitespace or letter case?",
+                    q: "공백이나 대소문자를 무시할 수 있나요?",
                     a: "Yes. Enable the 'Ignore whitespace' option to treat lines that differ only in spacing as identical, and enable 'Ignore case' to treat uppercase and lowercase letters as the same when comparing.",
                   },
                 ].map((faq, idx) => (

@@ -297,7 +297,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
               }}
               className="mt-4 text-sm text-sky-600 dark:text-sky-400 hover:underline"
             >
-              Or try with a sample image
+              샘플 이미지로 먼저 써보기
             </button>
           </div>
         ) : (
@@ -309,7 +309,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                   <div className="flex items-center gap-3">
                     <Button variant="outline" size="sm" onClick={handleReset}>
                       <RotateCcw className="w-4 h-4 mr-2" />
-                      New Image
+                      새 이미지
                     </Button>
                     <span
                       className="text-sm text-muted-foreground truncate max-w-[200px]"
@@ -333,7 +333,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                       ) : (
                         <>
                           <Copy className="w-4 h-4 mr-2" />
-                          Copy Metadata
+                          메타데이터 복사
                         </>
                       )}
                     </Button>
@@ -350,7 +350,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                   <CardContent className="p-4">
                     <img
                       src={imageSrc}
-                      alt="Preview"
+                      alt="미리보기"
                       className="w-full h-auto rounded-lg"
                       draggable={false}
                     />
@@ -365,7 +365,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg">
                       <Info className="w-5 h-5 text-indigo-600" />
-                      File Information
+                      파일 정보
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
@@ -413,7 +413,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-lg">
                         <Camera className="w-5 h-5 text-indigo-600" />
-                        Camera Information
+                        카메라 정보
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-2">
@@ -457,7 +457,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-lg">
                         <Camera className="w-5 h-5 text-indigo-600" />
-                        Shooting Settings
+                        촬영 설정
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-2">
@@ -484,7 +484,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                       {metadata.ExposureTime && (
                         <div className="flex justify-between">
                           <span className="text-sm text-muted-foreground">
-                            Shutter Speed:
+                            셔터 속도:
                           </span>
                           <span className="text-sm font-medium">
                             {formatShutterSpeed(metadata.ExposureTime)}
@@ -494,7 +494,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                       {metadata.FocalLength && (
                         <div className="flex justify-between">
                           <span className="text-sm text-muted-foreground">
-                            Focal Length:
+                            초점 거리:
                           </span>
                           <span className="text-sm font-medium">
                             {formatFocalLength(metadata.FocalLength)}
@@ -514,7 +514,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                       {metadata.WhiteBalance !== undefined && (
                         <div className="flex justify-between">
                           <span className="text-sm text-muted-foreground">
-                            White Balance:
+                            화이트 밸런스:
                           </span>
                           <span className="text-sm font-medium">
                             {metadata.WhiteBalance}
@@ -524,7 +524,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                       {metadata.ExposureMode !== undefined && (
                         <div className="flex justify-between">
                           <span className="text-sm text-muted-foreground">
-                            Exposure Mode:
+                            노출 모드:
                           </span>
                           <span className="text-sm font-medium">
                             {metadata.ExposureMode}
@@ -548,7 +548,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                       {metadata.DateTimeOriginal && (
                         <div className="flex justify-between">
                           <span className="text-sm text-muted-foreground">
-                            Date Taken:
+                            촬영 일시:
                           </span>
                           <span className="text-sm font-medium">
                             {String(metadata.DateTimeOriginal)}
@@ -585,7 +585,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-lg">
                         <MapPin className="w-5 h-5 text-indigo-600" />
-                        GPS Location
+                        GPS 위치
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-2">
@@ -610,7 +610,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                               rel="noopener noreferrer"
                               className="block text-sm text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 underline"
                             >
-                              View on Google Maps
+                              구글 지도에서 보기
                             </a>
                           </>
                         );
@@ -623,7 +623,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                 {metadata && (
                   <Card className="border-indigo-200 dark:border-indigo-900/50">
                     <CardHeader>
-                      <CardTitle className="text-lg">All Metadata</CardTitle>
+                      <CardTitle className="text-lg">전체 메타데이터</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <Accordion type="single" collapsible>
@@ -666,9 +666,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
                   <Card className="border-yellow-200 dark:border-yellow-900/50 bg-yellow-50 dark:bg-yellow-900/10">
                     <CardContent className="p-6">
                       <p className="text-sm text-muted-foreground">
-                        No EXIF metadata found in this image. This is common for
-                        screenshots, web images, or images that have been
-                        edited/compressed.
+                        이 이미지에서 EXIF 메타데이터를 찾지 못했습니다. 화면 캡처나 웹에서 받은 이미지, 편집·압축된 이미지에서는 흔한 일입니다.
                       </p>
                     </CardContent>
                   </Card>
@@ -697,7 +695,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
               {
                 step: 1,
                 title:
-                  dict?.image_metadata_viewer?.step1_title || "Upload Image",
+                  dict?.image_metadata_viewer?.step1_title || "이미지 업로드",
                 desc:
                   dict?.image_metadata_viewer?.step1_desc ||
                   "Upload a photo from your device. Most photos from cameras and smartphones contain EXIF metadata.",
@@ -753,29 +751,29 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
               {dict?.image_metadata_viewer?.tips_title || "Image Metadata Tips"}
             </h2>
             <p className="text-muted-foreground">
-              Get the most out of the metadata viewer.
+              메타데이터 뷰어를 더 잘 활용하는 방법입니다.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Camera Photos Have More Data",
-                desc: "Photos taken with digital cameras and smartphones typically contain rich EXIF metadata including camera settings, GPS location, and timestamps.",
+                title: "카메라 사진에 정보가 더 많습니다",
+                desc: "디지털카메라와 스마트폰으로 찍은 사진에는 카메라 설정, GPS 위치, 촬영 시각 등 풍부한 EXIF 정보가 담겨 있습니다.",
                 icon: Camera,
               },
               {
-                title: "Screenshots Have No Metadata",
-                desc: "Screenshots and images created by software generally don't contain EXIF data. Web images are often stripped of metadata for privacy.",
+                title: "화면 캡처에는 메타데이터가 없습니다",
+                desc: "화면 캡처나 프로그램으로 만든 이미지에는 대개 EXIF 정보가 없습니다. 웹 이미지도 개인정보 보호를 위해 메타데이터가 제거된 경우가 많습니다.",
                 icon: Shield,
               },
               {
-                title: "Privacy Awareness",
-                desc: "EXIF data can contain GPS coordinates showing where the photo was taken. Be mindful when sharing photos online.",
+                title: "개인정보 유의",
+                desc: "EXIF에는 사진을 찍은 위치의 GPS 좌표가 담길 수 있습니다. 온라인에 사진을 공유할 때 유의하세요.",
                 icon: MapPin,
               },
               {
-                title: "100% Private Processing",
-                desc: "All metadata extraction happens in your browser. Your images never leave your device and are never uploaded to any server.",
+                title: "100% 비공개 처리",
+                desc: "모든 메타데이터 추출은 브라우저 안에서 이뤄집니다. 이미지가 기기를 벗어나지 않으며 서버로 업로드되지 않습니다.",
                 icon: Shield,
               },
             ].map((tip, idx) => (
@@ -800,7 +798,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
               {dict?.image_metadata_viewer?.faq_title || "Image Metadata FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about viewing image metadata and EXIF data.
+              이미지 메타데이터와 EXIF 확인에 대해 자주 묻는 질문입니다.
             </p>
           </div>
           <div className="max-w-3xl mx-auto">
@@ -848,7 +846,7 @@ export function ImageMetadataViewerClient({ dict }: { dict?: any }) {
               <AccordionItem value="faq-5">
                 <AccordionTrigger>
                   {dict?.image_metadata_viewer?.faq_6_q ||
-                    "What image formats are supported?"}
+                    "어떤 이미지 형식을 지원하나요?"}
                 </AccordionTrigger>
                 <AccordionContent>
                   {dict?.image_metadata_viewer?.faq_5_a ||

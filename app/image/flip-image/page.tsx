@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { FlipImageClient } from "@/components/client/flip-image-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/flip-image`;
 
@@ -17,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function FlipImagePage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -62,38 +59,38 @@ export default async function FlipImagePage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Flip Image",
+    name: "이미지 뒤집기",
     url: "https://ssdown.app/image/flip-image",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Flip or mirror images horizontally or vertically online.",
+    description: "온라인에서 이미지를 좌우 또는 상하로 뒤집습니다.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Flip Image Online",
-    description: "Flip or mirror images horizontally or vertically online.",
+    name: "이미지 뒤집기 사용 방법",
+    description: "온라인에서 이미지를 좌우 또는 상하로 뒤집습니다.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Upload your image",
-        text: "Select the image file you want to flip.",
+        name: "이미지 업로드",
+        text: "기기에서 PNG, JPG, WebP, GIF 또는 BMP 이미지를 업로드하세요.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Choose flip direction",
-        text: "Select horizontal or vertical flip options.",
+        name: "뒤집기 방향 선택",
+        text: "'가로 뒤집기'로 좌우 반전 또는 '세로 뒤집기'로 상하 반전할 수 있습니다.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Download flipped image",
-        text: "Download the mirrored image to your device.",
+        name: "결과 다운로드",
+        text: "'다운로드'를 클릭하여 뒤집힌 이미지를 기기에 저장하세요.",
       }
     ],
   };

@@ -38,7 +38,7 @@ export function PostCard({ post }: PostCardProps) {
             {String(post.excerpt)}
           </p>
           <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium group-hover:gap-3 transition-all">
-            <span>Read more</span>
+            <span>더 보기</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </div>
           <div className="flex flex-wrap gap-2 mt-4">

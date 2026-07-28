@@ -135,9 +135,9 @@ export function LoremIpsumGeneratorClient({ dict }: { dict?: any }) {
     if (!output) return;
     try {
       await navigator.clipboard.writeText(output);
-      toast.success("Copied to clipboard");
+      toast.success("클립보드에 복사했습니다");
     } catch {
-      toast.error("Failed to copy");
+      toast.error("복사하지 못했습니다");
     }
   }, [output]);
 
@@ -158,10 +158,10 @@ export function LoremIpsumGeneratorClient({ dict }: { dict?: any }) {
               <Pilcrow className="w-10 h-10 text-fuchsia-600 dark:text-fuchsia-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              Lorem Ipsum Generator
+              로렘 입숨 생성기
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
-              Generate placeholder paragraphs, sentences, and words for your designs and mockups.
+              디자인과 시안에 쓸 더미 문단, 문장, 단어를 만들어 줍니다.
             </p>
 
             <Adsense slotId="7759160077" />
@@ -189,9 +189,9 @@ export function LoremIpsumGeneratorClient({ dict }: { dict?: any }) {
                       onChange={(e) => setUnit(e.target.value as Unit)}
                       className="w-full h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-500/50 focus:border-fuchsia-500 transition-colors"
                     >
-                      <option value="paragraphs">Paragraphs</option>
-                      <option value="sentences">Sentences</option>
-                      <option value="words">Words</option>
+                      <option value="paragraphs">문단</option>
+                      <option value="sentences">문장</option>
+                      <option value="words">단어</option>
                     </select>
                   </div>
                   <div className="flex-1">
@@ -225,7 +225,7 @@ export function LoremIpsumGeneratorClient({ dict }: { dict?: any }) {
                       className="w-4 h-4 rounded border-gray-300 text-fuchsia-600 focus:ring-fuchsia-500/50 accent-fuchsia-600"
                     />
                     <span className="text-sm">
-                      Start with &quot;Lorem ipsum dolor sit amet…&quot;
+                      &quot;Lorem ipsum dolor sit amet…&quot;으로 시작
                     </span>
                   </label>
                   <label
@@ -241,7 +241,7 @@ export function LoremIpsumGeneratorClient({ dict }: { dict?: any }) {
                       className="w-4 h-4 rounded border-gray-300 text-fuchsia-600 focus:ring-fuchsia-500/50 accent-fuchsia-600 disabled:cursor-not-allowed"
                     />
                     <span className="text-sm">
-                      Wrap paragraphs in &lt;p&gt; tags
+                      문단을 &lt;p&gt; 태그로 감싸기
                     </span>
                   </label>
                 </div>
@@ -279,7 +279,7 @@ export function LoremIpsumGeneratorClient({ dict }: { dict?: any }) {
               <CardHeader className="flex flex-row items-center justify-between pb-3">
                 <CardTitle className="flex items-center gap-2">
                   <Pilcrow className="w-5 h-5 text-fuchsia-500" />
-                  Generated Text
+                  생성된 텍스트
                 </CardTitle>
                 <div className="flex items-center gap-3 text-xs text-muted-foreground">
                   <span>{wordCount} words</span>
@@ -290,7 +290,7 @@ export function LoremIpsumGeneratorClient({ dict }: { dict?: any }) {
                 <textarea
                   value={output}
                   readOnly
-                  placeholder="Your placeholder text will appear here..."
+                  placeholder="생성된 더미 텍스트가 여기에 표시됩니다…"
                   className="w-full min-h-[300px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-base leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-fuchsia-500/50 focus:border-fuchsia-500 transition-colors placeholder:text-muted-foreground"
                 />
               </CardContent>
@@ -303,30 +303,30 @@ export function LoremIpsumGeneratorClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  How to Use
+                  이용 방법
                 </h2>
                 <p className="text-muted-foreground">
-                  Create placeholder text in seconds.
+                  몇 초 만에 더미 텍스트를 만들어 보세요.
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
                   {
                     step: 1,
-                    title: "Choose Options",
-                    desc: "Pick paragraphs, sentences, or words, and set how many you need for your layout.",
+                    title: "옵션 선택",
+                    desc: "문단, 문장, 단어 중에서 고르고 레이아웃에 필요한 개수를 정하세요.",
                     icon: Settings2,
                   },
                   {
                     step: 2,
                     title: "Generate",
-                    desc: "Click Generate to instantly produce Lorem Ipsum placeholder text in your browser.",
+                    desc: "생성을 누르면 브라우저에서 즉시 로렘 입숨 더미 텍스트가 만들어집니다.",
                     icon: ArrowRight,
                   },
                   {
                     step: 3,
                     title: "Copy & Paste",
-                    desc: "Copy the result and drop it into your design, mockup, or HTML markup.",
+                    desc: "결과를 복사해 디자인이나 시안, HTML에 붙여넣으세요.",
                     icon: Copy,
                   },
                 ].map((step) => (
@@ -351,29 +351,29 @@ export function LoremIpsumGeneratorClient({ dict }: { dict?: any }) {
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-fuchsia-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">Placeholder Tips</h2>
+                  <h2 className="text-3xl font-bold mb-4">더미 텍스트 팁</h2>
                   <p className="text-muted-foreground">
-                    Make the most of your placeholder text.
+                    더미 텍스트를 더 잘 활용하는 방법입니다.
                   </p>
                 </div>
 
                 <div className="md:w-2/3 grid sm:grid-cols-2 gap-4">
                   {[
                     {
-                      title: "Match Real Length",
-                      desc: "Generate roughly the amount of text your final copy will use so your layout reflects real-world content density.",
+                      title: "실제 분량에 맞추기",
+                      desc: "실제 원고와 비슷한 분량으로 만들면 레이아웃이 현실적인 밀도를 반영합니다.",
                     },
                     {
-                      title: "Use HTML Tags",
+                      title: "HTML 태그 활용",
                       desc: "Enable the <p> tag option to paste structured, markup-ready paragraphs directly into your HTML or CMS.",
                     },
                     {
-                      title: "Keep It Neutral",
-                      desc: "Lorem Ipsum's meaningless Latin keeps stakeholders focused on design instead of reading and reacting to copy.",
+                      title: "중립적인 내용 유지",
+                      desc: "로렘 입숨의 뜻 없는 라틴어는 보는 사람이 문구를 읽고 반응하는 대신 디자인에 집중하게 해 줍니다.",
                     },
                     {
-                      title: "Swap Before Launch",
-                      desc: "Placeholder text is for mockups only. Always replace it with real content before publishing to avoid embarrassing leaks.",
+                      title: "배포 전에 교체하기",
+                      desc: "더미 텍스트는 시안용입니다. 그대로 배포되는 일이 없도록 공개 전에 반드시 실제 내용으로 바꾸세요.",
                     },
                   ].map((tip, idx) => (
                     <div
@@ -395,25 +395,25 @@ export function LoremIpsumGeneratorClient({ dict }: { dict?: any }) {
             {/* FAQ */}
             <section className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>
+                <h2 className="text-2xl font-bold tracking-tight mb-4">자주 묻는 질문</h2>
               </div>
               <Accordion type="single" collapsible className="w-full">
                 {[
                   {
-                    q: "What is Lorem Ipsum?",
+                    q: "로렘 입숨이 무엇인가요?",
                     a: "Lorem Ipsum is placeholder text derived from a Latin passage by Cicero. It has been the industry-standard dummy text since the 1500s, used to fill layouts and mockups so designers can focus on visual structure without the distraction of readable content.",
                   },
                   {
-                    q: "How do I use this Lorem Ipsum generator?",
+                    q: "이 로렘 입숨 생성기는 어떻게 쓰나요?",
                     a: "Choose whether you want paragraphs, sentences, or words, set how many you need, then click Generate. Toggle the options to start with the classic 'Lorem ipsum dolor sit amet' opening or to wrap each paragraph in HTML <p> tags, and copy the result with one click.",
                   },
                   {
-                    q: "Is this Lorem Ipsum generator free and private?",
+                    q: "이 로렘 입숨 생성기는 무료이고 안전한가요?",
                     a: "Yes. The tool is completely free with no signup required, and all text is generated locally in your browser. Nothing you generate is ever sent to a server or stored anywhere.",
                   },
                   {
-                    q: "Can I generate HTML-ready placeholder text?",
-                    a: "Absolutely. Enable the 'Wrap paragraphs in <p> tags' option and each paragraph will be wrapped in a <p> element, ready to paste straight into your HTML markup or CMS.",
+                    q: "HTML에 바로 쓸 수 있는 더미 텍스트도 만들 수 있나요?",
+                    a: "Absolutely. Enable the 'Wrap paragraphs in <p> 태그 옵션을 켜면 각 문단이 다음 태그로 감싸집니다: <p> element, ready to paste straight into your HTML markup or CMS.",
                   },
                 ].map((faq, idx) => (
                   <AccordionItem key={idx} value={`item-${idx + 1}`}>

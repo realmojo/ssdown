@@ -1,29 +1,27 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { ColorConverterClient } from "@/components/client/color-converter-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/utility/color-converter`;
 
-  const title = "Color Converter - HEX, RGB, HSL Converter | SSDown";
+  const title = "색상 변환기 - HEX, RGB, HSL 변환 | SSDown";
   const description =
     "Free online color converter. Instantly convert between HEX, RGB, and HSL color formats with a live preview and color picker.";
 
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -33,30 +31,29 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const faq = [
   {
-    question: "How do I convert a HEX color to RGB?",
+    question: "HEX 색상을 RGB로 어떻게 변환하나요?",
     answer:
       "Paste or type your HEX value (for example #ff8800) into the HEX field. The converter instantly updates the RGB and HSL fields, showing the equivalent values and a live preview.",
   },
   {
-    question: "What is the difference between HEX, RGB, and HSL?",
+    question: "HEX, RGB, HSL은 무엇이 다른가요?",
     answer:
       "HEX is a hexadecimal notation for red, green, and blue channels used in CSS. RGB expresses the same channels as decimal numbers from 0 to 255. HSL describes a color by hue, saturation, and lightness, which is often more intuitive for adjusting colors.",
   },
   {
-    question: "Does this tool support 3-digit shorthand HEX codes?",
+    question: "3자리 축약형 HEX 코드도 지원하나요?",
     answer:
-      "Yes. Shorthand HEX values like #f80 are automatically expanded to their full six-digit form (#ff8800) before conversion, so both formats work seamlessly.",
+      "Yes. 축약형 HEX values like #f80 are automatically expanded to their full six-digit form (#ff8800) before conversion, so both formats work seamlessly.",
   },
   {
-    question: "Is my color data sent to a server?",
+    question: "제 색상 데이터가 서버로 전송되나요?",
     answer:
       "No. All conversions happen entirely in your browser using JavaScript. Nothing is uploaded or stored, so your work stays completely private.",
   },
 ];
 
 export default async function ColorConverterPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -78,18 +75,18 @@ export default async function ColorConverterPage() {
       { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
       { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
       { "@type": "ListItem", position: 3, name: dict.breadcrumb.utility, item: "https://ssdown.app/tools/utility" },
-      { "@type": "ListItem", position: 4, name: "Color Converter", item: "https://ssdown.app/utility/color-converter" },
+      { "@type": "ListItem", position: 4, name: "색상 변환기", item: "https://ssdown.app/utility/color-converter" },
     ],
   };
 
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Color Converter",
+    name: "색상 변환기",
     url: "https://ssdown.app/utility/color-converter",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     description: "Free online color converter tool. Fast, secure, and browser-based.",
   };
@@ -97,7 +94,7 @@ export default async function ColorConverterPage() {
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Color Converter Online",
+    name: "How to use 색상 변환기 Online",
     description: "Use our free online color converter to translate colors between HEX, RGB, and HSL in your browser.",
     step: [
       {
@@ -146,7 +143,7 @@ export default async function ColorConverterPage() {
             { label: dict.breadcrumb.tools, href: "/tools" },
             { label: dict.breadcrumb.utility, href: "/tools/utility" },
             {
-              label: "Color Converter",
+              label: "색상 변환기",
               href: "/utility/color-converter",
               isCurrent: true,
             },

@@ -120,7 +120,7 @@ export function CreatePdfClient({ dict }: { dict?: any }) {
   const generatePdf = async () => {
     const hasContent = pages.some((p) => p.text.trim().length > 0);
     if (!hasContent) {
-      setError("Please enter some text on at least one page.");
+      setError("최소 한 페이지에는 텍스트를 입력해 주세요.");
       return;
     }
 
@@ -139,7 +139,7 @@ export function CreatePdfClient({ dict }: { dict?: any }) {
       pdfDoc.registerFontkit(fontkit);
       const fontUrl = "/fonts/NotoSansKR-Regular.ttf";
       const fontResponse = await fetch(fontUrl);
-      if (!fontResponse.ok) throw new Error("Failed to load font");
+      if (!fontResponse.ok) throw new Error("글꼴을 불러오지 못했습니다");
       const fontBytes = await fontResponse.arrayBuffer();
       const font = await pdfDoc.embedFont(fontBytes);
       const [pageWidth, pageHeight] = PAGE_SIZE_MAP[pageSize];
@@ -234,7 +234,7 @@ export function CreatePdfClient({ dict }: { dict?: any }) {
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1">
                   <label className="block text-sm font-medium mb-2">
-                    Page Size
+                    페이지 크기
                   </label>
                   <select
                     value={pageSize}
@@ -284,7 +284,7 @@ export function CreatePdfClient({ dict }: { dict?: any }) {
                   <div className="flex gap-2">
                     <Button variant="outline" size="sm" onClick={addPage}>
                       <Plus className="w-4 h-4 mr-1" />
-                      Add Page
+                      페이지 추가
                     </Button>
                     <Button variant="outline" size="sm" onClick={handleReset}>
                       <RotateCcw className="w-4 h-4 mr-1" />
@@ -320,7 +320,7 @@ export function CreatePdfClient({ dict }: { dict?: any }) {
                     <textarea
                       value={page.text}
                       onChange={(e) => updatePageText(page.id, e.target.value)}
-                      placeholder={`Enter text for page ${idx + 1}...`}
+                      placeholder={`${idx + 1}쪽에 넣을 텍스트를 입력하세요…`}
                       rows={6}
                       className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 resize-y min-h-[120px]"
                     />
@@ -350,7 +350,7 @@ export function CreatePdfClient({ dict }: { dict?: any }) {
                     ) : (
                       <>
                         <FilePlus className="w-5 h-5 mr-2" />
-                        Generate PDF
+                        PDF 만들기
                       </>
                     )}
                   </Button>
@@ -400,7 +400,7 @@ export function CreatePdfClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.create_pdf?.step1_title || "Enter Your Text",
+                    title: dict?.create_pdf?.step1_title || "텍스트 입력",
                     desc:
                       dict?.create_pdf?.step1_desc ||
                       "Type or paste your text into the editor. Add multiple pages as needed using the 'Add Page' button.",

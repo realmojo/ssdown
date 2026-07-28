@@ -57,7 +57,7 @@ export function AspectRatioCalculatorClient({ dict }: { dict?: any }) {
       ratio: "9:16",
       width: 1080,
       height: 1920,
-      description: "TikTok, Stories",
+      description: "TikTok, 스토리",
       icon: Smartphone,
     },
     {
@@ -176,7 +176,7 @@ export function AspectRatioCalculatorClient({ dict }: { dict?: any }) {
                 <CardContent className="space-y-6">
                   {/* Image Upload Section */}
                   <div className="space-y-3">
-                    <Label>Upload Image (Optional)</Label>
+                    <Label>이미지 업로드 (선택)</Label>
                     <div
                       onClick={() => fileInputRef.current?.click()}
                       className="border-2 border-dashed border-violet-200 dark:border-violet-800 rounded-xl p-6 text-center cursor-pointer hover:border-violet-400 dark:hover:border-violet-600 transition-colors bg-gradient-to-br from-violet-50/50 to-purple-50/50 dark:from-violet-900/10 dark:to-purple-900/10"
@@ -185,21 +185,21 @@ export function AspectRatioCalculatorClient({ dict }: { dict?: any }) {
                         <div className="space-y-3">
                           <img
                             src={uploadedImage}
-                            alt="Uploaded"
+                            alt="업로드한 이미지"
                             className="max-h-32 mx-auto rounded-lg object-contain"
                           />
                           <p className="text-sm text-violet-600 dark:text-violet-400 font-medium">
-                            Image dimensions detected!
+                            이미지 크기를 인식했습니다!
                           </p>
                         </div>
                       ) : (
                         <div className="space-y-2">
                           <ImageIcon className="w-12 h-12 mx-auto text-violet-300 dark:text-violet-700" />
                           <p className="text-sm text-muted-foreground">
-                            Click to upload an image
+                            클릭해서 이미지 올리기
                           </p>
                           <p className="text-xs text-muted-foreground">
-                            We'll auto-detect dimensions
+                            크기를 자동으로 인식합니다
                           </p>
                         </div>
                       )}
@@ -392,7 +392,7 @@ export function AspectRatioCalculatorClient({ dict }: { dict?: any }) {
                     {
                       title:
                         dict?.aspect_ratio_calculator?.tip3_title ||
-                        "TikTok & Stories",
+                        "TikTok & 스토리",
                       desc: dict?.aspect_ratio_calculator?.tip3_desc,
                     },
                     {

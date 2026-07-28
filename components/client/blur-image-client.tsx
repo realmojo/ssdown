@@ -210,7 +210,7 @@ export function BlurImageClient({ dict }: { dict?: any }) {
               }}
               className="mt-4 text-sm text-purple-600 dark:text-purple-400 hover:underline"
             >
-              Or try with a sample image
+              샘플 이미지로 먼저 써보기
             </button>
           </div>
         ) : (
@@ -218,7 +218,7 @@ export function BlurImageClient({ dict }: { dict?: any }) {
             {/* Controls */}
             <Card className="border-purple-200 dark:border-purple-900/50">
               <CardHeader>
-                <CardTitle className="text-lg">Blur Settings</CardTitle>
+                <CardTitle className="text-lg">흐림 설정</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 {/* File info and reset */}
@@ -226,7 +226,7 @@ export function BlurImageClient({ dict }: { dict?: any }) {
                   <div className="flex items-center gap-3">
                     <Button variant="outline" size="sm" onClick={handleReset}>
                       <RotateCcw className="w-4 h-4 mr-2" />
-                      New Image
+                      새 이미지
                     </Button>
                     <span
                       className="text-sm text-muted-foreground truncate max-w-[200px]"
@@ -246,7 +246,7 @@ export function BlurImageClient({ dict }: { dict?: any }) {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <label className="text-sm font-medium">
-                      Blur Intensity
+                      흐림 강도
                     </label>
                     <span className="text-sm font-semibold text-purple-600 dark:text-purple-400">
                       {blurAmount}px
@@ -262,14 +262,14 @@ export function BlurImageClient({ dict }: { dict?: any }) {
                     className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-purple-600"
                   />
                   <div className="flex items-center justify-between text-xs text-muted-foreground">
-                    <span>0px (None)</span>
-                    <span>20px (Max)</span>
+                    <span>0px (없음)</span>
+                    <span>20px (최대)</span>
                   </div>
                 </div>
 
                 {/* Preset buttons */}
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Quick Presets</label>
+                  <label className="text-sm font-medium">빠른 설정</label>
                   <div className="flex flex-wrap gap-2">
                     {[
                       { label: "None", value: 0 },
@@ -303,14 +303,14 @@ export function BlurImageClient({ dict }: { dict?: any }) {
                 {previewUrl ? (
                   <img
                     src={previewUrl}
-                    alt="Blurred result"
+                    alt="흐림 처리 결과"
                     className="max-w-full max-h-[60vh] block rounded-lg shadow-md"
                     draggable={false}
                   />
                 ) : (
                   <img
                     src={imageSrc}
-                    alt="Original"
+                    alt="원본"
                     className="max-w-full max-h-[60vh] block rounded-lg shadow-md"
                     draggable={false}
                   />
@@ -327,7 +327,7 @@ export function BlurImageClient({ dict }: { dict?: any }) {
                   className="bg-purple-600 hover:bg-purple-700 text-white shadow-lg min-w-[180px]"
                 >
                   <Download className="w-5 h-5 mr-2" />
-                  Download
+                  다운로드
                 </Button>
               </div>
             )}
@@ -336,7 +336,7 @@ export function BlurImageClient({ dict }: { dict?: any }) {
             <img
               ref={originalImageRef}
               src={imageSrc}
-              alt="Original"
+              alt="원본"
               className="hidden"
               onLoad={handleImageLoad}
             />
@@ -361,7 +361,7 @@ export function BlurImageClient({ dict }: { dict?: any }) {
             {[
               {
                 step: 1,
-                title: dict?.blur_image?.step1_title || "Upload Image",
+                title: dict?.blur_image?.step1_title || "이미지 업로드",
                 desc:
                   dict?.blur_image?.step1_desc ||
                   "Upload a PNG, JPG, WebP, GIF, or BMP image from your device.",
@@ -377,7 +377,7 @@ export function BlurImageClient({ dict }: { dict?: any }) {
               },
               {
                 step: 3,
-                title: dict?.blur_image?.step3_title || "Download Result",
+                title: dict?.blur_image?.step3_title || "결과 다운로드",
                 desc:
                   dict?.blur_image?.step3_desc ||
                   "Click 'Download' to save your blurred image to your device.",
@@ -415,29 +415,29 @@ export function BlurImageClient({ dict }: { dict?: any }) {
               {dict?.blur_image?.tips_title || "Blur Image Tips"}
             </h2>
             <p className="text-muted-foreground">
-              Get the best results when blurring images.
+              이미지를 흐리게 할 때 가장 좋은 결과를 얻는 방법입니다.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Privacy Protection",
-                desc: "Blur sensitive information like faces, license plates, or personal data in screenshots before sharing.",
+                title: "개인정보 보호",
+                desc: "공유하기 전에 화면 캡처의 얼굴, 차량 번호판, 개인정보 같은 민감한 부분을 흐리게 처리하세요.",
                 icon: Shield,
               },
               {
-                title: "Background Focus",
-                desc: "Apply blur to create a depth-of-field effect that makes your subject stand out from the background.",
+                title: "배경 흐리게",
+                desc: "블러로 아웃포커싱 효과를 주면 피사체가 배경에서 도드라져 보입니다.",
                 icon: Droplets,
               },
               {
-                title: "Fine Control",
-                desc: "Use 0.5px increments for precise blur control. Light blur (1-3px) works well for subtle effects.",
+                title: "세밀한 조절",
+                desc: "0.5px 단위로 조절하면 세밀하게 제어할 수 있습니다. 은은한 효과에는 약한 블러(1~3px)가 잘 어울립니다.",
                 icon: Zap,
               },
               {
-                title: "Original Preserved",
-                desc: "Your original image stays untouched. Download the blurred version separately and keep both.",
+                title: "원본 보존",
+                desc: "원본 이미지는 그대로 남습니다. 처리본을 따로 내려받아 둘 다 보관하세요.",
                 icon: Layers,
               },
             ].map((tip, idx) => (
@@ -462,7 +462,7 @@ export function BlurImageClient({ dict }: { dict?: any }) {
               {dict?.blur_image?.faq_title || "Blur Image FAQ"}
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about blurring images.
+              이미지 흐리게 하기에 대해 자주 묻는 질문입니다.
             </p>
           </div>
           <div className="max-w-3xl mx-auto">
@@ -507,7 +507,7 @@ export function BlurImageClient({ dict }: { dict?: any }) {
               <AccordionItem value="faq-5">
                 <AccordionTrigger>
                   {dict?.blur_image?.faq_5_q ||
-                    "What image formats are supported?"}
+                    "어떤 이미지 형식을 지원하나요?"}
                 </AccordionTrigger>
                 <AccordionContent>
                   {dict?.blur_image?.faq_5_a ||

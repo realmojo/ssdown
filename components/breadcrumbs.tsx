@@ -24,7 +24,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
   };
 
   return (
-    <nav aria-label="Breadcrumb" className="mb-6">
+    <nav aria-label="경로 탐색" className="mb-6">
       {/* Structured Data */}
       <script
         type="application/ld+json"

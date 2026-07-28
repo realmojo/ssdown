@@ -220,7 +220,7 @@ export function AddTextToPdfClient({ dict }: { dict?: any }) {
               <Type className="w-10 h-10 text-red-600 dark:text-red-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              {dict?.add_text_to_pdf?.title || "Add Text to PDF"}
+              {dict?.add_text_to_pdf?.title || "텍스트 추가 to PDF"}
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
               {dict?.add_text_to_pdf?.subtitle ||
@@ -247,10 +247,10 @@ export function AddTextToPdfClient({ dict }: { dict?: any }) {
                 <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
                   {dict?.add_text_to_pdf?.drop_zone ||
-                    "Drag & drop a PDF file here"}
+                    "여기에 PDF 파일을 끌어다 놓으세요"}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Only PDF files accepted. Max 50MB per file.
+                  PDF 파일만 올릴 수 있습니다. 파일당 최대 50MB입니다.
                 </p>
               </div>
             )}
@@ -278,7 +278,7 @@ export function AddTextToPdfClient({ dict }: { dict?: any }) {
                 <div className="p-6 bg-muted/30 rounded-lg border border-muted space-y-4">
                   <div>
                     <label className="text-xs text-muted-foreground mb-1 block">
-                      Text to Add
+                      넣을 텍스트
                     </label>
                     <Textarea
                       value={text}
@@ -287,7 +287,7 @@ export function AddTextToPdfClient({ dict }: { dict?: any }) {
                         setResultUrl(null);
                         setResultSize(null);
                       }}
-                      placeholder="Enter text to add to the PDF..."
+                      placeholder="PDF에 넣을 텍스트를 입력하세요…"
                       rows={3}
                       maxLength={2000}
                     />
@@ -350,7 +350,7 @@ export function AddTextToPdfClient({ dict }: { dict?: any }) {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="text-xs text-muted-foreground mb-1 block">
-                        Font Size (8-72)
+                        글자 크기 (8~72)
                       </label>
                       <Input
                         type="number"
@@ -368,7 +368,7 @@ export function AddTextToPdfClient({ dict }: { dict?: any }) {
                     </div>
                     <div>
                       <label className="text-xs text-muted-foreground mb-1 block">
-                        Color
+                        색상
                       </label>
                       <div className="flex items-center gap-2 mt-1">
                         {(Object.keys(COLOR_MAP) as ColorOption[]).map((c) => (
@@ -388,8 +388,7 @@ export function AddTextToPdfClient({ dict }: { dict?: any }) {
                   </div>
 
                   <p className="text-xs text-muted-foreground">
-                    Tip: PDF coordinates start from bottom-left. Y=0 is the
-                    bottom of the page. A4 is 595x842 pts.
+                    팁: PDF 좌표는 왼쪽 아래에서 시작합니다. Y=0이 페이지의 맨 아래이며, A4는 595x842 포인트입니다.
                   </p>
                 </div>
 
@@ -410,7 +409,7 @@ export function AddTextToPdfClient({ dict }: { dict?: any }) {
                       ) : (
                         <>
                           <Type className="w-5 h-5 mr-2" />
-                          {dict?.add_text_to_pdf?.title || "Add Text to PDF"}
+                          {dict?.add_text_to_pdf?.title || "텍스트 추가 to PDF"}
                         </>
                       )}
                     </Button>
@@ -450,7 +449,7 @@ export function AddTextToPdfClient({ dict }: { dict?: any }) {
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold tracking-tight mb-4">
                   {dict?.add_text_to_pdf?.guide_title ||
-                    "How to Add Text to a PDF"}
+                    "How to 텍스트 추가 to a PDF"}
                 </h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
                   {dict?.add_text_to_pdf?.guide_desc ||
@@ -461,10 +460,10 @@ export function AddTextToPdfClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.add_text_to_pdf?.step1_title || "Upload PDF",
+                    title: dict?.add_text_to_pdf?.step1_title || "PDF 업로드",
                     desc:
                       dict?.add_text_to_pdf?.step1_desc ||
-                      "Drag and drop or click to select a PDF file from your device.",
+                      "PDF 파일을 끌어다 놓거나 클릭해서 선택하세요.",
                     icon: Upload,
                   },
                   {
@@ -480,7 +479,7 @@ export function AddTextToPdfClient({ dict }: { dict?: any }) {
                     title: dict?.add_text_to_pdf?.step3_title || "Download",
                     desc:
                       dict?.add_text_to_pdf?.step3_desc ||
-                      "Click 'Add Text to PDF' and download your modified PDF file.",
+                      "Click '텍스트 추가 to PDF' and download your modified PDF file.",
                     icon: Download,
                   },
                 ].map((step) => (
@@ -525,7 +524,7 @@ export function AddTextToPdfClient({ dict }: { dict?: any }) {
                     title: dict?.add_text_to_pdf?.tip1_title || "100% Private",
                     desc:
                       dict?.add_text_to_pdf?.tip1_desc ||
-                      "All processing happens in your browser using pdf-lib. Your files never leave your device.",
+                      "모든 처리는 pdf-lib를 이용해 브라우저 안에서 이뤄집니다. 파일이 기기를 벗어나지 않습니다.",
                     icon: Shield,
                   },
                   {
@@ -547,7 +546,7 @@ export function AddTextToPdfClient({ dict }: { dict?: any }) {
                   },
                   {
                     title:
-                      dict?.add_text_to_pdf?.tip4_title || "Original Preserved",
+                      dict?.add_text_to_pdf?.tip4_title || "원본 보존",
                     desc:
                       dict?.add_text_to_pdf?.tip4_desc ||
                       "Your original PDF file remains untouched. Only a new modified file is created for download.",
@@ -574,7 +573,7 @@ export function AddTextToPdfClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold tracking-tight mb-4">
-                  {dict?.add_text_to_pdf?.faq_title || "Add Text to PDF FAQ"}
+                  {dict?.add_text_to_pdf?.faq_title || "텍스트 추가 to PDF FAQ"}
                 </h2>
                 <p className="text-muted-foreground text-center max-w-2xl mx-auto">
                   {dict?.add_text_to_pdf?.faq_desc ||

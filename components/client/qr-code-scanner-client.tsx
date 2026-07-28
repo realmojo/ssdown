@@ -53,19 +53,19 @@ function isHttpUrl(value: string): boolean {
 
 const FAQ = [
   {
-    q: "How do I scan a QR code from an image?",
-    a: "Switch to the Upload Image tab, then select a photo or drag and drop an image containing a QR code. The tool decodes it instantly in your browser and shows the result.",
+    q: "이미지에서 QR 코드를 어떻게 인식하나요?",
+    a: "Switch to the 이미지 업로드 tab, then select a photo or drag and drop an image containing a QR code. The tool decodes it instantly in your browser and shows the result.",
   },
   {
-    q: "Can I scan a QR code with my camera?",
+    q: "카메라로 QR 코드를 인식할 수 있나요?",
     a: "Yes. Open the Camera tab and click Start camera. Point your device's camera at the QR code and it will be decoded automatically. Your camera feed never leaves your device.",
   },
   {
-    q: "Is my data private and secure?",
+    q: "제 데이터는 안전한가요?",
     a: "Absolutely. All scanning happens entirely in your browser using the native BarcodeDetector API. No image or camera data is ever uploaded to a server or stored anywhere.",
   },
   {
-    q: "Which browsers are supported?",
+    q: "어떤 브라우저를 지원하나요?",
     a: "The scanner relies on the built-in BarcodeDetector API, which is available in the latest Chrome and Edge on desktop and Android. If your browser does not support it, you'll see a notice and scanning will be disabled.",
   },
 ];
@@ -113,13 +113,13 @@ export function QrCodeScannerClient({ dict }: { dict?: any }) {
 
   const handleResult = useCallback((value: string) => {
     setResult(value);
-    toast.success("QR code decoded");
+    toast.success("QR 코드를 인식했습니다");
   }, []);
 
   const scanImageFile = useCallback(
     async (file: File) => {
       if (!file.type.startsWith("image/")) {
-        toast.error("Please select an image file");
+        toast.error("이미지 파일을 선택해 주세요");
         return;
       }
       if (previewUrlRef.current) {
@@ -138,10 +138,10 @@ export function QrCodeScannerClient({ dict }: { dict?: any }) {
         if (codes.length > 0 && codes[0].rawValue) {
           handleResult(codes[0].rawValue);
         } else {
-          toast.error("No QR code found");
+          toast.error("QR 코드를 찾지 못했습니다");
         }
       } catch {
-        toast.error("Failed to scan image");
+        toast.error("이미지를 인식하지 못했습니다");
       }
     },
     [handleResult]
@@ -202,7 +202,7 @@ export function QrCodeScannerClient({ dict }: { dict?: any }) {
       setCameraActive(true);
       rafRef.current = requestAnimationFrame(detectLoop);
     } catch {
-      toast.error("Unable to access the camera");
+      toast.error("카메라에 접근할 수 없습니다");
       stopCamera();
     }
   }, [detectLoop, stopCamera]);
@@ -218,7 +218,7 @@ export function QrCodeScannerClient({ dict }: { dict?: any }) {
   const handleCopy = useCallback(() => {
     if (!result) return;
     void navigator.clipboard.writeText(result);
-    toast.success("Copied to clipboard");
+    toast.success("클립보드에 복사했습니다");
   }, [result]);
 
   const resultIsUrl = useMemo(() => (result ? isHttpUrl(result) : false), [result]);
@@ -232,11 +232,10 @@ export function QrCodeScannerClient({ dict }: { dict?: any }) {
               <ScanLine className="w-10 h-10 text-sky-600 dark:text-sky-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              QR Code Scanner
+              QR 코드 스캐너
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
-              Scan and decode QR codes from an image or your camera, entirely in
-              your browser.
+              이미지나 카메라로 QR 코드를 읽고 해석합니다. 모든 처리는 브라우저 안에서 이뤄집니다.
             </p>
 
             <Adsense slotId="7759160077" />
@@ -248,13 +247,10 @@ export function QrCodeScannerClient({ dict }: { dict?: any }) {
                     <AlertTriangle className="w-7 h-7" />
                   </div>
                   <h2 className="text-xl font-semibold">
-                    Scanning isn&apos;t supported in this browser
+                    이 브라우저에서는 인식 기능을 지원하지 않습니다
                   </h2>
                   <p className="text-muted-foreground max-w-md">
-                    This tool uses the built-in BarcodeDetector API, which your
-                    browser doesn&apos;t support. For the best experience, please
-                    use the latest Chrome or Edge on desktop, or Chrome on
-                    Android.
+                    이 도구는 브라우저에 내장된 BarcodeDetector API를 사용하는데, 현재 브라우저는 이를 지원하지 않습니다. 데스크톱에서는 최신 Chrome이나 Edge를, 안드로이드에서는 Chrome을 사용해 주세요.
                   </p>
                 </CardContent>
               </Card>
@@ -271,7 +267,7 @@ export function QrCodeScannerClient({ dict }: { dict?: any }) {
                       }`}
                     >
                       <Upload className="w-4 h-4" />
-                      Upload Image
+                      이미지 업로드
                     </button>
                     <button
                       onClick={() => switchMode("camera")}
@@ -306,10 +302,10 @@ export function QrCodeScannerClient({ dict }: { dict?: any }) {
                           <ImageIcon className="w-7 h-7" />
                         </div>
                         <p className="font-medium">
-                          Drop an image here or click to browse
+                          여기에 이미지를 끌어다 놓거나 클릭해서 선택하세요
                         </p>
                         <p className="text-sm text-muted-foreground">
-                          PNG, JPG, WebP, or any image containing a QR code
+                          PNG, JPG, WebP 등 QR 코드가 담긴 이미지면 됩니다
                         </p>
                         <input
                           type="file"
@@ -321,7 +317,7 @@ export function QrCodeScannerClient({ dict }: { dict?: any }) {
                       {previewUrl && (
                         <img
                           src={previewUrl}
-                          alt="Uploaded preview"
+                          alt="업로드한 이미지 미리보기"
                           className="max-h-48 rounded-xl border border-gray-200 dark:border-gray-700 mx-auto object-contain"
                         />
                       )}
@@ -339,7 +335,7 @@ export function QrCodeScannerClient({ dict }: { dict?: any }) {
                         {!cameraActive && (
                           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-gray-400">
                             <Camera className="w-10 h-10" />
-                            <span className="text-sm">Camera is off</span>
+                            <span className="text-sm">카메라가 꺼져 있습니다</span>
                           </div>
                         )}
                       </div>
@@ -347,7 +343,7 @@ export function QrCodeScannerClient({ dict }: { dict?: any }) {
                         {cameraActive ? (
                           <Button variant="destructive" onClick={stopCamera}>
                             <X className="w-4 h-4" />
-                            Stop camera
+                            카메라 끄기
                           </Button>
                         ) : (
                           <Button
@@ -355,7 +351,7 @@ export function QrCodeScannerClient({ dict }: { dict?: any }) {
                             onClick={() => void startCamera()}
                           >
                             <Camera className="w-4 h-4" />
-                            Start camera
+                            카메라 켜기
                           </Button>
                         )}
                       </div>
@@ -366,7 +362,7 @@ export function QrCodeScannerClient({ dict }: { dict?: any }) {
                     <div className="rounded-xl border border-sky-200 dark:border-sky-900/50 bg-sky-50 dark:bg-sky-900/20 p-5 space-y-3">
                       <div className="flex items-center gap-2 text-sm font-semibold text-sky-700 dark:text-sky-300">
                         <ScanLine className="w-4 h-4" />
-                        Decoded Result
+                        인식 결과
                       </div>
                       {resultIsUrl ? (
                         <a
@@ -417,30 +413,30 @@ export function QrCodeScannerClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  How to Use
+                  이용 방법
                 </h2>
                 <p className="text-muted-foreground">
-                  Decode any QR code in seconds, right in your browser.
+                  브라우저에서 몇 초 만에 QR 코드를 읽어냅니다.
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
                   {
                     step: 1,
-                    title: "Choose a Source",
-                    desc: "Upload an image containing a QR code, or switch to the Camera tab to scan live.",
+                    title: "입력 방식 선택",
+                    desc: "QR 코드가 담긴 이미지를 올리거나 카메라 탭으로 전환해 실시간으로 인식하세요.",
                     icon: Upload,
                   },
                   {
                     step: 2,
-                    title: "Scan Instantly",
-                    desc: "The tool detects and decodes the QR code automatically, without any uploads.",
+                    title: "즉시 인식",
+                    desc: "업로드 없이 QR 코드를 자동으로 찾아 해석해 줍니다.",
                     icon: ScanLine,
                   },
                   {
                     step: 3,
-                    title: "Use the Result",
-                    desc: "Copy the decoded text or open the link directly if the code contains a URL.",
+                    title: "결과 활용",
+                    desc: "인식된 텍스트를 복사하거나, 주소가 담겨 있다면 링크를 바로 열 수 있습니다.",
                     icon: ArrowRight,
                   },
                 ].map((step) => (
@@ -465,29 +461,29 @@ export function QrCodeScannerClient({ dict }: { dict?: any }) {
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-sky-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">Scanning Tips</h2>
+                  <h2 className="text-3xl font-bold mb-4">인식 팁</h2>
                   <p className="text-muted-foreground">
-                    Get a clean read every time.
+                    매번 정확하게 인식하는 방법입니다.
                   </p>
                 </div>
 
                 <div className="md:w-2/3 grid sm:grid-cols-2 gap-4">
                   {[
                     {
-                      title: "Use a Clear Image",
-                      desc: "Sharp, well-lit images with the full QR code visible decode far more reliably than blurry crops.",
+                      title: "선명한 이미지 사용",
+                      desc: "QR 코드 전체가 선명하고 밝게 나온 이미지가 흐릿하게 잘린 것보다 훨씬 잘 인식됩니다.",
                     },
                     {
-                      title: "Steady the Camera",
-                      desc: "Hold your device still and center the QR code in the frame. Give the camera a moment to focus.",
+                      title: "카메라를 고정하세요",
+                      desc: "기기를 고정하고 QR 코드를 화면 가운데에 두세요. 카메라가 초점을 잡을 시간을 주세요.",
                     },
                     {
-                      title: "Mind the Lighting",
-                      desc: "Avoid glare and harsh reflections on printed or on-screen QR codes for the fastest detection.",
+                      title: "조명에 유의하세요",
+                      desc: "인쇄물이나 화면의 QR 코드에 빛 반사가 생기지 않게 하면 가장 빠르게 인식됩니다.",
                     },
                     {
-                      title: "Stay Private",
-                      desc: "Everything runs locally in your browser. No image or camera stream is ever uploaded to a server.",
+                      title: "비공개 유지",
+                      desc: "모든 처리가 브라우저 안에서 이뤄집니다. 이미지나 카메라 영상이 서버로 업로드되지 않습니다.",
                     },
                   ].map((tip, idx) => (
                     <div
@@ -509,7 +505,7 @@ export function QrCodeScannerClient({ dict }: { dict?: any }) {
             {/* FAQ */}
             <section className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>
+                <h2 className="text-2xl font-bold tracking-tight mb-4">자주 묻는 질문</h2>
               </div>
               <Accordion type="single" collapsible className="w-full">
                 {FAQ.map((item, idx) => (

@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { BlackAndWhiteClient } from "@/components/client/black-and-white-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/image/black-and-white`;
 
@@ -17,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function BlackAndWhitePage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -62,38 +59,38 @@ export default async function BlackAndWhitePage() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Black and White Image Converter",
+    name: "흑백 이미지 변환기",
     url: "https://ssdown.app/image/black-and-white",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Convert color images to black and white or grayscale instantly.",
+    description: "컬러 이미지를 흑백이나 회색조로 즉시 변환합니다.",
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Black and White Image Converter Online",
-    description: "Convert color images to black and white or grayscale instantly.",
+    name: "흑백 변환 사용 방법",
+    description: "컬러 이미지를 흑백이나 회색조로 즉시 변환합니다.",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Upload your image",
-        text: "Select the colorful image you want to transform.",
+        name: "이미지 업로드",
+        text: "기기에서 PNG, JPG, WebP, GIF 또는 BMP 이미지를 업로드하세요.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Apply filter",
-        text: "The tool will instantly apply a grayscale filter to your image.",
+        name: "자동 변환",
+        text: "이미지가 휘도 기반 공식을 사용하여 즉시 흑백으로 변환됩니다.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Download B&W image",
-        text: "Save the monochrome image to your device.",
+        name: "결과 다운로드",
+        text: "'다운로드'를 클릭하여 흑백 이미지를 기기에 저장하세요.",
       }
     ],
   };

@@ -1,29 +1,27 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import { LoremIpsumGeneratorClient } from "@/components/client/lorem-ipsum-generator-client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/utility/lorem-ipsum-generator`;
 
-  const title = "Lorem Ipsum Generator - Placeholder Text | SSDown";
+  const title = "로렘 입숨 생성기 - 더미 텍스트 만들기 | SSDown";
   const description =
     "Free online Lorem Ipsum generator. Create placeholder paragraphs, sentences, or words for your designs, mockups, and layouts.";
 
   return {
     title,
     description,
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
     openGraph: {
       title,
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
@@ -32,29 +30,28 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function LoremIpsumGeneratorPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const faq = [
     {
-      question: "What is Lorem Ipsum?",
+      question: "로렘 입숨이 무엇인가요?",
       answer:
         "Lorem Ipsum is placeholder text derived from a Latin passage by Cicero. It has been the industry-standard dummy text since the 1500s, used to fill layouts and mockups so designers can focus on visual structure without the distraction of readable content.",
     },
     {
-      question: "How do I use this Lorem Ipsum generator?",
+      question: "이 로렘 입숨 생성기는 어떻게 쓰나요?",
       answer:
         "Choose whether you want paragraphs, sentences, or words, set how many you need, then click Generate. Toggle the options to start with the classic 'Lorem ipsum dolor sit amet' opening or to wrap each paragraph in HTML <p> tags, and copy the result with one click.",
     },
     {
-      question: "Is this Lorem Ipsum generator free and private?",
+      question: "이 로렘 입숨 생성기는 무료이고 안전한가요?",
       answer:
         "Yes. The tool is completely free with no signup required, and all text is generated locally in your browser. Nothing you generate is ever sent to a server or stored anywhere.",
     },
     {
-      question: "Can I generate HTML-ready placeholder text?",
+      question: "HTML에 바로 쓸 수 있는 더미 텍스트도 만들 수 있나요?",
       answer:
-        "Absolutely. Enable the 'Wrap paragraphs in <p> tags' option and each paragraph will be wrapped in a <p> element, ready to paste straight into your HTML markup or CMS.",
+        "Absolutely. Enable the 'Wrap paragraphs in <p> 태그 옵션을 켜면 각 문단이 다음 태그로 감싸집니다: <p> element, ready to paste straight into your HTML markup or CMS.",
     },
   ];
 
@@ -78,18 +75,18 @@ export default async function LoremIpsumGeneratorPage() {
       { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
       { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
       { "@type": "ListItem", position: 3, name: dict.breadcrumb.utility, item: "https://ssdown.app/tools/utility" },
-      { "@type": "ListItem", position: 4, name: "Lorem Ipsum Generator", item: "https://ssdown.app/utility/lorem-ipsum-generator" },
+      { "@type": "ListItem", position: 4, name: "로렘 입숨 생성기", item: "https://ssdown.app/utility/lorem-ipsum-generator" },
     ],
   };
 
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Lorem Ipsum Generator",
+    name: "로렘 입숨 생성기",
     url: "https://ssdown.app/utility/lorem-ipsum-generator",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Web Browser",
-    browserRequirements: "Requires JavaScript. Works in all modern browsers.",
+    browserRequirements: "자바스크립트가 필요합니다. 모든 최신 브라우저에서 동작합니다.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     description: "Free online Lorem Ipsum generator. Fast, secure, and browser-based.",
   };
@@ -97,7 +94,7 @@ export default async function LoremIpsumGeneratorPage() {
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to use Lorem Ipsum Generator Online",
+    name: "How to use 로렘 입숨 생성기 Online",
     description: "Use our free online Lorem Ipsum generator to create placeholder text securely in your browser.",
     step: [
       {
@@ -146,7 +143,7 @@ export default async function LoremIpsumGeneratorPage() {
             { label: dict.breadcrumb.tools, href: "/tools" },
             { label: dict.breadcrumb.utility, href: "/tools/utility" },
             {
-              label: "Lorem Ipsum Generator",
+              label: "로렘 입숨 생성기",
               href: "/utility/lorem-ipsum-generator",
               isCurrent: true,
             },

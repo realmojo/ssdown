@@ -84,11 +84,11 @@ export async function getAppById(id: string): Promise<SoftwareApplication | null
 const CARD_COLUMNS = "id,slug,name,name_kr,platform,category_main,license,rating_average,rating_total_count,icon_url,short_summary,short_summary_kr,developer_name,download_url";
 
 /**
- * locale이 'kr'이면 한국어 필드(name_kr, seo_*_kr, short_summary_kr, ai_review_html_kr)가
- * 존재하는 항목만 해당 값으로 덮어쓴 사본을 반환합니다. 영어(en)는 원본 그대로.
+ * 한국어 필드(name_kr, seo_*_kr, short_summary_kr, ai_review_html_kr)가 존재하는
+ * 항목만 해당 값으로 덮어쓴 사본을 반환합니다. 아직 번역되지 않은 항목은 원본
+ * (영문) 값이 남으며, 이런 앱은 `hasKoreanContent()`로 걸러 색인에서 제외합니다.
  */
-export function localizeApp(app: SoftwareApplication, locale: string): SoftwareApplication {
-  if (locale !== "kr") return app;
+export function localizeApp(app: SoftwareApplication): SoftwareApplication {
   return {
     ...app,
     core: {
@@ -106,6 +106,15 @@ export function localizeApp(app: SoftwareApplication, locale: string): SoftwareA
       aiReviewHtml: app.content.aiReviewHtmlKr || app.content.aiReviewHtml,
     },
   };
+}
+
+/**
+ * 한국어 본문(ai_review_html_kr)이 채워진 앱인지 판별합니다. 사이트는 한국어 전용
+ * 이므로, 아직 번역되지 않아 영문이 노출되는 앱은 noindex 처리하고 사이트맵에서도
+ * 제외합니다. 번역이 채워지면 자동으로 색인 대상에 편입됩니다.
+ */
+export function hasKoreanContent(app: SoftwareApplication): boolean {
+  return Boolean(app.content.aiReviewHtmlKr?.trim());
 }
 
 export async function getAppsByPlatform(

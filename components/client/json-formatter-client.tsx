@@ -85,7 +85,7 @@ export function JsonFormatterClient({ dict }: { dict?: any }) {
     (mode: "beautify" | "minify" | "validate") => {
       if (!input.trim()) {
         setOutput("");
-        setStatus({ type: "error", message: "Please enter some JSON first." });
+        setStatus({ type: "error", message: "먼저 JSON을 입력해 주세요." });
         return;
       }
 
@@ -98,7 +98,7 @@ export function JsonFormatterClient({ dict }: { dict?: any }) {
         } else {
           setOutput(JSON.stringify(parsed, null, getIndent(indent)));
         }
-        setStatus({ type: "success", message: "Valid JSON" });
+        setStatus({ type: "success", message: "올바른 JSON입니다" });
       } catch (error: unknown) {
         setOutput("");
         setStatus({ type: "error", message: getErrorMessage(error, input) });
@@ -111,9 +111,9 @@ export function JsonFormatterClient({ dict }: { dict?: any }) {
     if (!output) return;
     try {
       await navigator.clipboard.writeText(output);
-      toast.success("Output copied to clipboard");
+      toast.success("결과를 클립보드에 복사했습니다");
     } catch {
-      toast.error("Failed to copy output");
+      toast.error("결과를 복사하지 못했습니다");
     }
   }, [output]);
 
@@ -128,7 +128,7 @@ export function JsonFormatterClient({ dict }: { dict?: any }) {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-    toast.success("Downloaded formatted.json");
+    toast.success("formatted.json 파일을 내려받았습니다");
   }, [output]);
 
   const handleSample = useCallback(() => {
@@ -152,11 +152,10 @@ export function JsonFormatterClient({ dict }: { dict?: any }) {
               <Braces className="w-10 h-10 text-amber-600 dark:text-amber-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              JSON Formatter
+              JSON 포매터
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
-              Beautify, minify, and validate JSON with clear error messages and
-              one-click copy.
+              JSON을 정렬·압축·검사하고, 명확한 오류 메시지와 한 번의 클릭으로 복사할 수 있습니다.
             </p>
 
             <Adsense slotId="7759160077" />
@@ -164,7 +163,7 @@ export function JsonFormatterClient({ dict }: { dict?: any }) {
             {/* Toolbar */}
             <div className="w-full flex flex-wrap items-center gap-3 mb-4 mt-4">
               <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground">Indent:</span>
+                <span className="text-sm text-muted-foreground">들여쓰기:</span>
                 <div className="inline-flex rounded-lg border border-gray-200 dark:border-gray-700 p-0.5">
                   {INDENT_OPTIONS.map((option) => (
                     <button
@@ -231,7 +230,7 @@ export function JsonFormatterClient({ dict }: { dict?: any }) {
                 <CardHeader className="flex flex-row items-center justify-between pb-3">
                   <CardTitle className="flex items-center gap-2">
                     <Braces className="w-5 h-5 text-amber-500" />
-                    Input
+                    입력
                   </CardTitle>
                   <div className="flex items-center gap-2">
                     <button
@@ -283,7 +282,7 @@ export function JsonFormatterClient({ dict }: { dict?: any }) {
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:border-amber-300 dark:hover:border-amber-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       <Download className="w-3.5 h-3.5" />
-                      Download
+                      다운로드
                     </button>
                   </div>
                 </CardHeader>
@@ -292,7 +291,7 @@ export function JsonFormatterClient({ dict }: { dict?: any }) {
                     value={output}
                     readOnly
                     spellCheck={false}
-                    placeholder="Formatted JSON will appear here..."
+                    placeholder="정리된 JSON이 여기에 표시됩니다…"
                     className="w-full min-h-[360px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/60 font-mono text-sm leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-colors placeholder:text-muted-foreground"
                   />
                 </CardContent>
@@ -306,30 +305,30 @@ export function JsonFormatterClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  How to Use
+                  이용 방법
                 </h2>
                 <p className="text-muted-foreground">
-                  Clean up and validate your JSON in seconds.
+                  몇 초 만에 JSON을 정리하고 검사하세요.
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
                   {
                     step: 1,
-                    title: "Paste Your JSON",
-                    desc: "Type or paste raw JSON into the input area. Load the sample to see how it works.",
+                    title: "JSON 붙여넣기",
+                    desc: "입력창에 JSON을 입력하거나 붙여넣으세요. 샘플을 불러오면 동작 방식을 확인할 수 있습니다.",
                     icon: Braces,
                   },
                   {
                     step: 2,
-                    title: "Choose an Action",
-                    desc: "Pick an indent size, then Beautify to format, Minify to compress, or Validate to check syntax.",
+                    title: "작업 선택",
+                    desc: "들여쓰기 크기를 고른 뒤 정렬, 압축, 검사 중 원하는 작업을 누르세요.",
                     icon: ArrowRight,
                   },
                   {
                     step: 3,
-                    title: "Copy or Download",
-                    desc: "Copy the result to your clipboard or download it as a .json file for reuse.",
+                    title: "복사 또는 다운로드",
+                    desc: "결과를 클립보드에 복사하거나 .json 파일로 내려받아 재사용하세요.",
                     icon: Wand2,
                   },
                 ].map((step) => (
@@ -354,29 +353,29 @@ export function JsonFormatterClient({ dict }: { dict?: any }) {
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-yellow-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">JSON Tips</h2>
+                  <h2 className="text-3xl font-bold mb-4">JSON 팁</h2>
                   <p className="text-muted-foreground">
-                    Work with JSON like a pro.
+                    JSON을 능숙하게 다루는 방법입니다.
                   </p>
                 </div>
 
                 <div className="md:w-2/3 grid sm:grid-cols-2 gap-4">
                   {[
                     {
-                      title: "Beautify for Reading",
-                      desc: "Use 2-space indentation for compact readability or 4 spaces for extra clarity when debugging deeply nested structures.",
+                      title: "읽기 좋게 정렬하기",
+                      desc: "간결하게 보려면 공백 2칸을, 깊게 중첩된 구조를 살펴볼 때는 4칸을 쓰세요.",
                     },
                     {
-                      title: "Minify for Production",
-                      desc: "Strip whitespace before shipping JSON in API responses or config bundles to reduce payload size and speed up transfers.",
+                      title: "배포용으로 압축하기",
+                      desc: "API 응답이나 설정 파일에 JSON을 담기 전에 공백을 제거하면 용량이 줄고 전송이 빨라집니다.",
                     },
                     {
-                      title: "Watch Your Commas",
-                      desc: "Trailing commas and single quotes are the most common causes of invalid JSON. The validator points to the exact line and column.",
+                      title: "쉼표에 주의하세요",
+                      desc: "끝에 남은 쉼표와 작은따옴표가 JSON 오류의 가장 흔한 원인입니다. 검사기가 정확한 줄과 열을 알려 줍니다.",
                     },
                     {
-                      title: "Keys Need Quotes",
-                      desc: "Unlike JavaScript objects, every JSON key must be wrapped in double quotes. Booleans and null must be lowercase.",
+                      title: "키에는 따옴표가 필요합니다",
+                      desc: "자바스크립트 객체와 달리 JSON의 모든 키는 큰따옴표로 감싸야 합니다. 불리언과 null은 소문자여야 합니다.",
                     },
                   ].map((tip, idx) => (
                     <div
@@ -398,25 +397,25 @@ export function JsonFormatterClient({ dict }: { dict?: any }) {
             {/* FAQ */}
             <section className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>
+                <h2 className="text-2xl font-bold tracking-tight mb-4">자주 묻는 질문</h2>
               </div>
               <Accordion type="single" collapsible className="w-full">
                 {[
                   {
-                    q: "How do I format or beautify JSON?",
-                    a: "Paste your JSON into the input area, choose an indentation size (2 spaces, 4 spaces, or Tab), and click Beautify. The tool parses your JSON and re-prints it with clean, consistent indentation so it is easy to read.",
+                    q: "JSON을 어떻게 정렬하나요?",
+                    a: "입력창에 JSON을 붙여넣고 들여쓰기 크기(공백 2칸, 4칸, 탭)를 고른 뒤 정렬을 누르세요. JSON을 해석해 읽기 쉽도록 일관된 들여쓰기로 다시 출력해 줍니다.",
                   },
                   {
-                    q: "How do I minify JSON?",
-                    a: "Click the Minify button to remove all unnecessary whitespace and line breaks. This produces the smallest valid representation of your JSON, which is ideal for reducing payload size in APIs and config files.",
+                    q: "JSON을 어떻게 압축하나요?",
+                    a: "압축 버튼을 누르면 불필요한 공백과 줄바꿈이 모두 제거됩니다. 유효한 JSON 중 가장 작은 형태가 되어 API 응답이나 설정 파일의 용량을 줄이는 데 적합합니다.",
                   },
                   {
-                    q: "What happens when my JSON is invalid?",
-                    a: "If the input cannot be parsed, the tool shows a red error message describing what went wrong. When possible, it also points to the line and column of the problem so you can locate and fix the syntax error quickly.",
+                    q: "JSON이 올바르지 않으면 어떻게 되나요?",
+                    a: "입력을 해석할 수 없으면 무엇이 잘못됐는지 설명하는 빨간 오류 메시지가 표시됩니다. 가능한 경우 문제가 있는 줄과 열까지 알려 주어 문법 오류를 빠르게 찾아 고칠 수 있습니다.",
                   },
                   {
-                    q: "Is my JSON data private and secure?",
-                    a: "Yes. All parsing, formatting, and validation happen entirely in your browser using JavaScript. Your JSON is never uploaded to any server or stored anywhere. Close the tab and your data is gone.",
+                    q: "제 JSON 데이터는 안전한가요?",
+                    a: "네. 해석, 정렬, 검사가 모두 자바스크립트로 전적으로 브라우저 안에서 이뤄집니다. JSON이 서버로 업로드되거나 저장되지 않습니다. 탭을 닫으면 데이터는 사라집니다.",
                   },
                 ].map((item, idx) => (
                   <AccordionItem key={idx} value={`item-${idx + 1}`}>

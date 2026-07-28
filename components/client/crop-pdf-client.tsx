@@ -148,7 +148,7 @@ export function CropPdfClient({ dict }: { dict?: any }) {
       setResultUrl(url);
       setResultSize((blob.size / (1024 * 1024)).toFixed(2));
     } catch {
-      setError("Failed to crop PDF. The file may be corrupted or unsupported.");
+      setError("PDF를 자르지 못했습니다. 파일이 손상되었거나 지원되지 않는 형식일 수 있습니다.");
     } finally {
       setIsProcessing(false);
     }
@@ -219,10 +219,10 @@ export function CropPdfClient({ dict }: { dict?: any }) {
                 />
                 <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
-                  {dict?.crop_pdf?.drop_zone || "Drag & drop a PDF file here"}
+                  {dict?.crop_pdf?.drop_zone || "여기에 PDF 파일을 끌어다 놓으세요"}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Only PDF files accepted. Max 50MB per file.
+                  PDF 파일만 올릴 수 있습니다. 파일당 최대 50MB입니다.
                 </p>
               </div>
             )}
@@ -249,7 +249,7 @@ export function CropPdfClient({ dict }: { dict?: any }) {
                 {/* Margin inputs */}
                 <div className="p-6 bg-muted/30 rounded-lg border border-muted space-y-4">
                   <h3 className="font-semibold text-sm mb-3">
-                    Crop Margins (in points, 1 inch = 72 points)
+                    자를 여백 (포인트 단위, 1인치 = 72포인트)
                   </h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -318,8 +318,7 @@ export function CropPdfClient({ dict }: { dict?: any }) {
                     </div>
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    Tip: A4 paper is 595 x 842 points. Letter is 612 x 792
-                    points.
+                    팁: A4 용지는 595 x 842 포인트, Letter는 612 x 792 포인트입니다.
                   </p>
                 </div>
 
@@ -349,7 +348,7 @@ export function CropPdfClient({ dict }: { dict?: any }) {
 
                 {!hasMargins && !resultUrl && (
                   <p className="text-center text-sm text-muted-foreground">
-                    Set at least one margin value to crop the PDF.
+                    PDF를 자르려면 여백 값을 하나 이상 입력하세요.
                   </p>
                 )}
 
@@ -397,10 +396,10 @@ export function CropPdfClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.crop_pdf?.step1_title || "Upload PDF",
+                    title: dict?.crop_pdf?.step1_title || "PDF 업로드",
                     desc:
                       dict?.crop_pdf?.step1_desc ||
-                      "Drag and drop or click to select a PDF file from your device.",
+                      "PDF 파일을 끌어다 놓거나 클릭해서 선택하세요.",
                     icon: Upload,
                   },
                   {
@@ -461,7 +460,7 @@ export function CropPdfClient({ dict }: { dict?: any }) {
                     title: dict?.crop_pdf?.tip1_title || "100% Private",
                     desc:
                       dict?.crop_pdf?.tip1_desc ||
-                      "All processing happens in your browser using pdf-lib. Your files never leave your device.",
+                      "모든 처리는 pdf-lib를 이용해 브라우저 안에서 이뤄집니다. 파일이 기기를 벗어나지 않습니다.",
                     icon: Shield,
                   },
                   {
@@ -479,7 +478,7 @@ export function CropPdfClient({ dict }: { dict?: any }) {
                     icon: Zap,
                   },
                   {
-                    title: dict?.crop_pdf?.tip4_title || "Original Preserved",
+                    title: dict?.crop_pdf?.tip4_title || "원본 보존",
                     desc:
                       dict?.crop_pdf?.tip4_desc ||
                       "Your original PDF file remains untouched. Only a new cropped file is created for download.",

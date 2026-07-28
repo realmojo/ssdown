@@ -81,7 +81,7 @@ export function CsvToXmlClient({ dict }: { dict?: any }) {
       const data = parseCSV(csvInput.trim());
 
       if (data.length < 2) {
-        throw new Error("CSV requires at least a header row and one data row.");
+        throw new Error("CSV에는 머리글 행과 데이터 행이 최소 하나씩 있어야 합니다.");
       }
 
       const headers = data[0].map((h) =>
@@ -115,7 +115,7 @@ export function CsvToXmlClient({ dict }: { dict?: any }) {
       setXmlOutput(xml);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_err) {
-      setError("Error parsing CSV. Please check formatting.");
+      setError("CSV를 해석하지 못했습니다. 형식을 확인해 주세요.");
       setXmlOutput("");
     }
   };
@@ -123,7 +123,7 @@ export function CsvToXmlClient({ dict }: { dict?: any }) {
   const handleCopy = () => {
     if (!xmlOutput) return;
     navigator.clipboard.writeText(xmlOutput);
-    toast.success("XML copied to clipboard");
+    toast.success("XML을 클립보드에 복사했습니다");
   };
 
   const handleClear = () => {
@@ -183,7 +183,7 @@ export function CsvToXmlClient({ dict }: { dict?: any }) {
               <div className="flex justify-between items-center mb-2">
                 <label className="font-medium flex items-center gap-2">
                   <FileSpreadsheet className="w-4 h-4 text-muted-foreground" />
-                  CSV Input
+                  CSV 입력
                 </label>
                 <Button
                   variant="ghost"
@@ -199,7 +199,7 @@ export function CsvToXmlClient({ dict }: { dict?: any }) {
                 {isDragging && (
                   <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-lg border-2 border-dashed border-teal-500">
                     <p className="text-lg font-medium text-teal-600 dark:text-teal-400">
-                      Drop CSV file here
+                      여기에 CSV 파일을 끌어다 놓으세요
                     </p>
                   </div>
                 )}
@@ -221,7 +221,7 @@ export function CsvToXmlClient({ dict }: { dict?: any }) {
               <div className="flex justify-between items-center mb-2">
                 <label className="font-medium flex items-center gap-2">
                   <FileCode className="w-4 h-4 text-muted-foreground" />
-                  XML Output
+                  XML 출력
                 </label>
                 <Button
                   variant="ghost"
@@ -251,7 +251,7 @@ export function CsvToXmlClient({ dict }: { dict?: any }) {
             className="bg-teal-600 hover:bg-teal-700 text-white min-w-[200px]"
           >
             <ArrowRightLeft className="w-4 h-4 mr-2" />
-            Convert CSV to XML
+            CSV를 XML로 변환
           </Button>
         </div>
       </div>
@@ -299,10 +299,10 @@ export function CsvToXmlClient({ dict }: { dict?: any }) {
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight mb-4">
-              Frequently Asked Questions
+              자주 묻는 질문
             </h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-              Common questions about our CSV to XML converter.
+              CSV → XML 변환기에 대해 자주 묻는 질문입니다.
             </p>
           </div>
 
@@ -310,11 +310,11 @@ export function CsvToXmlClient({ dict }: { dict?: any }) {
             <Accordion type="single" collapsible className="w-full">
               {[
                 {
-                  q: "What encoding is used?",
+                  q: "어떤 인코딩을 사용하나요?",
                   a: "The output XML specifies UTF-8 encoding.",
                 },
                 {
-                  q: "Are huge CSV files supported?",
+                  q: "아주 큰 CSV 파일도 지원하나요?",
                   a: "Since processing happens in your browser, very large files may be slow or run out of memory. We recommend splitting large files using our Split CSV tool.",
                 },
               ].map((item, idx) => (

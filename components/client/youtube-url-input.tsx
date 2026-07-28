@@ -34,7 +34,7 @@ export function YoutubeUrlInput({
           </div>
           <Input
             type="text"
-            placeholder="Paste Youtube URL here..."
+            placeholder="유튜브 주소를 붙여넣으세요…"
             className="w-full pl-10 pr-32 h-14 text-lg rounded-full border-2 focus-visible:ring-offset-2 transition-all shadow-sm bg-background"
             value={url}
             onChange={(e) => setUrl(e.target.value)}

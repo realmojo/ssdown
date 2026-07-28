@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 import {
   ImageIcon,
@@ -13,8 +12,7 @@ import {
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/tools`;
 
@@ -29,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       url: canonical,
       siteName: "SSDown",
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
     },
     twitter: {
@@ -37,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
     },
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
   };
 }
 
@@ -93,8 +91,7 @@ const categoryMeta = [
 ];
 
 export default async function ToolsPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const categories = categoryMeta.map((meta, i) => ({
     ...meta,

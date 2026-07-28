@@ -1,30 +1,28 @@
 import { getDictionary } from "@/lib/get-dictionary";
-import { getLocale } from "@/lib/get-locale";
 import { FacebookClient } from "@/components/client/facebook-client";
 import { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/facebook`;
 
   return {
     robots: { index: true, follow: true },
-    title: dict.facebook?.seo_title || "Facebook Video Tool",
+    title: dict.facebook?.seo_title || "페이스북 영상 도구",
     description:
       dict.facebook?.seo_description ||
-      "Facebook video content management tool.",
+      "페이스북 영상 콘텐츠 관리 도구입니다.",
     keywords: dict.facebook?.seo_keywords
       ? dict.facebook.seo_keywords.split(", ")
-      : ["facebook video tool", "facebook content tool"],
+      : ["페이스북 영상 다운로드", "페이스북 콘텐츠 저장"],
     openGraph: {
-      title: dict.facebook?.seo_title || "Facebook Video Tool",
+      title: dict.facebook?.seo_title || "페이스북 영상 도구",
       description:
         dict.facebook?.seo_description ||
-        "Facebook video content management tool.",
+        "페이스북 영상 콘텐츠 관리 도구입니다.",
       url: canonical,
       siteName: "SSDown",
       images: [
@@ -32,26 +30,25 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "https://ssdown.app/ssdown-facebook-og.png",
           width: 1200,
           height: 630,
-          alt: "SSDown - Facebook Video Tool",
+          alt: "SSDown - 페이스북 영상 도구",
         },
       ],
-      locale: locale === "kr" ? "ko_KR" : "en_US",
+      locale: "ko_KR",
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: dict.facebook?.title || "Facebook Video Tool",
+      title: dict.facebook?.title || "페이스북 영상 도구",
       description:
-        dict.facebook?.subtitle || "Facebook video content management tool.",
+        dict.facebook?.subtitle || "페이스북 영상 콘텐츠 관리 도구입니다.",
       images: ["https://ssdown.app/ssdown-facebook-og.png"],
     },
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
   };
 }
 
 export default async function FacebookPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -78,11 +75,11 @@ export default async function FacebookPage() {
   const softwareAppSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Facebook Video Downloader",
+    name: "페이스북 영상 다운로더",
     url: "https://ssdown.app/facebook",
     description:
       dict.facebook?.seo_description ||
-      "Facebook video content management tool.",
+      "페이스북 영상 콘텐츠 관리 도구입니다.",
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -93,7 +90,7 @@ export default async function FacebookPage() {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://ssdown.app" },
-      { "@type": "ListItem", position: 2, name: "Facebook Video Downloader", item: "https://ssdown.app/facebook" },
+      { "@type": "ListItem", position: 2, name: "페이스북 영상 다운로더", item: "https://ssdown.app/facebook" },
     ],
   };
 

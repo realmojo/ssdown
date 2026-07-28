@@ -283,7 +283,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <ImageIcon className="w-5 h-5" />
-                Template Size
+                템플릿 크기
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -309,7 +309,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Upload className="w-5 h-5" />
-                Background Image
+                배경 이미지
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -335,18 +335,18 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
                   <div className="space-y-2">
                     <img
                       src={backgroundUrl}
-                      alt="Background preview"
+                      alt="배경 미리보기"
                       className="max-h-32 mx-auto rounded"
                     />
                     <p className="text-sm text-muted-foreground">
-                      Click to change
+                      클릭해서 변경
                     </p>
                   </div>
                 ) : (
                   <>
                     <Upload className="w-12 h-12 mx-auto mb-2 text-muted-foreground" />
                     <p className="text-sm text-muted-foreground">
-                      Click or drag & drop an image
+                      클릭하거나 이미지를 끌어다 놓으세요
                     </p>
                     <button
                       type="button"
@@ -361,7 +361,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
                       }}
                       className="mt-2 text-sm text-primary hover:underline"
                     >
-                      Or try with a sample image
+                      샘플 이미지로 먼저 써보기
                     </button>
                   </>
                 )}
@@ -373,17 +373,17 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Type className="w-5 h-5" />
-                Title Text
+                제목 텍스트
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="title">Text</Label>
+                <Label htmlFor="title">텍스트</Label>
                 <Input
                   id="title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  placeholder="Enter title text"
+                  placeholder="제목을 입력하세요"
                 />
               </div>
               <div>
@@ -400,7 +400,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="title-color">Color</Label>
+                  <Label htmlFor="title-color">색상</Label>
                   <div className="flex gap-2">
                     <input
                       id="title-color"
@@ -417,7 +417,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
                   </div>
                 </div>
                 <div>
-                  <Label htmlFor="title-font">Font</Label>
+                  <Label htmlFor="title-font">글꼴</Label>
                   <select
                     id="title-font"
                     value={titleFont}
@@ -439,17 +439,17 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Type className="w-5 h-5" />
-                Subtitle Text
+                부제목 텍스트
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="subtitle">Text</Label>
+                <Label htmlFor="subtitle">텍스트</Label>
                 <Input
                   id="subtitle"
                   value={subtitle}
                   onChange={(e) => setSubtitle(e.target.value)}
-                  placeholder="Enter subtitle text"
+                  placeholder="부제목을 입력하세요"
                 />
               </div>
               <div>
@@ -466,7 +466,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="subtitle-color">Color</Label>
+                  <Label htmlFor="subtitle-color">색상</Label>
                   <div className="flex gap-2">
                     <input
                       id="subtitle-color"
@@ -483,7 +483,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
                   </div>
                 </div>
                 <div>
-                  <Label htmlFor="subtitle-font">Font</Label>
+                  <Label htmlFor="subtitle-font">글꼴</Label>
                   <select
                     id="subtitle-font"
                     value={subtitleFont}
@@ -523,7 +523,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
               </div>
               {selectedStickers.length > 0 && (
                 <div className="space-y-2">
-                  <Label>Added Stickers</Label>
+                  <Label>추가된 스티커</Label>
                   <div className="space-y-2">
                     {selectedStickers.map((sticker, index) => (
                       <div
@@ -560,7 +560,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
                 variant="default"
               >
                 <Download className="mr-2 h-4 w-4" />
-                Download as PNG
+                PNG로 다운로드
               </Button>
               <Button
                 onClick={() => handleExport("jpeg")}
@@ -568,7 +568,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
                 variant="outline"
               >
                 <Download className="mr-2 h-4 w-4" />
-                Download as JPG
+                JPG로 다운로드
               </Button>
             </CardContent>
           </Card>
@@ -577,7 +577,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
         <div className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Preview</CardTitle>
+              <CardTitle>미리보기</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="bg-gray-100 dark:bg-gray-900 rounded-lg p-4 flex items-center justify-center">
@@ -704,7 +704,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
               {
                 title:
                   dict?.thumbnail_generator?.tip4_title ||
-                  "Consistent Branding",
+                  "일관된 브랜드 색상",
                 desc:
                   dict?.thumbnail_generator?.tip4_desc ||
                   "Use the same fonts, colors, and style across all your thumbnails for brand recognition.",

@@ -41,7 +41,7 @@ export function QRCodeGeneratorClient({ dict }: { dict?: any }) {
       }
     } catch (err) {
       console.error(err);
-      toast.error("Failed to generate QR code");
+      toast.error("QR 코드를 만들지 못했습니다");
     }
   }, []);
 
@@ -102,7 +102,7 @@ export function QRCodeGeneratorClient({ dict }: { dict?: any }) {
                       className="h-12 text-lg"
                     />
                     <p className="text-sm text-muted-foreground">
-                      Your QR code generates automatically as you type.
+                      입력하는 대로 QR 코드가 자동으로 만들어집니다.
                     </p>
                   </div>
                 </CardContent>
@@ -118,7 +118,7 @@ export function QRCodeGeneratorClient({ dict }: { dict?: any }) {
                     />
                     {!url && (
                       <div className="absolute inset-0 flex items-center justify-center text-muted-foreground font-medium">
-                        Enter URL to Preview
+                        미리 볼 주소를 입력하세요
                       </div>
                     )}
                   </div>

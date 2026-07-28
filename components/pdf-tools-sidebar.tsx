@@ -55,7 +55,7 @@ export function PdfToolsSidebar({ dict }: PdfToolsSidebarProps) {
   return (
     <div className="sticky top-24">
       <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-3">
-        PDF Tools
+        PDF 도구
       </h3>
       <nav className="space-y-1">
         {pdfTools.map((tool, idx) => {

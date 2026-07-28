@@ -61,7 +61,7 @@ export function ImagesToPdfClient({ dict }: { dict?: any }) {
       };
       img.onerror = () => {
         URL.revokeObjectURL(img.src);
-        reject(new Error("Failed to load image"));
+        reject(new Error("이미지를 불러오지 못했습니다"));
       };
       img.src = URL.createObjectURL(file);
     });
@@ -179,10 +179,10 @@ export function ImagesToPdfClient({ dict }: { dict?: any }) {
               ctx?.drawImage(htmlImg, 0, 0);
               canvas.toBlob((blob) => {
                 if (blob) resolve(blob);
-                else reject(new Error("Canvas conversion failed"));
+                else reject(new Error("캔버스 변환에 실패했습니다"));
               }, "image/png");
             };
-            htmlImg.onerror = () => reject(new Error("Image load failed"));
+            htmlImg.onerror = () => reject(new Error("이미지를 불러오지 못했습니다"));
             htmlImg.src = img.preview;
           });
           const pngBuffer = await pngBlob.arrayBuffer();
@@ -305,7 +305,7 @@ export function ImagesToPdfClient({ dict }: { dict?: any }) {
               <ImagePlus className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
               <p className="text-lg font-medium mb-2">
                 {images.length === 0
-                  ? "Drag & drop images here"
+                  ? "여기에 이미지를 끌어다 놓으세요"
                   : "Add more images"}
               </p>
               <p className="text-sm text-muted-foreground">
@@ -336,12 +336,12 @@ export function ImagesToPdfClient({ dict }: { dict?: any }) {
                       }}
                       className="rounded-md border border-input bg-background px-3 py-1.5 text-sm"
                     >
-                      <option value="fit">Fit to image</option>
-                      <option value="A4">A4 page</option>
+                      <option value="fit">이미지에 맞춤</option>
+                      <option value="A4">A4 페이지</option>
                     </select>
                     <Button variant="outline" size="sm" onClick={handleReset}>
                       <RotateCcw className="w-4 h-4 mr-2" />
-                      Clear All
+                      전체 지우기
                     </Button>
                   </div>
                 </div>
@@ -474,7 +474,7 @@ export function ImagesToPdfClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.images_to_pdf?.step1_title || "Upload Images",
+                    title: dict?.images_to_pdf?.step1_title || "이미지 업로드s",
                     desc:
                       dict?.images_to_pdf?.step1_desc ||
                       "Drag and drop or click to select JPG, PNG, or WebP images from your device.",
@@ -486,7 +486,7 @@ export function ImagesToPdfClient({ dict }: { dict?: any }) {
                       dict?.images_to_pdf?.step2_title || "Arrange & Configure",
                     desc:
                       dict?.images_to_pdf?.step2_desc ||
-                      "Reorder images using up/down buttons. Choose 'Fit to image' or 'A4' page size.",
+                      "Reorder images using up/down buttons. Choose '이미지에 맞춤' or 'A4' page size.",
                     icon: Layers,
                   },
                   {
@@ -548,11 +548,11 @@ export function ImagesToPdfClient({ dict }: { dict?: any }) {
                       dict?.images_to_pdf?.tip2_title || "Flexible Page Sizing",
                     desc:
                       dict?.images_to_pdf?.tip2_desc ||
-                      "Choose 'Fit to image' to match each page to the image size, or 'A4' for standard document format.",
+                      "Choose '이미지에 맞춤' to match each page to the image size, or 'A4' for standard document format.",
                     icon: Layers,
                   },
                   {
-                    title: dict?.images_to_pdf?.tip3_title || "Easy Reordering",
+                    title: dict?.images_to_pdf?.tip3_title || "간편한 순서 변경",
                     desc:
                       dict?.images_to_pdf?.tip3_desc ||
                       "Arrange your images in any order before converting. The order in the list becomes the page order.",
@@ -619,7 +619,7 @@ export function ImagesToPdfClient({ dict }: { dict?: any }) {
                   <AccordionItem value="faq-3">
                     <AccordionTrigger>
                       {dict?.images_to_pdf?.faq_3_q ||
-                        "What image formats are supported?"}
+                        "어떤 이미지 형식을 지원하나요?"}
                     </AccordionTrigger>
                     <AccordionContent>
                       {dict?.images_to_pdf?.faq_3_a ||

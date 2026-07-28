@@ -18,21 +18,23 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: "Post Not Found",
+      title: "글을 찾을 수 없습니다",
     };
   }
 
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/blog/${id}`;
-  const { getLocale } = await import("@/lib/get-locale");
-  const locale = await getLocale();
 
   const title = String(post.title);
   const excerpt = String(post.excerpt);
 
+  // 한국어 전용 사이트이므로 아직 번역되지 않은 영문 글은 색인에서 제외한다.
+  const indexable = /[가-힣]/.test(title);
+
   return {
-    title: `${title} | SSDown Blog`,
+    title: `${title} | SSDown 블로그`,
     description: excerpt,
+    robots: { index: indexable, follow: true },
     openGraph: {
       title,
       description: excerpt,
@@ -48,7 +50,7 @@ export async function generateMetadata({
           alt: title,
         },
       ],
-      locale: "en_US",
+      locale: "ko_KR",
       type: "article",
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt,
@@ -62,7 +64,7 @@ export async function generateMetadata({
         post.image.startsWith("http") ? post.image : `${baseUrl}${post.image}`,
       ],
     },
-    alternates: buildAlternates(`/blog/${id}`, locale),
+    alternates: buildAlternates(`/blog/${id}`),
   };
 }
 
@@ -140,7 +142,7 @@ export default async function BlogPostPage(props: {
           items={[
             { label: "Home", href: "/" },
             {
-              label: "Creator Hub",
+              label: "크리에이터 허브",
               href: "/blog",
             },
             {

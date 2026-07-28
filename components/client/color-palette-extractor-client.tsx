@@ -396,7 +396,7 @@ export function ColorPaletteExtractorClient({ dict }: { dict?: any }) {
                 "Supported: PNG, JPG, JPEG, WEBP"}
             </p>
             <p className="text-xs text-muted-foreground mt-2">
-              Max file size: 10MB
+              최대 파일 크기: 10MB
             </p>
             <button
               type="button"
@@ -411,7 +411,7 @@ export function ColorPaletteExtractorClient({ dict }: { dict?: any }) {
               }}
               className="mt-4 text-sm text-pink-600 dark:text-pink-400 hover:underline"
             >
-              Or try with a sample image
+              샘플 이미지로 먼저 써보기
             </button>
           </div>
         ) : (
@@ -422,7 +422,7 @@ export function ColorPaletteExtractorClient({ dict }: { dict?: any }) {
                   <div className="flex-shrink-0">
                     <img
                       src={image}
-                      alt="Uploaded"
+                      alt="업로드한 이미지"
                       className="max-w-full md:max-w-xs rounded-lg shadow-md"
                     />
                     <p className="text-sm text-muted-foreground mt-2 text-center truncate">
@@ -449,8 +449,8 @@ export function ColorPaletteExtractorClient({ dict }: { dict?: any }) {
                         className="w-full"
                       />
                       <div className="flex justify-between text-xs text-muted-foreground">
-                        <span>3 colors</span>
-                        <span>12 colors</span>
+                        <span>3색</span>
+                        <span>12색</span>
                       </div>
                     </div>
 
@@ -641,7 +641,7 @@ export function ColorPaletteExtractorClient({ dict }: { dict?: any }) {
               {
                 step: 1,
                 title:
-                  dict?.color_palette_extractor?.step1_title || "Upload Image",
+                  dict?.color_palette_extractor?.step1_title || "이미지 업로드",
                 desc:
                   dict?.color_palette_extractor?.step1_desc ||
                   "Upload the image you want to extract colors from. Any PNG, JPG, or WebP image works.",

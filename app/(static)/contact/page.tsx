@@ -1,27 +1,25 @@
 import { ContactClient } from "@/components/client/contact-client";
 import { Metadata } from "next";
-import { getLocale } from "@/lib/get-locale";
 import { buildAlternates } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
   const canonical = `${baseUrl}/contact`;
-  const locale = await getLocale();
 
   return {
-    title: "Contact SSDown - Support & Help",
+    title: "SSDown 문의 - 지원 및 도움말",
     description:
-      "Contact SSDown support team for any questions, feedback or issues regarding our online tools and services.",
+      "SSDown 문의하기 support team for any questions, feedback or issues regarding our online tools and services.",
     openGraph: {
-      title: "Contact SSDown",
+      title: "SSDown 문의하기",
       description:
-        "Contact SSDown support team for any questions, feedback or issues regarding our online tools and services.",
+        "SSDown 문의하기 support team for any questions, feedback or issues regarding our online tools and services.",
       url: canonical,
       siteName: "SSDown",
-      locale: "en_US",
+      locale: "ko_KR",
       type: "website",
     },
-    alternates: buildAlternates(new URL(canonical).pathname, locale),
+    alternates: buildAlternates(new URL(canonical).pathname),
   };
 }
 
@@ -29,10 +27,10 @@ export default async function ContactPage() {
   const contactPageJsonLd = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: "Contact SSDown",
+    name: "SSDown 문의하기",
     url: "https://ssdown.app/contact",
     description:
-      "Contact SSDown support team for any questions, feedback or issues regarding our online tools and services.",
+      "SSDown 문의하기 support team for any questions, feedback or issues regarding our online tools and services.",
     mainEntity: {
       "@type": "Organization",
       name: "SSDown",

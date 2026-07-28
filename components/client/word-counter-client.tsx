@@ -130,14 +130,14 @@ export function WordCounterClient({ dict }: { dict?: any }) {
       bg: "bg-pink-50 dark:bg-pink-900/20",
     },
     {
-      label: "Reading Time",
+      label: "읽는 데 걸리는 시간",
       value: stats.readingTime > 0 ? `${stats.readingTime} min` : "0 min",
       icon: Clock,
       color: "text-cyan-600 dark:text-cyan-400",
       bg: "bg-cyan-50 dark:bg-cyan-900/20",
     },
     {
-      label: "Avg Word Length",
+      label: "평균 단어 길이",
       value: stats.averageWordLength > 0 ? stats.averageWordLength : 0,
       icon: Ruler,
       color: "text-amber-600 dark:text-amber-400",
@@ -186,7 +186,7 @@ export function WordCounterClient({ dict }: { dict?: any }) {
               <CardHeader className="flex flex-row items-center justify-between pb-3">
                 <CardTitle className="flex items-center gap-2">
                   <BookOpen className="w-5 h-5 text-emerald-500" />
-                  Your Text
+                  입력한 텍스트
                 </CardTitle>
                 <div className="flex items-center gap-2">
                   <button
@@ -210,7 +210,7 @@ export function WordCounterClient({ dict }: { dict?: any }) {
                 <textarea
                   value={text}
                   onChange={(e) => setText(e.target.value)}
-                  placeholder="Type or paste your text here..."
+                  placeholder="여기에 텍스트를 입력하거나 붙여넣으세요…"
                   className="w-full min-h-[300px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-base leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-colors placeholder:text-muted-foreground"
                 />
               </CardContent>
@@ -223,30 +223,30 @@ export function WordCounterClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  How to Use
+                  이용 방법
                 </h2>
                 <p className="text-muted-foreground">
-                  Get accurate text statistics in seconds.
+                  몇 초 만에 정확한 텍스트 통계를 확인하세요.
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
                   {
                     step: 1,
-                    title: "Paste or Type",
-                    desc: "Enter your text by typing directly or pasting content from any source.",
+                    title: "붙여넣기 또는 입력",
+                    desc: "직접 입력하거나 어디서든 내용을 붙여넣으세요.",
                     icon: Type,
                   },
                   {
                     step: 2,
-                    title: "View Stats",
-                    desc: "See real-time counts for words, characters, sentences, paragraphs, and more.",
+                    title: "통계 보기",
+                    desc: "단어, 글자, 문장, 문단 수 등을 실시간으로 확인할 수 있습니다.",
                     icon: ArrowRight,
                   },
                   {
                     step: 3,
-                    title: "Optimize Content",
-                    desc: "Use the statistics to meet word limits, improve readability, and refine your writing.",
+                    title: "콘텐츠 다듬기",
+                    desc: "통계를 활용해 분량을 맞추고 가독성을 높이며 글을 다듬어 보세요.",
                     icon: BookOpen,
                   },
                 ].map((step) => (
@@ -271,29 +271,29 @@ export function WordCounterClient({ dict }: { dict?: any }) {
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-yellow-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">Writing Tips</h2>
+                  <h2 className="text-3xl font-bold mb-4">글쓰기 팁</h2>
                   <p className="text-muted-foreground">
-                    Make the most of your word counter results.
+                    글자 수 통계를 더 잘 활용하는 방법입니다.
                   </p>
                 </div>
 
                 <div className="md:w-2/3 grid sm:grid-cols-2 gap-4">
                   {[
                     {
-                      title: "Blog Post Length",
-                      desc: "Aim for 1,500-2,500 words for SEO-optimized blog posts. Longer content tends to rank higher in search results.",
+                      title: "블로그 글 분량",
+                      desc: "검색 최적화를 노린 블로그 글은 1,500~2,500단어를 목표로 하세요. 긴 글이 검색 결과에서 더 높은 순위를 얻는 경향이 있습니다.",
                     },
                     {
-                      title: "Social Media Posts",
-                      desc: "Keep tweets under 280 characters, Instagram captions under 2,200 characters, and LinkedIn posts under 3,000 characters.",
+                      title: "소셜 미디어 게시물",
+                      desc: "트윗은 280자, 인스타그램 캡션은 2,200자, 링크드인 게시물은 3,000자 이내로 유지하세요.",
                     },
                     {
-                      title: "Reading Time Matters",
-                      desc: "Articles with a 7-minute reading time get the most engagement. Use the reading time stat to gauge your content length.",
+                      title: "읽는 시간이 중요합니다",
+                      desc: "읽는 데 7분 걸리는 글이 가장 반응이 좋습니다. 읽기 시간 통계로 분량을 가늠해 보세요.",
                     },
                     {
-                      title: "Sentence Variety",
-                      desc: "Mix short and long sentences. If your average word length is high, consider simplifying your language for better readability.",
+                      title: "문장 길이의 변화",
+                      desc: "짧은 문장과 긴 문장을 섞어 쓰세요. 평균 단어 길이가 길다면 더 쉬운 표현으로 바꿔 가독성을 높이는 것이 좋습니다.",
                     },
                   ].map((tip, idx) => (
                     <div
@@ -315,28 +315,28 @@ export function WordCounterClient({ dict }: { dict?: any }) {
             {/* FAQ */}
             <section className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>
+                <h2 className="text-2xl font-bold tracking-tight mb-4">자주 묻는 질문</h2>
               </div>
               <Accordion type="single" collapsible className="w-full">
                 {[
                   {
-                    q: "How does the word counter work?",
+                    q: "글자 수 세기는 어떻게 동작하나요?",
                     a: "Simply type or paste your text into the text area. The tool instantly analyzes your text and displays word count, character count (with and without spaces), sentence count, paragraph count, estimated reading time, and average word length.",
                   },
                   {
-                    q: "Is there a character or word limit?",
+                    q: "글자 수나 단어 수 제한이 있나요?",
                     a: "No, there is no limit. You can paste text of any length and the counter will analyze it in real-time. The tool processes everything locally in your browser.",
                   },
                   {
-                    q: "How is reading time calculated?",
+                    q: "읽기 시간은 어떻게 계산되나요?",
                     a: "Reading time is estimated based on the average adult reading speed of 200 words per minute. The minimum displayed reading time is 1 minute.",
                   },
                   {
-                    q: "How are sentences counted?",
+                    q: "문장 수는 어떻게 세나요?",
                     a: "Sentences are counted by detecting sentence-ending punctuation marks such as periods (.), exclamation marks (!), and question marks (?). Multiple consecutive punctuation marks (e.g., '...') are treated as a single sentence boundary.",
                   },
                   {
-                    q: "Is my text data private and secure?",
+                    q: "제 텍스트는 안전한가요?",
                     a: "Yes, absolutely. All text analysis happens entirely in your browser. Your text is never sent to any server or stored anywhere. Close the tab and your text is gone.",
                   },
                 ].map((faq, idx) => (

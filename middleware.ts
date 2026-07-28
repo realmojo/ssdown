@@ -1,10 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { lambdaProxy } from "./lambda/index";
-import {
-  LOCALE_HEADER_NAME,
-  type Locale,
-} from "@/lib/i18n-utils";
 
 export async function middleware(request: NextRequest) {
   try {
@@ -14,29 +10,19 @@ export async function middleware(request: NextRequest) {
       return lambdaResponse;
     }
 
-    // --- URL-based locale ---
-    // English lives at the root; Korean lives under /kr/*. The prefix (not a
-    // cookie or geo header) decides the locale so each language has a stable,
-    // crawlable URL. /kr/* is rewritten onto the underlying route with the
-    // locale forwarded to server components via a request header.
-    const { pathname } = request.nextUrl;
-    const isKr = pathname === "/kr" || pathname.startsWith("/kr/");
-    const locale: Locale = isKr ? "kr" : "en";
-
-    const requestHeaders = new Headers(request.headers);
-    requestHeaders.set(LOCALE_HEADER_NAME, locale);
-
-    if (isKr) {
+    // --- Korean-only URLs ---
+    // The site used to serve English at the root and Korean under /kr/*.
+    // Korean now lives at the root, so the legacy /kr tree is permanently
+    // redirected to its root equivalent to hand its indexed URLs' equity over.
+    const { pathname, search } = request.nextUrl;
+    if (pathname === "/kr" || pathname.startsWith("/kr/")) {
       const url = request.nextUrl.clone();
       url.pathname = pathname.slice(3) || "/";
-      return NextResponse.rewrite(url, {
-        request: { headers: requestHeaders },
-      });
+      url.search = search;
+      return NextResponse.redirect(url, 301);
     }
 
-    return NextResponse.next({
-      request: { headers: requestHeaders },
-    });
+    return NextResponse.next();
   } catch (error) {
     console.error("Middleware error:", error);
     return NextResponse.next();

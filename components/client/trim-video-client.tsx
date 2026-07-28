@@ -100,7 +100,7 @@ export function TrimVideoClient({ dict }: { dict?: any }) {
 
   const processFile = (selectedFile: File) => {
     if (!selectedFile.type.startsWith("video/")) {
-      setError("Please upload a valid video file.");
+      setError("올바른 영상 파일을 올려 주세요.");
       return;
     }
     setFile(selectedFile);
@@ -281,7 +281,7 @@ export function TrimVideoClient({ dict }: { dict?: any }) {
       await ffmpeg.deleteFile(outputName);
     } catch (err) {
       console.error(err);
-      setError("Failed to trim video. Please try again.");
+      setError("영상을 자르지 못했습니다. 다시 시도해 주세요.");
     } finally {
       setIsProcessing(false);
     }
@@ -490,7 +490,7 @@ export function TrimVideoClient({ dict }: { dict?: any }) {
                     </div>
                     <div className="w-px h-8 bg-amber-200 dark:bg-amber-800" />
                     <div className="flex-1 text-center">
-                      <p className="text-xs text-muted-foreground mb-1">End</p>
+                      <p className="text-xs text-muted-foreground mb-1">끝</p>
                       <p className="text-sm font-mono font-semibold text-amber-600 dark:text-amber-400">
                         {formatTime(range[1])}
                       </p>
@@ -500,7 +500,7 @@ export function TrimVideoClient({ dict }: { dict?: any }) {
                   {/* Exact Inputs */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label>Start Time (sec)</Label>
+                      <Label>시작 시간 (초)</Label>
                       <Input
                         type="number"
                         step="0.1"
@@ -522,7 +522,7 @@ export function TrimVideoClient({ dict }: { dict?: any }) {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label>End Time (sec)</Label>
+                      <Label>종료 시간 (초)</Label>
                       <Input
                         type="number"
                         step="0.1"
@@ -573,7 +573,7 @@ export function TrimVideoClient({ dict }: { dict?: any }) {
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-green-800 dark:text-green-300">
-                          Ready to Download!
+                          다운로드 준비 완료!
                         </h3>
                         <p className="text-sm text-muted-foreground mt-1">
                           Trimmed Duration: {formatTime(range[1] - range[0])}
@@ -638,7 +638,7 @@ export function TrimVideoClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.trim_video?.step1_title || "Upload Video",
+                    title: dict?.trim_video?.step1_title || "영상 업로드",
                     desc:
                       dict?.trim_video?.step1_desc ||
                       "Drag and drop a video file or click to browse. Supports MP4, WebM, and MKV formats up to 500MB.",
@@ -683,7 +683,7 @@ export function TrimVideoClient({ dict }: { dict?: any }) {
               </div>
             </section>
 
-            {/* Tips & Best Practices */}
+            {/* 활용 팁 */}
             <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
               <div className="text-center mb-10">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
@@ -755,7 +755,7 @@ export function TrimVideoClient({ dict }: { dict?: any }) {
                   {dict?.trim_video?.faq_title || "Trim Video FAQ"}
                 </h2>
                 <p className="text-muted-foreground">
-                  Common questions about trimming videos online.
+                  온라인 영상 자르기에 대해 자주 묻는 질문입니다.
                 </p>
               </div>
 
@@ -763,7 +763,7 @@ export function TrimVideoClient({ dict }: { dict?: any }) {
                 <AccordionItem value="item-1">
                   <AccordionTrigger className="text-left">
                     {dict?.trim_video?.faq_1_q ||
-                      "Is my video uploaded to a server?"}
+                      "제 영상이 서버에 업로드되나요?"}
                   </AccordionTrigger>
                   <AccordionContent className="whitespace-pre-line text-muted-foreground">
                     {dict?.trim_video?.faq_1_a ||
@@ -792,7 +792,7 @@ export function TrimVideoClient({ dict }: { dict?: any }) {
                 </AccordionItem>
                 <AccordionItem value="item-4">
                   <AccordionTrigger className="text-left">
-                    {dict?.trim_video?.faq_4_q || "Is there a file size limit?"}
+                    {dict?.trim_video?.faq_4_q || "파일 용량 제한이 있나요?"}
                   </AccordionTrigger>
                   <AccordionContent className="whitespace-pre-line text-muted-foreground">
                     {dict?.trim_video?.faq_4_a ||

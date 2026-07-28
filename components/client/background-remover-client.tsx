@@ -59,13 +59,13 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
 
   const processFile = (selectedFile: File) => {
     if (!selectedFile.type.startsWith("image/")) {
-      setError("Please upload a valid image file (PNG, JPG, WebP).");
+      setError("올바른 이미지 파일을 올려 주세요 (PNG, JPG, WebP).");
       return;
     }
 
     // Max 20MB
     if (selectedFile.size > 20 * 1024 * 1024) {
-      setError("File size must be under 20MB.");
+      setError("파일 용량은 20MB 이하여야 합니다.");
       return;
     }
 
@@ -115,7 +115,7 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
       setProgressMessage("Done!");
     } catch (err) {
       console.error("Background removal failed:", err);
-      setError("Failed to remove background. Please try a different image.");
+      setError("배경을 제거하지 못했습니다. 다른 이미지로 시도해 주세요.");
     } finally {
       setIsProcessing(false);
     }
@@ -271,7 +271,7 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
               }}
               className="mt-4 text-sm text-purple-600 dark:text-purple-400 hover:underline"
             >
-              Or try with a sample image
+              샘플 이미지로 먼저 써보기
             </button>
           </div>
         )}
@@ -286,7 +286,7 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
                   <div className="w-full max-w-md rounded-xl overflow-hidden border">
                     <img
                       src={originalUrl}
-                      alt="Original"
+                      alt="원본"
                       className="w-full h-auto max-h-64 object-contain"
                     />
                   </div>
@@ -308,7 +308,7 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
                     />
                   </div>
                   <p className="text-xs text-muted-foreground text-center">
-                    First time may take longer to download the AI model (~40MB)
+                    처음에는 AI 모델(약 40MB)을 내려받느라 시간이 조금 더 걸릴 수 있습니다
                   </p>
                 </div>
               </div>
@@ -327,7 +327,7 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
                       <Eraser className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                     </div>
                     <CardTitle className="text-lg">
-                      Background Removed!
+                      배경 제거 완료!
                     </CardTitle>
                   </div>
                   <div className="flex items-center gap-2">
@@ -358,7 +358,7 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
                     {/* Original (full width) */}
                     <img
                       src={originalUrl}
-                      alt="Original"
+                      alt="원본"
                       className="w-full h-auto block"
                       draggable={false}
                     />
@@ -373,7 +373,7 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
                     >
                       <img
                         src={resultUrl}
-                        alt="Background Removed"
+                        alt="배경 제거 완료"
                         className="w-full h-auto block"
                         draggable={false}
                       />
@@ -409,7 +409,7 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
                   >
                     <img
                       src={resultUrl}
-                      alt="Background Removed"
+                      alt="배경 제거 완료"
                       className="w-full h-auto block"
                       style={
                         bgColor !== "transparent"
@@ -422,7 +422,7 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
 
                 {/* Background Color Options */}
                 <div className="space-y-2">
-                  <p className="text-sm font-medium">Background Color</p>
+                  <p className="text-sm font-medium">배경색</p>
                   <div className="flex flex-wrap gap-2">
                     {[
                       {
@@ -478,11 +478,11 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
                     className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
                   >
                     <Download className="mr-2 h-4 w-4" />
-                    Download PNG
+                    PNG 다운로드
                   </Button>
                   <Button variant="outline" onClick={reset} className="flex-1">
                     <RotateCcw className="mr-2 h-4 w-4" />
-                    Try Another Image
+                    다른 이미지로 시도
                   </Button>
                 </div>
               </CardContent>
@@ -505,11 +505,9 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
                 <div className="flex items-start gap-3">
                   <Lightbulb className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
                   <div>
-                    <h3 className="font-medium text-sm mb-1">Best Results</h3>
+                    <h3 className="font-medium text-sm mb-1">좋은 결과를 얻으려면</h3>
                     <p className="text-xs text-muted-foreground">
-                      Images with clear subject-background separation work best.
-                      High contrast between subject and background gives cleaner
-                      edges.
+                      피사체와 배경이 뚜렷하게 구분되는 이미지에서 가장 잘 동작합니다. 둘 사이의 명암 차이가 클수록 경계가 깔끔하게 잘립니다.
                     </p>
                   </div>
                 </div>
@@ -524,8 +522,7 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
                       100% Private & Free
                     </h3>
                     <p className="text-xs text-muted-foreground">
-                      Your images are never uploaded to any server. The AI model
-                      runs entirely in your browser using WebAssembly.
+                      이미지는 어떤 서버에도 업로드되지 않습니다. AI 모델은 웹어셈블리로 전적으로 브라우저 안에서 실행됩니다.
                     </p>
                   </div>
                 </div>
@@ -538,24 +535,24 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
         {!file && (
           <div className="w-full mt-8">
             <h2 className="text-2xl font-bold text-center mb-6">
-              How It Works
+              동작 원리
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 {
                   step: "1",
-                  title: "Upload Image",
-                  desc: "Drag and drop or click to upload your image (PNG, JPG, WebP).",
+                  title: "이미지 업로드",
+                  desc: "이미지를 끌어다 놓거나 클릭해서 올리세요 (PNG, JPG, WebP).",
                 },
                 {
                   step: "2",
                   title: "AI Processing",
-                  desc: "Our AI model analyzes and removes the background in seconds.",
+                  desc: "AI 모델이 몇 초 만에 배경을 분석해 제거합니다.",
                 },
                 {
                   step: "3",
-                  title: "Download Result",
-                  desc: "Download the transparent PNG or choose a custom background color.",
+                  title: "결과 다운로드",
+                  desc: "투명 PNG로 내려받거나 원하는 배경색을 선택하세요.",
                 },
               ].map((item) => (
                 <div
@@ -578,25 +575,25 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
         {!file && (
           <div className="w-full mt-12">
             <h2 className="text-2xl font-bold text-center mb-6">
-              Frequently Asked Questions
+              자주 묻는 질문
             </h2>
             <div className="space-y-4">
               {[
                 {
-                  q: "Is my image uploaded to any server?",
-                  a: "No. All processing happens 100% in your browser using WebAssembly. Your images never leave your device.",
+                  q: "제 이미지가 서버에 업로드되나요?",
+                  a: "아니요. 모든 처리가 웹어셈블리로 100% 브라우저 안에서 이뤄집니다. 이미지가 기기를 벗어나지 않습니다.",
                 },
                 {
-                  q: "What image formats are supported?",
-                  a: "We support PNG, JPG/JPEG, and WebP formats. The output is always PNG with transparency.",
+                  q: "어떤 이미지 형식을 지원하나요?",
+                  a: "PNG, JPG/JPEG, WebP 형식을 지원합니다. 결과물은 언제나 투명도를 지원하는 PNG입니다.",
                 },
                 {
-                  q: "How long does it take?",
-                  a: "The first time may take 10-30 seconds to download the AI model (~40MB). After that, most images process in 3-10 seconds.",
+                  q: "시간이 얼마나 걸리나요?",
+                  a: "처음에는 AI 모델(약 40MB)을 내려받느라 10~30초가 걸릴 수 있습니다. 이후에는 대부분 3~10초면 처리됩니다.",
                 },
                 {
-                  q: "Is there a file size limit?",
-                  a: "Yes, the maximum file size is 20MB. For best results, use images under 4000x4000 pixels.",
+                  q: "파일 용량 제한이 있나요?",
+                  a: "네, 최대 20MB입니다. 4000x4000 픽셀 이하 이미지에서 가장 좋은 결과가 나옵니다.",
                 },
               ].map((faq, i) => (
                 <div

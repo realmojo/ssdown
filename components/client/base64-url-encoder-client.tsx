@@ -51,7 +51,7 @@ export function Base64UrlEncoderClient({ dict }: { dict?: any }) {
         setOutput(encodeFullUrl ? encodeURI(input) : encodeURIComponent(input));
       }
     } catch {
-      toast.error(mode === "base64" ? "Invalid Base64 input" : "Invalid URL input");
+      toast.error(mode === "base64" ? "올바르지 않은 Base64 입력입니다" : "올바르지 않은 URL 입력입니다");
     }
   }, [input, mode, encodeFullUrl]);
 
@@ -64,7 +64,7 @@ export function Base64UrlEncoderClient({ dict }: { dict?: any }) {
         setOutput(decodeURIComponent(input));
       }
     } catch {
-      toast.error(mode === "base64" ? "Invalid Base64 input" : "Invalid URL input");
+      toast.error(mode === "base64" ? "올바르지 않은 Base64 입력입니다" : "올바르지 않은 URL 입력입니다");
     }
   }, [input, mode]);
 
@@ -78,9 +78,9 @@ export function Base64UrlEncoderClient({ dict }: { dict?: any }) {
     if (!output) return;
     try {
       await navigator.clipboard.writeText(output);
-      toast.success("Output copied to clipboard");
+      toast.success("결과를 클립보드에 복사했습니다");
     } catch {
-      toast.error("Failed to copy output");
+      toast.error("결과를 복사하지 못했습니다");
     }
   }, [output]);
 
@@ -103,11 +103,11 @@ export function Base64UrlEncoderClient({ dict }: { dict?: any }) {
               <Binary className="w-10 h-10 text-lime-600 dark:text-lime-400" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              {dict?.base64_url_encoder?.title || "Base64 / URL Encoder"}
+              {dict?.base64_url_encoder?.title || "Base64 / URL 인코더"}
             </h1>
             <p className="text-muted-foreground text-center max-w-2xl mb-8">
               {dict?.base64_url_encoder?.subtitle ||
-                "Encode and decode Base64 and URL text instantly and securely, right in your browser."}
+                "브라우저에서 Base64와 URL 텍스트를 즉시 안전하게 인코딩·디코딩하세요."}
             </p>
 
             <Adsense slotId="7759160077" />
@@ -158,7 +158,7 @@ export function Base64UrlEncoderClient({ dict }: { dict?: any }) {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <label className="text-sm font-medium text-muted-foreground">
-                      Input
+                      입력
                     </label>
                     <span className="text-xs text-muted-foreground">
                       {byteLength(input)} bytes
@@ -167,7 +167,7 @@ export function Base64UrlEncoderClient({ dict }: { dict?: any }) {
                   <textarea
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder="Type or paste your text here..."
+                    placeholder="여기에 텍스트를 입력하거나 붙여넣으세요…"
                     className="w-full min-h-[160px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-base leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-lime-500/50 focus:border-lime-500 transition-colors placeholder:text-muted-foreground font-mono"
                   />
                 </div>
@@ -181,7 +181,7 @@ export function Base64UrlEncoderClient({ dict }: { dict?: any }) {
                       onChange={(e) => setEncodeFullUrl(e.target.checked)}
                       className="w-4 h-4 rounded border-gray-300 text-lime-600 focus:ring-lime-500/50 accent-lime-500"
                     />
-                    Encode full URL (encodeURI) — preserves <code className="px-1">:/?#</code>
+                    전체 URL 인코딩 (encodeURI) — 다음 문자는 보존됩니다: <code className="px-1">:/?#</code>
                   </label>
                 )}
 
@@ -231,7 +231,7 @@ export function Base64UrlEncoderClient({ dict }: { dict?: any }) {
                   <textarea
                     value={output}
                     readOnly
-                    placeholder="Result appears here..."
+                    placeholder="결과가 여기에 표시됩니다…"
                     className="w-full min-h-[160px] p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-base leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-lime-500/50 focus:border-lime-500 transition-colors placeholder:text-muted-foreground font-mono"
                   />
                 </div>
@@ -245,30 +245,30 @@ export function Base64UrlEncoderClient({ dict }: { dict?: any }) {
             <section>
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold tracking-tight mb-4">
-                  How to Use
+                  이용 방법
                 </h2>
                 <p className="text-muted-foreground">
-                  Convert Base64 and URL text in seconds.
+                  몇 초 만에 Base64와 URL 텍스트를 변환하세요.
                 </p>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
                   {
                     step: 1,
-                    title: "Choose a Mode",
-                    desc: "Switch between Base64 and URL depending on the kind of conversion you need.",
+                    title: "모드 선택",
+                    desc: "필요한 변환 종류에 따라 Base64와 URL을 전환하세요.",
                     icon: Binary,
                   },
                   {
                     step: 2,
-                    title: "Encode or Decode",
-                    desc: "Paste your text into the input, then press Encode or Decode to transform it instantly.",
+                    title: "인코딩 또는 디코딩",
+                    desc: "Paste your text into the input, then press 인코딩 또는 디코딩 to transform it instantly.",
                     icon: ArrowRight,
                   },
                   {
                     step: 3,
-                    title: "Copy the Result",
-                    desc: "Copy the output to your clipboard, or use Swap to feed it back for a reverse conversion.",
+                    title: "결과 복사",
+                    desc: "결과를 클립보드에 복사하거나, 교체 기능으로 결과를 다시 입력해 역변환해 보세요.",
                     icon: Copy,
                   },
                 ].map((step) => (
@@ -293,29 +293,29 @@ export function Base64UrlEncoderClient({ dict }: { dict?: any }) {
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-lime-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">Encoding Tips</h2>
+                  <h2 className="text-3xl font-bold mb-4">인코딩 팁</h2>
                   <p className="text-muted-foreground">
-                    Get the most out of Base64 and URL conversions.
+                    Base64·URL 변환을 더 잘 활용하는 방법입니다.
                   </p>
                 </div>
 
                 <div className="md:w-2/3 grid sm:grid-cols-2 gap-4">
                   {[
                     {
-                      title: "Base64 Is Not Encryption",
-                      desc: "Base64 only encodes data into an ASCII-safe format. It is easily reversible, so never use it to protect passwords or secrets.",
+                      title: "Base64는 암호화가 아닙니다",
+                      desc: "Base64는 데이터를 ASCII로 안전하게 표현할 뿐이며 쉽게 되돌릴 수 있습니다. 비밀번호나 기밀을 보호하는 용도로는 절대 쓰지 마세요.",
                     },
                     {
-                      title: "UTF-8 Safe by Design",
-                      desc: "This tool handles emoji and accented characters correctly by converting to UTF-8 bytes before Base64, avoiding the classic btoa() error.",
+                      title: "UTF-8 안전 처리",
+                      desc: "이 도구는 Base64로 바꾸기 전에 UTF-8 바이트로 변환해 이모지와 악센트 문자를 올바르게 처리하며, 흔한 btoa() 오류를 피합니다.",
                     },
                     {
-                      title: "Component vs Full URL",
-                      desc: "Use standard URL encode for a single query value, and 'Encode full URL' when you need a complete, valid link that keeps its slashes and colons.",
+                      title: "부분 URL과 전체 URL",
+                      desc: "쿼리 값 하나만 다룰 때는 일반 URL 인코딩을, 슬래시와 콜론을 유지한 완전한 링크가 필요할 때는 '전체 URL 인코딩'을 사용하세요.",
                     },
                     {
-                      title: "Use Swap to Verify",
-                      desc: "After encoding, hit Swap and Decode to confirm you get the original text back — a quick round-trip sanity check.",
+                      title: "교체 기능으로 확인하기",
+                      desc: "인코딩한 뒤 교체와 디코딩을 눌러 원래 텍스트가 그대로 나오는지 확인해 보세요. 간단한 왕복 검증입니다.",
                     },
                   ].map((tip, idx) => (
                     <div
@@ -337,30 +337,30 @@ export function Base64UrlEncoderClient({ dict }: { dict?: any }) {
             {/* Privacy note */}
             <section className="flex items-center justify-center gap-3 text-sm text-muted-foreground">
               <Lock className="w-4 h-4 text-lime-500" />
-              All conversion runs locally in your browser. No data leaves your device.
+              모든 변환은 브라우저 안에서 이뤄집니다. 어떤 데이터도 기기를 벗어나지 않습니다.
             </section>
 
             {/* FAQ */}
             <section className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="text-2xl font-bold tracking-tight mb-4">FAQ</h2>
+                <h2 className="text-2xl font-bold tracking-tight mb-4">자주 묻는 질문</h2>
               </div>
               <Accordion type="single" collapsible className="w-full">
                 {[
                   {
-                    q: "Does my text get sent to a server?",
+                    q: "제 텍스트가 서버로 전송되나요?",
                     a: "No. All Base64 and URL encoding or decoding happens entirely in your browser using native JavaScript. Your text never leaves your device and is never uploaded or stored anywhere.",
                   },
                   {
-                    q: "Does Base64 encoding support Unicode and emoji?",
+                    q: "Base64 인코딩이 유니코드와 이모지를 지원하나요?",
                     a: "Yes. This tool is fully UTF-8 safe. It correctly encodes and decodes non-ASCII characters, accented letters, and emoji by handling the UTF-8 byte sequence before applying Base64.",
                   },
                   {
-                    q: "What is the difference between URL encode and encodeURI?",
+                    q: "URL 인코딩과 encodeURI는 무엇이 다른가요?",
                     a: "Standard URL encode (encodeURIComponent) escapes every reserved character, making it ideal for encoding a single query parameter value. The 'Encode full URL' option (encodeURI) preserves characters like :/?# so a complete URL stays valid and clickable.",
                   },
                   {
-                    q: "Why do I get an 'Invalid Base64 input' error?",
+                    q: "Why do I get an '올바르지 않은 Base64 입력입니다' error?",
                     a: "That error appears when the input is not valid Base64, such as containing spaces, line breaks, or characters outside the Base64 alphabet. Make sure you are decoding a properly encoded Base64 string, or switch the mode to encode first.",
                   },
                 ].map((faq, idx) => (

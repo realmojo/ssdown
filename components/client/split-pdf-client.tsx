@@ -282,10 +282,10 @@ export function SplitPdfClient({ dict }: { dict?: any }) {
                 />
                 <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
-                  {dict?.split_pdf?.drop_zone || "Drag & drop a PDF file here"}
+                  {dict?.split_pdf?.drop_zone || "여기에 PDF 파일을 끌어다 놓으세요"}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Only PDF files accepted. Max 50MB per file.
+                  PDF 파일만 올릴 수 있습니다. 파일당 최대 50MB입니다.
                 </p>
               </div>
             )}
@@ -311,7 +311,7 @@ export function SplitPdfClient({ dict }: { dict?: any }) {
 
                 {/* Split mode selector */}
                 <div className="p-6 bg-muted/30 rounded-lg border border-muted space-y-4">
-                  <h3 className="font-semibold">Split Mode</h3>
+                  <h3 className="font-semibold">분할 방식</h3>
                   <div className="flex gap-3">
                     <Button
                       variant={
@@ -328,7 +328,7 @@ export function SplitPdfClient({ dict }: { dict?: any }) {
                           : ""
                       }
                     >
-                      Every Page
+                      모든 페이지
                     </Button>
                     <Button
                       variant={
@@ -345,7 +345,7 @@ export function SplitPdfClient({ dict }: { dict?: any }) {
                           : ""
                       }
                     >
-                      Custom Ranges
+                      범위 지정
                     </Button>
                   </div>
 
@@ -362,7 +362,7 @@ export function SplitPdfClient({ dict }: { dict?: any }) {
                         htmlFor="custom-ranges"
                         className="text-sm font-medium block"
                       >
-                        Page Ranges
+                        페이지 범위
                       </label>
                       <Input
                         id="custom-ranges"
@@ -464,7 +464,7 @@ export function SplitPdfClient({ dict }: { dict?: any }) {
                         className="flex-shrink-0"
                       >
                         <Download className="w-4 h-4 mr-1" />
-                        Download
+                        다운로드
                       </Button>
                     </div>
                   ))}
@@ -488,15 +488,15 @@ export function SplitPdfClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.split_pdf?.step1_title || "Upload PDF",
+                    title: dict?.split_pdf?.step1_title || "PDF 업로드",
                     desc:
                       dict?.split_pdf?.step1_desc ||
-                      "Drag and drop or click to select a PDF file from your device.",
+                      "PDF 파일을 끌어다 놓거나 클릭해서 선택하세요.",
                     icon: Upload,
                   },
                   {
                     step: 2,
-                    title: dict?.split_pdf?.step2_title || "Choose Split Mode",
+                    title: dict?.split_pdf?.step2_title || "분할 방식 선택",
                     desc:
                       dict?.split_pdf?.step2_desc ||
                       "Split every page into separate files, or define custom page ranges.",
@@ -552,7 +552,7 @@ export function SplitPdfClient({ dict }: { dict?: any }) {
                     title: dict?.split_pdf?.tip1_title || "100% Private",
                     desc:
                       dict?.split_pdf?.tip1_desc ||
-                      "All processing happens in your browser using pdf-lib. Your files never leave your device.",
+                      "모든 처리는 pdf-lib를 이용해 브라우저 안에서 이뤄집니다. 파일이 기기를 벗어나지 않습니다.",
                     icon: Shield,
                   },
                   {
@@ -563,14 +563,14 @@ export function SplitPdfClient({ dict }: { dict?: any }) {
                     icon: Layers,
                   },
                   {
-                    title: dict?.split_pdf?.tip3_title || "Instant Processing",
+                    title: dict?.split_pdf?.tip3_title || "즉시 처리",
                     desc:
                       dict?.split_pdf?.tip3_desc ||
                       "Splitting is processed instantly without re-encoding. Quality remains unchanged.",
                     icon: Zap,
                   },
                   {
-                    title: dict?.split_pdf?.tip4_title || "Original Preserved",
+                    title: dict?.split_pdf?.tip4_title || "원본 보존",
                     desc:
                       dict?.split_pdf?.tip4_desc ||
                       "Your original PDF file remains untouched. Only new split files are created for download.",

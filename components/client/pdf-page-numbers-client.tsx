@@ -253,10 +253,10 @@ export function PdfPageNumbersClient({ dict }: { dict?: any }) {
                 <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-lg font-medium mb-2">
                   {dict?.pdf_page_numbers?.drop_zone ||
-                    "Drag & drop a PDF file here"}
+                    "여기에 PDF 파일을 끌어다 놓으세요"}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Only PDF files accepted. Max 50MB per file.
+                  PDF 파일만 올릴 수 있습니다. 파일당 최대 50MB입니다.
                 </p>
               </div>
             )}
@@ -282,7 +282,7 @@ export function PdfPageNumbersClient({ dict }: { dict?: any }) {
 
                 {/* Position selection */}
                 <div className="p-6 bg-muted/30 rounded-lg border border-muted space-y-4">
-                  <h3 className="font-semibold text-sm">Number Position</h3>
+                  <h3 className="font-semibold text-sm">번호 위치</h3>
                   <div className="grid grid-cols-3 gap-2">
                     {(Object.keys(POSITION_LABELS) as PositionOption[]).map(
                       (pos) => (
@@ -310,7 +310,7 @@ export function PdfPageNumbersClient({ dict }: { dict?: any }) {
                   <div className="grid grid-cols-2 gap-4 pt-2">
                     <div>
                       <label className="text-xs text-muted-foreground mb-1 block">
-                        Font Size (10-24)
+                        글자 크기 (10~24)
                       </label>
                       <Input
                         type="number"
@@ -328,7 +328,7 @@ export function PdfPageNumbersClient({ dict }: { dict?: any }) {
                     </div>
                     <div>
                       <label className="text-xs text-muted-foreground mb-1 block">
-                        Start Number
+                        시작 번호
                       </label>
                       <Input
                         type="number"
@@ -415,10 +415,10 @@ export function PdfPageNumbersClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.pdf_page_numbers?.step1_title || "Upload PDF",
+                    title: dict?.pdf_page_numbers?.step1_title || "PDF 업로드",
                     desc:
                       dict?.pdf_page_numbers?.step1_desc ||
-                      "Drag and drop or click to select a PDF file from your device.",
+                      "PDF 파일을 끌어다 놓거나 클릭해서 선택하세요.",
                     icon: Upload,
                   },
                   {
@@ -479,7 +479,7 @@ export function PdfPageNumbersClient({ dict }: { dict?: any }) {
                     title: dict?.pdf_page_numbers?.tip1_title || "100% Private",
                     desc:
                       dict?.pdf_page_numbers?.tip1_desc ||
-                      "All processing happens in your browser using pdf-lib. Your files never leave your device.",
+                      "모든 처리는 pdf-lib를 이용해 브라우저 안에서 이뤄집니다. 파일이 기기를 벗어나지 않습니다.",
                     icon: Shield,
                   },
                   {
@@ -503,7 +503,7 @@ export function PdfPageNumbersClient({ dict }: { dict?: any }) {
                   {
                     title:
                       dict?.pdf_page_numbers?.tip4_title ||
-                      "Original Preserved",
+                      "원본 보존",
                     desc:
                       dict?.pdf_page_numbers?.tip4_desc ||
                       "Your original PDF file remains untouched. Only a new numbered file is created for download.",

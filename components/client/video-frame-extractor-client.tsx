@@ -128,7 +128,7 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
       // Wait for video to load with timeout and error handling
       await new Promise<void>((resolve, reject) => {
         const timeout = setTimeout(() => {
-          reject(new Error("Video load timeout. Please try a different file."));
+          reject(new Error("영상을 불러오는 데 시간이 초과됐습니다. 다른 파일로 시도해 주세요."));
         }, 15000);
 
         if (video.readyState >= 2) {
@@ -154,7 +154,7 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
 
       const duration = video.duration;
       if (!isFinite(duration) || duration <= 0) {
-        throw new Error("Invalid video duration");
+        throw new Error("영상 길이가 올바르지 않습니다");
       }
 
       const canvas = document.createElement("canvas");
@@ -352,12 +352,12 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
                         });
                         processFile(testFile);
                       } catch {
-                        setError("Failed to load test video");
+                        setError("테스트 영상을 불러오지 못했습니다");
                       }
                     }}
                     className="text-xs text-muted-foreground hover:text-indigo-600 dark:hover:text-indigo-400"
                   >
-                    Try with sample video
+                    샘플 영상으로 먼저 써보기
                   </Button>
                 </div>
               </div>
@@ -400,32 +400,32 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-4">
                       <div className="space-y-2">
-                        <Label>Extract every (seconds)</Label>
+                        <Label>추출 간격 (초)</Label>
                         <Select value={interval} onValueChange={setInterval}>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select interval" />
+                            <SelectValue placeholder="간격 선택" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="0.5">0.5 seconds</SelectItem>
-                            <SelectItem value="1">1 second</SelectItem>
-                            <SelectItem value="2">2 seconds</SelectItem>
-                            <SelectItem value="5">5 seconds</SelectItem>
-                            <SelectItem value="10">10 seconds</SelectItem>
-                            <SelectItem value="30">30 seconds</SelectItem>
-                            <SelectItem value="60">60 seconds</SelectItem>
+                            <SelectItem value="0.5">0.5초</SelectItem>
+                            <SelectItem value="1">1초</SelectItem>
+                            <SelectItem value="2">2초</SelectItem>
+                            <SelectItem value="5">5초</SelectItem>
+                            <SelectItem value="10">10초</SelectItem>
+                            <SelectItem value="30">30초</SelectItem>
+                            <SelectItem value="60">60초</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
 
                       <div className="space-y-2">
-                        <Label>Output Format</Label>
+                        <Label>출력 형식</Label>
                         <Select value={format} onValueChange={setFormat}>
                           <SelectTrigger>
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="image/jpeg">
-                              JPEG (Smaller size)
+                              JPEG (용량 작음)
                             </SelectItem>
                             <SelectItem value="image/png">
                               PNG (Lossless)
@@ -447,7 +447,7 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
                           disabled={format === "image/png"}
                         />
                         <p className="text-xs text-muted-foreground">
-                          Only applies to JPEG format
+                          JPEG 형식에만 적용됩니다
                         </p>
                       </div>
                     </div>
@@ -461,7 +461,7 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
                       className="w-full h-12 text-lg bg-indigo-600 hover:bg-indigo-700 text-white"
                     >
                       <Film className="w-5 h-5 mr-2" />
-                      Start Extraction
+                      추출 시작
                     </Button>
                   </div>
                 </CardContent>
@@ -474,7 +474,7 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
                 <CardContent className="pt-8 pb-8 text-center space-y-4">
                   <Loader2 className="w-10 h-10 animate-spin mx-auto text-indigo-600" />
                   <h3 className="text-xl font-semibold">
-                    Extracting Frames...
+                    프레임을 추출하는 중…
                   </h3>
                   <div className="w-full max-w-md mx-auto">
                     <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-3 overflow-hidden">
@@ -503,14 +503,14 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
                   </div>
                   <div className="flex gap-2">
                     <Button variant="outline" onClick={handleReset}>
-                      Extract New
+                      새로 추출하기
                     </Button>
                     <Button
                       onClick={downloadAll}
                       className="bg-indigo-600 hover:bg-indigo-700"
                     >
                       <Download className="w-4 h-4 mr-2" />
-                      Download All (ZIP)
+                      전체 다운로드 (ZIP)
                     </Button>
                   </div>
                 </div>
@@ -523,7 +523,7 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
                     >
                       <img
                         src={frame.url}
-                        alt={`Frame at ${frame.time}s`}
+                        alt={`${frame.time}초 지점 프레임`}
                         className="w-full h-full object-cover"
                         loading="lazy"
                       />
@@ -569,20 +569,20 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: "Upload Video",
-                    desc: "Select any video file (MP4, MOV, WebM). No size limits as everything runs locally.",
+                    title: "영상 업로드",
+                    desc: "영상 파일(MP4, MOV, WebM)을 선택하세요. 모든 처리가 기기에서 이뤄지므로 용량 제한이 없습니다.",
                     icon: Upload,
                   },
                   {
                     step: 2,
                     title: "Configure",
-                    desc: "Choose the time interval (e.g., every 1 second) and output quality settings.",
+                    desc: "추출 간격(예: 1초마다)과 출력 품질을 설정하세요.",
                     icon: Settings2,
                   },
                   {
                     step: 3,
                     title: "Extract & Download",
-                    desc: "Process the video to get all frames. Download individual images or a ZIP archive.",
+                    desc: "영상을 처리해 모든 프레임을 얻으세요. 이미지를 하나씩 받거나 ZIP으로 받을 수 있습니다.",
                     icon: Download,
                   },
                 ].map((step, idx) => (
@@ -608,7 +608,7 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
               </div>
             </section>
 
-            {/* Tips & Best Practices */}
+            {/* 활용 팁 */}
             <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
               <div className="text-center mb-10">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">

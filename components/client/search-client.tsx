@@ -7,7 +7,7 @@ import type { SoftwareApplication } from "@/types/app";
 import { CATEGORIES } from "@/lib/categories";
 
 const OS_OPTIONS = [
-  { value: "", label: "All Platforms" },
+  { value: "", label: "전체 플랫폼" },
   { value: "windows", label: "Windows" },
   { value: "mac", label: "Mac" },
   { value: "android", label: "Android" },
@@ -15,15 +15,15 @@ const OS_OPTIONS = [
 ];
 
 const LICENSE_OPTIONS = [
-  { value: "", label: "All Licenses" },
+  { value: "", label: "전체 라이선스" },
   { value: "Free", label: "Free" },
   { value: "Freemium", label: "Freemium" },
   { value: "Paid", label: "Paid" },
-  { value: "Open Source", label: "Open Source" },
+  { value: "Open Source", label: "오픈소스" },
 ];
 
 const CATEGORY_OPTIONS = [
-  { value: "", label: "All Categories" },
+  { value: "", label: "전체 카테고리" },
   ...CATEGORIES.map((c) => ({ value: c.slug, label: c.name })),
 ];
 
@@ -151,10 +151,10 @@ export default function SearchClient({
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
             <SlidersHorizontal className="w-6 h-6 text-blue-600" />
-            Software Search
+            소프트웨어 검색
           </h1>
           <p className="text-gray-500 mt-1 text-sm">
-            {initialTotal.toLocaleString()} apps found
+            {initialTotal.toLocaleString()}개의 앱을 찾았습니다
           </p>
         </div>
 
@@ -165,7 +165,7 @@ export default function SearchClient({
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               type="text"
-              placeholder="Search apps..."
+              placeholder="앱 검색…"
               defaultValue={initialQ}
               className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               onKeyDown={(e) => {
@@ -220,8 +220,8 @@ export default function SearchClient({
           {initialApps.length === 0 ? (
             <div className="text-center py-20 text-gray-400">
               <Search className="w-10 h-10 mx-auto mb-3 opacity-30" />
-              <p className="text-lg">No apps found</p>
-              <p className="text-sm mt-1">Try adjusting your filters</p>
+              <p className="text-lg">앱을 찾지 못했습니다</p>
+              <p className="text-sm mt-1">필터를 조정해 보세요</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

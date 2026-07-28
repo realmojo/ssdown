@@ -243,11 +243,11 @@ export function MergePdfClient({ dict }: { dict?: any }) {
               <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
               <p className="text-lg font-medium mb-2">
                 {pdfFiles.length === 0
-                  ? "Drag & drop PDF files here"
+                  ? "여기에 PDF 파일을 끌어다 놓으세요"
                   : "Add more PDF files"}
               </p>
               <p className="text-sm text-muted-foreground">
-                Only PDF files accepted. Max 50MB per file.
+                PDF 파일만 올릴 수 있습니다. 파일당 최대 50MB입니다.
               </p>
             </div>
 
@@ -269,7 +269,7 @@ export function MergePdfClient({ dict }: { dict?: any }) {
                   </div>
                   <Button variant="outline" size="sm" onClick={handleReset}>
                     <RotateCcw className="w-4 h-4 mr-2" />
-                    Clear All
+                    전체 지우기
                   </Button>
                 </div>
 
@@ -363,7 +363,7 @@ export function MergePdfClient({ dict }: { dict?: any }) {
 
                 {pdfFiles.length === 1 && (
                   <p className="text-center text-sm text-muted-foreground">
-                    Add at least one more PDF to merge.
+                    합치려면 PDF를 하나 이상 더 추가하세요.
                   </p>
                 )}
 
@@ -404,7 +404,7 @@ export function MergePdfClient({ dict }: { dict?: any }) {
                 {[
                   {
                     step: 1,
-                    title: dict?.merge_pdf?.step1_title || "Upload PDFs",
+                    title: dict?.merge_pdf?.step1_title || "PDF 업로드s",
                     desc:
                       dict?.merge_pdf?.step1_desc ||
                       "Drag and drop or click to select multiple PDF files from your device.",
@@ -458,29 +458,29 @@ export function MergePdfClient({ dict }: { dict?: any }) {
                   {dict?.merge_pdf?.tips_title || "PDF Merge Tips"}
                 </h2>
                 <p className="text-muted-foreground">
-                  Get the best results when merging PDF files.
+                  PDF를 합칠 때 가장 좋은 결과를 얻는 방법입니다.
                 </p>
               </div>
               <div className="grid md:grid-cols-2 gap-6">
                 {[
                   {
                     title: "100% Private",
-                    desc: "All processing happens in your browser using pdf-lib. Your files never leave your device.",
+                    desc: "모든 처리는 pdf-lib를 이용해 브라우저 안에서 이뤄집니다. 파일이 기기를 벗어나지 않습니다.",
                     icon: Shield,
                   },
                   {
-                    title: "Easy Reordering",
-                    desc: "Use the up/down buttons to arrange PDFs in any order before merging.",
+                    title: "간편한 순서 변경",
+                    desc: "합치기 전에 위아래 버튼으로 PDF 순서를 원하는 대로 배열하세요.",
                     icon: Layers,
                   },
                   {
-                    title: "No File Limit",
-                    desc: "Merge as many PDFs as you need. Each file can be up to 50MB in size.",
+                    title: "파일 개수 제한 없음",
+                    desc: "필요한 만큼 PDF를 합칠 수 있습니다. 파일 하나당 최대 50MB입니다.",
                     icon: Zap,
                   },
                   {
-                    title: "Originals Preserved",
-                    desc: "Your original PDF files remain untouched. Only a new merged file is created.",
+                    title: "원본 보존",
+                    desc: "원본 PDF 파일은 그대로 남습니다. 합쳐진 새 파일만 만들어집니다.",
                     icon: FileText,
                   },
                 ].map((tip, idx) => (
@@ -507,7 +507,7 @@ export function MergePdfClient({ dict }: { dict?: any }) {
                   {dict?.merge_pdf?.faq_title || "Merge PDF FAQ"}
                 </h2>
                 <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-                  Common questions about merging PDF files.
+                  PDF 합치기에 대해 자주 묻는 질문입니다.
                 </p>
               </div>
               <div className="max-w-3xl mx-auto">

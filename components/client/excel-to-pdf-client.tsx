@@ -75,7 +75,7 @@ export function ExcelToPdfClient({ dict }: { dict?: any }) {
       const data = XLSX.utils.sheet_to_json(ws, { header: 1 }) as string[][];
 
       if (!data || data.length === 0) {
-        throw new Error("Sheet is empty.");
+        throw new Error("시트가 비어 있습니다.");
       }
 
       const doc = new jsPDF();
@@ -121,10 +121,10 @@ export function ExcelToPdfClient({ dict }: { dict?: any }) {
       });
 
       doc.save(`${file?.name.replace(/.xlsx|.xls/, "")}_${selectedSheet}.pdf`);
-      toast.success("PDF Downloaded!");
+      toast.success("PDF를 내려받았습니다!");
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_err) {
-      toast.error("Error generating PDF.");
+      toast.error("PDF를 만들지 못했습니다.");
     } finally {
       setIsProcessing(false);
     }
@@ -171,7 +171,7 @@ export function ExcelToPdfClient({ dict }: { dict?: any }) {
             >
               <FileSpreadsheet className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
               <p className="text-lg font-medium mb-2">
-                Click to upload or Drag & Drop Excel file
+                클릭해서 올리거나 엑셀 파일을 끌어다 놓으세요
               </p>
               <p className="text-sm text-muted-foreground">
                 Supports .xlsx, .xls
@@ -192,14 +192,14 @@ export function ExcelToPdfClient({ dict }: { dict?: any }) {
                   <p className="font-medium">{file.name}</p>
                   <div className="flex items-center gap-2 mt-1">
                     <span className="text-sm text-muted-foreground">
-                      Select Sheet:
+                      시트 선택:
                     </span>
                     <Select
                       value={selectedSheet}
                       onValueChange={setSelectedSheet}
                     >
                       <SelectTrigger className="w-[180px] h-8">
-                        <SelectValue placeholder="Select sheet" />
+                        <SelectValue placeholder="시트 선택" />
                       </SelectTrigger>
                       <SelectContent>
                         {sheets.map((sheet) => (
