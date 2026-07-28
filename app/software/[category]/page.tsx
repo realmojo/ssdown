@@ -18,7 +18,7 @@ import {
   Star,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { getCategoryBySlug, CATEGORIES } from "@/lib/categories";
+import { getCategoryBySlug, getCategoryByMain, CATEGORIES } from "@/lib/categories";
 import { getAppsByCategory, getAppsByPlatform, localizeApp } from "@/lib/app-utils";
 import type { SoftwareApplication } from "@/types/app";
 
@@ -30,6 +30,25 @@ const PLATFORM_LABELS: Record<PlatformSlug, string> = {
   android: "Android",
   iphone: "iOS",
 };
+
+const LICENSE_KR: Record<string, string> = {
+  Free: "무료",
+  Freemium: "부분 무료",
+  "Open Source": "오픈소스",
+  Trial: "체험판",
+  Paid: "유료",
+};
+
+/**
+ * 스크래핑 과정에서 들어온 가짜 개발자명("Unknown", "More programs (12)")을 걸러낸다.
+ * 실제 개발자 정보가 아니므로 화면에 노출하지 않는다.
+ */
+function isRealDeveloper(name?: string): boolean {
+  if (!name) return false;
+  const t = name.trim();
+  if (!t || t === "Unknown") return false;
+  return !/^More programs\s*\(\d+\)$/.test(t);
+}
 
 // DB에서 확인된 category_main 값 (내림차순)
 const PLATFORM_CATEGORIES: string[] = [
@@ -212,7 +231,7 @@ function AppGrid({ apps }: { apps: SoftwareApplication[] }) {
               <h2 className="font-semibold text-gray-900 text-sm truncate group-hover:text-blue-600 transition-colors">
                 {app.core.name}
               </h2>
-              {app.core.developer.name && (
+              {isRealDeveloper(app.core.developer.name) && (
                 <p className="text-xs text-gray-500 truncate mt-0.5">
                   {app.core.developer.name}
                 </p>
@@ -224,7 +243,7 @@ function AppGrid({ apps }: { apps: SoftwareApplication[] }) {
               )}
               <div className="flex flex-wrap items-center gap-1.5 mt-2">
                 <span className="text-[11px] bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded font-medium">
-                  {app.download.license}
+                  {LICENSE_KR[app.download.license] ?? app.download.license}
                 </span>
                 <span className="text-[11px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded">
                   {app.core.platform}
@@ -266,7 +285,7 @@ function CategoryJsonLd({
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: `Best ${label} Software`,
+      name: `${label} 인기 소프트웨어`,
       url: pageUrl,
       numberOfItems: apps.length,
       itemListElement: apps.slice(0, 10).map((app, i) => ({
@@ -334,9 +353,9 @@ function Pagination({
   return (
     <div className="flex items-center justify-center gap-1.5 mt-8 flex-wrap">
       {currentPage > 1 ? (
-        <a href={buildPageUrl(currentPage - 1)} className={inactiveBtn}>← Prev</a>
+        <a href={buildPageUrl(currentPage - 1)} className={inactiveBtn}>← 이전</a>
       ) : (
-        <span className={disabledBtn}>← Prev</span>
+        <span className={disabledBtn}>← 이전</span>
       )}
 
       {pages.map((p, i) =>
@@ -354,9 +373,9 @@ function Pagination({
       )}
 
       {currentPage < totalPages ? (
-        <a href={buildPageUrl(currentPage + 1)} className={inactiveBtn}>Next →</a>
+        <a href={buildPageUrl(currentPage + 1)} className={inactiveBtn}>다음 →</a>
       ) : (
-        <span className={disabledBtn}>Next →</span>
+        <span className={disabledBtn}>다음 →</span>
       )}
     </div>
   );
@@ -399,10 +418,10 @@ export default async function CategoryPage({
             </div>
             <div>
               <h1 className="text-3xl font-extrabold text-gray-900">
-                {label} Software
+                {label} 소프트웨어
               </h1>
               <p className="text-sm text-gray-500 mt-1">
-                {total > 0 ? `${total.toLocaleString()} apps` : ""}
+                {total > 0 ? `앱 ${total.toLocaleString()}개` : ""}
               </p>
             </div>
           </div>
@@ -417,7 +436,7 @@ export default async function CategoryPage({
                   : "bg-white text-gray-600 border border-gray-200 hover:border-blue-300"
               }`}
             >
-              All
+              전체
             </a>
             {PLATFORM_CATEGORIES.map((category_main) => {
               const isActive = categoryFilter === category_main;
@@ -431,7 +450,7 @@ export default async function CategoryPage({
                       : "bg-white text-gray-600 border border-gray-200 hover:border-blue-300"
                   }`}
                 >
-                  {category_main}
+                  {getCategoryByMain(category_main)?.name ?? category_main}
                 </a>
               );
             })}
@@ -471,7 +490,7 @@ export default async function CategoryPage({
               {category.name}
             </h1>
             <p className="text-sm text-gray-500 mt-1">
-              {total > 0 ? `${total.toLocaleString()} apps` : ""}
+              {total > 0 ? `앱 ${total.toLocaleString()}개` : ""}
             </p>
           </div>
         </div>

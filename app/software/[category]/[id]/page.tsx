@@ -187,7 +187,7 @@ export default async function AppDetailPage({
       }),
     author: {
       "@type": "Organization",
-      name: app.core.developer.name || "Unknown",
+      name: app.core.developer.name && app.core.developer.name !== "Unknown" ? app.core.developer.name : "미상",
       ...(app.core.developer.websiteUrl && {
         url: app.core.developer.websiteUrl,
       }),
@@ -330,7 +330,8 @@ export default async function AppDetailPage({
               </h1>
 
               {app.core.developer.name &&
-                app.core.developer.name !== "Unknown" && (
+                app.core.developer.name !== "Unknown" &&
+                !/^More programs\s*\(\d+\)$/.test(app.core.developer.name) && (
                   <p className="text-sm text-slate-400 mb-3">
                     제작{" "}
                     {app.core.developer.websiteUrl ? (
