@@ -162,10 +162,25 @@ async function claudeJson(
     if (!textBlock || textBlock.type !== "text") return null;
     return JSON.parse(textBlock.text);
   } catch (err) {
-    console.error("    Claude API 호출 실패:", err);
+    // 잔액 부족·인증 오류는 남은 행에서도 똑같이 실패하므로 전체를 중단한다.
+    // (중단하지 않으면 수천 건이 순서대로 같은 오류를 반복한다.)
+    if (isFatal(err)) {
+      console.error(`\n중단 — ${err instanceof Error ? err.message : err}`);
+      fatalStop = true;
+      return null;
+    }
+    console.error("    Claude API 호출 실패:", err instanceof Error ? err.message : err);
     return null;
   }
 }
+
+/** 재시도해도 결과가 달라지지 않는 오류인지. */
+function isFatal(err: unknown): boolean {
+  const m = err instanceof Error ? err.message : String(err);
+  return /credit balance is too low|authentication_error|permission_error/.test(m);
+}
+
+let fatalStop = false;
 
 // ── Ollama 호출 ──────────────────────────────────────────────────────────────
 
@@ -277,16 +292,26 @@ async function fetchTargets(): Promise<AppRow[]> {
   }
 
   if (BACKFILL_KR) {
-    const { data, error } = await supabase
-      .from("software_applications")
-      .select(columns)
-      .not("ai_review_html", "is", null)
-      .neq("ai_review_html", "")
-      .is("ai_review_html_kr", null)
-      .order("rating_average", { ascending: false })
-      .limit(LIMIT === Infinity ? 1000 : LIMIT);
-    if (error) throw new Error(error.message);
-    return (data ?? []) as AppRow[];
+    // Supabase 는 한 번에 1000행까지만 돌려주므로, --limit 없이 돌릴 때는
+    // range 로 끝까지 페이지네이션한다. (예전에는 1000건에서 잘렸다.)
+    const PAGE = 1000;
+    const rows: AppRow[] = [];
+    for (let from = 0; rows.length < LIMIT; from += PAGE) {
+      const take = Math.min(PAGE, LIMIT - rows.length);
+      const { data, error } = await supabase
+        .from("software_applications")
+        .select(columns)
+        .not("ai_review_html", "is", null)
+        .neq("ai_review_html", "")
+        .is("ai_review_html_kr", null)
+        .order("rating_average", { ascending: false })
+        .range(from, from + take - 1);
+      if (error) throw new Error(error.message);
+      const page = (data ?? []) as AppRow[];
+      rows.push(...page);
+      if (page.length < take) break;
+    }
+    return rows;
   }
 
   // 기본: 임포트된 id 목록
@@ -322,6 +347,7 @@ async function main() {
   let ok = 0;
   let failed = 0;
   for (let i = 0; i < targets.length; i++) {
+    if (fatalStop) break;
     const app = targets[i];
     console.log(`[${i + 1}/${targets.length}] ${app.name_kr ?? app.name} (${app.id})`);
     try {
@@ -334,7 +360,10 @@ async function main() {
     await new Promise((r) => setTimeout(r, 500));
   }
 
-  console.log(`\n완료: 성공 ${ok}, 실패 ${failed}`);
+  console.log(`\n완료: 성공 ${ok}, 실패 ${failed}${fatalStop ? " (중단됨)" : ""}`);
+  if (fatalStop) {
+    console.log("남은 항목은 같은 명령을 다시 실행하면 이어서 처리됩니다.");
+  }
 }
 
 main().catch((e) => {
