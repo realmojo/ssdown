@@ -271,3 +271,31 @@ export async function getAlternatives(
 
   return [...results, ...(crossCat ?? [])].map(transformRow);
 }
+
+/**
+ * 최근 등록·갱신된 앱. 상세 페이지 하단의 "최신 등록 앱" 섹션에 쓴다.
+ * 한국어 본문이 있는 앱만 노출해 영문이 섞이지 않게 한다.
+ */
+export async function getLatestApps(
+  excludeId: string,
+  limit = 8,
+  platform?: string,
+): Promise<SoftwareApplication[]> {
+  const COLUMNS =
+    "id,slug,name,name_kr,platform,category_main,license,rating_average,rating_total_count,icon_url,short_summary,short_summary_kr,developer_name,download_url";
+
+  let query = supabase
+    .from("software_applications")
+    .select(COLUMNS)
+    .neq("id", excludeId)
+    .not("ai_review_html_kr", "is", null)
+    .neq("ai_review_html_kr", "");
+
+  if (platform) query = query.eq("platform", platform);
+
+  const { data } = await query
+    .order("last_updated_date", { ascending: false })
+    .limit(limit);
+
+  return (data ?? []).map(transformRow);
+}
