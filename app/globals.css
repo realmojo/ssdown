@@ -254,6 +254,28 @@ main :where(.grid, .flex) > * {
    사용자가 쓴 HTML 이 들어오는 영역. 저장 시 허용 목록을 통과한 태그만 남아
    있으므로, 여기서는 그 태그들이 읽기 좋게 보이도록 최소한만 스타일링한다.
    ------------------------------------------------------------------------ */
+/* 본문 안 강조 버튼(a.cta). 살균기가 class="cta" 만 통과시킨다. */
+.board-content a.cta {
+  display: block;
+  margin: 1.2em 0;
+  padding: 15px 18px;
+  border-radius: 6px;
+  background: #d32419;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  word-break: keep-all;
+}
+.board-content a.cta:hover {
+  filter: brightness(0.93);
+}
+.board-content p:has(> a.cta) {
+  margin: 0;
+}
+
 .board-content > *:first-child {
   margin-top: 0;
 }
