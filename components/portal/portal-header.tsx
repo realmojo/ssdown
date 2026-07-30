@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Menu, Search, X } from "lucide-react";
@@ -71,18 +70,18 @@ export function PortalHeader() {
         <div className="pt-wrap flex h-6 items-center justify-between text-[11px] text-[var(--pt-text-meta)]">
           <span>무료 온라인 도구 · 영상 다운로드 · 소프트웨어 정보</span>
           <nav className="flex items-center gap-3">
-            <Link href="/about" className="hover:text-[var(--pt-accent)]">
+            <a href="/about" className="hover:text-[var(--pt-accent)]">
               소개
-            </Link>
-            <Link href="/contact" className="hover:text-[var(--pt-accent)]">
+            </a>
+            <a href="/contact" className="hover:text-[var(--pt-accent)]">
               문의
-            </Link>
-            <Link href="/blog" className="hover:text-[var(--pt-accent)]">
+            </a>
+            <a href="/blog" className="hover:text-[var(--pt-accent)]">
               블로그
-            </Link>
-            <Link href="/board" className="hover:text-[var(--pt-accent)]">
+            </a>
+            <a href="/board" className="hover:text-[var(--pt-accent)]">
               자유게시판
-            </Link>
+            </a>
           </nav>
         </div>
       </div>
@@ -98,12 +97,12 @@ export function PortalHeader() {
           {mobileOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
 
-        <Link
+        <a
           href="/"
           className="text-[19px] font-extrabold tracking-tight text-[var(--pt-text)]"
         >
           SSDown
-        </Link>
+        </a>
 
         <form onSubmit={submitSearch} className="ml-auto flex items-center">
           <input
@@ -133,12 +132,12 @@ export function PortalHeader() {
           <ul className="flex h-[34px] items-stretch">
             {PRIMARY_NAV.slice(0, 1).map((n) => (
               <li key={n.href} className="flex">
-                <Link
+                <a
                   href={n.href}
                   className="flex items-center px-3 text-[13px] font-bold text-[var(--pt-accent)]"
                 >
                   {n.label}
-                </Link>
+                </a>
               </li>
             ))}
             {menus.map((m) => {
@@ -147,7 +146,7 @@ export function PortalHeader() {
                 m.items.some((it) => pathname === it.href);
               return (
                 <li key={m.key} className="flex">
-                  <Link
+                  <a
                     href={m.href}
                     onMouseEnter={() => setOpenKey(m.key)}
                     onFocus={() => setOpenKey(m.key)}
@@ -158,7 +157,7 @@ export function PortalHeader() {
                     }`}
                   >
                     {m.label}
-                  </Link>
+                  </a>
                 </li>
               );
             })}
@@ -171,13 +170,13 @@ export function PortalHeader() {
                   .find((m) => m.key === openKey)!
                   .items.map((it) => (
                     <li key={it.href}>
-                      <Link
+                      <a
                         href={it.href}
                         onClick={() => setOpenKey(null)}
                         className="block truncate py-1 text-[12px] text-[var(--pt-text-sub)] hover:text-[var(--pt-accent)] hover:underline"
                       >
                         {it.label}
-                      </Link>
+                      </a>
                     </li>
                   ))}
               </ul>
@@ -198,13 +197,13 @@ export function PortalHeader() {
                 <ul className="grid grid-cols-2 gap-x-3 pb-2">
                   {m.items.map((it) => (
                     <li key={it.href}>
-                      <Link
+                      <a
                         href={it.href}
                         onClick={() => setMobileOpen(false)}
                         className="block truncate py-1 text-[12px] text-[var(--pt-text-sub)]"
                       >
                         {it.label}
-                      </Link>
+                      </a>
                     </li>
                   ))}
                 </ul>

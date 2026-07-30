@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
 import { ChevronRight } from "lucide-react";
 import { PortalSidebar } from "./portal-sidebar";
@@ -44,16 +43,16 @@ export function PageShell({
             aria-label="현재 위치"
             className="mb-1.5 flex flex-wrap items-center gap-0.5 text-[11px] text-[var(--pt-text-meta)]"
           >
-            <Link href="/" className="hover:text-[var(--pt-accent)]">
+            <a href="/" className="hover:text-[var(--pt-accent)]">
               홈
-            </Link>
+            </a>
             {crumbs.map((c) => (
               <span key={c.label} className="flex items-center gap-0.5">
                 <ChevronRight size={11} className="shrink-0" />
                 {c.href ? (
-                  <Link href={c.href} className="hover:text-[var(--pt-accent)]">
+                  <a href={c.href} className="hover:text-[var(--pt-accent)]">
                     {c.label}
-                  </Link>
+                  </a>
                 ) : (
                   <span className="text-[var(--pt-text-sub)]">{c.label}</span>
                 )}

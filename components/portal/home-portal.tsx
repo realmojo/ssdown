@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Panel } from "./panel";
 import { BoardTable, type BoardRow } from "./board-table";
 import { RankList } from "./rank-list";
@@ -96,12 +95,12 @@ export function HomePortal({
             </p>
           </div>
           <div className="flex shrink-0 gap-1.5">
-            <Link href="/tools" className="pt-btn pt-btn-primary">
+            <a href="/tools" className="pt-btn pt-btn-primary">
               전체 도구 보기
-            </Link>
-            <Link href="/software" className="pt-btn">
+            </a>
+            <a href="/software" className="pt-btn">
               소프트웨어
-            </Link>
+            </a>
           </div>
         </section>
 
@@ -118,7 +117,7 @@ export function HomePortal({
             <ul>
               {DOWNLOADER_ITEMS.map((it) => (
                 <li key={it.href} className="border-b border-[var(--pt-line)] last:border-0">
-                  <Link
+                  <a
                     href={it.href}
                     className="pt-link flex items-baseline gap-1.5 truncate py-[6px] text-[12px]"
                   >
@@ -126,7 +125,7 @@ export function HomePortal({
                     <span className="text-[11px] text-[var(--pt-text-meta)]">
                       영상·이미지 무손실 다운로드
                     </span>
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -163,7 +162,7 @@ export function HomePortal({
           <div className="grid gap-x-4 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
             {TOOL_GROUPS.map((g) => (
               <div key={g.key}>
-                <Link
+                <a
                   href={g.hub}
                   className="mb-1 flex items-center justify-between border-b border-[var(--pt-line)] pb-1 text-[12px] font-bold hover:text-[var(--pt-accent)]"
                 >
@@ -171,16 +170,16 @@ export function HomePortal({
                   <span className="text-[11px] font-normal text-[var(--pt-text-meta)]">
                     {g.items.length}
                   </span>
-                </Link>
+                </a>
                 <ul>
                   {g.items.map((it) => (
                     <li key={it.href}>
-                      <Link
+                      <a
                         href={it.href}
                         className="pt-link block truncate py-[2px] text-[12px] text-[var(--pt-text-sub)]"
                       >
                         · {it.label}
-                      </Link>
+                      </a>
                     </li>
                   ))}
                 </ul>
@@ -194,12 +193,12 @@ export function HomePortal({
           <ul className="grid grid-cols-2 gap-1.5 sm:grid-cols-4">
             {PLATFORM_ITEMS.map((it) => (
               <li key={it.href}>
-                <Link
+                <a
                   href={it.href}
                   className="block border border-[var(--pt-line)] py-2 text-center text-[12px] font-semibold hover:border-[var(--pt-accent)] hover:text-[var(--pt-accent)]"
                 >
                   {it.label}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>

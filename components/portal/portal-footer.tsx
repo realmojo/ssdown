@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { DOWNLOADER_ITEMS, TOOL_GROUPS } from "@/lib/portal-nav";
 
 /**
@@ -12,42 +11,42 @@ export function PortalFooter() {
         <div className="grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-4 lg:grid-cols-7">
           {TOOL_GROUPS.map((g) => (
             <div key={g.key}>
-              <Link
+              <a
                 href={g.hub}
                 className="mb-1 block text-[12px] font-bold text-[var(--pt-text)] hover:text-[var(--pt-accent)]"
               >
                 {g.label}
-              </Link>
+              </a>
               <ul>
                 {g.items.slice(0, 8).map((it) => (
                   <li key={it.href}>
-                    <Link
+                    <a
                       href={it.href}
                       className="block truncate py-[1px] text-[11px] text-[var(--pt-text-meta)] hover:text-[var(--pt-accent)]"
                     >
                       {it.label}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
           <div>
-            <Link
+            <a
               href="/"
               className="mb-1 block text-[12px] font-bold text-[var(--pt-text)] hover:text-[var(--pt-accent)]"
             >
               영상 다운로드
-            </Link>
+            </a>
             <ul>
               {DOWNLOADER_ITEMS.map((it) => (
                 <li key={it.href}>
-                  <Link
+                  <a
                     href={it.href}
                     className="block truncate py-[1px] text-[11px] text-[var(--pt-text-meta)] hover:text-[var(--pt-accent)]"
                   >
                     {it.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -59,24 +58,24 @@ export function PortalFooter() {
         <div className="pt-wrap flex flex-col gap-1 py-3 text-[11px] text-[var(--pt-text-meta)] sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} SSDown. 모든 권리 보유.</p>
           <nav className="flex flex-wrap items-center gap-3">
-            <Link href="/about" className="hover:text-[var(--pt-accent)]">
+            <a href="/about" className="hover:text-[var(--pt-accent)]">
               사이트 소개
-            </Link>
-            <Link href="/contact" className="hover:text-[var(--pt-accent)]">
+            </a>
+            <a href="/contact" className="hover:text-[var(--pt-accent)]">
               문의하기
-            </Link>
-            <Link href="/privacy" className="hover:text-[var(--pt-accent)]">
+            </a>
+            <a href="/privacy" className="hover:text-[var(--pt-accent)]">
               개인정보처리방침
-            </Link>
-            <Link href="/terms" className="hover:text-[var(--pt-accent)]">
+            </a>
+            <a href="/terms" className="hover:text-[var(--pt-accent)]">
               이용약관
-            </Link>
-            <Link href="/blog" className="hover:text-[var(--pt-accent)]">
+            </a>
+            <a href="/blog" className="hover:text-[var(--pt-accent)]">
               블로그
-            </Link>
-            <Link href="/board" className="hover:text-[var(--pt-accent)]">
+            </a>
+            <a href="/board" className="hover:text-[var(--pt-accent)]">
               자유게시판
-            </Link>
+            </a>
           </nav>
         </div>
       </div>

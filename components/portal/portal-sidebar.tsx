@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   COMMUNITY_ITEMS,
@@ -54,9 +53,9 @@ function Block({
     <nav className="pt-panel overflow-hidden">
       <div className="pt-panel-hd !h-7">
         {href ? (
-          <Link href={href} className="text-[12px] font-bold hover:text-[var(--pt-accent)]">
+          <a href={href} className="text-[12px] font-bold hover:text-[var(--pt-accent)]">
             {title}
-          </Link>
+          </a>
         ) : (
           <h3 className="!text-[12px]">{title}</h3>
         )}
@@ -66,7 +65,7 @@ function Block({
           const active = pathname === it.href;
           return (
             <li key={it.href}>
-              <Link
+              <a
                 href={it.href}
                 className={`block truncate px-2.5 py-[3px] text-[12px] ${
                   active
@@ -75,7 +74,7 @@ function Block({
                 }`}
               >
                 {it.label}
-              </Link>
+              </a>
             </li>
           );
         })}

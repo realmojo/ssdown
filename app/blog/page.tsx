@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Link from "next/link";
 
 import { Post } from "@/lib/blog-utils";
 import { getAllPosts, getPostsByCategory } from "@/lib/blog-utils";
@@ -96,7 +95,7 @@ export default async function BlogPage(props: {
     >
       {/* 분류 탭 */}
       <nav className="flex flex-wrap items-center gap-1 border-b border-[var(--pt-line)] pb-2">
-        <Link
+        <a
           href="/blog"
           className={`px-2 py-1 text-[12px] ${
             !selectedCategory
@@ -105,9 +104,9 @@ export default async function BlogPage(props: {
           }`}
         >
           전체 <span className="text-[11px] text-[var(--pt-text-meta)]">{koreanAll.length}</span>
-        </Link>
+        </a>
         {categories.map(([cat, n]) => (
-          <Link
+          <a
             key={cat}
             href={`/blog?category=${cat}`}
             className={`px-2 py-1 text-[12px] ${
@@ -118,7 +117,7 @@ export default async function BlogPage(props: {
           >
             {blogCategoryLabel(cat)}{" "}
             <span className="text-[11px] text-[var(--pt-text-meta)]">{n}</span>
-          </Link>
+          </a>
         ))}
       </nav>
 

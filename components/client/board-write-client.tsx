@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Link from "next/link";
 import { toast } from "sonner";
 import { BoardEditor } from "./board-editor";
 
@@ -152,9 +151,9 @@ export function BoardWriteClient({
         </p>
 
         <div className="flex justify-end gap-1.5 border-t border-[var(--pt-line)] pt-2">
-          <Link href={isEdit ? `/board/${postId}` : "/board"} className="pt-btn">
+          <a href={isEdit ? `/board/${postId}` : "/board"} className="pt-btn">
             취소
-          </Link>
+          </a>
           <button type="submit" disabled={busy} className="pt-btn pt-btn-primary disabled:opacity-50">
             {busy ? "처리 중…" : isEdit ? "수정하기" : "등록하기"}
           </button>

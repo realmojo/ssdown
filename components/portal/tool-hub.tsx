@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { PageShell } from "./page-shell";
 import { Panel } from "./panel";
 import { RankList } from "./rank-list";
@@ -46,14 +45,14 @@ export function ToolHub({
         <ul className="grid gap-x-4 sm:grid-cols-2">
           {tools.map((t) => (
             <li key={t.href} className="min-w-0 border-b border-[var(--pt-line)]">
-              <Link href={t.href} className="group block py-1.5">
+              <a href={t.href} className="group block py-1.5">
                 <span className="text-[13px] font-semibold text-[var(--pt-text)] group-hover:text-[var(--pt-accent)] group-hover:underline">
                   {t.title}
                 </span>
                 <span className="mt-0.5 block truncate text-[11px] text-[var(--pt-text-meta)]">
                   {t.description}
                 </span>
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
@@ -71,7 +70,7 @@ export function ToolHub({
         <ul className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 lg:grid-cols-6">
           {others.map((g) => (
             <li key={g.key}>
-              <Link
+              <a
                 href={g.hub}
                 className="block border border-[var(--pt-line)] px-2 py-1.5 text-center text-[12px] font-semibold hover:border-[var(--pt-accent)] hover:text-[var(--pt-accent)]"
               >
@@ -79,7 +78,7 @@ export function ToolHub({
                 <span className="ml-1 font-normal text-[var(--pt-text-meta)]">
                   {g.items.length}
                 </span>
-              </Link>
+              </a>
             </li>
           ))}
         </ul>

@@ -1,4 +1,3 @@
-import Link from "next/link";
 
 /** 게시판 페이지 이동. 현재 쪽 기준 앞뒤 2쪽씩과 처음·끝을 보여준다. */
 export function BoardPager({
@@ -38,9 +37,9 @@ export function BoardPager({
   return (
     <nav className="flex flex-wrap items-center gap-1" aria-label="게시판 쪽 이동">
       {currentPage > 1 ? (
-        <Link href={href(currentPage - 1)} className={normal}>
+        <a href={href(currentPage - 1)} className={normal}>
           이전
-        </Link>
+        </a>
       ) : (
         <span className={disabled}>이전</span>
       )}
@@ -51,16 +50,16 @@ export function BoardPager({
             …
           </span>
         ) : (
-          <Link key={p} href={href(p)} className={p === currentPage ? active : normal}>
+          <a key={p} href={href(p)} className={p === currentPage ? active : normal}>
             {p}
-          </Link>
+          </a>
         ),
       )}
 
       {currentPage < totalPages ? (
-        <Link href={href(currentPage + 1)} className={normal}>
+        <a href={href(currentPage + 1)} className={normal}>
           다음
-        </Link>
+        </a>
       ) : (
         <span className={disabled}>다음</span>
       )}

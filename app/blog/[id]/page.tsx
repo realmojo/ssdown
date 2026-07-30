@@ -2,7 +2,6 @@ import { Metadata } from "next";
 
 import { notFound } from "next/navigation";
 import { PostContent } from "@/components/PostContent";
-import Link from "next/link";
 import { PageShell } from "@/components/portal/page-shell";
 import { blogCategoryLabel } from "@/lib/blog-categories";
 import { Calendar, Clock, User } from "lucide-react";
@@ -183,9 +182,9 @@ export default async function BlogPostPage(props: {
           <PostContent content={post.content} />
 
           <div className="mt-3 border-t border-[var(--pt-line)] pt-2">
-            <Link href="/blog" className="pt-btn">
+            <a href="/blog" className="pt-btn">
               목록으로
-            </Link>
+            </a>
           </div>
         </article>
       </PageShell>

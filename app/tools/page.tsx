@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
 import { PageShell } from "@/components/portal/page-shell";
@@ -99,7 +98,7 @@ export default async function ToolsPage() {
                 key={g.key}
                 className="min-w-0 border-b border-r border-[var(--pt-line)] last:border-r-0"
               >
-                <Link href={g.hub} className="group block px-2.5 py-2">
+                <a href={g.hub} className="group block px-2.5 py-2">
                   <span className="flex items-center justify-between">
                     <span className="text-[13px] font-bold group-hover:text-[var(--pt-accent)]">
                       {g.label}
@@ -109,7 +108,7 @@ export default async function ToolsPage() {
                   <span className="mt-0.5 block truncate text-[11px] text-[var(--pt-text-meta)]">
                     {descByHub[g.hub]}
                   </span>
-                </Link>
+                </a>
               </li>
             ))}
           </ul>
@@ -126,9 +125,9 @@ export default async function ToolsPage() {
             <ul className="grid gap-x-4 sm:grid-cols-2 lg:grid-cols-3">
               {g.items.map((it) => (
                 <li key={it.href} className="border-b border-[var(--pt-line)]">
-                  <Link href={it.href} className="pt-link block truncate py-[5px] text-[12px]">
+                  <a href={it.href} className="pt-link block truncate py-[5px] text-[12px]">
                     {it.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -139,9 +138,9 @@ export default async function ToolsPage() {
           <ul className="grid gap-x-4 sm:grid-cols-2 lg:grid-cols-4">
             {DOWNLOADER_ITEMS.map((it) => (
               <li key={it.href} className="border-b border-[var(--pt-line)]">
-                <Link href={it.href} className="pt-link block truncate py-[5px] text-[12px]">
+                <a href={it.href} className="pt-link block truncate py-[5px] text-[12px]">
                   {it.label}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>

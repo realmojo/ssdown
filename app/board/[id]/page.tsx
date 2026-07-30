@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft, ChevronRight, Eye, MessageSquare, User } from "lucide-react";
 import { PageShell } from "@/components/portal/page-shell";
@@ -135,9 +134,9 @@ export default async function BoardPostPage({
           />
 
           <div className="flex items-center justify-between gap-2 border-t border-[var(--pt-line)] px-3 py-2">
-            <Link href="/board" className="pt-btn">
+            <a href="/board" className="pt-btn">
               목록
-            </Link>
+            </a>
             <BoardPostActions postId={post.id} />
           </div>
         </article>
@@ -154,9 +153,9 @@ export default async function BoardPostPage({
               이전 글
             </span>
             {adjacent.prev ? (
-              <Link href={`/board/${adjacent.prev.id}`} className="pt-link truncate text-[12px]">
+              <a href={`/board/${adjacent.prev.id}`} className="pt-link truncate text-[12px]">
                 {adjacent.prev.title}
-              </Link>
+              </a>
             ) : (
               <span className="text-[12px] text-[var(--pt-text-meta)]">없습니다</span>
             )}
@@ -167,9 +166,9 @@ export default async function BoardPostPage({
               다음 글
             </span>
             {adjacent.next ? (
-              <Link href={`/board/${adjacent.next.id}`} className="pt-link truncate text-[12px]">
+              <a href={`/board/${adjacent.next.id}`} className="pt-link truncate text-[12px]">
                 {adjacent.next.title}
-              </Link>
+              </a>
             ) : (
               <span className="text-[12px] text-[var(--pt-text-meta)]">없습니다</span>
             )}

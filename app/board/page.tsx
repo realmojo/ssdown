@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { PageShell } from "@/components/portal/page-shell";
 import { Panel } from "@/components/portal/panel";
 import { BoardPager } from "@/components/client/board-pager";
@@ -65,9 +64,9 @@ export default async function BoardPage(props: {
       title={TITLE}
       desc={DESC}
       actions={
-        <Link href="/board/write" className="pt-btn pt-btn-primary">
+        <a href="/board/write" className="pt-btn pt-btn-primary">
           글쓰기
-        </Link>
+        </a>
       }
     >
       <Panel
@@ -98,7 +97,7 @@ export default async function BoardPage(props: {
                     )}
                   </td>
                   <td className="max-w-0">
-                    <Link
+                    <a
                       href={`/board/${p.id}`}
                       className="pt-link flex items-center gap-1"
                     >
@@ -111,7 +110,7 @@ export default async function BoardPage(props: {
                       {isNew(p.createdAt) && (
                         <span className="pt-badge pt-badge-new shrink-0">N</span>
                       )}
-                    </Link>
+                    </a>
                   </td>
                   <td className="pt-td-meta hidden truncate sm:table-cell">{p.writer}</td>
                   <td className="pt-td-meta">{fmtDate(p.createdAt)}</td>
@@ -134,9 +133,9 @@ export default async function BoardPage(props: {
 
       <div className="flex items-center justify-between gap-2">
         <BoardPager currentPage={page} totalPages={totalPages} q={q} />
-        <Link href="/board/write" className="pt-btn pt-btn-primary shrink-0">
+        <a href="/board/write" className="pt-btn pt-btn-primary shrink-0">
           글쓰기
-        </Link>
+        </a>
       </div>
     </PageShell>
   );

@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Link from "next/link";
 import { toast } from "sonner";
 
 /** 상세 화면의 수정·삭제 버튼. 두 동작 모두 비밀번호를 물어본다. */
@@ -44,9 +43,9 @@ export function BoardPostActions({ postId }: { postId: number }) {
 
   return (
     <div className="flex gap-1.5">
-      <Link href={`/board/${postId}/edit`} className="pt-btn">
+      <a href={`/board/${postId}/edit`} className="pt-btn">
         수정
-      </Link>
+      </a>
       <button type="button" onClick={remove} disabled={busy} className="pt-btn disabled:opacity-50">
         삭제
       </button>

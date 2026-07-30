@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
@@ -36,20 +35,20 @@ export function Panel({
       {title && (
         <div className="pt-panel-hd">
           {href ? (
-            <Link href={href} className="text-[13px] font-bold hover:text-[var(--pt-accent)]">
+            <a href={href} className="text-[13px] font-bold hover:text-[var(--pt-accent)]">
               {title}
-            </Link>
+            </a>
           ) : (
             <h2>{title}</h2>
           )}
           {right ??
             (moreHref && (
-              <Link
+              <a
                 href={moreHref}
                 className="text-[11px] text-[var(--pt-text-meta)] hover:text-[var(--pt-accent)]"
               >
                 {more ?? "더보기 +"}
-              </Link>
+              </a>
             ))}
         </div>
       )}

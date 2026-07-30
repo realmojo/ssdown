@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { NavItem } from "@/lib/portal-nav";
 
 /**
@@ -26,9 +25,9 @@ export function RankList({
           >
             {i + 1}
           </span>
-          <Link href={it.href} className="pt-link min-w-0 flex-1 truncate text-[12px]">
+          <a href={it.href} className="pt-link min-w-0 flex-1 truncate text-[12px]">
             {it.label}
-          </Link>
+          </a>
           {meta?.[it.href] && (
             <span className="shrink-0 text-[11px] text-[var(--pt-text-meta)]">
               {meta[it.href]}

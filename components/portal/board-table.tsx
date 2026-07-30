@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
 
 export interface BoardRow {
@@ -56,7 +55,7 @@ export function BoardTable({
               {/* 행 높이를 30px로 고정하려면 제목이 한 줄을 넘지 않아야 한다.
                   테이블 셀에서 truncate가 동작하도록 max-width:0 트릭을 쓴다. */}
               <td className="max-w-0">
-                <Link href={r.href} className="pt-link flex items-center gap-1">
+                <a href={r.href} className="pt-link flex items-center gap-1">
                   {r.category && (
                     <span className="shrink-0 text-[var(--pt-text-meta)]">[{r.category}]</span>
                   )}
@@ -67,7 +66,7 @@ export function BoardTable({
                   {r.badge === "new" && (
                     <span className="pt-badge pt-badge-new shrink-0">N</span>
                   )}
-                </Link>
+                </a>
               </td>
               {hasMeta1 && <td className="pt-td-meta">{r.meta1}</td>}
               {hasMeta2 && <td className="pt-td-meta">{r.meta2}</td>}
