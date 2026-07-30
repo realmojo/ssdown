@@ -184,7 +184,8 @@ export async function getPosts(params: {
       .is("deleted_at", null);
     if (q) {
       const safe = q.replace(/[%,()]/g, " ");
-      qb = qb.or(`title.ilike.%${safe}%,content.ilike.%${safe}%,writer.ilike.%${safe}%`);
+      // 본문은 HTML 이므로 태그를 걷어낸 평문 사본(content_text)으로 찾는다.
+      qb = qb.or(`title.ilike.%${safe}%,content_text.ilike.%${safe}%,writer.ilike.%${safe}%`);
     }
     return qb;
   }

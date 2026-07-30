@@ -7,6 +7,7 @@ import {
   hashPassword,
   isRateLimited,
 } from "@/lib/board-utils";
+import { hasVisibleContent, htmlToText, sanitizePostHtml } from "@/lib/board-sanitize";
 
 /** 프록시를 거쳐 들어온 요청에서 클라이언트 IP를 뽑는다. */
 export function clientIp(req: NextRequest): string {
@@ -46,6 +47,10 @@ export async function POST(req: NextRequest) {
   if (password.length < 4) return bad("비밀번호는 4자 이상으로 입력해 주세요.");
   if (password.length > LIMITS.password) return bad("비밀번호가 너무 깁니다.");
 
+  // 허용 목록 밖의 태그·속성은 여기서 사라진다. 저장되는 값은 항상 정제본이다.
+  const safeContent = sanitizePostHtml(content);
+  if (!hasVisibleContent(safeContent)) return bad("내용을 입력해 주세요.");
+
   const ip = await hashIp(clientIp(req));
   if (await isRateLimited(ip)) {
     return bad("잠시 후에 다시 시도해 주세요. 연속 등록은 1분에 한 번만 가능합니다.", 429);
@@ -56,7 +61,8 @@ export async function POST(req: NextRequest) {
     .insert({
       board: BOARD_KEY,
       title,
-      content,
+      content: safeContent,
+      content_text: htmlToText(safeContent),
       writer,
       password_hash: await hashPassword(password),
       ip,

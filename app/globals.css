@@ -250,6 +250,127 @@ main :where(.grid, .flex) > * {
   white-space: nowrap;
 }
 
+/* --- 게시판 본문 --------------------------------------------------------
+   사용자가 쓴 HTML 이 들어오는 영역. 저장 시 허용 목록을 통과한 태그만 남아
+   있으므로, 여기서는 그 태그들이 읽기 좋게 보이도록 최소한만 스타일링한다.
+   ------------------------------------------------------------------------ */
+.board-content > *:first-child {
+  margin-top: 0;
+}
+.board-content > *:last-child {
+  margin-bottom: 0;
+}
+
+.board-content p {
+  margin: 0 0 0.9em;
+}
+
+.board-content h2,
+.board-content h3,
+.board-content h4,
+.board-content h5,
+.board-content h6 {
+  margin: 1.4em 0 0.5em;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.board-content h2 { font-size: 1.3em; }
+.board-content h3 { font-size: 1.15em; }
+.board-content h4,
+.board-content h5,
+.board-content h6 { font-size: 1.05em; }
+
+.board-content ul,
+.board-content ol {
+  margin: 0 0 0.9em;
+  padding-left: 1.5em;
+}
+
+.board-content ul { list-style: disc; }
+.board-content ol { list-style: decimal; }
+.board-content li { margin: 0.2em 0; }
+
+.board-content a {
+  color: var(--pt-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  overflow-wrap: anywhere;
+}
+
+.board-content blockquote {
+  margin: 0 0 0.9em;
+  padding: 0.5em 0.8em;
+  border-left: 3px solid var(--pt-line-strong);
+  background: var(--pt-head);
+  color: var(--pt-text-sub);
+}
+
+.board-content pre {
+  margin: 0 0 0.9em;
+  padding: 0.7em 0.8em;
+  background: #23272e;
+  color: #e6e6e6;
+  border-radius: var(--pt-radius);
+  overflow-x: auto;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.board-content code {
+  padding: 0.1em 0.3em;
+  background: var(--pt-head);
+  border: 1px solid var(--pt-line);
+  border-radius: var(--pt-radius);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.92em;
+}
+
+.board-content pre code {
+  padding: 0;
+  background: none;
+  border: 0;
+  color: inherit;
+}
+
+.board-content img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--pt-line);
+  border-radius: var(--pt-radius);
+}
+
+.board-content table {
+  width: auto;
+  margin: 0 0 0.9em;
+  border-collapse: collapse;
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.board-content th,
+.board-content td {
+  padding: 4px 8px;
+  border: 1px solid var(--pt-line);
+}
+
+.board-content th {
+  background: var(--pt-head);
+  font-weight: 600;
+}
+
+.board-content hr {
+  margin: 1.2em 0;
+  border: 0;
+  border-top: 1px solid var(--pt-line);
+}
+
+.board-content mark {
+  background: #fff3a3;
+  padding: 0 2px;
+}
+
 /* --- 링크 --------------------------------------------------------------- */
 .pt-link {
   color: var(--pt-text);

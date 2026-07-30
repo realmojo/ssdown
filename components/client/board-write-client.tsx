@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
+import { BoardEditor } from "./board-editor";
 
 /** 글쓰기·수정 공용 폼. `postId`가 있으면 수정 모드로 동작한다. */
 export function BoardWriteClient({
@@ -114,20 +115,10 @@ export function BoardWriteClient({
           />
         </label>
 
-        <label className="block">
+        <div>
           <span className="mb-1 block text-[12px] font-semibold">내용</span>
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            maxLength={10000}
-            required
-            rows={14}
-            className="pt-input w-full resize-y !h-auto py-2 leading-relaxed"
-          />
-          <span className="mt-0.5 block text-right text-[11px] text-[var(--pt-text-meta)]">
-            {content.length.toLocaleString()} / 10,000자
-          </span>
-        </label>
+          <BoardEditor value={content} onChange={setContent} maxLength={10000} />
+        </div>
 
         {isEdit && (
           <label className="block sm:max-w-xs">

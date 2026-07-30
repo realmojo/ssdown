@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { LIMITS, getPostWithHash, verifyPassword } from "@/lib/board-utils";
+import { hasVisibleContent, htmlToText, sanitizePostHtml } from "@/lib/board-sanitize";
 
 function bad(message: string, status = 400) {
   return NextResponse.json({ error: message }, { status });
@@ -48,9 +49,18 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
   if (title.length > LIMITS.title) return bad(`제목은 ${LIMITS.title}자 이내로 입력해 주세요.`);
   if (content.length > LIMITS.content) return bad(`내용은 ${LIMITS.content}자 이내로 입력해 주세요.`);
 
+  // 수정 경로도 반드시 같은 정제를 거친다.
+  const safeContent = sanitizePostHtml(content);
+  if (!hasVisibleContent(safeContent)) return bad("내용을 입력해 주세요.");
+
   const { error } = await supabase
     .from("ssdown_board_posts")
-    .update({ title, content, updated_at: new Date().toISOString() })
+    .update({
+      title,
+      content: safeContent,
+      content_text: htmlToText(safeContent),
+      updated_at: new Date().toISOString(),
+    })
     .eq("id", auth.id);
 
   if (error) {

@@ -6,14 +6,16 @@ import { PageShell } from "@/components/portal/page-shell";
 import { BoardCommentsClient } from "@/components/client/board-comments-client";
 import { BoardPostActions } from "@/components/client/board-post-actions";
 import { bumpViews, getAdjacent, getComments, getPost } from "@/lib/board-utils";
+import { htmlToText } from "@/lib/board-sanitize";
 import { buildAlternates } from "@/lib/seo";
 import Adsense from "@/components/Adsense";
 import { jsonLd } from "@/lib/json-ld";
 
 export const dynamic = "force-dynamic";
 
+/** 본문이 HTML 이므로 태그를 걷어낸 뒤 잘라 낸다. */
 function excerpt(content: string, max = 150): string {
-  const flat = content.replace(/\s+/g, " ").trim();
+  const flat = htmlToText(content);
   return flat.length > max ? `${flat.slice(0, max)}…` : flat;
 }
 
@@ -123,10 +125,14 @@ export default async function BoardPostPage({
             </div>
           </header>
 
-          {/* 사용자 입력은 평문 그대로 렌더한다. HTML 로 해석하지 않는다. */}
-          <div className="min-h-[120px] whitespace-pre-wrap break-words px-3 py-3 text-[13px] leading-[1.8]">
-            {post.content}
-          </div>
+          {/*
+            본문은 HTML 이다. 다만 저장 시점에 lib/board-sanitize 의 허용 목록을
+            통과한 값만 들어오므로 스크립트·이벤트 속성은 이미 제거돼 있다.
+          */}
+          <div
+            className="board-content min-h-[120px] break-words px-3 py-3 text-[13px] leading-[1.8]"
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
 
           <div className="flex items-center justify-between gap-2 border-t border-[var(--pt-line)] px-3 py-2">
             <Link href="/board" className="pt-btn">
