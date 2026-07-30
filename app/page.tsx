@@ -2,10 +2,15 @@ import { Metadata } from "next";
 import { HomePortal } from "@/components/portal/home-portal";
 import { getNewestApps } from "@/lib/app-utils";
 import { getLatestPosts } from "@/lib/blog-utils";
+import { getPosts as getBoardPosts } from "@/lib/board-utils";
 import { buildAlternates } from "@/lib/seo";
+import { jsonLd } from "@/lib/json-ld";
 
-/** 목록 데이터는 하루 한 번만 갱신하면 충분하다. */
-export const revalidate = 86400;
+/**
+ * 자유게시판 글이 홈에 함께 걸리므로 하루 단위로는 너무 느리다.
+ * 소프트웨어·블로그 목록은 거의 바뀌지 않으니 5분이면 충분하다.
+ */
+export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -50,7 +55,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const [apps, posts] = await Promise.all([getNewestApps(12), getLatestPosts(40)]);
+  const [apps, posts, board] = await Promise.all([
+    getNewestApps(12),
+    getLatestPosts(40),
+    getBoardPosts({ page: 1 }),
+  ]);
 
   const websiteJsonLd = {
     "@context": "https://schema.org",
@@ -94,13 +103,13 @@ export default async function Home() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(websiteJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(organizationJsonLd) }}
       />
-      <HomePortal apps={apps} posts={posts} />
+      <HomePortal apps={apps} posts={posts} boardPosts={board.posts} />
     </>
   );
 }

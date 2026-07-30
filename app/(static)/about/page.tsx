@@ -1,6 +1,7 @@
 import { AboutClient } from "@/components/client/about-client";
 import { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo";
+import { jsonLd } from "@/lib/json-ld";
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
@@ -44,7 +45,7 @@ export default async function AboutPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(organizationJsonLd) }}
       />
       <AboutClient />
     </>

@@ -107,6 +107,8 @@ const STATIC: Entry[] = [
   { url: `${BASE}/file/split-csv`,      lastmod: "2026-02-13", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/file/split-excel`,    lastmod: "2026-02-13", changefreq: "monthly", priority: 0.8 },
   { url: `${BASE}/file/excel-to-pdf`,   lastmod: "2026-02-13", changefreq: "monthly", priority: 0.8 },
+  // 커뮤니티
+  { url: `${BASE}/board`,   lastmod: "2026-07-30", changefreq: "daily",  priority: 0.6 },
   // Static
   { url: `${BASE}/about`,   lastmod: "2026-01-01", changefreq: "yearly", priority: 0.3 },
   { url: `${BASE}/contact`, lastmod: "2026-01-01", changefreq: "yearly", priority: 0.3 },
@@ -143,7 +145,23 @@ export async function GET() {
       priority: 0.7,
     }));
 
-  return new Response(buildXml([...STATIC, ...blogEntries]), {
+  // 자유게시판 글. 최신 500건까지만 담는다.
+  const { getPosts } = await import("@/lib/board-utils");
+  const boardEntries: Entry[] = [];
+  for (let page = 1; page <= 25; page++) {
+    const { posts: rows, total } = await getPosts({ page });
+    for (const p of rows) {
+      boardEntries.push({
+        url: `${BASE}/board/${p.id}`,
+        lastmod: new Date(p.updatedAt || p.createdAt).toISOString().split("T")[0],
+        changefreq: "weekly",
+        priority: 0.5,
+      });
+    }
+    if (boardEntries.length >= total || rows.length === 0) break;
+  }
+
+  return new Response(buildXml([...STATIC, ...blogEntries, ...boardEntries]), {
     headers: {
       "Content-Type": "application/xml; charset=utf-8",
       "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  COMMUNITY_ITEMS,
   DOWNLOADER_ITEMS,
   PLATFORM_ITEMS,
   TOOL_GROUPS,
@@ -32,6 +33,7 @@ export function PortalSidebar() {
           />
         ))}
         <Block title="소프트웨어" href="/software" items={PLATFORM_ITEMS} pathname={pathname} />
+        <Block title="커뮤니티" href="/board" items={COMMUNITY_ITEMS} pathname={pathname} />
       </div>
     </aside>
   );

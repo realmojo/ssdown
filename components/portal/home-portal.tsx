@@ -13,6 +13,7 @@ import type { SoftwareApplication } from "@/types/app";
 import type { Post } from "@/lib/blog-utils";
 import { blogCategoryLabel, isKoreanPost } from "@/lib/blog-categories";
 import Adsense from "@/components/Adsense";
+import type { BoardPost } from "@/lib/board-utils";
 
 /** 메인 상단 배너 광고 슬롯. */
 const HOME_AD_SLOT = "2367791384";
@@ -44,9 +45,11 @@ function fmtDate(v?: string | Date): string {
 export function HomePortal({
   apps,
   posts,
+  boardPosts,
 }: {
   apps: SoftwareApplication[];
   posts: Post[];
+  boardPosts: BoardPost[];
 }) {
   const popular = POPULAR_HREFS.map((h) => ALL_TOOLS.find((t) => t.href === h)).filter(
     (t): t is (typeof ALL_TOOLS)[number] => Boolean(t),
@@ -140,6 +143,20 @@ export function HomePortal({
             <BoardTable rows={postRows} headers={["번호", "제목", "날짜"]} />
           </Panel>
         </div>
+
+        {/* 자유게시판 */}
+        <Panel title="자유게시판" moreHref="/board" flush>
+          <BoardTable
+            rows={boardPosts.slice(0, 8).map((p, i) => ({
+              no: i + 1,
+              href: `/board/${p.id}`,
+              title: p.title,
+              meta1: p.writer,
+              meta2: fmtDate(p.createdAt),
+            }))}
+            headers={["번호", "제목", "글쓴이", "날짜"]}
+          />
+        </Panel>
 
         {/* 카테고리별 전체 도구 — 내부 링크를 한 화면에 모두 노출한다 */}
         <Panel title={`전체 도구 ${ALL_TOOLS.length}종`} moreHref="/tools">

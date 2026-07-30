@@ -74,6 +74,9 @@ export function PortalFooter() {
             <Link href="/blog" className="hover:text-[var(--pt-accent)]">
               블로그
             </Link>
+            <Link href="/board" className="hover:text-[var(--pt-accent)]">
+              자유게시판
+            </Link>
           </nav>
         </div>
       </div>

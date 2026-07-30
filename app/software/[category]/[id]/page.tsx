@@ -26,6 +26,7 @@ import { buildAlternates } from "@/lib/seo";
 import Adsense from "@/components/Adsense";
 import type { SoftwareApplication } from "@/types/app";
 import { PageShell } from "@/components/portal/page-shell";
+import { jsonLd } from "@/lib/json-ld";
 
 const PLATFORM_AD_SLOT: Record<string, string> = {
   Windows: "6067594441",
@@ -410,10 +411,10 @@ export default async function AppDetailPage({
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(softwareSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(howToSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }} />
 
       <PageShell
         sidebar={false}

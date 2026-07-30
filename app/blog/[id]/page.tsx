@@ -71,6 +71,7 @@ export async function generateMetadata({
 }
 
 import { getPostById } from "@/lib/blog-utils";
+import { jsonLd } from "@/lib/json-ld";
 
 export default async function BlogPostPage(props: {
   params: Promise<{ id: string }>;
@@ -101,7 +102,7 @@ export default async function BlogPostPage(props: {
   };
 
   const baseUrl = "https://ssdown.app";
-  const jsonLd = {
+  const pageSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
@@ -137,7 +138,7 @@ export default async function BlogPostPage(props: {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(pageSchema) }}
       />
       <PageShell
         crumbs={[

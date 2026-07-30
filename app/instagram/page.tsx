@@ -3,6 +3,7 @@ import { InstagramClient } from "@/components/client/instagram-client";
 import { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo";
 import { PageShell } from "@/components/portal/page-shell";
+import { jsonLd } from "@/lib/json-ld";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
@@ -51,7 +52,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function InstagramPage() {
   const dict = await getDictionary();
 
-  const jsonLd = {
+  const pageSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: [1, 2, 3, 4, 5]
@@ -99,15 +100,15 @@ export default async function InstagramPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(softwareAppSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(pageSchema) }}
       />
       <PageShell
         crumbs={[{ label: "영상 다운로드", href: "/tools" }, { label: "인스타그램 다운로드" }]}

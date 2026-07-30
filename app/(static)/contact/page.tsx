@@ -1,6 +1,7 @@
 import { ContactClient } from "@/components/client/contact-client";
 import { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo";
+import { jsonLd } from "@/lib/json-ld";
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
@@ -48,7 +49,7 @@ export default async function ContactPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(contactPageJsonLd) }}
       />
       <ContactClient />
     </>

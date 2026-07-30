@@ -3,6 +3,7 @@ import { DouyinClient } from "@/components/client/douyin-client";
 import { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo";
 import { PageShell } from "@/components/portal/page-shell";
+import { jsonLd } from "@/lib/json-ld";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
@@ -111,11 +112,11 @@ export default async function DouyinPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(faqJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(webAppJsonLd) }}
       />
       <PageShell
         crumbs={[{ label: "영상 다운로드", href: "/tools" }, { label: "더우인 다운로드" }]}

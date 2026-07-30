@@ -167,7 +167,14 @@ export const PRIMARY_NAV: NavItem[] = [
   { href: "/tools", label: "도구" },
   { href: "/software", label: "소프트웨어" },
   { href: "/blog", label: "블로그" },
+  { href: "/board", label: "자유게시판" },
   { href: "/search", label: "검색" },
+];
+
+/** 커뮤니티 메뉴. 지금은 자유게시판 하나다. */
+export const COMMUNITY_ITEMS: NavItem[] = [
+  { href: "/board", label: "자유게시판" },
+  { href: "/board/write", label: "글쓰기" },
 ];
 
 /** 전체 도구를 평탄화한 목록. 검색·인기 목록에서 쓴다. */

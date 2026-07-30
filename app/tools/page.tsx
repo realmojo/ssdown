@@ -5,6 +5,7 @@ import { buildAlternates } from "@/lib/seo";
 import { PageShell } from "@/components/portal/page-shell";
 import { Panel } from "@/components/portal/panel";
 import { ALL_TOOLS, DOWNLOADER_ITEMS, TOOL_GROUPS } from "@/lib/portal-nav";
+import { jsonLd } from "@/lib/json-ld";
 
 const CANONICAL = "https://ssdown.app/tools";
 
@@ -74,11 +75,11 @@ export default async function ToolsPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(itemListSchema) }}
       />
       <PageShell
         crumbs={[{ label: dict.breadcrumb.tools }]}

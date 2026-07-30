@@ -21,6 +21,7 @@ import { PageShell } from "@/components/portal/page-shell";
 import { Panel } from "@/components/portal/panel";
 import { buildAlternates } from "@/lib/seo";
 import type { Metadata } from "next";
+import { jsonLd } from "@/lib/json-ld";
 
 export const revalidate = 3600;
 
@@ -109,7 +110,7 @@ export default function SoftwareCategoriesPage() {
         <script
           key={i}
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          dangerouslySetInnerHTML={{ __html: jsonLd(schema) }}
         />
       ))}
       <PageShell

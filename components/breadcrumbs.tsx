@@ -1,4 +1,5 @@
 import { ChevronRight, Home } from "lucide-react";
+import { jsonLd } from "@/lib/json-ld";
 
 export interface BreadcrumbItem {
   label: string;
@@ -28,7 +29,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
       {/* Structured Data */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(structuredData) }}
       />
 
       {/* Visual Breadcrumbs */}

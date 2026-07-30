@@ -22,6 +22,7 @@ import { getCategoryBySlug, getCategoryByMain, CATEGORIES } from "@/lib/categori
 import { getAppsByCategory, getAppsByPlatform, localizeApp } from "@/lib/app-utils";
 import type { SoftwareApplication } from "@/types/app";
 import { PageShell } from "@/components/portal/page-shell";
+import { jsonLd } from "@/lib/json-ld";
 
 const PLATFORMS = ["windows", "mac", "android", "iphone"] as const;
 type PlatformSlug = (typeof PLATFORMS)[number];
@@ -293,7 +294,7 @@ function CategoryJsonLd({
         <script
           key={i}
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          dangerouslySetInnerHTML={{ __html: jsonLd(schema) }}
         />
       ))}
     </>

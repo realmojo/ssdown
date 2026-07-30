@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Menu, Search, X } from "lucide-react";
 import {
+  COMMUNITY_ITEMS,
   DOWNLOADER_ITEMS,
   PLATFORM_ITEMS,
   PRIMARY_NAV,
@@ -55,6 +56,12 @@ export function PortalHeader() {
       href: "/software",
       items: PLATFORM_ITEMS,
     },
+    {
+      key: "community",
+      label: "자유게시판",
+      href: "/board",
+      items: COMMUNITY_ITEMS,
+    },
   ];
 
   return (
@@ -72,6 +79,9 @@ export function PortalHeader() {
             </Link>
             <Link href="/blog" className="hover:text-[var(--pt-accent)]">
               블로그
+            </Link>
+            <Link href="/board" className="hover:text-[var(--pt-accent)]">
+              자유게시판
             </Link>
           </nav>
         </div>
