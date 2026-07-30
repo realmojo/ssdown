@@ -12,6 +12,10 @@ import {
 import type { SoftwareApplication } from "@/types/app";
 import type { Post } from "@/lib/blog-utils";
 import { blogCategoryLabel, isKoreanPost } from "@/lib/blog-categories";
+import Adsense from "@/components/Adsense";
+
+/** 메인 상단 배너 광고 슬롯. */
+const HOME_AD_SLOT = "2367791384";
 
 /**
  * 홈에서 "인기 도구"로 노출할 순서. 트래픽이 많은 도구를 앞에 둔다.
@@ -97,6 +101,9 @@ export function HomePortal({
             </Link>
           </div>
         </section>
+
+        {/* 상단 배너 광고 — 높이는 애드센스가 정하게 둔다 */}
+        <Adsense slotId={HOME_AD_SLOT} />
 
         {/* 인기 도구 + 영상 다운로드 */}
         <div className="grid gap-2 md:grid-cols-2">
