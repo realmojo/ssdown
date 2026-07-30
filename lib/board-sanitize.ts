@@ -11,8 +11,13 @@ import sanitizeHtml from "sanitize-html";
  *  - `style` 속성과 `<style>`: CSS 로 화면을 덮거나 다른 요소를 가릴 수 있다.
  *  - `<iframe>`·`<object>`·`<embed>`·`<form>`·`<input>`: 외부 삽입과 피싱 통로.
  *  - `on*` 이벤트 속성: sanitize-html 이 허용 목록 밖이라 자동으로 제거한다.
- *  - `class`·`id`: 사이트 CSS 를 끌어다 쓰거나 앵커를 가로챌 수 있다.
+ *  - `id`: 앵커를 가로챌 수 있다.
+ *  - `class`: 사이트 CSS 를 끌어다 쓸 수 있어 기본은 제거한다. 다만 본문 안
+ *    강조 버튼용으로 ALLOWED_LINK_CLASSES 에 등록한 값만 예외로 남긴다.
  */
+
+/** 본문 링크에 허용하는 class 값. 여기 없는 값은 제거된다. */
+const ALLOWED_LINK_CLASSES = new Set(["cta"]);
 const OPTIONS: sanitizeHtml.IOptions = {
   allowedTags: [
     "p", "br", "hr",
@@ -27,7 +32,7 @@ const OPTIONS: sanitizeHtml.IOptions = {
   // transformTags 로 붙인 속성도 이 목록을 통과해야 살아남는다.
   // (sanitize-html 은 변환을 먼저 하고 속성 필터를 나중에 적용한다)
   allowedAttributes: {
-    a: ["href", "title", "target", "rel"],
+    a: ["href", "title", "target", "rel", "class"],
     img: ["src", "alt", "width", "height", "loading", "referrerpolicy"],
     td: ["colspan", "rowspan"],
     th: ["colspan", "rowspan", "scope"],
@@ -39,16 +44,20 @@ const OPTIONS: sanitizeHtml.IOptions = {
   // 허용 목록 밖 태그는 껍데기만 벗기고 안쪽 글자는 남긴다.
   disallowedTagsMode: "discard",
   nonTextTags: ["style", "script", "textarea", "option", "noscript"],
+  // class 는 아래 허용 목록에 있는 값만 남긴다(transformTags 에서 걸러낸다).
   transformTags: {
     // 바깥으로 나가는 링크는 새 창 + 참조 차단 + 검색엔진 신뢰 차단.
-    a: (tagName, attribs) => ({
-      tagName,
-      attribs: {
-        ...attribs,
+    a: (tagName, attribs) => {
+      // 임의 클래스는 버리고 사이트가 정한 값만 남긴다.
+      const { class: incoming, ...rest } = attribs;
+      const next: sanitizeHtml.Attributes = {
+        ...rest,
         target: "_blank",
         rel: "nofollow ugc noopener noreferrer",
-      },
-    }),
+      };
+      if (incoming && ALLOWED_LINK_CLASSES.has(incoming)) next.class = incoming;
+      return { tagName, attribs: next };
+    },
     img: (tagName, attribs) => ({
       tagName,
       attribs: { ...attribs, loading: "lazy", referrerpolicy: "no-referrer" },
