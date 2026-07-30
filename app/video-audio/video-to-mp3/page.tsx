@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
 import { VideoToMp3Client } from "@/components/client/video-to-mp3-client";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageShell } from "@/components/portal/page-shell";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
@@ -115,21 +115,16 @@ export default async function VideoToMp3Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
-      <div className="container max-w-7xl mx-auto px-4 py-8">
-        <Breadcrumbs
-          items={[
-            { label: dict.breadcrumb.home, href: "/" },
-            { label: dict.breadcrumb.tools, href: "/tools" },
-            { label: dict.breadcrumb.video_audio, href: "/tools/video-audio" },
-            {
-              label: dict.page_video_to_mp3.breadcrumb_title,
-              href: "/video-audio/video-to-mp3",
-              isCurrent: true,
-            },
-          ]}
-        />
-      </div>
-      <VideoToMp3Client dict={dict} />
+      <PageShell
+        sidebar={false}
+        crumbs={[
+          { label: dict.breadcrumb.tools, href: "/tools" },
+          { label: dict.breadcrumb.video_audio, href: "/tools/video-audio" },
+          { label: dict.page_video_to_mp3.breadcrumb_title },
+        ]}
+      >
+        <VideoToMp3Client dict={dict} />
+      </PageShell>
     </>
   );
 }

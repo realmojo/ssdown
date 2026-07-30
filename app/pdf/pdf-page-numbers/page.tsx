@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
 import { PdfPageNumbersClient } from "@/components/client/pdf-page-numbers-client";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageShell } from "@/components/portal/page-shell";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
@@ -113,21 +113,16 @@ export default async function PdfPageNumbersPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container max-w-7xl mx-auto px-4 py-8">
-        <Breadcrumbs
-          items={[
-            { label: dict.breadcrumb.home, href: "/" },
-            { label: dict.breadcrumb.tools, href: "/tools" },
-            { label: dict.breadcrumb.pdf_tools, href: "/tools/pdf" },
-            {
-              label: dict.page_pdf_page_numbers.breadcrumb_title,
-              href: "/pdf/pdf-page-numbers",
-              isCurrent: true,
-            },
-          ]}
-        />
-      </div>
-      <PdfPageNumbersClient dict={dict} />
+      <PageShell
+        sidebar={false}
+        crumbs={[
+          { label: dict.breadcrumb.tools, href: "/tools" },
+          { label: dict.breadcrumb.pdf_tools, href: "/tools/pdf" },
+          { label: dict.page_pdf_page_numbers.breadcrumb_title },
+        ]}
+      >
+        <PdfPageNumbersClient dict={dict} />
+      </PageShell>
     </>
   );
 }

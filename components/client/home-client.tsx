@@ -27,9 +27,9 @@ export function HomeClient() {
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
       {/* 1. H1 Section */}
-      <section className="relative overflow-hidden py-16 lg:py-24">
+      <section className="relative overflow-hidden py-3 lg:py-4">
         <div className="absolute inset-0 bg-linear-to-br from-indigo-50/30 via-white to-purple-50/30 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 -z-10" />
-        <div className="container px-4 md:px-6 flex flex-col items-center text-center space-y-8">
+        <div className="container px-4 md:px-6 flex flex-col items-center text-center space-y-2">
           <span className="inline-block py-1 px-3 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300 text-sm font-semibold mb-2">
             무료 온라인 도구 플랫폼
           </span>
@@ -39,7 +39,7 @@ export function HomeClient() {
           </h1>
 
           {/* 2. Main Introduction Paragraph */}
-          <div className="max-w-3xl mx-auto space-y-6 text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+          <div className="max-w-3xl mx-auto space-y-2 text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
             <p className="font-medium">
               SSDown은 이미지 편집부터 PDF 관리, 영상 변환까지 일상적인 디지털 작업을 빠르고 효율적으로 처리하도록 돕는 무료 온라인 도구 플랫폼입니다.
             </p>
@@ -54,12 +54,12 @@ export function HomeClient() {
       </section>
 
       {/* 3. Topics Covered (H2) */}
-      <section className="py-16 bg-white dark:bg-gray-950">
+      <section className="py-3 bg-white dark:bg-gray-950">
         <div className="container px-4 md:px-6 max-w-4xl">
-          <h2 className="text-3xl font-bold tracking-tight mb-8 text-center sm:text-left">
+          <h2 className="text-3xl font-bold tracking-tight mb-2 text-center sm:text-left">
             제공하는 도구
           </h2>
-          <div className="grid sm:grid-cols-2 gap-8">
+          <div className="grid sm:grid-cols-2 gap-2">
             <div className="space-y-4">
               <p className="text-muted-foreground leading-relaxed">
                 SSDown은 디지털 작업을 간단하게 만들어 주는 브라우저 기반 도구를 폭넓게 제공합니다. 아래 분야별로 계속 늘어나는 무료 도구를 살펴보세요.
@@ -92,15 +92,15 @@ export function HomeClient() {
       </section>
 
       {/* 4. Who is this for? (H2) */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-900/20 border-y">
+      <section className="py-3 bg-gray-50 dark:bg-gray-900/20 border-y">
         <div className="container px-4 md:px-6 max-w-4xl">
-          <h2 className="text-3xl font-bold tracking-tight mb-4 text-center">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             이런 분께 유용합니다
           </h2>
-          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-center mb-2 max-w-2xl mx-auto">
             SSDown은 일상적인 디지털 작업에 빠르고 무료이면서 믿을 수 있는 온라인 도구가 필요한 모든 분을 위해 만들어졌습니다.
           </p>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2">
             {[
               {
                 text: "이미지를 빠르게 편집해야 하는 분",
@@ -177,15 +177,15 @@ export function HomeClient() {
       </section>
 
       {/* 5. How It Works (H2) - New Section */}
-      <section className="py-16 bg-white dark:bg-gray-950">
+      <section className="py-3 bg-white dark:bg-gray-950">
         <div className="container px-4 md:px-6 max-w-4xl">
-          <h2 className="text-3xl font-bold tracking-tight mb-4 text-center">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             SSDown 이용 방법
           </h2>
-          <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+          <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
             자주 하는 디지털 작업을 손쉽게 처리할 수 있습니다. 몇 단계면 바로 시작할 수 있습니다.
           </p>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-2">
             {[
               {
                 step: "01",
@@ -224,9 +224,9 @@ export function HomeClient() {
       </section>
 
       {/* 6. Tool Introduction (The ONLY place for downloaders) (H2) */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900/20 border-y">
+      <section className="py-4 bg-gray-50 dark:bg-gray-900/20 border-y">
         <div className="container px-4 md:px-6 max-w-5xl">
-          <div className="text-center max-w-3xl mx-auto space-y-6 mb-12">
+          <div className="text-center max-w-3xl mx-auto space-y-2 mb-3">
             <h2 className="text-3xl font-bold tracking-tight">
               ⚠️ 교육용 참고 도구 (이용에 따른 책임은 본인에게 있습니다)
             </h2>
@@ -267,7 +267,7 @@ export function HomeClient() {
           </div>
 
           {/* Tool Links */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-2">
             <a href="/x" className="group">
               <Button
                 variant="outline"
@@ -338,22 +338,22 @@ export function HomeClient() {
             </a>
           </div>
 
-          <div className="mt-8 text-center">
+          <div className="mt-2 text-center">
             <p className="text-sm text-muted-foreground">(개인적 용도에 한함)</p>
           </div>
         </div>
       </section>
 
       {/* 7. Blog & Resources CTA (H2) - New Section */}
-      <section className="py-16 bg-white dark:bg-gray-950">
+      <section className="py-3 bg-white dark:bg-gray-950">
         <div className="container px-4 md:px-6 max-w-4xl">
-          <h2 className="text-3xl font-bold tracking-tight mb-4 text-center">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             블로그에서 더 알아보기
           </h2>
-          <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+          <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
             저희 블로그에서는 도구를 더 잘 활용할 수 있도록 다양한 주제를 다룹니다. 단계별 튜토리얼부터 유용한 팁까지 필요한 정보를 제공합니다.
           </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {[
               {
                 icon: BookOpen,
@@ -407,9 +407,9 @@ export function HomeClient() {
       </section>
 
       {/* 8. Terms & Privacy Notice */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-900/20 border-t">
-        <div className="container px-4 md:px-6 max-w-4xl space-y-6">
-          <h2 className="text-2xl font-bold tracking-tight">약관 및 개인정보</h2>
+      <section className="py-3 bg-gray-50 dark:bg-gray-900/20 border-t">
+        <div className="container px-4 md:px-6 max-w-4xl space-y-2">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">약관 및 개인정보</h2>
           <div className="prose prose-slate dark:prose-invert max-w-none text-muted-foreground space-y-4">
             <p>
               SSDown은 브라우저에서 파일을 직접 처리합니다. 저희 서버에 파일을 올리거나 저장하거나 공유하지 않습니다. 처리 과정 내내 데이터는 사용자의 기기에 머무릅니다.
@@ -432,9 +432,9 @@ export function HomeClient() {
       </section>
 
       {/* 9. Operation Policy (H2 - Transparency) */}
-      <section className="py-16 bg-white dark:bg-gray-950 border-t">
-        <div className="container px-4 md:px-6 max-w-4xl space-y-6">
-          <h2 className="text-2xl font-bold tracking-tight">
+      <section className="py-3 bg-white dark:bg-gray-950 border-t">
+        <div className="container px-4 md:px-6 max-w-4xl space-y-2">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             운영 투명성
           </h2>
           <div className="text-muted-foreground leading-relaxed space-y-4">

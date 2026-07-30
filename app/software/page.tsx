@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { CATEGORIES } from "@/lib/categories";
+import { PageShell } from "@/components/portal/page-shell";
+import { Panel } from "@/components/portal/panel";
 import { buildAlternates } from "@/lib/seo";
 import type { Metadata } from "next";
 
@@ -69,7 +71,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
 function CategoryIcon({ name }: { name: string }) {
   const Icon = ICON_MAP[name];
   if (!Icon) return null;
-  return <Icon className="w-7 h-7 text-blue-600" />;
+  return <Icon className="h-3.5 w-3.5" />;
 }
 
 export default function SoftwareCategoriesPage() {
@@ -102,7 +104,7 @@ export default function SoftwareCategoriesPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
       {schemas.map((schema, i) => (
         <script
           key={i}
@@ -110,62 +112,58 @@ export default function SoftwareCategoriesPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ))}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Breadcrumb */}
-        <nav className="flex items-center gap-1.5 text-xs text-gray-400 mb-6">
-          <a href="/" className="hover:text-gray-600 transition-colors">홈</a>
-          <ChevronRight className="w-3 h-3" />
-          <span className="text-gray-600">소프트웨어</span>
-        </nav>
+      <PageShell
+        crumbs={[{ label: "소프트웨어" }]}
+        title="무료 소프트웨어 다운로드"
+        desc="카테고리나 플랫폼별로 평점 높은 무료 소프트웨어와 앱을 둘러보세요."
+      >
+        <Panel title="플랫폼별로 찾기">
+          <ul className="grid grid-cols-2 gap-1.5 sm:grid-cols-4">
+            {[
+              { slug: "windows", label: "Windows", desc: "PC·데스크톱" },
+              { slug: "mac", label: "Mac", desc: "macOS 앱" },
+              { slug: "android", label: "안드로이드", desc: "안드로이드 앱" },
+              { slug: "iphone", label: "iPhone", desc: "iOS 앱" },
+            ].map(({ slug, label, desc }) => (
+              <li key={slug}>
+                <a
+                  href={`/software/${slug}`}
+                  className="block border border-[var(--pt-line)] px-2 py-2 text-center hover:border-[var(--pt-accent)]"
+                >
+                  <span className="block text-[13px] font-bold hover:text-[var(--pt-accent)]">
+                    {label}
+                  </span>
+                  <span className="block text-[11px] text-[var(--pt-text-meta)]">{desc}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Panel>
 
-        <h1 className="text-3xl font-extrabold text-gray-900 mb-2">
-          무료 소프트웨어 다운로드
-        </h1>
-        <p className="text-gray-500 text-sm mb-8">
-          카테고리나 플랫폼별로 평점 높은 무료 소프트웨어와 앱을 둘러보세요.
-        </p>
-
-        {/* Browse by Platform */}
-        <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">플랫폼별로 찾기</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
-          {[
-            { slug: "windows", label: "Windows", desc: "PC·데스크톱" },
-            { slug: "mac",     label: "Mac",     desc: "macOS 앱" },
-            { slug: "android", label: "Android", desc: "안드로이드 앱" },
-            { slug: "iphone",  label: "iPhone",  desc: "iOS 앱" },
-          ].map(({ slug, label, desc }) => (
-            <a
-              key={slug}
-              href={`/software/${slug}`}
-              className="group flex flex-col items-center justify-center gap-1 bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-md transition-all text-center"
-            >
-              <span className="text-2xl">{slug === "windows" ? "🖥️" : slug === "mac" ? "🍎" : slug === "android" ? "🤖" : "📱"}</span>
-              <span className="font-semibold text-gray-800 text-sm group-hover:text-blue-600 transition-colors">{label}</span>
-              <span className="text-[11px] text-gray-400">{desc}</span>
-            </a>
-          ))}
-        </div>
-
-        {/* Browse by Category */}
-        <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">카테고리별로 찾기</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {CATEGORIES.map((category) => (
-            <a
-              key={category.slug}
-              href={`/software/${category.slug}`}
-              className="group flex items-center gap-3 bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-md transition-all"
-            >
-              <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-blue-100 transition-colors">
-                <CategoryIcon name={category.icon} />
-              </div>
-              <span className="flex-1 font-medium text-gray-800 text-sm">
-                {category.name}
-              </span>
-              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors" />
-            </a>
-          ))}
-        </div>
-      </div>
-    </div>
+        <Panel title="카테고리별로 찾기" flush>
+          <ul className="grid sm:grid-cols-2 lg:grid-cols-3">
+            {CATEGORIES.map((category) => (
+              <li
+                key={category.slug}
+                className="min-w-0 border-b border-r border-[var(--pt-line)]"
+              >
+                <a
+                  href={`/software/${category.slug}`}
+                  className="group flex items-center gap-1.5 px-2.5 py-[7px]"
+                >
+                  <span className="flex h-4 w-4 shrink-0 items-center justify-center text-[var(--pt-text-meta)]">
+                    <CategoryIcon name={category.icon} />
+                  </span>
+                  <span className="flex-1 truncate text-[12px] group-hover:text-[var(--pt-accent)] group-hover:underline">
+                    {category.name}
+                  </span>
+                  <ChevronRight className="h-3 w-3 shrink-0 text-[var(--pt-text-meta)]" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Panel>
+      </PageShell>
+    </>
   );
 }

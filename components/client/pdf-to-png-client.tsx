@@ -195,18 +195,18 @@ export function PdfToPngClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 min-h-[50vh]">
-      <div className="flex gap-8">
-        <div className="flex-1 min-w-0 flex flex-col items-center">
-          <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-red-100 to-rose-100 dark:from-red-900/30 dark:to-rose-900/30 mb-6">
+    <div className="w-full">
+      <div className="flex gap-2">
+        <div className="flex min-w-0 flex-1 flex-col">
+          <div className="flex w-full flex-col">
+            <div className="hidden">
               {/* eslint-disable-next-line jsx-a11y/alt-text */}
               <Image className="w-10 h-10 text-red-600 dark:text-red-400" />
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+            <h1 className="mb-1.5 w-full border-b-2 border-[var(--pt-text)] pb-1.5 text-[17px] font-extrabold leading-tight tracking-tight">
               {dict?.pdf_to_png?.title || "PDF to PNG"}
             </h1>
-            <p className="text-muted-foreground text-center max-w-2xl mb-8">
+            <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
               {dict?.pdf_to_png?.subtitle ||
                 "Convert each page of your PDF into lossless PNG images. Choose scale for resolution. 100% private — processed in your browser."}
             </p>
@@ -245,7 +245,7 @@ export function PdfToPngClient({ dict }: { dict?: any }) {
             )}
 
             {pdfFile && convertedPages.length === 0 && (
-              <div className="w-full max-w-2xl mt-6 space-y-4 animate-in fade-in slide-in-from-bottom-4">
+              <div className="w-full max-w-2xl mt-2 space-y-4 animate-in fade-in slide-in-from-bottom-4">
                 <div className="flex items-center justify-between">
                   <div className="text-sm text-muted-foreground">
                     {pdfName} &middot; {pageCount} page
@@ -313,7 +313,7 @@ export function PdfToPngClient({ dict }: { dict?: any }) {
             )}
 
             {convertedPages.length > 0 && (
-              <div className="w-full max-w-2xl mt-6 space-y-4 animate-in fade-in slide-in-from-bottom-4">
+              <div className="w-full max-w-2xl mt-2 space-y-4 animate-in fade-in slide-in-from-bottom-4">
                 <div className="flex items-center justify-between">
                   <div className="text-sm text-muted-foreground">
                     {convertedPages.length} PNG image
@@ -367,18 +367,18 @@ export function PdfToPngClient({ dict }: { dict?: any }) {
             )}
           </div>
 
-          <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
+          <div className="w-full max-w-6xl mx-auto mt-3 px-4 space-y-3">
             <section>
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold tracking-tight mb-4">
+              <div className="mb-2">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {dict?.pdf_to_png?.guide_title || "How to Convert PDF to PNG"}
                 </h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
                   {dict?.pdf_to_png?.guide_desc ||
                     "Extract lossless PNG images from your PDF in 3 simple steps."}
                 </p>
               </div>
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-3 gap-2">
                 {[
                   {
                     step: 1,
@@ -429,11 +429,11 @@ export function PdfToPngClient({ dict }: { dict?: any }) {
             </section>
 
             <section className="bg-red-50 dark:bg-red-900/20 rounded-2xl p-8 md:p-12">
-              <div className="text-center mb-10">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
+              <div className="text-center mb-2">
+                <div className="hidden">
                   <Lightbulb className="w-8 h-8 text-yellow-500" />
                 </div>
-                <h2 className="text-3xl font-bold tracking-tight mb-4">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {dict?.pdf_to_png?.tips_title || "PDF to PNG Tips"}
                 </h2>
                 <p className="text-muted-foreground">
@@ -441,7 +441,7 @@ export function PdfToPngClient({ dict }: { dict?: any }) {
                     "Get the best results when converting PDF to PNG."}
                 </p>
               </div>
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-2">
                 {[
                   {
                     title: dict?.pdf_to_png?.tip1_title || "100% Private",
@@ -491,11 +491,11 @@ export function PdfToPngClient({ dict }: { dict?: any }) {
               </div>
             </section>
             <section>
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold tracking-tight mb-4">
+              <div className="mb-2">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {dict?.pdf_to_png?.faq_title || "PDF to PNG FAQ"}
                 </h2>
-                <p className="text-muted-foreground text-center max-w-2xl mx-auto">
+                <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
                   {dict?.pdf_to_png?.faq_desc ||
                     "Common questions about converting PDF to PNG."}
                 </p>
@@ -557,7 +557,7 @@ export function PdfToPngClient({ dict }: { dict?: any }) {
             </section>
           </div>
         </div>
-        <aside className="hidden lg:block w-64 shrink-0">
+        <aside className="hidden shrink-0 xl:block xl:w-[200px]">
           <ToolsSidebar category="pdf" dict={dict} />
         </aside>
       </div>

@@ -70,24 +70,24 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
   ];
 
   const guideSection = (
-    <div className="w-full max-w-6xl mx-auto mt-20 px-4 space-y-16">
+    <div className="w-full max-w-6xl mx-auto mt-3 px-4 space-y-3">
       {/* Step-by-Step Guide */}
       <section>
-        <div className="text-center mb-12">
+        <div className="mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 mb-4">
             <BookOpen className="w-8 h-8 text-blue-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.dailymotion?.guide_title ||
               "How to Download Dailymotion Videos"}
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
             {dict?.dailymotion?.guide_desc ||
               "Download Dailymotion videos in high quality with just a few clicks."}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-2">
           {[
             {
               step: 1,
@@ -138,11 +138,11 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
 
       {/* 활용 팁 */}
       <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
-        <div className="text-center mb-10">
+        <div className="text-center mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
             <Lightbulb className="w-8 h-8 text-yellow-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.dailymotion?.tips_title || "Dailymotion Download Tips"}
           </h2>
           <p className="text-muted-foreground">
@@ -151,7 +151,7 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-2">
           {[
             {
               title: dict?.dailymotion?.tip1_title || "공개 영상만 가능",
@@ -200,11 +200,11 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
 
       {/* Features & Capabilities */}
       <section>
-        <div className="text-center mb-10">
+        <div className="text-center mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
             <Info className="w-8 h-8 text-green-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.dailymotion?.features_title ||
               "Dailymotion Download Features"}
           </h2>
@@ -214,7 +214,7 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
           {[
             {
               title: dict?.dailymotion?.feature1_title || "HD Videos",
@@ -253,8 +253,8 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
 
       {/* FAQ Section */}
       <section>
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+        <div className="text-center mb-2">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.qna_dailymotion?.title || "Dailymotion FAQ"}
           </h2>
           <p className="text-muted-foreground">
@@ -283,7 +283,7 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
 
   const emptyState = (
     <>
-      <div className="grid gap-6 sm:grid-cols-2 w-full pt-12 text-left">
+      <div className="grid gap-2 sm:grid-cols-2 w-full pt-12 text-left">
         <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
           <p className="font-semibold text-lg mb-2">
             {dict?.dailymotion?.feature_1_title || "HD 화질 Videos"}
@@ -312,10 +312,10 @@ export function DailymotionClient({ dict }: DailymotionClientProps) {
       dict={dict}
       theme={theme}
       icon={Play}
-      title={dict?.dailymotion?.title || "Dailymotion Saver"}
+      title={dict?.dailymotion?.title || "데일리모션 영상 다운로드"}
       subtitle={
         dict?.dailymotion?.subtitle ||
-        "Download Dailymotion videos instantly. 고화질, no watermark."
+        "데일리모션 영상을 바로 내려받으세요. 고화질, 워터마크 없음."
       }
       placeholder={
         dict?.dailymotion?.placeholder || "Paste Dailymotion URL here..."

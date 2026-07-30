@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageShell } from "@/components/portal/page-shell";
 import { CsvToXmlClient } from "@/components/client/csv-to-xml-client";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -113,21 +113,16 @@ export default async function CsvToXmlPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container max-w-7xl mx-auto px-4 py-8">
-        <Breadcrumbs
-          items={[
-            { label: dict.breadcrumb.home, href: "/" },
-            { label: dict.breadcrumb.tools, href: "/tools" },
-            { label: dict.breadcrumb.file_tools, href: "/tools/file" },
-            {
-              label: dict.page_csv_to_xml.breadcrumb_title,
-              href: "/file/csv-to-xml",
-              isCurrent: true,
-            },
-          ]}
-        />
-      </div>
-      <CsvToXmlClient dict={dict} />
+      <PageShell
+        sidebar={false}
+        crumbs={[
+          { label: dict.breadcrumb.tools, href: "/tools" },
+          { label: dict.breadcrumb.file_tools, href: "/tools/file" },
+          { label: dict.page_csv_to_xml.breadcrumb_title },
+        ]}
+      >
+        <CsvToXmlClient dict={dict} />
+      </PageShell>
     </>
   );
 }

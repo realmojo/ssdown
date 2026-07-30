@@ -180,17 +180,17 @@ export function OgDebuggerClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 min-h-[50vh]">
-      <div className="flex gap-8">
-        <div className="flex-1 min-w-0 flex flex-col items-center">
-          <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-fuchsia-100 to-pink-100 dark:from-fuchsia-900/30 dark:to-pink-900/30 mb-6">
+    <div className="w-full">
+      <div className="flex gap-2">
+        <div className="flex min-w-0 flex-1 flex-col">
+          <div className="flex w-full flex-col">
+            <div className="hidden">
               <Share2 className="w-10 h-10 text-fuchsia-600 dark:text-fuchsia-400" />
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+            <h1 className="mb-1.5 w-full border-b-2 border-[var(--pt-text)] pb-1.5 text-[17px] font-extrabold leading-tight tracking-tight">
               {d?.title || "Open Graph Debugger"}
             </h1>
-            <p className="text-muted-foreground text-center max-w-2xl mb-8">
+            <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
               {d?.subtitle ||
                 "Preview how any link will look when shared on Facebook, X, LinkedIn, and KakaoTalk. Inspect Open Graph and Twitter Card tags instantly."}
             </p>
@@ -233,7 +233,7 @@ export function OgDebuggerClient({ dict }: { dict?: any }) {
 
             {/* Results */}
             {result && (
-              <div className="w-full mt-8 space-y-8">
+              <div className="w-full mt-2 space-y-2">
                 {result.error ? (
                   <Alert variant="destructive">
                     <CircleX className="h-4 w-4" />
@@ -323,7 +323,7 @@ export function OgDebuggerClient({ dict }: { dict?: any }) {
                         <ScanSearch className="w-5 h-5 text-fuchsia-500" />
                         {d?.previews_title || "Share Previews"}
                       </h2>
-                      <div className="grid md:grid-cols-2 gap-6">
+                      <div className="grid md:grid-cols-2 gap-2">
                         {/* Facebook */}
                         <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
                           <div className="flex items-center gap-2 px-4 py-2.5 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/60">
@@ -460,15 +460,15 @@ export function OgDebuggerClient({ dict }: { dict?: any }) {
           </div>
 
           {/* Guide, Tips, FAQ */}
-          <div className="w-full max-w-5xl mx-auto mt-16 px-4 space-y-16">
+          <div className="w-full max-w-5xl mx-auto mt-3 px-4 space-y-3">
             {/* How to Use */}
             <section>
-              <div className="text-center mb-10">
-                <h2 className="text-2xl font-bold tracking-tight mb-4">
+              <div className="text-center mb-2">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {d?.guide_title || "How It Works"}
                 </h2>
               </div>
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-3 gap-2">
                 {[
                   {
                     step: 1,
@@ -509,12 +509,12 @@ export function OgDebuggerClient({ dict }: { dict?: any }) {
 
             {/* Tips */}
             <section className="bg-gradient-to-br from-fuchsia-50 to-pink-50 dark:from-fuchsia-900/20 dark:to-pink-900/20 rounded-3xl p-8 md:p-12">
-              <div className="flex flex-col md:flex-row gap-12 items-center">
+              <div className="flex flex-col md:flex-row gap-2 items-center">
                 <div className="md:w-1/3 text-center md:text-left">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-6 text-yellow-500">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 shadow-sm mb-2 text-yellow-500">
                     <Lightbulb className="w-8 h-8" />
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">
+                  <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                     {d?.tips_title || "Open Graph Tips"}
                   </h2>
                   <p className="text-muted-foreground">
@@ -545,8 +545,8 @@ export function OgDebuggerClient({ dict }: { dict?: any }) {
 
             {/* FAQ */}
             <section className="max-w-3xl mx-auto">
-              <div className="text-center mb-10">
-                <h2 className="text-2xl font-bold tracking-tight mb-4">
+              <div className="text-center mb-2">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {dict?.page_og_debugger?.faq ? d?.faq_title || "FAQ" : "FAQ"}
                 </h2>
               </div>
@@ -561,7 +561,7 @@ export function OgDebuggerClient({ dict }: { dict?: any }) {
             </section>
           </div>
         </div>
-        <aside className="hidden lg:block w-64 shrink-0">
+        <aside className="hidden shrink-0 xl:block xl:w-[200px]">
           <ToolsSidebar category="utility" dict={dict} />
         </aside>
       </div>

@@ -4,15 +4,15 @@ export function AboutClient() {
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 lg:py-32 text-center bg-slate-50 dark:bg-slate-900/40">
-        <div className="container px-4 md:px-6">
-          <div className="inline-block px-3 py-1 mb-6 text-sm font-semibold tracking-wider text-indigo-600 uppercase bg-indigo-100 rounded-full dark:bg-indigo-900/30 dark:text-indigo-400">
+      <section className="pt-wrap py-2">
+        <div className="">
+          <div className="pt-badge mb-1">
             우리의 목표
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl md:text-7xl mb-8 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-indigo-700 to-slate-900 dark:from-white dark:via-indigo-300 dark:to-white">
+          <h1 className="mb-1.5 w-full border-b-2 border-[var(--pt-text)] pb-1.5 text-[17px] font-extrabold leading-tight tracking-tight">
             단순한 도구로, <br className="hidden md:block" /> 강력한 결과를.
           </h1>
-          <p className="mx-auto max-w-[900px] text-slate-600 md:text-2xl dark:text-slate-400 leading-relaxed">
+          <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
             SSDown은 어디에 있든 누구나 디지털 작업을 쉽고 자유롭게, 무료로 처리할 수 있게 만드는 데 집중합니다. 설치도, 비용도, 타협도 없습니다.
           </p>
         </div>
@@ -25,9 +25,9 @@ export function AboutClient() {
       </section>
 
       {/* Main Content */}
-      <section className="py-20 bg-white dark:bg-slate-950">
+      <section className="py-4 bg-white dark:bg-slate-950">
         <div className="container px-4 md:px-6 max-w-5xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 lg:gap-20">
             
             {/* Sidebar/Quick Info */}
             <div className="lg:col-span-4 space-y-10">
@@ -55,7 +55,7 @@ export function AboutClient() {
 
               <div className="p-8 rounded-2xl bg-indigo-600 text-white shadow-xl shadow-indigo-500/20">
                 <h3 className="text-xl font-bold mb-4">저희를 응원해 주세요</h3>
-                <p className="text-indigo-100 text-sm leading-relaxed mb-6">
+                <p className="text-indigo-100 text-sm leading-relaxed mb-2">
                   SSDown은 계속 무료로 운영할 생각입니다. 저희 도구가 쓸모 있었다면, 널리 알려 주시는 것이 가장 큰 응원입니다.
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -67,10 +67,10 @@ export function AboutClient() {
             </div>
 
             {/* Main Narrative */}
-            <div className="lg:col-span-8 space-y-16">
+            <div className="lg:col-span-8 space-y-3">
               
               {/* Our Story */}
-              <div className="space-y-6">
+              <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-4">
                   SSDown 이야기
                 </h2>
@@ -88,11 +88,11 @@ export function AboutClient() {
               </div>
 
               {/* Our Commitment */}
-              <div className="space-y-6">
+              <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-4">
                   무엇이 다른가
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <div className="space-y-3">
                     <div className="h-12 w-12 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -141,7 +141,7 @@ export function AboutClient() {
               </div>
 
               {/* Founders / Team (Generic but personal) */}
-              <div className="space-y-6">
+              <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-4">
                   팀 소개
                 </h2>
@@ -157,7 +157,7 @@ export function AboutClient() {
 
               {/* Final CTA */}
               <div className="pt-12 border-t border-slate-100 dark:border-slate-800 text-center sm:text-left">
-                <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
+                <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">
                   작업 흐름을 개선할 준비가 되셨나요?
                 </h2>
                 <div className="flex flex-col sm:flex-row gap-4">

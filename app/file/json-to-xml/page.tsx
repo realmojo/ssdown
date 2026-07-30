@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageShell } from "@/components/portal/page-shell";
 import { JsonToXmlClient } from "@/components/client/json-to-xml-client";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -113,21 +113,16 @@ export default async function JsonToXmlPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container max-w-7xl mx-auto px-4 py-8">
-        <Breadcrumbs
-          items={[
-            { label: dict.breadcrumb.home, href: "/" },
-            { label: dict.breadcrumb.tools, href: "/tools" },
-            { label: dict.breadcrumb.file_tools, href: "/tools/file" },
-            {
-              label: dict.page_json_to_xml.breadcrumb_title,
-              href: "/file/json-to-xml",
-              isCurrent: true,
-            },
-          ]}
-        />
-      </div>
-      <JsonToXmlClient dict={dict} />
+      <PageShell
+        sidebar={false}
+        crumbs={[
+          { label: dict.breadcrumb.tools, href: "/tools" },
+          { label: dict.breadcrumb.file_tools, href: "/tools/file" },
+          { label: dict.page_json_to_xml.breadcrumb_title },
+        ]}
+      >
+        <JsonToXmlClient dict={dict} />
+      </PageShell>
     </>
   );
 }

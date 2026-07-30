@@ -284,26 +284,20 @@ export function VideoDownloaderClient({
   };
 
   return (
-    <div
-      className={`min-h-[calc(100vh-4rem)] bg-gradient-to-b ${theme.bgFrom} ${theme.bgTo}`}
-    >
-      <div className="w-full px-4 md:px-6 py-12 lg:py-24">
-        <div className="flex flex-col items-center text-center space-y-8 max-w-3xl mx-auto">
-          <div
-            className={`p-4 rounded-full ${theme.iconBg} ${theme.iconColor} mb-4 animate-in fade-in zoom-in duration-500`}
-          >
-            <Icon className="h-12 w-12" />
+    <div className="w-full">
+      <div className="w-full">
+        <div className="flex w-full flex-col">
+          {/* 아이콘은 제목줄 안에 작게 넣어 밀도를 유지한다. */}
+          <div className="mb-1.5 flex w-full items-center gap-1.5 border-b-2 border-[var(--pt-text)] pb-1.5">
+            <span className={`shrink-0 ${theme.iconColor}`}>
+              <Icon className="h-[18px] w-[18px]" />
+            </span>
+            <h1 className="text-[17px] font-extrabold leading-tight tracking-tight">
+              {title}
+            </h1>
           </div>
 
-          <h1
-            className={`text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-r ${
-              theme.titleFrom
-            } ${theme.titleVia || ""} ${theme.titleTo}`}
-          >
-            {title}
-          </h1>
-
-          <p className="text-xl text-muted-foreground max-w-[600px] mb-2">
+          <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
             {subtitle}
           </p>
 
@@ -311,9 +305,7 @@ export function VideoDownloaderClient({
             <Adsense slotId={slotId1 || ""} />
           </div>
 
-          <Card
-            className={`w-full shadow-xl ${theme.cardBorder} overflow-hidden`}
-          >
+          <Card className={`w-full ${theme.cardBorder} overflow-hidden`}>
             <div className={`h-2 ${theme.topBarGradient}`} />
             <CardContent className="p-6 sm:p-8">
               <div className="flex flex-col gap-4">
@@ -400,14 +392,14 @@ export function VideoDownloaderClient({
               const dataArray = Array.isArray(data) ? data : [data];
 
               return (
-                <div className="w-full space-y-6">
+                <div className="w-full space-y-2">
                   {dataArray.map((item, itemIndex) => (
                     <Card
                       key={itemIndex}
                       className={`w-full shadow-2xl ${theme.cardBorder} overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-700`}
                     >
                       <div className="bg-white dark:bg-gray-900">
-                        <div className="p-6 flex flex-col md:flex-row gap-6 items-start">
+                        <div className="p-6 flex flex-col md:flex-row gap-2 items-start">
                           {/* Thumbnail */}
                           <div
                             className={`w-full md:w-1/3 relative ${thumbnailAspect} md:aspect-auto ${thumbnailHeight} rounded-xl overflow-hidden shadow-lg group bg-black/5`}
@@ -422,7 +414,7 @@ export function VideoDownloaderClient({
                           </div>
 
                           {/* Content & Stats */}
-                          <div className="flex-1 w-full text-left space-y-6">
+                          <div className="flex-1 w-full text-left space-y-2">
                             {/* User Info Header */}
                             <div className="flex items-center justify-between flex-wrap gap-2">
                               <div className="flex items-center gap-3">
@@ -568,7 +560,7 @@ export function VideoDownloaderClient({
                     </Card>
                   ))}
                   {slotId2 && (
-                    <div className="w-full mt-6">
+                    <div className="w-full mt-2">
                       <Adsense slotId={slotId2} />
                     </div>
                   )}

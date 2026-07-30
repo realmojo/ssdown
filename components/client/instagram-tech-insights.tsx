@@ -29,21 +29,21 @@ export function InstagramTechInsights() {
   ];
 
   return (
-    <section className="py-16 bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900">
+    <section className="py-3 bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900">
       <div className="container px-4 md:px-6 mx-auto max-w-6xl">
-        <div className="text-center mb-12">
+        <div className="mb-2">
           <span className="inline-block py-1 px-3 rounded-full bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300 text-sm font-semibold mb-4">
             플랫폼 구조
           </span>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             기술 살펴보기: 인스타그램 미디어 전송
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
             인스타그램이 수십억 대의 기기에 시각 콘텐츠를 저장하고 보호하며 전달하는 방식을 살펴봅니다.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-2">
           {insights.map((item, idx) => (
             <div
               key={idx}
@@ -67,7 +67,7 @@ export function InstagramTechInsights() {
         </div>
 
         {/* Educational Note */}
-        <div className="mt-12 p-6 rounded-xl bg-purple-50/50 dark:bg-purple-900/10 border border-purple-100 dark:border-purple-900/30">
+        <div className="mt-3 p-6 rounded-xl bg-purple-50/50 dark:bg-purple-900/10 border border-purple-100 dark:border-purple-900/30">
           <div className="flex items-start gap-4">
             <Lock className="w-6 h-6 text-purple-600 mt-1 flex-shrink-0" />
             <div className="space-y-2">

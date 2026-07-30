@@ -1,21 +1,25 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
-import {
-  ImageIcon,
-  Film,
-  MessageSquare,
-  Wrench,
-  FileText,
-  ArrowRight,
-} from "lucide-react";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageShell } from "@/components/portal/page-shell";
+import { Panel } from "@/components/portal/panel";
+import { ALL_TOOLS, DOWNLOADER_ITEMS, TOOL_GROUPS } from "@/lib/portal-nav";
+
+const CANONICAL = "https://ssdown.app/tools";
+
+/** dict.page_tools.categories 배열의 순서. 설명 문구를 hub 경로에 붙이는 데 쓴다. */
+const DICT_CATEGORY_ORDER = [
+  "/tools/image",
+  "/tools/video-audio",
+  "/tools/social-text",
+  "/tools/utility",
+  "/tools/pdf",
+  "/tools/file",
+];
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
-  const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/tools`;
-
   const title = dict.page_tools.meta_title;
   const description = dict.page_tools.meta_description;
 
@@ -25,97 +29,45 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title,
       description,
-      url: canonical,
+      url: CANONICAL,
       siteName: "SSDown",
       locale: "ko_KR",
       type: "website",
     },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
-    alternates: buildAlternates(new URL(canonical).pathname),
+    twitter: { card: "summary_large_image", title, description },
+    alternates: buildAlternates("/tools"),
   };
 }
-
-const categoryMeta = [
-  {
-    href: "/tools/image",
-    icon: ImageIcon,
-    gradient: "from-pink-500 to-rose-500",
-    bgLight: "bg-pink-100 dark:bg-pink-900/30",
-    iconColor: "text-pink-500",
-    count: 20,
-  },
-  {
-    href: "/tools/video-audio",
-    icon: Film,
-    gradient: "from-indigo-500 to-purple-500",
-    bgLight: "bg-indigo-100 dark:bg-indigo-900/30",
-    iconColor: "text-indigo-500",
-    count: 11,
-  },
-  {
-    href: "/tools/social-text",
-    icon: MessageSquare,
-    gradient: "from-cyan-500 to-blue-500",
-    bgLight: "bg-cyan-100 dark:bg-cyan-900/30",
-    iconColor: "text-cyan-500",
-    count: 2,
-  },
-  {
-    href: "/tools/utility",
-    icon: Wrench,
-    gradient: "from-violet-500 to-purple-500",
-    bgLight: "bg-violet-100 dark:bg-violet-900/30",
-    iconColor: "text-violet-500",
-    count: 15,
-  },
-  {
-    href: "/tools/pdf",
-    icon: FileText,
-    gradient: "from-red-500 to-rose-500",
-    bgLight: "bg-red-100 dark:bg-red-900/30",
-    iconColor: "text-red-500",
-    count: 19,
-  },
-  {
-    href: "/tools/file",
-    icon: FileText,
-    gradient: "from-blue-600 to-indigo-600",
-    bgLight: "bg-blue-100 dark:bg-blue-900/30",
-    iconColor: "text-blue-600",
-    count: 12,
-  },
-];
 
 export default async function ToolsPage() {
   const dict = await getDictionary();
 
-  const categories = categoryMeta.map((meta, i) => ({
-    ...meta,
-    title: dict.page_tools.categories[i].title,
-    description: dict.page_tools.categories[i].description,
-  }));
+  const descByHub: Record<string, string> = {};
+  DICT_CATEGORY_ORDER.forEach((hub, i) => {
+    descByHub[hub] = dict.page_tools.categories[i]?.description ?? "";
+  });
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: dict.breadcrumb.home,
-        item: "https://ssdown.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: dict.breadcrumb.tools,
-        item: "https://ssdown.app/tools",
-      },
+      { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
+      { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: CANONICAL },
     ],
+  };
+
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: dict.tools.title,
+    url: CANONICAL,
+    numberOfItems: ALL_TOOLS.length,
+    itemListElement: ALL_TOOLS.map((t, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: t.label,
+      url: `https://ssdown.app${t.href}`,
+    })),
   };
 
   return (
@@ -124,54 +76,76 @@ export default async function ToolsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="flex flex-col min-h-[calc(100vh-4rem)]">
-        <div className="container max-w-7xl mx-auto px-4 py-8">
-          <Breadcrumbs
-            items={[
-              { label: dict.breadcrumb.home, href: "/" },
-              { label: dict.breadcrumb.tools, href: "/tools", isCurrent: true },
-            ]}
-          />
-
-          <header className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-              {dict.tools.title}
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              {dict.tools.subtitle}
-            </p>
-          </header>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-            {categories.map((cat) => (
-              <a
-                key={cat.href}
-                href={cat.href}
-                className="group block rounded-2xl border border-gray-200 dark:border-gray-800 p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
+      <PageShell
+        crumbs={[{ label: dict.breadcrumb.tools }]}
+        title={dict.tools.title}
+        desc={dict.tools.subtitle}
+        actions={
+          <span className="text-[12px] text-[var(--pt-text-meta)]">
+            총 <strong className="text-[var(--pt-accent)]">{ALL_TOOLS.length}</strong>개
+          </span>
+        }
+      >
+        {/* 카테고리 요약 */}
+        <Panel title="카테고리" flush>
+          <ul className="grid sm:grid-cols-2 lg:grid-cols-3">
+            {TOOL_GROUPS.map((g) => (
+              <li
+                key={g.key}
+                className="min-w-0 border-b border-r border-[var(--pt-line)] last:border-r-0"
               >
-                <div
-                  className={`inline-flex items-center justify-center w-16 h-16 rounded-full ${cat.bgLight} mb-6`}
-                >
-                  <cat.icon className={`w-8 h-8 ${cat.iconColor}`} />
-                </div>
-                <h2 className="text-2xl font-bold mb-3">{cat.title}</h2>
-                <p className="text-muted-foreground mb-4">{cat.description}</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">
-                    {cat.count} {dict.breadcrumb.tools_count}
+                <Link href={g.hub} className="group block px-2.5 py-2">
+                  <span className="flex items-center justify-between">
+                    <span className="text-[13px] font-bold group-hover:text-[var(--pt-accent)]">
+                      {g.label}
+                    </span>
+                    <span className="pt-badge">{g.items.length}</span>
                   </span>
-                  <span
-                    className={`inline-flex items-center gap-2 text-sm font-semibold bg-gradient-to-r ${cat.gradient} bg-clip-text text-transparent group-hover:gap-3 transition-all`}
-                  >
-                    {dict.breadcrumb.browse}{" "}
-                    <ArrowRight className="w-4 h-4 text-current" />
+                  <span className="mt-0.5 block truncate text-[11px] text-[var(--pt-text-meta)]">
+                    {descByHub[g.hub]}
                   </span>
-                </div>
-              </a>
+                </Link>
+              </li>
             ))}
-          </div>
-        </div>
-      </div>
+          </ul>
+        </Panel>
+
+        {/* 카테고리별 전체 목록 */}
+        {TOOL_GROUPS.map((g) => (
+          <Panel
+            key={g.key}
+            title={`${g.label} (${g.items.length})`}
+            href={g.hub}
+            moreHref={g.hub}
+          >
+            <ul className="grid gap-x-4 sm:grid-cols-2 lg:grid-cols-3">
+              {g.items.map((it) => (
+                <li key={it.href} className="border-b border-[var(--pt-line)]">
+                  <Link href={it.href} className="pt-link block truncate py-[5px] text-[12px]">
+                    {it.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Panel>
+        ))}
+
+        <Panel title="영상 다운로드">
+          <ul className="grid gap-x-4 sm:grid-cols-2 lg:grid-cols-4">
+            {DOWNLOADER_ITEMS.map((it) => (
+              <li key={it.href} className="border-b border-[var(--pt-line)]">
+                <Link href={it.href} className="pt-link block truncate py-[5px] text-[12px]">
+                  {it.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Panel>
+      </PageShell>
     </>
   );
 }

@@ -58,7 +58,7 @@ function AppCard({ app }: { app: SoftwareApplication }) {
   return (
     <a
       href={buildAppHref(app)}
-      className="group bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-md transition-all"
+      className="pt-panel group p-2 hover:border-[var(--pt-accent)]"
     >
       <div className="flex items-start gap-3">
         <div className="w-14 h-14 shrink-0 rounded-xl overflow-hidden bg-gray-100 flex items-center justify-center">
@@ -145,10 +145,10 @@ export default function SearchClient({
   const totalPages = Math.ceil(initialTotal / PAGE_SIZE);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="">
+      <div className="pt-wrap py-2">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-2">
           <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
             <SlidersHorizontal className="w-6 h-6 text-blue-600" />
             소프트웨어 검색
@@ -159,7 +159,7 @@ export default function SearchClient({
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-6 flex flex-col sm:flex-row gap-3">
+        <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-2 flex flex-col sm:flex-row gap-3">
           {/* Search input */}
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -218,7 +218,7 @@ export default function SearchClient({
         {/* Results */}
         <div className={isPending ? "opacity-50 pointer-events-none transition-opacity" : ""}>
           {initialApps.length === 0 ? (
-            <div className="text-center py-20 text-gray-400">
+            <div className="text-center py-4 text-gray-400">
               <Search className="w-10 h-10 mx-auto mb-3 opacity-30" />
               <p className="text-lg">앱을 찾지 못했습니다</p>
               <p className="text-sm mt-1">필터를 조정해 보세요</p>

@@ -73,24 +73,24 @@ export function TikTokClient({ dict }: TikTokClientProps) {
   ];
 
   const guideSection = (
-    <div className="w-full max-w-6xl mx-auto mt-20 px-4 space-y-16">
+    <div className="w-full max-w-6xl mx-auto mt-3 px-4 space-y-3">
       {/* Step-by-Step Guide */}
       <section>
-        <div className="text-center mb-12">
+        <div className="mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-pink-100 dark:bg-pink-900/30 mb-4">
             <BookOpen className="w-8 h-8 text-pink-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.tiktok?.guide_title ||
               "틱톡 영상 워터마크 없이 내려받는 방법"}
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
             {dict?.tiktok?.guide_desc ||
               "거슬리는 워터마크 없이 틱톡 영상을 고화질로 내려받으세요."}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-2">
           {[
             {
               step: 1,
@@ -141,11 +141,11 @@ export function TikTokClient({ dict }: TikTokClientProps) {
 
       {/* 활용 팁 */}
       <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
-        <div className="text-center mb-10">
+        <div className="text-center mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
             <Lightbulb className="w-8 h-8 text-yellow-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.tiktok?.tips_title || "틱톡 다운로드 팁"}
           </h2>
           <p className="text-muted-foreground">
@@ -154,7 +154,7 @@ export function TikTokClient({ dict }: TikTokClientProps) {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-2">
           {[
             {
               title: dict?.tiktok?.tip1_title || "워터마크 없음 보장",
@@ -203,11 +203,11 @@ export function TikTokClient({ dict }: TikTokClientProps) {
 
       {/* Features & Capabilities */}
       <section>
-        <div className="text-center mb-10">
+        <div className="text-center mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
             <Info className="w-8 h-8 text-green-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.tiktok?.features_title || "틱톡 다운로드 기능"}
           </h2>
           <p className="text-muted-foreground">
@@ -216,7 +216,7 @@ export function TikTokClient({ dict }: TikTokClientProps) {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
           {[
             {
               title: dict?.tiktok?.feature1_title || "워터마크 없는 영상",
@@ -257,8 +257,8 @@ export function TikTokClient({ dict }: TikTokClientProps) {
 
       {/* FAQ Section */}
       <section>
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+        <div className="text-center mb-2">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.qna_tiktok?.title || "TikTok FAQ"}
           </h2>
           <p className="text-muted-foreground">
@@ -283,10 +283,10 @@ export function TikTokClient({ dict }: TikTokClientProps) {
 
       {/* TikTok Platform Deep Dive */}
       <section className="bg-white dark:bg-gray-950 rounded-2xl border p-8 md:p-12">
-        <h2 className="text-3xl font-bold tracking-tight mb-6">
+        <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
           틱톡 영상 다운로드 이해하기
         </h2>
-        <div className="prose prose-slate dark:prose-invert max-w-none space-y-6 text-muted-foreground">
+        <div className="prose prose-slate dark:prose-invert max-w-none space-y-2 text-muted-foreground">
           <p>
             틱톡은 10억 명이 넘는 사용자가 매일 콘텐츠를 만들고 공유하는 세계에서 가장 인기 있는 숏폼 영상 플랫폼이 되었습니다. 틱톡이 영상 콘텐츠를 다루는 방식을 알아두면 다운로드를 훨씬 잘 활용할 수 있습니다.
           </p>
@@ -314,7 +314,7 @@ export function TikTokClient({ dict }: TikTokClientProps) {
   const faqSection = guideSection;
 
   const emptyState = (
-    <div className="grid gap-6 sm:grid-cols-2 w-full pt-12 text-left">
+    <div className="grid gap-2 sm:grid-cols-2 w-full pt-12 text-left">
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
         <p className="font-semibold text-lg mb-2">
           {dict?.tiktok?.no_watermark || "No Watermark"}
@@ -342,12 +342,12 @@ export function TikTokClient({ dict }: TikTokClientProps) {
       dict={dict}
       theme={theme}
       icon={TikTokIcon}
-      title={dict?.tiktok?.title || "TikTok Saver"}
+      title={dict?.tiktok?.title || "틱톡 영상 다운로드"}
       subtitle={
         dict?.tiktok?.subtitle ||
-        "Download TikTok videos without watermark. Save MP4 videos and MP3 audio instantly."
+        "틱톡 영상을 워터마크 없이 내려받으세요. MP4 영상과 MP3 음원을 바로 저장합니다."
       }
-      placeholder={dict?.tiktok?.placeholder || "Paste TikTok link here..."}
+      placeholder={dict?.tiktok?.placeholder || "틱톡 링크를 붙여넣으세요…"}
       apiEndpoint="/api/tiktok"
       downloadEndpoint="/api/tiktok/download"
       noVideoError="이 틱톡 게시물에서 영상을 찾지 못했습니다. 영상이 포함되어 있는지 확인해 주세요."

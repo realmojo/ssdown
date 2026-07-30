@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
 import { SilenceRemoverClient } from "@/components/client/silence-remover-client";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageShell } from "@/components/portal/page-shell";
 
 const FALLBACK_FAQ: { question: string; answer: string }[] = [
   {
@@ -155,21 +155,16 @@ export default async function SilenceRemoverPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container max-w-7xl mx-auto px-4 py-8">
-        <Breadcrumbs
-          items={[
-            { label: homeLabel, href: "/" },
-            { label: toolsLabel, href: "/tools" },
-            { label: videoAudioLabel, href: "/tools/video-audio" },
-            {
-              label: breadcrumbLabel,
-              href: "/video-audio/silence-remover",
-              isCurrent: true,
-            },
-          ]}
-        />
-      </div>
-      <SilenceRemoverClient dict={dict} />
+      <PageShell
+        sidebar={false}
+        crumbs={[
+          { label: toolsLabel, href: "/tools" },
+          { label: videoAudioLabel, href: "/tools/video-audio" },
+          { label: breadcrumbLabel },
+        ]}
+      >
+        <SilenceRemoverClient dict={dict} />
+      </PageShell>
     </>
   );
 }

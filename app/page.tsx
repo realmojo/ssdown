@@ -1,6 +1,11 @@
 import { Metadata } from "next";
-import { HomeClient } from "@/components/client/home-client";
+import { HomePortal } from "@/components/portal/home-portal";
+import { getNewestApps } from "@/lib/app-utils";
+import { getLatestPosts } from "@/lib/blog-utils";
 import { buildAlternates } from "@/lib/seo";
+
+/** 목록 데이터는 하루 한 번만 갱신하면 충분하다. */
+export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -44,7 +49,9 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function Home() {
+export default async function Home() {
+  const [apps, posts] = await Promise.all([getNewestApps(12), getLatestPosts(40)]);
+
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -93,7 +100,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
       />
-      <HomeClient />
+      <HomePortal apps={apps} posts={posts} />
     </>
   );
 }

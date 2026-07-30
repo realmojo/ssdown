@@ -99,15 +99,258 @@
   --ring: 240 4.9% 83.9%;
 }
 
+/* ==========================================================================
+   포털 디자인 토큰 (딜바다·키워드에그류 고밀도 한국형 포털)
+
+   - 흰 배경 + 얇은 회색 실선 테두리
+   - 본문 13px / 메타 11px, 좁은 행간
+   - 반경 2px, 그림자 없음
+   - 강조는 파란 링크와 빨간 HOT 뱃지로만
+   ========================================================================== */
+:root {
+  /* 테두리 */
+  --pt-line: #dde1e6;
+  --pt-line-strong: #c3c9d0;
+
+  /* 면 */
+  --pt-surface: #ffffff;
+  --pt-surface-alt: #fafbfc;
+  --pt-head: #f4f6f8;
+  --pt-hover: #f5f8fd;
+
+  /* 글자 */
+  --pt-text: #222831;
+  --pt-text-sub: #5b6470;
+  --pt-text-meta: #8b939d;
+
+  /* 강조 */
+  --pt-link: #1c4e8a;
+  --pt-link-hover: #0d3a6e;
+  --pt-accent: #1966c1;
+  --pt-hot: #d63031;
+  --pt-new: #2f9e44;
+
+  /* 치수 */
+  --pt-radius: 2px;
+  --pt-gutter: 10px;
+  --pt-max: 1200px;
+}
+
 body {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  background-color: var(--pt-surface-alt);
+  color: var(--pt-text);
+  font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", "Nanum Gothic",
+    "Noto Sans KR", Dotum, "돋움", sans-serif;
+  font-size: 13px;
+  line-height: 1.55;
+  word-break: keep-all;
 }
 
 /* Global utility for centering containers */
 .container {
   margin-inline: auto;
+}
+
+/*
+ * 그리드·플렉스 자식의 기본 `min-width: auto` 때문에 긴 내용(입력창, 코드, 표)이
+ * 열 폭을 밀어내 모바일에서 가로 스크롤이 생긴다. 본문 안에서는 줄어들 수 있게
+ * 기본값을 0으로 낮춘다. `:where()`라 특정도가 0이므로 `min-w-*` 유틸리티를
+ * 명시한 곳은 그대로 우선한다.
+ */
+main :where(.grid, .flex) > * {
+  min-width: 0;
+}
+
+/* --- 포털 레이아웃 ------------------------------------------------------- */
+
+/* 좌우 여백을 포함한 가로 정렬 컨테이너. 헤더·본문·푸터가 공유한다. */
+.pt-wrap {
+  max-width: var(--pt-max);
+  margin-inline: auto;
+  padding-inline: 10px;
+}
+
+/* --- 패널: 제목 줄이 붙은 테두리 박스 (그누보드 게시판 위젯 형태) -------- */
+.pt-panel {
+  background: var(--pt-surface);
+  border: 1px solid var(--pt-line);
+  border-radius: var(--pt-radius);
+}
+
+.pt-panel-hd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 10px;
+  height: 32px;
+  background: var(--pt-head);
+  border-bottom: 1px solid var(--pt-line);
+}
+
+.pt-panel-hd h2,
+.pt-panel-hd h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--pt-text);
+  letter-spacing: -0.02em;
+}
+
+.pt-panel-bd {
+  padding: 8px 10px;
+}
+
+/* --- 목록 테이블 (번호 / 제목 / 분류 / 조회) ---------------------------- */
+.pt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.pt-table th {
+  height: 30px;
+  padding: 0 6px;
+  background: var(--pt-head);
+  border-bottom: 1px solid var(--pt-line-strong);
+  color: var(--pt-text-sub);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pt-table td {
+  height: 30px;
+  padding: 0 6px;
+  border-bottom: 1px solid var(--pt-line);
+  vertical-align: middle;
+}
+
+.pt-table tbody tr:hover {
+  background: var(--pt-hover);
+}
+
+.pt-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* 번호·조회수처럼 폭이 고정된 보조 칼럼 */
+.pt-td-num {
+  width: 52px;
+  text-align: center;
+  color: var(--pt-text-meta);
+  font-size: 12px;
+}
+
+.pt-td-meta {
+  width: 72px;
+  text-align: center;
+  color: var(--pt-text-meta);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* --- 링크 --------------------------------------------------------------- */
+.pt-link {
+  color: var(--pt-text);
+  text-decoration: none;
+}
+
+.pt-link:hover {
+  color: var(--pt-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* --- 뱃지 --------------------------------------------------------------- */
+.pt-badge {
+  display: inline-block;
+  padding: 0 4px;
+  border-radius: var(--pt-radius);
+  background: var(--pt-head);
+  border: 1px solid var(--pt-line);
+  color: var(--pt-text-sub);
+  font-size: 11px;
+  line-height: 16px;
+  vertical-align: 1px;
+  white-space: nowrap;
+}
+
+.pt-badge-hot {
+  background: var(--pt-hot);
+  border-color: var(--pt-hot);
+  color: #fff;
+  font-weight: 700;
+}
+
+.pt-badge-new {
+  background: var(--pt-new);
+  border-color: var(--pt-new);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* --- 버튼 --------------------------------------------------------------- */
+.pt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 30px;
+  padding: 0 12px;
+  border: 1px solid var(--pt-line-strong);
+  border-radius: var(--pt-radius);
+  background: var(--pt-surface);
+  color: var(--pt-text);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pt-btn:hover {
+  background: var(--pt-head);
+}
+
+.pt-btn-primary {
+  background: var(--pt-accent);
+  border-color: var(--pt-accent);
+  color: #fff;
+  font-weight: 700;
+}
+
+.pt-btn-primary:hover {
+  background: #15529f;
+}
+
+/* --- 입력 --------------------------------------------------------------- */
+.pt-input {
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--pt-line-strong);
+  border-radius: var(--pt-radius);
+  background: #fff;
+  font-size: 13px;
+  color: var(--pt-text);
+}
+
+.pt-input:focus {
+  outline: none;
+  border-color: var(--pt-accent);
+}
+
+/*
+ * DB에서 온 본문(HTML)에는 폭이 넓은 표나 긴 코드 줄이 섞여 있어 모바일에서
+ * 페이지 전체를 가로로 밀어낸다. 넓은 요소는 자기 영역 안에서만 스크롤하게 한다.
+ */
+.prose :where(table, pre) {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.prose :where(p, li, td, th, h1, h2, h3, h4, h5, h6) {
+  overflow-wrap: anywhere;
 }
 
 /* Enhanced Typography Styles */

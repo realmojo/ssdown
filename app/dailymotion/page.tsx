@@ -2,6 +2,7 @@ import { getDictionary } from "@/lib/get-dictionary";
 import { DailymotionClient } from "@/components/client/dailymotion-client";
 import { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo";
+import { PageShell } from "@/components/portal/page-shell";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
@@ -108,7 +109,11 @@ export default async function DailymotionPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <DailymotionClient dict={dict} />
+      <PageShell
+        crumbs={[{ label: "영상 다운로드", href: "/tools" }, { label: "데일리모션 다운로드" }]}
+      >
+        <DailymotionClient dict={dict} />
+      </PageShell>
     </>
   );
 }

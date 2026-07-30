@@ -262,14 +262,14 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex gap-8">
-      <div className="flex-1 min-w-0 flex flex-col items-center">
-      <div className="text-center mb-12">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4">
+    <div className="w-full">
+      <div className="flex gap-2">
+      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="mb-2">
+        <h1 className="mb-1.5 w-full border-b-2 border-[var(--pt-text)] pb-1.5 text-[17px] font-extrabold leading-tight tracking-tight">
           {dict?.thumbnail_generator?.title || "Thumbnail Generator"}
         </h1>
-        <p className="text-muted-foreground text-center max-w-2xl mx-auto">
+        <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
           {dict?.thumbnail_generator?.subtitle ||
             "Create eye-catching thumbnails for YouTube, Instagram, and more. No design skills needed."}
         </p>
@@ -277,8 +277,8 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
         <Adsense slotId="7759160077" />
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-8 mb-20">
-        <div className="space-y-6">
+      <div className="grid lg:grid-cols-2 gap-2 mb-3">
+        <div className="space-y-2">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -592,23 +592,23 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
         </div>
       </div>
 
-      <div className="w-full max-w-6xl mx-auto mt-20 px-4 space-y-16">
+      <div className="w-full max-w-6xl mx-auto mt-3 px-4 space-y-3">
         <section>
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-100 dark:bg-purple-900/30 mb-4">
+          <div className="mb-2">
+            <div className="hidden">
               <BookOpen className="w-8 h-8 text-purple-500" />
             </div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">
+            <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
               {dict?.thumbnail_generator?.guide_title ||
                 "How to Create Thumbnails"}
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
               {dict?.thumbnail_generator?.guide_desc ||
                 "Create professional thumbnails in just a few simple steps."}
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-2">
             {[
               {
                 step: 1,
@@ -662,11 +662,11 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
         </section>
 
         <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
+          <div className="text-center mb-2">
+            <div className="hidden">
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">
+            <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
               {dict?.thumbnail_generator?.tips_title || "Thumbnail Design Tips"}
             </h2>
             <p className="text-muted-foreground">
@@ -675,7 +675,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-2">
             {[
               {
                 title: dict?.thumbnail_generator?.tip1_title || "Use Bold Text",
@@ -728,11 +728,11 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
         </section>
 
         <section>
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
+          <div className="text-center mb-2">
+            <div className="hidden">
               <Info className="w-8 h-8 text-green-500" />
             </div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">
+            <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
               {dict?.thumbnail_generator?.features_title ||
                 "Generator Features"}
             </h2>
@@ -742,7 +742,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
             {[
               {
                 title:
@@ -786,8 +786,8 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
           </div>
         </section>
         <section>
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <div className="text-center mb-2">
+            <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
               {dict?.qna_thumbnail_generator?.title ||
                 "Thumbnail Generator FAQ"}
             </h2>
@@ -812,7 +812,7 @@ export function ThumbnailGeneratorClient({ dict }: { dict?: any }) {
         </section>
       </div>
       </div>
-      <aside className="hidden lg:block w-64 shrink-0">
+      <aside className="hidden shrink-0 xl:block xl:w-[200px]">
         <ToolsSidebar category="image" dict={dict} />
       </aside>
       </div>

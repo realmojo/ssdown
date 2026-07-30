@@ -72,23 +72,23 @@ export function XClient({ dict }: XClientProps) {
   ];
 
   const guideSection = (
-    <div className="w-full max-w-6xl mx-auto mt-20 px-4 space-y-16">
+    <div className="w-full max-w-6xl mx-auto mt-3 px-4 space-y-3">
       {/* Step-by-Step Guide */}
       <section>
-        <div className="text-center mb-12">
+        <div className="mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 mb-4">
             <BookOpen className="w-8 h-8 text-blue-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.x?.guide_title || "X(트위터) 영상 다운로드 방법"}
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
             {dict?.x?.guide_desc ||
               "아래 단계만 따라 하면 X(트위터)의 어떤 영상이든 고화질로 내려받을 수 있습니다."}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-2">
           {[
             {
               step: 1,
@@ -139,11 +139,11 @@ export function XClient({ dict }: XClientProps) {
 
       {/* 활용 팁 */}
       <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
-        <div className="text-center mb-10">
+        <div className="text-center mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
             <Lightbulb className="w-8 h-8 text-yellow-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.x?.tips_title || "활용 팁"}
           </h2>
           <p className="text-muted-foreground">
@@ -152,7 +152,7 @@ export function XClient({ dict }: XClientProps) {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-2">
           {[
             {
               title: dict?.x?.tip1_title || "알맞은 화질 고르기",
@@ -201,11 +201,11 @@ export function XClient({ dict }: XClientProps) {
 
       {/* Features & Capabilities */}
       <section>
-        <div className="text-center mb-10">
+        <div className="text-center mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
             <Info className="w-8 h-8 text-green-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.x?.features_title || "X에서 내려받을 수 있는 것"}
           </h2>
           <p className="text-muted-foreground">
@@ -214,7 +214,7 @@ export function XClient({ dict }: XClientProps) {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
           {[
             {
               title: dict?.x?.feature1_title || "일반 영상",
@@ -255,8 +255,8 @@ export function XClient({ dict }: XClientProps) {
 
       {/* FAQ Section */}
       <section>
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+        <div className="text-center mb-2">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.qna?.title || "자주 묻는 질문"}
           </h2>
           <p className="text-muted-foreground">
@@ -281,10 +281,10 @@ export function XClient({ dict }: XClientProps) {
 
       {/* X/Twitter Platform Deep Dive */}
       <section className="bg-white dark:bg-gray-950 rounded-2xl border p-8 md:p-12">
-        <h2 className="text-3xl font-bold tracking-tight mb-6">
+        <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
           X(트위터) 영상 콘텐츠 이해하기
         </h2>
-        <div className="prose prose-slate dark:prose-invert max-w-none space-y-6 text-muted-foreground">
+        <div className="prose prose-slate dark:prose-invert max-w-none space-y-2 text-muted-foreground">
           <p>
             X(옛 트위터)는 영상 공유 플랫폼으로 크게 발전했습니다. 처음에는 짧은 클립만 올릴 수 있었지만, 지금은 프리미엄 사용자의 경우 최대 2시간 20분 길이의 영상을 지원해 속보 영상부터 긴 콘텐츠와 라이브 방송까지 폭넓게 다룰 수 있습니다.
           </p>
@@ -308,7 +308,7 @@ export function XClient({ dict }: XClientProps) {
   const faqSection = guideSection;
 
   const emptyState = (
-    <div className="grid gap-6 sm:grid-cols-3 w-full pt-12 text-left">
+    <div className="grid gap-2 sm:grid-cols-3 w-full pt-12 text-left">
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
         <p className="font-semibold text-lg mb-2">
           {dict?.common?.copy_link || "링크 복사"}
@@ -343,12 +343,12 @@ export function XClient({ dict }: XClientProps) {
       dict={dict}
       theme={theme}
       icon={XIcon}
-      title={dict?.x?.title || "X (Twitter) Saver"}
+      title={dict?.x?.title || "X (트위터) 영상 다운로드"}
       subtitle={
         dict?.x?.subtitle ||
-        "Save X (Twitter) videos and GIFs in MP4 format. 고화질, free, and unlimited."
+        "X(트위터) 영상과 GIF를 MP4로 저장하세요. 고화질, 무료, 횟수 제한 없음."
       }
-      placeholder={dict?.x?.placeholder || "Paste X (Twitter) link here..."}
+      placeholder={dict?.x?.placeholder || "X(트위터) 링크를 붙여넣으세요…"}
       apiEndpoint="/api/x"
       downloadEndpoint="/api/x/download"
       noVideoError="이 트윗에서 영상을 찾지 못했습니다. 영상이 포함되어 있는지 확인해 주세요."

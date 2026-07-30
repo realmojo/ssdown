@@ -218,17 +218,17 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
-      <div className="flex gap-8">
-        <div className="flex-1 min-w-0 flex flex-col items-center">
-      <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-lime-100 to-green-100 dark:from-lime-900/30 dark:to-green-900/30 mb-6">
+    <div className="flex w-full flex-col">
+      <div className="flex gap-2">
+        <div className="flex min-w-0 flex-1 flex-col">
+      <div className="flex w-full flex-col">
+        <div className="hidden">
           <Columns className="w-10 h-10 text-lime-600 dark:text-lime-400" />
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+        <h1 className="mb-1.5 w-full border-b-2 border-[var(--pt-text)] pb-1.5 text-[17px] font-extrabold leading-tight tracking-tight">
           {dict?.combine_images?.title || "Combine Images"}
         </h1>
-        <p className="text-muted-foreground text-center max-w-2xl mb-8">
+        <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
           {dict?.combine_images?.subtitle ||
             "Combine multiple images side by side or stacked vertically. Adjust gap and background color. 100% private — processed in your browser."}
         </p>
@@ -241,7 +241,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
-          className={`w-full max-w-2xl border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-300 mb-6 ${
+          className={`w-full max-w-2xl border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-300 mb-2 ${
             isDragging
               ? "border-lime-500 bg-lime-50 dark:bg-lime-900/20"
               : "border-muted-foreground/30 hover:border-lime-500/50 hover:bg-lime-50/50 dark:hover:bg-lime-900/10"
@@ -288,7 +288,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
 
         {/* Image List */}
         {images.length > 0 && (
-          <div className="w-full space-y-6 animate-in fade-in slide-in-from-bottom-4">
+          <div className="w-full space-y-2 animate-in fade-in slide-in-from-bottom-4">
             {/* Thumbnails */}
             <Card className="border-lime-200 dark:border-lime-900/50">
               <CardContent className="p-4">
@@ -460,18 +460,18 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
       </div>
 
       {/* How-to & Tips & FAQ */}
-      <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
+      <div className="w-full max-w-6xl mx-auto mt-3 px-4 space-y-3">
         <section>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <div className="mb-2">
+            <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
               {dict?.combine_images?.guide_title || "How to Combine Images"}
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
               {dict?.combine_images?.guide_desc ||
                 "Combine multiple images in 3 simple steps."}
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-2">
             {[
               {
                 step: 1,
@@ -521,18 +521,18 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
         </section>
 
         <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
+          <div className="text-center mb-2">
+            <div className="hidden">
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">
+            <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
               {dict?.combine_images?.tips_title || "Combine Tips"}
             </h2>
             <p className="text-muted-foreground">
               이미지를 합칠 때 가장 좋은 결과를 얻는 방법입니다.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-2">
             {[
               {
                 title: "크기 자동 맞춤",
@@ -571,11 +571,11 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
           </div>
         </section>
         <section>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <div className="mb-2">
+            <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
               {dict?.combine_images?.faq_title || "Image Combiner FAQ"}
             </h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto">
+            <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
               이미지 합치기에 대해 자주 묻는 질문입니다.
             </p>
           </div>
@@ -635,7 +635,7 @@ export function CombineImagesClient({ dict }: { dict?: any }) {
         </section>
       </div>
         </div>
-        <aside className="hidden lg:block w-64 shrink-0">
+        <aside className="hidden shrink-0 xl:block xl:w-[200px]">
           <ToolsSidebar category="image" dict={dict} />
         </aside>
       </div>

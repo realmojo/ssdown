@@ -2,6 +2,7 @@ import { getDictionary } from "@/lib/get-dictionary";
 import { FacebookClient } from "@/components/client/facebook-client";
 import { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo";
+import { PageShell } from "@/components/portal/page-shell";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
@@ -108,7 +109,11 @@ export default async function FacebookPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <FacebookClient dict={dict} />
+      <PageShell
+        crumbs={[{ label: "영상 다운로드", href: "/tools" }, { label: "페이스북 다운로드" }]}
+      >
+        <FacebookClient dict={dict} />
+      </PageShell>
     </>
   );
 }

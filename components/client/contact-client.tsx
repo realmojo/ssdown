@@ -29,19 +29,19 @@ export const ContactClient = () => {
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-16 lg:py-24 text-center bg-gray-50 dark:bg-gray-900/20">
-        <div className="container px-4 md:px-6">
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-indigo-800 to-gray-900 dark:from-white dark:via-indigo-200 dark:to-white">
+      <section className="pt-wrap py-2">
+        <div className="">
+          <h1 className="mb-1.5 w-full border-b-2 border-[var(--pt-text)] pb-1.5 text-[17px] font-extrabold leading-tight tracking-tight">
             문의하기
           </h1>
-          <p className="mx-auto max-w-[800px] text-gray-600 md:text-xl dark:text-gray-300">
+          <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
             궁금한 점이나 의견이 있거나 도움이 필요하신가요? 언제든 연락 주시면 최대한 빠르게 답변드리겠습니다.
           </p>
         </div>
       </section>
 
       {/* Email Contact Section */}
-      <section className="py-16 bg-white dark:bg-gray-950">
+      <section className="py-3 bg-white dark:bg-gray-950">
         <div className="container px-4 md:px-6 max-w-4xl mx-auto">
           <div className="md:col-span-3">
             <Card className="border shadow-lg max-w-2xl mx-auto text-center">
@@ -51,7 +51,7 @@ export const ContactClient = () => {
                   지원, 저작권, 제휴 문의는 이메일로 직접 보내 주세요.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="py-12 space-y-8">
+              <CardContent className="py-3 space-y-2">
                 <div className="flex justify-center">
                   <div className="bg-indigo-100 dark:bg-indigo-900/30 p-8 rounded-full">
                     <Mail className="h-12 w-12 text-indigo-600 dark:text-indigo-400" />
@@ -93,16 +93,16 @@ export const ContactClient = () => {
       </section>
 
       {/* Contact Categories */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-900/20 border-y">
+      <section className="py-3 bg-gray-50 dark:bg-gray-900/20 border-y">
         <div className="container px-4 md:px-6 max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold tracking-tight mb-4 text-center">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             무엇을 도와드릴까요?
           </h2>
-          <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+          <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
             가장 알맞은 답변을 빠르게 드릴 수 있도록 문의 유형을 나누어 처리하고 있습니다. 아래와 같은 내용으로 연락하실 수 있습니다.
           </p>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {[
               {
                 icon: HelpCircle,
@@ -169,12 +169,12 @@ export const ContactClient = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 bg-white dark:bg-gray-950">
+      <section className="py-3 bg-white dark:bg-gray-950">
         <div className="container px-4 md:px-6 max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold tracking-tight mb-4 text-center">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             자주 묻는 질문
           </h2>
-          <p className="text-muted-foreground text-center mb-12">
+          <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
             문의하시기 전에 여기서 답을 찾으실 수도 있습니다.
           </p>
 
@@ -228,9 +228,9 @@ export const ContactClient = () => {
       </section>
 
       {/* About SSDown Brief */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-900/20 border-t">
+      <section className="py-3 bg-gray-50 dark:bg-gray-900/20 border-t">
         <div className="container px-4 md:px-6 max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold tracking-tight mb-6 text-center">
+          <h2 className="text-2xl font-bold tracking-tight mb-2 text-center">
             SSDown 소개
           </h2>
           <div className="prose prose-slate dark:prose-invert max-w-none text-muted-foreground text-center space-y-4">

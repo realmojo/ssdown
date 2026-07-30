@@ -1,3 +1,4 @@
+import { PageShell } from "@/components/portal/page-shell";
 import { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo";
 
@@ -24,8 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function TermsPage() {
   return (
-    <div className="container py-12 md:py-24 max-w-4xl">
-      <h1 className="text-3xl font-bold mb-8">서비스 이용약관</h1>
+    <PageShell crumbs={[{ label: "이용약관" }]} title="서비스 이용약관">
 
       <div className="prose prose-slate dark:prose-invert max-w-none space-y-8 text-muted-foreground">
         <section>
@@ -801,6 +801,6 @@ export default async function TermsPage() {
           </dl>
         </section>
       </div>
-    </div>
+    </PageShell>
   );
 }

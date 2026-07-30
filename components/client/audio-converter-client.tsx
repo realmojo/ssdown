@@ -305,17 +305,17 @@ export function AudioConverterClient({ dict }: { dict?: any }) {
   ).length;
 
   return (
-    <div className="container mx-auto px-4 py-8 min-h-[50vh]">
-      <div className="flex gap-8">
-        <div className="flex-1 min-w-0 flex flex-col items-center">
-          <div className="flex flex-col items-center justify-center w-full max-w-3xl mb-12">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-violet-100 to-fuchsia-100 dark:from-violet-900/30 dark:to-fuchsia-900/30 mb-6">
+    <div className="w-full">
+      <div className="flex gap-2">
+        <div className="flex min-w-0 flex-1 flex-col">
+          <div className="flex w-full flex-col">
+            <div className="hidden">
               <FileAudio className="w-10 h-10 text-violet-600 dark:text-violet-400" />
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+            <h1 className="mb-1.5 w-full border-b-2 border-[var(--pt-text)] pb-1.5 text-[17px] font-extrabold leading-tight tracking-tight">
               {t.title || "오디오 변환기"}
             </h1>
-            <p className="text-muted-foreground text-center max-w-2xl mb-8">
+            <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
               {t.subtitle ||
                 "브라우저에서 바로 MP3, WAV, OGG, M4A, FLAC을 서로 변환하거나 영상에서 오디오를 추출하세요. 일괄 처리를 지원하고 빠르며 비공개로 처리됩니다."}
             </p>
@@ -355,7 +355,7 @@ export function AudioConverterClient({ dict }: { dict?: any }) {
 
             {/* Output Settings */}
             {items.length > 0 && (
-              <Card className="w-full mt-6 border-violet-100 dark:border-violet-900/50">
+              <Card className="w-full mt-2 border-violet-100 dark:border-violet-900/50">
                 <CardHeader className="border-b pb-4">
                   <div className="flex items-center gap-2">
                     <Settings2 className="w-5 h-5 text-violet-600 dark:text-violet-400" />
@@ -413,7 +413,7 @@ export function AudioConverterClient({ dict }: { dict?: any }) {
 
             {/* Queue */}
             {items.length > 0 && (
-              <div className="w-full mt-6 space-y-3">
+              <div className="w-full mt-2 space-y-3">
                 {items.map((it) => (
                   <div
                     key={it.id}
@@ -548,19 +548,19 @@ export function AudioConverterClient({ dict }: { dict?: any }) {
           </div>
 
           {/* Guide Section */}
-          <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
+          <div className="w-full max-w-6xl mx-auto mt-3 px-4 space-y-3">
             <section>
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold tracking-tight mb-4">
+              <div className="mb-2">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {t.guide_title || "오디오 변환 방법"}
                 </h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
                   {t.guide_desc ||
                     "세 단계면 브라우저에서 오디오 형식을 바꿀 수 있습니다."}
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-3 gap-2">
                 {[
                   {
                     step: 1,
@@ -611,11 +611,11 @@ export function AudioConverterClient({ dict }: { dict?: any }) {
 
             {/* Tips Section */}
             <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
-              <div className="text-center mb-10">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
+              <div className="text-center mb-2">
+                <div className="hidden">
                   <Lightbulb className="w-8 h-8 text-yellow-500" />
                 </div>
-                <h2 className="text-3xl font-bold tracking-tight mb-4">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {t.tips_title || "오디오 변환 팁"}
                 </h2>
                 <p className="text-muted-foreground">
@@ -623,7 +623,7 @@ export function AudioConverterClient({ dict }: { dict?: any }) {
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-2">
                 {[
                   {
                     title: t.tip1_title || "알맞은 형식 고르기",
@@ -673,8 +673,8 @@ export function AudioConverterClient({ dict }: { dict?: any }) {
             {/* FAQ Section */}
             {(dict?.page_audio_converter?.faq || FALLBACK_FAQ).length > 0 && (
               <section>
-                <div className="text-center mb-10">
-                  <h2 className="text-3xl font-bold tracking-tight mb-4">
+                <div className="text-center mb-2">
+                  <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                     {t.faq_title || "자주 묻는 질문"}
                   </h2>
                 </div>
@@ -700,7 +700,7 @@ export function AudioConverterClient({ dict }: { dict?: any }) {
             )}
           </div>
         </div>
-        <aside className="hidden lg:block w-64 shrink-0">
+        <aside className="hidden shrink-0 xl:block xl:w-[200px]">
           <ToolsSidebar category="video-audio" dict={dict} />
         </aside>
       </div>

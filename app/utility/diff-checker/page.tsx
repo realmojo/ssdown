@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
 import { DiffCheckerClient } from "@/components/client/diff-checker-client";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageShell } from "@/components/portal/page-shell";
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = "https://ssdown.app";
@@ -136,21 +136,16 @@ export default async function DiffCheckerPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container max-w-7xl mx-auto px-4 py-8">
-        <Breadcrumbs
-          items={[
-            { label: dict.breadcrumb.home, href: "/" },
-            { label: dict.breadcrumb.tools, href: "/tools" },
-            { label: dict.breadcrumb.utility, href: "/tools/utility" },
-            {
-              label: "텍스트 비교기",
-              href: "/utility/diff-checker",
-              isCurrent: true,
-            },
-          ]}
-        />
-      </div>
-      <DiffCheckerClient dict={dict} />
+      <PageShell
+        sidebar={false}
+        crumbs={[
+          { label: dict.breadcrumb.tools, href: "/tools" },
+          { label: dict.breadcrumb.utility, href: "/tools/utility" },
+          { label: "텍스트 비교기" },
+        ]}
+      >
+        <DiffCheckerClient dict={dict} />
+      </PageShell>
     </>
   );
 }

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
 import { GifToMp4Client } from "@/components/client/gif-to-mp4-client";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageShell } from "@/components/portal/page-shell";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
@@ -113,21 +113,16 @@ export default async function GifToMp4Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container max-w-7xl mx-auto px-4 py-8">
-        <Breadcrumbs
-          items={[
-            { label: dict.breadcrumb.home, href: "/" },
-            { label: dict.breadcrumb.tools, href: "/tools" },
-            { label: dict.breadcrumb.video_audio, href: "/tools/video-audio" },
-            {
-              label: dict.page_gif_to_mp4.breadcrumb_title,
-              href: "/video-audio/gif-to-mp4",
-              isCurrent: true,
-            },
-          ]}
-        />
-      </div>
-      <GifToMp4Client dict={dict} />
+      <PageShell
+        sidebar={false}
+        crumbs={[
+          { label: dict.breadcrumb.tools, href: "/tools" },
+          { label: dict.breadcrumb.video_audio, href: "/tools/video-audio" },
+          { label: dict.page_gif_to_mp4.breadcrumb_title },
+        ]}
+      >
+        <GifToMp4Client dict={dict} />
+      </PageShell>
     </>
   );
 }

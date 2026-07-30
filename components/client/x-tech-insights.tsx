@@ -29,21 +29,21 @@ export function XTechInsights() {
   ];
 
   return (
-    <section className="py-16 bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900">
+    <section className="py-3 bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900">
       <div className="container px-4 md:px-6 mx-auto max-w-6xl">
-        <div className="text-center mb-12">
+        <div className="mb-2">
           <span className="inline-block py-1 px-3 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 text-sm font-semibold mb-4">
             기술 심층 분석
           </span>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             기술 들여다보기: X 영상 기술
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
             X의 영상 전송 시스템이 어떤 구조로 되어 있는지 알면, 콘텐츠를 효율적으로 관리하는 데 왜 전용 도구가 필요한지 이해할 수 있습니다.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-2">
           {insights.map((item, idx) => (
             <div
               key={idx}
@@ -67,7 +67,7 @@ export function XTechInsights() {
         </div>
 
         {/* Educational Note */}
-        <div className="mt-12 p-6 rounded-xl bg-indigo-50/50 dark:bg-indigo-900/10 border border-indigo-100 dark:border-indigo-900/30">
+        <div className="mt-3 p-6 rounded-xl bg-indigo-50/50 dark:bg-indigo-900/10 border border-indigo-100 dark:border-indigo-900/30">
           <div className="flex items-start gap-4">
             <Shield className="w-6 h-6 text-indigo-600 mt-1 flex-shrink-0" />
             <div className="space-y-2">

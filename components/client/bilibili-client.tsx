@@ -71,23 +71,23 @@ export function BilibiliClient({ dict }: BilibiliClientProps) {
   ];
 
   const guideSection = (
-    <div className="w-full max-w-6xl mx-auto mt-20 px-4 space-y-16">
+    <div className="w-full max-w-6xl mx-auto mt-3 px-4 space-y-3">
       {/* Step-by-Step Guide */}
       <section>
-        <div className="text-center mb-12">
+        <div className="mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-pink-100 dark:bg-pink-900/30 mb-4">
             <BookOpen className="w-8 h-8 text-pink-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.bilibili?.guide_title || "How to Download Bilibili Videos"}
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
             {dict?.bilibili?.guide_desc ||
               "Download Bilibili videos in high quality with just a few clicks."}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-2">
           {[
             {
               step: 1,
@@ -138,11 +138,11 @@ export function BilibiliClient({ dict }: BilibiliClientProps) {
 
       {/* 활용 팁 */}
       <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
-        <div className="text-center mb-10">
+        <div className="text-center mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
             <Lightbulb className="w-8 h-8 text-yellow-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.bilibili?.tips_title || "Bilibili Download Tips"}
           </h2>
           <p className="text-muted-foreground">
@@ -151,7 +151,7 @@ export function BilibiliClient({ dict }: BilibiliClientProps) {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-2">
           {[
             {
               title: dict?.bilibili?.tip1_title || "Supports 'BV' IDs",
@@ -200,11 +200,11 @@ export function BilibiliClient({ dict }: BilibiliClientProps) {
 
       {/* Features & Capabilities */}
       <section>
-        <div className="text-center mb-10">
+        <div className="text-center mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
             <Info className="w-8 h-8 text-green-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.bilibili?.features_title || "Bilibili Download Features"}
           </h2>
           <p className="text-muted-foreground">
@@ -213,7 +213,7 @@ export function BilibiliClient({ dict }: BilibiliClientProps) {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
           {[
             {
               title: dict?.bilibili?.feature1_title || "HD Videos",
@@ -252,8 +252,8 @@ export function BilibiliClient({ dict }: BilibiliClientProps) {
 
       {/* FAQ Section */}
       <section>
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+        <div className="text-center mb-2">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.qna_bilibili?.title || "Bilibili FAQ"}
           </h2>
           <p className="text-muted-foreground">
@@ -282,7 +282,7 @@ export function BilibiliClient({ dict }: BilibiliClientProps) {
 
   const emptyState = (
     <>
-      <div className="grid gap-6 sm:grid-cols-2 w-full pt-12 text-left">
+      <div className="grid gap-2 sm:grid-cols-2 w-full pt-12 text-left">
         <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
           <p className="font-semibold text-lg mb-2">
             {dict?.bilibili?.feature_1_title || "Full HD Support"}
@@ -311,10 +311,10 @@ export function BilibiliClient({ dict }: BilibiliClientProps) {
       dict={dict}
       theme={theme}
       icon={BilibiliIcon}
-      title={dict?.bilibili?.title || "Bilibili Saver"}
+      title={dict?.bilibili?.title || "빌리빌리 영상 다운로드"}
       subtitle={
         dict?.bilibili?.subtitle ||
-        "Download Bilibili videos instantly. No watermark, high quality."
+        "빌리빌리 영상을 바로 내려받으세요. 워터마크 없음, 고화질."
       }
       placeholder={dict?.bilibili?.placeholder || "Paste Bilibili URL here..."}
       apiEndpoint="/api/bilibili"

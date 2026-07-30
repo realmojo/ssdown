@@ -1,3 +1,4 @@
+import { PageShell } from "@/components/portal/page-shell";
 import { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo";
 
@@ -24,16 +25,15 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function PrivacyPage() {
   return (
-    <div className="container py-12 md:py-24 max-w-4xl">
-      <h1 className="text-3xl font-bold mb-8">개인정보처리방침</h1>
-      <p className="text-sm text-muted-foreground mb-8">
-        Last Updated:{" "}
-        {new Date().toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })}
-      </p>
+    <PageShell
+      crumbs={[{ label: "개인정보처리방침" }]}
+      title="개인정보처리방침"
+      desc={`최종 수정일 ${new Date().toLocaleDateString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })}`}
+    >
 
       <div className="space-y-6">
         {/* Section 1: Information We Collect */}
@@ -151,6 +151,6 @@ export default async function PrivacyPage() {
           </div>
         </div>
       </div>
-    </div>
+    </PageShell>
   );
 }

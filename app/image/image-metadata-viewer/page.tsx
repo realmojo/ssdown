@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
 import { ImageMetadataViewerClient } from "@/components/client/image-metadata-viewer-client";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageShell } from "@/components/portal/page-shell";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
@@ -113,23 +113,16 @@ export default async function ImageMetadataViewerPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="flex flex-col min-h-[calc(100vh-4rem)]">
-        <div className="container max-w-7xl mx-auto px-4 py-8">
-          <Breadcrumbs
-            items={[
-              { label: dict.breadcrumb.home, href: "/" },
-              { label: dict.breadcrumb.tools, href: "/tools" },
-              { label: dict.breadcrumb.image_tools, href: "/tools/image" },
-              {
-                label: dict.page_image_metadata_viewer.breadcrumb_title,
-                href: "/image/image-metadata-viewer",
-                isCurrent: true,
-              },
-            ]}
-          />
-          <ImageMetadataViewerClient dict={dict} />
-        </div>
-      </div>
+      <PageShell
+        sidebar={false}
+        crumbs={[
+          { label: dict.breadcrumb.tools, href: "/tools" },
+          { label: dict.breadcrumb.image_tools, href: "/tools/image" },
+          { label: dict.page_image_metadata_viewer.breadcrumb_title },
+        ]}
+      >
+        <ImageMetadataViewerClient dict={dict} />
+      </PageShell>
     </>
   );
 }

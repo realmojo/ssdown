@@ -21,6 +21,7 @@ import type { LucideIcon } from "lucide-react";
 import { getCategoryBySlug, getCategoryByMain, CATEGORIES } from "@/lib/categories";
 import { getAppsByCategory, getAppsByPlatform, localizeApp } from "@/lib/app-utils";
 import type { SoftwareApplication } from "@/types/app";
+import { PageShell } from "@/components/portal/page-shell";
 
 const PLATFORMS = ["windows", "mac", "android", "iphone"] as const;
 type PlatformSlug = (typeof PLATFORMS)[number];
@@ -168,21 +169,18 @@ function RatingStars({ rating }: { rating: number }) {
   const empty = 5 - full - (hasHalf ? 1 : 0);
 
   return (
-    <div className="flex items-center gap-0.5">
+    <span className="inline-flex items-center gap-[1px]">
       {Array.from({ length: full }).map((_, i) => (
-        <Star
-          key={`f-${i}`}
-          className="w-3.5 h-3.5 fill-amber-400 text-amber-400"
-        />
+        <Star key={`f-${i}`} className="h-2.5 w-2.5 fill-amber-400 text-amber-400" />
       ))}
-      {hasHalf && (
-        <Star className="w-3.5 h-3.5 fill-amber-200 text-amber-400" />
-      )}
+      {hasHalf && <Star className="h-2.5 w-2.5 fill-amber-200 text-amber-400" />}
       {Array.from({ length: empty }).map((_, i) => (
-        <Star key={`e-${i}`} className="w-3.5 h-3.5 text-gray-300" />
+        <Star key={`e-${i}`} className="h-2.5 w-2.5 text-gray-300" />
       ))}
-      <span className="ml-1 text-xs text-gray-500">{rating.toFixed(1)}</span>
-    </div>
+      <span className="ml-0.5 text-[11px] text-[var(--pt-text-meta)]">
+        {rating.toFixed(1)}
+      </span>
+    </span>
   );
 }
 
@@ -198,57 +196,49 @@ function buildAppHref(app: SoftwareApplication): string {
 function AppGrid({ apps }: { apps: SoftwareApplication[] }) {
   if (apps.length === 0) {
     return (
-      <div className="text-center py-20">
-        <p className="text-gray-400 text-lg">앱을 찾지 못했습니다</p>
+      <div className="pt-panel py-10 text-center text-[12px] text-[var(--pt-text-meta)]">
+        앱을 찾지 못했습니다.
       </div>
     );
   }
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="pt-panel grid sm:grid-cols-2 lg:grid-cols-3">
       {apps.map((app) => (
         <a
           key={app.core.id}
           href={buildAppHref(app)}
-          className="group bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-md transition-all"
+          className="group flex items-start gap-2 border-b border-r border-[var(--pt-line)] px-2 py-2 hover:bg-[var(--pt-hover)]"
         >
-          <div className="flex items-start gap-3">
-            <div className="w-14 h-14 shrink-0 rounded-xl overflow-hidden bg-gray-100 flex items-center justify-center">
-              {app.content.iconUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={app.content.iconUrl}
-                  alt={app.core.name}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              ) : (
-                <span className="text-xl font-bold text-gray-400">
-                  {app.core.name.charAt(0)}
-                </span>
-              )}
-            </div>
-            <div className="flex-1 min-w-0">
-              <h2 className="font-semibold text-gray-900 text-sm truncate group-hover:text-blue-600 transition-colors">
-                {app.core.name}
-              </h2>
-              {isRealDeveloper(app.core.developer.name) && (
-                <p className="text-xs text-gray-500 truncate mt-0.5">
-                  {app.core.developer.name}
-                </p>
-              )}
-              {app.rating.average > 0 && (
-                <div className="mt-1.5">
-                  <RatingStars rating={app.rating.average} />
-                </div>
-              )}
-              <div className="flex flex-wrap items-center gap-1.5 mt-2">
-                <span className="text-[11px] bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded font-medium">
-                  {LICENSE_KR[app.download.license] ?? app.download.license}
-                </span>
-                <span className="text-[11px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded">
-                  {app.core.platform}
-                </span>
-              </div>
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden border border-[var(--pt-line)] bg-white">
+            {app.content.iconUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={app.content.iconUrl}
+                alt={app.core.name}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+            ) : (
+              <span className="text-[15px] font-bold text-[var(--pt-text-meta)]">
+                {app.core.name.charAt(0)}
+              </span>
+            )}
+          </div>
+          <div className="min-w-0 flex-1">
+            <h2 className="truncate text-[12px] font-semibold group-hover:text-[var(--pt-accent)] group-hover:underline">
+              {app.core.name}
+            </h2>
+            {isRealDeveloper(app.core.developer.name) && (
+              <p className="truncate text-[11px] text-[var(--pt-text-meta)]">
+                {app.core.developer.name}
+              </p>
+            )}
+            <div className="mt-0.5 flex flex-wrap items-center gap-1">
+              <span className="pt-badge">
+                {LICENSE_KR[app.download.license] ?? app.download.license}
+              </span>
+              <span className="pt-badge">{app.core.platform}</span>
+              {app.rating.average > 0 && <RatingStars rating={app.rating.average} />}
             </div>
           </div>
         </a>
@@ -345,13 +335,14 @@ function Pagination({
     }
   }
 
-  const btnBase = "px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors";
-  const activeBtn = `${btnBase} bg-blue-600 text-white border-blue-600`;
-  const inactiveBtn = `${btnBase} bg-white text-gray-600 border-gray-200 hover:border-blue-300`;
-  const disabledBtn = `${btnBase} bg-white text-gray-300 border-gray-100 pointer-events-none`;
+  const btnBase =
+    "inline-flex h-7 min-w-7 items-center justify-center border px-2 text-[12px]";
+  const activeBtn = `${btnBase} border-[var(--pt-accent)] bg-[var(--pt-accent)] font-bold text-white`;
+  const inactiveBtn = `${btnBase} border-[var(--pt-line)] bg-white text-[var(--pt-text-sub)] hover:border-[var(--pt-accent)] hover:text-[var(--pt-accent)]`;
+  const disabledBtn = `${btnBase} pointer-events-none border-[var(--pt-line)] bg-white text-[var(--pt-text-meta)] opacity-50`;
 
   return (
-    <div className="flex items-center justify-center gap-1.5 mt-8 flex-wrap">
+    <div className="mt-2 flex flex-wrap items-center justify-center gap-1">
       {currentPage > 1 ? (
         <a href={buildPageUrl(currentPage - 1)} className={inactiveBtn}>← 이전</a>
       ) : (
@@ -409,31 +400,28 @@ export default async function CategoryPage({
       });
 
     return (
-      <div className="min-h-screen bg-gray-50">
+      <>
         <CategoryJsonLd label={label} slug={slug} apps={apps} />
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center">
-              <Monitor className="w-8 h-8 text-blue-600" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-extrabold text-gray-900">
-                {label} 소프트웨어
-              </h1>
-              <p className="text-sm text-gray-500 mt-1">
-                {total > 0 ? `앱 ${total.toLocaleString()}개` : ""}
-              </p>
-            </div>
-          </div>
-
+        <PageShell
+          crumbs={[{ label: "소프트웨어", href: "/software" }, { label }]}
+          title={`${label} 소프트웨어`}
+          desc={`${label}에서 쓸 수 있는 무료 프로그램과 앱을 평점순으로 모았습니다.`}
+          actions={
+            total > 0 ? (
+              <span className="text-[12px] text-[var(--pt-text-meta)]">
+                총 <strong className="text-[var(--pt-accent)]">{total.toLocaleString()}</strong>개
+              </span>
+            ) : undefined
+          }
+        >
           {/* 카테고리 필터 탭 */}
-          <div className="flex flex-wrap gap-2 mb-6">
+          <nav className="flex flex-wrap items-center gap-x-1 border-b border-[var(--pt-line)] pb-2">
             <a
               href={`/software/${slug}`}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              className={`px-2 py-1 text-[12px] ${
                 !categoryFilter
-                  ? "bg-blue-600 text-white"
-                  : "bg-white text-gray-600 border border-gray-200 hover:border-blue-300"
+                  ? "font-bold text-[var(--pt-accent)]"
+                  : "text-[var(--pt-text-sub)] hover:text-[var(--pt-accent)]"
               }`}
             >
               전체
@@ -444,22 +432,22 @@ export default async function CategoryPage({
                 <a
                   key={category_main}
                   href={`/software/${slug}?category=${encodeURIComponent(category_main)}`}
-                  className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                  className={`px-2 py-1 text-[12px] ${
                     isActive
-                      ? "bg-blue-600 text-white"
-                      : "bg-white text-gray-600 border border-gray-200 hover:border-blue-300"
+                      ? "font-bold text-[var(--pt-accent)]"
+                      : "text-[var(--pt-text-sub)] hover:text-[var(--pt-accent)]"
                   }`}
                 >
                   {getCategoryByMain(category_main)?.name ?? category_main}
                 </a>
               );
             })}
-          </div>
+          </nav>
 
           <AppGrid apps={apps} />
           <Pagination currentPage={currentPage} totalPages={totalPages} buildPageUrl={buildPageUrl} />
-        </div>
-      </div>
+        </PageShell>
+      </>
     );
   }
 
@@ -474,31 +462,23 @@ export default async function CategoryPage({
     buildUrl(`/software/${slug}`, { page: page > 1 ? String(page) : undefined });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
       <CategoryJsonLd label={category.name} slug={slug} apps={apps} />
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
-          <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center">
-            <CategoryIcon
-              name={category.icon}
-              className="w-8 h-8 text-blue-600"
-            />
-          </div>
-          <div>
-            <h1 className="text-3xl font-extrabold text-gray-900">
-              {category.name}
-            </h1>
-            <p className="text-sm text-gray-500 mt-1">
-              {total > 0 ? `앱 ${total.toLocaleString()}개` : ""}
-            </p>
-          </div>
-        </div>
-
-        {/* App Grid */}
+      <PageShell
+        crumbs={[{ label: "소프트웨어", href: "/software" }, { label: category.name }]}
+        title={category.name}
+        desc={`${category.name} 분야에서 평점이 높은 무료 프로그램과 앱을 모았습니다.`}
+        actions={
+          total > 0 ? (
+            <span className="text-[12px] text-[var(--pt-text-meta)]">
+              총 <strong className="text-[var(--pt-accent)]">{total.toLocaleString()}</strong>개
+            </span>
+          ) : undefined
+        }
+      >
         <AppGrid apps={apps} />
         <Pagination currentPage={currentPage} totalPages={totalPages} buildPageUrl={buildPageUrl} />
-      </div>
-    </div>
+      </PageShell>
+    </>
   );
 }

@@ -81,7 +81,7 @@ export async function getAppById(id: string): Promise<SoftwareApplication | null
   return transformRow(data);
 }
 
-const CARD_COLUMNS = "id,slug,name,name_kr,platform,category_main,license,rating_average,rating_total_count,icon_url,short_summary,short_summary_kr,developer_name,download_url";
+const CARD_COLUMNS = "id,slug,name,name_kr,platform,category_main,license,rating_average,rating_total_count,icon_url,short_summary,short_summary_kr,developer_name,download_url,last_updated_date";
 
 /**
  * 한국어 필드(name_kr, seo_*_kr, short_summary_kr, ai_review_html_kr)가 존재하는
@@ -270,6 +270,22 @@ export async function getAlternatives(
     .limit(remaining);
 
   return [...results, ...(crossCat ?? [])].map(transformRow);
+}
+
+/**
+ * 최근 갱신된 앱 목록. 메인 포털의 "새로 등록된 소프트웨어" 패널에 쓴다.
+ * 한국어 본문이 있는 앱만 노출한다.
+ */
+export async function getNewestApps(limit = 12): Promise<SoftwareApplication[]> {
+  const { data } = await supabase
+    .from("software_applications")
+    .select(CARD_COLUMNS)
+    .not("ai_review_html_kr", "is", null)
+    .neq("ai_review_html_kr", "")
+    .order("last_updated_date", { ascending: false })
+    .limit(limit);
+
+  return (data ?? []).map(transformRow).map(localizeApp);
 }
 
 /**

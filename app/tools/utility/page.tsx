@@ -1,17 +1,31 @@
-import {
-  QrCode, Calculator, ArrowRight, Type, Share2,
-  Scissors, KeyRound, Palette, CaseSensitive, Clock, Binary, ScanLine, Braces, Diff, Fingerprint, Pilcrow,
-} from "lucide-react";
 import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { ToolHub } from "@/components/portal/tool-hub";
+
+const CANONICAL = "https://ssdown.app/tools/utility";
+
+/** 사전의 tools 배열과 같은 순서로 유지해야 한다. */
+const HREFS = [
+  "/utility/qr-code-generator",
+  "/utility/aspect-ratio-calculator",
+  "/utility/word-counter",
+  "/utility/og-debugger",
+  "/utility/mp3-splitter",
+  "/utility/password-generator",
+  "/utility/color-converter",
+  "/utility/text-case-converter",
+  "/utility/timestamp-converter",
+  "/utility/base64-url-encoder",
+  "/utility/qr-code-scanner",
+  "/utility/json-formatter",
+  "/utility/diff-checker",
+  "/utility/uuid-generator",
+  "/utility/lorem-ipsum-generator",
+];
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
-  const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/tools/utility`;
-
   const title = dict.page_tools_utility.meta_title;
   const description = dict.page_tools_utility.meta_description;
 
@@ -21,42 +35,30 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title,
       description,
-      url: canonical,
+      url: CANONICAL,
       siteName: "SSDown",
       locale: "ko_KR",
       type: "website",
       images: [{ url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: title }],
     },
-    twitter: { card: "summary_large_image", title, description, images: ["https://ssdown.app/logo.png"] },
-    alternates: buildAlternates(new URL(canonical).pathname),
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["https://ssdown.app/logo.png"],
+    },
+    alternates: buildAlternates("/tools/utility"),
   };
 }
 
-const toolMeta = [
-  { href: "/utility/qr-code-generator", icon: QrCode, gradient: "from-blue-600 to-cyan-600", bgLight: "bg-blue-100 dark:bg-blue-900/30", iconColor: "text-blue-600" },
-  { href: "/utility/aspect-ratio-calculator", icon: Calculator, gradient: "from-violet-500 to-purple-500", bgLight: "bg-violet-100 dark:bg-violet-900/30", iconColor: "text-violet-500" },
-  { href: "/utility/word-counter", icon: Type, gradient: "from-emerald-500 to-green-500", bgLight: "bg-emerald-100 dark:bg-emerald-900/30", iconColor: "text-emerald-600" },
-  { href: "/utility/og-debugger", icon: Share2, gradient: "from-fuchsia-500 to-pink-500", bgLight: "bg-fuchsia-100 dark:bg-fuchsia-900/30", iconColor: "text-fuchsia-600" },
-  { href: "/utility/mp3-splitter", icon: Scissors, gradient: "from-rose-500 to-red-500", bgLight: "bg-rose-100 dark:bg-rose-900/30", iconColor: "text-rose-600" },
-  { href: "/utility/password-generator", icon: KeyRound, gradient: "from-slate-600 to-gray-600", bgLight: "bg-slate-100 dark:bg-slate-900/30", iconColor: "text-slate-600" },
-  { href: "/utility/color-converter", icon: Palette, gradient: "from-orange-500 to-amber-500", bgLight: "bg-orange-100 dark:bg-orange-900/30", iconColor: "text-orange-600" },
-  { href: "/utility/text-case-converter", icon: CaseSensitive, gradient: "from-teal-500 to-cyan-500", bgLight: "bg-teal-100 dark:bg-teal-900/30", iconColor: "text-teal-600" },
-  { href: "/utility/timestamp-converter", icon: Clock, gradient: "from-indigo-500 to-blue-500", bgLight: "bg-indigo-100 dark:bg-indigo-900/30", iconColor: "text-indigo-600" },
-  { href: "/utility/base64-url-encoder", icon: Binary, gradient: "from-lime-500 to-green-500", bgLight: "bg-lime-100 dark:bg-lime-900/30", iconColor: "text-lime-600" },
-  { href: "/utility/qr-code-scanner", icon: ScanLine, gradient: "from-sky-500 to-blue-500", bgLight: "bg-sky-100 dark:bg-sky-900/30", iconColor: "text-sky-600" },
-  { href: "/utility/json-formatter", icon: Braces, gradient: "from-yellow-500 to-amber-500", bgLight: "bg-yellow-100 dark:bg-yellow-900/30", iconColor: "text-yellow-600" },
-  { href: "/utility/diff-checker", icon: Diff, gradient: "from-purple-500 to-violet-500", bgLight: "bg-purple-100 dark:bg-purple-900/30", iconColor: "text-purple-600" },
-  { href: "/utility/uuid-generator", icon: Fingerprint, gradient: "from-emerald-500 to-teal-500", bgLight: "bg-emerald-100 dark:bg-emerald-900/30", iconColor: "text-emerald-600" },
-  { href: "/utility/lorem-ipsum-generator", icon: Pilcrow, gradient: "from-fuchsia-500 to-purple-500", bgLight: "bg-fuchsia-100 dark:bg-fuchsia-900/30", iconColor: "text-fuchsia-600" },
-];
-
-export default async function UtilityToolsPage() {
+export default async function Page() {
   const dict = await getDictionary();
+  const section = dict.page_tools_utility;
 
-  const tools = toolMeta.map((meta, i) => ({
-    ...meta,
-    title: dict.page_tools_utility.tools[i].title,
-    description: dict.page_tools_utility.tools[i].description,
+  const tools = HREFS.map((href, i) => ({
+    href,
+    title: section.tools[i].title,
+    description: section.tools[i].description,
   }));
 
   const breadcrumbSchema = {
@@ -65,8 +67,22 @@ export default async function UtilityToolsPage() {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: dict.breadcrumb.home, item: "https://ssdown.app" },
       { "@type": "ListItem", position: 2, name: dict.breadcrumb.tools, item: "https://ssdown.app/tools" },
-      { "@type": "ListItem", position: 3, name: dict.breadcrumb.utility, item: "https://ssdown.app/tools/utility" },
+      { "@type": "ListItem", position: 3, name: dict.breadcrumb.utility, item: CANONICAL },
     ],
+  };
+
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: section.heading,
+    url: CANONICAL,
+    numberOfItems: tools.length,
+    itemListElement: tools.map((tool, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: tool.title,
+      url: `https://ssdown.app${tool.href}`,
+    })),
   };
 
   return (
@@ -77,69 +93,14 @@ export default async function UtilityToolsPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            name: dict.page_tools_utility.heading,
-            url: "https://ssdown.app/tools/utility",
-            numberOfItems: tools.length,
-            itemListElement: tools.map((tool, index) => ({
-              "@type": "ListItem",
-              position: index + 1,
-              name: tool.title,
-              url: `https://ssdown.app${tool.href}`,
-            })),
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
-      <div className="flex flex-col min-h-[calc(100vh-4rem)]">
-        <div className="container max-w-7xl mx-auto px-4 py-8">
-          <Breadcrumbs
-            items={[
-              { label: dict.breadcrumb.home, href: "/" },
-              { label: dict.breadcrumb.tools, href: "/tools" },
-              {
-                label: dict.breadcrumb.utility,
-                href: "/tools/utility",
-                isCurrent: true,
-              },
-            ]}
-          />
-
-          <header className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-              {dict.page_tools_utility.heading}
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              {dict.page_tools_utility.subtitle}
-            </p>
-          </header>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-            {tools.map((tool) => (
-              <a
-                key={tool.href}
-                href={tool.href}
-                className="group block rounded-2xl border border-gray-200 dark:border-gray-800 p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-              >
-                <div
-                  className={`inline-flex items-center justify-center w-16 h-16 rounded-full ${tool.bgLight} mb-6`}
-                >
-                  <tool.icon className={`w-8 h-8 ${tool.iconColor}`} />
-                </div>
-                <h2 className="text-2xl font-bold mb-3">{tool.title}</h2>
-                <p className="text-muted-foreground mb-6">{tool.description}</p>
-                <span
-                  className={`inline-flex items-center gap-2 text-sm font-semibold bg-gradient-to-r ${tool.gradient} bg-clip-text text-transparent group-hover:gap-3 transition-all`}
-                >
-                  {dict.breadcrumb.try_it_now} <ArrowRight className="w-4 h-4 text-current" />
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
+      <ToolHub
+        groupKey="utility"
+        title={section.heading}
+        desc={section.subtitle}
+        tools={tools}
+      />
     </>
   );
 }

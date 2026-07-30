@@ -130,18 +130,18 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex gap-8">
+    <div className="w-full">
+      <div className="flex gap-2">
         <div className="flex-1 min-w-0">
           {/* Header */}
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-100 dark:bg-indigo-900/30 mb-4">
+          <div className="text-center max-w-3xl mx-auto mb-3">
+            <div className="hidden">
               <Hash className="w-8 h-8 text-indigo-600" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="mb-1.5 w-full border-b-2 border-[var(--pt-text)] pb-1.5 text-[17px] font-extrabold leading-tight tracking-tight">
               {dict?.hashtag_generator?.title || "Hashtag Generator"}
             </h1>
-            <p className="text-lg text-muted-foreground">
+            <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
               {dict?.hashtag_generator?.subtitle ||
                 "Find trending and niche-specific hashtags for TikTok, Instagram, and YouTube. Boost your content reach."}
             </p>
@@ -150,7 +150,7 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
           </div>
 
           {/* Platform Selector */}
-          <div className="flex justify-center gap-4 mb-8 flex-wrap">
+          <div className="flex justify-center gap-4 mb-2 flex-wrap">
             {(["tiktok", "instagram", "youtube"] as Platform[]).map((p) => (
               <Button
                 key={p}
@@ -169,7 +169,7 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
           </div>
 
           {/* Keyword Input */}
-          <div className="max-w-2xl mx-auto mb-8">
+          <div className="max-w-2xl mx-auto mb-2">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               <Input
@@ -185,9 +185,9 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8 mb-16">
+          <div className="grid lg:grid-cols-3 gap-2 mb-3">
             {/* Main Hashtag Selection Area */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-2">
               {/* Trending Section */}
               {filteredHashtags.trending.length > 0 && (
                 <Card>
@@ -228,7 +228,7 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
               {filteredHashtags.trending.length === 0 &&
                 Object.keys(filteredHashtags.niches).length === 0 && (
                   <Card>
-                    <CardContent className="py-12 text-center text-muted-foreground">
+                    <CardContent className="py-3 text-center text-muted-foreground">
                       {dict?.hashtag_generator?.no_results ||
                         "No hashtags found. Try a different keyword."}
                     </CardContent>
@@ -303,24 +303,24 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
           </div>
 
           {/* Guide & FAQ Section */}
-          <div className="w-full max-w-6xl mx-auto mt-20 space-y-16">
+          <div className="w-full max-w-6xl mx-auto mt-3 space-y-3">
             {/* Step-by-Step Guide */}
             <section>
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-100 dark:bg-indigo-900/30 mb-4">
+              <div className="mb-2">
+                <div className="hidden">
                   <BookOpen className="w-8 h-8 text-indigo-500" />
                 </div>
-                <h2 className="text-3xl font-bold tracking-tight mb-4">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {dict?.hashtag_generator?.guide_title ||
                     "How to Use the Hashtag Generator"}
                 </h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
                   {dict?.hashtag_generator?.guide_desc ||
                     "Find the perfect hashtags for your content in seconds."}
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-3 gap-2">
                 {[
                   {
                     step: 1,
@@ -374,11 +374,11 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
 
             {/* 활용 팁 */}
             <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
-              <div className="text-center mb-10">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
+              <div className="text-center mb-2">
+                <div className="hidden">
                   <Lightbulb className="w-8 h-8 text-yellow-500" />
                 </div>
-                <h2 className="text-3xl font-bold tracking-tight mb-4">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {dict?.hashtag_generator?.tips_title ||
                     "Hashtag Strategy Tips"}
                 </h2>
@@ -388,7 +388,7 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-2">
                 {[
                   {
                     title:
@@ -440,11 +440,11 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
 
             {/* Features & Capabilities */}
             <section>
-              <div className="text-center mb-10">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
+              <div className="text-center mb-2">
+                <div className="hidden">
                   <Info className="w-8 h-8 text-green-500" />
                 </div>
-                <h2 className="text-3xl font-bold tracking-tight mb-4">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {dict?.hashtag_generator?.features_title ||
                     "Generator Features"}
                 </h2>
@@ -454,7 +454,7 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
                 </p>
               </div>
 
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
                 {[
                   {
                     title:
@@ -503,8 +503,8 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
 
             {/* FAQ Section */}
             <section>
-              <div className="text-center mb-10">
-                <h2 className="text-3xl font-bold tracking-tight mb-4">
+              <div className="text-center mb-2">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {dict?.qna_hashtag_generator?.title ||
                     "Hashtag Generator FAQ"}
                 </h2>
@@ -530,7 +530,7 @@ export function HashtagGeneratorClient({ dict }: HashtagGeneratorClientProps) {
             </section>
           </div>
         </div>
-        <aside className="hidden lg:block w-64 shrink-0">
+        <aside className="hidden shrink-0 xl:block xl:w-[200px]">
           <ToolsSidebar category="social-text" dict={dict} />
         </aside>
       </div>

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { PortalHeader } from "@/components/portal/portal-header";
+import { PortalFooter } from "@/components/portal/portal-footer";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -106,8 +106,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
-  const dict = await getDictionary();
-
   return (
     <html lang="ko" suppressHydrationWarning>
       <head>
@@ -168,9 +166,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           disableTransitionOnChange
         >
           <div className="relative flex min-h-screen flex-col">
-            <SiteHeader dict={dict.nav} />
+            <PortalHeader />
             <main className="flex-1">{props.children}</main>
-            <SiteFooter dict={dict.nav} />
+            <PortalFooter />
             <CookieConsent />
           </div>
           <Toaster position="bottom-center" richColors />

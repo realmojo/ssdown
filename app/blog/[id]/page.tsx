@@ -2,7 +2,9 @@ import { Metadata } from "next";
 
 import { notFound } from "next/navigation";
 import { PostContent } from "@/components/PostContent";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import Link from "next/link";
+import { PageShell } from "@/components/portal/page-shell";
+import { blogCategoryLabel } from "@/lib/blog-categories";
 import { Calendar, Clock, User } from "lucide-react";
 import { buildAlternates } from "@/lib/seo";
 import Adsense from "@/components/Adsense";
@@ -132,62 +134,60 @@ export default async function BlogPostPage(props: {
   };
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-4rem)]">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <article className="container max-w-4xl mx-auto px-4 py-12">
-        <Breadcrumbs
-          items={[
-            { label: "Home", href: "/" },
-            {
-              label: "크리에이터 허브",
-              href: "/blog",
-            },
-            {
-              label: post.title,
-              href: `/blog/${id}`,
-              isCurrent: true,
-            },
-          ]}
-        />
-
-        <header className="mb-8">
-          <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              <span>{formatDate(post.publishedAt)}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4" />
-              <span>{post.readTime} min read</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <User className="w-4 h-4" />
-              <span>{post.author}</span>
-            </div>
-          </div>
-
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
-            {post.title}
-          </h1>
-
-          <div className="flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 text-sm rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400"
-              >
-                #{tag}
+      <PageShell
+        crumbs={[
+          { label: "크리에이터 허브", href: "/blog" },
+          { label: String(post.title) },
+        ]}
+      >
+        <article className="pt-panel px-3 py-3">
+          {/* 게시글 머리말 — 제목 + 작성 정보 한 줄 */}
+          <header className="mb-2 border-b border-[var(--pt-line-strong)] pb-2">
+            <h1 className="text-[19px] font-extrabold leading-snug tracking-tight">
+              {post.title}
+            </h1>
+            <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-[var(--pt-text-meta)]">
+              <span className="flex items-center gap-1">
+                <User className="h-3 w-3" />
+                {post.author}
               </span>
-            ))}
-          </div>
-        </header>
-        <Adsense slotId="7759160077" />
+              <span className="flex items-center gap-1">
+                <Calendar className="h-3 w-3" />
+                {formatDate(post.publishedAt)}
+              </span>
+              <span className="flex items-center gap-1">
+                <Clock className="h-3 w-3" />
+                읽는 데 {post.readTime}분
+              </span>
+              <span className="pt-badge">{blogCategoryLabel(post.category)}</span>
+            </div>
+            {post.tags.length > 0 && (
+              <div className="mt-1.5 flex flex-wrap gap-1">
+                {post.tags.map((tag) => (
+                  <span key={tag} className="pt-badge">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </header>
 
-        <PostContent content={post.content} />
-      </article>
-    </div>
+          <Adsense slotId="7759160077" />
+
+          <PostContent content={post.content} />
+
+          <div className="mt-3 border-t border-[var(--pt-line)] pt-2">
+            <Link href="/blog" className="pt-btn">
+              목록으로
+            </Link>
+          </div>
+        </article>
+      </PageShell>
+    </>
   );
 }

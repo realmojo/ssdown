@@ -171,11 +171,11 @@ export function ToolsSidebar({ category, dict }: ToolsSidebarProps) {
   const toolNames = dict?.[config.dictKey]?.tools;
 
   return (
-    <div className="sticky top-24">
-      <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-3">
-        {config.label}
-      </h3>
-      <nav className="space-y-1">
+    <div className="pt-panel sticky top-2 overflow-hidden">
+      <div className="pt-panel-hd !h-7">
+        <h3 className="!text-[12px]">{config.label}</h3>
+      </div>
+      <nav className="py-1">
         {config.tools.map((tool, idx) => {
           const Icon = tool.icon;
           const isActive = pathname === tool.href;
@@ -185,13 +185,13 @@ export function ToolsSidebar({ category, dict }: ToolsSidebarProps) {
             <a
               key={tool.href}
               href={tool.href}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
+              className={`flex items-center gap-1.5 px-2 py-[3px] text-[12px] ${
                 isActive
-                  ? `${config.activeBg} ${config.activeColor} font-medium`
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  ? "font-bold text-[var(--pt-accent)]"
+                  : "text-[var(--pt-text-sub)] hover:bg-[var(--pt-hover)] hover:text-[var(--pt-accent)]"
               }`}
             >
-              <Icon className={`w-4 h-4 shrink-0 ${isActive ? config.activeIconColor : ""}`} />
+              <Icon className="h-3 w-3 shrink-0" />
               <span className="truncate">{title}</span>
             </a>
           );

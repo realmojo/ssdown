@@ -288,17 +288,17 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 min-h-[50vh]">
-      <div className="flex gap-8">
-        <div className="flex-1 min-w-0 flex flex-col items-center">
-          <div className="flex flex-col items-center justify-center w-full max-w-4xl mb-12">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 mb-6">
+    <div className="w-full">
+      <div className="flex gap-2">
+        <div className="flex min-w-0 flex-1 flex-col">
+          <div className="flex w-full flex-col">
+            <div className="hidden">
               <ImageIcon className="w-10 h-10 text-indigo-600 dark:text-indigo-400" />
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+            <h1 className="mb-1.5 w-full border-b-2 border-[var(--pt-text)] pb-1.5 text-[17px] font-extrabold leading-tight tracking-tight">
               {dict?.video_frame_extractor?.title || "Video Frame Extractor"}
             </h1>
-            <p className="text-muted-foreground text-center max-w-2xl mb-8">
+            <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
               {dict?.video_frame_extractor?.subtitle ||
                 "Extract high-quality images from your videos frame by frame. 100% client-side API."}
             </p>
@@ -365,7 +365,7 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
 
             {/* Error Message */}
             {error && (
-              <div className="w-full max-w-2xl mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg animate-in fade-in slide-in-from-top-2">
+              <div className="w-full max-w-2xl mb-2 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg animate-in fade-in slide-in-from-top-2">
                 <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
                   <X className="w-4 h-4" />
                   <p className="text-sm font-medium">{error}</p>
@@ -395,9 +395,9 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
                     </Button>
                   </div>
                 </CardHeader>
-                <CardContent className="pt-6 space-y-6">
+                <CardContent className="pt-6 space-y-2">
                   {/* Settings Grid */}
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <div className="grid md:grid-cols-2 gap-2">
                     <div className="space-y-4">
                       <div className="space-y-2">
                         <Label>추출 간격 (초)</Label>
@@ -493,7 +493,7 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
 
             {/* Results Section */}
             {frames.length > 0 && !isProcessing && (
-              <div className="w-full space-y-6 animate-in fade-in slide-in-from-bottom-8">
+              <div className="w-full space-y-2 animate-in fade-in slide-in-from-bottom-8">
                 <div className="flex flex-wrap items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-xl border shadow-sm gap-4">
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5 text-green-500" />
@@ -549,23 +549,23 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
           </div>
 
           {/* Guide Section */}
-          <div className="w-full max-w-6xl mx-auto mt-20 px-4 space-y-16">
+          <div className="w-full max-w-6xl mx-auto mt-3 px-4 space-y-3">
             <section>
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-100 dark:bg-indigo-900/30 mb-4">
+              <div className="mb-2">
+                <div className="hidden">
                   <BookOpen className="w-8 h-8 text-indigo-500" />
                 </div>
-                <h2 className="text-3xl font-bold tracking-tight mb-4">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {dict?.video_frame_extractor?.guide_title ||
                     "How to Extract Frames"}
                 </h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
                   {dict?.video_frame_extractor?.guide_desc ||
                     "Extracting high-quality images from video is easy."}
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-3 gap-2">
                 {[
                   {
                     step: 1,
@@ -610,11 +610,11 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
 
             {/* 활용 팁 */}
             <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
-              <div className="text-center mb-10">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
+              <div className="text-center mb-2">
+                <div className="hidden">
                   <Lightbulb className="w-8 h-8 text-yellow-500" />
                 </div>
-                <h2 className="text-3xl font-bold tracking-tight mb-4">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {dict?.video_frame_extractor?.tips_title ||
                     "Frame Extraction Tips"}
                 </h2>
@@ -624,7 +624,7 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-2">
                 {[
                   {
                     title:
@@ -682,8 +682,8 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
 
             {/* FAQ Section */}
             <section>
-              <div className="text-center mb-10">
-                <h2 className="text-3xl font-bold tracking-tight mb-4">
+              <div className="text-center mb-2">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {dict?.qna_video_frame_extractor?.title || "Common Questions"}
                 </h2>
                 <p className="text-muted-foreground">
@@ -709,7 +709,7 @@ export function VideoFrameExtractorClient({ dict }: { dict?: any }) {
             </section>
           </div>
         </div>
-        <aside className="hidden lg:block w-64 shrink-0">
+        <aside className="hidden shrink-0 xl:block xl:w-[200px]">
           <ToolsSidebar category="video-audio" dict={dict} />
         </aside>
       </div>

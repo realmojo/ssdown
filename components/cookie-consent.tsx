@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { Cookie } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export function CookieConsent() {
@@ -28,50 +27,39 @@ export function CookieConsent() {
   return (
     <div
       className={cn(
-        "fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6",
-        "bg-white dark:bg-gray-900 border-t shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]",
-        "animate-in slide-in-from-bottom duration-500"
+        "fixed bottom-0 left-0 right-0 z-50 border-t border-[var(--pt-line-strong)] bg-white",
+        "animate-in slide-in-from-bottom duration-300"
       )}
     >
-      <div className="container max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="p-2 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 shrink-0">
-            <Cookie className="h-6 w-6" />
-          </div>
-          <div className="space-y-1 text-center md:text-left">
-            <h3 className="font-semibold text-foreground">
-              개인정보를 소중히 다룹니다
-            </h3>
-            <p className="text-sm text-muted-foreground max-w-2xl">
-              We use necessary cookies to ensure our website functions
-              correctly. With your consent, we may also use third-party cookies
-              (like Google AdSense & Analytics) to improve our service and serve
-              relevant ads. For more information, please read our{" "}
-              <a
-                href="/privacy"
-                className="underline underline-offset-4 hover:text-indigo-600 dark:hover:text-indigo-400"
-                target="_blank"
-              >
-                개인정보처리방침
-              </a>
-              .
-            </p>
-          </div>
+      <div className="pt-wrap flex flex-col items-start gap-2 py-2.5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-start gap-2">
+          <Cookie className="mt-0.5 h-4 w-4 shrink-0 text-[var(--pt-accent)]" />
+          <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
+            <strong className="text-[var(--pt-text)]">쿠키 사용 안내</strong> —
+            사이트가 정상 동작하는 데 필요한 쿠키를 사용합니다. 동의하시면 서비스
+            개선과 맞춤 광고를 위해 제3자 쿠키(구글 애드센스·애널리틱스)도
+            사용합니다. 자세한 내용은{" "}
+            <a
+              href="/privacy"
+              className="text-[var(--pt-accent)] underline underline-offset-2"
+              target="_blank"
+            >
+              개인정보처리방침
+            </a>
+            에서 확인하세요.
+          </p>
         </div>
-        <div className="flex gap-3 w-full md:w-auto">
-          <Button
-            variant="outline"
-            className="flex-1 md:flex-none"
-            onClick={accept}
-          >
+        <div className="flex w-full shrink-0 gap-1.5 sm:w-auto">
+          <button type="button" className="pt-btn flex-1 sm:flex-none" onClick={accept}>
             필수만 허용
-          </Button>
-          <Button
-            className="flex-1 md:flex-none bg-indigo-600 hover:bg-indigo-700"
+          </button>
+          <button
+            type="button"
+            className="pt-btn pt-btn-primary flex-1 sm:flex-none"
             onClick={accept}
           >
             전체 허용
-          </Button>
+          </button>
         </div>
       </div>
     </div>

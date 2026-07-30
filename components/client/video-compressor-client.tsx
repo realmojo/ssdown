@@ -293,17 +293,17 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
   const outBaseName = file?.name?.replace(/\.[^.]+$/, "") || "video";
 
   return (
-    <div className="container mx-auto px-4 py-8 min-h-[50vh]">
-      <div className="flex gap-8">
-        <div className="flex-1 min-w-0 flex flex-col items-center">
-          <div className="flex flex-col items-center justify-center w-full max-w-3xl mb-12">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-orange-100 to-amber-100 dark:from-orange-900/30 dark:to-amber-900/30 mb-6">
+    <div className="w-full">
+      <div className="flex gap-2">
+        <div className="flex min-w-0 flex-1 flex-col">
+          <div className="flex w-full flex-col">
+            <div className="hidden">
               <Minimize2 className="w-10 h-10 text-orange-600 dark:text-orange-400" />
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+            <h1 className="mb-1.5 w-full border-b-2 border-[var(--pt-text)] pb-1.5 text-[17px] font-extrabold leading-tight tracking-tight">
               {t.title || "영상 압축"}
             </h1>
-            <p className="text-muted-foreground text-center max-w-2xl mb-8">
+            <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
               {t.subtitle ||
                 "화질 손상을 최소화하면서 브라우저에서 바로 영상 용량을 줄이세요. 빠르고 무료이며 아무것도 업로드되지 않습니다."}
             </p>
@@ -367,7 +367,7 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
                     </Button>
                   </div>
                 </CardHeader>
-                <CardContent className="pt-8 space-y-6">
+                <CardContent className="pt-8 space-y-2">
                   {isLargeFile && (
                     <div className="flex gap-3 p-3 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800">
                       <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
@@ -449,7 +449,7 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
               <div className="w-full space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <Card className="border-green-100 dark:border-green-900/50 bg-green-50/50 dark:bg-green-900/10">
                   <CardContent className="pt-6">
-                    <div className="flex flex-col items-center text-center gap-4 mb-6">
+                    <div className="flex flex-col items-center text-center gap-4 mb-2">
                       <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-full">
                         <Download className="w-8 h-8 text-green-600 dark:text-green-400" />
                       </div>
@@ -470,7 +470,7 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
                     </div>
 
                     {/* Size comparison bar */}
-                    <div className="flex items-center gap-3 mb-6 text-xs font-medium">
+                    <div className="flex items-center gap-3 mb-2 text-xs font-medium">
                       <span className="w-16 shrink-0 text-right text-muted-foreground">
                         {t.original_label || "Original"}
                       </span>
@@ -481,7 +481,7 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
                         {formatSize(originalSize)}
                       </span>
                     </div>
-                    <div className="flex items-center gap-3 mb-6 text-xs font-medium">
+                    <div className="flex items-center gap-3 mb-2 text-xs font-medium">
                       <span className="w-16 shrink-0 text-right text-muted-foreground">
                         {t.compressed_label || "Compressed"}
                       </span>
@@ -511,7 +511,7 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
                     <video
                       src={downloadUrl}
                       controls
-                      className="w-full rounded-lg mb-6 bg-black max-h-[360px]"
+                      className="w-full rounded-lg mb-2 bg-black max-h-[360px]"
                     />
 
                     <div className="flex flex-col sm:flex-row gap-3">
@@ -556,19 +556,19 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
           </div>
 
           {/* Guide Section */}
-          <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
+          <div className="w-full max-w-6xl mx-auto mt-3 px-4 space-y-3">
             <section>
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold tracking-tight mb-4">
+              <div className="mb-2">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {t.guide_title || "영상 압축 방법"}
                 </h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
                   {t.guide_desc ||
                     "세 단계면 영상 용량을 줄일 수 있습니다."}
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-3 gap-2">
                 {[
                   {
                     step: 1,
@@ -619,11 +619,11 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
 
             {/* Tips Section */}
             <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
-              <div className="text-center mb-10">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
+              <div className="text-center mb-2">
+                <div className="hidden">
                   <Lightbulb className="w-8 h-8 text-yellow-500" />
                 </div>
-                <h2 className="text-3xl font-bold tracking-tight mb-4">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {t.tips_title || "Compression Tips"}
                 </h2>
                 <p className="text-muted-foreground">
@@ -631,7 +631,7 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-2">
                 {[
                   {
                     title: t.tip1_title || "'균형'부터 시작하세요",
@@ -682,8 +682,8 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
 
             {/* FAQ Section */}
             <section>
-              <div className="text-center mb-10">
-                <h2 className="text-3xl font-bold tracking-tight mb-4">
+              <div className="text-center mb-2">
+                <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
                   {t.faq_title || "자주 묻는 질문"}
                 </h2>
               </div>
@@ -716,7 +716,7 @@ export function VideoCompressorClient({ dict }: { dict?: any }) {
             </section>
           </div>
         </div>
-        <aside className="hidden lg:block w-64 shrink-0">
+        <aside className="hidden shrink-0 xl:block xl:w-[200px]">
           <ToolsSidebar category="video-audio" dict={dict} />
         </aside>
       </div>

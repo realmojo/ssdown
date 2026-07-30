@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
 import { CollageMakerClient } from "@/components/client/collage-maker-client";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageShell } from "@/components/portal/page-shell";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
@@ -113,21 +113,16 @@ export default async function CollageMakerPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container max-w-7xl mx-auto px-4 py-8">
-        <Breadcrumbs
-          items={[
-            { label: dict.breadcrumb.home, href: "/" },
-            { label: dict.breadcrumb.tools, href: "/tools" },
-            { label: dict.breadcrumb.image_tools, href: "/tools/image" },
-            {
-              label: dict.page_collage_maker.breadcrumb_title,
-              href: "/image/collage-maker",
-              isCurrent: true,
-            },
-          ]}
-        />
-      </div>
-      <CollageMakerClient dict={dict} />
+      <PageShell
+        sidebar={false}
+        crumbs={[
+          { label: dict.breadcrumb.tools, href: "/tools" },
+          { label: dict.breadcrumb.image_tools, href: "/tools/image" },
+          { label: dict.page_collage_maker.breadcrumb_title },
+        ]}
+      >
+        <CollageMakerClient dict={dict} />
+      </PageShell>
     </>
   );
 }

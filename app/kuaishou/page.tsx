@@ -2,6 +2,7 @@ import { getDictionary } from "@/lib/get-dictionary";
 import { KuaishouClient } from "@/components/client/kuaishou-client";
 import { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo";
+import { PageShell } from "@/components/portal/page-shell";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
@@ -117,7 +118,11 @@ export default async function KuaishouPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
       />
-      <KuaishouClient dict={dict} />
+      <PageShell
+        crumbs={[{ label: "영상 다운로드", href: "/tools" }, { label: "콰이쇼우 다운로드" }]}
+      >
+        <KuaishouClient dict={dict} />
+      </PageShell>
     </>
   );
 }

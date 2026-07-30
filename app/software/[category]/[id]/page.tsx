@@ -25,6 +25,7 @@ import { getCategoryByMain, getCategoryBySlug } from "@/lib/categories";
 import { buildAlternates } from "@/lib/seo";
 import Adsense from "@/components/Adsense";
 import type { SoftwareApplication } from "@/types/app";
+import { PageShell } from "@/components/portal/page-shell";
 
 const PLATFORM_AD_SLOT: Record<string, string> = {
   Windows: "6067594441",
@@ -239,10 +240,10 @@ function AppCard({ a }: { a: SoftwareApplication }) {
   return (
     <a
       href={buildAppHref(a)}
-      className="group flex flex-col gap-2 rounded-2xl border border-gray-200 bg-white p-3 transition-all hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-lg"
+      className="group flex flex-col gap-2 rounded-[2px] border border-[var(--pt-line)] bg-white p-3 transition-all hover:-translate-y-0.5 hover:border-blue-300 hover:"
     >
       <div className="flex items-center gap-3">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gray-100">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-[2px] bg-gray-100">
           {a.content.iconUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={a.content.iconUrl} alt={a.core.name} className="h-full w-full object-cover" loading="lazy" />
@@ -408,34 +409,25 @@ export default async function AppDetailPage({
   ];
 
   return (
-    <div className="min-h-screen bg-[#f6f7f9]">
+    <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
-        {/* ── 이동 경로 ─────────────────────────────────────────── */}
-        <nav aria-label="경로" className="mb-4 flex flex-wrap items-center gap-1 text-xs text-gray-500">
-          <a href="/" className="transition-colors hover:text-blue-600">홈</a>
-          <ChevronRight className="h-3 w-3" />
-          <a href="/software" className="transition-colors hover:text-blue-600">소프트웨어</a>
-          {category && (
-            <>
-              <ChevronRight className="h-3 w-3" />
-              <a href={`/software/${category.slug}`} className="transition-colors hover:text-blue-600">
-                {category.name}
-              </a>
-            </>
-          )}
-          <ChevronRight className="h-3 w-3" />
-          <span className="text-gray-700">{app.core.name}</span>
-        </nav>
+      <PageShell
+        sidebar={false}
+        crumbs={[
+          { label: "소프트웨어", href: "/software" },
+          ...(category ? [{ label: category.name, href: `/software/${category.slug}` }] : []),
+          { label: app.core.name },
+        ]}
+      >
 
         {/* ── 히어로 카드 ───────────────────────────────────────── */}
-        <section className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm">
-          <div className="flex flex-col gap-6 p-6 sm:p-8 lg:flex-row lg:items-center">
-            <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-3xl bg-gray-100 shadow-inner sm:h-28 sm:w-28">
+        <section className="overflow-hidden rounded-[2px] border border-[var(--pt-line)] bg-white">
+          <div className="flex flex-col gap-2 p-3 sm:p-3 lg:flex-row lg:items-center">
+            <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-[2px] bg-gray-100 sm:h-28 sm:w-28">
               {app.content.iconUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={app.content.iconUrl} alt={app.core.name} className="h-full w-full object-cover" />
@@ -517,7 +509,7 @@ export default async function AppDetailPage({
                 href={app.download.downloadUrl}
                 target="_blank"
                 rel="nofollow noopener"
-                className="flex items-center justify-center gap-2 rounded-2xl bg-blue-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition-all hover:-translate-y-0.5 hover:bg-blue-500 hover:shadow-xl hover:shadow-blue-600/30"
+                className="flex items-center justify-center gap-2 rounded-[2px] bg-blue-600 px-6 py-3.5 text-sm font-bold text-white shadow-blue-600/20 transition-all hover:-translate-y-0.5 hover:bg-blue-500 hover:shadow-xl hover:shadow-blue-600/30"
               >
                 <Download className="h-4 w-4" />
                 다운로드
@@ -559,11 +551,11 @@ export default async function AppDetailPage({
           </div>
         </section>
 
-        <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
+        <div className="mt-6 grid grid-cols-1 gap-2 lg:grid-cols-[1fr_320px]">
           {/* ── 본문 ─────────────────────────────────────────────── */}
-          <div className="space-y-6">
+          <div className="space-y-2">
             {/* 설치 방법 */}
-            <section className="rounded-3xl border border-gray-200 bg-white p-6 sm:p-7">
+            <section className="rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:p-7">
               <h2 className="text-lg font-bold text-gray-900">
                 {nameWithPlatform(app.core.name, app.core.platform)} 설치 방법
               </h2>
@@ -589,7 +581,7 @@ export default async function AppDetailPage({
 
             {/* 주요 특징 */}
             {hasPros && (
-              <section className="rounded-3xl border border-gray-200 bg-white p-6 sm:p-7">
+              <section className="rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:p-7">
                 <h2 className="text-lg font-bold text-gray-900">주요 특징</h2>
                 <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                   {app.content.pros.map((p, i) => (
@@ -606,14 +598,10 @@ export default async function AppDetailPage({
 
             {/* 리뷰 본문 */}
             {reviewHtml && (
-              <section className="rounded-3xl border border-gray-200 bg-white p-6 sm:p-7">
+              <section className="rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:p-7">
                 <h2 className="text-lg font-bold text-gray-900">{app.core.name} 상세 리뷰</h2>
                 <div
-                  className="prose prose-sm prose-gray mt-4 max-w-none
-                    prose-headings:font-bold prose-headings:text-gray-900
-                    prose-p:leading-relaxed prose-p:text-gray-700
-                    prose-li:text-gray-700 prose-a:text-blue-600
-                    prose-table:text-sm"
+                  className="prose prose-sm prose-gray mt-4 max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:leading-relaxed prose-p:text-gray-700 prose-li:text-gray-700 prose-a:text-blue-600 prose-table:text-sm"
                   dangerouslySetInnerHTML={{ __html: reviewHtml }}
                 />
               </section>
@@ -623,7 +611,7 @@ export default async function AppDetailPage({
             {(hasPros || hasCons) && (
               <section className="grid gap-4 sm:grid-cols-2">
                 {hasPros && (
-                  <div className="rounded-3xl border border-emerald-100 bg-emerald-50/40 p-6">
+                  <div className="rounded-[2px] border border-emerald-100 bg-emerald-50/40 p-3">
                     <div className="flex items-center gap-2">
                       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100">
                         <Check className="h-3.5 w-3.5 text-emerald-600" />
@@ -641,7 +629,7 @@ export default async function AppDetailPage({
                   </div>
                 )}
                 {hasCons && (
-                  <div className="rounded-3xl border border-rose-100 bg-rose-50/40 p-6">
+                  <div className="rounded-[2px] border border-rose-100 bg-rose-50/40 p-3">
                     <div className="flex items-center gap-2">
                       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-rose-100">
                         <X className="h-3.5 w-3.5 text-rose-600" />
@@ -662,7 +650,7 @@ export default async function AppDetailPage({
             )}
 
             {/* 자주 묻는 질문 */}
-            <section className="rounded-3xl border border-gray-200 bg-white p-6 sm:p-7">
+            <section className="rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:p-7">
               <h2 className="text-lg font-bold text-gray-900">자주 묻는 질문</h2>
               <div className="mt-4 divide-y divide-gray-100">
                 {faq.map((f, i) => (
@@ -681,12 +669,12 @@ export default async function AppDetailPage({
           {/* ── 사이드바 ─────────────────────────────────────────── */}
           <aside className="space-y-4">
             <div className="lg:sticky lg:top-20 lg:space-y-4">
-              <div className="rounded-3xl border border-gray-200 bg-white p-5">
+              <div className="rounded-[2px] border border-[var(--pt-line)] bg-white p-5">
                 <a
                   href={app.download.downloadUrl}
                   target="_blank"
                   rel="nofollow noopener"
-                  className="flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500"
+                  className="flex w-full items-center justify-center gap-2 rounded-[2px] bg-blue-600 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500"
                 >
                   <Download className="h-4 w-4" />
                   다운로드
@@ -696,7 +684,7 @@ export default async function AppDetailPage({
                     href={app.core.developer.websiteUrl}
                     target="_blank"
                     rel="nofollow noopener"
-                    className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-2xl border border-gray-200 py-2.5 text-xs text-gray-500 transition-colors hover:border-blue-200 hover:text-blue-600"
+                    className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-[2px] border border-[var(--pt-line)] py-2.5 text-xs text-gray-500 transition-colors hover:border-blue-200 hover:text-blue-600"
                   >
                     <Globe className="h-3.5 w-3.5" />
                     공식 홈페이지
@@ -716,7 +704,7 @@ export default async function AppDetailPage({
               <Adsense slotId={adSlot} format="rectangle" />
 
               {app.rating.average > 0 && (
-                <div className="rounded-3xl border border-gray-200 bg-white p-5">
+                <div className="rounded-[2px] border border-[var(--pt-line)] bg-white p-5">
                   <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400">평점</h2>
                   <div className="mt-3 flex items-end gap-3">
                     <span className="text-4xl font-black leading-none text-gray-900">
@@ -750,7 +738,7 @@ export default async function AppDetailPage({
 
         {/* ── 비슷한 앱 ─────────────────────────────────────────── */}
         {alternatives.length > 0 && (
-          <section className="mt-8">
+          <section className="mt-2">
             <div className="mb-4 flex items-end justify-between gap-4">
               <h2 className="text-lg font-bold text-gray-900">비슷한 앱</h2>
               {category && (
@@ -772,7 +760,7 @@ export default async function AppDetailPage({
 
         {/* ── 최신 등록 앱 ──────────────────────────────────────── */}
         {latest.length > 0 && (
-          <section className="mt-8">
+          <section className="mt-2">
             <div className="mb-4 flex items-end justify-between gap-4">
               <h2 className="text-lg font-bold text-gray-900">최신 {plat} 앱</h2>
               <a
@@ -789,7 +777,7 @@ export default async function AppDetailPage({
             </div>
           </section>
         )}
-      </div>
-    </div>
+      </PageShell>
+    </>
   );
 }

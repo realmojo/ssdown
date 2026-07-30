@@ -4,7 +4,7 @@ export default function NotFound() {
   return (
     <div className="min-h-[70vh] bg-gray-50 flex items-center">
       <div className="max-w-3xl mx-auto w-full px-4 sm:px-6 lg:px-8">
-        <div className="bg-white border border-gray-200 rounded-2xl p-8 sm:p-12 text-center shadow-sm">
+        <div className="bg-white border border-[var(--pt-line)] rounded-[2px] p-6 text-center">
           <p className="text-xs font-semibold tracking-[0.2em] text-gray-400">오류 404</p>
           <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold text-gray-900">
             페이지를 찾을 수 없어요
@@ -16,14 +16,14 @@ export default function NotFound() {
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href="/"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-500 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-[2px] bg-blue-600 text-white font-semibold hover:bg-blue-500 transition-colors"
             >
               <Home className="w-4 h-4" />
               홈으로 이동
             </a>
             <a
               href="/software"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-gray-200 text-gray-700 font-semibold hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-[2px] border border-[var(--pt-line)] text-gray-700 font-semibold hover:bg-gray-50 transition-colors"
             >
               <Search className="w-4 h-4" />
               소프트웨어 둘러보기

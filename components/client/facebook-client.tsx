@@ -74,23 +74,23 @@ export function FacebookClient({ dict }: FacebookClientProps) {
   ];
 
   const guideSection = (
-    <div className="w-full max-w-6xl mx-auto mt-20 px-4 space-y-16">
+    <div className="w-full max-w-6xl mx-auto mt-3 px-4 space-y-3">
       {/* Step-by-Step Guide */}
       <section>
-        <div className="text-center mb-12">
+        <div className="mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 mb-4">
             <BookOpen className="w-8 h-8 text-blue-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.facebook?.guide_title || "페이스북 영상 다운로드 방법"}
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
             {dict?.facebook?.guide_desc ||
               "페이스북 영상을 HD·4K 화질로 내려받아 오프라인에서 감상하세요."}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-2">
           {[
             {
               step: 1,
@@ -141,11 +141,11 @@ export function FacebookClient({ dict }: FacebookClientProps) {
 
       {/* 활용 팁 */}
       <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
-        <div className="text-center mb-10">
+        <div className="text-center mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
             <Lightbulb className="w-8 h-8 text-yellow-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.facebook?.tips_title || "페이스북 다운로드 팁"}
           </h2>
           <p className="text-muted-foreground">
@@ -154,7 +154,7 @@ export function FacebookClient({ dict }: FacebookClientProps) {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-2">
           {[
             {
               title: dict?.facebook?.tip1_title || "공개 영상만 가능",
@@ -203,11 +203,11 @@ export function FacebookClient({ dict }: FacebookClientProps) {
 
       {/* Features & Capabilities */}
       <section>
-        <div className="text-center mb-10">
+        <div className="text-center mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
             <Info className="w-8 h-8 text-green-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.facebook?.features_title || "페이스북 영상 기능"}
           </h2>
           <p className="text-muted-foreground">
@@ -216,7 +216,7 @@ export function FacebookClient({ dict }: FacebookClientProps) {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
           {[
             {
               title: dict?.facebook?.feature1_title || "HD·4K 화질",
@@ -257,8 +257,8 @@ export function FacebookClient({ dict }: FacebookClientProps) {
 
       {/* FAQ Section */}
       <section>
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+        <div className="text-center mb-2">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             {dict?.qna_facebook?.title || "Facebook FAQ"}
           </h2>
           <p className="text-muted-foreground">
@@ -283,10 +283,10 @@ export function FacebookClient({ dict }: FacebookClientProps) {
 
       {/* Facebook Platform Deep Dive */}
       <section className="bg-white dark:bg-gray-950 rounded-2xl border p-8 md:p-12">
-        <h2 className="text-3xl font-bold tracking-tight mb-6">
+        <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
           페이스북 영상 콘텐츠 이해하기
         </h2>
-        <div className="prose prose-slate dark:prose-invert max-w-none space-y-6 text-muted-foreground">
+        <div className="prose prose-slate dark:prose-invert max-w-none space-y-2 text-muted-foreground">
           <p>
             페이스북은 하루 수십억 회의 영상 조회수를 기록하는 세계 최대 영상 플랫폼 중 하나입니다. 개인의 추억부터 전문 콘텐츠까지, 페이스북의 영상 생태계를 이해하면 다운로드를 훨씬 효율적으로 관리할 수 있습니다.
           </p>
@@ -314,7 +314,7 @@ export function FacebookClient({ dict }: FacebookClientProps) {
   const faqSection = guideSection;
 
   const emptyState = (
-    <div className="grid gap-6 sm:grid-cols-2 w-full pt-12 text-left">
+    <div className="grid gap-2 sm:grid-cols-2 w-full pt-12 text-left">
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
         <p className="font-semibold text-lg mb-2">
           {dict?.facebook?.feature_1_title || "HD Videos"}
@@ -342,10 +342,10 @@ export function FacebookClient({ dict }: FacebookClientProps) {
       dict={dict}
       theme={theme}
       icon={FacebookIcon}
-      title={dict?.facebook?.title || "Facebook Saver"}
+      title={dict?.facebook?.title || "페이스북 영상 다운로드"}
       subtitle={
         dict?.facebook?.subtitle ||
-        "Download Facebook videos easily. 고화질, free, and secure."
+        "페이스북 영상을 간편하게 내려받으세요. 고화질, 무료, 안전."
       }
       placeholder={
         dict?.facebook?.placeholder || "Paste Facebook video URL here..."

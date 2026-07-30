@@ -29,21 +29,21 @@ export function TikTokTechInsights() {
   ];
 
   return (
-    <section className="py-16 bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900">
+    <section className="py-3 bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900">
       <div className="container px-4 md:px-6 mx-auto max-w-6xl">
-        <div className="text-center mb-12">
+        <div className="mb-2">
           <span className="inline-block py-1 px-3 rounded-full bg-pink-50 dark:bg-pink-900/30 text-pink-600 dark:text-pink-300 text-sm font-semibold mb-4">
             기술 분석
           </span>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             틱톡 영상 인프라 들여다보기
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
             틱톡이 영상 전송과 워터마크, 오디오 스트림을 어떻게 처리하는지, 그리고 깨끗한 다운로드가 가능한 기술적 배경을 자세히 살펴봅니다.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-2">
           {insights.map((item, idx) => (
             <div
               key={idx}
@@ -67,7 +67,7 @@ export function TikTokTechInsights() {
         </div>
 
         {/* Educational Note */}
-        <div className="mt-12 p-6 rounded-xl bg-pink-50/50 dark:bg-pink-900/10 border border-pink-100 dark:border-pink-900/30">
+        <div className="mt-3 p-6 rounded-xl bg-pink-50/50 dark:bg-pink-900/10 border border-pink-100 dark:border-pink-900/30">
           <div className="flex items-start gap-4">
             <Shield className="w-6 h-6 text-pink-600 mt-1 flex-shrink-0" />
             <div className="space-y-2">

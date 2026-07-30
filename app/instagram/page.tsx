@@ -2,6 +2,7 @@ import { getDictionary } from "@/lib/get-dictionary";
 import { InstagramClient } from "@/components/client/instagram-client";
 import { Metadata } from "next";
 import { buildAlternates } from "@/lib/seo";
+import { PageShell } from "@/components/portal/page-shell";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
@@ -108,7 +109,11 @@ export default async function InstagramPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <InstagramClient dict={dict} />
+      <PageShell
+        crumbs={[{ label: "영상 다운로드", href: "/tools" }, { label: "인스타그램 다운로드" }]}
+      >
+        <InstagramClient dict={dict} />
+      </PageShell>
     </>
   );
 }

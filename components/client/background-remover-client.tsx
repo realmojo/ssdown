@@ -213,17 +213,17 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
-      <div className="flex gap-8">
-      <div className="flex-1 min-w-0 flex flex-col items-center">
-      <div className="flex flex-col items-center justify-center w-full max-w-3xl mb-12">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 mb-6">
+    <div className="flex w-full flex-col">
+      <div className="flex gap-2">
+      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="flex w-full flex-col">
+        <div className="hidden">
           <Eraser className="w-10 h-10 text-purple-600 dark:text-purple-400" />
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+        <h1 className="mb-1.5 w-full border-b-2 border-[var(--pt-text)] pb-1.5 text-[17px] font-extrabold leading-tight tracking-tight">
           {dict?.background_remover?.title || "Background Remover"}
         </h1>
-        <p className="text-muted-foreground text-center max-w-2xl mb-8">
+        <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
           {dict?.background_remover?.subtitle ||
             "Remove image backgrounds instantly with AI. 100% free, no upload to server, works entirely in your browser."}
         </p>
@@ -280,7 +280,7 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
         {file && !resultUrl && isProcessing && (
           <Card className="w-full border-purple-100 dark:border-purple-900/50 animate-in fade-in slide-in-from-bottom-4">
             <CardContent className="pt-8">
-              <div className="flex flex-col items-center gap-6">
+              <div className="flex flex-col items-center gap-2">
                 {/* Original Image Preview */}
                 {originalUrl && (
                   <div className="w-full max-w-md rounded-xl overflow-hidden border">
@@ -346,7 +346,7 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="pt-6 space-y-6">
+              <CardContent className="pt-6 space-y-2">
                 {/* Comparison or Result View */}
                 {showComparison && originalUrl ? (
                   <div
@@ -499,7 +499,7 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
 
         {/* Tips Section */}
         {!file && (
-          <div className="w-full mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="w-full mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card className="border-purple-100/50 dark:border-purple-900/30">
               <CardContent className="pt-6">
                 <div className="flex items-start gap-3">
@@ -533,11 +533,11 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
 
         {/* How It Works */}
         {!file && (
-          <div className="w-full mt-8">
-            <h2 className="text-2xl font-bold text-center mb-6">
+          <div className="w-full mt-2">
+            <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
               동작 원리
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
               {[
                 {
                   step: "1",
@@ -573,8 +573,8 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
         )}
         {/* FAQ Section */}
         {!file && (
-          <div className="w-full mt-12">
-            <h2 className="text-2xl font-bold text-center mb-6">
+          <div className="w-full mt-3">
+            <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
               자주 묻는 질문
             </h2>
             <div className="space-y-4">
@@ -609,7 +609,7 @@ export function BackgroundRemoverClient({ dict }: { dict?: any }) {
         )}
       </div>
       </div>
-      <aside className="hidden lg:block w-64 shrink-0">
+      <aside className="hidden shrink-0 xl:block xl:w-[200px]">
         <ToolsSidebar category="image" dict={dict} />
       </aside>
       </div>

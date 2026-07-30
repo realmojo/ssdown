@@ -1,18 +1,22 @@
 import { Metadata } from "next";
+import Link from "next/link";
 
-import { PostCard } from "@/components/PostCard";
-import { BookOpen } from "lucide-react";
 import { Post } from "@/lib/blog-utils";
-import { Key } from "react";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { getAllPosts, getPostsByCategory } from "@/lib/blog-utils";
+import { blogCategoryLabel, isKoreanPost } from "@/lib/blog-categories";
 import { buildAlternates } from "@/lib/seo";
+import { PageShell } from "@/components/portal/page-shell";
+import { Panel } from "@/components/portal/panel";
+import { BoardTable, type BoardRow } from "@/components/portal/board-table";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const baseUrl = "https://ssdown.app";
-  const canonical = `${baseUrl}/blog`;
+const PAGE_TITLE = "크리에이터 허브";
+const PAGE_DESC =
+  "SSDown 무료 온라인 도구를 200% 활용하는 팁과 튜토리얼, 가이드입니다.";
 
+export async function generateMetadata(): Promise<Metadata> {
+  const canonical = "https://ssdown.app/blog";
   const title = "블로그 & 튜토리얼";
   const description =
     "SSDown 무료 온라인 도구를 200% 활용하는 팁과 튜토리얼, 가이드. 이미지 편집, PDF 관리, 영상 변환 등을 배워 보세요.";
@@ -26,12 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
       url: canonical,
       siteName: "SSDown",
       images: [
-        {
-          url: "https://ssdown.app/logo.png",
-          width: 1200,
-          height: 630,
-          alt: "SSDown 블로그",
-        },
+        { url: "https://ssdown.app/logo.png", width: 1200, height: 630, alt: "SSDown 블로그" },
       ],
       locale: "ko_KR",
       type: "website",
@@ -46,122 +45,89 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-import { getAllPosts, getPostsByCategory } from "@/lib/blog-utils";
+function fmtDate(v?: string | Date): string {
+  if (!v) return "";
+  const iso = typeof v === "string" ? v : v.toISOString();
+  return iso.slice(2, 10).replace(/-/g, ".");
+}
 
 export default async function BlogPage(props: {
   searchParams: Promise<{ category?: string }>;
 }) {
   const searchParams = await props.searchParams;
-
   const selectedCategory = searchParams?.category;
-  const allPosts = await getAllPosts();
-  const posts = selectedCategory
+
+  const allPosts: Post[] = await getAllPosts();
+  const raw: Post[] = selectedCategory
     ? await getPostsByCategory(selectedCategory)
     : allPosts;
 
-  // 카테고리 목록 추출 (모든 포스트에서)
-  const categories = Array.from(
-    new Set(allPosts.map((post: any | Post) => post.category)),
-  ).filter(Boolean);
+  // 한국어 글만 노출한다. 기준은 사이트맵과 동일하다.
+  const posts = raw.filter((p) => isKoreanPost(p.title));
 
-  const categoryLabels: Record<string, string> = {
-    guide: "Guide",
-    tech: "Tech",
-    security: "Security",
-    strategy: "Strategy",
-    tips: "Tips",
-    trends: "Trends",
-    instagram: "Instagram",
-    general: "General",
-  };
+  // 분류 탭은 한국어 글이 하나라도 있는 분류만 보여준다.
+  const koreanAll = allPosts.filter((p) => isKoreanPost(p.title));
+  const counts: Record<string, number> = {};
+  for (const p of koreanAll) {
+    if (p.category) counts[p.category] = (counts[p.category] ?? 0) + 1;
+  }
+  const categories = Object.entries(counts).sort((a, b) => b[1] - a[1]);
 
-  const pageTitle = "크리에이터 허브";
-  const pageDescription =
-    "SSDown 무료 온라인 도구를 200% 활용하는 팁과 튜토리얼, 가이드입니다.";
+  const rows: BoardRow[] = posts.map((p, i) => ({
+    no: posts.length - i,
+    href: `/blog/${p.id}`,
+    title: String(p.title),
+    category: blogCategoryLabel(p.category),
+    badge: i < 3 ? "new" : undefined,
+    meta1: fmtDate(p.publishedAt),
+    meta2: `${p.readTime ?? 5}분`,
+  }));
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-4rem)]">
-      <div className="container max-w-7xl mx-auto px-4 py-8">
-        <Breadcrumbs
-          items={[
-            { label: "Home", href: "/" },
-            {
-              label: "크리에이터 허브",
-              href: "/blog",
-              isCurrent: true,
-            },
-          ]}
-        />
+    <PageShell
+      crumbs={[{ label: PAGE_TITLE }]}
+      title={PAGE_TITLE}
+      desc={PAGE_DESC}
+      actions={
+        <span className="text-[12px] text-[var(--pt-text-meta)]">
+          총 <strong className="text-[var(--pt-accent)]">{koreanAll.length}</strong>편
+        </span>
+      }
+    >
+      {/* 분류 탭 */}
+      <nav className="flex flex-wrap items-center gap-1 border-b border-[var(--pt-line)] pb-2">
+        <Link
+          href="/blog"
+          className={`px-2 py-1 text-[12px] ${
+            !selectedCategory
+              ? "font-bold text-[var(--pt-accent)]"
+              : "text-[var(--pt-text-sub)] hover:text-[var(--pt-accent)]"
+          }`}
+        >
+          전체 <span className="text-[11px] text-[var(--pt-text-meta)]">{koreanAll.length}</span>
+        </Link>
+        {categories.map(([cat, n]) => (
+          <Link
+            key={cat}
+            href={`/blog?category=${cat}`}
+            className={`px-2 py-1 text-[12px] ${
+              selectedCategory === cat
+                ? "font-bold text-[var(--pt-accent)]"
+                : "text-[var(--pt-text-sub)] hover:text-[var(--pt-accent)]"
+            }`}
+          >
+            {blogCategoryLabel(cat)}{" "}
+            <span className="text-[11px] text-[var(--pt-text-meta)]">{n}</span>
+          </Link>
+        ))}
+      </nav>
 
-        {/* Header */}
-        <header className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-100 dark:bg-indigo-900/30 mb-4">
-            <BookOpen className="w-8 h-8 text-indigo-500" />
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            {pageTitle}
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            {pageDescription}
-          </p>
-        </header>
-
-        {/* Category Filter */}
-        {categories.length > 0 && (
-          <div className="mb-8 flex flex-wrap gap-3 justify-center">
-            <a
-              href="/blog"
-              className={`px-4 py-2 rounded-full border text-sm font-medium transition-colors ${
-                !selectedCategory
-                  ? "bg-indigo-600 text-white border-indigo-600 hover:bg-indigo-700"
-                  : "border-gray-200 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800"
-              }`}
-            >
-              All
-            </a>
-            {categories.map((category) => {
-              const label =
-                categoryLabels[category as keyof typeof categoryLabels] ||
-                category;
-              const isActive = selectedCategory === category;
-              return (
-                <a
-                  key={category as Key}
-                  href={`/blog?category=${category as string}`}
-                  className={`px-4 py-2 rounded-full border text-sm font-medium transition-colors ${
-                    isActive
-                      ? "bg-indigo-600 text-white border-indigo-600 hover:bg-indigo-700"
-                      : "border-gray-200 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  }`}
-                >
-                  {label as string}
-                </a>
-              );
-            })}
-          </div>
-        )}
-
-        {/* Posts Grid */}
-        {posts.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
-            {posts.map((post: any | Post) => (
-              <PostCard
-                key={post.id}
-                post={post}
-                lang="en" // Hardcoded to 'en'
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-20">
-            <BookOpen className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <h2 className="text-2xl font-bold mb-2">아직 등록된 글이 없습니다</h2>
-            <p className="text-muted-foreground">
-              새로운 가이드와 튜토리얼이 곧 추가됩니다.
-            </p>
-          </div>
-        )}
-      </div>
-    </div>
+      <Panel
+        title={selectedCategory ? `${blogCategoryLabel(selectedCategory)} 글` : "전체 글"}
+        flush
+      >
+        <BoardTable rows={rows} headers={["번호", "제목", "작성일", "읽기"]} />
+      </Panel>
+    </PageShell>
   );
 }

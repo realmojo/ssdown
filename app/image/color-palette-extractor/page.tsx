@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
 import { ColorPaletteExtractorClient } from "@/components/client/color-palette-extractor-client";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageShell } from "@/components/portal/page-shell";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
@@ -113,21 +113,16 @@ export default async function ColorPaletteExtractorPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container max-w-7xl mx-auto px-4 py-8">
-        <Breadcrumbs
-          items={[
-            { label: dict.breadcrumb.home, href: "/" },
-            { label: dict.breadcrumb.tools, href: "/tools" },
-            { label: dict.breadcrumb.image_tools, href: "/tools/image" },
-            {
-              label: dict.page_color_palette_extractor.breadcrumb_title,
-              href: "/image/color-palette-extractor",
-              isCurrent: true,
-            },
-          ]}
-        />
-      </div>
-      <ColorPaletteExtractorClient dict={dict} />
+      <PageShell
+        sidebar={false}
+        crumbs={[
+          { label: dict.breadcrumb.tools, href: "/tools" },
+          { label: dict.breadcrumb.image_tools, href: "/tools/image" },
+          { label: dict.page_color_palette_extractor.breadcrumb_title },
+        ]}
+      >
+        <ColorPaletteExtractorClient dict={dict} />
+      </PageShell>
 
       {/* Mood Palette 관련 도구 배너 */}
       <div className="container max-w-7xl mx-auto px-4 py-8">

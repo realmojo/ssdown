@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
 import { MuteVideoClient } from "@/components/client/mute-video-client";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageShell } from "@/components/portal/page-shell";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
@@ -113,21 +113,16 @@ export default async function MuteVideoPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container max-w-7xl mx-auto px-4 py-8">
-        <Breadcrumbs
-          items={[
-            { label: dict.breadcrumb.home, href: "/" },
-            { label: dict.breadcrumb.tools, href: "/tools" },
-            { label: dict.breadcrumb.video_audio, href: "/tools/video-audio" },
-            {
-              label: dict.page_mute_video.breadcrumb_title,
-              href: "/video-audio/mute-video",
-              isCurrent: true,
-            },
-          ]}
-        />
-      </div>
-      <MuteVideoClient dict={dict} />
+      <PageShell
+        sidebar={false}
+        crumbs={[
+          { label: dict.breadcrumb.tools, href: "/tools" },
+          { label: dict.breadcrumb.video_audio, href: "/tools/video-audio" },
+          { label: dict.page_mute_video.breadcrumb_title },
+        ]}
+      >
+        <MuteVideoClient dict={dict} />
+      </PageShell>
     </>
   );
 }

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
 import { Mp3SplitterClient } from "@/components/client/mp3-splitter-client";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageShell } from "@/components/portal/page-shell";
 
 const meta_title = "MP3 분할기 - 온라인 무료 MP3 자르기 | SSDown";
 const meta_description =
@@ -152,21 +152,16 @@ export default async function Mp3SplitterPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container max-w-7xl mx-auto px-4 py-8">
-        <Breadcrumbs
-          items={[
-            { label: dict.breadcrumb.home, href: "/" },
-            { label: dict.breadcrumb.tools, href: "/tools" },
-            { label: dict.breadcrumb.utility, href: "/tools/utility" },
-            {
-              label: "MP3 Splitter",
-              href: "/utility/mp3-splitter",
-              isCurrent: true,
-            },
-          ]}
-        />
-      </div>
-      <Mp3SplitterClient dict={dict} />
+      <PageShell
+        sidebar={false}
+        crumbs={[
+          { label: dict.breadcrumb.tools, href: "/tools" },
+          { label: dict.breadcrumb.utility, href: "/tools/utility" },
+          { label: "MP3 Splitter" },
+        ]}
+      >
+        <Mp3SplitterClient dict={dict} />
+      </PageShell>
     </>
   );
 }

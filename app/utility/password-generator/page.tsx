@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
 import { PasswordGeneratorClient } from "@/components/client/password-generator-client";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageShell } from "@/components/portal/page-shell";
 
 const META_TITLE = "비밀번호 생성기 - 안전한 비밀번호 만들기 | SSDown";
 const META_DESCRIPTION =
@@ -139,21 +139,16 @@ export default async function PasswordGeneratorPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="container max-w-7xl mx-auto px-4 py-8">
-        <Breadcrumbs
-          items={[
-            { label: dict.breadcrumb.home, href: "/" },
-            { label: dict.breadcrumb.tools, href: "/tools" },
-            { label: dict.breadcrumb.utility, href: "/tools/utility" },
-            {
-              label: BREADCRUMB_TITLE,
-              href: "/utility/password-generator",
-              isCurrent: true,
-            },
-          ]}
-        />
-      </div>
-      <PasswordGeneratorClient dict={dict} />
+      <PageShell
+        sidebar={false}
+        crumbs={[
+          { label: dict.breadcrumb.tools, href: "/tools" },
+          { label: dict.breadcrumb.utility, href: "/tools/utility" },
+          { label: BREADCRUMB_TITLE },
+        ]}
+      >
+        <PasswordGeneratorClient dict={dict} />
+      </PageShell>
     </>
   );
 }

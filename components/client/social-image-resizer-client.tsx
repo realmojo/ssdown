@@ -217,17 +217,17 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[50vh]">
-      <div className="flex gap-8">
-      <div className="flex-1 min-w-0 flex flex-col items-center">
-      <div className="flex flex-col items-center justify-center w-full max-w-6xl mb-12">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-pink-100 to-orange-100 dark:from-pink-900/30 dark:to-orange-900/30 mb-6">
+    <div className="flex w-full flex-col">
+      <div className="flex gap-2">
+      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="flex w-full flex-col">
+        <div className="hidden">
           <Crop className="w-10 h-10 text-pink-600 dark:text-pink-400" />
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+        <h1 className="mb-1.5 w-full border-b-2 border-[var(--pt-text)] pb-1.5 text-[17px] font-extrabold leading-tight tracking-tight">
           {dict?.social_image_resizer?.title || "Social Image Resizer"}
         </h1>
-        <p className="text-muted-foreground text-center max-w-2xl mb-8">
+        <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
           {dict?.social_image_resizer?.subtitle ||
             "Resize and crop images for Instagram, YouTube, and TikTok. Perfect dimensions, instantly."}
         </p>
@@ -280,9 +280,9 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
             </button>
           </div>
         ) : (
-          <div className="w-full animate-in fade-in slide-in-from-bottom-4 space-y-8">
+          <div className="w-full animate-in fade-in slide-in-from-bottom-4 space-y-2">
             {/* Header / Actions */}
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-2">
               <Button variant="outline" onClick={reset}>
                 <X className="w-4 h-4 mr-2" />
                 처음부터 다시
@@ -299,7 +299,7 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
             </div>
 
             {/* Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
               {/* Original Preview */}
               <Card className="col-span-full md:col-span-2 lg:col-span-1 border-pink-100 dark:border-pink-900/50 bg-pink-50/30">
                 <CardHeader>
@@ -375,20 +375,20 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
       </div>
 
       {/* Guide & Tips & FAQ */}
-      <div className="w-full max-w-6xl mx-auto mt-12 px-4 space-y-16">
+      <div className="w-full max-w-6xl mx-auto mt-3 px-4 space-y-3">
         {/* Guide */}
         <section>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <div className="mb-2">
+            <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
               {dict?.social_image_resizer?.guide_title ||
                 "How to Resize Images"}
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
               {dict?.social_image_resizer?.guide_desc ||
                 "Get your images social-ready in 3 steps."}
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-2">
             {[
               {
                 step: 1,
@@ -438,11 +438,11 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
 
         {/* Tips */}
         <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
+          <div className="text-center mb-2">
+            <div className="hidden">
               <Lightbulb className="w-8 h-8 text-yellow-500" />
             </div>
-            <h2 className="text-3xl font-bold tracking-tight mb-4">
+            <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
               {dict?.social_image_resizer?.tips_title || "Resizing Tips"}
             </h2>
             <p className="text-muted-foreground">
@@ -450,7 +450,7 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
                 "Best practices for social media images."}
             </p>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-2">
             {[
               {
                 title:
@@ -503,11 +503,11 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
 
         {/* FAQ */}
         <section>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <div className="mb-2">
+            <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
               {dict?.qna_social_image_resizer?.title || "Social Resizer FAQ"}
             </h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto">
+            <p className="mb-2 text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
               {dict?.qna_social_image_resizer?.desc ||
                 "Common questions about resizing images."}
             </p>
@@ -531,7 +531,7 @@ export function SocialImageResizerClient({ dict }: { dict?: any }) {
         </section>
       </div>
       </div>
-      <aside className="hidden lg:block w-64 shrink-0">
+      <aside className="hidden shrink-0 xl:block xl:w-[200px]">
         <ToolsSidebar category="image" dict={dict} />
       </aside>
       </div>

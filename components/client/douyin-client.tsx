@@ -56,22 +56,22 @@ export function DouyinClient({ dict }: DouyinClientProps) {
   ];
 
   const guideSection = (
-    <div className="w-full max-w-6xl mx-auto mt-20 px-4 space-y-16">
+    <div className="w-full max-w-6xl mx-auto mt-3 px-4 space-y-3">
       {/* Step-by-Step Guide */}
       <section>
-        <div className="text-center mb-12">
+        <div className="mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 mb-4">
             <BookOpen className="w-8 h-8 text-red-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
             더우인 영상 워터마크 없이 내려받는 방법
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
             더우인(抖音) 영상을 고화질로 저장하세요. 워터마크도, 앱 설치도 필요 없습니다.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-2">
           {[
             {
               step: 1,
@@ -111,17 +111,17 @@ export function DouyinClient({ dict }: DouyinClientProps) {
 
       {/* Tips */}
       <section className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12">
-        <div className="text-center mb-10">
+        <div className="text-center mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
             <Lightbulb className="w-8 h-8 text-yellow-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">더우인 다운로드 팁</h2>
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">더우인 다운로드 팁</h2>
           <p className="text-muted-foreground">
             더우인 콘텐츠를 더 잘 활용하는 방법입니다.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-2">
           {[
             {
               title: "No Watermark",
@@ -159,15 +159,15 @@ export function DouyinClient({ dict }: DouyinClientProps) {
 
       {/* Features */}
       <section>
-        <div className="text-center mb-10">
+        <div className="text-center mb-2">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
             <Info className="w-8 h-8 text-green-500" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">더우인 다운로드 기능</h2>
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">더우인 다운로드 기능</h2>
           <p className="text-muted-foreground">더우인 콘텐츠를 저장하는 데 필요한 모든 기능입니다.</p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
           {[
             {
               title: "Watermark-Free",
@@ -198,8 +198,8 @@ export function DouyinClient({ dict }: DouyinClientProps) {
 
       {/* FAQ */}
       <section>
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold tracking-tight mb-4">더우인 자주 묻는 질문</h2>
+        <div className="text-center mb-2">
+          <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">더우인 자주 묻는 질문</h2>
           <p className="text-muted-foreground">
             더우인 영상 다운로드에 대해 자주 묻는 질문입니다.
           </p>
@@ -238,10 +238,10 @@ export function DouyinClient({ dict }: DouyinClientProps) {
 
       {/* Deep Dive */}
       <section className="bg-white dark:bg-gray-950 rounded-2xl border p-8 md:p-12">
-        <h2 className="text-3xl font-bold tracking-tight mb-6">
+        <h2 className="mb-1.5 border-b border-[var(--pt-line-strong)] pb-1 text-[14px] font-bold tracking-tight">
           더우인 영상 다운로드 이해하기
         </h2>
-        <div className="prose prose-slate dark:prose-invert max-w-none space-y-6 text-muted-foreground">
+        <div className="prose prose-slate dark:prose-invert max-w-none space-y-2 text-muted-foreground">
           <p>
             더우인(抖音)은 월간 활성 사용자 7억 명이 넘는 중국 최대의 숏폼 영상 플랫폼입니다. 틱톡과 기술 기반을 공유하지만, 중국 인터넷 규제 아래 완전히 별개의 플랫폼으로 운영되며 콘텐츠와 창작자, 유행하는 음원도 서로 다릅니다.
           </p>
@@ -263,7 +263,7 @@ export function DouyinClient({ dict }: DouyinClientProps) {
   );
 
   const emptyState = (
-    <div className="grid gap-6 sm:grid-cols-2 w-full pt-12 text-left">
+    <div className="grid gap-2 sm:grid-cols-2 w-full pt-12 text-left">
       <div className="p-6 rounded-xl bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 shadow-sm">
         <p className="font-semibold text-lg mb-2">워터마크 없음</p>
         <p className="text-muted-foreground text-sm">
