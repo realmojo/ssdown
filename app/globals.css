@@ -257,12 +257,12 @@ main :where(.grid, .flex) > * {
 /* 본문 안 강조 버튼(a.cta). 살균기가 class="cta" 만 통과시킨다. */
 .board-content a.cta {
   display: block;
-  margin: 1.2em 0;
-  padding: 15px 18px;
+  margin: 20px 0;
+  padding: 18px 20px;
   border-radius: 6px;
   background: #d32419;
   color: #fff;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   line-height: 1.4;
   text-align: center;

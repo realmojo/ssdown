@@ -53,7 +53,7 @@ const OPTIONS: sanitizeHtml.IOptions = {
       const next: sanitizeHtml.Attributes = {
         ...rest,
         target: "_blank",
-        rel: "nofollow ugc noopener noreferrer",
+        rel: "noopener",
       };
       if (incoming && ALLOWED_LINK_CLASSES.has(incoming)) next.class = incoming;
       return { tagName, attribs: next };
