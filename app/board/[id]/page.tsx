@@ -12,6 +12,9 @@ import { jsonLd } from "@/lib/json-ld";
 
 export const dynamic = "force-dynamic";
 
+/** 애드센스 슬롯 — ssdown(자유게시판). 글 제목 아래 본문 위에 놓는다. */
+const POST_TOP_AD_SLOT = "2273945122";
+
 /** 본문이 HTML 이므로 태그를 걷어낸 뒤 잘라 낸다. */
 function excerpt(content: string, max = 150): string {
   const flat = htmlToText(content);
@@ -123,6 +126,11 @@ export default async function BoardPostPage({
               </span>
             </div>
           </header>
+
+          {/* 제목 바로 아래, 본문 위 배너. 높이는 애드센스가 정하게 둔다. */}
+          <div className="px-3 pt-3">
+            <Adsense slotId={POST_TOP_AD_SLOT} />
+          </div>
 
           {/*
             본문은 HTML 이다. 다만 저장 시점에 lib/board-sanitize 의 허용 목록을
