@@ -1,8 +1,6 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import {
-  Download,
-  ShieldCheck,
   Star,
   ChevronRight,
   Globe,
@@ -68,6 +66,9 @@ function cleanValue(v?: string): string {
 }
 
 export const revalidate = 3600;
+
+/** 애드센스 슬롯 — ssdown(down). 히어로의 다운로드 버튼 자리에 놓는다. */
+const HERO_AD_SLOT = "9206933412";
 
 export async function generateMetadata({
   params,
@@ -148,28 +149,28 @@ function installSteps(app: SoftwareApplication): { title: string; desc: string }
   switch (app.core.platform) {
     case "Android":
       return [
-        { title: "APK 내려받기", desc: `아래 다운로드 버튼을 눌러 ${name} 설치 파일을 저장합니다.` },
+        { title: "APK 내려받기", desc: `공식 홈페이지에서 ${name} 설치 파일을 내려받아 저장합니다.` },
         { title: "출처를 알 수 없는 앱 허용", desc: "설정 › 보안에서 해당 브라우저의 설치 권한을 켭니다." },
         { title: "설치 실행", desc: "받은 APK 파일을 열고 안내에 따라 설치를 진행합니다." },
         { title: "앱 실행", desc: "설치가 끝나면 홈 화면에서 바로 실행할 수 있습니다." },
       ];
     case "iOS":
       return [
-        { title: "App Store 열기", desc: `아래 버튼을 누르면 ${name} 의 App Store 페이지로 이동합니다.` },
+        { title: "App Store 열기", desc: `App Store 에서 ${name} 을(를) 검색하거나 공식 홈페이지의 링크로 이동합니다.` },
         { title: "받기 누르기", desc: "받기(또는 설치) 버튼을 눌러 내려받습니다." },
         { title: "인증 완료", desc: "Face ID·Touch ID 또는 비밀번호로 설치를 승인합니다." },
         { title: "앱 실행", desc: "홈 화면에 추가된 아이콘을 눌러 실행합니다." },
       ];
     case "Mac":
       return [
-        { title: "설치 파일 내려받기", desc: `아래 버튼을 눌러 ${name} 의 dmg 또는 pkg 파일을 저장합니다.` },
+        { title: "설치 파일 내려받기", desc: `공식 홈페이지에서 ${name} 의 dmg 또는 pkg 파일을 내려받습니다.` },
         { title: "디스크 이미지 열기", desc: "받은 파일을 더블클릭해 마운트합니다." },
         { title: "응용 프로그램으로 이동", desc: "앱 아이콘을 응용 프로그램 폴더로 끌어다 놓습니다." },
         { title: "첫 실행 허용", desc: "처음 실행할 때 보안 경고가 뜨면 시스템 설정에서 열기를 허용합니다." },
       ];
     default:
       return [
-        { title: "설치 파일 내려받기", desc: `아래 다운로드 버튼을 눌러 ${name} 설치 파일을 저장합니다.` },
+        { title: "설치 파일 내려받기", desc: `공식 홈페이지에서 ${name} 설치 파일을 내려받아 저장합니다.` },
         { title: "설치 파일 실행", desc: "받은 파일을 더블클릭해 설치 마법사를 시작합니다." },
         { title: "안내에 따라 설치", desc: "설치 경로와 옵션을 확인하고 진행합니다." },
         { title: "프로그램 실행", desc: "설치가 끝나면 바탕화면이나 시작 메뉴에서 실행합니다." },
@@ -295,7 +296,6 @@ export default async function AppDetailPage({
   const fileSize = cleanValue(app.download.fileSize);
   const osReq = cleanValue(app.specs.osRequirements);
   const licStyle = LICENSE_STYLE[app.download.license] ?? LICENSE_STYLE.Free;
-  const secStyle = SECURITY_STYLE[app.download.security.status] ?? SECURITY_STYLE.Unknown;
   const steps = installSteps(app);
   const faq = buildFaq(app);
   const hasPros = app.content.pros.length > 0;
@@ -505,23 +505,15 @@ export default async function AppDetailPage({
               )}
             </div>
 
-            <div className="flex w-full shrink-0 flex-col gap-2 lg:w-56">
-              <a
-                href={app.download.downloadUrl}
-                target="_blank"
-                rel="nofollow noopener"
-                className="flex items-center justify-center gap-2 rounded-[2px] bg-blue-600 px-6 py-3.5 text-sm font-bold text-white shadow-blue-600/20 transition-all hover:-translate-y-0.5 hover:bg-blue-500 hover:shadow-xl hover:shadow-blue-600/30"
-              >
-                <Download className="h-4 w-4" />
-                다운로드
-              </a>
-              <div className="flex items-center justify-center gap-1.5 text-xs">
-                <ShieldCheck className={`h-3.5 w-3.5 ${secStyle.color}`} />
-                <span className={`font-medium ${secStyle.color}`}>
-                  바이러스 검사 완료 · {secStyle.label}
-                </span>
-              </div>
-            </div>
+          </div>
+
+          {/*
+            다운로드 버튼이 있던 자리. 버튼 폭(224px) 그대로 두면 애드센스가
+            세로형(224x600)을 골라 히어로가 두 배로 길어지므로, 히어로 안에서
+            가로 폭을 다 쓰게 해 가로 배너가 나오도록 한다.
+          */}
+          <div className="border-t border-gray-100 px-6 pb-5 pt-4 sm:px-8">
+            <Adsense slotId={HERO_AD_SLOT} />
           </div>
 
           {/* 요약 지표 */}
@@ -671,23 +663,14 @@ export default async function AppDetailPage({
           <aside className="space-y-4">
             <div className="lg:sticky lg:top-20 lg:space-y-4">
               <div className="rounded-[2px] border border-[var(--pt-line)] bg-white p-5">
-                <a
-                  href={app.download.downloadUrl}
-                  target="_blank"
-                  rel="nofollow noopener"
-                  className="flex w-full items-center justify-center gap-2 rounded-[2px] bg-blue-600 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500"
-                >
-                  <Download className="h-4 w-4" />
-                  다운로드
-                </a>
                 {app.core.developer.websiteUrl && (
                   <a
                     href={app.core.developer.websiteUrl}
                     target="_blank"
                     rel="nofollow noopener"
-                    className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-[2px] border border-[var(--pt-line)] py-2.5 text-xs text-gray-500 transition-colors hover:border-blue-200 hover:text-blue-600"
+                    className="flex w-full items-center justify-center gap-2 rounded-[2px] bg-blue-600 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500"
                   >
-                    <Globe className="h-3.5 w-3.5" />
+                    <Globe className="h-4 w-4" />
                     공식 홈페이지
                   </a>
                 )}
