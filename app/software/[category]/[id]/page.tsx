@@ -547,7 +547,8 @@ export default async function AppDetailPage({
         <div className="mt-6 grid grid-cols-1 gap-2 lg:grid-cols-[1fr_320px]">
           {/* ── 본문 ─────────────────────────────────────────────── */}
           <div className="space-y-2">
-            <Adsense slotId={adSlot} format="horizontal" />
+            {/* 형식을 고정하지 않고 애드센스가 자리에 맞게 고르게 둔다(auto). */}
+            <Adsense slotId={adSlot} />
 
             {/* 설치 방법 */}
             <section className="rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:p-7">
