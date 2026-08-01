@@ -5,6 +5,7 @@ import { useCallback, useTransition } from "react";
 import { Star, Search, SlidersHorizontal } from "lucide-react";
 import type { SoftwareApplication } from "@/types/app";
 import { CATEGORIES } from "@/lib/categories";
+import { buildAppHref } from "@/lib/app-href";
 
 const OS_OPTIONS = [
   { value: "", label: "전체 플랫폼" },
@@ -28,13 +29,6 @@ const CATEGORY_OPTIONS = [
 ];
 
 const PAGE_SIZE = 24;
-
-function buildAppHref(app: SoftwareApplication): string {
-  if (app.core.slug) return `/software${app.core.slug}`;
-  const platform =
-    app.core.platform.toLowerCase() === "ios" ? "iphone" : app.core.platform.toLowerCase();
-  return `/software/${platform}/${app.core.id.toLowerCase()}`;
-}
 
 function RatingStars({ rating }: { rating: number }) {
   const full = Math.floor(rating);

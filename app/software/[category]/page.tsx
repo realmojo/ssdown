@@ -20,6 +20,7 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { getCategoryBySlug, getCategoryByMain, CATEGORIES } from "@/lib/categories";
 import { getAppsByCategory, getAppsByPlatform, localizeApp } from "@/lib/app-utils";
+import { buildAppHref } from "@/lib/app-href";
 import type { SoftwareApplication } from "@/types/app";
 import { PageShell } from "@/components/portal/page-shell";
 import { jsonLd } from "@/lib/json-ld";
@@ -183,15 +184,6 @@ function RatingStars({ rating }: { rating: number }) {
       </span>
     </span>
   );
-}
-
-function buildAppHref(app: SoftwareApplication): string {
-  if (app.core.slug) return `/software${app.core.slug}`;
-  const platform =
-    app.core.platform.toLowerCase() === "ios"
-      ? "iphone"
-      : app.core.platform.toLowerCase();
-  return `/software/${platform}/${app.core.id.toLowerCase()}`;
 }
 
 function AppGrid({ apps }: { apps: SoftwareApplication[] }) {

@@ -2,6 +2,8 @@ import { supabase } from "./supabase";
 import { SoftwareApplication, PlatformType, LicenseType, SecurityStatus } from "@/types/app";
 import { getCategoryBySlug } from "./categories";
 
+export { buildAppHref } from "./app-href";
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function transformRow(row: any): SoftwareApplication {
   return {

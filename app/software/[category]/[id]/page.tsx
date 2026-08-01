@@ -547,6 +547,8 @@ export default async function AppDetailPage({
         <div className="mt-6 grid grid-cols-1 gap-2 lg:grid-cols-[1fr_320px]">
           {/* ── 본문 ─────────────────────────────────────────────── */}
           <div className="space-y-2">
+            <Adsense slotId={adSlot} format="horizontal" />
+
             {/* 설치 방법 */}
             <section className="rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:p-7">
               <h2 className="text-lg font-bold text-gray-900">
@@ -569,8 +571,6 @@ export default async function AppDetailPage({
                 ))}
               </ol>
             </section>
-
-            <Adsense slotId={adSlot} format="horizontal" />
 
             {/* 주요 특징 */}
             {hasPros && (
@@ -662,6 +662,8 @@ export default async function AppDetailPage({
           {/* ── 사이드바 ─────────────────────────────────────────── */}
           <aside className="space-y-4">
             <div className="lg:sticky lg:top-20 lg:space-y-4">
+              <Adsense slotId={adSlot} format="rectangle" />
+
               <div className="rounded-[2px] border border-[var(--pt-line)] bg-white p-5">
                 {app.core.developer.websiteUrl && (
                   <a
@@ -684,8 +686,6 @@ export default async function AppDetailPage({
                   ))}
                 </dl>
               </div>
-
-              <Adsense slotId={adSlot} format="rectangle" />
 
               {app.rating.average > 0 && (
                 <div className="rounded-[2px] border border-[var(--pt-line)] bg-white p-5">

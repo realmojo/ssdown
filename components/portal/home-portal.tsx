@@ -9,6 +9,7 @@ import {
   TOOL_GROUPS,
 } from "@/lib/portal-nav";
 import type { SoftwareApplication } from "@/types/app";
+import { buildAppHref } from "@/lib/app-href";
 import type { Post } from "@/lib/blog-utils";
 import { blogCategoryLabel, isKoreanPost } from "@/lib/blog-categories";
 import Adsense from "@/components/Adsense";
@@ -56,7 +57,7 @@ export function HomePortal({
 
   const softwareRows: BoardRow[] = apps.slice(0, 12).map((a, i) => ({
     no: i + 1,
-    href: `/software/${a.core.platform.toLowerCase().replace("ios", "iphone")}/${a.core.slug}`,
+    href: buildAppHref(a),
     title: a.core.name,
     category: a.core.platform === "iOS" ? "iPhone" : a.core.platform,
     badge: i < 2 ? "new" : undefined,
