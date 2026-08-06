@@ -44,3 +44,6 @@ yarn-error.log*
 next-env.d.ts
 
 naver-indexing/*
+# 임포터가 만드는 로컬 산출물 (미리보기·삽입 id 목록)
+scripts/.download-beer-*.json
+scripts/.downloadziper-*.json
