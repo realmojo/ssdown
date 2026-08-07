@@ -13,7 +13,6 @@ function transformRow(row: any): SoftwareApplication {
       name: row.name,
       nameKr: row.name_kr ?? undefined,
       platform: row.platform as PlatformType,
-      supportedPlatforms: (row.supported_platforms ?? []) as PlatformType[],
       developer: {
         name: row.developer_name ?? "",
         websiteUrl: row.developer_website_url ?? undefined,
@@ -28,18 +27,13 @@ function transformRow(row: any): SoftwareApplication {
       description: row.seo_description ?? "",
       titleKr: row.seo_title_kr ?? undefined,
       descriptionKr: row.seo_description_kr ?? undefined,
-      ogImage: row.seo_og_image ?? "",
-      structuredData: row.seo_structured_data ?? {},
     },
     download: {
       downloadUrl: row.download_url ?? "#",
       fileSize: row.file_size ?? "",
       license: (row.license ?? "Free") as LicenseType,
-      price: row.price ?? undefined,
-      currency: row.currency ?? undefined,
       security: {
         status: (row.security_status ?? "Unknown") as SecurityStatus,
-        lastScannedAt: row.security_last_scanned_at ?? new Date().toISOString(),
       },
     },
     rating: {

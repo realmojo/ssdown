@@ -317,15 +317,18 @@ export default async function AppDetailPage({
     ...(app.specs.lastUpdatedDate && {
       dateModified: new Date(app.specs.lastUpdatedDate).toISOString(),
     }),
-    offers: {
-      "@type": "Offer",
-      price:
-        app.download.license === "Free" || app.download.license === "Open Source"
-          ? "0"
-          : String(app.download.price ?? ""),
-      priceCurrency: app.download.currency ?? "USD",
-      availability: "https://schema.org/InStock",
-    },
+    /*
+      가격은 라이선스로만 판단한다. 값을 모르는 라이선스(체험판 등)에서는
+      offers 자체를 빼는 편이 낫다 — price 가 빈 Offer 는 유효하지 않은 마크업이다.
+    */
+    ...((app.download.license === "Free" || app.download.license === "Open Source") && {
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+      },
+    }),
     ...(app.rating.average > 0 &&
       app.rating.totalCount > 0 && {
         aggregateRating: {

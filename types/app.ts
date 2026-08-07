@@ -7,8 +7,6 @@ export interface SeoMetadata {
   description: string;
   titleKr?: string;
   descriptionKr?: string;
-  ogImage: string;
-  structuredData: Record<string, any>;
 }
 
 export interface AppCoreInfo {
@@ -17,7 +15,6 @@ export interface AppCoreInfo {
   name: string;
   nameKr?: string;
   platform: PlatformType;
-  supportedPlatforms: PlatformType[];
 
   developer: {
     name: string;
@@ -34,12 +31,9 @@ export interface DownloadInfo {
   downloadUrl: string;
   fileSize: string;
   license: LicenseType;
-  price?: number;
-  currency?: string;
 
   security: {
     status: SecurityStatus;
-    lastScannedAt: Date | string;
   };
 }
 

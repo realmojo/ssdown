@@ -59,22 +59,16 @@ interface ScrapedApp {
   slug: string;
   name: string;
   platform: PlatformType;
-  supported_platforms: PlatformType[];
   developer_name: string;
   developer_website_url: string | null;
   category_main: string;
   category_sub: string;
   seo_title: string;
   seo_description: string;
-  seo_og_image: string | null;
-  seo_structured_data: Record<string, unknown> | null;
   download_url: string;
   file_size: string;
   license: LicenseType;
-  price: number | null;
-  currency: string | null;
   security_status: SecurityStatus;
-  security_last_scanned_at: string | null;
   rating_average: number;
   rating_total_count: number;
   icon_url: string | null;
@@ -449,7 +443,6 @@ async function scrapeAppDetail(
     slug: `/${platformSlug}/${nameSlug}`,
     name: finalName,
     platform: normalizePlatform(platformRaw),
-    supported_platforms: [normalizePlatform(platformRaw)],
     developer_name: finalDevName,
     developer_website_url: officialWebsiteUrl || null,
     category_main: categoryMain,
@@ -458,16 +451,10 @@ async function scrapeAppDetail(
     seo_description: (
       $('meta[name="description"]').attr("content") ?? ""
     ).slice(0, 1000),
-    seo_og_image:
-      $('meta[property="og:image"]').attr("content") || iconUrl || null,
-    seo_structured_data: ldList.length > 0 ? { items: ldList } : null,
     download_url: officialWebsiteUrl || finalDownloadUrl,
     file_size: fileSize || ldApp?.fileSize || "N/A",
     license: normalizeLicense(licenseText || "free"),
-    price: ldApp?.offers?.price === 0 ? 0 : null,
-    currency: ldApp?.offers?.priceCurrency ?? null,
     security_status: secStatus,
-    security_last_scanned_at: new Date().toISOString(),
     rating_average: Math.min(5, Math.max(0, parseFloat(ratingAvg.toFixed(2)))),
     rating_total_count: ratingCount,
     icon_url: iconUrl,

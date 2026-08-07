@@ -31,7 +31,6 @@ interface ScrapedApp {
   slug: string;
   name: string;
   platform: PlatformType;
-  supported_platforms: PlatformType[];
   developer_name: string;
   developer_website_url: string | null;
   category_main: string;
@@ -39,17 +38,12 @@ interface ScrapedApp {
   // SEO
   seo_title: string;
   seo_description: string;
-  seo_og_image: string | null;
-  seo_structured_data: Record<string, unknown> | null;
   // Download
   download_url: string;
   file_size: string;
   license: LicenseType;
-  price: number | null;
-  currency: string | null;
   // Security
   security_status: SecurityStatus;
-  security_last_scanned_at: string | null;
   // Rating
   rating_average: number;
   rating_total_count: number;
@@ -307,7 +301,6 @@ async function scrapeSoftonic(url: string): Promise<ScrapedApp> {
     name: programName,
     version,
     platform: normalizePlatform(platformRaw),
-    supported_platforms: [normalizePlatform(platformRaw)],
     developer_name: (ldApp?.review?.author?.name || scraped.developer || 'Unknown').trim(),
     developer_website_url: ldApp?.review?.author?.['@id'] ?? null,
     category_main: categoryMain,
@@ -315,17 +308,12 @@ async function scrapeSoftonic(url: string): Promise<ScrapedApp> {
     // SEO
     seo_title: meta.title,
     seo_description: meta.description,
-    seo_og_image: meta.ogImage ?? coverImg ?? null,
-    seo_structured_data: ldList.length > 0 ? ({ items: ldList } as Record<string, unknown>) : null,
     // Download
     download_url: url,
     file_size: scraped.fileSize || ldApp?.fileSize || 'N/A',
     license: normalizeLicense(licenseRaw),
-    price: ldApp?.offers?.price === 0 ? 0 : null,
-    currency: ldApp?.offers?.priceCurrency ?? null,
     // Security
     security_status: secStatus,
-    security_last_scanned_at: new Date().toISOString(),
     // Rating
     rating_average: Math.min(5, Math.max(0, parseFloat(ratingAvg.toFixed(2)))),
     rating_total_count: ratingCount,
@@ -487,7 +475,6 @@ async function main() {
   if (platformArg) {
     const normalized = normalizePlatform(platformArg);
     data.platform = normalized;
-    data.supported_platforms = [normalized];
     data.slug = data.slug.replace(/^\/(windows|mac|android|ios|linux|web)\//, `/${normalized.toLowerCase()}/`);
     data.id   = data.id.replace(/-(windows|mac|android|ios|linux|web)$/, `-${normalized.toLowerCase()}`);
     console.log(`[override] platform → ${normalized}`);
