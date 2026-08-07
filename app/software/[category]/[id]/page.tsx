@@ -3,14 +3,8 @@ import { Metadata } from "next";
 import {
   Download,
   Star,
-  ChevronRight,
-  HardDrive,
-  Tag,
-  Calendar,
-  Monitor,
   Check,
   X,
-  ExternalLink,
 } from "lucide-react";
 import {
   getAppById,
@@ -427,143 +421,136 @@ export default async function AppDetailPage({
         ]}
       >
 
-        {/* ── 히어로 카드 ───────────────────────────────────────── */}
-        <section className="overflow-hidden rounded-[2px] border border-[var(--pt-line)] bg-white">
-          <div className="flex flex-col gap-2 p-3 sm:p-3 lg:flex-row lg:items-center">
-            <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-[2px] bg-gray-100 sm:h-28 sm:w-28">
-              {app.content.iconUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={app.content.iconUrl} alt={app.core.name} className="h-full w-full object-cover" />
-              ) : (
-                <span className="text-4xl font-black text-gray-300">{app.core.name.charAt(0)}</span>
-              )}
-            </div>
-
-            <div className="min-w-0 flex-1">
-              <h1 className="text-2xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-3xl">
-                {app.core.name}
-              </h1>
-
-              <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm">
-                {app.rating.average > 0 && (
-                  <span className="flex items-center gap-1">
-                    <span className="flex">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`h-4 w-4 ${
-                            i < Math.round(app.rating.average)
-                              ? "fill-amber-400 text-amber-400"
-                              : "text-gray-200"
-                          }`}
-                        />
-                      ))}
-                    </span>
-                    <span className="font-bold text-gray-900">{app.rating.average.toFixed(1)}</span>
-                    {app.rating.totalCount > 0 && (
-                      <span className="text-xs text-gray-400">
-                        ({app.rating.totalCount.toLocaleString()}개 평가)
-                      </span>
-                    )}
-                  </span>
-                )}
-                {showDeveloper &&
-                  (app.core.developer.websiteUrl ? (
-                    <a
-                      href={app.core.developer.websiteUrl}
-                      target="_blank"
-                      rel="nofollow noopener"
-                      className="inline-flex items-center gap-0.5 text-gray-500 transition-colors hover:text-blue-600"
-                    >
-                      {app.core.developer.name}
-                      <ExternalLink className="h-3 w-3" />
-                    </a>
+        {/*
+          레이아웃: 왼쪽 본문 + 오른쪽 고정 레일.
+          광고는 오른쪽 레일에만 정사각형으로 둔다. 본문 흐름을 가로지르는
+          큰 가로 배너는 쓰지 않는다.
+        */}
+        <div className="grid grid-cols-1 gap-2 lg:grid-cols-[minmax(0,1fr)_320px]">
+          {/* ── 본문 ─────────────────────────────────────────────── */}
+          <div className="min-w-0 space-y-2">
+            {/* 앱 머리말 */}
+            <section className="rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:p-5">
+              <div className="flex gap-3">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-[2px] border border-[var(--pt-line)] bg-white sm:h-20 sm:w-20">
+                  {app.content.iconUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={app.content.iconUrl}
+                      alt={app.core.name}
+                      className="h-full w-full object-cover"
+                    />
                   ) : (
-                    <span className="text-gray-500">{app.core.developer.name}</span>
-                  ))}
-              </div>
+                    <span className="text-2xl font-black text-gray-300">
+                      {app.core.name.charAt(0)}
+                    </span>
+                  )}
+                </div>
 
-              <div className="mt-3 flex flex-wrap items-center gap-1.5">
-                <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-inset ${licStyle.chip}`}>
-                  {licStyle.label}
-                </span>
-                <span className="rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600">
-                  {plat}
-                </span>
-                {category && (
-                  <a
-                    href={`/software/${category.slug}`}
-                    className="rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-blue-50 hover:text-blue-700"
-                  >
-                    {category.name}
-                  </a>
-                )}
-              </div>
+                <div className="min-w-0 flex-1">
+                  <h1 className="text-xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-2xl">
+                    {nameWithPlatform(app.core.name, app.core.platform)}
+                  </h1>
 
-              {app.content.shortSummary && (
-                <p className="mt-4 max-w-2xl text-sm leading-relaxed text-gray-600">
-                  {app.content.shortSummary}
-                </p>
-              )}
-            </div>
+                  {/* 한 줄 요약 정보. 값이 있는 것만 넣는다. */}
+                  <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-gray-500">
+                    <span className="font-semibold text-emerald-700">{licStyle.label}</span>
+                    {app.rating.average > 0 && (
+                      <>
+                        <span className="text-gray-300">·</span>
+                        <span className="inline-flex items-center gap-0.5">
+                          <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
+                          {app.rating.average.toFixed(1)}
+                          {app.rating.totalCount > 0 && (
+                            <span className="text-gray-400">
+                              ({app.rating.totalCount.toLocaleString()})
+                            </span>
+                          )}
+                        </span>
+                      </>
+                    )}
+                    <span className="text-gray-300">·</span>
+                    <span>{plat}</span>
+                    {category && (
+                      <>
+                        <span className="text-gray-300">·</span>
+                        <a
+                          href={`/software/${category.slug}`}
+                          className="hover:text-blue-600 hover:underline"
+                        >
+                          {category.name}
+                        </a>
+                      </>
+                    )}
+                    {showDeveloper && (
+                      <>
+                        <span className="text-gray-300">·</span>
+                        <span>{app.core.developer.name}</span>
+                      </>
+                    )}
+                  </div>
 
-          </div>
-
-          {/*
-            다운로드 버튼이 있던 자리. 버튼 폭(224px) 그대로 두면 애드센스가
-            세로형(224x600)을 골라 히어로가 두 배로 길어지므로, 히어로 안에서
-            가로 폭을 다 쓰게 해 가로 배너가 나오도록 한다.
-          */}
-          <div className="border-t border-gray-100 px-6 pb-5 pt-4 sm:px-8">
-            <Adsense slotId={HERO_AD_SLOT} />
-          </div>
-
-          {/* 요약 지표 */}
-          <div className="grid grid-cols-2 divide-x divide-gray-100 border-t border-gray-100 sm:grid-cols-4">
-            {[
-              { icon: HardDrive, label: "파일 크기", value: fileSize || "—" },
-              { icon: Tag, label: "라이선스", value: licStyle.label },
-              { icon: Monitor, label: "플랫폼", value: plat },
-              {
-                icon: Calendar,
-                label: "업데이트",
-                value: app.specs.lastUpdatedDate
-                  ? new Date(app.specs.lastUpdatedDate).toLocaleDateString("ko-KR", {
-                      year: "numeric",
-                      month: "short",
-                    })
-                  : "—",
-              },
-            ].map(({ icon: Icon, label, value }) => (
-              <div key={label} className="flex items-center gap-2.5 px-4 py-3.5">
-                <Icon className="h-4 w-4 shrink-0 text-gray-300" />
-                <div className="min-w-0">
-                  <div className="text-[10px] uppercase tracking-wide text-gray-400">{label}</div>
-                  <div className="truncate text-xs font-semibold text-gray-700">{value}</div>
+                  {app.content.shortSummary && (
+                    <p className="mt-3 text-sm leading-relaxed text-gray-600">
+                      {app.content.shortSummary}
+                    </p>
+                  )}
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
+            </section>
 
-        <div className="mt-6 grid grid-cols-1 gap-2 lg:grid-cols-[1fr_320px]">
-          {/* ── 본문 ─────────────────────────────────────────────── */}
-          <div className="space-y-2">
-            {/* 형식을 고정하지 않고 애드센스가 자리에 맞게 고르게 둔다(auto). */}
-            <Adsense slotId={adSlot} />
+            {/* 상세 리뷰 */}
+            {reviewHtml && (
+              <section className="rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:p-7">
+                <h2 className="text-lg font-bold text-gray-900">{app.core.name} 상세 리뷰</h2>
+                <div
+                  className="prose prose-sm prose-gray mt-4 max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:leading-relaxed prose-p:text-gray-700 prose-li:text-gray-700 prose-a:text-blue-600 prose-table:text-sm"
+                  dangerouslySetInnerHTML={{ __html: reviewHtml }}
+                />
+              </section>
+            )}
+
+            {/* 장점 / 단점 */}
+            {(hasPros || hasCons) && (
+              <section className="grid gap-2 sm:grid-cols-2">
+                {hasPros && (
+                  <div className="rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:p-5">
+                    <h2 className="text-sm font-bold text-gray-900">장점</h2>
+                    <ul className="mt-3 space-y-2">
+                      {app.content.pros.map((p) => (
+                        <li key={p} className="flex gap-2 text-sm text-gray-700">
+                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
+                          <span>{p}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {hasCons && (
+                  <div className="rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:p-5">
+                    <h2 className="text-sm font-bold text-gray-900">단점</h2>
+                    <ul className="mt-3 space-y-2">
+                      {app.content.cons.map((c) => (
+                        <li key={c} className="flex gap-2 text-sm text-gray-700">
+                          <X className="mt-0.5 h-4 w-4 shrink-0 text-rose-500" />
+                          <span>{c}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </section>
+            )}
 
             {/* 설치 방법 */}
             <section className="rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:p-7">
               <h2 className="text-lg font-bold text-gray-900">
                 {nameWithPlatform(app.core.name, app.core.platform)} 설치 방법
               </h2>
-              <p className="mt-1 text-sm text-gray-500">
-                아래 순서대로 진행하면 몇 분 안에 설치를 마칠 수 있습니다.
-              </p>
-              <ol className="mt-5 space-y-4">
+              <ol className="mt-4 space-y-4">
                 {steps.map((s, i) => (
-                  <li key={s.title} className="flex gap-4">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white">
+                  <li key={s.title} className="flex gap-3">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white">
                       {i + 1}
                     </span>
                     <div className="pt-0.5">
@@ -575,103 +562,61 @@ export default async function AppDetailPage({
               </ol>
             </section>
 
-            {/* 주요 특징 */}
-            {hasPros && (
-              <section className="rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:p-7">
-                <h2 className="text-lg font-bold text-gray-900">주요 특징</h2>
-                <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-                  {app.content.pros.map((p, i) => (
-                    <li key={i} className="flex items-start gap-2.5">
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100">
-                        <Check className="h-3 w-3 text-emerald-600" />
-                      </span>
-                      <span className="text-sm leading-snug text-gray-700">{p}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-
-            {/* 리뷰 본문 */}
-            {reviewHtml && (
-              <section className="rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:p-7">
-                <h2 className="text-lg font-bold text-gray-900">{app.core.name} 상세 리뷰</h2>
-                <div
-                  className="prose prose-sm prose-gray mt-4 max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:leading-relaxed prose-p:text-gray-700 prose-li:text-gray-700 prose-a:text-blue-600 prose-table:text-sm"
-                  dangerouslySetInnerHTML={{ __html: reviewHtml }}
-                />
-              </section>
-            )}
-
-            {/* 장단점 */}
-            {(hasPros || hasCons) && (
-              <section className="grid gap-4 sm:grid-cols-2">
-                {hasPros && (
-                  <div className="rounded-[2px] border border-emerald-100 bg-emerald-50/40 p-3">
-                    <div className="flex items-center gap-2">
-                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100">
-                        <Check className="h-3.5 w-3.5 text-emerald-600" />
-                      </span>
-                      <h2 className="text-sm font-bold text-gray-900">장점</h2>
-                    </div>
-                    <ul className="mt-3 space-y-2">
-                      {app.content.pros.map((p, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
-                          <span className="text-sm leading-snug text-gray-700">{p}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {hasCons && (
-                  <div className="rounded-[2px] border border-rose-100 bg-rose-50/40 p-3">
-                    <div className="flex items-center gap-2">
-                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-rose-100">
-                        <X className="h-3.5 w-3.5 text-rose-600" />
-                      </span>
-                      <h2 className="text-sm font-bold text-gray-900">단점</h2>
-                    </div>
-                    <ul className="mt-3 space-y-2">
-                      {app.content.cons.map((c, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-rose-400" />
-                          <span className="text-sm leading-snug text-gray-700">{c}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </section>
-            )}
-
             {/* 자주 묻는 질문 */}
             <section className="rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:p-7">
               <h2 className="text-lg font-bold text-gray-900">자주 묻는 질문</h2>
               <div className="mt-4 divide-y divide-gray-100">
                 {faq.map((f, i) => (
-                  <details key={i} className="group py-3.5" open={i === 0}>
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-gray-900 transition-colors hover:text-blue-600">
+                  <details key={i} className="group py-3">
+                    <summary className="cursor-pointer list-none text-sm font-semibold text-gray-900">
                       {f.q}
-                      <ChevronRight className="h-4 w-4 shrink-0 text-gray-300 transition-transform group-open:rotate-90" />
                     </summary>
                     <p className="mt-2 text-sm leading-relaxed text-gray-600">{f.a}</p>
                   </details>
                 ))}
               </div>
             </section>
+
+            {/* 본문 끝에 한 번 더 놓는 내려받기 안내 */}
+            <section className="flex flex-col gap-3 rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:flex-row sm:items-center sm:p-5">
+              <div className="flex min-w-0 flex-1 items-center gap-3">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-[2px] border border-[var(--pt-line)] bg-white">
+                  {app.content.iconUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={app.content.iconUrl}
+                      alt={app.core.name}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <span className="text-lg font-black text-gray-300">
+                      {app.core.name.charAt(0)}
+                    </span>
+                  )}
+                </div>
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-bold text-gray-900">{app.core.name}</p>
+                  <p className="text-xs text-gray-500">
+                    {licStyle.label} · {plat}
+                    {fileSize ? ` · ${fileSize}` : ""}
+                  </p>
+                </div>
+              </div>
+              <a
+                href={`${canonicalPath}/download`}
+                className="flex shrink-0 items-center justify-center gap-2 rounded-[2px] bg-blue-600 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500"
+              >
+                <Download className="h-4 w-4" />
+                다운로드 바로가기
+              </a>
+            </section>
           </div>
 
-          {/* ── 사이드바 ─────────────────────────────────────────── */}
-          <aside className="space-y-4">
-            <div className="lg:sticky lg:top-20 lg:space-y-4">
-              <Adsense slotId={adSlot} format="rectangle" />
-
-              <div className="rounded-[2px] border border-[var(--pt-line)] bg-white p-5">
-                {/*
-                  바로 개발사 사이트로 보내지 않고 안내 페이지(/download)를 거친다.
-                  같은 사이트 안에서의 이동이라 새 창을 열지 않는다.
-                */}
+          {/* ── 오른쪽 레일 ──────────────────────────────────────── */}
+          <aside className="space-y-2">
+            <div className="lg:sticky lg:top-20 lg:space-y-2">
+              {/* 내려받기 + 사양 */}
+              <div className="rounded-[2px] border border-[var(--pt-line)] bg-white p-4">
                 <a
                   href={`${canonicalPath}/download`}
                   className="flex w-full items-center justify-center gap-2 rounded-[2px] bg-blue-600 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500"
@@ -680,7 +625,7 @@ export default async function AppDetailPage({
                   다운로드 바로가기
                 </a>
 
-                <dl className="mt-5 space-y-2.5 border-t border-gray-100 pt-4 text-xs">
+                <dl className="mt-4 space-y-2.5 border-t border-gray-100 pt-4 text-xs">
                   {specRows.map(([k, v]) => (
                     <div key={k} className="flex justify-between gap-3">
                       <dt className="shrink-0 text-gray-400">{k}</dt>
@@ -690,35 +635,51 @@ export default async function AppDetailPage({
                 </dl>
               </div>
 
-              {app.rating.average > 0 && (
-                <div className="rounded-[2px] border border-[var(--pt-line)] bg-white p-5">
-                  <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400">평점</h2>
-                  <div className="mt-3 flex items-end gap-3">
-                    <span className="text-4xl font-black leading-none text-gray-900">
-                      {app.rating.average.toFixed(1)}
-                    </span>
-                    <div className="pb-1">
-                      <div className="mb-1 flex gap-0.5">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`h-3.5 w-3.5 ${
-                              i < Math.round(app.rating.average)
-                                ? "fill-amber-400 text-amber-400"
-                                : "text-gray-200"
-                            }`}
-                          />
-                        ))}
-                      </div>
-                      {app.rating.totalCount > 0 && (
-                        <p className="text-[11px] text-gray-400">
-                          {app.rating.totalCount.toLocaleString()}개 평가
-                        </p>
-                      )}
-                    </div>
-                  </div>
+              {/* 정사각 광고 */}
+              <Adsense slotId={HERO_AD_SLOT} format="rectangle" />
+
+              {/* 같은 플랫폼에서 많이 찾는 앱 */}
+              {latest.length > 0 && (
+                <div className="rounded-[2px] border border-[var(--pt-line)] bg-white p-4">
+                  <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400">
+                    최신 {plat} 앱
+                  </h2>
+                  <ul className="mt-3 space-y-3">
+                    {latest.slice(0, 5).map((a) => (
+                      <li key={a.core.id}>
+                        <a href={buildAppHref(a)} className="group flex items-center gap-2">
+                          <span className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-[2px] border border-[var(--pt-line)] bg-white">
+                            {a.content.iconUrl ? (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img
+                                src={a.content.iconUrl}
+                                alt={a.core.name}
+                                className="h-full w-full object-cover"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <span className="text-xs font-bold text-gray-300">
+                                {a.core.name.charAt(0)}
+                              </span>
+                            )}
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block truncate text-xs font-semibold text-gray-800 group-hover:text-blue-600">
+                              {a.core.name}
+                            </span>
+                            <span className="block text-[11px] text-gray-400">
+                              {a.core.category.main}
+                            </span>
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
+
+              {/* 정사각 광고 */}
+              <Adsense slotId={adSlot} format="rectangle" />
             </div>
           </aside>
         </div>
