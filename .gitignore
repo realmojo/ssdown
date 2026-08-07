@@ -55,3 +55,6 @@ scripts/.deleted-dead-rows.json
 scripts/.icon-migration-report.json
 scripts/.play-apps-ids.json
 scripts/.play-import-*.json
+scripts/.session-ids.json
+scripts/.pending-play-ids.json
+scripts/.all-pending-ids.json

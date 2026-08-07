@@ -75,24 +75,63 @@ interface AppRow {
   short_summary: string;
   ai_review_html: string;
   ai_review_html_kr: string | null;
+  download_url: string | null;
+}
+
+/**
+ * 플레이 스토어 소개글을 사실 확인용으로만 가져온다.
+ * 반환값은 프롬프트에만 들어가고 DB 에 저장하지 않는다. 모델은 이 문장을
+ * 베끼지 않고 새로 쓰도록 프롬프트에서 지시한다.
+ */
+async function fetchStoreBlurb(downloadUrl: string | null): Promise<string> {
+  const pkg = String(downloadUrl ?? "").match(/[?&]id=([^&\s]+)/)?.[1];
+  if (!pkg) return "";
+  try {
+    const res = await fetch(
+      `https://play.google.com/store/apps/details?id=${pkg}&hl=ko&gl=KR`,
+      {
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+          "Accept-Language": "ko",
+        },
+      },
+    );
+    if (!res.ok) return "";
+    const html = await res.text();
+    const m = html.match(/<div[^>]+data-g-id="description"[^>]*>([\s\S]*?)<\/div>/);
+    if (!m) return "";
+    return stripHtml(m[1].replace(/<br\s*\/?>/gi, "\n")).slice(0, 3000);
+  } catch {
+    return "";
+  }
 }
 
 const ALLOWED_TAGS = "<h2>, <h3>, <p>, <strong>, <em>, <ul>, <ol>, <li>";
 
 // ── 프롬프트 ─────────────────────────────────────────────────────────────────
 
-function buildEnPrompt(app: AppRow): string {
-  return `You are an expert software reviewer for a software download website. Write completely original content — do not copy from any existing website.
+function buildEnPrompt(app: AppRow, storeBlurb: string): string {
+  /*
+    storeBlurb 는 스토어 소개글이다. 사실 확인용으로만 프롬프트에 넣고 저장하지
+    않는다. 모델은 이 내용을 베끼지 않고 자기 문장으로 새로 써야 한다.
+    이게 없으면 모델이 앱을 모를 때 기능을 지어내는 문제가 있었다.
+  */
+  const reference = storeBlurb
+    ? `\nWhat the app actually does (reference only — never copy any phrase from this, write your own sentences):\n${storeBlurb.slice(0, 2500)}\n`
+    : `\nNo reference text is available for this app. If you do not genuinely know it, keep the article general: describe what apps in this category typically do and how to install one, and do NOT state specific features, modes, or mechanics as facts.\n`;
 
-App facts (all you may rely on beyond your own general knowledge of this well-known app):
+  return `You are an expert software reviewer for a software download website. Write completely original content — do not copy sentences or phrasing from any existing website.
+
+App facts:
 - Korean name: ${app.name_kr ?? app.name}
 - Slug: ${app.id}
 - Platform: ${app.platform}
 - Category: ${app.category_main} / ${app.category_sub}
-
+${reference}
 Never use emoji. Respond with a single JSON object, no other text:
 {
-  "name": "official English app name (e.g. KakaoTalk, not a transliteration of the slug)",
+  "name": "official English app name. If the app has no established English name, repeat the Korean name exactly as given — never transliterate it letter by letter and never guess a translation",
   "seo_title": "SEO page title, max 60 characters, must include the app name and the word Download",
   "seo_description": "SEO meta description, 120-155 characters",
   "short_summary": "1-2 sentence summary of what the app does",
@@ -116,7 +155,9 @@ ${stripHtml(englishReview).slice(0, 3000)}
   "seo_title_kr": "SEO 페이지 제목, 60자 이내, 앱 이름과 '다운로드' 포함",
   "seo_description_kr": "SEO 메타 설명, 80~120자",
   "short_summary_kr": "앱을 소개하는 1~2문장 요약",
-  "review_html_kr": "한국어 SEO 리뷰 기사 HTML, 1000~2000자. 허용 태그: ${ALLOWED_TAGS}. 속성 금지. 구체적인 버전 번호, 가격, 통계를 지어내지 마세요."
+  "review_html_kr": "한국어 SEO 리뷰 기사 HTML, 1000~2000자. 허용 태그: ${ALLOWED_TAGS}. 속성 금지. 구체적인 버전 번호, 가격, 통계를 지어내지 마세요.",
+  "pros_kr": ["장점 3~5개. 각 항목은 40자 이내의 한국어 구절"],
+  "cons_kr": ["단점 2~4개. 각 항목은 40자 이내의 한국어 구절"]
 }`;
 }
 
@@ -146,8 +187,10 @@ const KR_SCHEMA = {
     seo_description_kr: { type: "string" },
     short_summary_kr: { type: "string" },
     review_html_kr: { type: "string" },
+    pros_kr: { type: "array", items: { type: "string" } },
+    cons_kr: { type: "array", items: { type: "string" } },
   },
-  required: ["seo_title_kr", "seo_description_kr", "short_summary_kr", "review_html_kr"],
+  required: ["seo_title_kr", "seo_description_kr", "short_summary_kr", "review_html_kr", "pros_kr", "cons_kr"],
   additionalProperties: false,
 } as const;
 
@@ -156,7 +199,7 @@ const KR_SCHEMA = {
 async function claudeJson(
   prompt: string,
   schema: typeof EN_SCHEMA | typeof KR_SCHEMA,
-): Promise<Record<string, string> | null> {
+): Promise<Record<string, unknown> | null> {
   try {
     const response = await anthropic!.messages.create({
       model: CLAUDE_MODEL,
@@ -190,7 +233,7 @@ let fatalStop = false;
 
 // ── Ollama 호출 ──────────────────────────────────────────────────────────────
 
-async function ollamaJson(prompt: string, attempt = 1): Promise<Record<string, string> | null> {
+async function ollamaJson(prompt: string, attempt = 1): Promise<Record<string, unknown> | null> {
   try {
     const response = await fetch(`${OLLAMA_BASE_URL}/api/chat`, {
       method: "POST",
@@ -237,14 +280,14 @@ function sanitizeHtml(html: string): string {
 function generateJson(
   prompt: string,
   schema: typeof EN_SCHEMA | typeof KR_SCHEMA,
-): Promise<Record<string, string> | null> {
+): Promise<Record<string, unknown> | null> {
   return PROVIDER === "claude" ? claudeJson(prompt, schema) : ollamaJson(prompt);
 }
 
 async function processNewApp(app: AppRow): Promise<boolean> {
   // 1) 영어 콘텐츠
   if (!app.ai_review_html) {
-    const en = await generateJson(buildEnPrompt(app), EN_SCHEMA);
+    const en = await generateJson(buildEnPrompt(app, await fetchStoreBlurb(app.download_url)), EN_SCHEMA);
     if (!en?.review_html) return false;
     const update = {
       name: (en.name ?? app.name).slice(0, 100),
@@ -272,6 +315,13 @@ async function processNewApp(app: AppRow): Promise<boolean> {
       seo_description_kr: (kr.seo_description_kr ?? "").slice(0, 170),
       short_summary_kr: (kr.short_summary_kr ?? "").slice(0, 300),
       ai_review_html_kr: sanitizeHtml(kr.review_html_kr),
+      // 장단점이 비어 있으면 상세 페이지의 장단점 섹션이 통째로 사라진다.
+      ...(Array.isArray(kr.pros_kr) && kr.pros_kr.length
+        ? { pros: (kr.pros_kr as string[]).slice(0, 6).map((x) => String(x).slice(0, 60)) }
+        : {}),
+      ...(Array.isArray(kr.cons_kr) && kr.cons_kr.length
+        ? { cons: (kr.cons_kr as string[]).slice(0, 5).map((x) => String(x).slice(0, 60)) }
+        : {}),
     };
     const { error } = await supabase
       .from("software_applications")
@@ -286,7 +336,7 @@ async function processNewApp(app: AppRow): Promise<boolean> {
 
 async function fetchTargets(): Promise<AppRow[]> {
   const columns =
-    "id, name, name_kr, platform, category_main, category_sub, short_summary, ai_review_html, ai_review_html_kr";
+    "id, name, name_kr, platform, category_main, category_sub, short_summary, ai_review_html, ai_review_html_kr, download_url";
 
   if (SINGLE_ID) {
     const { data, error } = await supabase

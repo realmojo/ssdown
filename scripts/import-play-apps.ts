@@ -68,14 +68,51 @@ const GENRE_MAP: Record<string, { main: string; sub: string }> = {
   GAME_TRIVIA: { main: "Games", sub: "Trivia" },
   GAME_WORD: { main: "Games", sub: "Word" },
   FAMILY: { main: "Games", sub: "Family" },
+  // 게임이 아닌 카테고리
   EDUCATION: { main: "Education & Reference", sub: "Education" },
+  BOOKS_AND_REFERENCE: { main: "Education & Reference", sub: "Books & Reference" },
+  PARENTING: { main: "Education & Reference", sub: "Parenting" },
   ENTERTAINMENT: { main: "Multimedia", sub: "Entertainment" },
-  LIFESTYLE: { main: "Lifestyle", sub: "Lifestyle" },
-  ART_AND_DESIGN: { main: "Multimedia", sub: "Art & Design" },
-  TOOLS: { main: "Utilities & Tools", sub: "Utilities" },
+  VIDEO_PLAYERS: { main: "Multimedia", sub: "Video Players" },
+  MUSIC_AND_AUDIO: { main: "Multimedia", sub: "Music" },
   PHOTOGRAPHY: { main: "Multimedia", sub: "Photo Editors" },
+  ART_AND_DESIGN: { main: "Multimedia", sub: "Art & Design" },
+  COMICS: { main: "Multimedia", sub: "Comics" },
+  COMMUNICATION: { main: "Social & Communication", sub: "Messaging" },
   SOCIAL: { main: "Social & Communication", sub: "Social" },
+  DATING: { main: "Social & Communication", sub: "Dating" },
+  TOOLS: { main: "Utilities & Tools", sub: "Utilities" },
+  PERSONALIZATION: { main: "Personalization", sub: "Personalization" },
+  PRODUCTIVITY: { main: "Productivity", sub: "Productivity" },
+  BUSINESS: { main: "Productivity", sub: "Business" },
+  FINANCE: { main: "Lifestyle", sub: "Finance" },
+  SHOPPING: { main: "Lifestyle", sub: "Shopping" },
+  FOOD_AND_DRINK: { main: "Lifestyle", sub: "Food & Drink" },
+  HEALTH_AND_FITNESS: { main: "Lifestyle", sub: "Health & Fitness" },
+  MEDICAL: { main: "Lifestyle", sub: "Medical" },
+  HOUSE_AND_HOME: { main: "Lifestyle", sub: "House & Home" },
+  LIFESTYLE: { main: "Lifestyle", sub: "Lifestyle" },
+  BEAUTY: { main: "Lifestyle", sub: "Beauty" },
+  EVENTS: { main: "Lifestyle", sub: "Events" },
+  SPORTS: { main: "Lifestyle", sub: "Sports" },
+  TRAVEL_AND_LOCAL: { main: "Travel & Navigation", sub: "Travel" },
+  MAPS_AND_NAVIGATION: { main: "Travel & Navigation", sub: "Navigation" },
+  AUTO_AND_VEHICLES: { main: "Travel & Navigation", sub: "Auto & Vehicles" },
+  NEWS_AND_MAGAZINES: { main: "Multimedia", sub: "News" },
+  WEATHER: { main: "Utilities & Tools", sub: "Weather" },
+  LIBRARIES_AND_DEMO: { main: "Development & IT", sub: "Developer Tools" },
 };
+
+/**
+ * 매핑에 없는 카테고리의 기본값.
+ * 게임 코드(GAME_*)와 그 밖을 갈라야 한다. 예전엔 무조건 "Games" 로 떨어져
+ * 인스타그램·크롬 같은 앱까지 게임으로 분류됐다.
+ */
+function fallbackCategory(code: string): { main: string; sub: string } {
+  return code.startsWith("GAME_") || code === "FAMILY"
+    ? { main: "Games", sub: "Games" }
+    : { main: "Utilities & Tools", sub: "Utilities" };
+}
 
 /**
  * 패키지 뒷마디에 흔히 붙는 배포용 꼬리표. slug 를 만들 때 건너뛴다.
@@ -284,7 +321,7 @@ async function main() {
     }
     const id = slugFromPackage(m.pkg, taken);
     taken.add(id);
-    const cat = GENRE_MAP[m.genre] ?? { main: "Games", sub: "Games" };
+    const cat = GENRE_MAP[m.genre] ?? fallbackCategory(m.genre);
     const storeUrl = `https://play.google.com/store/apps/details?id=${m.pkg}`;
 
     chosen.push({ ...m, id });
