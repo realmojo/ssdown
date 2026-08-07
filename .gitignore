@@ -54,3 +54,4 @@ scripts/.download-url-report.json
 scripts/.deleted-dead-rows.json
 scripts/.icon-migration-report.json
 scripts/.play-apps-ids.json
+scripts/.play-import-*.json
