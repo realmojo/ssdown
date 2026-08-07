@@ -109,6 +109,8 @@ const STATIC: Entry[] = [
   { url: `${BASE}/file/excel-to-pdf`,   lastmod: "2026-02-13", changefreq: "monthly", priority: 0.8 },
   // 커뮤니티
   { url: `${BASE}/board`,   lastmod: "2026-07-30", changefreq: "daily",  priority: 0.6 },
+  // 검색 (색인 허용인데 그동안 사이트맵에서 빠져 있었다)
+  { url: `${BASE}/search`,  lastmod: "2026-08-07", changefreq: "weekly", priority: 0.5 },
   // Static
   { url: `${BASE}/about`,   lastmod: "2026-01-01", changefreq: "yearly", priority: 0.3 },
   { url: `${BASE}/contact`, lastmod: "2026-01-01", changefreq: "yearly", priority: 0.3 },
