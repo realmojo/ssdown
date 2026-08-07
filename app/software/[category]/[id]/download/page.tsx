@@ -6,6 +6,7 @@ import { getCategoryByMain, getCategoryBySlug } from "@/lib/categories";
 import { buildAppHref } from "@/lib/app-href";
 import Adsense from "@/components/Adsense";
 import { PageShell } from "@/components/portal/page-shell";
+import type { SoftwareApplication } from "@/types/app";
 
 export const revalidate = 3600;
 
@@ -28,6 +29,60 @@ function platformLabel(platform: string): string {
 function cleanValue(v?: string): string {
   const t = (v ?? "").trim();
   return !t || /^(n\/?a|unknown|없음|-)$/i.test(t) ? "" : t;
+}
+
+/**
+ * 광고 아래에 놓을 안내 문장. 앱이 가진 사실만으로 만든다.
+ *
+ * 광고를 가리키거나 클릭을 유도하는 문구는 넣지 않는다(애드센스 정책).
+ * 모든 앱에 같은 문장이 깔리면 그 자체로 얇은 콘텐츠가 되므로, 가진 데이터에
+ * 따라 문장이 달라지도록 조합한다.
+ */
+function downloadNotes(app: SoftwareApplication): string[] {
+  const name = app.core.name;
+  const plat = platformLabel(app.core.platform);
+  const license = app.download.license;
+  const notes: string[] = [];
+
+  const categoryName = app.core.category.sub || app.core.category.main;
+  notes.push(
+    categoryName
+      ? `${name}은(는) ${plat} 환경에서 사용하는 ${categoryName} 분야 프로그램입니다.`
+      : `${name}은(는) ${plat} 환경에서 사용하는 프로그램입니다.`,
+  );
+
+  if (license === "Free") {
+    notes.push("비용 없이 내려받아 사용할 수 있습니다.");
+  } else if (license === "Open Source") {
+    notes.push("오픈소스로 공개되어 있어 소스 코드를 함께 확인할 수 있습니다.");
+  } else if (license === "Freemium") {
+    notes.push("기본 기능은 무료이며 일부 기능은 유료로 제공됩니다.");
+  } else if (license === "Trial") {
+    notes.push("체험판이라 사용 기간이나 기능에 제한이 있을 수 있습니다.");
+  } else if (license === "Paid") {
+    notes.push("유료 프로그램이므로 구매 조건을 개발사 안내에서 확인해 주세요.");
+  }
+
+  const osReq = cleanValue(app.specs.osRequirements);
+  if (osReq) notes.push(`설치하려면 ${osReq} 환경이 필요합니다.`);
+
+  const fileSize = cleanValue(app.download.fileSize);
+  if (fileSize) notes.push(`설치 파일 용량은 약 ${fileSize} 입니다.`);
+
+  const langs = (app.specs.languages ?? []).filter(Boolean);
+  if (langs.some((l) => /korean|한국/i.test(l))) {
+    notes.push("한국어를 지원합니다.");
+  } else if (langs.length) {
+    notes.push(`지원 언어: ${langs.slice(0, 5).join(", ")}`);
+  }
+
+  const dev = (app.core.developer.name ?? "").trim();
+  if (dev && dev !== "Unknown" && !/^More programs\s*\(\d+\)$/.test(dev)) {
+    notes.push(`개발사는 ${dev} 입니다.`);
+  }
+
+  notes.push("최신 버전과 정확한 배포 조건은 공식 배포처에서 확인하는 것이 안전합니다.");
+  return notes;
 }
 
 export async function generateMetadata({
@@ -73,6 +128,7 @@ export default async function DownloadPage({
   const site = app.core.developer.websiteUrl;
 
   const detailHref = buildAppHref(app);
+  const notes = downloadNotes(app);
 
   const facts: [string, string][] = [
     ["플랫폼", plat],
@@ -99,8 +155,12 @@ export default async function DownloadPage({
 
           {/* 간략한 설명 — 상세 페이지와 같은 우리 요약문을 쓴다. */}
           <p className="mx-auto mt-2 max-w-lg text-[13px] leading-relaxed text-[var(--pt-text-sub)]">
+            {/*
+              "아래 버튼" 같은 위치 표현은 쓰지 않는다. 사이에 광고가 놓이면
+              광고를 가리키는 말처럼 읽힐 수 있다.
+            */}
             {app.content.shortSummary ||
-              `${app.core.name}은(는) ${plat} 환경에서 사용할 수 있는 ${license} 프로그램입니다. 아래 버튼을 눌러 공식 배포처에서 내려받으세요.`}
+              `${app.core.name}은(는) ${plat} 환경에서 사용할 수 있는 ${license} 프로그램입니다. 공식 배포처에서 내려받을 수 있습니다.`}
           </p>
 
           <dl className="mx-auto mt-4 flex max-w-md flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[12px]">
@@ -111,6 +171,24 @@ export default async function DownloadPage({
               </div>
             ))}
           </dl>
+
+          {/*
+            광고는 버튼 위에 둔다. 위아래를 실선으로 끊어 본문과 구분되게 하고,
+            바로 아래에는 앱 자체 정보만 쓴다. 광고를 가리키거나 클릭을 권하는
+            문구는 넣지 않는다(애드센스 정책).
+          */}
+          <div className="my-4 border-y border-[var(--pt-line)] py-4">
+            <Adsense slotId={AD_SLOT} />
+          </div>
+
+          <ul className="mx-auto max-w-lg space-y-1 text-left text-[12px] leading-relaxed text-[var(--pt-text-sub)]">
+            {notes.map((n) => (
+              <li key={n} className="flex gap-1.5">
+                <span className="text-[var(--pt-text-meta)]">·</span>
+                <span>{n}</span>
+              </li>
+            ))}
+          </ul>
 
           {site ? (
             <a
@@ -134,8 +212,6 @@ export default async function DownloadPage({
             SSDown 은 설치 파일을 직접 제공하지 않습니다. 공식 배포처로 이동합니다.
           </p>
         </section>
-
-        <Adsense slotId={AD_SLOT} />
 
         <div className="rounded-[2px] border border-[var(--pt-line)] bg-white px-4 py-2.5">
           <a
