@@ -50,7 +50,13 @@ const BACKFILL_KR = args.includes("--backfill-kr");
 const PROVIDER = getArg("--provider=") ?? "ollama";
 const modelKey = getArg("--model=") ?? "qwen";
 const OLLAMA_MODEL = MODEL_ALIASES[modelKey] ?? modelKey;
-const IDS_FILE = path.join(process.cwd(), "scripts", ".download-beer-ids.json");
+// 대상 id 목록. 임포터마다 파일이 다르므로 --ids= 로 바꿀 수 있다.
+//   예) --ids=.downloadziper-ids.json
+const IDS_FILE = path.join(
+  process.cwd(),
+  "scripts",
+  getArg("--ids=") ?? ".download-beer-ids.json",
+);
 
 const anthropic = PROVIDER === "claude" ? new Anthropic() : null;
 

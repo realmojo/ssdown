@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import {
+  Download,
   Star,
   ChevronRight,
-  Globe,
   HardDrive,
   Tag,
   Calendar,
@@ -666,17 +666,17 @@ export default async function AppDetailPage({
               <Adsense slotId={adSlot} format="rectangle" />
 
               <div className="rounded-[2px] border border-[var(--pt-line)] bg-white p-5">
-                {app.core.developer.websiteUrl && (
-                  <a
-                    href={app.core.developer.websiteUrl}
-                    target="_blank"
-                    rel="nofollow noopener"
-                    className="flex w-full items-center justify-center gap-2 rounded-[2px] bg-blue-600 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500"
-                  >
-                    <Globe className="h-4 w-4" />
-                    공식 홈페이지
-                  </a>
-                )}
+                {/*
+                  바로 개발사 사이트로 보내지 않고 안내 페이지(/download)를 거친다.
+                  같은 사이트 안에서의 이동이라 새 창을 열지 않는다.
+                */}
+                <a
+                  href={`${canonicalPath}/download`}
+                  className="flex w-full items-center justify-center gap-2 rounded-[2px] bg-blue-600 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500"
+                >
+                  <Download className="h-4 w-4" />
+                  다운로드 바로가기
+                </a>
 
                 <dl className="mt-5 space-y-2.5 border-t border-gray-100 pt-4 text-xs">
                   {specRows.map(([k, v]) => (
