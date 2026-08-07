@@ -88,7 +88,6 @@ interface ScrapedApp {
   category_sub: string;
   seo_title: string;
   seo_description: string;
-  seo_keywords: string[];
   seo_og_image: string | null;
   seo_structured_data: Record<string, unknown> | null;
   download_url: string;
@@ -545,7 +544,6 @@ async function scrapeAppDetail(
       category_sub: categorySub,
       seo_title: $('title').text().trim(),
       seo_description: ($('meta[name="description"]').attr('content') ?? '').slice(0, 1000),
-      seo_keywords: ($('meta[name="keywords"]').attr('content') ?? '').split(',').map(k => k.trim()).filter(Boolean),
       seo_og_image: $('meta[property="og:image"]').attr('content') || iconUrl || null,
       seo_structured_data: ldList.length > 0 ? ({ items: ldList } as Record<string, unknown>) : null,
       download_url: effectiveDownloadUrl,

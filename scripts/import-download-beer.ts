@@ -151,7 +151,6 @@ function toRecord(post: WpPost, type: string, termSlugById: Map<number, string>)
     // 콘텐츠/SEO 필드는 전부 비움 — generate-bilingual-reviews.ts 가 채움
     seo_title: "",
     seo_description: "",
-    seo_keywords: [],
     seo_og_image: null,
     seo_structured_data: null,
     seo_title_kr: null,

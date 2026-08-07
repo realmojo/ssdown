@@ -28,7 +28,6 @@ function transformRow(row: any): SoftwareApplication {
       description: row.seo_description ?? "",
       titleKr: row.seo_title_kr ?? undefined,
       descriptionKr: row.seo_description_kr ?? undefined,
-      keywords: row.seo_keywords ?? [],
       ogImage: row.seo_og_image ?? "",
       structuredData: row.seo_structured_data ?? {},
     },

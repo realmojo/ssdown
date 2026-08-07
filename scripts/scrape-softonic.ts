@@ -39,7 +39,6 @@ interface ScrapedApp {
   // SEO
   seo_title: string;
   seo_description: string;
-  seo_keywords: string[];
   seo_og_image: string | null;
   seo_structured_data: Record<string, unknown> | null;
   // Download
@@ -316,7 +315,6 @@ async function scrapeSoftonic(url: string): Promise<ScrapedApp> {
     // SEO
     seo_title: meta.title,
     seo_description: meta.description,
-    seo_keywords: meta.keywords ? meta.keywords.split(',').map(k => k.trim()).filter(Boolean) : [],
     seo_og_image: meta.ogImage ?? coverImg ?? null,
     seo_structured_data: ldList.length > 0 ? ({ items: ldList } as Record<string, unknown>) : null,
     // Download

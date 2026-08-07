@@ -95,7 +95,6 @@ export async function generateMetadata({
     `${app.core.name} ${licenseLabel}`,
     `${app.core.category.main} 소프트웨어`,
     `${plat} ${app.core.category.main} 추천`,
-    ...(app.seo.keywords ?? []),
   ]
     .filter(Boolean)
     .join(", ");

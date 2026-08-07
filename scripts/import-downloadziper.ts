@@ -236,7 +236,6 @@ async function main() {
       // 콘텐츠·SEO 는 전부 비운다. generate-bilingual-reviews.ts 가 채운다.
       seo_title: "",
       seo_description: "",
-      seo_keywords: [],
       seo_og_image: null,
       seo_structured_data: null,
       seo_title_kr: null,

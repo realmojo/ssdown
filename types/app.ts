@@ -7,7 +7,6 @@ export interface SeoMetadata {
   description: string;
   titleKr?: string;
   descriptionKr?: string;
-  keywords: string[];
   ogImage: string;
   structuredData: Record<string, any>;
 }
