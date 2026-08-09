@@ -499,6 +499,9 @@ export default async function AppDetailPage({
               </div>
             </section>
 
+            {/* 가로형 광고 */}
+            <Adsense slotId={adSlot} format="horizontal" />
+
             {/* 상세 리뷰 */}
             {reviewHtml && (
               <section className="rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:p-7">
@@ -615,6 +618,9 @@ export default async function AppDetailPage({
           {/* ── 오른쪽 레일 ──────────────────────────────────────── */}
           <aside className="space-y-2">
             <div className="lg:sticky lg:top-20 lg:space-y-2">
+              {/* 정사각 광고 */}
+              <Adsense slotId={HERO_AD_SLOT} format="rectangle" />
+
               {/* 내려받기 + 사양 */}
               <div className="rounded-[2px] border border-[var(--pt-line)] bg-white p-4">
                 <a
@@ -634,9 +640,6 @@ export default async function AppDetailPage({
                   ))}
                 </dl>
               </div>
-
-              {/* 정사각 광고 */}
-              <Adsense slotId={HERO_AD_SLOT} format="rectangle" />
 
               {/* 같은 플랫폼에서 많이 찾는 앱 */}
               {latest.length > 0 && (
