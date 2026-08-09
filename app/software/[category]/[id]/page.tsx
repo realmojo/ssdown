@@ -248,7 +248,7 @@ function AppCard({ a }: { a: SoftwareApplication }) {
         </div>
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-semibold text-gray-900 transition-colors group-hover:text-blue-600">
-            {a.core.name}
+            {a.core.name} 다운로드
           </p>
           <p className="truncate text-[11px] text-gray-400">{a.core.category.main}</p>
         </div>
@@ -449,7 +449,7 @@ export default async function AppDetailPage({
 
                 <div className="min-w-0 flex-1">
                   <h1 className="text-xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-2xl">
-                    {nameWithPlatform(app.core.name, app.core.platform)}
+                    {nameWithPlatform(app.core.name, app.core.platform)} 다운로드
                   </h1>
 
                   {/* 한 줄 요약 정보. 값이 있는 것만 넣는다. */}
@@ -500,7 +500,7 @@ export default async function AppDetailPage({
             </section>
 
             {/* 가로형 광고 */}
-            <Adsense slotId={adSlot} format="horizontal" />
+            <Adsense slotId={adSlot} />
 
             {/* 상세 리뷰 */}
             {reviewHtml && (
@@ -668,7 +668,7 @@ export default async function AppDetailPage({
                           </span>
                           <span className="min-w-0 flex-1">
                             <span className="block truncate text-xs font-semibold text-gray-800 group-hover:text-blue-600">
-                              {a.core.name}
+                              {a.core.name} 다운로드
                             </span>
                             <span className="block text-[11px] text-gray-400">
                               {a.core.category.main}

@@ -65,7 +65,7 @@ function AppCard({ app }: { app: SoftwareApplication }) {
         </div>
         <div className="flex-1 min-w-0">
           <h2 className="font-semibold text-gray-900 text-sm truncate group-hover:text-blue-600 transition-colors">
-            {app.core.name}
+            {app.core.name} 다운로드
           </h2>
           {app.core.developer.name && (
             <p className="text-xs text-gray-500 truncate mt-0.5">{app.core.developer.name}</p>

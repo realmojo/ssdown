@@ -58,7 +58,7 @@ export function HomePortal({
   const softwareRows: BoardRow[] = apps.slice(0, 12).map((a, i) => ({
     no: i + 1,
     href: buildAppHref(a),
-    title: a.core.name,
+    title: `${a.core.name} 다운로드`,
     category: a.core.platform === "iOS" ? "iPhone" : a.core.platform,
     badge: i < 2 ? "new" : undefined,
     meta1: a.download.license === "Free" ? "무료" : a.download.license,

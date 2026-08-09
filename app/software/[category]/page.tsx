@@ -219,7 +219,7 @@ function AppGrid({ apps }: { apps: SoftwareApplication[] }) {
           </div>
           <div className="min-w-0 flex-1">
             <h2 className="truncate text-[12px] font-semibold group-hover:text-[var(--pt-accent)] group-hover:underline">
-              {app.core.name}
+              {app.core.name} 다운로드
             </h2>
             {isRealDeveloper(app.core.developer.name) && (
               <p className="truncate text-[11px] text-[var(--pt-text-meta)]">
