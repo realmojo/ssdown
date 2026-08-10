@@ -14,6 +14,7 @@ import {
   hasKoreanContent,
 } from "@/lib/app-utils";
 import { getCategoryByMain, getCategoryBySlug } from "@/lib/categories";
+import { resolveDistribution } from "@/lib/app-href";
 import { buildAlternates } from "@/lib/seo";
 import Adsense from "@/components/Adsense";
 import type { SoftwareApplication } from "@/types/app";
@@ -298,6 +299,12 @@ export default async function AppDetailPage({
   const adSlot = PLATFORM_AD_SLOT[app.core.platform] ?? "6067594441";
   const showDeveloper = isRealDeveloper(app.core.developer.name);
 
+  /*
+    안내할 배포처가 없으면 진입 버튼을 아예 내지 않는다. 버튼을 눌러 봐야
+    받을 곳이 없는 안내 페이지(이제 404 다)로 보내게 될 뿐이다.
+  */
+  const distribution = resolveDistribution(app);
+
   const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -338,8 +345,12 @@ export default async function AppDetailPage({
       name: showDeveloper ? app.core.developer.name : "미상",
       ...(app.core.developer.websiteUrl && { url: app.core.developer.websiteUrl }),
     },
-    ...(app.download.downloadUrl &&
-      app.download.downloadUrl !== "#" && { downloadUrl: app.download.downloadUrl }),
+    /*
+      downloadUrl 은 배포 파일로 가는 주소를 뜻한다. 개발사 홈페이지로 폴백한
+      경우는 파일 주소가 아니므로 넣지 않는다 — 스키마가 실제로 제공하지 않는
+      다운로드를 광고하게 된다.
+    */
+    ...(distribution?.kind === "download" && { downloadUrl: distribution.url }),
   };
 
   const howToSchema = {
@@ -585,7 +596,11 @@ export default async function AppDetailPage({
               </div>
             </section>
 
-            {/* 본문 끝에 한 번 더 놓는 내려받기 안내 */}
+            {/*
+              본문 끝에 한 번 더 놓는 배포처 안내. 버튼이 없으면 머리말과 같은
+              내용만 남는 빈 카드가 되므로 통째로 내지 않는다.
+            */}
+            {distribution && (
             <section className="flex flex-col gap-3 rounded-[2px] border border-[var(--pt-line)] bg-white p-3 sm:flex-row sm:items-center sm:p-5">
               <div className="flex min-w-0 flex-1 items-center gap-3">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-[2px] border border-[var(--pt-line)] bg-white">
@@ -618,6 +633,7 @@ export default async function AppDetailPage({
                 공식 배포처 안내
               </a>
             </section>
+            )}
           </div>
 
           {/* ── 오른쪽 레일 ──────────────────────────────────────── */}
@@ -626,17 +642,23 @@ export default async function AppDetailPage({
               {/* 정사각 광고 */}
               <Adsense slotId={HERO_AD_SLOT} format="rectangle" />
 
-              {/* 내려받기 + 사양 */}
+              {/* 배포처 안내 + 사양. 배포처가 없어도 사양표는 그대로 쓸모가 있다. */}
               <div className="rounded-[2px] border border-[var(--pt-line)] bg-white p-4">
-                <a
-                  href={`${canonicalPath}/download`}
-                  className="flex w-full items-center justify-center gap-2 rounded-[2px] bg-blue-600 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500"
-                >
-                  <Download className="h-4 w-4" />
-                  공식 배포처 안내
-                </a>
+                {distribution && (
+                  <a
+                    href={`${canonicalPath}/download`}
+                    className="flex w-full items-center justify-center gap-2 rounded-[2px] bg-blue-600 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500"
+                  >
+                    <Download className="h-4 w-4" />
+                    공식 배포처 안내
+                  </a>
+                )}
 
-                <dl className="mt-4 space-y-2.5 border-t border-gray-100 pt-4 text-xs">
+                <dl
+                  className={`space-y-2.5 text-xs ${
+                    distribution ? "mt-4 border-t border-gray-100 pt-4" : ""
+                  }`}
+                >
                   {specRows.map(([k, v]) => (
                     <div key={k} className="flex justify-between gap-3">
                       <dt className="shrink-0 text-gray-400">{k}</dt>

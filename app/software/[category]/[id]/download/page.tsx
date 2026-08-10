@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { ChevronLeft, ExternalLink, Globe, ShieldAlert } from "lucide-react";
 import { getAppById, localizeApp } from "@/lib/app-utils";
 import { getCategoryByMain, getCategoryBySlug } from "@/lib/categories";
-import { buildAppHref } from "@/lib/app-href";
+import { buildAppHref, resolveDistribution } from "@/lib/app-href";
 import Adsense from "@/components/Adsense";
 import { PageShell } from "@/components/portal/page-shell";
 import type { SoftwareApplication } from "@/types/app";
@@ -94,6 +94,8 @@ export async function generateMetadata({
   const rawApp = await getAppById(id);
   if (!rawApp) return {};
   const app = localizeApp(rawApp);
+  // 안내할 배포처가 없으면 페이지 자체가 404 다. 메타데이터도 만들지 않는다.
+  if (!resolveDistribution(app)) return {};
   const plat = platformLabel(app.core.platform);
 
   return {
@@ -119,13 +121,22 @@ export default async function DownloadPage({
   if (!rawApp) notFound();
   const app = localizeApp(rawApp);
 
+  /*
+    안내할 배포처가 없으면 이 페이지는 존재할 이유가 없다. 예전에는 "주소가
+    확인되지 않았습니다" 문구만 남은 빈 페이지를 그대로 보여줬는데, 다운로드를
+    기대하고 들어온 사람에게 아무것도 주지 못하는 페이지였다. 404 로 내보낸다.
+    상세 페이지도 같은 판정으로 진입 버튼을 숨기므로 이 페이지로 오는 내부
+    링크는 없다.
+  */
+  const distribution = resolveDistribution(app);
+  if (!distribution) notFound();
+
   const category =
     getCategoryByMain(app.core.category.main) ?? getCategoryBySlug(categorySlug);
   const plat = platformLabel(app.core.platform);
   const license = LICENSE_LABEL_KR[app.download.license] ?? "무료";
   const fileSize = cleanValue(app.download.fileSize);
   const osReq = cleanValue(app.specs.osRequirements);
-  const site = app.core.developer.websiteUrl;
 
   const detailHref = buildAppHref(app);
   const notes = downloadNotes(app);
@@ -194,22 +205,22 @@ export default async function DownloadPage({
             ))}
           </ul>
 
-          {site ? (
-            <a
-              href={site}
-              target="_blank"
-              rel="nofollow noopener"
-              className="mt-4 inline-flex w-full max-w-sm items-center justify-center gap-2 rounded-[2px] bg-blue-600 px-6 py-3.5 text-sm font-bold text-white transition-colors hover:bg-blue-500"
-            >
-              <Globe className="h-4 w-4" />
-              공식 홈페이지에서 내려받기
-              <ExternalLink className="h-3.5 w-3.5" />
-            </a>
-          ) : (
-            <p className="mt-4 text-[12px] text-[var(--pt-text-meta)]">
-              공식 배포처 주소가 확인되지 않았습니다. 검색으로 공식 사이트를 직접 확인해 주세요.
-            </p>
-          )}
+          {/*
+            버튼 문구는 링크의 종류를 따른다. 개발사 홈페이지로 폴백한 경우는
+            파일로 바로 가는 주소가 아니라서, 받을 수 있다고 단정하지 않는다.
+          */}
+          <a
+            href={distribution.url}
+            target="_blank"
+            rel="nofollow noopener"
+            className="mt-4 inline-flex w-full max-w-sm items-center justify-center gap-2 rounded-[2px] bg-blue-600 px-6 py-3.5 text-sm font-bold text-white transition-colors hover:bg-blue-500"
+          >
+            <Globe className="h-4 w-4" />
+            {distribution.kind === "download"
+              ? "공식 배포처에서 내려받기"
+              : "공식 홈페이지로 이동"}
+            <ExternalLink className="h-3.5 w-3.5" />
+          </a>
 
           <p className="mt-2 flex items-center justify-center gap-1 text-[11px] text-[var(--pt-text-meta)]">
             <ShieldAlert className="h-3 w-3" />
