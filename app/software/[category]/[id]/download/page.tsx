@@ -97,7 +97,7 @@ export async function generateMetadata({
   const plat = platformLabel(app.core.platform);
 
   return {
-    title: `${app.core.name} 다운로드 바로가기 | SSDown`,
+    title: `${app.core.name} 공식 배포처 안내 | SSDown`,
     description: `${app.core.name} ${plat} 버전을 공식 배포처에서 내려받는 방법을 안내합니다.`,
     /*
      * 앱마다 한 장씩 생기는 안내 페이지라 본문이 얇다. 색인 대상이 되면
@@ -149,8 +149,12 @@ export default async function DownloadPage({
     >
       <div className="mx-auto w-full max-w-2xl space-y-2">
         <section className="rounded-[2px] border border-[var(--pt-line)] bg-white p-5 text-center">
+          {/*
+            이 페이지는 파일을 주는 곳이 아니라 공식 배포처를 안내하는 곳이다.
+            제목도 그 사실 그대로 쓴다(상세 페이지의 진입 버튼과 같은 문구).
+          */}
           <h1 className="text-[19px] font-extrabold leading-snug tracking-tight">
-            {app.core.name} 다운로드
+            {app.core.name} 공식 배포처 안내
           </h1>
 
           {/* 간략한 설명 — 상세 페이지와 같은 우리 요약문을 쓴다. */}

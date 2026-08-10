@@ -448,8 +448,13 @@ export default async function AppDetailPage({
                 </div>
 
                 <div className="min-w-0 flex-1">
+                  {/*
+                    제목에 "다운로드"를 넣지 않는다. SSDown 은 설치 파일을 직접
+                    제공하지 않으므로, 파일을 준다고 읽히는 표현은 쓰지 않는다.
+                    플랫폼은 바로 아래 메타 줄에 이미 표시된다.
+                  */}
                   <h1 className="text-xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-2xl">
-                    {nameWithPlatform(app.core.name, app.core.platform)} 다운로드
+                    {nameWithPlatform(app.core.name, app.core.platform)}
                   </h1>
 
                   {/* 한 줄 요약 정보. 값이 있는 것만 넣는다. */}
@@ -610,7 +615,7 @@ export default async function AppDetailPage({
                 className="flex shrink-0 items-center justify-center gap-2 rounded-[2px] bg-blue-600 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500"
               >
                 <Download className="h-4 w-4" />
-                다운로드 바로가기
+                공식 배포처 안내
               </a>
             </section>
           </div>
@@ -628,7 +633,7 @@ export default async function AppDetailPage({
                   className="flex w-full items-center justify-center gap-2 rounded-[2px] bg-blue-600 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-500"
                 >
                   <Download className="h-4 w-4" />
-                  다운로드 바로가기
+                  공식 배포처 안내
                 </a>
 
                 <dl className="mt-4 space-y-2.5 border-t border-gray-100 pt-4 text-xs">

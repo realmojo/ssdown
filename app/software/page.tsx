@@ -115,7 +115,7 @@ export default function SoftwareCategoriesPage() {
       ))}
       <PageShell
         crumbs={[{ label: "소프트웨어" }]}
-        title="무료 소프트웨어 다운로드"
+        title="무료 소프트웨어 모음"
         desc="카테고리나 플랫폼별로 평점 높은 무료 소프트웨어와 앱을 둘러보세요."
       >
         <Panel title="플랫폼별로 찾기">
