@@ -11,7 +11,6 @@ import {
   getAlternatives,
   getLatestApps,
   localizeApp,
-  hasKoreanContent,
 } from "@/lib/app-utils";
 import { getCategoryByMain, getCategoryBySlug } from "@/lib/categories";
 import { resolveDistribution } from "@/lib/app-href";
@@ -94,14 +93,11 @@ export async function generateMetadata({
     .filter(Boolean)
     .join(", ");
 
-  // 한국어 본문이 없는 앱은 영문이 노출되므로 색인에서 제외한다.
-  const indexable = hasKoreanContent(rawApp);
-
   return {
     title: defaultTitle,
     description: defaultDesc,
     keywords,
-    robots: { index: indexable, follow: true },
+    robots: { index: true, follow: true },
     alternates: buildAlternates(canonicalPath),
     openGraph: {
       title: defaultTitle,

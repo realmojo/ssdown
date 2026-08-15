@@ -42,13 +42,9 @@ export async function GET() {
   let from = 0;
 
   while (true) {
-    // 한국어 전용 사이트이므로 한국어 본문이 채워진 앱만 사이트맵에 노출한다.
-    // (번역이 없는 앱은 상세 페이지에서도 noindex 처리된다.)
     const { data, error } = await supabase
       .from("software_applications")
       .select("id, slug, category_main, last_updated_date")
-      .not("ai_review_html_kr", "is", null)
-      .neq("ai_review_html_kr", "")
       .order("last_updated_date", { ascending: false })
       .range(from, from + BATCH - 1);
 

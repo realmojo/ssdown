@@ -81,7 +81,7 @@ const CARD_COLUMNS = "id,slug,name,name_kr,platform,category_main,license,rating
 /**
  * 한국어 필드(name_kr, seo_*_kr, short_summary_kr, ai_review_html_kr)가 존재하는
  * 항목만 해당 값으로 덮어쓴 사본을 반환합니다. 아직 번역되지 않은 항목은 원본
- * (영문) 값이 남으며, 이런 앱은 `hasKoreanContent()`로 걸러 색인에서 제외합니다.
+ * (영문) 값이 남습니다.
  */
 export function localizeApp(app: SoftwareApplication): SoftwareApplication {
   return {
@@ -101,15 +101,6 @@ export function localizeApp(app: SoftwareApplication): SoftwareApplication {
       aiReviewHtml: app.content.aiReviewHtmlKr || app.content.aiReviewHtml,
     },
   };
-}
-
-/**
- * 한국어 본문(ai_review_html_kr)이 채워진 앱인지 판별합니다. 사이트는 한국어 전용
- * 이므로, 아직 번역되지 않아 영문이 노출되는 앱은 noindex 처리하고 사이트맵에서도
- * 제외합니다. 번역이 채워지면 자동으로 색인 대상에 편입됩니다.
- */
-export function hasKoreanContent(app: SoftwareApplication): boolean {
-  return Boolean(app.content.aiReviewHtmlKr?.trim());
 }
 
 export async function getAppsByPlatform(
