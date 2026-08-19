@@ -297,7 +297,7 @@ async function processNewApp(app: AppRow): Promise<boolean> {
       ai_review_html: sanitizeHtml(en.review_html),
     };
     const { error } = await supabase
-      .from("software_applications")
+      .from("ssdown_software_applications")
       .update(update)
       .eq("id", app.id);
     if (error) throw new Error(`EN 저장 실패 (${app.id}): ${error.message}`);
@@ -324,7 +324,7 @@ async function processNewApp(app: AppRow): Promise<boolean> {
         : {}),
     };
     const { error } = await supabase
-      .from("software_applications")
+      .from("ssdown_software_applications")
       .update(update)
       .eq("id", app.id);
     if (error) throw new Error(`KR 저장 실패 (${app.id}): ${error.message}`);
@@ -340,7 +340,7 @@ async function fetchTargets(): Promise<AppRow[]> {
 
   if (SINGLE_ID) {
     const { data, error } = await supabase
-      .from("software_applications")
+      .from("ssdown_software_applications")
       .select(columns)
       .eq("id", SINGLE_ID);
     if (error) throw new Error(error.message);
@@ -355,7 +355,7 @@ async function fetchTargets(): Promise<AppRow[]> {
     for (let from = 0; rows.length < LIMIT; from += PAGE) {
       const take = Math.min(PAGE, LIMIT - rows.length);
       const { data, error } = await supabase
-        .from("software_applications")
+        .from("ssdown_software_applications")
         .select(columns)
         .not("ai_review_html", "is", null)
         .neq("ai_review_html", "")
@@ -380,7 +380,7 @@ async function fetchTargets(): Promise<AppRow[]> {
   const rows: AppRow[] = [];
   for (let i = 0; i < ids.length; i += 200) {
     const { data, error } = await supabase
-      .from("software_applications")
+      .from("ssdown_software_applications")
       .select(columns)
       .in("id", ids.slice(i, i + 200));
     if (error) throw new Error(error.message);

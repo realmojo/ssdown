@@ -211,7 +211,7 @@ async function main() {
   const existing = new Set<string>();
   for (let i = 0; i < ids.length; i += 200) {
     const { data, error } = await supabase
-      .from("software_applications")
+      .from("ssdown_software_applications")
       .select("id")
       .in("id", ids.slice(i, i + 200));
     if (error) throw new Error(`기존 id 조회 실패: ${error.message}`);
@@ -225,7 +225,7 @@ async function main() {
   let failed = 0;
   for (let i = 0; i < fresh.length; i += 50) {
     const batch = fresh.slice(i, i + 50);
-    const { error } = await supabase.from("software_applications").insert(batch);
+    const { error } = await supabase.from("ssdown_software_applications").insert(batch);
     if (error) {
       console.error(`  batch ${i / 50 + 1} 실패: ${error.message}`);
       failed += batch.length;

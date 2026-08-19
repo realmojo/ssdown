@@ -282,7 +282,7 @@ async function main() {
   const existPkgs = new Set<string>();
   for (let from = 0; ; from += 1000) {
     const { data, error } = await sb
-      .from("software_applications")
+      .from("ssdown_software_applications")
       .select("id,name,name_kr,developer_website_url,download_url")
       .range(from, from + 999);
     if (error) throw new Error(error.message);
@@ -399,7 +399,7 @@ async function main() {
   for (let i = 0; i < rows.length; i += 100) {
     const chunk = rows.slice(i, i + 100);
     const { error } = await sb
-      .from("software_applications")
+      .from("ssdown_software_applications")
       .upsert(chunk, { onConflict: "id", ignoreDuplicates: true });
     if (error) {
       console.error(`  삽입 실패 (${i}~): ${error.message}`);

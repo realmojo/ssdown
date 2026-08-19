@@ -158,7 +158,7 @@ async function loadExisting(db: SupabaseClient) {
   const names = new Set<string>();
   for (let from = 0; ; from += 1000) {
     const { data, error } = await db
-      .from("software_applications")
+      .from("ssdown_software_applications")
       .select("id,name,name_kr")
       .range(from, from + 999);
     if (error) throw new Error(error.message);
@@ -287,7 +287,7 @@ async function main() {
   for (let i = 0; i < rows.length; i += 100) {
     const chunk = rows.slice(i, i + 100);
     const { error } = await db
-      .from("software_applications")
+      .from("ssdown_software_applications")
       .upsert(chunk, { onConflict: "id", ignoreDuplicates: true });
     if (error) {
       console.error(`  삽입 실패 (${i}~):`, error.message);

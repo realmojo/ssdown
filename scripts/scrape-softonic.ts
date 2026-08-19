@@ -449,7 +449,7 @@ async function insertToSupabase(data: ScrapedApp) {
   );
 
   const { error } = await supabase
-    .from('software_applications')
+    .from('ssdown_software_applications')
     .upsert(data, { onConflict: 'id' });
 
   if (error) throw new Error(`Supabase insert error: ${error.message}`);

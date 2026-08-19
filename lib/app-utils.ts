@@ -67,7 +67,7 @@ function transformRow(row: any): SoftwareApplication {
 
 export async function getAppById(id: string): Promise<SoftwareApplication | null> {
   const { data, error } = await supabase
-    .from("software_applications")
+    .from("ssdown_software_applications")
     .select("*")
     .eq("id", id)
     .maybeSingle();
@@ -121,8 +121,8 @@ export async function getAppsByPlatform(
   }
 
   const [{ count, error: countError }, { data, error }] = await Promise.all([
-    applyFilters(supabase.from("software_applications").select("id", { count: "exact", head: true })),
-    applyFilters(supabase.from("software_applications").select(CARD_COLUMNS))
+    applyFilters(supabase.from("ssdown_software_applications").select("id", { count: "exact", head: true })),
+    applyFilters(supabase.from("ssdown_software_applications").select(CARD_COLUMNS))
       .order("rating_average", { ascending: false })
       .range(offset, offset + limit - 1),
   ]);
@@ -137,7 +137,7 @@ export async function getCategoriesForPlatform(platform: string): Promise<{ cate
   const normalized = platformMap[platform.toLowerCase()] ?? platformName;
 
   const { data, error } = await supabase
-    .from("software_applications")
+    .from("ssdown_software_applications")
     .select("category_main")
     .eq("platform", normalized)
     .neq("category_main", "");
@@ -164,8 +164,8 @@ export async function getAppsByCategory(
   const orFilter = category.aliases.map((alias) => `category_main.ilike.%${alias}%`).join(",");
 
   const [{ count, error: countError }, { data, error }] = await Promise.all([
-    supabase.from("software_applications").select("id", { count: "exact", head: true }).or(orFilter).not("ai_review_html", "is", null).neq("ai_review_html", ""),
-    supabase.from("software_applications").select(CARD_COLUMNS).or(orFilter).not("ai_review_html", "is", null).neq("ai_review_html", "").order("rating_average", { ascending: false }).range(offset, offset + limit - 1),
+    supabase.from("ssdown_software_applications").select("id", { count: "exact", head: true }).or(orFilter).not("ai_review_html", "is", null).neq("ai_review_html", ""),
+    supabase.from("ssdown_software_applications").select(CARD_COLUMNS).or(orFilter).not("ai_review_html", "is", null).neq("ai_review_html", "").order("rating_average", { ascending: false }).range(offset, offset + limit - 1),
   ]);
 
   if (countError || error || !data) return { apps: [], total: 0 };
@@ -187,7 +187,7 @@ export async function searchApps(params: {
   function buildQuery(head = false) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let qb: any = supabase
-      .from("software_applications")
+      .from("ssdown_software_applications")
       .select(head ? "id" : CARD_COLUMNS, head ? { count: "exact", head: true } : { count: "exact" });
 
     if (os) {
@@ -227,7 +227,7 @@ export async function getAlternatives(
 
   // 같은 카테고리 + 같은 플랫폼
   const { data: sameCat } = await supabase
-    .from("software_applications")
+    .from("ssdown_software_applications")
     .select(ALT_COLUMNS)
     .eq("category_main", app.core.category.main)
     .eq("platform", app.core.platform)
@@ -244,7 +244,7 @@ export async function getAlternatives(
   const existingIds = results.map((r) => r.id);
   const remaining = limit - results.length;
   const { data: crossCat } = await supabase
-    .from("software_applications")
+    .from("ssdown_software_applications")
     .select(ALT_COLUMNS)
     .eq("platform", app.core.platform)
     .neq("category_main", app.core.category.main)
@@ -264,7 +264,7 @@ export async function getAlternatives(
  */
 export async function getNewestApps(limit = 12): Promise<SoftwareApplication[]> {
   const { data } = await supabase
-    .from("software_applications")
+    .from("ssdown_software_applications")
     .select(CARD_COLUMNS)
     .not("ai_review_html_kr", "is", null)
     .neq("ai_review_html_kr", "")
@@ -287,7 +287,7 @@ export async function getLatestApps(
     "id,slug,name,name_kr,platform,category_main,license,rating_average,rating_total_count,icon_url,short_summary,short_summary_kr,developer_name,download_url";
 
   let query = supabase
-    .from("software_applications")
+    .from("ssdown_software_applications")
     .select(COLUMNS)
     .neq("id", excludeId)
     .not("ai_review_html_kr", "is", null)

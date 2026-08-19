@@ -70,7 +70,7 @@ async function main() {
   const backup: Record<string, unknown>[] = [];
   for (let i = 0; i < ids.length; i += 200) {
     const chunk = ids.slice(i, i + 200);
-    const { data, error } = await sb.from("software_applications").select("*").in("id", chunk);
+    const { data, error } = await sb.from("ssdown_software_applications").select("*").in("id", chunk);
     if (error) throw new Error(error.message);
     for (const row of data) backup.push({ ...row, _deleted_reason: reason.get(row.id) });
   }
@@ -90,7 +90,7 @@ async function main() {
   let deleted = 0;
   for (let i = 0; i < ids.length; i += 200) {
     const chunk = ids.slice(i, i + 200);
-    const { error } = await sb.from("software_applications").delete().in("id", chunk);
+    const { error } = await sb.from("ssdown_software_applications").delete().in("id", chunk);
     if (error) {
       console.error(`  삭제 실패 (${i}~): ${error.message}`);
       continue;
@@ -102,7 +102,7 @@ async function main() {
   }
 
   const { count } = await sb
-    .from("software_applications")
+    .from("ssdown_software_applications")
     .select("id", { count: "exact", head: true });
 
   console.log(`\n삭제 완료: ${deleted}행`);

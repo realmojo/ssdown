@@ -135,7 +135,7 @@ async function main() {
   const sb = db();
 
   const { data: existing, error } = await sb
-    .from("software_applications")
+    .from("ssdown_software_applications")
     .select("id,name_kr")
     .in("id", APPS.map((a) => a.id));
   if (error) throw new Error(error.message);
@@ -201,7 +201,7 @@ async function main() {
   }
 
   const { error: insErr } = await sb
-    .from("software_applications")
+    .from("ssdown_software_applications")
     .upsert(rows, { onConflict: "id", ignoreDuplicates: true });
   if (insErr) throw new Error(insErr.message);
 

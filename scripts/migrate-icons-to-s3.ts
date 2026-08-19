@@ -167,7 +167,7 @@ async function main() {
   const rows: Row[] = [];
   for (let from = 0; ; from += 1000) {
     const { data, error } = await sb
-      .from("software_applications")
+      .from("ssdown_software_applications")
       .select("id,icon_url")
       .not("icon_url", "is", null)
       .neq("icon_url", "")
@@ -228,7 +228,7 @@ async function main() {
   let updated = 0;
   for (const r of ok) {
     const { error } = await sb
-      .from("software_applications")
+      .from("ssdown_software_applications")
       .update({ icon_url: r.newUrl })
       .eq("id", r.id);
     if (error) {

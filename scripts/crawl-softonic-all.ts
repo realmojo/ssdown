@@ -562,7 +562,7 @@ async function scrapeAppDetail(
 
 async function upsertToSupabase(supabase: SupabaseClient, data: ScrapedApp): Promise<void> {
   const { error } = await supabase
-    .from('software_applications')
+    .from('ssdown_software_applications')
     .upsert(data, { onConflict: 'id' });
   if (error) throw new Error(`Supabase upsert 오류: ${error.message}`);
 }

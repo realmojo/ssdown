@@ -157,7 +157,7 @@ async function main() {
   let placeholder = 0;
   for (let from = 0; ; from += 1000) {
     const { data, error } = await sb
-      .from("software_applications")
+      .from("ssdown_software_applications")
       .select("id,download_url")
       .range(from, from + 999);
     if (error) throw new Error(error.message);

@@ -154,7 +154,7 @@ async function generateReview(app: Record<string, unknown>, attempt = 1): Promis
 
 async function saveReview(id: string, aiReviewHtml: string): Promise<void> {
   const { error } = await supabase
-    .from('software_applications')
+    .from('ssdown_software_applications')
     .update({ ai_review_html: aiReviewHtml })
     .eq('id', id);
   if (error) throw new Error(`Supabase update failed for ${id}: ${error.message}`);
@@ -193,7 +193,7 @@ async function main() {
 
   // ai_review_html 이 없는 행만 조회
   let query = supabase
-    .from('software_applications')
+    .from('ssdown_software_applications')
     .select('id, name, platform, category_main, short_summary, pros, cons, editor_review_html')
     .not('editor_review_html', 'is', null)
     .neq('editor_review_html', '')
