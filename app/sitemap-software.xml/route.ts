@@ -43,7 +43,7 @@ export async function GET() {
 
   while (true) {
     const { data, error } = await supabase
-      .from("software_applications")
+      .from("ssdown_software_applications")
       .select("id, slug, category_main, last_updated_date")
       .order("last_updated_date", { ascending: false })
       .range(from, from + BATCH - 1);
