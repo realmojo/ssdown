@@ -6,7 +6,6 @@ import { PortalFooter } from "@/components/portal/portal-footer";
 import { getDictionary } from "@/lib/get-dictionary";
 import { buildAlternates } from "@/lib/seo";
 import { ThemeProvider } from "@/components/theme-provider";
-import { CookieConsent } from "@/components/cookie-consent";
 import { Toaster } from "sonner";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -169,7 +168,6 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <PortalHeader />
             <main className="flex-1">{props.children}</main>
             <PortalFooter />
-            <CookieConsent />
           </div>
           <Toaster position="bottom-center" richColors />
         </ThemeProvider>
