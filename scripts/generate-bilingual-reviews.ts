@@ -47,6 +47,8 @@ const getArg = (prefix: string) =>
 const SINGLE_ID = getArg("--id=");
 const LIMIT = parseInt(getArg("--limit=") ?? "0", 10) || Infinity;
 const BACKFILL_KR = args.includes("--backfill-kr");
+// 카테고리를 모델 판정값으로 덮어쓴다. 값이 유효할 때만 반영한다.
+const RECLASSIFY = args.includes("--reclassify");
 const PROVIDER = getArg("--provider=") ?? "ollama";
 const modelKey = getArg("--model=") ?? "qwen";
 const OLLAMA_MODEL = MODEL_ALIASES[modelKey] ?? modelKey;
@@ -83,28 +85,64 @@ interface AppRow {
  * 반환값은 프롬프트에만 들어가고 DB 에 저장하지 않는다. 모델은 이 문장을
  * 베끼지 않고 새로 쓰도록 프롬프트에서 지시한다.
  */
-async function fetchStoreBlurb(downloadUrl: string | null): Promise<string> {
-  const pkg = String(downloadUrl ?? "").match(/[?&]id=([^&\s]+)/)?.[1];
-  if (!pkg) return "";
+const UA =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+
+/** 외부 페이지를 10초 제한으로 가져온다. 6천 건을 도는 작업이라 무한 대기를 막는다. */
+async function fetchHtml(url: string, lang = "en"): Promise<string> {
   try {
-    const res = await fetch(
-      `https://play.google.com/store/apps/details?id=${pkg}&hl=ko&gl=KR`,
-      {
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-          "Accept-Language": "ko",
-        },
-      },
-    );
+    const res = await fetch(url, {
+      headers: { "User-Agent": UA, "Accept-Language": lang },
+      redirect: "follow",
+      signal: AbortSignal.timeout(10_000),
+    });
     if (!res.ok) return "";
-    const html = await res.text();
-    const m = html.match(/<div[^>]+data-g-id="description"[^>]*>([\s\S]*?)<\/div>/);
-    if (!m) return "";
-    return stripHtml(m[1].replace(/<br\s*\/?>/gi, "\n")).slice(0, 3000);
+    const type = res.headers.get("content-type") ?? "";
+    if (!type.includes("html")) return "";
+    return await res.text();
   } catch {
     return "";
   }
+}
+
+/** <meta name=description> / og:description / <title> 순으로 소개 문구를 뽑는다. */
+function extractMeta(html: string): string {
+  const pick = (re: RegExp) => html.match(re)?.[1]?.trim() ?? "";
+  const parts = [
+    pick(/<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']+)["']/i),
+    pick(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)["']/i),
+    pick(/<meta[^>]+content=["']([^"']+)["'][^>]+name=["']description["']/i),
+    pick(/<title[^>]*>([^<]+)<\/title>/i),
+  ].filter(Boolean);
+  // 같은 문구가 og/meta 양쪽에 중복되는 경우가 많아 걸러낸다.
+  return [...new Set(parts)].join(" — ").slice(0, 1500);
+}
+
+/**
+ * 리뷰 생성의 사실 근거가 되는 원문을 수집한다.
+ *
+ * 원래는 구글 플레이(`?id=` 패키지)만 처리해서, 홈페이지 URL을 쓰는 Mac/Windows
+ * 항목은 근거 없이 생성돼 모델이 기능을 지어낼 위험이 있었다. 앱스토어와 일반
+ * 공식 홈페이지까지 넓힌다.
+ */
+async function fetchStoreBlurb(downloadUrl: string | null): Promise<string> {
+  const url = String(downloadUrl ?? "").trim();
+  if (!/^https?:\/\//.test(url)) return "";
+
+  // 1) 구글 플레이
+  const pkg = url.match(/[?&]id=([^&\s]+)/)?.[1];
+  if (pkg && url.includes("play.google.com")) {
+    const html = await fetchHtml(
+      `https://play.google.com/store/apps/details?id=${pkg}&hl=ko&gl=KR`,
+      "ko",
+    );
+    const m = html.match(/<div[^>]+data-g-id="description"[^>]*>([\s\S]*?)<\/div>/);
+    if (m) return stripHtml(m[1].replace(/<br\s*\/?>/gi, "\n")).slice(0, 3000);
+    return extractMeta(html);
+  }
+
+  // 2) 애플 앱스토어 + 3) 일반 공식 홈페이지 — 둘 다 메타 태그에서 뽑는다.
+  return extractMeta(await fetchHtml(url));
 }
 
 const ALLOWED_TAGS = "<h2>, <h3>, <p>, <strong>, <em>, <ul>, <ol>, <li>";
@@ -135,7 +173,12 @@ Never use emoji. Respond with a single JSON object, no other text:
   "seo_title": "SEO page title, max 60 characters, must include the app name and the word Download",
   "seo_description": "SEO meta description, 120-155 characters",
   "short_summary": "1-2 sentence summary of what the app does",
-  "review_html": "SEO-optimized review article as HTML, 1000-2000 characters. Only these tags: ${ALLOWED_TAGS}. No attributes. Cover: what the app does, key features, use cases, who it's for, tips. Do not invent specific version numbers, prices, or statistics."
+  "review_html": "SEO-optimized review article as HTML, 1000-2000 characters. Only these tags: ${ALLOWED_TAGS}. No attributes. Cover: what the app does, key features, use cases, who it's for, tips. Do not invent specific version numbers, prices, or statistics."${
+    RECLASSIFY
+      ? `,
+  "category_main": "the single best-fitting category, chosen strictly from this list: ${CATEGORY_NAMES.join(", ")}"`
+      : ""
+  }
 }`;
 }
 
@@ -167,6 +210,28 @@ function stripHtml(html: string): string {
 
 // ── JSON 스키마 (Claude structured outputs 용) ───────────────────────────────
 
+/**
+ * lib/categories.ts 의 nameEn 과 일치해야 한다. 여기 없는 값이 오면 무시한다.
+ * Homebrew 로 넣은 Mac 항목이 전부 "Utilities & Tools" 한 덩어리라, 리뷰를 쓰는
+ * 김에 같은 호출에서 분류까지 받아 채운다(--reclassify).
+ */
+const CATEGORY_NAMES = [
+  "Games",
+  "Browsers",
+  "Security & Privacy",
+  "Productivity",
+  "Internet & Network",
+  "Multimedia",
+  "Development & IT",
+  "Personalization",
+  "Education & Reference",
+  "Lifestyle",
+  "Social & Communication",
+  "Travel & Navigation",
+  "Utilities & Tools",
+  "AI",
+] as const;
+
 const EN_SCHEMA = {
   type: "object",
   properties: {
@@ -175,6 +240,7 @@ const EN_SCHEMA = {
     seo_description: { type: "string" },
     short_summary: { type: "string" },
     review_html: { type: "string" },
+    category_main: { type: "string", enum: CATEGORY_NAMES as unknown as string[] },
   },
   required: ["name", "seo_title", "seo_description", "short_summary", "review_html"],
   additionalProperties: false,
@@ -295,6 +361,10 @@ async function processNewApp(app: AppRow): Promise<boolean> {
       seo_description: (en.seo_description ?? "").slice(0, 170),
       short_summary: (en.short_summary ?? "").slice(0, 300),
       ai_review_html: sanitizeHtml(en.review_html),
+      // 목록에 없는 값을 뱉으면 기존 카테고리를 그대로 둔다.
+      ...(RECLASSIFY && CATEGORY_NAMES.includes(en.category_main as never)
+        ? { category_main: en.category_main as string }
+        : {}),
     };
     const { error } = await supabase
       .from("ssdown_software_applications")
