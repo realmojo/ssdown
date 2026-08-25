@@ -25,13 +25,14 @@ import type { SoftwareApplication } from "@/types/app";
 import { PageShell } from "@/components/portal/page-shell";
 import { jsonLd } from "@/lib/json-ld";
 
-const PLATFORMS = ["windows", "mac", "android", "iphone"] as const;
+const PLATFORMS = ["windows", "mac", "android", "iphone", "linux"] as const;
 type PlatformSlug = (typeof PLATFORMS)[number];
 const PLATFORM_LABELS: Record<PlatformSlug, string> = {
   windows: "Windows",
   mac: "Mac",
   android: "Android",
   iphone: "iOS",
+  linux: "Linux",
 };
 
 const LICENSE_KR: Record<string, string> = {

@@ -119,12 +119,13 @@ export default function SoftwareCategoriesPage() {
         desc="카테고리나 플랫폼별로 평점 높은 무료 소프트웨어와 앱을 둘러보세요."
       >
         <Panel title="플랫폼별로 찾기">
-          <ul className="grid grid-cols-2 gap-1.5 sm:grid-cols-4">
+          <ul className="grid grid-cols-2 gap-1.5 sm:grid-cols-5">
             {[
               { slug: "windows", label: "Windows", desc: "PC·데스크톱" },
               { slug: "mac", label: "Mac", desc: "macOS 앱" },
               { slug: "android", label: "안드로이드", desc: "안드로이드 앱" },
               { slug: "iphone", label: "iPhone", desc: "iOS 앱" },
+              { slug: "linux", label: "Linux", desc: "리눅스 앱" },
             ].map(({ slug, label, desc }) => (
               <li key={slug}>
                 <a

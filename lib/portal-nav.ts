@@ -160,6 +160,7 @@ export const PLATFORM_ITEMS: NavItem[] = [
   { href: "/software/mac", label: "Mac" },
   { href: "/software/android", label: "안드로이드" },
   { href: "/software/iphone", label: "iPhone" },
+  { href: "/software/linux", label: "Linux" },
 ];
 
 /** 헤더 1차 메뉴. */

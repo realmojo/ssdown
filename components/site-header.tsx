@@ -82,6 +82,11 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                   iOS
                 </a>
               </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="/software/linux" className="w-full cursor-pointer">
+                  Linux
+                </a>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <a href="/search" className="w-full cursor-pointer">
@@ -321,6 +326,13 @@ export function SiteHeader({ dict }: SiteHeaderProps) {
                           onClick={() => setIsOpen(false)}
                         >
                           iOS
+                        </a>
+                        <a
+                          href="/software/linux"
+                          className="text-base font-medium hover:text-primary transition-colors py-1"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Linux
                         </a>
                         <a
                           href="/search"

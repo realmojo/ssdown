@@ -29,7 +29,7 @@ export async function GET() {
       changefreq: "weekly",
       priority: 0.7,
     })),
-    ...["windows", "mac", "android", "iphone"].map((platform) => ({
+    ...["windows", "mac", "android", "iphone", "linux"].map((platform) => ({
       path: `/software/${platform}`,
       lastmod: "2026-03-17",
       changefreq: "weekly" as const,
