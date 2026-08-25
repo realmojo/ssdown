@@ -79,6 +79,19 @@ export async function getAppById(id: string): Promise<SoftwareApplication | null
 const CARD_COLUMNS = "id,slug,name,name_kr,platform,category_main,license,rating_average,rating_total_count,icon_url,short_summary,short_summary_kr,developer_name,download_url,last_updated_date";
 
 /**
+ * 목록에 노출할 자격: AI 리뷰가 있거나, 최소한 한 줄 요약이라도 있을 것.
+ *
+ * 예전에는 ai_review_html 만 봤다. 그러면 리뷰 생성이 끝나기 전까지 항목이
+ * 통째로 안 보인다 — Flathub(리눅스)처럼 아이콘·요약·카테고리·라이선스가 이미
+ * 다 있는 소스도 몇 십 시간을 기다려야 했다.
+ *
+ * 반대로 아무 정보도 없는 뼈대 레코드(요약조차 없는 폰트 캐스크 등)는 계속
+ * 걸러진다. 보여줄 내용이 실제로 있는지를 기준으로 삼는다.
+ */
+const VISIBLE_FILTER =
+  "and(ai_review_html.not.is.null,ai_review_html.neq.),and(short_summary.not.is.null,short_summary.neq.)";
+
+/**
  * 한국어 필드(name_kr, seo_*_kr, short_summary_kr, ai_review_html_kr)가 존재하는
  * 항목만 해당 값으로 덮어쓴 사본을 반환합니다. 아직 번역되지 않은 항목은 원본
  * (영문) 값이 남습니다.
@@ -115,7 +128,7 @@ export async function getAppsByPlatform(
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function applyFilters(q: any) {
-    q = q.eq("platform", normalized).not("ai_review_html", "is", null).neq("ai_review_html", "");
+    q = q.eq("platform", normalized).or(VISIBLE_FILTER);
     if (categoryMain) q = q.eq("category_main", categoryMain);
     return q;
   }
@@ -164,8 +177,8 @@ export async function getAppsByCategory(
   const orFilter = category.aliases.map((alias) => `category_main.ilike.%${alias}%`).join(",");
 
   const [{ count, error: countError }, { data, error }] = await Promise.all([
-    supabase.from("ssdown_software_applications").select("id", { count: "exact", head: true }).or(orFilter).not("ai_review_html", "is", null).neq("ai_review_html", ""),
-    supabase.from("ssdown_software_applications").select(CARD_COLUMNS).or(orFilter).not("ai_review_html", "is", null).neq("ai_review_html", "").order("rating_average", { ascending: false }).range(offset, offset + limit - 1),
+    supabase.from("ssdown_software_applications").select("id", { count: "exact", head: true }).or(orFilter).or(VISIBLE_FILTER),
+    supabase.from("ssdown_software_applications").select(CARD_COLUMNS).or(orFilter).or(VISIBLE_FILTER).order("rating_average", { ascending: false }).range(offset, offset + limit - 1),
   ]);
 
   if (countError || error || !data) return { apps: [], total: 0 };
@@ -232,8 +245,7 @@ export async function getAlternatives(
     .eq("category_main", app.core.category.main)
     .eq("platform", app.core.platform)
     .neq("id", app.core.id)
-    .not("ai_review_html", "is", null)
-    .neq("ai_review_html", "")
+    .or(VISIBLE_FILTER)
     .order("rating_average", { ascending: false })
     .limit(limit);
 
@@ -250,8 +262,7 @@ export async function getAlternatives(
     .neq("category_main", app.core.category.main)
     .neq("id", app.core.id)
     .not("id", "in", `(${existingIds.join(",")})`)
-    .not("ai_review_html", "is", null)
-    .neq("ai_review_html", "")
+    .or(VISIBLE_FILTER)
     .order("rating_average", { ascending: false })
     .limit(remaining);
 
