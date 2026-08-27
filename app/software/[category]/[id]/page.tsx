@@ -78,7 +78,7 @@ export async function generateMetadata({
   const licenseLabel = LICENSE_LABEL_KR[app.download.license] ?? "무료";
   const defaultTitle =
     app.seo.title ||
-    `${nameWithPlatform(app.core.name, app.core.platform)}용 다운로드 — ${licenseLabel} | SSDown`;
+    `${nameWithPlatform(app.core.name, app.core.platform)}용 다운로드 — ${licenseLabel}`;
   const defaultDesc =
     app.seo.description ||
     `${nameWithPlatform(app.core.name, app.core.platform)} 버전을 무료로 다운로드하세요. ${app.content.shortSummary}`.trim();

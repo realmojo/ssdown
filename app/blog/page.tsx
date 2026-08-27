@@ -21,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
     "SSDown 무료 온라인 도구를 200% 활용하는 팁과 튜토리얼, 가이드. 이미지 편집, PDF 관리, 영상 변환 등을 배워 보세요.";
 
   return {
-    title: `${title} | SSDown`,
+    title,
     description,
     openGraph: {
       title,

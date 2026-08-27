@@ -29,7 +29,7 @@ const OG_IMAGE = { url: "https://ssdown.app/logo.png", width: 1200, height: 630 
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-  title: "카테고리별 무료 소프트웨어 다운로드 | SSDown",
+  title: "카테고리별 무료 소프트웨어 다운로드",
   description:
     "카테고리별로 무료 소프트웨어를 찾아 내려받으세요. 윈도우, 맥, 안드로이드, iOS용 게임, 브라우저, 보안, 생산성, 유틸리티 등을 제공합니다.",
   keywords: "무료 소프트웨어 다운로드, 소프트웨어 카테고리, 무료 앱 추천, 윈도우 프로그램, 맥 프로그램, 안드로이드 앱",

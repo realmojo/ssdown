@@ -8,7 +8,7 @@ import { buildAlternates } from "@/lib/seo";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "글 수정 | 자유게시판 | SSDown",
+  title: "글 수정 | 자유게시판",
   // 입력 화면은 색인 대상이 아니다.
   robots: { index: false, follow: false },
   alternates: buildAlternates("/board"),

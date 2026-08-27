@@ -33,7 +33,7 @@ export async function generateMetadata({
   const indexable = /[가-힣]/.test(title);
 
   return {
-    title: `${title} | SSDown 블로그`,
+    title: `${title} | 블로그`,
     description: excerpt,
     robots: { index: indexable, follow: true },
     openGraph: {

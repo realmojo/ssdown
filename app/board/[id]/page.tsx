@@ -28,11 +28,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   const post = await getPost(Number(id));
-  if (!post) return { title: "글을 찾을 수 없습니다 | SSDown" };
+  if (!post) return { title: "글을 찾을 수 없습니다" };
 
   const description = excerpt(post.content);
   return {
-    title: `${post.title} | 자유게시판 | SSDown`,
+    title: `${post.title} | 자유게시판`,
     description,
     alternates: buildAlternates(`/board/${post.id}`),
     openGraph: {

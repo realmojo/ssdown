@@ -4,7 +4,7 @@ import { BoardWriteClient } from "@/components/client/board-write-client";
 import { buildAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "글쓰기 | 자유게시판 | SSDown",
+  title: "글쓰기 | 자유게시판",
   description: "SSDown 자유게시판에 새 글을 남깁니다.",
   // 입력 화면은 색인 대상이 아니다.
   robots: { index: false, follow: true },

@@ -13,7 +13,7 @@ const DESC = "도구 사용 후기, 질문, 잡담을 자유롭게 남겨 주세
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: `${TITLE} | SSDown`,
+    title: TITLE,
     description: DESC,
     alternates: buildAlternates("/board"),
     openGraph: {

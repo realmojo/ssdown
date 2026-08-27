@@ -99,7 +99,7 @@ export async function generateMetadata({
   const plat = platformLabel(app.core.platform);
 
   return {
-    title: `${app.core.name} 공식 배포처 안내 | SSDown`,
+    title: `${app.core.name} 공식 배포처 안내`,
     description: `${app.core.name} ${plat} 버전을 공식 배포처에서 내려받는 방법을 안내합니다.`,
     /*
      * 앱마다 한 장씩 생기는 안내 페이지라 본문이 얇다. 색인 대상이 되면
