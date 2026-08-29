@@ -50,19 +50,22 @@ export function resolveDistribution(
 /**
  * 앱 상세 페이지 경로.
  *
- * DB 의 `slug` 는 이미 `/windows/teamviewer` 처럼 플랫폼 경로를 포함한다.
- * 앞에 플랫폼을 한 번 더 붙이면 `/software/windows//windows/teamviewer` 가 되어
- * 404 가 나므로, 링크를 만들 때는 반드시 이 함수를 쓴다.
+ * 상세 페이지는 루트 1depth 다 — `/pdf-extra` 처럼 슬러그 하나가 곧 주소다.
+ * DB 의 `slug` 는 `/windows/pdf-extra` 처럼 플랫폼 경로를 아직 달고 있으므로
+ * 마지막 조각만 떼어 쓴다. 그 조각은 `id` 와 같은 값이고 전체에서 유일하다.
+ *
+ * 예약어(`/blog`, `/software` 같은 실제 라우트)와 겹치는 슬러그는 만들지 않는다.
+ * lib/reserved-slugs.ts 의 `isReservedSlug()` 로 임포터 단계에서 걸러낸다.
  *
  * supabase 를 끌어오지 않도록 app-utils 와 분리해 둔다. 클라이언트 컴포넌트에서도
  * 안전하게 import 할 수 있어야 한다.
  */
 export function buildAppHref(app: SoftwareApplication): string {
-  if (app.core.slug) return `/software${app.core.slug}`;
+  return `/${appSlug(app)}`;
+}
 
-  const platform =
-    app.core.platform.toLowerCase() === "ios"
-      ? "iphone"
-      : app.core.platform.toLowerCase();
-  return `/software/${platform}/${app.core.id.toLowerCase()}`;
+/** 상세 페이지 주소에 쓰는 슬러그 한 조각. */
+export function appSlug(app: SoftwareApplication): string {
+  const leaf = (app.core.slug ?? "").split("/").filter(Boolean).pop();
+  return leaf || app.core.id.toLowerCase();
 }

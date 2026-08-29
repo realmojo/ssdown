@@ -25,7 +25,8 @@ const DO_WRITE = args.includes("--write");
 const BASE = getArg("--base=") ?? "https://ssdown.app";
 const SITE = "https://ssdown.app";
 
-const DIR = path.join(process.cwd(), "naver-indexing");
+// URL 목록은 m/naver-indexing/data/<사이트>/ 한곳에서 관리한다.
+const DIR = path.resolve(process.cwd(), "../naver-indexing/data/ssdown");
 const URLS = path.join(DIR, "urls.txt");
 const SUCCESS = path.join(DIR, "urls-success.txt");
 

@@ -26,6 +26,7 @@ import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 import * as path from "path";
+import { RESERVED_SLUGS } from "../lib/reserved-slugs";
 
 dotenv.config({ path: ".env.local" });
 
@@ -110,6 +111,18 @@ async function main() {
   console.log(`이번 실행 대상: ${candidates.length}개\n`);
 
   const taken = new Set(existingIds);
+
+  /*
+
+    사이트의 최상위 라우트(`/blog`, `/software` …)와 겹치는 슬러그는 쓸 수 없다.
+
+    상세 페이지가 루트 1depth 라 그런 슬러그의 앱은 기존 페이지에 가려 열리지
+
+    않는다. 이미 쓰인 id 와 똑같이 취급해 자동으로 접미사가 붙게 한다.
+
+  */
+
+  for (const r of RESERVED_SLUGS) taken.add(r);
   const rows: Record<string, unknown>[] = [];
   for (const c of candidates) {
     const id = slugify(c.token, taken);

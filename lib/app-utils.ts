@@ -79,17 +79,23 @@ export async function getAppById(id: string): Promise<SoftwareApplication | null
 const CARD_COLUMNS = "id,slug,name,name_kr,platform,category_main,license,rating_average,rating_total_count,icon_url,short_summary,short_summary_kr,developer_name,download_url,last_updated_date";
 
 /**
- * 목록에 노출할 자격: AI 리뷰가 있거나, 최소한 한 줄 요약이라도 있을 것.
+ * 목록에 노출할 자격: 보여줄 본문이나 요약이 하나라도 있을 것.
  *
- * 예전에는 ai_review_html 만 봤다. 그러면 리뷰 생성이 끝나기 전까지 항목이
- * 통째로 안 보인다 — Flathub(리눅스)처럼 아이콘·요약·카테고리·라이선스가 이미
- * 다 있는 소스도 몇 십 시간을 기다려야 했다.
+ * 예전에는 ai_review_html(영문)만 봤다. 그러면 두 가지 문제가 생긴다.
+ *  1) 리뷰 생성이 끝나기 전까지 항목이 통째로 안 보인다 — Flathub 처럼
+ *     아이콘·요약·카테고리가 이미 다 있는 소스도 수십 시간을 기다려야 했다.
+ *  2) 한국어 본문만 있는 항목이 영영 안 보인다. 이 사이트는 한국어가 기본이라
+ *     한국어만 있는 편이 영문만 있는 편보다 오히려 낫다.
  *
- * 반대로 아무 정보도 없는 뼈대 레코드(요약조차 없는 폰트 캐스크 등)는 계속
- * 걸러진다. 보여줄 내용이 실제로 있는지를 기준으로 삼는다.
+ * 그래서 네 필드 중 하나라도 차 있으면 노출한다. 아무것도 없는 뼈대 레코드
+ * (요약조차 없는 폰트 캐스크 등)는 그대로 걸러진다.
  */
-const VISIBLE_FILTER =
-  "and(ai_review_html.not.is.null,ai_review_html.neq.),and(short_summary.not.is.null,short_summary.neq.)";
+const VISIBLE_FILTER = [
+  "and(ai_review_html.not.is.null,ai_review_html.neq.)",
+  "and(ai_review_html_kr.not.is.null,ai_review_html_kr.neq.)",
+  "and(short_summary.not.is.null,short_summary.neq.)",
+  "and(short_summary_kr.not.is.null,short_summary_kr.neq.)",
+].join(",");
 
 /**
  * 한국어 필드(name_kr, seo_*_kr, short_summary_kr, ai_review_html_kr)가 존재하는

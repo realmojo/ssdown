@@ -12,8 +12,8 @@ import {
   getLatestApps,
   localizeApp,
 } from "@/lib/app-utils";
-import { getCategoryByMain, getCategoryBySlug } from "@/lib/categories";
-import { resolveDistribution } from "@/lib/app-href";
+import { getCategoryByMain } from "@/lib/categories";
+import { buildAppHref, resolveDistribution } from "@/lib/app-href";
 import { buildAlternates } from "@/lib/seo";
 import Adsense from "@/components/Adsense";
 import type { SoftwareApplication } from "@/types/app";
@@ -67,13 +67,13 @@ const HERO_AD_SLOT = "9206933412";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ category: string; id: string }>;
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { category, id } = await params;
-  const rawApp = await getAppById(id);
+  const { slug } = await params;
+  const rawApp = await getAppById(slug);
   if (!rawApp) return {};
   const app = localizeApp(rawApp);
-  const canonicalPath = `/software${app.core.slug || `/${category}/${id}`}`;
+  const canonicalPath = buildAppHref(app);
   const plat = platformLabel(app.core.platform);
   const licenseLabel = LICENSE_LABEL_KR[app.download.license] ?? "무료";
   const defaultTitle =
@@ -222,11 +222,6 @@ function isRealDeveloper(name?: string): boolean {
   return !/^More programs\s*\(\d+\)$/.test(t);
 }
 
-function buildAppHref(a: SoftwareApplication): string {
-  const cat = getCategoryByMain(a.core.category.main);
-  return `/software${a.core.slug || `/${cat?.slug ?? "utilities"}/${a.core.id}`}`;
-}
-
 /** 하단 관련 앱 그리드에서 반복되는 카드. */
 function AppCard({ a }: { a: SoftwareApplication }) {
   return (
@@ -263,10 +258,10 @@ function AppCard({ a }: { a: SoftwareApplication }) {
 export default async function AppDetailPage({
   params,
 }: {
-  params: Promise<{ category: string; id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { category: categorySlug, id } = await params;
-  const rawApp = await getAppById(id);
+  const { slug } = await params;
+  const rawApp = await getAppById(slug);
   if (!rawApp) notFound();
   const app = localizeApp(rawApp);
 
@@ -277,9 +272,8 @@ export default async function AppDetailPage({
   const alternatives = alternativesRaw.map(localizeApp);
   const latest = latestRaw.map(localizeApp);
 
-  const category =
-    getCategoryBySlug(categorySlug) ?? getCategoryByMain(app.core.category.main);
-  const canonicalPath = `/software${app.core.slug || `/${category?.slug ?? categorySlug}/${id}`}`;
+  const category = getCategoryByMain(app.core.category.main);
+  const canonicalPath = buildAppHref(app);
   const canonicalUrl = `https://ssdown.app${canonicalPath}`;
 
   const plat = platformLabel(app.core.platform);

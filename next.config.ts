@@ -81,6 +81,102 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      /*
+        소프트웨어 상세 페이지가 `/software/{플랫폼}/{슬러그}` 에서 루트
+        1depth `/{슬러그}` 로 내려왔다. 색인된 주소가 2만 건이 넘으므로 전부
+        301 로 넘긴다. 목록 페이지(`/software`, `/software/windows`)는 세그먼트
+        수가 달라 여기 걸리지 않으므로 그대로 남는다.
+
+        먼저, 사이트의 기존 최상위 라우트와 이름이 겹쳐 루트로 올릴 수 없던
+        앱들. DB 에서 슬러그를 바꿨으므로 옛 주소를 새 슬러그로 보낸다.
+        아래 포괄 규칙보다 앞에 둬야 한다(먼저 걸리는 규칙이 이긴다).
+      */
+      {
+        source: "/software/:category/ai",
+        destination: "/ai-drawing-diary",
+        permanent: true,
+      },
+      {
+        source: "/software/:category/blog",
+        destination: "/naver-blog",
+        permanent: true,
+      },
+      {
+        source: "/software/:category/dailymotion",
+        destination: "/dailymotion-app",
+        permanent: true,
+      },
+      {
+        source: "/software/:category/douyin",
+        destination: "/douyin-mac",
+        permanent: true,
+      },
+      {
+        source: "/software/:category/education",
+        destination: "/learn-python-codelab",
+        permanent: true,
+      },
+      {
+        source: "/software/:category/facebook",
+        destination: "/facebook-lite",
+        permanent: true,
+      },
+      {
+        source: "/software/:category/iphone",
+        destination: "/iphone-for-windows",
+        permanent: true,
+      },
+      {
+        source: "/software/:category/lifestyle",
+        destination: "/my-oneapp",
+        permanent: true,
+      },
+      {
+        source: "/software/:category/pdf",
+        destination: "/pdf-reader-all-files",
+        permanent: true,
+      },
+      {
+        source: "/software/:category/privacy",
+        destination: "/mega-cloud-storage",
+        permanent: true,
+      },
+      {
+        source: "/software/:category/search",
+        destination: "/naver",
+        permanent: true,
+      },
+      {
+        source: "/software/:category/security",
+        destination: "/touch-lock-screen",
+        permanent: true,
+      },
+      {
+        source: "/software/:category/social",
+        destination: "/ziigo",
+        permanent: true,
+      },
+      {
+        source: "/software/:category/tiktok",
+        destination: "/tiktok-lite-rewards",
+        permanent: true,
+      },
+      {
+        source: "/software/:category/travel",
+        destination: "/travel-town",
+        permanent: true,
+      },
+      // 나머지 상세 페이지 — 카테고리/플랫폼 조각을 떼고 슬러그만 남긴다.
+      {
+        source: "/software/:category/:slug/download",
+        destination: "/:slug/download",
+        permanent: true,
+      },
+      {
+        source: "/software/:category/:slug",
+        destination: "/:slug",
+        permanent: true,
+      },
       // Image tools
       {
         source: "/tools/image-compressor",

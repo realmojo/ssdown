@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ChevronLeft, ExternalLink, Globe, ShieldAlert } from "lucide-react";
 import { getAppById, localizeApp } from "@/lib/app-utils";
-import { getCategoryByMain, getCategoryBySlug } from "@/lib/categories";
+import { getCategoryByMain } from "@/lib/categories";
 import { buildAppHref, resolveDistribution } from "@/lib/app-href";
 import Adsense from "@/components/Adsense";
 import { PageShell } from "@/components/portal/page-shell";
@@ -88,10 +88,10 @@ function downloadNotes(app: SoftwareApplication): string[] {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ category: string; id: string }>;
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { id } = await params;
-  const rawApp = await getAppById(id);
+  const { slug } = await params;
+  const rawApp = await getAppById(slug);
   if (!rawApp) return {};
   const app = localizeApp(rawApp);
   // 안내할 배포처가 없으면 페이지 자체가 404 다. 메타데이터도 만들지 않는다.
@@ -113,11 +113,11 @@ export async function generateMetadata({
 export default async function DownloadPage({
   params,
 }: {
-  params: Promise<{ category: string; id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { category: categorySlug, id } = await params;
+  const { slug } = await params;
 
-  const rawApp = await getAppById(id);
+  const rawApp = await getAppById(slug);
   if (!rawApp) notFound();
   const app = localizeApp(rawApp);
 
@@ -131,8 +131,7 @@ export default async function DownloadPage({
   const distribution = resolveDistribution(app);
   if (!distribution) notFound();
 
-  const category =
-    getCategoryByMain(app.core.category.main) ?? getCategoryBySlug(categorySlug);
+  const category = getCategoryByMain(app.core.category.main);
   const plat = platformLabel(app.core.platform);
   const license = LICENSE_LABEL_KR[app.download.license] ?? "무료";
   const fileSize = cleanValue(app.download.fileSize);

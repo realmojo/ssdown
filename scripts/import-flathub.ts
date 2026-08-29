@@ -22,6 +22,7 @@ import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 import * as path from "path";
+import { RESERVED_SLUGS } from "../lib/reserved-slugs";
 
 dotenv.config({ path: ".env.local" });
 
@@ -153,6 +154,12 @@ async function main() {
   // 있다. id 충돌만 피하면 되므로 id 는 전 플랫폼에서, 이름·홈페이지 중복은
   // Linux 안에서만 본다(VLC 처럼 Windows/Mac 에도 있는 앱은 정상 등록되어야 한다).
   const takenIds = new Set<string>();
+  /*
+    사이트의 최상위 라우트(`/blog`, `/software` …)와 겹치는 슬러그는 쓸 수 없다.
+    상세 페이지가 루트 1depth 라 그런 슬러그의 앱은 기존 페이지에 가려 열리지
+    않는다. 이미 쓰인 id 와 똑같이 취급해 자동으로 접미사가 붙게 한다.
+  */
+  for (const r of RESERVED_SLUGS) takenIds.add(r);
   const existingNames = new Set<string>();
   const existingHomepages = new Set<string>();
   for (let from = 0; ; from += 1000) {

@@ -1,4 +1,4 @@
-import { CATEGORIES, getCategoryByMain } from "@/lib/categories";
+import { CATEGORIES } from "@/lib/categories";
 import { supabase } from "@/lib/supabase";
 
 export const revalidate = 3600;
@@ -58,11 +58,15 @@ export async function GET() {
 
   const appEntries: Entry[] = (apps ?? [])
     .map((app) => {
-      const cat = getCategoryByMain(app.category_main ?? "");
-      const slugPath = app.slug || (cat ? `/${cat.slug}/${app.id}` : null);
-      if (!slugPath) return null;
+      /*
+        상세 페이지는 루트 1depth 다. DB 의 `slug` 는 아직 `/windows/pdf-extra`
+        처럼 플랫폼을 달고 있으므로 마지막 조각만 쓴다(= `id`, 전체에서 유일).
+        lib/app-href.ts 의 buildAppHref() 와 같은 규칙이다.
+      */
+      const leaf = (app.slug ?? "").split("/").filter(Boolean).pop() || app.id;
+      if (!leaf) return null;
       return {
-        path: `/software${slugPath}`,
+        path: `/${leaf}`,
         lastmod: app.last_updated_date
           ? new Date(app.last_updated_date).toISOString().split("T")[0]
           : today,

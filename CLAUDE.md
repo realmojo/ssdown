@@ -42,6 +42,18 @@ Platforms: `x`, `tiktok`, `instagram`, `facebook`, `dailymotion`, `9gag`. YouTub
 - Client components (`components/client/{platform}-client.tsx`) contain interactive UI
 - Static pages under `app/(static)/` for about, contact, privacy, terms
 
+### Root `[slug]` catch-all (software catalog)
+
+Software detail pages live at the **root**: `app/[slug]/page.tsx` (+ `app/[slug]/download/`), so
+`ssdown.app/pdf-extra` — not `/software/{platform}/{slug}`. Listing pages stay at `/software` and
+`/software/{category|platform}`. Old detail URLs 301 in `next.config.ts`.
+
+This means **~22k app slugs occupy the top-level namespace**. Before adding any `app/<name>/` route,
+check `select id from ssdown_software_applications where id = '<name>'` — a static segment always
+wins over `[slug]`, so a matching app page would silently become unreachable. Add the new name to
+`lib/reserved-slugs.ts`; importers seed their `taken` set from `RESERVED_SLUGS` so they never mint a
+colliding slug. Build detail URLs only with `buildAppHref()` / `appSlug()` from `lib/app-href.ts`.
+
 ### i18n
 
 Dictionary-based: `dictionaries/en.json` loaded via `lib/get-dictionary.ts` (server-only). Blog posts store `title`, `excerpt`, and `content` as `Record<string, string>` (keyed by language code). Only `en` and `kr` are supported; other languages fall back to `en`.
